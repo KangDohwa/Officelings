@@ -52,3 +52,6 @@ assets/art/env5/references/
 assets/art/pets/runs/
 assets/art/pets/qa/
 assets/art/pets/references/
+assets/art/iso-concept/runs/
+assets/art/**/.publish.lock
+assets/art/**/*.tmp
