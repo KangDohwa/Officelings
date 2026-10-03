@@ -1,83 +1,100 @@
-# Local state contract (version 3)
+# Local state contract (version 4)
 
-The tracker and WPF engine now share pluggable PNG sheets, a JSON asset manifest, and a data-driven office. Current writers emit **`schemaVersion:3`**, asset/layout format **1**, and legacy fallback **`atlas.version:2`**. A strict v1/v2 consumer must reject v3 until it implements the sheet/anchor/tile rules below. There is no implemented Windhawk viewer in this change; the C++ consumer is separate.
+The tracker and WPF engine share PNG sheets, an asset manifest, and an authored office. Writers emit **`schemaVersion:4`**, asset/layout format **1**, and legacy fallback **`atlas.version:2`**. Version 4 adds assignment, display and monitor fields without removing or changing the types of v3 fields. Strict older readers must explicitly accept v4. Both renderers use Core's supplied assignment, status and poses and must allow agents without desk furniture.
 
 ## Files and delivery
 
-Default output: `%LOCALAPPDATA%\Vibedotcom`. Source layout is `layout.json`; installed source art is `assets/assets.json` or `assets/manifest.json`. Without an installed pack, both executables use the generated art embedded from `assets/pack/`. See [asset-format.md](asset-format.md) for loading precedence, pack rebuild instructions and full authoring fields.
+Default output: `%LOCALAPPDATA%\Vibedotcom`. Editable source is `layout.json`; installed art is `assets/assets.json` or `assets/manifest.json`. Without an installed pack, both executables use the art embedded from `assets/pack/`. See [asset-format.md](asset-format.md) for asset loading/authoring. The v4 fixed-capacity rules below supersede that document's historical automatic expansion description.
 
 | File | Contract |
 | --- | --- |
-| `state.json` | Atomic UTF-8 snapshot; authoritative office, agent poses, asset metadata and furniture frames. |
-| `layout.json` | Editable source layout, version 1. Tracker creates it only when missing and never overwrites an existing source. |
-| `runtime-layout.json` | Expanded, assigned map, version 1; replaced on membership changes. `state.json.office` is authoritative when these two reads span an update. |
-| `manifest.json` | Exported asset metadata, version 1. Use the manifest embedded in the same snapshot to avoid a startup replacement race. |
-| `sheets/<sha256>.png` | Immutable content-addressed PNGs used by that snapshot. All paths relative to output; no URLs/absolute paths. |
-| `atlas.png` | Fixed legacy fallback/bubble atlas v2, also published as a hashed sheet with ID `fallback`. |
+| `state.json` | Atomic UTF-8 snapshot; authoritative office, agent poses, assets and furniture frames. |
+| `layout.json` | Editable source layout, version 1. Tracker creates it only when missing; loading never overwrites an existing source. |
+| `runtime-layout.json` | Fixed map with current ownership/monitor state, version 1; replaced when the resolved map changes. `state.json.office` is authoritative when separate reads span an update. |
+| `manifest.json` | Exported asset metadata, version 1. Use the manifest in the same snapshot to avoid replacement races. |
+| `sheets/<sha256>.png` | Immutable content-addressed PNGs. Paths relative to output; no URLs/absolute paths. |
+| `atlas.png` | Legacy fallback/bubble atlas v2, also published as a hashed sheet with ID `fallback`. |
 
-PNG files and exported manifest are written before the first snapshot. A crash may leave unused PNGs; there is no automatic cleanup. Individual JSON writes flush and rename a unique sibling `.tmp`; a set of files is **not** one transaction. Retain the last valid snapshot and its image cache until all sheets referenced by a new snapshot are valid. Close Windows reads with `FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE`. Unknown additional fields are tolerated; unsupported major versions rejected. Bounds and finite coordinates must be checked before rendering.
+PNGs/manifest are written before the first snapshot. A crash can leave unused PNGs; there is no cleanup. Individual JSON writes flush and rename a unique sibling `.tmp`; the file set is not one transaction. Retain the last valid snapshot/image cache until every referenced sheet is valid. Windows reads use `FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE`. Tolerate unknown additional fields; reject unsupported versions. Validate bounds and finite coordinates before rendering.
 
-Snapshot sequence is positive signed int64, increasing within a tracker run and reset on restart. `generatedAt` is ISO 8601 with UTC offset. Nominal snapshots 200ms, source discovery 3s; sequence can skip. A snapshot older than 10s is disconnected. Readable stale state should remain available. WPF tracks logs itself on a background task rather than consuming this file.
+Sequence is positive signed int64, increasing within one tracker run and reset on restart. `generatedAt` is ISO 8601 with UTC offset. Nominal snapshots 200ms, source discovery 3s; sequences can skip. Snapshots older than 10s are disconnected; readable stale state stays available. WPF tracks logs itself on a background task.
 
-## Version 3 root
+## Version 4 fields
 
-All existing root/agent fields remain (see the historical tables below). Required runtime additions:
+All root/agent fields from v3 remain, including semantic metadata, timestamps, opacity, carryingPaper, chatPartnerId, characterId and sprite. New parameters are appended with defaults in the Core records.
 
 | Field | Meaning |
 | --- | --- |
-| `schemaVersion` | 3. |
-| `assets` | Complete asset format 1 manifest: `version,sheets,furniture,characters,tileTypes`. Exported sheet files include derived `width,height,sha256`. This object is authoritative over sibling manifest.json. |
-| `office` | Layout format 1: dimensions, door, full row-major `tiles`, furniture instances with stable IDs/asset IDs/rotation/state, named `zones`. `autoDesks:null` in resolved runtime maps. |
-| `furnitureSprites` | Array of `{id,sprite}` for instances using a PNG clip. Selected frame is authoritative; an empty array means all furniture uses fallback primitives. The id refers to `office.furniture[].id`. |
-| `agents[].pose.characterId` | Assigned roster design ID. Repeats only when eligible roster designs are exhausted; stable while the agent is tracked. |
-| `agents[].pose.sprite` | The exact selected `SpriteFrame` below. |
-| `pose.spriteRow`, `spriteColumn` | Convenience aliases for the selected sheet row/column. **They do not necessarily index atlas.png in v3.** Use `pose.sprite.sheetId`. |
+| `schemaVersion` | 4. |
+| `assets` | Complete format 1 manifest: `version,sheets,furniture,characters,tileTypes`. Exported sheets include `width,height,sha256`. Authoritative over sibling manifest.json. |
+| `office` | Format 1: fixed dimensions, door, full row-major `tiles`, furniture with stable IDs/assets/rotation/state, zones and `overflowSeats`. Resolved source/runtime maps have `autoDesks:null`. |
+| `office.furniture[].deskId` | Optional stable work-station ID, unique among desks, independent of agent/order/coordinates. Legacy work furniture without it uses instance `id`. Instance IDs stay stable too. Foreground chair IDs are `desk.id + "-chair"`. |
+| `office.furniture[].seat` | Optional `InteractionPoint` override `{id,x,y,action:"typing",facing}`. Coordinates relative to furniture origin, already authored for its rotation. Replaces typing points in `AssetPack.Variant`; other points/blocked cells stay unchanged. |
+| `office.overflowSeats` | Array of `{id,x,y,facing,furnitureId?}` designated laptop seats. Absolute tile coordinates; unique IDs; facing `up/down/left/right`. Optional furnitureId references an instance, not an asset. Seats must be distinct from desk work points, walkable and reachable from the door. |
+| `office.furniture[].monitorState` | Optional `off/working/screensaver`, supplied for every desk, including primitives. Unassigned = off; working only when its Working owner is at the work tile and typing; all other assigned activity = screensaver. Ownership persists during entry, breaks, thinking and waiting. |
+| `furnitureSprites` | Array of `{id,sprite,monitorState?}` for PNG furniture. Selected frame is authoritative; id refers to furniture instance id. Desk status matches furniture metadata. Empty means all furniture uses primitives. Desk `state` selects a matching monitor variant only if supported with the same collision/work geometry; otherwise its authored state remains. |
+| `agents[].pose.characterId` | Assigned roster design ID, stable while tracked; repeats when eligible designs are exhausted. |
+| `agents[].pose.sprite` | Exact selected SpriteFrame below. |
+| `pose.spriteRow/spriteColumn` | Aliases for selected sheet indexes; they need not index atlas.png. Use `sprite.sheetId`. |
+| `agents[].pose.deskId` | Optional stable desk ID, relating to furniture.deskId. Null for overflow/queue. |
+| `agents[].pose.overflowSeatId` | Optional reserved seat ID, relating to office.overflowSeats[].id. Null for desk/queue. |
+| `agents[].pose.workLocation` | `desk/overflow/queue`. Overflow uses existing typing/thinking/waiting frames plus a renderer laptop indicator. No runtime desk is created. |
+| `agents[].pose.queued` | True for a live agent awaiting capacity. It walks to reachable floor within four Manhattan tiles of the door, then waits with `reaction:"…"`. Nearby queue cells can be shared after they fill. Gone agents release seats, have null seat IDs, `workLocation:"queue"`, `queued:false` while exiting. |
+| `agents[].pose.desk` | Existing `{x,y}` field remains as the work destination for all three locations. It does not imply desk furniture exists. An invalid preview can supply a reachable substitute for a blocked authored point. |
+| `agents[].pose.displayName` | Optional compact label: sensible trimmed Name → Role → short Model (last path segment) → provider/worker fallback. Plan titles such as Google AI Pro/Ultra, Claude Max and ChatGPT Pro are excluded. At most 16 Unicode text elements, including an ellipsis when truncated. Full agent.name remains for tooltips. |
+| `agents[].pose.providerIcon` | Optional string ID `codex/claude/antigravity`, independent of character design. Use matching icon art when available, otherwise a provider/text marker. |
 
-Agent semantic metadata, provider enum, states, timestamps, opacity, carryingPaper, reportOnDesk, reaction and chatPartnerId retain v2 meanings. The agent/task fields in the historical table are unchanged.
+`reaction` additionally permits the queue ellipsis. `reportOnDesk` is false for overflow/queue; place desktop paper only on a matching deskId. Missing v4 optional fields in older input default to null/false (`workLocation:"desk"`); v4 writers always supply current assignments.
 
-Example selected frame from a 32x64 art sheet displayed at half size:
+Example SpriteFrame from a 32×64 sheet displayed at half size:
 
 ```json
 {
-  "characterId":"braid",
-  "spriteRow":1, "spriteColumn":2,
-  "sprite": {
+  "characterId":"braid", "spriteRow":1, "spriteColumn":2,
+  "sprite":{
     "sheetId":"people", "row":1, "column":2,
     "x":64, "y":64, "width":32, "height":64,
-    "anchorX":16, "anchorY":60, "scale":0.5,
-    "offsetX":0, "offsetY":0
+    "anchorX":16, "anchorY":60, "scale":0.5, "offsetX":0, "offsetY":0
   }
 }
 ```
 
-`x/y/width/height` inside a SpriteFrame are **source pixels**, unlike `pose.x/y` in continuous world tiles. All source coordinates/dimensions are integers and stay inside the referenced sheet. Anchor is source pixels; offsets are world pixels after scaling. Scale and anchors must be finite. No implicit mirroring, tint, pixel rotation or provider inference is required in C++.
+SpriteFrame x/y/width/height are integer source pixels within the referenced sheet, unlike continuous tile pose.x/y. Anchor is source pixels; offsets are world pixels after scaling. Scale/anchors are finite. No implicit mirroring, tint, pixel rotation or provider inference is required.
 
 ## Geometry and rendering
 
-1. World extent is `office.widthTiles*tileSize` by `heightTiles*tileSize`; tileSize=16. Origin top-left, +X right/+Y down. Width/height 8-128. Tile IDs refer to `assets.tileTypes`; only `kind:floor` is walkable. Interior walls and void are explicit. Zone labels do not create walls. Rotation selects an explicitly authored furniture variant; do not rotate its points again.
-2. Character feet: `footX=(pose.x+0.5)*16`, `footY=(pose.y+1)*16`. Destination rectangle: `(round(footX-anchorX*scale+offsetX), round(footY-anchorY*scale+offsetY), width*scale, height*scale)`. Pose remains at its collision tile while seated/sleeping offsets change only drawing.
-3. Furniture PNG destination: `(instance.x*16-anchorX*scale+offsetX, instance.y*16-anchorY*scale+offsetY, width*scale, height*scale)`. Use `furnitureSprites[id].sprite`. Tile clip first frames are stretched into their 16x16 tile; fallback tiles use the supplied colors. Transparent background skips floor/wall, retains furniture and agents.
-4. Draw base floor/wall, relationship lines, then a mixed furniture/character scene sorted by layer, world Y, ordinal stable ID. Furniture layer and zOrder come from its selected `(rotation,state)` variant; sortY=`(y+height)*16+zOrder`. Characters use layer 1 and footY. Bubbles and desk/name markers follow. Do not add visual seated/sleep offsets to sortY.
-5. Apply pose.opacity to sprite, walking paper and bubble. The paper overlay uses world footX-10 when facing left, otherwise footX+4, and footY-12; size 6x8. Desk paper belongs to the desk with matching agentId. Shared bubbles still use the fallback atlas row 6 columns 0-8; put them centered at footX, 17 world pixels above the character destination's top.
-6. Use nearest-neighbor and integer display zoom (standalone 1-6). Zoom/pan are camera changes, not simulation coordinates. Windhawk should render supplied poses/frames, not duplicate A*, seat selection, random activities or the roster hash.
+1. World extent = office.widthTiles×tileSize by heightTiles×tileSize; tileSize=16, origin top-left, +X right/+Y down. Bounds 8–128 tiles. Only tile type kind:floor is walkable. Walls/void are explicit; zone labels do not create walls. Rotation selects an authored variant; do not rotate its points again.
+2. Character feet: footX=(pose.x+0.5)×16, footY=(pose.y+1)×16. Destination: (round(footX-anchorX×scale+offsetX), round(footY-anchorY×scale+offsetY), width×scale, height×scale). Pose stays at its collision tile while seating/sleep offsets affect only drawing.
+3. Furniture destination: (instance.x×16-anchorX×scale+offsetX, instance.y×16-anchorY×scale+offsetY, width×scale, height×scale). Use furnitureSprites[id].sprite. Tile first frames stretch into 16×16; fallback tiles use supplied colors. Transparent background skips floor/wall.
+4. Draw base floor/wall, relationship lines, then mixed furniture/characters sorted by layer, world Y and ordinal stable ID. Furniture layer/zOrder come from the selected variant, sortY=(y+height)×16+zOrder. Characters use layer 1 and footY; visual offsets do not change sortY. Draw an overflow laptop above furniture overlays while the owner is typing/thinking/waiting, then bubbles/names.
+5. Apply pose.opacity to character, paper and bubble. Walking paper: footX−10 when facing left, otherwise footX+4; footY−12; 6×8. Desktop paper matches deskId/agentId. Shared bubbles use fallback atlas row 6 columns 0–8, centered at footX, 17 world pixels above character destination top. Queue ellipsis can be text.
+6. Use nearest-neighbor. Standalone manual zoom is integer 1–6; automatic zoom may be fractional below 1 to fit a small window. Center/letterbox the fixed office. Zoom/pan and window resize change the camera, not office dimensions or simulation coordinates. Render supplied poses/frames/status rather than duplicating assignment, A*, random activity or roster hashing.
+7. Always draw a visible agent's `[provider-icon] displayName` on a dark plate above the sprite's actual head, in every activity. Scale the 1× font/icon with zoom; small vertical stacking offsets may avoid collisions but must never omit a tag. A desk's reserved nameplate uses its owner's same tag only when the owner is away: hide it for a Working/Thinking/Waiting owner within 1.5 Manhattan tiles of their work point. Unassigned desks have no nameplate. Preserve full `agent.name` in hover text. Queued agents also show a small `…` bubble.
 
-Unknown furniture without art may use a neutral rectangle. The fallback furniture remains drawing primitives; a pixel-identical WPF/GDI furniture comparison requires a PNG furniture pack. Core-selected PNG rectangles/positions are shared by both renderers.
+Unknown furniture without art may use a neutral rectangle; fallback furniture uses primitives. PNG furniture supplies shared frame rectangles/positions. Monitor metadata is available even when a pack lacks monitor-state art.
 
-## Lifecycle and timing
+## Assignment, lifecycle and timing
 
-Door → A* to own seat → typing/thinking/waiting. Four-neighbor Manhattan A* avoids nonfloor tiles and each variant's blockedCells. Reporting → own seat → pickup .9s → carry beside parent seat → handover 1.4s → leisure. Missing parent uses own seat vicinity. Paper lasts 12s, parent reaction 3s. Pending delivery survives semantic transition to idle; resumed working/thinking/waiting or gone cancels it. Gone → door → 1.2s fade → hidden; tracker retention remains 60s.
+The bundled office has 12 explicit desks with linked chairs/screens, a fixed authored floor and designated lounge/armchair/pantry laptop seats. Pantry overflow is linked to nonblocking counter stools. Membership never resizes, adds, removes or repositions furniture. Live desk/overflow reservations survive state/order changes and breaks. A returning session reuses its historical desk if free; history never evicts a live owner. Otherwise children choose free desks closest to their parent, then overflow, then queue. New parents are assigned before their children. Queued agents take released capacity before later newcomers; existing overflow owners keep their seats. History lives in the animator across reloads and resets on restart. One typing point per desk instance is used.
 
-Idle chooses coffee/water 10–18s, TV 20–33s, nap 28–42s, phone/chat 14–24s, avoiding the immediately previous activity. **Duration starts on arrival**, not during travel. Interaction points are reserved where available. Reciprocal chat starts its shared duration when both partners arrive. Busy/missing stations fall back to phone at free floor near the lounge. Characters can cross/share corridor tiles; moving-body collision avoidance is not implemented.
+Legacy `autoDesks` migrates once per load into explicit desks/chairs with fixed `capacity` (default 12), then clears autoDesks in the resolved source. Legacy expand may accommodate that capacity during this migration only; membership cannot grow it. Existing source files stay untouched. `LayoutLoader.Adapt` only assigns authored desks and ignores excess slots.
 
-Roster hash + collision probing is specified in asset-format.md. Newcomers walk in at the door even when a desk expansion changes the map. Vacated middle slots retain an unassigned desk until reused; existing design assignments remain stable. One work point per desk instance is used; add separate desks for more seats. Without an automatic grid the authored seats must accommodate the active set. PNG clips use action-relative elapsed time and supplied FPS; missing action/direction falls back to idle. Procedural characters preserve v2 pixel rows/columns, but their phase is now action-relative. **Always trust supplied rectangles and indexes.**
+Door → A* to desk/overflow → typing/thinking/waiting, or door queue → waiting. Four-neighbor Manhattan A* avoids nonfloor and variant blockedCells. Reporting → own work seat → pickup .9s → carry beside parent's work seat → handover 1.4s → leisure, including overflow parents/children. Missing/gone parent uses own seat vicinity. Queued reports wait for capacity. Paper lasts 12s, reaction 3s. Delivery survives semantic transition to idle; resumed working/thinking/waiting or gone cancels it. Gone releases capacity, walks to door, fades 1.2s and hides; tracker retains it for 60s.
 
-WPF runs at up to 30fps during movement, 8fps otherwise, caches static floor/furniture and decoded crops, and polls logs off the UI thread. `--demo` is fabricated and exercises entry, work/thinking/waiting, report transfer, varied breaks, exit and repeated sessions. `--smoke-test` creates offscreen zoom/phase/tooltip/transparency PNGs without opening any window. `--qa --quit-after N` is a separately guarded nonactivating normal-mode instance; desktop/topmost are disabled for QA. Native desktop/click-through behavior is covered with fake topology/policy tests; actual shell display is best-effort and was not exercised on the live laptop.
+Idle chooses coffee/water 10–18s, TV 20–33s, nap 28–42s, phone/chat 14–24s, avoiding its last activity. Duration starts on arrival. Reserved overflow work seats are excluded from every leisure action and fallback phone selection, including during owners' breaks. Reciprocal chat starts duration after both arrive. Busy/missing stations fall back to phone at reachable free floor near the lounge. Characters can cross/share corridors and enter at the same door tile; moving-body collision avoidance is not implemented.
+
+Roster hash/probing is specified in asset-format.md. Character clips use action-relative elapsed time and supplied FPS; missing action/direction falls back to idle. Procedural characters preserve v2 rows/columns with action-relative phase. Always trust supplied frames/indexes.
+
+Public editor API: `OfficeAnimator.ReloadLayout(OfficeLayout layout, bool validate = false)` preserves live characters, design IDs, positions where still walkable and desk history. Surviving seat IDs retain owners after reorder/moves; removed seats release owners for reassignment. Default preview permits temporary blocked overlaps and unreachable work points, clears paths and substitutes nearby reachable destinations. Structural errors (IDs, variants, dimensions, bounds) reject before changing the animator. Save calls `LayoutLoader.Validate(layout, assets)` or reload with validate:true for blocked-cell overlap, door and A* reachability checks. Core has no WPF dependency.
+
+WPF renders at up to 30fps during movement and 8fps otherwise, caches static furniture/floor and decoded crops, and polls logs off the UI thread. Demo metadata is fabricated. Smoke/QA modes and native desktop limitations retain their v3 behavior.
 
 ## Version history
 
-- v3: arbitrary PNG sheet cells, explicit anchors/scale, format 1 assets/layout, tile collision, rotated interactions, roster assignment, A*, authoritative furniture frames. v2 consumers must be updated.
-- v2: fixed 16x24 procedural atlas with direction/identity rows and paper/chat/fade fields.
-- v1: 208×168 fixed atlas, no direction/identity variants. Historical reference follows; its fixed BFS geometry and Unix-time frame formula do **not** describe v3.
+- v4: fixed authored capacity, stable desk/overflow/queue reservations and reloadable previews; additive seat IDs/overrides, compact names, provider icon IDs, queue ellipsis and monitor status. Existing v3 fields/types remain.
+- v3: PNG sheets, anchors/scale, format 1 assets/layout, tile collision, rotated interactions, roster assignment, A*, furniture frames.
+- v2: fixed 16×24 procedural atlas with direction/identity rows and paper/chat/fade fields.
+- v1: 208×168 fixed atlas. Historical BFS geometry and Unix-time frame formula do not describe current writers.
 
 ---
 
