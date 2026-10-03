@@ -102,7 +102,7 @@ public sealed class OfficeEditor
             var point=RotateSeat(new(s.Id,s.X-host.X,s.Y-host.Y,"typing",s.Facing),host.Width,host.Height,delta)!;
             var previousVariant=assets.Variant(host);
             var nextVariant=assets.Variant(nextHost);
-            if (!previousVariant.Points.Any(p => p.Action == "typing") && previousVariant.ChairSeatAnchor is {} previousAnchor &&
+            if (!previousVariant.Points.Any(p => p.Action == "typing") && previousVariant.ChairFrontId != null && previousVariant.ChairSeatAnchor is {} previousAnchor &&
                 nextVariant.ChairSeatAnchor is {} nextAnchor)
                 point=point with {
                     X=s.X-host.X+(int)Math.Floor(nextAnchor.X/Layout.TileSize)-(int)Math.Floor(previousAnchor.X/Layout.TileSize),

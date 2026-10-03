@@ -6,15 +6,23 @@ public static class LayoutLoader
 {
     public static OfficeLayout Load(AssetPack assets, string? file, IList<string>? warnings = null)
     {
-        var art = assets.Manifest.Furniture.Any(f => f.Id == "cozy-desk");
-        using var resource = typeof(LayoutLoader).Assembly.GetManifestResourceStream(art
-            ? "Vibedotcom.Core.Data.layout.json" : "Vibedotcom.Core.Data.fallback-layout.json")!;
-        var fallback = JsonSerializer.Deserialize<OfficeLayout>(resource, StateJson.Options)!;
         if (file != null && File.Exists(file))
             try { return Prepare(AssetPack.Read<OfficeLayout>(file), assets); }
-            catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or ArgumentException or NullReferenceException)
+            catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or ArgumentException or NullReferenceException or OverflowException)
             { warnings?.Add("Layout rejected; using bundled default: " + e.Message); }
-        return Prepare(fallback, assets);
+        foreach (var name in new[] { "layout.json", "fallback-layout.json" })
+        {
+            try { return Prepare(Default(name), assets); }
+            catch (Exception e) when (e is InvalidDataException or ArgumentException or InvalidOperationException or NullReferenceException or OverflowException) { }
+        }
+        warnings?.Add("Asset geometry is incompatible with bundled layouts; using safe fallback pack and layout.");
+        assets.UseSafeFallback();
+        return Prepare(Default("fallback-layout.json"), assets);
+    }
+    private static OfficeLayout Default(string name)
+    {
+        using var resource = typeof(LayoutLoader).Assembly.GetManifestResourceStream("Vibedotcom.Core.Data." + name)!;
+        return JsonSerializer.Deserialize<OfficeLayout>(resource, StateJson.Options)!;
     }
     internal static OfficeLayout Prepare(OfficeLayout layout, AssetPack assets, bool validate = true)
     {
@@ -72,8 +80,9 @@ public static class LayoutLoader
         }
         foreach (var s in l.OverflowSeats ?? [])
             if (!workSeats.Add(new(s.X, s.Y))) throw new InvalidDataException("Overflow seats must be distinct from work seats.");
-        foreach (var tile in assets.Points(complete).Select(p => p.Tile).Concat((l.OverflowSeats ?? []).Select(s => new Tile(s.X, s.Y))))
-            if (!Walkable(complete, tile, blocked) || tile != l.Door && OfficeAnimator.FindPath(complete, l.Door, tile, blocked).Count == 0)
+        var reachable = Reachable(complete, l.Door, blocked);
+        foreach (var tile in assets.Points(complete).Select(p => p.Tile).Concat((l.OverflowSeats ?? []).Select(s => new Tile(s.X, s.Y))).Distinct())
+            if (!reachable.Contains(tile))
                 throw new InvalidDataException($"Unreachable interaction point at ({tile.X},{tile.Y}).");
     }
     private static void ValidateStructure(OfficeLayout l, AssetPack assets)
@@ -81,31 +90,38 @@ public static class LayoutLoader
         if (l == null || l.Version != 1 || l.WidthTiles is < 8 or > 128 || l.HeightTiles is < 8 or > 128 || l.TileSize != 16 || l.Furniture == null || l.Furniture.Count > 1024 ||
             l.Tiles != null && (l.Tiles.Count != l.WidthTiles * l.HeightTiles || l.Tiles.Any(id => !assets.Manifest.TileTypes.Any(t => t.Id == id))))
             throw new InvalidDataException("Unsupported layout dimensions/tiles/version.");
-        if (l.Furniture.Any(f => string.IsNullOrWhiteSpace(f.Id)) || l.Furniture.Select(f => f.Id).Distinct().Count() != l.Furniture.Count)
+        if (l.Furniture.Any(f => f == null || string.IsNullOrWhiteSpace(f.Id)) || l.Furniture.Select(f => f.Id).Distinct().Count() != l.Furniture.Count)
             throw new InvalidDataException("Furniture instance IDs must be unique.");
         var zones = l.Zones ?? [];
-        if (new[] { "workspace", "pantry", "lounge", "door" }.Any(n => zones.Count(z => z.Name == n) != 1) ||
+        if (zones.Count > 256 || zones.Any(z => z == null || string.IsNullOrWhiteSpace(z.Name)) ||
+            zones.Sum(z => (long)(z.Points?.Count ?? 0)) > 4096 ||
+            new[] { "workspace", "pantry", "lounge", "door" }.Any(n => zones.Count(z => z.Name == n) != 1) ||
             zones.Select(z => z.Name).Distinct().Count() != zones.Count || zones.Any(z => z.X < 0 || z.Y < 0 || z.Width < 1 || z.Height < 1 || (long)z.X + z.Width > l.WidthTiles || (long)z.Y + z.Height > l.HeightTiles))
             throw new InvalidDataException("Required named zones missing/invalid.");
+        if (zones.Any(z => z.Points?.Any(p => p == null || string.IsNullOrWhiteSpace(p.Id) || !Facing(p.Facing) ||
+            p.X is < -128 or > 128 || p.Y is < -128 or > 128) == true) ||
+            l.Furniture.Sum(f => (long)assets.Variant(f).Points.Count) + zones.Sum(z => (long)(z.Points?.Count ?? 0)) > 8192)
+            throw new InvalidDataException("Invalid/excessive interaction points.");
         foreach (var f in l.Furniture)
         {
             var v = assets.Variant(f);
             if (f.Width != v.FootprintW || f.Height != v.FootprintH || f.X < 0 || f.Y < 0 || f.X > l.WidthTiles - f.Width || f.Y > l.HeightTiles - f.Height)
                 throw new InvalidDataException("Furniture footprint mismatch: " + f.Id);
-            if (f.Seat != null && (string.IsNullOrWhiteSpace(f.Seat.Id) || f.Seat.Action != "typing" || !Facing(f.Seat.Facing)))
+            if (f.Seat != null && (string.IsNullOrWhiteSpace(f.Seat.Id) || f.Seat.Action != "typing" || !Facing(f.Seat.Facing) ||
+                f.Seat.X is < -128 or > 128 || f.Seat.Y is < -128 or > 128))
                 throw new InvalidDataException("Invalid work seat override: " + f.Id);
         }
         var deskIds = l.Furniture.Where(f => assets.Variant(f).Points.Any(p => p.Action == "typing")).Select(f => f.DeskId ?? f.Id).ToArray();
         if (deskIds.Any(string.IsNullOrWhiteSpace) || deskIds.Distinct(StringComparer.Ordinal).Count() != deskIds.Length)
             throw new InvalidDataException("Desk IDs must be unique.");
         var overflow = l.OverflowSeats ?? [];
-        if (overflow.Count > 1024 || overflow.Select(s => s.Id).Distinct(StringComparer.Ordinal).Count() != overflow.Count ||
-            overflow.Any(s => string.IsNullOrWhiteSpace(s.Id) || !Facing(s.Facing) || s.X < 0 || s.Y < 0 || s.X >= l.WidthTiles || s.Y >= l.HeightTiles ||
+        if (overflow.Count > 1024 || overflow.Any(s => s == null) || overflow.Select(s => s.Id).Distinct(StringComparer.Ordinal).Count() != overflow.Count ||
+            overflow.Any(s => s == null || string.IsNullOrWhiteSpace(s.Id) || !Facing(s.Facing) || s.X < 0 || s.Y < 0 || s.X >= l.WidthTiles || s.Y >= l.HeightTiles ||
                 s.FurnitureId != null && !l.Furniture.Any(f => f.Id == s.FurnitureId)))
             throw new InvalidDataException("Invalid overflow seats.");
         if (l.Door.X < 0 || l.Door.Y < 0 || l.Door.X >= l.WidthTiles || l.Door.Y >= l.HeightTiles)
             throw new InvalidDataException("Door outside office.");
-        if (l.AutoDesks is {} a && (a.X < 0 || a.Y < 3 || a.SpacingX < 1 || a.SpacingY < 1 || a.MaxColumns is < 1 or > 16 || a.MinColumns < 1 || a.MinColumns > a.MaxColumns ||
+        if (l.AutoDesks is {} a && (a.X is < 0 or > 127 || a.Y is < 3 or > 127 || a.SpacingX is < 1 or > 128 || a.SpacingY is < 1 or > 128 || a.MaxColumns is < 1 or > 16 || a.MinColumns < 1 || a.MinColumns > a.MaxColumns ||
             a.Capacity is < 0 or > 1024 ||
             !assets.Manifest.Furniture.Any(f => f.Id == a.AssetId && f.Variants.Any(v => v.Rotation == 0 && v.State == "default" && v.Points.Any(p => p.Action == "typing")))))
             throw new InvalidDataException("Invalid automatic desk grid.");
@@ -128,6 +144,22 @@ public static class LayoutLoader
     public static bool Walkable(OfficeLayout l, Tile t, HashSet<Tile> blocked) =>
         t.X >= 0 && t.Y >= 0 && t.X < l.WidthTiles && t.Y < l.HeightTiles && !blocked.Contains(t);
 
+    internal static HashSet<Tile> Reachable(OfficeLayout layout, Tile door, HashSet<Tile> blocked)
+    {
+        var result = new HashSet<Tile>();
+        if (!Walkable(layout, door, blocked)) return result;
+        var queue = new Queue<Tile>(); queue.Enqueue(door); result.Add(door);
+        var timer = System.Diagnostics.Stopwatch.StartNew();
+        while (queue.TryDequeue(out var tile))
+        {
+            if (result.Count > 16384 || timer.ElapsedMilliseconds > 50)
+                throw new InvalidDataException("Layout navigation exceeded its work/time budget.");
+            foreach (var next in new Tile[] { new(tile.X + 1, tile.Y), new(tile.X - 1, tile.Y), new(tile.X, tile.Y + 1), new(tile.X, tile.Y - 1) })
+                if (Walkable(layout, next, blocked) && result.Add(next)) queue.Enqueue(next);
+        }
+        return result;
+    }
+
     private static OfficeLayout MigrateAutoDesks(OfficeLayout source, AssetPack assets)
     {
         if (source.AutoDesks is not {} auto) return source;
@@ -139,12 +171,13 @@ public static class LayoutLoader
         var columns = Math.Min(auto.MaxColumns, count);
         var workspace = source.Zones!.First(z => z.Name == "workspace");
         var edge = workspace.X + workspace.Width;
-        var shift = auto.Expand ? Math.Max(0, auto.X + (columns - 1) * auto.SpacingX + variant.FootprintW + 1 - edge) : 0;
+        var requiredShift = auto.Expand ? Math.Max(0L, auto.X + (long)(columns - 1) * auto.SpacingX + variant.FootprintW + 1 - edge) : 0;
         var seat = variant.Points.First(p => p.Action == "typing");
-        var height = auto.Expand ? Math.Max(source.HeightTiles, auto.Y + (count - 1) / columns * auto.SpacingY +
+        var requiredHeight = auto.Expand ? Math.Max(source.HeightTiles, auto.Y + (long)((count - 1) / columns) * auto.SpacingY +
             Math.Max(variant.FootprintH, seat.Y + 1) + 2) : source.HeightTiles;
-        var width = source.WidthTiles + shift;
-        if (width > 128 || height > 128) throw new InvalidDataException("Legacy desk capacity exceeds office bounds.");
+        var requiredWidth = source.WidthTiles + requiredShift;
+        if (requiredWidth is < 8 or > 128 || requiredHeight is < 8 or > 128) throw new InvalidDataException("Legacy desk capacity exceeds office bounds.");
+        var width = (int)requiredWidth; var height = (int)requiredHeight; var shift = (int)requiredShift;
         var bottomDoor = source.Door.Y >= source.HeightTiles - 3;
         var doorShift = bottomDoor ? height - source.HeightTiles : 0;
         var furniture = source.Furniture.Select(f => f with {

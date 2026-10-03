@@ -367,8 +367,19 @@ public sealed class OfficeAnimator
     private PixelPoint Contact(Character c)
     {
         var host = WorkFurniture(c);
-        return host != null && assets.Variant(host).ChairSeatAnchor is {} anchor ? new(host.X * 16 + anchor.X, host.Y * 16 + anchor.Y) :
-            new((c.WorkTile.X + .5) * 16, (c.WorkTile.Y + 1) * 16 - 8);
+        if (host != null && assets.Variant(host).ChairSeatAnchor is {} anchor)
+        {
+            // An unsplit sofa can host multiple overflow seats. Its nap point
+            // identifies the contact's reference tile even after rotation.
+            var first = c.OverflowSeatId == null ? null : source.OverflowSeats?
+                .Where(s => s.FurnitureId == host.Id).OrderBy(s => s.X).ThenBy(s => s.Y).FirstOrDefault();
+            var reference = assets.Variant(host).Points.FirstOrDefault(p => p.Action == "napping");
+            var rx = reference == null ? first?.X : host.X + reference.X;
+            var ry = reference == null ? first?.Y : host.Y + reference.Y;
+            return new(host.X * 16 + anchor.X + (first == null ? 0 : (c.WorkTile.X - rx!.Value) * 16),
+                host.Y * 16 + anchor.Y + (first == null ? 0 : (c.WorkTile.Y - ry!.Value) * 16));
+        }
+        return new((c.WorkTile.X + .5) * 16, (c.WorkTile.Y + 1) * 16 - 8);
     }
     private static void ClearSeat(Character c)
     {
