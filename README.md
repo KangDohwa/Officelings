@@ -14,7 +14,8 @@ Two variants share one .NET 10 tracker core and one art pack:
 | Tracker (Codex, Claude Code, Antigravity), animation state machine, A* pathfinding | Done, covered by tests |
 | Standalone WPF viewer, window modes, tooltip, zoom/pan | Done; native desktop-level/click-through behaviour is checked with fake HWND topologies, not yet on the live shell |
 | Art: 44+ chibi characters, 37 environment sheets, face-lock (stable eyes), blink | Done; the last roster team is still being produced |
-| Fixed pre-furnished office, provider tags, opacity fix, office editor | In progress |
+| Fixed pre-furnished office, provider tags, opacity fix, office editor | Done (editor not yet hands-on tested by the author) |
+| Seated poses, side-view desks, still-TV animation, official-icon overlay, transparent-background fix | In progress |
 | Windhawk mod | In progress; compiles with Windhawk's bundled clang, Explorer injection not yet verified (checklist will live in `windhawk/README.md`) |
 
 Lock-screen display is not possible for a normal user application (see Limits).
@@ -62,7 +63,7 @@ These publishes require the .NET 10 runtime on the destination. Windhawk install
 
 ## Pluggable art and office
 
-Normal startup reads `%LOCALAPPDATA%\Vibedotcom\assets\manifest.json` (PNG sheets, clips, roster, furniture and tile definitions) and `%LOCALAPPDATA%\Vibedotcom\layout.json` (tiles, rotated furniture and workspace/pantry/lounge/door zones). Missing or invalid input uses the bundled art pack (`assets/pack/`, embedded in the app by `tools/build_pack.py`), and finally a procedural fallback. Restart to reload; the in-app office editor is still in progress. See [docs/asset-format.md](docs/asset-format.md) for the runtime manifest and layout format.
+Normal startup reads `%LOCALAPPDATA%\Vibedotcom\assets\manifest.json` (PNG sheets, clips, roster, furniture and tile definitions) and `%LOCALAPPDATA%\Vibedotcom\layout.json` (tiles, rotated furniture and workspace/pantry/lounge/door zones). Missing or invalid input uses the bundled art pack (`assets/pack/`, embedded in the app by `tools/build_pack.py`), and finally a procedural fallback. Restart to reload, or use the in-app office editor (right-click → Edit office, see [docs/editor.md](docs/editor.md)). See [docs/asset-format.md](docs/asset-format.md) for the runtime manifest and layout format.
 
 ```powershell
 dotnet run --project src/Vibedotcom.App --no-build -- --demo --asset-dir C:/MyOfficeArt --layout C:/MyOffice/layout.json
@@ -80,6 +81,33 @@ All pixel art in `assets/` is generated for this project (2D pixel chibi style).
 3. **Pack**: `python tools/build_pack.py` normalizes character height, prefers locked sheets and writes the runtime pack in `assets/pack/`, which the Core embeds. Re-run it whenever art changes.
 
 Generated assets are produced with an AI image model; check the terms that apply to your use before redistributing them.
+
+## Trademarks, brand assets and licensing
+
+Vibedotcom is an independent, unofficial tool. It is **not affiliated with, endorsed by or sponsored by** OpenAI, Anthropic or Google. "Codex", "ChatGPT", "Claude", "Claude Code", "Gemini" and "Antigravity" are trademarks of their respective owners and are used here only in plain text to say which tools the viewer can observe (nominative use).
+
+Brand-owner rules, summarized from their published guidelines (researched 2026-10-04; re-check before release, they change):
+
+| Owner | What the guidelines say about logos |
+| --- | --- |
+| [OpenAI](https://openai.com/brand/) | Use logos only as provided; do not modify, recolor, stylize or distort; do not imply endorsement or a partnership; do not put them into your own product branding. Prefer the black/white versions supplied by OpenAI. |
+| [Anthropic](https://www.anthropic.com/legal/trademark-guidelines) | Use only as specifically permitted and in materials Anthropic approves beforehand; no alteration of color, font or proportion; no implied sponsorship or affiliation; the guidelines do not say that in-app logo use is allowed, so ask marketing@anthropic.com. |
+| [Google](https://about.google/brand-resource-center/guidance/) | Do not use Google marks in your product or brand name or imply affiliation; product icons generally fall under "ask first" ([icon usage guidance](https://about.google/brand-resource-center/products-and-services/)). Google publishes no Gemini-specific third-party rule that permits using the sparkle in an app without asking. |
+
+Consequences for this project (it has no paid features, but trademark rules apply to free software too):
+
+- The **default build ships generic, self-drawn tag icons** (neutral shapes in each provider's accent color) and never bundles official logos.
+- Official icons are an **optional, local-only overlay**: `tools/fetch_brand_icons.ps1` downloads them from the owners' own sites onto your machine into a git-ignored folder, and you may also drop `codex.png`, `claude.png`, `antigravity.png` into `%LOCALAPPDATA%\Vibedotcom\brand\`. This is for personal use; do not redistribute builds that embed them without permission. Source list: [assets/brand/README.md](assets/brand/README.md).
+- Antigravity is a separate Google product from the Gemini models; the optional overlay uses the Gemini sparkle for it by the author's choice, which Google might consider a misattribution.
+- Do not name a fork or package with a provider's name (`Codex-Something`, `Claude-…`, `Gemini-…`).
+
+**Checklist before making the repository public**
+
+1. Purge `assets/brand/originals/` (and any official logo) from git history (history rewrite, force-push); the files are already git-ignored for new commits.
+2. Choose a license for the project code (e.g. MIT or Apache-2.0) and add `LICENSE`; keep third-party notices (sprite-gen is Apache-2.0; pixel-agents, MIT, was only a design reference and nothing was copied).
+3. Review the terms for AI-generated images that apply to the art in `assets/`, and keep the credit line in this README.
+4. Confirm the screenshots contain only fabricated `--demo` data (no real prompts, paths or project names).
+5. Optionally ask the three owners for written permission if you want official logos in public releases.
 
 ## Sources and inference
 
