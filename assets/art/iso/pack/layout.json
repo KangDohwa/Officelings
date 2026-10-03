@@ -773,5 +773,73 @@
   "cutaway": {
     "front": "hidden",
     "rear": "visible"
+  },
+  "pets": [
+    {
+      "id": "cat-1",
+      "assetId": "iso/cat",
+      "x": 2,
+      "y": 4,
+      "demonstrationPath": [
+        {
+          "x": 2,
+          "y": 4
+        },
+        {
+          "x": 3,
+          "y": 4
+        },
+        {
+          "x": 3,
+          "y": 5
+        },
+        {
+          "x": 3,
+          "y": 6
+        },
+        {
+          "x": 2,
+          "y": 6
+        },
+        {
+          "x": 2,
+          "y": 5
+        },
+        {
+          "x": 2,
+          "y": 4
+        }
+      ]
+    }
+  ],
+  "acceptanceFixture": {
+    "seed": 20261004,
+    "agents": [
+      {
+        "id": "iso-demo-child",
+        "provider": "codex",
+        "role": "worker",
+        "parentId": "iso-demo-supervisor",
+        "characterId": "iso/character/punk-girl",
+        "deskId": "desk-2",
+        "action": "reporting"
+      },
+      {
+        "id": "iso-demo-supervisor",
+        "provider": "claude",
+        "role": "supervisor",
+        "characterId": "iso/character/professor",
+        "deskId": "desk-3",
+        "action": "typing"
+      },
+      {
+        "id": "iso-demo-worker",
+        "provider": "antigravity",
+        "role": "worker",
+        "characterId": "iso/character/dev-hoodie-v2",
+        "deskId": "desk-1",
+        "action": "typing"
+      }
+    ]
   }
 }

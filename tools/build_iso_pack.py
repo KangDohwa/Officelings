@@ -17,7 +17,7 @@ from pathlib import Path, PureWindowsPath
 import sys
 import tempfile
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "assets/art/iso"
@@ -28,7 +28,7 @@ FURNITURE_KINDS = {"desk": "desk", "chair": "chair", "sofa": "sofa", "plant": "p
                    "tv-cabinet": "tv", "coffee-machine": "pantry", "fridge": "cabinet", "water-cooler": "water",
                    "rug": "rug", "side-table": "table", "floor-lamp": "lamp"}
 COLLECTIONS = ("characters", "furniture", "pets", "carriedProps", "wallModules")
-METADATA = ("actionBindings", "attachmentRule", "transitionRule", "materialPriority", "variantSelection")
+METADATA = ("actionBindings", "attachmentRule", "transitionRule", "materialPriority")
 MAX_JSON = 4 * 1024 * 1024
 MAX_PNG = 32 * 1024 * 1024
 
@@ -52,6 +52,8 @@ def local_file(directory, name):
 def png_info(data):
     if len(data) > MAX_PNG:
         raise ValueError("PNG exceeds the 32 MiB limit")
+    if len(data) < 33 or data[:8] != b"\x89PNG\r\n\x1a\n" or data[12:16] != b"IHDR" or data[24:29] != bytes((8, 6, 0, 0, 0)):
+        raise ValueError("expected an 8-bit non-interlaced RGBA PNG")
     with Image.open(BytesIO(data)) as image:
         w, h = image.size
         if image.format != "PNG" or image.mode != "RGBA":
@@ -160,6 +162,63 @@ def link_blinks(sheets):
             c["blink"] = dict(sheetId=blink["id"], name=copy["name"], direction=c["direction"], durationMs=100)
 
 
+def character_shadow():
+    """A pack-owned ground sprite: an exact 16x6 contact and optional cast tail."""
+    image = Image.new("RGBA", (128, 128))
+    draw = ImageDraw.Draw(image)
+    draw.ellipse((64, 65, 79, 70), fill=(17, 25, 36, 48))
+    draw.ellipse((56, 61, 71, 66), fill=(17, 25, 36, 96))
+    stream = BytesIO()
+    image.save(stream, format="PNG", compress_level=9)
+    data = stream.getvalue()
+    info = png_info(data)
+    row = dict(name="standing", direction="any", row=0, column=0, frames=1, fps=1, loop=False,
+               anchorChecks=[dict(x=64, y=64, radius=0)], contactFootprint=dict(width=16, height=6),
+               shadowOffset=dict(x=8, y=4))
+    sheet = dict(id="iso-character-shadow", kind="shadow", file=f"sheets/pack-{info['sha256']}.png",
+                 cellW=128, cellH=128, anchor=dict(x=64, y=64), scale=1, projection="iso2to1",
+                 rows=[row], clips=[deepcopy(row)], **info)
+    return sheet, data
+
+
+def bind_character_actions(manifest):
+    available = {p["id"].rsplit("/", 1)[-1]: p for p in manifest["carriedProps"]}
+    effects = set()
+    manifest["optionalPropFallbacks"] = {"held-dart": dict(available=False, fallback="idle-without-prop",
+        reason="Held dart is optional in the slice; the approved prop source exports no dart.")}
+    for sheet in manifest["sheets"]:
+        if sheet["kind"] != "character":
+            continue
+        for c in sheet["clips"]:
+            prop = c.get("prop", manifest.get("actionBindings", {}).get(c["name"]))
+            if prop:
+                c["prop"] = prop
+                if prop in available:
+                    p = available[prop]
+                    c["propBinding"] = dict(id=p["id"], sheetId=p["sheetId"], animation=p["animation"], direction=c["direction"])
+                elif prop == "held-dart":
+                    c["propOptional"] = True
+                elif not manifest["carriedProps"]:
+                    # Pilot is explicitly a partial pack; the full pack never omits required props.
+                    c["propDeferred"] = True
+                else:
+                    raise ValueError(f"{sheet['id']}/{c['name']}: missing required prop {prop}")
+            if "effect" in c:
+                effects.add(c["effect"])
+        for facing in FACINGS:
+            walk = deepcopy(next(c for c in sheet["clips"] if (c["name"], c["direction"]) == ("walk", facing)))
+            walk.update(name="gone", effect="exit-fade", hiddenAfterExit=True)
+            sheet["clips"].append(walk)
+        effects.add("exit-fade")
+    for pet in manifest["pets"]:
+        for binding in pet.get("bubbleBindings", {}).values():
+            if isinstance(binding, dict):
+                binding.pop("sharedArt", None)
+                binding["external"] = True
+                effects.add(binding["binding"])
+    manifest["sharedEffectBindings"] = sorted(effects)
+
+
 def source_paths(art_dir, characters=CHARACTERS, extras=True):
     paths = [art_dir / "env/floors/floors.iso.json", art_dir / "env/walls/walls.iso.json"]
     paths.extend(sorted((art_dir / "furniture-v2").rglob("*.iso.json")))
@@ -169,8 +228,7 @@ def source_paths(art_dir, characters=CHARACTERS, extras=True):
         filename = "dev-hoodie" if identity == "dev-hoodie-v2" else identity
         paths.append(art_dir / f"characters/{identity}/{filename}.iso.json")
     if extras:
-        paths.extend(sorted((art_dir / "pets").rglob("*.iso.json")))
-        paths.extend(sorted((art_dir / "props").rglob("*.iso.json")))
+        paths.extend([art_dir / "pets/cat.iso.json", art_dir / "props/carried-props.iso.json"])
         paths.extend(sorted((art_dir / "env").glob("*.iso.json")))
     return paths
 
@@ -193,7 +251,7 @@ def assemble(paths):
                     carriedProps=[], wallModules=[], sourceManifests=[], unsupportedSeatProfiles=["end"],
                     tile=dict(width=64, height=32, anchor=dict(x=32, y=16)), wallRise=16, wallHeight=48,
                     characterCell=dict(width=32, height=64), footAnchor=dict(x=16, y=60), standingHeight=40,
-                    seatAnchor=dict(x=16, y=44), deskHeight=18, seatHeight=12,
+                    seatAnchor=dict(x=16, y=44), deskHeight=18, seatHeight=12, monitorTop=36, chairBackTop=21,
                     light=dict(screenDirection="upper-left", shadowOffset=dict(x=8, y=4), furnitureShadowOffset=dict(x=6, y=3)))
     files, sheets = {}, {}
 
@@ -242,6 +300,15 @@ def assemble(paths):
                 if key in manifest and manifest[key] != source[key]:
                     raise ValueError(f"conflicting source metadata: {key}")
                 manifest[key] = deepcopy(source[key])
+    shadow, data = character_shadow()
+    if shadow["id"] in sheets:
+        raise ValueError("reserved iso-character-shadow sheet ID")
+    sheets[shadow["id"]] = shadow
+    manifest["sheets"].append(shadow)
+    files[shadow["file"]] = data
+    for character in manifest["characters"]:
+        character["shadow"] = dict(sheetId=shadow["id"], animation="standing", direction="any", renderPass="shadows", seated=False)
+    bind_character_actions(manifest)
     link_blinks(sheets)
     for s in sheets.values():
         validate_clips(s)
@@ -249,7 +316,8 @@ def assemble(paths):
             s["parts"] = [dict(partId=c["partId"], name=c["name"], direction=c["direction"],
                                depthAnchor=deepcopy(c["depthAnchor"]), isoZOrder=c["isoZOrder"],
                                anchor=deepcopy(c.get("anchor", s["anchor"])), anchorChecks=deepcopy(c["anchorChecks"]),
-                               **{key: c[key] for key in ("seatGroupId", "hitTargetId", "state") if key in c}) for c in s["rows"]]
+                               hitTargetId=c.get("hitTargetId", "owner"),
+                               **{key: c[key] for key in ("seatGroupId", "state") if key in c}) for c in s["rows"]]
     for family in manifest["furniture"]:
         family.setdefault("kind", FURNITURE_KINDS[family["id"].removeprefix("iso/")])
         for variant in family["variants"]:
@@ -278,7 +346,7 @@ def verify_references(manifest):
                 if value["sheetId"] not in sheets:
                     raise ValueError(f"missing sheet reference: {value['sheetId']}")
                 sheet = sheets[value["sheetId"]]
-                name = value.get("animation", value.get("clip", value.get("name")))
+                name = value.get("animation", value.get("clip", value.get("name") if "direction" in value else None))
                 if name is not None:
                     facings = value.get("directions", [value.get("direction", "any")])
                     for facing in facings:
@@ -347,6 +415,18 @@ def make_layout(manifest):
                       dict(id="end-left", moduleId="iso/wall-end-cap-l", ground=dict(i=-0.5, j=8.5)),
                       dict(id="end-right", moduleId="iso/wall-end-cap-r", ground=dict(i=8.5, j=-0.5))],
                   cutaway=dict(front="hidden", rear="visible"))
+    if manifest["pets"]:
+        layout["pets"] = [dict(id="cat-1", assetId="iso/cat", x=2, y=4,
+            demonstrationPath=[dict(x=i, y=j) for i, j in ((2, 4), (3, 4), (3, 5), (3, 6), (2, 6), (2, 5), (2, 4))])]
+    if len(manifest["characters"]) == 3:
+        # Frozen synthetic IDs follow the flat UTF-16 FNV-1a + ordinal/probing rule.
+        layout["acceptanceFixture"] = dict(seed=20261004, agents=[
+            dict(id="iso-demo-child", provider="codex", role="worker", parentId="iso-demo-supervisor",
+                 characterId="iso/character/punk-girl", deskId="desk-2", action="reporting"),
+            dict(id="iso-demo-supervisor", provider="claude", role="supervisor",
+                 characterId="iso/character/professor", deskId="desk-3", action="typing"),
+            dict(id="iso-demo-worker", provider="antigravity", role="worker",
+                 characterId="iso/character/dev-hoodie-v2", deskId="desk-1", action="typing")])
     validate_layout(layout, manifest)
     return layout
 
@@ -378,6 +458,13 @@ def validate_layout(layout, manifest):
     for ident, p in approaches:
         if p not in reached:
             raise ValueError(f"{ident}: unreachable approach {p}")
+    reserved = {p for _, p in approaches}
+    for pet in layout.get("pets", []):
+        path = [(p["x"], p["y"]) for p in pet["demonstrationPath"]]
+        if any(p not in reached or p in reserved for p in path):
+            raise ValueError(f"{pet['id']}: demonstration path crosses furniture or an approach")
+        if any(abs(a[0]-b[0]) + abs(a[1]-b[1]) != 1 for a, b in zip(path, path[1:])):
+            raise ValueError(f"{pet['id']}: demonstration path is not four-way")
     return dict(blockedCells=len(blocked), reachableCells=len(reached), reachableApproaches=len(approaches))
 
 
@@ -393,6 +480,10 @@ def atomic_write(path, data):
 
 
 def build_iso_pack(art_dir=ART, output=ART / "pack", *, pilot=False):
+    if output.resolve().is_relative_to((ROOT / "assets/pack").resolve()):
+        raise ValueError("the flat runtime pack is not an iso output directory")
+    if output.resolve().is_relative_to(art_dir.resolve()) and not output.resolve().is_relative_to((art_dir / "pack").resolve()):
+        raise ValueError("source art directories are read-only; publish under iso/pack")
     paths = source_paths(art_dir, CHARACTERS[:1] if pilot else CHARACTERS, extras=not pilot)
     checks = check_sources(paths)
     manifest, files = assemble(paths)
@@ -400,7 +491,12 @@ def build_iso_pack(art_dir=ART, output=ART / "pack", *, pilot=False):
     manifest["layout"] = "layout.json"
     manifest["sourceChecks"] = checks
     manifest["generatedBy"] = "tools/build_iso_pack.py"
-    manifest_data, layout_data = json_bytes(manifest), json_bytes(layout)
+    manifest["complete"] = not pilot
+    manifest["deferredContent"] = ["punk-girl", "professor", "pets", "carriedProps", "environment-polish"] if pilot else []
+    layout_data = json_bytes(layout)
+    manifest["files"] = [dict(file=name, bytes=len(data), sha256=hashlib.sha256(data).hexdigest()) for name, data in sorted(files.items())]
+    manifest["files"].append(dict(file="layout.json", bytes=len(layout_data), sha256=hashlib.sha256(layout_data).hexdigest()))
+    manifest_data = json_bytes(manifest)
     # Immutable PNGs first, assets.json last. Older referenced hashes are retained.
     for filename, data in sorted(files.items()):
         path = output / filename
