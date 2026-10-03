@@ -4,7 +4,7 @@
   "sheets": [
     {
       "id": "char-antigravity-subagent-01",
-      "file": "sheets/pack-6cbbb30a4a5cf2dafee7f8af0009a72bfaac0523a9894790fe735479e993db73.png",
+      "file": "sheets/pack-41967ab993835cce3d1b7a71e261cf4eaceb2b078a2c8bb16331b3cdd98088d1.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -228,12 +228,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-subagent-02",
-      "file": "sheets/pack-bfe0ba60708ed59fe2add88aa363992b731f1788c4561cf4ef1fb3314151d964.png",
+      "file": "sheets/pack-6731a189c875a02c63c9daed27330add1714ca58f20bffdba257b0faa6673ec2.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -457,12 +522,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-subagent-03",
-      "file": "sheets/pack-913d8f081eed32abe010fa75bb1c543d3ec83eb75166325cac12a881d1bcfee1.png",
+      "file": "sheets/pack-c07a1f28d8167e96d6e15da6dd7168e8e3dec9eaa4e6db5514fe81e9861e34d9.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -686,12 +816,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-subagent-04",
-      "file": "sheets/pack-3df9365b629238ec1c93e1435e3bb30f1b73865d9890b3732b86c5279ea65618.png",
+      "file": "sheets/pack-dc0b44cf2a3ecfbaa2088de060a5a7ae80da619e6623c22d153ae8c542cc6212.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -915,12 +1110,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-supervisor-01",
-      "file": "sheets/pack-59c460e721e86b5181bf43c5e249230de2b97c15e885c45b81fd28189ee16e9d.png",
+      "file": "sheets/pack-ddecab7da278559c8865b2991df93c4b41d9f2e3f6e6129ffadc17b85e8397e7.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1144,12 +1404,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-supervisor-02",
-      "file": "sheets/pack-184a5a87abee037c1f48268929f05513cd4432c4e62439c347ed2a42159fce58.png",
+      "file": "sheets/pack-e33fed6123e1f296fc6292df20de4ca92806389439573926331bf9297bfc989b.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1373,12 +1698,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-supervisor-03",
-      "file": "sheets/pack-855f4b8a547576f47e3573e2a6abde746a068c43dbfc859c38579a1cd40eef71.png",
+      "file": "sheets/pack-ff380ec7b3bc3fa9b8789860a6d28ec43919c01b3f4ae8371492e162b21eb6a9.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1602,12 +1992,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-supervisor-04",
-      "file": "sheets/pack-a0c89ffeeeb97bb474dd17ee2a094b5ebf74fc658ccffbfe06dcebdab2520abb.png",
+      "file": "sheets/pack-bbd611a3f5008200269d7139ee9522924987c6299a368a47fb92d20afc8eeb37.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1831,12 +2286,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-worker-01",
-      "file": "sheets/pack-23f5fa9ab3d63d6ae91d235cbb0df23833501f58e7ab4022927b5fe5ccd2e700.png",
+      "file": "sheets/pack-7ea78382a1d269b3ac9f185c71d97f0d9cdceac2ec533f9723884aec18e8a6ed.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2060,12 +2580,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-worker-02",
-      "file": "sheets/pack-3fcebca0683d9d61b8fd9e2d73a3d779148a51f027c267d10eeb8653fbb1c47c.png",
+      "file": "sheets/pack-bf1e5d7f21a034137251d850d223fb7faf46832026b8411edd28961c9e2d377f.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2289,12 +2874,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-worker-03",
-      "file": "sheets/pack-bb150625ecdfa096ecc72fd88019f61ba5407982e3e2bbe133ba7b1f2030c66b.png",
+      "file": "sheets/pack-22bd69f8ed9cedfb095f2277d4817c08c07204b24ab5b44e17abb4413b38a4e7.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2518,12 +3168,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-antigravity-worker-04",
-      "file": "sheets/pack-2174a62f0c6950d205e17197f4c8c0a619f10e5c3e420c8b1fc77de5265652df.png",
+      "file": "sheets/pack-d8b2ce74bfcb953cd79635e875b2a68c90f1007e664195ed79ea3e4e362384bf.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2747,12 +3462,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-subagent-01",
-      "file": "sheets/pack-81d3dcf23ea5cf3a41e58b5f63e9b80725dd96c44b5becf5fa9b7f21c0cfe5c3.png",
+      "file": "sheets/pack-3a08ab5073ee5e4c5947364fdddb2ed1a456fd484ec5855839ab7c473f473892.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2976,12 +3756,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-subagent-02",
-      "file": "sheets/pack-27c3f4b2f5b982a7615297e6e5f4d7329ae950d48311866445470203db77b959.png",
+      "file": "sheets/pack-9cb6ffdcfbbc5e66517a23d5b6213a37d4a1e352aed036f0a09ede5b7251594e.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3205,12 +4050,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-subagent-03",
-      "file": "sheets/pack-28cde6c2848ee31f2a80f51e83c169f9daff6e1a812e9c6032ea7ffc4024af23.png",
+      "file": "sheets/pack-2a53161c1d52d102271d610951aac996d901ee1f7a53baa441e4123a4718f5e1.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3434,12 +4344,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-subagent-04",
-      "file": "sheets/pack-0365a45abf043ecd905ac2884e51db244a99b16f81bda2d74095ca29922bc6e0.png",
+      "file": "sheets/pack-df92a51055f3fcb9653a9290427c506406aaa62fb0b7145a67f0d7945c1c0411.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3663,12 +4638,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-supervisor-01",
-      "file": "sheets/pack-69c09b03913d190299a01be1b3b218f90522533ab6db6f646fca0c30625da448.png",
+      "file": "sheets/pack-582526ac3dbdb058d40f8fe6144ae26a93bef48987e5cba84d916781f88f8a80.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3892,12 +4932,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-supervisor-02",
-      "file": "sheets/pack-bba167e36ca5ef89831f7b1b19a0a6aa5914bd1b7662c799ea1b87dca73d18cb.png",
+      "file": "sheets/pack-962d74f52840efc3ea785cb55c621f9ff07cd3e867f6a2fdc1dbdba6fb5267ef.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4121,12 +5226,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-supervisor-03",
-      "file": "sheets/pack-d90f7774640c0ff9e89f2ff31056d663579a7071bb924e0c169e286ea566acc9.png",
+      "file": "sheets/pack-c16ee82b89c0a8cc0084671c16e0ea958e243a8351bf4facdf59da85d9a350b4.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4350,12 +5520,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-supervisor-04",
-      "file": "sheets/pack-3c92da5b64591adead0961cd5352b6275d5e1b5eafe23594956d684923492d23.png",
+      "file": "sheets/pack-f3e661efad0b78a8c1d200f9cc9db84d978562cdce18c4d4a7efbc832eaba2e9.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4579,12 +5814,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-worker-01",
-      "file": "sheets/pack-120f237bf2c3ec4d2ae2d5aa7d42abb593bc707659f1ccd02883338085e5fc53.png",
+      "file": "sheets/pack-59ec0aa61e823cc312997135990330187e346c539d90b690c3e215979817d454.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4808,12 +6108,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-worker-02",
-      "file": "sheets/pack-540c81416a20a487b381e8790c904e4dabed3a6bf6a52a4d38ac6cc6c4517cc2.png",
+      "file": "sheets/pack-b733a7c89cb389296880e595832b5f5b483bf768de997ca6c8854a15bc8cbcf1.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5037,12 +6402,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-worker-03",
-      "file": "sheets/pack-e496b074ffbf7b7b9ad858a87607b705c75cd73542ac5e47cdd52a57c39d2eff.png",
+      "file": "sheets/pack-fcaababa341d9392232a82b2fa5175770126b6669262aebc452ea6ac9d74b54f.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5266,12 +6696,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-claude-worker-04",
-      "file": "sheets/pack-88d2c9c565262fb9d12bcf309579d3ae4eb1d4e236b003ca64e857f76b514b48.png",
+      "file": "sheets/pack-9e15fb76ae02bfcb2a91e17dd7f3ebd55e9847551f6f425d543f2bfec03f088d.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5495,12 +6990,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-subagent-01",
-      "file": "sheets/pack-2d5ed6b360c6fff58e74ce0affeae903da06651dee528d17b92fd4ea22cdeb4e.png",
+      "file": "sheets/pack-5e28a06e7cdd43ff31e9449e8e58e0f288a752cd287b68f3eaba3c34f3ddf4bd.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5724,12 +7284,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-subagent-02",
-      "file": "sheets/pack-0448e735191731e04c0457d73443fa92ffb7dd3055c8f61efec67533c5bc43dd.png",
+      "file": "sheets/pack-1b45f9f268c447d210197074589f1782321e096e7da32af7cf225b1aee73334a.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5953,12 +7578,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-subagent-03",
-      "file": "sheets/pack-f6a5bad6ad2cf747d1203694258003a74c6c06844c563a86dfb65572b1f4cf39.png",
+      "file": "sheets/pack-789c45388d2c22036a1456fa29e551bdf512edfafd03ba5d60f5d00495b7751a.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -6182,12 +7872,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-subagent-04",
-      "file": "sheets/pack-1feefc639667737e5ef1735b9058495264908e25028fe494e4e11ee2d6759024.png",
+      "file": "sheets/pack-d2da319850a9676fb421d41bb24c28d940ca41e652f0860cf1bb3673c4c60ee8.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -6411,12 +8166,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-supervisor-01",
-      "file": "sheets/pack-d523e922b2054e55ae89edaf3bcca167f9b62942cfd905a05dfe39c3d01ae1db.png",
+      "file": "sheets/pack-5f08a066d447523cc0dcc5ca57b48e5bdefc01dc9634dce07d18f24328184ea9.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -6640,12 +8460,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-supervisor-02",
-      "file": "sheets/pack-86d546da000003ff1cb2a18b483e559571cd7556449df90d9da6e84f1ed95938.png",
+      "file": "sheets/pack-555747a070cf0962bca559d982d4fe831e882d6915586da35243c36af2b5d8b2.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -6869,12 +8754,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-supervisor-03",
-      "file": "sheets/pack-d7f2903207719f69d9d9e032f7e01899685354aca953b735bb9f7af5d74918b4.png",
+      "file": "sheets/pack-72af59f48244fbe3dc26d949f9463485a89c39dfa95b1f7d53cb5b5423503043.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -7098,12 +9048,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-supervisor-04",
-      "file": "sheets/pack-be4ab1c03b336ad7c2d1548f2561161dcea63a48f1a85183bf5b77ff5ac062a6.png",
+      "file": "sheets/pack-018dee631bcd2839ce2bd0493f77339b6d7005fd6f710a42f988f5f1d77595f9.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -7327,12 +9342,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-worker-01",
-      "file": "sheets/pack-170db4c053a801df8f370e4df6996aa537811f5ccef27acba126b9580815aab7.png",
+      "file": "sheets/pack-970e69e0ab1c0a5b6ea56bf9132179ba94bd13b4304a5cb587383fac1a4f0141.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -7556,12 +9636,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-worker-02",
-      "file": "sheets/pack-a6fbf3a952822b337a708900aac6f571db93e33fcd6fd8257cc0935b9bccc956.png",
+      "file": "sheets/pack-3880a9000a5f0be8cb5a145d613c830d093be0ccad814e2d95700c7f66e99517.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -7785,12 +9930,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-worker-03",
-      "file": "sheets/pack-98d91d68da2df08ecd256d33a0bf370101af3b81e7cf089b25d53220f9a2a004.png",
+      "file": "sheets/pack-ee330073d9c9b76625514f4538e6011bb350adce9c12159fc3008011853bdf0c.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -8014,12 +10224,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-codex-worker-04",
-      "file": "sheets/pack-d1ddb790b26830510be90c55c565f1e0069439073cdcb4402ebb545c464cb303.png",
+      "file": "sheets/pack-8b9b1a4d94b3b50fa16d82541971e55a7efab695d8a720394bd71a155050ed0d.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -8243,12 +10518,528 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        }
+      ]
+    },
+    {
+      "id": "char-afro-sweater",
+      "file": "sheets/pack-59136016bfe6600b61bc7ee9129bfd4ffd0316d6e344d7455edc3ad4bda78854.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-apron-baker",
+      "file": "sheets/pack-69d873e52bc3955bcc5827bfad3e9507bf10b4b032c506fd485db4dd8342bd8f.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 17,
+            "y": 54
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 17,
+            "y": 54
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 17,
+            "y": 54
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 17,
+            "y": 54
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 17,
+            "y": 54
+          }
         }
       ]
     },
     {
       "id": "char-beanie-scarf",
-      "file": "sheets/pack-4bd04c0b1a3105ce8f3ed150fbdf0c74f3f86cd241734130e4e2c6236c24e07d.png",
+      "file": "sheets/pack-00ff8f00bf8fcd86d6db8cd3bdd3acbddb3245b5326eb1b50d58f86970ed8993.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -8472,12 +11263,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-cap-teen",
-      "file": "sheets/pack-97f7e78fa8ec5c796a2bc0b21b1939e902c4357939d9e1ce547c87d1c76eb9e7.png",
+      "file": "sheets/pack-8b2ccb94edda7fd33b7d6c59a4585323b34c6defacc538bee2182333cefbd17a.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -8701,12 +11557,371 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        }
+      ]
+    },
+    {
+      "id": "char-cat-hood",
+      "file": "sheets/pack-8364ed68f6cfb29ca93d1017271a33ed955bc580b10e72ca4592e80ccacc2111.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-dev-hoodie",
-      "file": "sheets/pack-6ffa76c6aaded1169b1ecdc5984929ac787a1eac794366d9e9cbf1a4066b2e5e.png",
+      "file": "sheets/pack-ec7fbb603bd33bcc4b3f1ffb09bdb07f084e152257915d5f792b811393e9d811.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -8930,12 +12145,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
         }
       ]
     },
     {
       "id": "char-glasses-bun",
-      "file": "sheets/pack-71f03764914eece8fa1a2e2b8fb6161b0c58c8998311a71dd1e1784237c491b5.png",
+      "file": "sheets/pack-2b407693f57a1ca18c661bbc0d6020a70cbcc750a5a1209cff184d9eabc60d61.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -9155,6 +12435,228 @@
           "name": "blink-waiting",
           "direction": "any",
           "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        }
+      ]
+    },
+    {
+      "id": "char-hijab-designer",
+      "file": "sheets/pack-0ae9a8c66f7162de95f65e3cbbe7eaaa55d2dfc4605f11d882122f43e701e0ca.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -9164,7 +12666,7 @@
     },
     {
       "id": "char-labcoat-tall",
-      "file": "sheets/pack-3b283ce161ba4bed19bb749c67a2effb30c1c09560967f01ed219ce1f01a59b7.png",
+      "file": "sheets/pack-ca8f072be73cbb508a70fb01ef8cff8d9e11a7d29c8cb9a200785458696702c4.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -9388,12 +12890,371 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        }
+      ]
+    },
+    {
+      "id": "char-manager-suit",
+      "file": "sheets/pack-092c463813e65d3fd0f7f56900170297b341ea411505a157ea1c1787ae3b5599.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "char-professor",
-      "file": "sheets/pack-ae2f654c5f2318c98f7b8b80f0deb6cc1e39e3f0fc92c7db25bd61dbc278e6d3.png",
+      "file": "sheets/pack-4defb28d1a4f4788867db692b0cbaba3f35586bb613f9a306e5210a4046c5dc9.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -9617,12 +13478,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
         }
       ]
     },
     {
       "id": "char-punk-girl",
-      "file": "sheets/pack-c621f00cbb072c4df1376e83d81f26380123778fbd6fd71c80cff5e2edee0a4b.png",
+      "file": "sheets/pack-b56180519b2f375bc06297e45b2a7bf5a8c2bdf6dc7c41caf285914bc9178244.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -9846,12 +13772,77 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
         }
       ]
     },
     {
       "id": "char-red-braid",
-      "file": "sheets/pack-8c12b56bce5a3aa8f1f4634ea38891557c31883dd319baed00e0c0212695de72.png",
+      "file": "sheets/pack-ceb1846123d028c5e8e1a99b5adebb0266a4a0aea9f70dee89592de753755b4d.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -10075,17 +14066,964 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 56
+          }
+        }
+      ]
+    },
+    {
+      "id": "char-worker",
+      "file": "sheets/pack-970e69e0ab1c0a5b6ea56bf9132179ba94bd13b4304a5cb587383fac1a4f0141.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        }
+      ]
+    },
+    {
+      "id": "char-worker-subagent",
+      "file": "sheets/pack-5e28a06e7cdd43ff31e9449e8e58e0f288a752cd287b68f3eaba3c34f3ddf4bd.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        }
+      ]
+    },
+    {
+      "id": "char-worker-supervisor",
+      "file": "sheets/pack-5f08a066d447523cc0dcc5ca57b48e5bdefc01dc9634dce07d18f24328184ea9.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "seated_back",
+          "direction": "up",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_left",
+          "direction": "left",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_left",
+          "direction": "left",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "seated_right",
+          "direction": "right",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
+        },
+        {
+          "name": "blink-seated_right",
+          "direction": "right",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "seatAnchor": {
+            "x": 16,
+            "y": 55
+          }
         }
       ]
     },
     {
       "id": "cozy-desk",
-      "file": "sheets/pack-67debabe115d155de64388b02191c6bd45749e1ea4d38a6949b6914860936023.png",
+      "file": "sheets/pack-9482aff32ce36dd56f4bdd76a4815e63f33271b09da34ab6ef3df204dec1401e.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
         "x": 8,
-        "y": 8
+        "y": 22
       },
       "scale": 1,
       "rows": [
@@ -10134,8 +15072,8 @@
           "fps": 1,
           "loop": false,
           "footOffset": {
-            "x": -16,
-            "y": 0
+            "x": -2,
+            "y": 14
           }
         },
         {
@@ -10148,7 +15086,7 @@
           "loop": false,
           "footOffset": {
             "x": 0,
-            "y": -16
+            "y": 12
           }
         },
         {
@@ -10160,8 +15098,8 @@
           "fps": 1,
           "loop": false,
           "footOffset": {
-            "x": 0,
-            "y": 0
+            "x": -14,
+            "y": 14
           }
         },
         {
@@ -10173,8 +15111,8 @@
           "fps": 1,
           "loop": false,
           "footOffset": {
-            "x": -16,
-            "y": 0
+            "x": -2,
+            "y": 14
           }
         },
         {
@@ -10187,7 +15125,7 @@
           "loop": false,
           "footOffset": {
             "x": 0,
-            "y": -16
+            "y": 12
           }
         },
         {
@@ -10199,8 +15137,8 @@
           "fps": 1,
           "loop": false,
           "footOffset": {
-            "x": 0,
-            "y": 0
+            "x": -14,
+            "y": 14
           }
         },
         {
@@ -10212,8 +15150,8 @@
           "fps": 3,
           "loop": true,
           "footOffset": {
-            "x": -16,
-            "y": 0
+            "x": -2,
+            "y": 14
           }
         },
         {
@@ -10226,7 +15164,7 @@
           "loop": true,
           "footOffset": {
             "x": 0,
-            "y": -16
+            "y": 12
           }
         },
         {
@@ -10238,8 +15176,8 @@
           "fps": 3,
           "loop": true,
           "footOffset": {
-            "x": 0,
-            "y": 0
+            "x": -14,
+            "y": 14
           }
         },
         {
@@ -10251,8 +15189,8 @@
           "fps": 1,
           "loop": false,
           "footOffset": {
-            "x": -16,
-            "y": 0
+            "x": -2,
+            "y": 14
           }
         },
         {
@@ -10265,7 +15203,7 @@
           "loop": false,
           "footOffset": {
             "x": 0,
-            "y": -16
+            "y": 12
           }
         },
         {
@@ -10273,6 +15211,67 @@
           "direction": "any",
           "row": 3,
           "column": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -14,
+            "y": 14
+          }
+        }
+      ]
+    },
+    {
+      "id": "cozy-chair-back",
+      "file": "sheets/pack-a22e907e1d9e2409a3587979efe0ee342552782426b071825edda44d0a32b148.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 8
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-chair-back",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-chair-back-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-back-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-chair-back-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
           "frames": 1,
           "fps": 1,
           "loop": false,
@@ -10468,7 +15467,7 @@
     },
     {
       "id": "cozy-tv",
-      "file": "sheets/pack-3599f31caf15b082df2750f20a633ddd45507db7c01762942a82d4f12d8bc240.png",
+      "file": "sheets/pack-584cb9646de1375433f3f43ceb4c5285fc8b6ec5440d3099a5eec3a6a2ab81ec.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -12126,6 +17125,367 @@
       ]
     },
     {
+      "id": "cozy-chair-side-back",
+      "file": "sheets/pack-0e7b9778a7fdc99656b61b3433574a85e1449e8f044155076fe99cc151623e07.png",
+      "cellW": 128,
+      "cellH": 64,
+      "anchor": {
+        "x": 40,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-chair-side-back-right",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-chair-side-back-left",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-chair-side-front",
+      "file": "sheets/pack-dc237f5c6f9566c41796cbef9325c4ca4d1024bd346b33d71778a8f2413969cc.png",
+      "cellW": 128,
+      "cellH": 64,
+      "anchor": {
+        "x": 40,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-chair-side-front-right",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-chair-side-front-left",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk-side-wood",
+      "file": "sheets/pack-107525b234a8f80150cb1c76a0e72393ba444888e2751c6c9fdf1389288fe09d.png",
+      "cellW": 128,
+      "cellH": 64,
+      "anchor": {
+        "x": 40,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-desk-side-wood-right-off",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-wood-right-on",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-wood-right-typing",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "cozy-desk-side-wood-left-off",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-wood-left-on",
+          "direction": "any",
+          "row": 4,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-wood-left-typing",
+          "direction": "any",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk-side-white",
+      "file": "sheets/pack-d6326a6d82361c12dd06d202c1889097e0aaaf69943e95b2e0e5b1f161e6a511.png",
+      "cellW": 128,
+      "cellH": 64,
+      "anchor": {
+        "x": 40,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-desk-side-white-right-off",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-white-right-on",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-white-right-typing",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "cozy-desk-side-white-left-off",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-white-left-on",
+          "direction": "any",
+          "row": 4,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-white-left-typing",
+          "direction": "any",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk-side-double-wood",
+      "file": "sheets/pack-52ae529976abb71d4b08b2afb44b207ecdc1a4e0021405a64086d2740587e6b3.png",
+      "cellW": 128,
+      "cellH": 64,
+      "anchor": {
+        "x": 40,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-desk-side-double-wood-right-off",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-double-wood-right-on",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-double-wood-right-typing",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "cozy-desk-side-double-wood-left-off",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-double-wood-left-on",
+          "direction": "any",
+          "row": 4,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-double-wood-left-typing",
+          "direction": "any",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk-side-double-white",
+      "file": "sheets/pack-127f4a80a54e9c889d52974471e29ba20462ce15a7a76a0f86c0d299ce203dba.png",
+      "cellW": 128,
+      "cellH": 64,
+      "anchor": {
+        "x": 40,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-desk-side-double-white-right-off",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-double-white-right-on",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-double-white-right-typing",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "cozy-desk-side-double-white-left-off",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-double-white-left-on",
+          "direction": "any",
+          "row": 4,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-side-double-white-left-typing",
+          "direction": "any",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "cozy-laptop-table-side",
+      "file": "sheets/pack-8f7e5b5d4c9ab83d2271bf5b761d08cad22828667f08c21cf38b7092922a00f5.png",
+      "cellW": 128,
+      "cellH": 64,
+      "anchor": {
+        "x": 40,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-laptop-table-side-right-variants",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-laptop-table-side-left-variants",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
       "id": "tiles",
       "file": "sheets/pack-095723a8b983c1735c8aa6926fdc0c97c22c8be6070b7cac8c54989551512f88.png",
       "cellW": 32,
@@ -12500,12 +17860,24 @@
       "sheetId": "char-codex-worker-04"
     },
     {
+      "id": "afro-sweater",
+      "sheetId": "char-afro-sweater"
+    },
+    {
+      "id": "apron-baker",
+      "sheetId": "char-apron-baker"
+    },
+    {
       "id": "beanie-scarf",
       "sheetId": "char-beanie-scarf"
     },
     {
       "id": "cap-teen",
       "sheetId": "char-cap-teen"
+    },
+    {
+      "id": "cat-hood",
+      "sheetId": "char-cat-hood"
     },
     {
       "id": "dev-hoodie",
@@ -12516,8 +17888,16 @@
       "sheetId": "char-glasses-bun"
     },
     {
+      "id": "hijab-designer",
+      "sheetId": "char-hijab-designer"
+    },
+    {
       "id": "labcoat-tall",
       "sheetId": "char-labcoat-tall"
+    },
+    {
+      "id": "manager-suit",
+      "sheetId": "char-manager-suit"
     },
     {
       "id": "professor",
@@ -12530,6 +17910,18 @@
     {
       "id": "red-braid",
       "sheetId": "char-red-braid"
+    },
+    {
+      "id": "worker",
+      "sheetId": "char-worker"
+    },
+    {
+      "id": "worker-subagent",
+      "sheetId": "char-worker-subagent"
+    },
+    {
+      "id": "worker-supervisor",
+      "sheetId": "char-worker-supervisor"
     }
   ],
   "furniture": [
@@ -12580,7 +17972,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 24,
+            "y": 41
+          }
         },
         {
           "rotation": 0,
@@ -12625,7 +18027,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-off",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 24,
+            "y": 41
+          }
         },
         {
           "rotation": 0,
@@ -12670,7 +18082,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-working",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 24,
+            "y": 41
+          }
         },
         {
           "rotation": 0,
@@ -12715,7 +18137,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-screensaver",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 24,
+            "y": 41
+          }
         },
         {
           "rotation": 90,
@@ -12760,7 +18192,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-r90",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -32,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -9,
+            "y": 24
+          }
         },
         {
           "rotation": 180,
@@ -12805,7 +18247,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-r180",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -48,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 24,
+            "y": -9
+          }
         },
         {
           "rotation": 270,
@@ -12850,7 +18302,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-r270",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -32,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 41,
+            "y": 24
+          }
         },
         {
           "rotation": 90,
@@ -12895,7 +18357,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-off-r90",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -32,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -9,
+            "y": 24
+          }
         },
         {
           "rotation": 180,
@@ -12940,7 +18412,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-off-r180",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -48,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 24,
+            "y": -9
+          }
         },
         {
           "rotation": 270,
@@ -12985,7 +18467,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-off-r270",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -32,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 41,
+            "y": 24
+          }
         },
         {
           "rotation": 90,
@@ -13030,7 +18522,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-working-r90",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -32,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -9,
+            "y": 24
+          }
         },
         {
           "rotation": 180,
@@ -13075,7 +18577,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-working-r180",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -48,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 24,
+            "y": -9
+          }
         },
         {
           "rotation": 270,
@@ -13120,7 +18632,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-working-r270",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -32,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 41,
+            "y": 24
+          }
         },
         {
           "rotation": 90,
@@ -13165,7 +18687,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-screensaver-r90",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -32,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -9,
+            "y": 24
+          }
         },
         {
           "rotation": 180,
@@ -13210,7 +18742,17 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-screensaver-r180",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": -48,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 24,
+            "y": -9
+          }
         },
         {
           "rotation": 270,
@@ -13255,7 +18797,71 @@
           "sheetId": "cozy-desk",
           "animation": "cozy-desk-screensaver-r270",
           "layer": 1,
+          "zOrder": -32,
+          "chairBackId": "cozy-chair-back",
+          "chairFrontId": "cozy-chair-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 41,
+            "y": 24
+          }
+        }
+      ]
+    },
+    {
+      "id": "cozy-chair-back",
+      "kind": "chair",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back",
+          "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-r90",
+          "layer": 1,
+          "zOrder": -32
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-r180",
+          "layer": 1,
+          "zOrder": -48
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-r270",
+          "layer": 1,
+          "zOrder": -32
         }
       ]
     },
@@ -13285,7 +18891,7 @@
           "sheetId": "cozy-chair-front",
           "animation": "cozy-chair-front-r90",
           "layer": 1,
-          "zOrder": 18
+          "zOrder": -14
         },
         {
           "rotation": 180,
@@ -13297,7 +18903,7 @@
           "sheetId": "cozy-chair-front",
           "animation": "cozy-chair-front-r180",
           "layer": 1,
-          "zOrder": 18
+          "zOrder": -30
         },
         {
           "rotation": 270,
@@ -13309,7 +18915,7 @@
           "sheetId": "cozy-chair-front",
           "animation": "cozy-chair-front-r270",
           "layer": 1,
-          "zOrder": 18
+          "zOrder": -14
         }
       ]
     },
@@ -16338,6 +21944,1950 @@
           "animation": "cozy-counter-stool-r270",
           "layer": 1,
           "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-chair-side-back",
+      "kind": "chair",
+      "variants": [
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-side-back",
+          "animation": "cozy-chair-side-back-right",
+          "layer": 1,
+          "zOrder": -2
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-side-back",
+          "animation": "cozy-chair-side-back-left",
+          "layer": 1,
+          "zOrder": -2
+        }
+      ]
+    },
+    {
+      "id": "cozy-chair-side-front",
+      "kind": "chair",
+      "variants": [
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-side-front",
+          "animation": "cozy-chair-side-front-right",
+          "layer": 1,
+          "zOrder": 4
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-side-front",
+          "animation": "cozy-chair-side-front-left",
+          "layer": 1,
+          "zOrder": 4
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk-side-wood",
+      "kind": "desk",
+      "variants": [
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-wood",
+          "animation": "cozy-desk-side-wood-right-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-wood",
+          "animation": "cozy-desk-side-wood-right-off",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-wood",
+          "animation": "cozy-desk-side-wood-right-typing",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-wood",
+          "animation": "cozy-desk-side-wood-right-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-wood",
+          "animation": "cozy-desk-side-wood-left-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-wood",
+          "animation": "cozy-desk-side-wood-left-off",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-wood",
+          "animation": "cozy-desk-side-wood-left-typing",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-wood",
+          "animation": "cozy-desk-side-wood-left-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk-side-white",
+      "kind": "desk",
+      "variants": [
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-white",
+          "animation": "cozy-desk-side-white-right-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-white",
+          "animation": "cozy-desk-side-white-right-off",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-white",
+          "animation": "cozy-desk-side-white-right-typing",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-white",
+          "animation": "cozy-desk-side-white-right-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-white",
+          "animation": "cozy-desk-side-white-left-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-white",
+          "animation": "cozy-desk-side-white-left-off",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-white",
+          "animation": "cozy-desk-side-white-left-typing",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-white",
+          "animation": "cozy-desk-side-white-left-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk-side-double-wood",
+      "kind": "desk",
+      "variants": [
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-wood",
+          "animation": "cozy-desk-side-double-wood-right-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-wood",
+          "animation": "cozy-desk-side-double-wood-right-off",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-wood",
+          "animation": "cozy-desk-side-double-wood-right-typing",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-wood",
+          "animation": "cozy-desk-side-double-wood-right-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-wood",
+          "animation": "cozy-desk-side-double-wood-left-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-wood",
+          "animation": "cozy-desk-side-double-wood-left-off",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-wood",
+          "animation": "cozy-desk-side-double-wood-left-typing",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-wood",
+          "animation": "cozy-desk-side-double-wood-left-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk-side-double-white",
+      "kind": "desk",
+      "variants": [
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-white",
+          "animation": "cozy-desk-side-double-white-right-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-white",
+          "animation": "cozy-desk-side-double-white-right-off",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-white",
+          "animation": "cozy-desk-side-double-white-right-typing",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 90,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-white",
+          "animation": "cozy-desk-side-double-white-right-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-white",
+          "animation": "cozy-desk-side-double-white-left-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-white",
+          "animation": "cozy-desk-side-double-white-left-off",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-white",
+          "animation": "cozy-desk-side-double-white-left-typing",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 3,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk-side-double-white",
+          "animation": "cozy-desk-side-double-white-left-on",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
+        }
+      ]
+    },
+    {
+      "id": "cozy-laptop-table-side",
+      "kind": "table",
+      "variants": [
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-laptop-table-side",
+          "animation": "cozy-laptop-table-side-right-variants",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": -3,
+            "y": 15
+          }
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-laptop-table-side",
+          "animation": "cozy-laptop-table-side-left-variants",
+          "layer": 1,
+          "zOrder": 2,
+          "chairBackId": "cozy-chair-side-back",
+          "chairFrontId": "cozy-chair-side-front",
+          "chairOffset": {
+            "x": 0,
+            "y": 0
+          },
+          "chairSeatAnchor": {
+            "x": 50,
+            "y": 15
+          }
         }
       ]
     }
