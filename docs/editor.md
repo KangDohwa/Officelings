@@ -2,6 +2,8 @@
 
 Open **Edit office** from the app menu. Editing temporarily uses normal window mode and pauses click-through so the office can receive pointer input. **Done editing** restores the configured window mode and click-through setting. Agents keep animating through the application's `OfficeAnimator.ReloadLayout` hook; editing does not restart tracking.
 
+The editor keeps the selected **Name tags** mode (`hover`, `icon` or `always`). Character and away-desk hover plates still work; detail tooltips are suppressed while editing so they do not cover the grid. Name tag settings belong to the renderer and are not saved in the office layout or tracker state.
+
 The searchable palette includes every furniture asset and tile in the active asset pack, with thumbnails, including the side desks, separate chair backs/fronts and laptop table. Select furniture to place it on the snapped grid, or select a tile and choose a paint tool. **Select / move** selects an instance and drags it to another grid position. A desk, computer and its linked chair layers move, rotate, duplicate and delete together. Clicking either linked chair selects its host for model commands. Laptop tables group with their chairs and linked overflow seats too.
 
 The bundled office stays 35×20 tiles with twelve desks: eight face up, and a central four-seat pod has two right-facing seats opposite two left-facing seats. Side desks select the pack's authored rotation 90/right and 270/left variants. A separate `cozy-laptop-table-side` at (18,10), rotation 90, hosts the right-facing overflow seat at (17,11). It is a table with no typing point, so it adds spare capacity without adding a thirteenth desk. The seven existing lounge/pantry overflow seats remain. Every activity, desk and overflow destination must remain reachable from the door.
@@ -68,10 +70,10 @@ The targeted tests are in `tests/Vibedotcom.Tests/OfficeEditorTests.cs`. They co
 From the repository root, run the built app executable after the coordinated build. These paths use the default Debug output; use the matching output directory for another configuration. Launch the `.exe` so its Windows compatibility manifest applies.
 
 ```powershell
-& ".\src\Vibedotcom.App\bin\Debug\net10.0-windows\Vibedotcom.App.exe" --demo --smoke-test "$env:TEMP/vibedotcom-feedback/final"
+& ".\src\Vibedotcom.App\bin\Debug\net10.0-windows\Vibedotcom.App.exe" --demo --tags always --smoke-test "$env:TEMP/vibedotcom-feedback/final"
 & ".\src\Vibedotcom.App\bin\Debug\net10.0-windows\Vibedotcom.App.exe" --verify-opacity "$env:TEMP/vibedotcom-feedback/opacity"
 ```
 
-The render smoke test writes `normal.png`, `reserved-tags.png`, `overflow.png`, `editor-ui.png` and `auto-fit-small.png` under the supplied `final` directory. Inspect them for normal rendering, reserved-seat labels, overflow agents, editor controls/grid markings and the small-window automatic fit.
+The render smoke test writes `normal.png`, `reserved-tags.png`, `overflow.png`, `editor-ui.png` and `auto-fit-small.png` under the supplied `final` directory. The command above selects `always` so reserved-seat labels are visible without hover. Inspect them for normal rendering, reserved-seat labels, overflow agents, editor controls/grid markings and the small-window automatic fit.
 
 The opacity verifier uses hidden windows and samples its own HWND and parent surface. It does not sample the Explorer desktop or a DWM screen capture. Its 28 native cases exercise five opacity presets, live changes, repainting and native movement/resize without another policy application, with 616 samples. Regular windows read the real HWND's alpha using `GetLayeredWindowAttributes`; per-pixel windows capture that HWND's attached root visual and composite sampled pixels offscreen. Separate baseline pixel diagnostics are not evidence of a native `Window.Opacity` failure. Review the generated JSON evidence in the supplied `opacity` directory for case/sample counts, expected versus actual alpha and unchanged parent pixels.

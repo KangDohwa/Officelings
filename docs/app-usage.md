@@ -6,7 +6,11 @@ The WPF app reads session sources itself. It does not need the headless tracker 
 
 The default window is 720x480 and fits the compact office at an integer zoom. Wheel, with or without Ctrl, and `+` / `-` select 1x through 6x. Drag to pan. Hover shows provider, role, model, project, last prompt, tool, state and elapsed time. The tooltip is passive.
 
-Right-click the office or tray to fit the office, switch between normal, always-on-top and desktop-level modes, or change click-through, borders, transparent background and opacity. Double-click the tray icon or choose **Show normal, clickable office** to recover. Closing exits and removes the icon.
+Right-click the office or tray to fit the office, switch between normal, always-on-top and desktop-level modes, or change click-through, borders, transparent background, opacity and **Name tags**. Double-click the tray icon or choose **Show normal, clickable office** to recover. Closing exits and removes the icon.
+
+Name tags default to **Hover**: only the character under the pointer shows its `[provider icon] name` plate. A reserved desk shows its owner's plate only while that desk is hovered and its owner is away. **Icon** keeps a 12×12 world-pixel provider icon above each head and on away owners' desks; hover reveals the full plate. **Always** keeps full plates visible. Both menus apply the selection immediately and save it for the next launch.
+
+Hover plates fade in over 120ms. Leaving has a 60ms boundary grace, then a 200ms fade out. Moving between the character and its plate, including the gap, keeps the same hover. Detail tooltips appear after 420ms on the same target, remain passive and avoid all visible plates; a tooltip is suppressed if the window has no room. Click-through uses the existing passive cursor polling. Only the tag layer redraws during fades.
 
 Desktop mode embeds beneath Explorer's icon layer using WorkerW or the Windows 11 24H2 raw-desktop Progman layout. If embedding fails, it falls back to `HWND_BOTTOM`. Click-through hover polls the cursor without activating the window or intercepting clicks. Shell integration has [limits](limits.md#desktop-and-lock-screen).
 
@@ -17,6 +21,7 @@ Normal use writes `%LOCALAPPDATA%\Vibedotcom\settings.json` atomically. Close th
 | Key | Default and accepted values |
 | --- | --- |
 | `mode` | `normal`; also `topmost`, `desktop`. |
+| `tagMode` | `hover`; also `icon`, `always`. Missing, null or unknown values fall back to `hover`. Renderer setting; never stored in tracker `state.json`. |
 | `clickThrough` | `false`. |
 | `zoom` | `0` for auto-fit; integers 1 through 6. Fractional values are rounded. |
 | `width`, `height` | 720, 480; window sizing clamps to 400–3000 and 300–2000 respectively. |
@@ -49,15 +54,23 @@ Demo/QA skip implicit personal pack and layout loading. Explicit `--asset-dir` a
 | Flag | Meaning |
 | --- | --- |
 | `--demo` | Invented sessions and default settings, without saving personal settings. |
+| `--tags hover\|icon\|always` | Name tag startup override, including demo, editor, offscreen smoke and idle profiling. |
 | `--asset-dir DIR`, `--layout FILE` | Explicit runtime art/layout inputs. |
 | `--zoom 2`, `--mode desktop`, `--click-through`, `--borderless`, `--transparent`, `--opacity .85` | Startup overrides. Supplying a settings override starts from default settings rather than merging saved settings. |
 | `--quit-after 30` | Bounded exit after the given seconds. |
 | `--smoke-test OUTPUT_DIR` | Offscreen render and interchange exports. Add `--demo` to avoid real sources. |
-| `--profile-idle OUTPUT_DIR` | Bounded 20-second process CPU sample using six fabricated idle agents and an empty tracker home. |
+| `--smoke-tags` | With `--smoke-test`, render all three tag modes with 12 fabricated agents and programmatic hover, without reading logs or opening visible windows. Writes six PNGs, `tags.json` and `smoke.txt`. |
+| `--profile-idle OUTPUT_DIR` | Bounded 20-second process CPU sample: six fabricated idle agents, 8fps WPF updates in one nonactivating offscreen window and an empty tracker home. Saves one initial image; avoids per-frame bitmap copies. |
 | `--verify-opacity OUTPUT_DIR` | Owned-window opacity verification. See [limits](limits.md#verification). |
 | `--qa --quit-after 5` | Own-window lifecycle check. QA requires a finite exit time above zero and at most 60 seconds. |
 
 QA uses an offscreen, nonactivating normal window, without a tray or settings writes, and suppresses cursor polling. Demo/QA do not establish that native desktop hosting works. Commands and output details are in [limits and verification](limits.md).
+
+```powershell
+& .\src\Vibedotcom.App\bin\Debug\net10.0-windows\Vibedotcom.App.exe --demo --smoke-test "$env:TEMP\vibedotcom-tags" --smoke-tags
+```
+
+The offscreen renderer exposes `OfficeView.SimulateHover(point, time)` and `AdvanceHover(time)` to tests. They use the same hit tests and fade state as cursor polling, with no real mouse input. Simulated detail tooltips are drawn into the image instead of opening a popup.
 
 ## Screenshots
 
