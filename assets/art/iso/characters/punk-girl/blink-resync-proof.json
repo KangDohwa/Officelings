@@ -1,0 +1,111 @@
+{
+  "character": "punk-girl",
+  "normalHeadCellsByteIdentical": 152,
+  "blinkHeadCellsByteIdentical": 96,
+  "nonEyeCellsByteIdenticalToNewNormal": 96,
+  "closedEyeCellsByteIdenticalToApprovedBlink": 96,
+  "headOffsetsUnchanged": true,
+  "faceLockAndBlinkMapUnchanged": true,
+  "identityPaletteUnchanged": true,
+  "protectedFileSha256": {
+    "punk-girl.iso.json": "955f7b3b47b4e79f843882269bbe393b40ce47f3b2e32d4027b008082e6bd744",
+    "punk-girl-iso.manifest.json": "955f7b3b47b4e79f843882269bbe393b40ce47f3b2e32d4027b008082e6bd744",
+    "punk-girl-iso.png": "3317d5f8a69629210049dccf7319856f0e7fa0159d27c0398e694424eaaa3ac0",
+    "runs/se-idle-native.png": "2409009db17ad99104aa68fe0336c3e7138a25832b9d7ed09758e6ab218504b3",
+    "runs/sw-idle-native.png": "ce730f2e188e035bea463e57abf5de97fd247047f08ce570df1902737ce86b51",
+    "runs/ne-idle-native.png": "6017359d1cb75bd0ebf62ec04d6af750c5e666a4320c6225aed0728cf1d2e2ed",
+    "runs/nw-idle-native.png": "ac73d5cdc903227cd8f53d6e0d8de1c435fb0428d732798e21165e23e96d51bb",
+    "punk-girl-eyes-se.png": "8ffbe328da160f2d76314f6bf663dfd2f45d91eca99c5e9383d587f381f80009",
+    "punk-girl-eyes-sw.png": "fc74bfe27d7e5238ba1121014f29ec2798351bc5f17f7806e6fe171dcc748d68"
+  },
+  "approvedBlinkSha256": "2fc6f750083246cf50c3b138d7a51c3d15718d30a8c746643fbeafc0e6b22147",
+  "resyncedBlinkSha256": "169841bff54c8d3dbe471c19b3f31e9afe71b355a566ffe73a486398563e22b7",
+  "changedCellsFromApprovedBlink": [
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 0
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 1
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 2
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 3
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 0
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 1
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 2
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 3
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 0
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 1
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 2
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 3
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 0
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 1
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 2
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 3
+    }
+  ],
+  "rgbaEvidenceSha256": {
+    "normalHeadsBefore": "babf35b2aeb748e3b1e4d343029b7468bf7a4bf3d58895d239541d8db6d21fdd",
+    "normalHeadsAfter": "babf35b2aeb748e3b1e4d343029b7468bf7a4bf3d58895d239541d8db6d21fdd",
+    "closedEyesBefore": "f937946f3588906053f204bd9dd47a643cee821cd9e2e4e344d33d463d6708d9",
+    "closedEyesAfter": "f937946f3588906053f204bd9dd47a643cee821cd9e2e4e344d33d463d6708d9"
+  }
+}

@@ -146,7 +146,21 @@
           "fps": 8,
           "loop": true,
           "sourceMaster": "runs/se-idle.png",
-          "lowerBodyMaster": "runs/se-walk.png"
+          "lowerBodyMaster": "runs/motion-rev1/se-walk-master-a1.png",
+          "motionRevision": "motion-rev1",
+          "motionPhases": [
+            "contact",
+            "down",
+            "passing",
+            "up"
+          ],
+          "bodyBobByPhase": [
+            0,
+            1,
+            0,
+            -1
+          ],
+          "motionDerivation": "single-scale generated jacket/boot clusters, native articulated arms/legs; mirrored lower rig and upper-left relight for sw/nw; original locked head bytes and offsets"
         },
         {
           "name": "walk",
@@ -157,7 +171,21 @@
           "fps": 8,
           "loop": true,
           "sourceMaster": "runs/sw-idle.png",
-          "lowerBodyMaster": "runs/se-walk.png"
+          "lowerBodyMaster": "runs/motion-rev1/se-walk-master-a1.png",
+          "motionRevision": "motion-rev1",
+          "motionPhases": [
+            "contact",
+            "down",
+            "passing",
+            "up"
+          ],
+          "bodyBobByPhase": [
+            0,
+            1,
+            0,
+            -1
+          ],
+          "motionDerivation": "single-scale generated jacket/boot clusters, native articulated arms/legs; mirrored lower rig and upper-left relight for sw/nw; original locked head bytes and offsets"
         },
         {
           "name": "walk",
@@ -168,7 +196,21 @@
           "fps": 8,
           "loop": true,
           "sourceMaster": "runs/ne-idle.png",
-          "lowerBodyMaster": "runs/ne-walk.png"
+          "lowerBodyMaster": "runs/motion-rev1/ne-walk-master-a1.png",
+          "motionRevision": "motion-rev1",
+          "motionPhases": [
+            "contact",
+            "down",
+            "passing",
+            "up"
+          ],
+          "bodyBobByPhase": [
+            0,
+            1,
+            0,
+            -1
+          ],
+          "motionDerivation": "single-scale generated jacket/boot clusters, native articulated arms/legs; mirrored lower rig and upper-left relight for sw/nw; original locked head bytes and offsets"
         },
         {
           "name": "walk",
@@ -179,7 +221,21 @@
           "fps": 8,
           "loop": true,
           "sourceMaster": "runs/nw-idle.png",
-          "lowerBodyMaster": "runs/ne-walk.png"
+          "lowerBodyMaster": "runs/motion-rev1/ne-walk-master-a1.png",
+          "motionRevision": "motion-rev1",
+          "motionPhases": [
+            "contact",
+            "down",
+            "passing",
+            "up"
+          ],
+          "bodyBobByPhase": [
+            0,
+            1,
+            0,
+            -1
+          ],
+          "motionDerivation": "single-scale generated jacket/boot clusters, native articulated arms/legs; mirrored lower rig and upper-left relight for sw/nw; original locked head bytes and offsets"
         },
         {
           "name": "seated-typing-front",
@@ -205,7 +261,8 @@
               "x": 29,
               "y": 44
             }
-          ]
+          ],
+          "motionRevision": "motion-rev1"
         },
         {
           "name": "seated-typing-front",
@@ -231,7 +288,8 @@
               "x": 5,
               "y": 44
             }
-          ]
+          ],
+          "motionRevision": "motion-rev1"
         },
         {
           "name": "seated-typing-front",
@@ -257,7 +315,8 @@
               "x": 29,
               "y": 32
             }
-          ]
+          ],
+          "motionRevision": "motion-rev1"
         },
         {
           "name": "seated-typing-front",
@@ -283,7 +342,8 @@
               "x": 5,
               "y": 32
             }
-          ]
+          ],
+          "motionRevision": "motion-rev1"
         },
         {
           "name": "seated-thinking",
@@ -2908,6 +2968,29 @@
     "oppositeViews": "independently generated heads and seated masters; only lower gait reused with x=32-x and relight",
     "headLock": "identical per-facing head bytes; seated and intermediate lowering offset y=-1; total head translation <=1px",
     "props": "body has no baked cup, phone, paper or bubble",
-    "visualAcceptance": "conditional; see NOTES-C1-C2-C3.md"
+    "visualAcceptance": "conditional; see NOTES-C1-C2-C3.md",
+    "motionRevision": {
+      "id": "motion-rev1",
+      "normalRowsChanged": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "additionalDrawingMasters": 2,
+      "attemptsPerMaster": {
+        "se": 1,
+        "ne": 1
+      },
+      "provider": "built-in image_gen",
+      "cleanup": "sprite-gen cutout --key green; one native conversion, palette/alpha snapping, native-grid articulation",
+      "heads": "existing per-facing source pixels and all headOffsetsByClip preserved",
+      "blink": "file deliberately byte-identical per user restriction; blink non-eye/body parity fails for revised se/sw walk and typing; integration pending",
+      "visualAcceptance": "conditional; see CHANGES-motion-rev1.md"
+    }
   }
 }

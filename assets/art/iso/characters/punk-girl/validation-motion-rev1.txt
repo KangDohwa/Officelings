@@ -1,0 +1,20 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| punk-girl.iso.json:punk-girl-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| punk-girl.iso.json:punk-girl-normal | transparency | PASS | straight alpha and guards |
+| punk-girl.iso.json:punk-girl-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| punk-girl.iso.json:punk-girl-normal | palette | PASS | 17 colors; RGB max-channel tolerance 0 |
+| punk-girl.iso.json:punk-girl-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| punk-girl.iso.json:punk-girl-normal | 6×6 seams | SKIP | floor sheets only |
+| punk-girl.iso.json:punk-girl-normal | depth-part names | SKIP | furniture sheets only |
+| punk-girl.iso.json:punk-girl-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| punk-girl.iso.json:punk-girl-normal | face-lock / blink | FAIL | blink changes non-eye RGBA |
+| punk-girl.iso.json:punk-girl-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| punk-girl.iso.json:punk-girl-blink | transparency | PASS | straight alpha and guards |
+| punk-girl.iso.json:punk-girl-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| punk-girl.iso.json:punk-girl-blink | palette | PASS | 17 colors; RGB max-channel tolerance 0 |
+| punk-girl.iso.json:punk-girl-blink | row contract | PASS | 24 rows / 96 cells |
+| punk-girl.iso.json:punk-girl-blink | 6×6 seams | SKIP | floor sheets only |
+| punk-girl.iso.json:punk-girl-blink | depth-part names | SKIP | furniture sheets only |
+| punk-girl.iso.json:punk-girl-blink | face-lock / blink | SKIP | checked from normal character sheet |
+17 checks; 1 failed
