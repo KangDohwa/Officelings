@@ -1,0 +1,24 @@
+﻿Window station: WinSta0
+Calling desktop: CodexSandboxDesktop-002fb34d9446fd0595a9ff726e9a53cd
+EnumWindows result=0 error=0
+hwnd=0000000000311320 parent=0000000000000000 class=WorkerW pid=43924 tid=9612 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000950790 parent=0000000000000000 class=WorkerW pid=1176 tid=14660 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=00000000000f012a parent=0000000000000000 class=WorkerW pid=10284 tid=32476 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=00000000000b066c parent=0000000000000000 class=WorkerW pid=1176 tid=31700 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000070ca4 parent=0000000000000000 class=WorkerW pid=1176 tid=10772 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=00000000000d0b36 parent=0000000000000000 class=WorkerW pid=1176 tid=48808 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000030aea parent=0000000000000000 class=WorkerW pid=1176 tid=20248 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000010272 parent=0000000000000000 class=WorkerW pid=43924 tid=26004 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=000000000001025c parent=0000000000000000 class=WorkerW pid=1176 tid=54812 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=000000000002020c parent=0000000000000000 class=WorkerW pid=1176 tid=59484 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000010206 parent=0000000000000000 class=WorkerW pid=1176 tid=55932 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000010208 parent=0000000000000000 class=WorkerW pid=1176 tid=55932 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000010178 parent=0000000000000000 class=WorkerW pid=1176 tid=55932 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000010170 parent=0000000000000000 class=WorkerW pid=1176 tid=34800 style=84000000 ex=08000080 visible=0 dpi=96 rect=0,0,0,0
+hwnd=000000000001016a parent=0000000000000000 class=WorkerW pid=1176 tid=34800 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000010156 parent=0000000000000000 class=WorkerW pid=1176 tid=2304 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=0000000000010154 parent=0000000000000000 class=WorkerW pid=1176 tid=15052 style=04C00000 ex=00000100 visible=0 dpi=96 rect=0,0,136,39
+hwnd=000000000001015c parent=0000000000000000 class=Progman pid=1176 tid=34800 style=96000000 ex=00200080 visible=1 dpi=96 rect=0,0,2560,1600
+hwnd=0000000000010160 parent=000000000001015c class=SHELLDLL_DefView pid=1176 tid=34800 style=56010000 ex=00080000 visible=1 dpi=96 rect=0,0,2560,1600
+hwnd=0000000000010162 parent=0000000000010160 class=SysListView32 pid=1176 tid=34800 style=56003A40 ex=00000000 visible=1 dpi=96 rect=0,0,2560,1600
+EnumDesktopWindows(Default) result=1 error=0
