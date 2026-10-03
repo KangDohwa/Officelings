@@ -106,7 +106,7 @@ internal sealed class AntigravityProvider : IDisposable
             var explicitState = summary == null ? null : SavedState(summary.Status, summary.Busy, summary.Killed);
             var revision = "summary";
             // A newly added step may precede the next summary write. Re-query existing idx statuses too.
-            if (steps.TryGetValue(path, out var saved) && (explicitState == null || saved.Count > (summary?.Steps ?? 0)))
+            if (explicitState != AgentState.Gone && steps.TryGetValue(path, out var saved) && (explicitState == null || saved.Count > (summary?.Steps ?? 0)))
             {
                 explicitState = saved.State ?? explicitState;
                 if (saved.State != null) { activity = saved.Activity; revision = $"steps:{saved.Count}:{saved.State}"; }
@@ -114,7 +114,7 @@ internal sealed class AntigravityProvider : IDisposable
             if (activity > a.LastSeen) a.LastSeen = activity;
             if (explicitState is { } state)
                 ApplySaved(a, state, activity, revision);
-            else if (a.EventState is not (AgentState.Waiting or AgentState.Reporting or AgentState.Gone) && time > a.LastEvent)
+            else if (!a.Finished && a.EventState is not (AgentState.Waiting or AgentState.Reporting or AgentState.Gone) && time > a.LastEvent)
                 LogParser.SetState(a, AgentState.Working, time);
         }
         foreach (var summary in summaries.Values)
@@ -134,12 +134,15 @@ internal sealed class AntigravityProvider : IDisposable
                 var key = LogParser.Key(Provider.Antigravity, id);
                 if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity);
                 ApplyLiveMetadata(a, value);
-                if (receipt > a.LastSeen) a.LastSeen = receipt; // Healthy loaded idle conversations remain alive.
                 if (LiveState(value) is { } state)
                 {
                     var observation = (receipt, state);
-                    if ((!appliedLive.TryGetValue(id, out var previous) || previous != observation) && receipt >= a.LastEvent)
+                    if ((!appliedLive.TryGetValue(id, out var previous) || previous.State != state ||
+                        state is AgentState.Working or AgentState.Thinking && previous.Receipt != receipt) && receipt >= a.LastEvent)
+                    {
+                        if (receipt > a.LastSeen) a.LastSeen = receipt;
                         LogParser.SetState(a, state, receipt);
+                    }
                     appliedLive[id] = observation;
                 }
             }
@@ -235,6 +238,7 @@ internal sealed class AntigravityProvider : IDisposable
 
     internal static AgentState? LiveState(JsonElement root)
     {
+        if (Flag(root, "killed")) return AgentState.Gone;
         if (Flag(root, "fullyIdle")) return AgentState.Idle;
         return SavedState(LogParser.String(root, "status"), Flag(root, "notFullyIdle"), Flag(root, "killed"));
     }

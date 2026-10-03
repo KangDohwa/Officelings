@@ -54,7 +54,7 @@ internal sealed class AntigravityRuntime : IDisposable
             using var result = JsonDocument.Parse(response.Content.ReadAsStringAsync().GetAwaiter().GetResult());
             return Loaded(result.RootElement);
         }
-        catch (Exception e) when (e is HttpRequestException or TaskCanceledException or JsonException or IOException or UnauthorizedAccessException)
+        catch (Exception e) when (e is HttpRequestException or TaskCanceledException or JsonException or IOException or UnauthorizedAccessException or System.ComponentModel.Win32Exception)
         { port = 0; csrf = null; return null; } // Tokens and response bodies never enter diagnostics.
     }
 
