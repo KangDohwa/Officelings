@@ -1,3 +1,5 @@
+> motion-rev1 현재 상태: 걷기·타이핑 32프레임 수정, 머리·눈·blink 보존. 최종 checker **PASS 11 / SKIP 5 / FAIL 1**(동결 blink 몸체 불일치). [현재 변경·검수·한계](CHANGES-motion-rev1.md)를 먼저 보세요. 아래 내용과 기존 iso-*.png 검수판은 이전 버전 기록입니다.
+
 # Professor ISO — 파일 계약 완료, 시각 승인은 조건부
 
 명시적인 참조 전송 승인을 받고 runs/v1의 준비 시트·크롭·프롬프트에서 재개했다. 준비를 다시 하지 않았다. 저장소 쓰기는 이 professor 폴더뿐이며 다른 lane, src, tests, docs, 가구, pack을 수정하지 않았다. git 쓰기와 dotnet 테스트를 실행하지 않았다.

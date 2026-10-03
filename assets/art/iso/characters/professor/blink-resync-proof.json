@@ -1,0 +1,111 @@
+{
+  "character": "professor",
+  "normalHeadCellsByteIdentical": 152,
+  "blinkHeadCellsByteIdentical": 96,
+  "nonEyeCellsByteIdenticalToNewNormal": 96,
+  "closedEyeCellsByteIdenticalToApprovedBlink": 96,
+  "headOffsetsUnchanged": true,
+  "faceLockAndBlinkMapUnchanged": true,
+  "identityPaletteUnchanged": true,
+  "protectedFileSha256": {
+    "professor.iso.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
+    "professor-iso.manifest.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
+    "professor-iso.png": "066c946208bf11239c0ccde40d4b65616a2cb257951e92dfffd8ec236b284d3c",
+    "runs/v1/head-se.png": "29712fca9df58215128b2ed9d077dee01d088ef4bf482017ca897b489960b4bd",
+    "runs/v1/head-sw.png": "14c08f17dfa9e6ea996587a6f5104ea4d9cfa0b2b838af634c100824bd2a4dbc",
+    "runs/v1/head-ne.png": "17da7eb1aaf6e3009fc10714bcea274c6ae27ee09afba2fda2946ee1f3294469",
+    "runs/v1/head-nw.png": "b43be794121975b6bc932e35fddbf80d77b6b0ebf386ecee53d857bb67a2df52",
+    "professor-eyes-se.png": "38d95fdf7e3555219585b8dad924530d79901779dfe5907c763f6188feed278f",
+    "professor-eyes-sw.png": "33e5b58ed561f710263a2d143054efa9c5c322e089472ee329a1eb002a638a19"
+  },
+  "approvedBlinkSha256": "2db2a6032e43662a3afe5ad048561ca07cdfd2349233691d824889f098ea30a4",
+  "resyncedBlinkSha256": "7a0a4d56a51508429b9e8623bb4d2e4676ac83b945b6c8c8da97f91723c04d9c",
+  "changedCellsFromApprovedBlink": [
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 0
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 1
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 2
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 3
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 0
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 1
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 2
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 3
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 0
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 1
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 2
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 3
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 0
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 1
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 2
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 3
+    }
+  ],
+  "rgbaEvidenceSha256": {
+    "normalHeadsBefore": "5f1a83cbbc8ac5bc6d4750afd51b30f8b1494ffce94c3c9b7c6c0d785328c885",
+    "normalHeadsAfter": "5f1a83cbbc8ac5bc6d4750afd51b30f8b1494ffce94c3c9b7c6c0d785328c885",
+    "closedEyesBefore": "81f280fffc6f423b8cbefad32e608bc970a7fa1ec5667fad4726c2c6ff322b75",
+    "closedEyesAfter": "81f280fffc6f423b8cbefad32e608bc970a7fa1ec5667fad4726c2c6ff322b75"
+  }
+}
