@@ -1,3 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup><InternalsVisibleTo Include="Vibedotcom.Tests" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Data/*.json" /></ItemGroup>
 </Project>

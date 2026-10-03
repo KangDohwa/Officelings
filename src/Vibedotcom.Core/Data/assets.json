@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "sheets": [{"id":"fallback","file":"atlas.png","cellW":16,"cellH":24,"width":720,"height":1176,"scale":1,"anchor":{"x":8,"y":24},"rows":[{"name":"idle","direction":"any","row":0,"frames":1,"fps":1}]}],
+  "characters": [
+    {"id":"fallback-0","sheetId":"fallback"},{"id":"fallback-1","sheetId":"fallback"},
+    {"id":"fallback-2","sheetId":"fallback"},{"id":"fallback-3","sheetId":"fallback"},
+    {"id":"fallback-4","sheetId":"fallback"},{"id":"fallback-5","sheetId":"fallback"},
+    {"id":"fallback-6","sheetId":"fallback"},{"id":"fallback-7","sheetId":"fallback"}
+  ],
+  "tileTypes": [
+    {"id":0,"kind":"wall","color":"#eee5d2"},
+    {"id":1,"kind":"floor","color":"#eadac0"},
+    {"id":2,"kind":"floor","color":"#d7ddc8"},
+    {"id":255,"kind":"void","color":"#f4eddf"}
+  ],
+  "furniture": [
+    {"id":"desk","kind":"desk","variants":[{"rotation":0,"state":"default","footprintW":3,"footprintH":2,"points":[{"id":"seat","x":1,"y":2,"action":"typing","facing":"up"}]}]},
+    {"id":"pantry","kind":"pantry","variants":[{"rotation":0,"state":"default","footprintW":6,"footprintH":2,"points":[{"id":"coffee-1","x":1,"y":2,"action":"coffee"},{"id":"coffee-2","x":2,"y":2,"action":"coffee"}]}]},
+    {"id":"water","kind":"water","variants":[{"rotation":0,"state":"default","footprintW":1,"footprintH":2,"points":[{"id":"water","x":0,"y":2,"action":"water"}]}]},
+    {"id":"tv","kind":"tv","variants":[{"rotation":0,"state":"default","footprintW":4,"footprintH":1,"points":[{"id":"tv-1","x":1,"y":2,"action":"tv"},{"id":"tv-2","x":2,"y":2,"action":"tv"}]}]},
+    {"id":"sofa","kind":"sofa","variants":[{"rotation":0,"state":"default","footprintW":4,"footprintH":1,"points":[{"id":"nap","x":1,"y":1,"action":"napping","facing":"down"}]}]},
+    {"id":"table","kind":"table","variants":[{"rotation":0,"state":"default","footprintW":3,"footprintH":1,"points":[{"id":"chat-1","x":0,"y":1,"action":"chatting","facing":"right"},{"id":"chat-2","x":2,"y":1,"action":"chatting","facing":"left"}]}]},
+    {"id":"plant","kind":"plant","variants":[{"rotation":0,"state":"default","footprintW":1,"footprintH":1,"points":[]}]}
+  ]
+}
