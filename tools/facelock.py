@@ -113,6 +113,18 @@ PROFILES = {
         ([(11,25,16,30),(20,25,24,30)], None),
         ([(11,26,16,31),(20,26,24,31)], (16,31,20,33)),
     ],
+    "cap-teen": [
+        ([(7,21,13,27),(16,21,23,27)], (13,27,17,29)),
+        ([(11,26,17,31)], (8,30,13,32)),
+        ([(16,24,22,30)], (21,29,25,32)),
+        ([(13,23,19,30),(23,23,27,28)], (19,30,23,32)),
+        ([(17,18,23,25)], None),
+        ([(8,28,13,33),(15,28,20,33)], (13,34,18,36)),
+        ([(7,18,13,26),(16,18,23,26)], None),
+        ([(7,21,13,27),(16,21,22,27)], (12,27,18,29)),
+        ([(7,19,13,26),(16,19,22,26)], None),
+        ([(9,19,15,26),(17,19,23,26)], (13,27,17,30)),
+    ],
 }
 BLINK_EYES = {
     "dev-hoodie": [[(9,22,14,27),(20,22,24,27)],[(9,22,15,26)],[(17,22,22,26)]],
@@ -120,7 +132,9 @@ BLINK_EYES = {
     "professor": [[(9,28,14,33),(18,28,24,33)],[(9,26,14,31)],[(18,25,24,30)]],
     "punk-girl": [[(10,19,16,25),(19,19,25,25)],[(11,22,18,27)],[(14,20,21,26),(22,20,27,26)]],
     "p5": [[(9,34,12,38),(18,34,21,38)],[(12,36,16,41)],[(19,35,22,40)]],
+    "cap-teen": [[(8,23,13,27),(17,23,22,27)],[(11,27,17,30)],[(17,25,22,30)]],
 }
+BLINK_SKIN_POINTS = {"professor": [(16,30),(14,29),(24,28)]}
 # Idle anchors were authored with different head pitch/scale. These placements
 # were reviewed against actual eye positions; hair cross-correlation alone is
 # insufficient across those pose changes. No scaling of facial pixels occurs.
@@ -131,7 +145,8 @@ IDLE_OFFSETS = {
     "punk-girl": [[0,-1],[-2,-3],[4,-1]],
     "p5": [[0,-1],[-3,-4],[-1,-4]],
 }
-ROW_OFFSETS = {"p5": {"sleep": [[0,0],[0,0]]}}
+ROW_OFFSETS = {"p5": {"sleep": [[0,0],[0,0]]},
+               "cap-teen": {"report": [[0,0],[-2,5],[-4,9]]}}
 
 
 class Incomplete(ValueError):
@@ -375,15 +390,19 @@ def lock_row(frames, boxes, mouth, reference=None, ref_source=None, offsets=None
     return locked,record
 
 
-def blink_frame(frame, eye_boxes):
+def blink_frame(frame, eye_boxes, skin_point=None):
     result=frame.copy()
     for x0,y0,x1,y1 in eye_boxes:
         area=box_mask(frame.shape,[(x0,y0,x1,y1)])
-        nearby=dilate(area,3)&~area&skin_pixels(frame)
+        rgb=frame[:,:,:3].astype(float)
+        warm=skin_pixels(frame)&(rgb[:,:,1]<=rgb[:,:,0]*.85)
+        nearby=area&warm
+        if not nearby.any():
+            nearby=dilate(area,3)&~area&warm
         if not nearby.any():
             raise ValueError("blink has no nearby skin")
         colors,counts=np.unique(frame[nearby,:3],axis=0,return_counts=True)
-        skin=colors[counts.argmax()]
+        skin=(frame[skin_point[1],skin_point[0],:3] if skin_point else colors[counts.argmax()])
         # A single native-pixel lid, using the darkest original eye color.
         pixels=frame[area,:3];ink=pixels[np.argmin(pixels.mean(axis=1))]
         area &= frame[:,:,3]>0
@@ -452,7 +471,8 @@ def process(name, mp, sp, roster=None, make_blink=False, frames_dir=None, profil
             if boxes is None:
                 boxes=[(b[0],min(b[3]-1,b[1]+2),b[2],b[3]) for b in records[state]["eyeBoxes"]]
             file=(f"{name}-blink-{direction}.png" if roster is None else f"blink-{direction}.png")
-            files[file]=png_bytes(blink_frame(results[state][0],boxes))
+            point=BLINK_SKIN_POINTS.get(profile_key,[None]*3)[i]
+            files[file]=png_bytes(blink_frame(results[state][0],boxes,point))
             blink[direction]={"file":file,"source":{"state":state,"frame":0},"durationMs":100}
         m["blink"]=blink
     input_hash=hashlib.sha256(b"".join(b for _,b in sorted(blobs.items(),key=lambda p:str(p[0])))).hexdigest()
