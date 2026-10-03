@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "env2-props",
+    "description": "Original environment assets; reference is style/palette only, no people",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "bookshelf": {
+      "frames": 2,
+      "fps": 1,
+      "loop": false,
+      "action": "Two distinct walnut BOOKSHELVES, each 38x50 logical pixels. Frame 0 tall three-shelf bookcase with teal/red/cream books and a brass bookend. Frame 1 two shelves above two cream cabinet doors, colorful books and a tiny pot attached to the top. All books touch shelves."
+    },
+    "pictures": {
+      "frames": 4,
+      "fps": 1,
+      "loop": false,
+      "action": "Four different small FRAMED PICTURES, each 28x22 pixels, straight frontal wall art. 0 cream mountain/sun landscape in walnut frame, 1 teal botanical leaf print in honey frame, 2 sleeping orange cat portrait in walnut frame, 3 abstract red/blue/cream geometric blocks in honey frame. No words, no wall."
+    },
+    "boards": {
+      "frames": 2,
+      "fps": 1,
+      "loop": false,
+      "action": "Frame 0 a small round ivory WALL CLOCK with dark rim, black hands at 10:10 and a muted red second hand, 22x22 pixels, no numbers. Frame 1 a horizontal WHITEBOARD in thin walnut frame, 48x28 pixels, with teal/red block diagrams and two tiny markers resting in connected bottom tray, no legible words. Wall mounted, no wall."
+    },
+    "storage": {
+      "frames": 2,
+      "fps": 1,
+      "loop": false,
+      "action": "Frame 0 a cream three-drawer FILING CABINET with charcoal outlines, little brass label slots and feet, 28x44 pixels. Frame 1 a compact cream/charcoal desktop PRINTER, 30x22 pixels, with one sheet of paper extending upward and teal ready lamp, all connected. No table."
+    },
+    "tables": {
+      "frames": 3,
+      "fps": 1,
+      "loop": false,
+      "action": "Frame 0 BIG WALNUT MEETING TABLE AND FOUR CHAIRS SET, one connected compact grouping, horizontal rectangular table visible from above with two small chairs at each long side, about 60x48 pixels total. Chairs overlap table edge so entire set is a single component. Frame 1 ROUND WOOD TABLE with round honey top and short central pedestal, 36x30 pixels. Frame 2 low rectangular COFFEE TABLE with walnut rim, honey top, visible short feet and two magazines ON top, 46x24 pixels. No floor."
+    },
+    "desks": {
+      "frames": 2,
+      "fps": 1,
+      "loop": false,
+      "action": "Frame 0 WOOD DESK, plain walnut 54x30 pixels, large clear honey top surface, slim drawer on left and two visible legs. Frame 1 WHITE DESK same geometry with warm ivory top and walnut legs, little red notebook touching back corner. No monitor, keyboard, chair, person or floor. Separate monitors will be layered onto tops."
+    },
+    "chairs": {
+      "frames": 3,
+      "fps": 1,
+      "loop": false,
+      "action": "Three identical ergonomic OFFICE CHAIRS facing up toward a desk, 26x32 pixels: frame 0 muted teal upholstery, 1 dusty blue upholstery, 2 brick-red upholstery. Rounded backrest, seat and charcoal wheeled base. Only upholstery colors differ; identical scale and shape. No people."
+    },
+    "monitors": {
+      "frames": 3,
+      "fps": 1,
+      "loop": false,
+      "action": "Three desktop MONITOR assets with integrated little keyboard touching base, front-facing, 30x25 pixels: 0 cream old chunky CRT with dark green pixel terminal, 1 slim charcoal modern screen with teal terminal blocks, 2 two slim adjacent charcoal monitors sharing joined base and keyboard, 42x25 pixels. Clean unlettered screen blocks, no desk."
+    },
+    "seating": {
+      "frames": 3,
+      "fps": 1,
+      "loop": false,
+      "action": "Frame 0 brick RED TWO-SEAT SOFA facing DOWN, 58x30 logical pixels, tall back behind two cushions, generous arms, walnut feet and one cream pillow touching cushion. Frame 1 SAME RED TWO-SEAT SOFA facing RIGHT, long axis vertical on screen, 32x50 pixels, backrest along LEFT edge, seats open toward RIGHT, no diagonal rotation. Frame 2 warm cream-and-teal ARMCHAIR facing down, 30x32 pixels with walnut feet and cream pillow. No floor."
+    },
+    "rugs": {
+      "frames": 2,
+      "fps": 1,
+      "loop": false,
+      "action": "Two RECTANGULAR RUGS seen straight overhead, each 56x38 pixels, no perspective, shadow or solid surrounding floor: 0 dusty blue field with cream stepped geometric border and a tiny muted teal center diamond, 1 brick red field with honey/cream border and small stepped central diamond. Crisp quiet woven pixel motifs, full connected rectangular silhouette. No fringe separated from rug."
+    },
+    "plants": {
+      "frames": 5,
+      "fps": 1,
+      "loop": false,
+      "action": "Five different connected houseplants in terracotta/cream pots: 0 broad-leaf MONSTERA 28x38 pixels, 1 tall narrow SNAKE PLANT 24x40, 2 dense FERN 30x32, 3 tiny round SUCCULENT 20x20, 4 indoor FICUS TREE 32x50 with round layered olive canopy and visible brown trunk. Muted olive, sage and deep teal leaves, cream highlights. Every leaf touches stem/pot, no floating particles."
+    },
+    "pantry": {
+      "frames": 4,
+      "fps": 1,
+      "loop": false,
+      "action": "Four kitchen/pantry objects: 0 dark navy VENDING MACHINE 32x52 pixels with cream/red/teal drink rows behind dark glass, coin slot and dispensing opening; 1 warm ivory FRIDGE 30x50 pixels with two doors, dark handles, little teal magnet and red note; 2 walnut KITCHEN COUNTER/SINK 54x32 pixels, ivory countertop, blue-grey sink bowl, connected dark faucet, cream cabinet doors; 3 small ivory MICROWAVE 30x20 pixels with charcoal door, teal status light and two knobs. No floor or people."
+    },
+    "small": {
+      "frames": 3,
+      "fps": 1,
+      "loop": false,
+      "action": "Three separate small props: 0 charcoal cylindrical TRASH BIN 18x22 pixels with ivory rim and one cream crumpled paper resting inside; 1 warm ivory MUG 12x12 pixels with brown coffee and handle connected on right, no steam; 2 cozy FLOOR LAMP 22x46 pixels, cream pleated shade, walnut pole and round charcoal base, all connected, no external glow."
+    },
+    "light": {
+      "frames": 1,
+      "fps": 1,
+      "loop": false,
+      "action": "One top-down CEILING LIGHT WITH PIXEL GLOW, 48x28 pixels total. Small warm ivory/ochre hanging oval fixture centered within three concentric hard-edged pale honey pixel halos, no gradients. The halo is a compact connected sprite on magenta, intended to have semitransparency applied later. No chain, floor or other object."
+    },
+    "server": {
+      "frames": 3,
+      "fps": 4,
+      "loop": true,
+      "action": "Three animation frames of the EXACT SAME dark navy SERVER RACK, 28x50 pixels. Five horizontal units, charcoal vents, little teal/amber LED lights. Frame 0 green LED on upper unit, frame 1 amber LED on middle unit, frame 2 teal LED on lower unit. ONLY the small LED pixels change; every cabinet edge and vent MUST be identical. No floor."
+    },
+    "cat_sleep": {
+      "frames": 1,
+      "fps": 1,
+      "loop": false,
+      "action": "One adorable small orange tabby CAT SLEEPING curled into an oval, 24x16 logical pixels, tail wrapped around body, two closed dark eyes, cream muzzle and belly, little triangular ears, dark selective outline. Seen from top/front, no bed, pillow, floor or shadow."
+    },
+    "cat_walk": {
+      "frames": 2,
+      "fps": 4,
+      "loop": true,
+      "action": "Two walking contact frames of the SAME adorable orange tabby CAT facing RIGHT, 28x20 pixels, cream muzzle/belly, black tiny eyes, two triangular ears, upright curled tail. Frame 0 near front paw forward and near back paw back; frame 1 near front paw back and near back paw forward. Body/head/size stable, opposite paws alternate, four paws recognizable. No floor, shadow or floating bits."
+    },
+    "vacuum": {
+      "frames": 2,
+      "fps": 4,
+      "loop": true,
+      "action": "Two frames of SAME SMALL ROBOT VACUUM, 22x16 pixels, top-down 3/4 view, round ivory body with charcoal side skirt, teal top status LED and small connected side brush. Frame 0 brush points diagonally forward-right, frame 1 brush points directly right and LED changes amber. Keep body exactly same size/position, no floor or shadow."
+    }
+  },
+  "style": "Match the attached existing office props EXACTLY: cozy warm 2D chibi-world game pixel art, orthographic three-quarter top-down front view with horizontal front edges, NEVER isometric. True chunky logical pixels, crisp 1 pixel selective dark charcoal/navy outlines, warm walnut/honey wood, cream, muted teal, dusty blue, brick red, terracotta and olive. Two or three flat shades per material. No gradients, antialiasing, noise, dithering, text, people, ground shadows or floor patches. Do not copy the layout guide as boxes. Objects are separate connected silhouettes with huge magenta gaps. Each stated frame is a separate asset. Preserve readable details at native scale. TRUE 64x64 logical cell grid.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": false,
+    "resample": "kcentroid",
+    "palette_size": 48,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}

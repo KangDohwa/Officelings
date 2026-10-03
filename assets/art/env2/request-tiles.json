@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "env2-tiles",
+    "description": "Original environment assets; reference is style/palette only, no people",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 32,
+    "height": 32,
+    "safe_margin_x": 0,
+    "safe_margin_y": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "wood": {
+      "frames": 3,
+      "fps": 1,
+      "loop": false,
+      "action": "Three full opaque SQUARE wooden floor textures, each true 32x32 logical pixels seen straight overhead. Four horizontal plank bands 8px high, subtle 1px joins, few short sparse grain lines. 0 honey oak, 1 warm walnut slightly darker, 2 pale honey with staggered plank ends. Use muted warm golds/browns from reference. No frame around tile, no perspective. Left/right edges seamless; top/bottom periodic. Separated square panels on magenta."
+    },
+    "carpet": {
+      "frames": 2,
+      "fps": 1,
+      "loop": false,
+      "action": "Two full opaque square 32x32 CARPET TILES: 0 muted dusty BLUE, 1 muted brick RED. Quiet flat field with only a few sparse one-pixel weave dots, no motifs, no border, no outline, no perspective. Seamless across all edges. Separated square panels on magenta."
+    },
+    "hard_floor": {
+      "frames": 3,
+      "fps": 1,
+      "loop": false,
+      "action": "Three full opaque square 32x32 floor textures, overhead, no border or outline: 0 BLACK/CREAM CHECKER PANTRY with exactly 4x4 squares each 8px, charcoal black and warm ivory; 1 BATHROOM ceramic tile, pale ivory/blue-grey with 2x2 big squares and 1px muted grout, no speckles; 2 warm grey STONE floor, 2x2 blocks with subtle brown-grey joins and two small texture pixels. All edges repeat seamlessly. Separated square panels on magenta."
+    },
+    "wall": {
+      "frames": 2,
+      "fps": 1,
+      "loop": false,
+      "action": "Two full opaque square 32x32 FRONT WALL PANELS, NOT floor or perspective. 0 dark navy painted panel with muted teal inset, thin warm walnut chair rail at y=24 and dark charcoal baseboard last 3 pixels. 1 warm walnut vertical wood panel with sparse darker central seam, honey chair rail at y=24 and same charcoal baseboard last 3 pixels. Flat top edge, no side border. Left and right edges match. No objects or windows; structural variations assembled later from these panels."
+    }
+  },
+  "style": "Match the attached existing office props EXACTLY: cozy warm 2D chibi-world game pixel art, orthographic three-quarter top-down front view with horizontal front edges, NEVER isometric. True chunky logical pixels, crisp 1 pixel selective dark charcoal/navy outlines, warm walnut/honey wood, cream, muted teal, dusty blue, brick red, terracotta and olive. Two or three flat shades per material. No gradients, antialiasing, noise, dithering, text, people, ground shadows or floor patches. Do not copy the layout guide as boxes. Objects are separate connected silhouettes with huge magenta gaps. Each stated frame is a separate asset. Preserve readable details at native scale. TRUE 32x32 logical tile grid; flat full opaque square textures.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": false,
+    "resample": "kcentroid",
+    "palette_size": 48,
+    "align_x": "bbox-center",
+    "align_y": "center",
+    "ground_frames": false
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
