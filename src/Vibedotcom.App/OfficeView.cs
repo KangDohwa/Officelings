@@ -15,14 +15,14 @@ namespace Vibedotcom.App;
 
 internal sealed class OfficeView : FrameworkElement
 {
-    internal static readonly Color BackgroundColor = (Color)ColorConverter.ConvertFromString("#302d2b");
+    internal static readonly Color BackgroundColor = (Color)ColorConverter.ConvertFromString("#10282b");
     private OfficeLayout office = new OfficeAnimator().Layout;
     private IReadOnlyList<AgentView> agents = Array.Empty<AgentView>();
     private readonly Dictionary<string, AgentView> byId = new();
     private readonly AssetPack assets;
     private readonly Dictionary<string, BitmapSource> sheets = new();
     private readonly Dictionary<(string, int, int, int, int), BitmapSource> sprites = new();
-    private readonly Dictionary<(string, int, int, int, int), int> spriteTops = new();
+    private readonly Dictionary<(string, int, int, int, int), Rect> spriteContent = new();
     private readonly Dictionary<string, DrawingGroup> furnitureCache = new();
     private IReadOnlyList<FurnitureSprite> furnitureSprites = Array.Empty<FurnitureSprite>();
     private bool debugTooltip;
@@ -149,22 +149,37 @@ internal sealed class OfficeView : FrameworkElement
         return new(Math.Round((p.X+.5)*16-s.AnchorX*s.Scale+s.OffsetX),
             Math.Round((p.Y+1)*16-s.AnchorY*s.Scale+s.OffsetY),s.Width*s.Scale,s.Height*s.Scale);
     }
-    private double HeadY(Pose p)
+    private Rect ContentBounds(Pose p)
     {
-        var s=p.Sprite!; var key=(s.SheetId,s.X,s.Y,s.Width,s.Height);
-        if (!spriteTops.TryGetValue(key,out var top))
+        var s=p.Sprite!; var content=ImageContentBounds(s); var bounds=SpriteBounds(p);
+        return new(bounds.Left+content.Left*s.Scale,bounds.Top+content.Top*s.Scale,content.Width*s.Scale,content.Height*s.Scale);
+    }
+    private Rect ImageContentBounds(SpriteFrame s)
+    {
+        var key=(s.SheetId,s.X,s.Y,s.Width,s.Height);
+        if (!spriteContent.TryGetValue(key,out var content))
         {
             var bitmap=new FormatConvertedBitmap(Image(s),PixelFormats.Bgra32,null,0);
             var pixels=new byte[s.Width*s.Height*4]; bitmap.CopyPixels(pixels,s.Width*4,0);
-            top=0;
-            for (var y=0;y<s.Height;y++)
+            var left=s.Width; var top=s.Height; var right=0; var bottom=0;
+            for (var y=0;y<s.Height;y++) for (var x=0;x<s.Width;x++)
             {
-                if (!Enumerable.Range(0,s.Width).Any(x=>pixels[(y*s.Width+x)*4+3]>32)) continue;
-                top=y; break;
+                if (pixels[(y*s.Width+x)*4+3]<=32) continue;
+                left=Math.Min(left,x); top=Math.Min(top,y); right=Math.Max(right,x+1); bottom=Math.Max(bottom,y+1);
             }
-            spriteTops[key]=top;
+            content=right>left ? new(left,top,right-left,bottom-top) : new(0,0,s.Width,s.Height);
+            spriteContent[key]=content;
         }
-        return SpriteBounds(p).Top+top*s.Scale;
+        return content;
+    }
+    private double HeadY(Pose p) => ContentBounds(p).Top;
+    private Rect FurnitureBounds(Furniture f)
+    {
+        var v=assets.Variant(f);
+        if (v.SheetId==null || v.Animation==null) return new(f.X*16,f.Y*16,f.Width*16,f.Height*16);
+        var s=furnitureSprites.FirstOrDefault(p=>p.Id==f.Id)?.Sprite ?? assets.Frame(v.SheetId,v.Animation,"any",0);
+        var content=ImageContentBounds(s);
+        return new(f.X*16+(content.X-s.AnchorX)*s.Scale+s.OffsetX,f.Y*16+(content.Y-s.AnchorY)*s.Scale+s.OffsetY,content.Width*s.Scale,content.Height*s.Scale);
     }
     private void BuildRoom()
     {
@@ -277,14 +292,20 @@ internal sealed class OfficeView : FrameworkElement
     protected override void OnRender(DrawingContext dc)
     {
         // Also supplies the empty floor with a hit-test surface for panning.
-        dc.DrawRectangle(transparent ? Brushes.Transparent : Color("#302d2b"),null,new(0,0,ActualWidth,ActualHeight));
+        dc.DrawRectangle(transparent ? Brushes.Transparent : Color("#10282b"),null,new(0,0,ActualWidth,ActualHeight));
         var origin = Origin; dc.PushTransform(new TranslateTransform(origin.X,origin.Y)); dc.PushTransform(new ScaleTransform(zoom,zoom));
         if (room == null) BuildRoom(); dc.DrawDrawing(room!);
-        var line = new Pen(Color("#9bab9e"),.7) { DashStyle = DashStyles.Dot }; line.Freeze();
+        var line = new Pen(Color("#405cbbb5"),.6) { DashStyle = DashStyles.Dot }; line.Freeze();
         foreach (var child in agents)
             if (child.Pose.Visible && child.Agent.ParentId != null && byId.TryGetValue(child.Agent.ParentId,out var parent) && parent.Pose.Visible &&
-                (child.Pose.Action is "entering" or "walking" or "pickup" or "reporting"))
-                dc.DrawLine(line,new((child.Pose.X+.5)*16,(child.Pose.Y+.3)*16),new((parent.Pose.Desk.X+.5)*16,(parent.Pose.Desk.Y+.3)*16));
+                (child.Agent.State is AgentState.Working or AgentState.Reporting || hovered == child.Agent.Id || hovered == parent.Agent.Id))
+            {
+                var start = new Point((child.Pose.X+.5)*16,(child.Pose.Y+1)*16-5);
+                var end = new Point((parent.Pose.X+.5)*16,(parent.Pose.Y+1)*16-5);
+                var distance = (end-start).Length;
+                if (distance > 64 || distance < 12) continue;
+                dc.DrawLine(line,start,start+(end-start)*Math.Min(1,40/distance));
+            }
         var scene = office.Furniture.Select(f=>(Layer:assets.Variant(f).Layer,Y:(double)(f.Y+f.Height)*16+assets.Variant(f).ZOrder,Id:f.Id,F:(Furniture?)f,A:(AgentView?)null))
             .Concat(agents.Where(a=>a.Pose.Visible).Select(a=>(Layer:1,Y:(a.Pose.Y+1)*16,Id:a.Agent.Id,F:(Furniture?)null,A:(AgentView?)a)))
             .OrderBy(d=>d.Layer).ThenBy(d=>d.Y).ThenBy(d=>d.Id,StringComparer.Ordinal);
@@ -299,12 +320,10 @@ internal sealed class OfficeView : FrameworkElement
             var x=desk.X*16; var y=desk.Y*16;
             R(dc,ProviderColor(owner.Agent.Provider),x,y+desk.Height*16-2,5,2);
             if (owner.Pose.ReportOnDesk) { R(dc,"#fff9e7",x+desk.Width*16-12,y+18,9,7); R(dc,"#a19a7e",x+desk.Width*16-11,y+20,6,1); }
-            var labelY=(owner.Pose.Desk.Y+1)*16+5;
-            R(dc,"#f4e2bd",x-2,labelY,Math.Min(desk.Width*16+8,owner.Agent.Name.Length*4+8),10);
-            Text(dc,owner.Agent.Name,x+1,labelY,7,"#392b24",maxWidth:desk.Width*16+8);
         }
+        var plates = new List<Rect>();
         foreach (var agent in agents.Where(a=>a.Pose.Visible))
-        { DrawIdentity(dc,agent); DrawBubble(dc,agent); }
+        { DrawBubble(dc,agent); DrawName(dc,agent,plates); }
         if (agents.Count == 0)
         { Text(dc,"A quiet moment.",30,132,10,bold:true); Text(dc,"Your agents will walk in.",30,151,7,maxWidth:95); }
         dc.Pop(); dc.Pop();
@@ -324,6 +343,26 @@ internal sealed class OfficeView : FrameworkElement
         { var x=(p.X+.5)*16; var y=(p.Y+1)*16-12; R(dc,"#fff9e7",x+(p.Facing=="left" ? -10 : 4),y,6,8); }
         dc.Pop();
     }
+    private void DrawName(DrawingContext dc, AgentView agent, List<Rect> plates)
+    {
+        var p=agent.Pose; var x=Math.Round((p.X+.5)*16); var foot=Math.Round((p.Y+1)*16);
+        var width=Math.Clamp(agent.Agent.Name.Length*4+10,24,58);
+        var candidates=new[] { new Rect(x-width/2,foot+2,width,9), new Rect(x-width/2,HeadY(p)-12,width,9),
+            new Rect(x+12,foot-7,width,10), new Rect(x-width-12,foot-7,width,10) };
+        static bool Overlaps(Rect a, Rect b) => a.Left<b.Right && a.Right>b.Left && a.Top<b.Bottom && a.Bottom>b.Top;
+        bool Clear(Rect rect) => rect.Left>=16 && rect.Right<office.WidthTiles*16-16 && rect.Top>=0 && rect.Bottom<office.HeightTiles*16-16 &&
+            !plates.Any(r=>Overlaps(r,rect)) &&
+            !office.Furniture.Where(f=>assets.Variant(f).Layer==1 && (assets.Variant(f).BlockedCells?.Count ?? 1)>0).Any(f=>Overlaps(FurnitureBounds(f),rect)) &&
+            !agents.Where(a=>a.Pose.Visible && a.Agent.Id!=agent.Agent.Id).Any(a=>Overlaps(ContentBounds(a.Pose),rect));
+        var plate=candidates.FirstOrDefault(Clear);
+        if (plate.IsEmpty || plate.Width==0) return;
+        plates.Add(plate); dc.PushOpacity(p.Opacity);
+        R(dc,agent.Agent.IsSubagent ? "#252b48" : "#bc8b42",plate.X-1,plate.Y-1,plate.Width+2,plate.Height+2);
+        R(dc,"#f4e2bd",plate.X,plate.Y,plate.Width,plate.Height);
+        R(dc,ProviderColor(agent.Agent.Provider),plate.X+2,plate.Y+3,3,3);
+        Text(dc,agent.Agent.Name,plate.X+7,plate.Y,7,"#392b24",maxWidth:plate.Width-8);
+        dc.Pop();
+    }
     private void DrawBubble(DrawingContext dc, AgentView agent)
     {
         var p=agent.Pose;
@@ -337,7 +376,7 @@ internal sealed class OfficeView : FrameworkElement
             if (clip == null) return;
             var f = assets.Frame("icons",clip,"any",0);
             dc.PushOpacity(p.Opacity);
-            dc.DrawImage(Image(f),new(Math.Round((p.X+.5)*16+8),HeadY(p)-30,f.Width*f.Scale,f.Height*f.Scale));
+            dc.DrawImage(Image(f),new(Math.Round((p.X+.5)*16+8),HeadY(p)-24,24,24));
             dc.Pop(); return;
         }
         int? bubble=p.Reaction != null ? 5 : p.Action switch
@@ -350,31 +389,15 @@ internal sealed class OfficeView : FrameworkElement
         var rect=SpriteBounds(p);
         dc.PushOpacity(p.Opacity); dc.DrawImage(Image(s),new((p.X+.5)*16-8,rect.Top-17,16,24)); dc.Pop();
     }
-    private void DrawIdentity(DrawingContext dc, AgentView agent)
-    {
-        var p=agent.Pose;
-        var x=Math.Round((p.X+.5)*16); var y=HeadY(p)-2;
-        dc.PushOpacity(p.Opacity);
-        // Provider accents travel with the character; the gold crown marks supervisors.
-        R(dc,"#392b24",x-7,y-5,14,7); R(dc,ProviderColor(agent.Agent.Provider),x-6,y-4,12,5);
-        if (!agent.Agent.IsSubagent)
-        {
-            R(dc,"#392b24",x-5,y-10,10,6);
-            R(dc,"#f4c764",x-4,y-7,8,3);
-            R(dc,"#f4c764",x-4,y-9,2,2); R(dc,"#f4c764",x-1,y-10,2,3); R(dc,"#f4c764",x+2,y-9,2,2);
-        }
-        else { R(dc,"#fff2d2",x-2,y-3,4,3); }
-        dc.Pop();
-    }
     public Point AgentPoint(AgentView agent)
     {
-        var b=SpriteBounds(agent.Pose); var o=Origin;
+        var b=ContentBounds(agent.Pose); var o=Origin;
         return new(o.X+(b.X+b.Width/2)*zoom,o.Y+(b.Y+b.Height/2)*zoom);
     }
     public AgentView? HitAgent(Point point)
     {
         var o=Origin; var world=new Point((point.X-o.X)/zoom,(point.Y-o.Y)/zoom);
-        return agents.Where(a=>a.Pose.Visible).OrderByDescending(a=>a.Pose.Y).FirstOrDefault(a=>SpriteBounds(a.Pose).Contains(world));
+        return agents.Where(a=>a.Pose.Visible).OrderByDescending(a=>a.Pose.Y).FirstOrDefault(a=>ContentBounds(a.Pose).Contains(world));
     }
     public void SimulateHover(Point? point, DateTimeOffset now)
     {

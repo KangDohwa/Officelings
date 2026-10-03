@@ -371,7 +371,9 @@ internal sealed class OfficeWindow : Window
         {
             var views = office.Update(agents,now,(now-previous).TotalSeconds);
             view.Update(office.Layout,views,now,office.FurnitureSprites);
-            timer.Interval=TimeSpan.FromMilliseconds(views.Any(a=>a.Pose.Visible && a.Pose.Action is "walking" or "entering" or "exiting") ? 1000d/30 : 125);
+            var animated = views.Any(a=>a.Pose.Visible && (a.Pose.Action is "walking" or "entering" or "exiting" ||
+                a.Pose.Sprite is {} s && assets.Manifest.Sheets.First(sheet=>sheet.Id==s.SheetId).Rows.Any(row=>row.Row==s.Row && row.Name.StartsWith("blink-",StringComparison.Ordinal))));
+            timer.Interval=TimeSpan.FromMilliseconds(animated ? 1000d/30 : 125);
             if (!qa && now>=nextHover) { view.PollHover(modes.Cursor(view),now); nextHover = now.AddMilliseconds(100); }
         }
         previous = now;
