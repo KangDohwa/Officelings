@@ -1,0 +1,21 @@
+{
+  "pid": 16176,
+  "count": 0,
+  "mode": "topmost",
+  "hwnd": 26806142,
+  "style": 370081792,
+  "exStyle": 134742280,
+  "nativeTopmost": true,
+  "allowsTransparency": false,
+  "foregroundUnchanged": true,
+  "startedUtc": "2026-10-03T18:05:42.4530934+00:00",
+  "memory": {
+    "workingSet": 243023872,
+    "privateBytes": 171315200,
+    "managedBytes": 8252224,
+    "gdi": 16,
+    "user": 23,
+    "threads": 39
+  },
+  "fakeHome": "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-16176"
+}

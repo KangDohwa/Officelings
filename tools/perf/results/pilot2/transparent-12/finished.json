@@ -1,0 +1,31 @@
+{
+  "seconds": 48.344476,
+  "count": 12,
+  "mode": "transparent",
+  "ticks": 694,
+  "emptyHomePolls": 39,
+  "logBytesRead": 0,
+  "lastViewCount": 12,
+  "visible": 12,
+  "allocatedBytes": 264918848,
+  "gcCollections": [
+    28,
+    3,
+    0
+  ],
+  "caches": {
+    "sheets": 96,
+    "sprites": 323,
+    "spriteContent": 263,
+    "text": 24
+  },
+  "memory": {
+    "workingSet": 96047104,
+    "privateBytes": 265510912,
+    "managedBytes": 10099872,
+    "gdi": 18,
+    "user": 23,
+    "threads": 38
+  },
+  "foregroundSameAtEnd": true
+}

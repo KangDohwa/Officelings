@@ -1,0 +1,11 @@
+﻿{
+    "seconds":  11.6260636,
+    "logicalProcessors":  18,
+    "concurrentProcesses":  3,
+    "foregroundStart":  0,
+    "foregroundEnd":  0,
+    "counterErrors":  [
+
+                      ],
+    "createdUtc":  "2026-10-03T17:48:43.2233621+00:00"
+}

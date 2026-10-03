@@ -1,0 +1,1891 @@
+﻿{
+    "soak":  [
+                 {
+                     "name":  "normal-0",
+                     "count":  0,
+                     "mode":  "normal",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  19.2339562709754,
+                                                            "p95":  24.7720416309506,
+                                                            "max":  24.7720416309506,
+                                                            "slopePerMinute":  4.4917147023158979,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  19.1609331566057,
+                                                            "last":  24.7720416309506
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  1.0685531261653,
+                                                               "p95":  1.37622453505281,
+                                                               "max":  1.37622453505281,
+                                                               "slopePerMinute":  0.24953970568421416,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  1.06449628647809,
+                                                               "last":  1.37622453505281
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  31232000,
+                                                             "p95":  37814272,
+                                                             "max":  37814272,
+                                                             "slopePerMinute":  -459497.06761032506,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  30248960,
+                                                             "last":  37814272
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  243007488,
+                                                          "p95":  243060736,
+                                                          "max":  243060736,
+                                                          "slopePerMinute":  28135.885750978148,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  243007488,
+                                                          "last":  243007488
+                                                      },
+                                     "gdi":  {
+                                                 "median":  16,
+                                                 "p95":  16,
+                                                 "max":  16,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  16,
+                                                 "last":  16
+                                             },
+                                     "user":  {
+                                                  "median":  24,
+                                                  "p95":  24,
+                                                  "max":  24,
+                                                  "slopePerMinute":  3.1063085659500864E-14,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  24,
+                                                  "last":  24
+                                              },
+                                     "threads":  {
+                                                     "median":  33,
+                                                     "p95":  34,
+                                                     "max":  34,
+                                                     "slopePerMinute":  0.60450888619905152,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  33,
+                                                     "last":  33
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  0.437870893046302,
+                                                          "p95":  1.9743769832433991,
+                                                          "max":  1.9743769832433991
+                                                      },
+                     "ready":  {
+                                   "pid":  5656,
+                                   "count":  0,
+                                   "mode":  "normal",
+                                   "startupRetries":  1,
+                                   "hwnd":  2693170,
+                                   "style":  370081792,
+                                   "exStyle":  134742272,
+                                   "nativeTopmost":  false,
+                                   "allowsTransparency":  false,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:13:09.6062036+00:00",
+                                   "memory":  {
+                                                  "workingSet":  253493248,
+                                                  "privateBytes":  178094080,
+                                                  "managedBytes":  7430760,
+                                                  "gdi":  16,
+                                                  "user":  23,
+                                                  "threads":  39
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-5656",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  570.2500843,
+                                      "count":  0,
+                                      "mode":  "normal",
+                                      "ticks":  4370,
+                                      "emptyHomePolls":  563,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  0,
+                                      "visible":  0,
+                                      "allocatedBytes":  620365784,
+                                      "gcCollections":  [
+                                                            67,
+                                                            7,
+                                                            1
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  56,
+                                                     "spriteContent":  0,
+                                                     "text":  2
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  47411200,
+                                                     "privateBytes":  245161984,
+                                                     "managedBytes":  7217480,
+                                                     "gdi":  16,
+                                                     "user":  22,
+                                                     "threads":  35
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "normal-12",
+                     "count":  12,
+                     "mode":  "normal",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  44.6447695981223,
+                                                            "p95":  71.8534993372712,
+                                                            "max":  71.8534993372712,
+                                                            "slopePerMinute":  -9.7957455637863919,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  71.8534993372712,
+                                                            "last":  49.2419851932311
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  2.48026497767346,
+                                                               "p95":  3.99186107429285,
+                                                               "max":  3.99186107429285,
+                                                               "slopePerMinute":  -0.54420808687702515,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  3.99186107429285,
+                                                               "last":  2.73566584406839
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  47202304,
+                                                             "p95":  55005184,
+                                                             "max":  55005184,
+                                                             "slopePerMinute":  -9767525.3332191631,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  52936704,
+                                                             "last":  50176000
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  258719744,
+                                                          "p95":  258760704,
+                                                          "max":  258760704,
+                                                          "slopePerMinute":  -67150.745474834039,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  258752512,
+                                                          "last":  258719744
+                                                      },
+                                     "gdi":  {
+                                                 "median":  16,
+                                                 "p95":  16,
+                                                 "max":  16,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  16,
+                                                 "last":  16
+                                             },
+                                     "user":  {
+                                                  "median":  24,
+                                                  "p95":  24,
+                                                  "max":  24,
+                                                  "slopePerMinute":  -0.81649028035919213,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  24,
+                                                  "last":  23
+                                              },
+                                     "threads":  {
+                                                     "median":  33,
+                                                     "p95":  34,
+                                                     "max":  34,
+                                                     "slopePerMinute":  -1.8370640829672185,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  34,
+                                                     "last":  33
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  3.3997490195240019,
+                                                          "p95":  26.783320725496402,
+                                                          "max":  26.783320725496402
+                                                      },
+                     "ready":  {
+                                   "pid":  72508,
+                                   "count":  12,
+                                   "mode":  "normal",
+                                   "startupRetries":  0,
+                                   "hwnd":  9308066,
+                                   "style":  370081792,
+                                   "exStyle":  134742272,
+                                   "nativeTopmost":  false,
+                                   "allowsTransparency":  false,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:13:33.316859+00:00",
+                                   "memory":  {
+                                                  "workingSet":  245608448,
+                                                  "privateBytes":  171261952,
+                                                  "managedBytes":  8841848,
+                                                  "gdi":  16,
+                                                  "user":  23,
+                                                  "threads":  39
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-72508",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  547.0410458,
+                                      "count":  12,
+                                      "mode":  "normal",
+                                      "ticks":  9883,
+                                      "emptyHomePolls":  539,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  12,
+                                      "visible":  12,
+                                      "allocatedBytes":  3608358784,
+                                      "gcCollections":  [
+                                                            386,
+                                                            34,
+                                                            3
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  485,
+                                                     "spriteContent":  425,
+                                                     "text":  24
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  48349184,
+                                                     "privateBytes":  259854336,
+                                                     "managedBytes":  14813552,
+                                                     "gdi":  16,
+                                                     "user":  22,
+                                                     "threads":  35
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "normal-24",
+                     "count":  24,
+                     "mode":  "normal",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  52.3063027696601,
+                                                            "p95":  87.4217575270133,
+                                                            "max":  87.4217575270133,
+                                                            "slopePerMinute":  -10.57440932298192,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  87.4217575270133,
+                                                            "last":  56.7944369099843
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  2.90590570942556,
+                                                               "p95":  4.8567643070563,
+                                                               "max":  4.8567643070563,
+                                                               "slopePerMinute":  -0.58746718461012049,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  4.8567643070563,
+                                                               "last":  3.15524649499913
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  48914432,
+                                                             "p95":  55508992,
+                                                             "max":  55508992,
+                                                             "slopePerMinute":  -21651646.974168669,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  51093504,
+                                                             "last":  29949952
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  257540096,
+                                                          "p95":  257585152,
+                                                          "max":  257585152,
+                                                          "slopePerMinute":  -18469.217537100791,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  257540096,
+                                                          "last":  257540096
+                                                      },
+                                     "gdi":  {
+                                                 "median":  16,
+                                                 "p95":  17,
+                                                 "max":  17,
+                                                 "slopePerMinute":  -0.0016689516144010813,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  16,
+                                                 "last":  16
+                                             },
+                                     "user":  {
+                                                  "median":  25,
+                                                  "p95":  25,
+                                                  "max":  25,
+                                                  "slopePerMinute":  3.1063085659500864E-14,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  25,
+                                                  "last":  25
+                                              },
+                                     "threads":  {
+                                                     "median":  33,
+                                                     "p95":  34,
+                                                     "max":  34,
+                                                     "slopePerMinute":  -0.40991693752395153,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  33,
+                                                     "last":  33
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  6.826952750626198,
+                                                          "p95":  39.024250292892695,
+                                                          "max":  39.024250292892695
+                                                      },
+                     "ready":  {
+                                   "pid":  18536,
+                                   "count":  24,
+                                   "mode":  "normal",
+                                   "startupRetries":  0,
+                                   "hwnd":  5572038,
+                                   "style":  370081792,
+                                   "exStyle":  134742272,
+                                   "nativeTopmost":  false,
+                                   "allowsTransparency":  false,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:13:42.8912312+00:00",
+                                   "memory":  {
+                                                  "workingSet":  242745344,
+                                                  "privateBytes":  167911424,
+                                                  "managedBytes":  9287736,
+                                                  "gdi":  16,
+                                                  "user":  23,
+                                                  "threads":  39
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-18536",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  539.8677736,
+                                      "count":  24,
+                                      "mode":  "normal",
+                                      "ticks":  10224,
+                                      "emptyHomePolls":  530,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  24,
+                                      "visible":  24,
+                                      "allocatedBytes":  4857559520,
+                                      "gcCollections":  [
+                                                            519,
+                                                            107,
+                                                            5
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  523,
+                                                     "spriteContent":  464,
+                                                     "text":  49
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  54030336,
+                                                     "privateBytes":  258744320,
+                                                     "managedBytes":  12922224,
+                                                     "gdi":  16,
+                                                     "user":  23,
+                                                     "threads":  36
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "normal-6",
+                     "count":  6,
+                     "mode":  "normal",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  36.7729911852467,
+                                                            "p95":  59.2791369532488,
+                                                            "max":  59.2791369532488,
+                                                            "slopePerMinute":  -13.27212386544438,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  59.2791369532488,
+                                                            "last":  36.2517682404155
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  2.04294395473593,
+                                                               "p95":  3.2932853862916,
+                                                               "max":  3.2932853862916,
+                                                               "slopePerMinute":  -0.73734021474691391,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  3.2932853862916,
+                                                               "last":  2.01398712446753
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  43765760,
+                                                             "p95":  46931968,
+                                                             "max":  46931968,
+                                                             "slopePerMinute":  -5458976.5257125823,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  44630016,
+                                                             "last":  46931968
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  247218176,
+                                                          "p95":  247222272,
+                                                          "max":  247222272,
+                                                          "slopePerMinute":  -50955.448099451343,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  247218176,
+                                                          "last":  247222272
+                                                      },
+                                     "gdi":  {
+                                                 "median":  16,
+                                                 "p95":  16,
+                                                 "max":  16,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  16,
+                                                 "last":  16
+                                             },
+                                     "user":  {
+                                                  "median":  24,
+                                                  "p95":  24,
+                                                  "max":  24,
+                                                  "slopePerMinute":  3.1063085659500864E-14,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  24,
+                                                  "last":  24
+                                              },
+                                     "threads":  {
+                                                     "median":  33,
+                                                     "p95":  33,
+                                                     "max":  33,
+                                                     "slopePerMinute":  -1.2051622933282731,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  33,
+                                                     "last":  33
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  1.8895114347507942,
+                                                          "p95":  21.7710688468053,
+                                                          "max":  21.7710688468053
+                                                      },
+                     "ready":  {
+                                   "pid":  72284,
+                                   "count":  6,
+                                   "mode":  "normal",
+                                   "startupRetries":  0,
+                                   "hwnd":  6296804,
+                                   "style":  370081792,
+                                   "exStyle":  134742272,
+                                   "nativeTopmost":  false,
+                                   "allowsTransparency":  false,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:13:25.1451386+00:00",
+                                   "memory":  {
+                                                  "workingSet":  149098496,
+                                                  "privateBytes":  171761664,
+                                                  "managedBytes":  8589592,
+                                                  "gdi":  16,
+                                                  "user":  23,
+                                                  "threads":  39
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-72284",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  557.4002504,
+                                      "count":  6,
+                                      "mode":  "normal",
+                                      "ticks":  8336,
+                                      "emptyHomePolls":  548,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  6,
+                                      "visible":  6,
+                                      "allocatedBytes":  2366273584,
+                                      "gcCollections":  [
+                                                            253,
+                                                            22,
+                                                            2
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  281,
+                                                     "spriteContent":  220,
+                                                     "text":  12
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  49102848,
+                                                     "privateBytes":  248401920,
+                                                     "managedBytes":  13838448,
+                                                     "gdi":  16,
+                                                     "user":  22,
+                                                     "threads":  35
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "topmost-0",
+                     "count":  0,
+                     "mode":  "topmost",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  20.6436260104383,
+                                                            "p95":  28.1426205737646,
+                                                            "max":  28.1426205737646,
+                                                            "slopePerMinute":  -1.6677929986416364,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  28.1426205737646,
+                                                            "last":  17.8237860515376
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  1.14686811169102,
+                                                               "p95":  1.5634789207647,
+                                                               "max":  1.5634789207647,
+                                                               "slopePerMinute":  -0.092655166591196422,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  1.5634789207647,
+                                                               "last":  0.990210336196535
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  32100352,
+                                                             "p95":  36605952,
+                                                             "max":  36605952,
+                                                             "slopePerMinute":  -4405482.3423390174,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  33173504,
+                                                             "last":  27738112
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  232210432,
+                                                          "p95":  232214528,
+                                                          "max":  232214528,
+                                                          "slopePerMinute":  79524.189649515538,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  232173568,
+                                                          "last":  232214528
+                                                      },
+                                     "gdi":  {
+                                                 "median":  16,
+                                                 "p95":  16,
+                                                 "max":  16,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  16,
+                                                 "last":  16
+                                             },
+                                     "user":  {
+                                                  "median":  25,
+                                                  "p95":  25,
+                                                  "max":  25,
+                                                  "slopePerMinute":  3.1063085659500864E-14,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  25,
+                                                  "last":  25
+                                              },
+                                     "threads":  {
+                                                     "median":  33,
+                                                     "p95":  33,
+                                                     "max":  33,
+                                                     "slopePerMinute":  0,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  33,
+                                                     "last":  33
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  2.9371938825071986,
+                                                          "p95":  11.203493041822398,
+                                                          "max":  11.203493041822398
+                                                      },
+                     "ready":  {
+                                   "pid":  21144,
+                                   "count":  0,
+                                   "mode":  "topmost",
+                                   "startupRetries":  0,
+                                   "hwnd":  19399458,
+                                   "style":  370081792,
+                                   "exStyle":  134742280,
+                                   "nativeTopmost":  true,
+                                   "allowsTransparency":  false,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:13:54.3932123+00:00",
+                                   "memory":  {
+                                                  "workingSet":  171339776,
+                                                  "privateBytes":  169373696,
+                                                  "managedBytes":  8373600,
+                                                  "gdi":  16,
+                                                  "user":  23,
+                                                  "threads":  38
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-21144",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  526.1660965,
+                                      "count":  0,
+                                      "mode":  "topmost",
+                                      "ticks":  4025,
+                                      "emptyHomePolls":  519,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  0,
+                                      "visible":  0,
+                                      "allocatedBytes":  561409640,
+                                      "gcCollections":  [
+                                                            60,
+                                                            6,
+                                                            1
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  56,
+                                                     "spriteContent":  0,
+                                                     "text":  2
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  49696768,
+                                                     "privateBytes":  233373696,
+                                                     "managedBytes":  14075560,
+                                                     "gdi":  16,
+                                                     "user":  23,
+                                                     "threads":  35
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "topmost-12",
+                     "count":  12,
+                     "mode":  "topmost",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  47.9343823085213,
+                                                            "p95":  80.8351867544301,
+                                                            "max":  80.8351867544301,
+                                                            "slopePerMinute":  -10.563770571382852,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  80.8351867544301,
+                                                            "last":  47.7314948498804
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  2.66302123936229,
+                                                               "p95":  4.49084370857945,
+                                                               "max":  4.49084370857945,
+                                                               "slopePerMinute":  -0.58687614285457745,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  4.49084370857945,
+                                                               "last":  2.65174971388225
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  44527616,
+                                                             "p95":  60837888,
+                                                             "max":  60837888,
+                                                             "slopePerMinute":  -7697213.0039642733,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  60837888,
+                                                             "last":  47595520
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  251355136,
+                                                          "p95":  252526592,
+                                                          "max":  252526592,
+                                                          "slopePerMinute":  -12559785.694148019,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  251326464,
+                                                          "last":  242081792
+                                                      },
+                                     "gdi":  {
+                                                 "median":  16,
+                                                 "p95":  16,
+                                                 "max":  16,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  16,
+                                                 "last":  16
+                                             },
+                                     "user":  {
+                                                  "median":  26,
+                                                  "p95":  26,
+                                                  "max":  26,
+                                                  "slopePerMinute":  0,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  26,
+                                                  "last":  26
+                                              },
+                                     "threads":  {
+                                                     "median":  35,
+                                                     "p95":  37,
+                                                     "max":  37,
+                                                     "slopePerMinute":  -1.0407676322891926,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  37,
+                                                     "last":  35
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  5.9265939980061049,
+                                                          "p95":  38.4873679245746,
+                                                          "max":  38.4873679245746
+                                                      },
+                     "ready":  {
+                                   "pid":  70988,
+                                   "count":  12,
+                                   "mode":  "topmost",
+                                   "startupRetries":  0,
+                                   "hwnd":  5050764,
+                                   "style":  370081792,
+                                   "exStyle":  134742280,
+                                   "nativeTopmost":  true,
+                                   "allowsTransparency":  false,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:14:45.5157321+00:00",
+                                   "memory":  {
+                                                  "workingSet":  80912384,
+                                                  "privateBytes":  166993920,
+                                                  "managedBytes":  8851632,
+                                                  "gdi":  16,
+                                                  "user":  23,
+                                                  "threads":  38
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-70988",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  478.6011126,
+                                      "count":  12,
+                                      "mode":  "topmost",
+                                      "ticks":  8632,
+                                      "emptyHomePolls":  468,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  12,
+                                      "visible":  12,
+                                      "allocatedBytes":  3183236376,
+                                      "gcCollections":  [
+                                                            340,
+                                                            29,
+                                                            3
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  483,
+                                                     "spriteContent":  423,
+                                                     "text":  24
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  60637184,
+                                                     "privateBytes":  243236864,
+                                                     "managedBytes":  13077720,
+                                                     "gdi":  16,
+                                                     "user":  24,
+                                                     "threads":  37
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "topmost-24",
+                     "count":  24,
+                     "mode":  "topmost",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  51.2009945041402,
+                                                            "p95":  93.4095491384526,
+                                                            "max":  93.4095491384526,
+                                                            "slopePerMinute":  -8.0770079849203835,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  93.4095491384526,
+                                                            "last":  57.7007311159947
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  2.84449969467446,
+                                                               "p95":  5.1894193965807,
+                                                               "max":  5.1894193965807,
+                                                               "slopePerMinute":  -0.44872266582889897,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  5.1894193965807,
+                                                               "last":  3.20559617311082
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  51789824,
+                                                             "p95":  59170816,
+                                                             "max":  59170816,
+                                                             "slopePerMinute":  3108936.4207438696,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  51789824,
+                                                             "last":  47833088
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  261251072,
+                                                          "p95":  261308416,
+                                                          "max":  261308416,
+                                                          "slopePerMinute":  116665.3382839277,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  261206016,
+                                                          "last":  261251072
+                                                      },
+                                     "gdi":  {
+                                                 "median":  16,
+                                                 "p95":  16,
+                                                 "max":  16,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  16,
+                                                 "last":  16
+                                             },
+                                     "user":  {
+                                                  "median":  25,
+                                                  "p95":  25,
+                                                  "max":  25,
+                                                  "slopePerMinute":  3.1063085659500864E-14,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  25,
+                                                  "last":  25
+                                              },
+                                     "threads":  {
+                                                     "median":  37,
+                                                     "p95":  38,
+                                                     "max":  38,
+                                                     "slopePerMinute":  2.4253744937632327,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  36,
+                                                     "last":  37
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  12.259677135205997,
+                                                          "p95":  40.777260021346507,
+                                                          "max":  40.777260021346507
+                                                      },
+                     "ready":  {
+                                   "pid":  49552,
+                                   "count":  24,
+                                   "mode":  "topmost",
+                                   "startupRetries":  0,
+                                   "hwnd":  6755238,
+                                   "style":  370081792,
+                                   "exStyle":  134742280,
+                                   "nativeTopmost":  true,
+                                   "allowsTransparency":  false,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:15:26.4855847+00:00",
+                                   "memory":  {
+                                                  "workingSet":  143298560,
+                                                  "privateBytes":  186535936,
+                                                  "managedBytes":  9270040,
+                                                  "gdi":  16,
+                                                  "user":  23,
+                                                  "threads":  37
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-49552",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  437.8070696,
+                                      "count":  24,
+                                      "mode":  "topmost",
+                                      "ticks":  8085,
+                                      "emptyHomePolls":  428,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  24,
+                                      "visible":  24,
+                                      "allocatedBytes":  3897249440,
+                                      "gcCollections":  [
+                                                            418,
+                                                            36,
+                                                            4
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  521,
+                                                     "spriteContent":  462,
+                                                     "text":  49
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  67878912,
+                                                     "privateBytes":  262225920,
+                                                     "managedBytes":  12371808,
+                                                     "gdi":  16,
+                                                     "user":  22,
+                                                     "threads":  35
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "topmost-6",
+                     "count":  6,
+                     "mode":  "topmost",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  43.0277132533183,
+                                                            "p95":  68.2608243704077,
+                                                            "max":  68.2608243704077,
+                                                            "slopePerMinute":  -5.0161163796115877,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  68.2608243704077,
+                                                            "last":  44.1063180258389
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  2.39042851407324,
+                                                               "p95":  3.7922680205782,
+                                                               "max":  3.7922680205782,
+                                                               "slopePerMinute":  -0.27867313220063772,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  3.7922680205782,
+                                                               "last":  2.45035100143549
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  44371968,
+                                                             "p95":  49721344,
+                                                             "max":  49721344,
+                                                             "slopePerMinute":  -6353476.3152642185,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  44621824,
+                                                             "last":  40239104
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  246087680,
+                                                          "p95":  246145024,
+                                                          "max":  246145024,
+                                                          "slopePerMinute":  -38261234.466291748,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  246087680,
+                                                          "last":  219164672
+                                                      },
+                                     "gdi":  {
+                                                 "median":  16,
+                                                 "p95":  16,
+                                                 "max":  16,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  16,
+                                                 "last":  16
+                                             },
+                                     "user":  {
+                                                  "median":  24,
+                                                  "p95":  24,
+                                                  "max":  24,
+                                                  "slopePerMinute":  3.1063085659500864E-14,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  24,
+                                                  "last":  24
+                                              },
+                                     "threads":  {
+                                                     "median":  33,
+                                                     "p95":  34,
+                                                     "max":  34,
+                                                     "slopePerMinute":  -0.00619501744815308,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  33,
+                                                     "last":  33
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  7.4437466922974025,
+                                                          "p95":  28.030396482045006,
+                                                          "max":  28.030396482045006
+                                                      },
+                     "ready":  {
+                                   "pid":  71164,
+                                   "count":  6,
+                                   "mode":  "topmost",
+                                   "startupRetries":  0,
+                                   "hwnd":  27592574,
+                                   "style":  370081792,
+                                   "exStyle":  134742280,
+                                   "nativeTopmost":  true,
+                                   "allowsTransparency":  false,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:14:03.1793458+00:00",
+                                   "memory":  {
+                                                  "workingSet":  238137344,
+                                                  "privateBytes":  165363712,
+                                                  "managedBytes":  8572888,
+                                                  "gdi":  16,
+                                                  "user":  23,
+                                                  "threads":  39
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-71164",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  519.8477131,
+                                      "count":  6,
+                                      "mode":  "topmost",
+                                      "ticks":  7844,
+                                      "emptyHomePolls":  510,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  6,
+                                      "visible":  6,
+                                      "allocatedBytes":  2232113512,
+                                      "gcCollections":  [
+                                                            239,
+                                                            21,
+                                                            2
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  276,
+                                                     "spriteContent":  215,
+                                                     "text":  12
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  55029760,
+                                                     "privateBytes":  220315648,
+                                                     "managedBytes":  10866392,
+                                                     "gdi":  16,
+                                                     "user":  22,
+                                                     "threads":  35
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "transparent-0",
+                     "count":  0,
+                     "mode":  "transparent",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  23.4010370325065,
+                                                            "p95":  33.8310226046319,
+                                                            "max":  33.8310226046319,
+                                                            "slopePerMinute":  -0.633688747730137,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  33.8310226046319,
+                                                            "last":  26.5846300429714
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  1.30005761291703,
+                                                               "p95":  1.87950125581288,
+                                                               "max":  1.87950125581288,
+                                                               "slopePerMinute":  -0.035204930429450977,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  1.87950125581288,
+                                                               "last":  1.47692389127619
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  39182336,
+                                                             "p95":  45486080,
+                                                             "max":  45486080,
+                                                             "slopePerMinute":  55071.722245089593,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  33038336,
+                                                             "last":  35020800
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  231976960,
+                                                          "p95":  232800256,
+                                                          "max":  232800256,
+                                                          "slopePerMinute":  -274864.44926398736,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  231915520,
+                                                          "last":  231976960
+                                                      },
+                                     "gdi":  {
+                                                 "median":  18,
+                                                 "p95":  18,
+                                                 "max":  18,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  18,
+                                                 "last":  18
+                                             },
+                                     "user":  {
+                                                  "median":  26,
+                                                  "p95":  26,
+                                                  "max":  26,
+                                                  "slopePerMinute":  2.2248623694118375,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  24,
+                                                  "last":  26
+                                              },
+                                     "threads":  {
+                                                     "median":  36,
+                                                     "p95":  38,
+                                                     "max":  38,
+                                                     "slopePerMinute":  0.57161516903764187,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  35,
+                                                     "last":  36
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  5.9309459754855,
+                                                          "p95":  12.959597609917399,
+                                                          "max":  12.959597609917399
+                                                      },
+                     "ready":  {
+                                   "pid":  66512,
+                                   "count":  0,
+                                   "mode":  "transparent",
+                                   "startupRetries":  1,
+                                   "hwnd":  3740150,
+                                   "style":  370081792,
+                                   "exStyle":  134742272,
+                                   "nativeTopmost":  false,
+                                   "allowsTransparency":  true,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:16:20.7356404+00:00",
+                                   "memory":  {
+                                                  "workingSet":  177201152,
+                                                  "privateBytes":  215195648,
+                                                  "managedBytes":  6556096,
+                                                  "gdi":  18,
+                                                  "user":  23,
+                                                  "threads":  38
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-66512",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  383.5627309,
+                                      "count":  0,
+                                      "mode":  "transparent",
+                                      "ticks":  2922,
+                                      "emptyHomePolls":  376,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  0,
+                                      "visible":  0,
+                                      "allocatedBytes":  414966912,
+                                      "gcCollections":  [
+                                                            45,
+                                                            5,
+                                                            1
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  56,
+                                                     "spriteContent":  0,
+                                                     "text":  2
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  54870016,
+                                                     "privateBytes":  233168896,
+                                                     "managedBytes":  8712088,
+                                                     "gdi":  18,
+                                                     "user":  24,
+                                                     "threads":  38
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "transparent-12",
+                     "count":  12,
+                     "mode":  "transparent",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  84.5456821819588,
+                                                            "p95":  142.210050771683,
+                                                            "max":  142.210050771683,
+                                                            "slopePerMinute":  -3.2708184874410069,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  142.210050771683,
+                                                            "last":  96.3692839057713
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  4.69698234344216,
+                                                               "p95":  7.90055837620459,
+                                                               "max":  7.90055837620459,
+                                                               "slopePerMinute":  -0.18171213819115498,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  7.90055837620459,
+                                                               "last":  5.35384910587618
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  60125184,
+                                                             "p95":  68362240,
+                                                             "max":  68362240,
+                                                             "slopePerMinute":  19754961.625408109,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  37068800,
+                                                             "last":  55304192
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  255635456,
+                                                          "p95":  261103616,
+                                                          "max":  261103616,
+                                                          "slopePerMinute":  2338978.2382112816,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  256864256,
+                                                          "last":  261103616
+                                                      },
+                                     "gdi":  {
+                                                 "median":  18,
+                                                 "p95":  18,
+                                                 "max":  18,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  18,
+                                                 "last":  18
+                                             },
+                                     "user":  {
+                                                  "median":  25,
+                                                  "p95":  25,
+                                                  "max":  25,
+                                                  "slopePerMinute":  3.1063085659500864E-14,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  25,
+                                                  "last":  25
+                                              },
+                                     "threads":  {
+                                                     "median":  34,
+                                                     "p95":  36,
+                                                     "max":  36,
+                                                     "slopePerMinute":  -0.59383484148030752,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  34,
+                                                     "last":  34
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  11.736857610858493,
+                                                          "p95":  55.699506590692394,
+                                                          "max":  55.699506590692394
+                                                      },
+                     "ready":  {
+                                   "pid":  55104,
+                                   "count":  12,
+                                   "mode":  "transparent",
+                                   "startupRetries":  1,
+                                   "hwnd":  1575318,
+                                   "style":  370081792,
+                                   "exStyle":  134742272,
+                                   "nativeTopmost":  false,
+                                   "allowsTransparency":  true,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:18:16.2993958+00:00",
+                                   "memory":  {
+                                                  "workingSet":  121843712,
+                                                  "privateBytes":  219631616,
+                                                  "managedBytes":  7793944,
+                                                  "gdi":  18,
+                                                  "user":  23,
+                                                  "threads":  37
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-55104",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  271.3656015,
+                                      "count":  12,
+                                      "mode":  "transparent",
+                                      "ticks":  4735,
+                                      "emptyHomePolls":  260,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  12,
+                                      "visible":  12,
+                                      "allocatedBytes":  1728179112,
+                                      "gcCollections":  [
+                                                            185,
+                                                            16,
+                                                            2
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  443,
+                                                     "spriteContent":  383,
+                                                     "text":  24
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  73609216,
+                                                     "privateBytes":  260911104,
+                                                     "managedBytes":  15269616,
+                                                     "gdi":  18,
+                                                     "user":  23,
+                                                     "threads":  35
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "transparent-24",
+                     "count":  24,
+                     "mode":  "transparent",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  79.451792060244,
+                                                            "p95":  142.808829932827,
+                                                            "max":  142.808829932827,
+                                                            "slopePerMinute":  -21.058592909066245,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  142.808829932827,
+                                                            "last":  79.451792060244
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  4.41398844779134,
+                                                               "p95":  7.93382388515703,
+                                                               "max":  7.93382388515703,
+                                                               "slopePerMinute":  -1.1699218282814288,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  7.93382388515703,
+                                                               "last":  4.41398844779134
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  78401536,
+                                                             "p95":  89481216,
+                                                             "max":  89481216,
+                                                             "slopePerMinute":  2254292.6633809917,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  70623232,
+                                                             "last":  62996480
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  276520960,
+                                                          "p95":  285831168,
+                                                          "max":  285831168,
+                                                          "slopePerMinute":  -6198206.0017388938,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  276131840,
+                                                          "last":  267378688
+                                                      },
+                                     "gdi":  {
+                                                 "median":  18,
+                                                 "p95":  18,
+                                                 "max":  18,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  18,
+                                                 "last":  18
+                                             },
+                                     "user":  {
+                                                  "median":  24,
+                                                  "p95":  25,
+                                                  "max":  25,
+                                                  "slopePerMinute":  1.4209991665583059,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  24,
+                                                  "last":  25
+                                              },
+                                     "threads":  {
+                                                     "median":  34,
+                                                     "p95":  35,
+                                                     "max":  35,
+                                                     "slopePerMinute":  0.018775056390621447,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  35,
+                                                     "last":  35
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  12.989195841170002,
+                                                          "p95":  67.1877248795136,
+                                                          "max":  67.1877248795136
+                                                      },
+                     "ready":  {
+                                   "pid":  37880,
+                                   "count":  24,
+                                   "mode":  "transparent",
+                                   "startupRetries":  1,
+                                   "hwnd":  14484098,
+                                   "style":  370081792,
+                                   "exStyle":  134742272,
+                                   "nativeTopmost":  false,
+                                   "allowsTransparency":  true,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:19:55.9411381+00:00",
+                                   "memory":  {
+                                                  "workingSet":  116600832,
+                                                  "privateBytes":  206327808,
+                                                  "managedBytes":  9270088,
+                                                  "gdi":  18,
+                                                  "user":  23,
+                                                  "threads":  37
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-37880",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  185.7202351,
+                                      "count":  24,
+                                      "mode":  "transparent",
+                                      "ticks":  2993,
+                                      "emptyHomePolls":  161,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  24,
+                                      "visible":  24,
+                                      "allocatedBytes":  1446411776,
+                                      "gcCollections":  [
+                                                            156,
+                                                            14,
+                                                            2
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  514,
+                                                     "spriteContent":  455,
+                                                     "text":  49
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  74682368,
+                                                     "privateBytes":  268488704,
+                                                     "managedBytes":  5982680,
+                                                     "gdi":  18,
+                                                     "user":  23,
+                                                     "threads":  35
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 },
+                 {
+                     "name":  "transparent-6",
+                     "count":  6,
+                     "mode":  "transparent",
+                     "n":  9,
+                     "span":  45.2122621,
+                     "metrics":  {
+                                     "cpuCorePercent":  {
+                                                            "median":  67.1232549901838,
+                                                            "p95":  98.499172008176,
+                                                            "max":  98.499172008176,
+                                                            "slopePerMinute":  -19.012526993539122,
+                                                            "lateSlopePerMinute":  0,
+                                                            "first":  98.499172008176,
+                                                            "last":  51.356671673922
+                                                        },
+                                     "cpuMachinePercent":  {
+                                                               "median":  3.72906972167688,
+                                                               "p95":  5.47217622267644,
+                                                               "max":  5.47217622267644,
+                                                               "slopePerMinute":  -1.0562514996410461,
+                                                               "lateSlopePerMinute":  0,
+                                                               "first":  5.47217622267644,
+                                                               "last":  2.853148426329
+                                                           },
+                                     "workingSetBytes":  {
+                                                             "median":  50434048,
+                                                             "p95":  52801536,
+                                                             "max":  52801536,
+                                                             "slopePerMinute":  16694021.096323505,
+                                                             "lateSlopePerMinute":  0,
+                                                             "first":  33431552,
+                                                             "last":  44085248
+                                                         },
+                                     "privateBytes":  {
+                                                          "median":  254996480,
+                                                          "p95":  255188992,
+                                                          "max":  255188992,
+                                                          "slopePerMinute":  -46095.218190955726,
+                                                          "lateSlopePerMinute":  0,
+                                                          "first":  254996480,
+                                                          "last":  255086592
+                                                      },
+                                     "gdi":  {
+                                                 "median":  18,
+                                                 "p95":  18,
+                                                 "max":  18,
+                                                 "slopePerMinute":  0,
+                                                 "lateSlopePerMinute":  0,
+                                                 "first":  18,
+                                                 "last":  18
+                                             },
+                                     "user":  {
+                                                  "median":  25,
+                                                  "p95":  26,
+                                                  "max":  26,
+                                                  "slopePerMinute":  2.6286313280508904,
+                                                  "lateSlopePerMinute":  0,
+                                                  "first":  24,
+                                                  "last":  26
+                                              },
+                                     "threads":  {
+                                                     "median":  34,
+                                                     "p95":  36,
+                                                     "max":  36,
+                                                     "slopePerMinute":  1.6329805607185086,
+                                                     "lateSlopePerMinute":  0,
+                                                     "first":  34,
+                                                     "last":  36
+                                                 }
+                                 },
+                     "counterValidRows":  9,
+                     "cpuCounterAbsoluteDifference":  {
+                                                          "n":  9,
+                                                          "median":  13.288760957247597,
+                                                          "p95":  25.6004267367819,
+                                                          "max":  25.6004267367819
+                                                      },
+                     "ready":  {
+                                   "pid":  30260,
+                                   "count":  6,
+                                   "mode":  "transparent",
+                                   "startupRetries":  0,
+                                   "hwnd":  11735292,
+                                   "style":  370081792,
+                                   "exStyle":  134742272,
+                                   "nativeTopmost":  false,
+                                   "allowsTransparency":  true,
+                                   "foregroundUnchanged":  true,
+                                   "startedUtc":  "2026-10-03T18:17:04.8981526+00:00",
+                                   "memory":  {
+                                                  "workingSet":  116248576,
+                                                  "privateBytes":  215597056,
+                                                  "managedBytes":  7517776,
+                                                  "gdi":  18,
+                                                  "user":  23,
+                                                  "threads":  37
+                                              },
+                                   "fakeHome":  "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-30260",
+                                   "decodedSheets":  96,
+                                   "warnings":  [
+
+                                                ]
+                               },
+                     "finished":  {
+                                      "seconds":  356.9308519,
+                                      "count":  6,
+                                      "mode":  "transparent",
+                                      "ticks":  5191,
+                                      "emptyHomePolls":  331,
+                                      "logBytesRead":  0,
+                                      "lastViewCount":  6,
+                                      "visible":  6,
+                                      "allocatedBytes":  1445212344,
+                                      "gcCollections":  [
+                                                            154,
+                                                            14,
+                                                            1
+                                                        ],
+                                      "caches":  {
+                                                     "sheets":  96,
+                                                     "sprites":  269,
+                                                     "spriteContent":  208,
+                                                     "text":  12
+                                                 },
+                                      "memory":  {
+                                                     "workingSet":  66453504,
+                                                     "privateBytes":  256315392,
+                                                     "managedBytes":  14315680,
+                                                     "gdi":  18,
+                                                     "user":  24,
+                                                     "threads":  38
+                                                 },
+                                      "foregroundSameAtEnd":  true
+                                  }
+                 }
+             ],
+    "render":  [
+                   {
+                       "file":  "render-1x.json",
+                       "zoom":  1,
+                       "width":  592,
+                       "height":  352,
+                       "frames":  40,
+                       "times":  {
+                                     "n":  40,
+                                     "median":  158.0407,
+                                     "p95":  1590.7751,
+                                     "max":  3112.196
+                                 },
+                       "meanMs":  378.39197499999995,
+                       "bytesPerFrame":  590073,
+                       "gc":  [
+                                  8,
+                                  6,
+                                  6
+                              ],
+                       "visible":  12,
+                       "memory":  {
+                                      "workingSet":  41803776,
+                                      "privateBytes":  162398208,
+                                      "managedBytes":  5466600,
+                                      "gdi":  15,
+                                      "user":  10,
+                                      "threads":  16
+                                  }
+                   },
+                   {
+                       "file":  "render-2x.json",
+                       "zoom":  2,
+                       "width":  1152,
+                       "height":  672,
+                       "frames":  38,
+                       "times":  {
+                                     "n":  38,
+                                     "median":  279.2676,
+                                     "p95":  2087.4743,
+                                     "max":  4579.0743
+                                 },
+                       "meanMs":  558.65004210526331,
+                       "bytesPerFrame":  530180,
+                       "gc":  [
+                                  20,
+                                  18,
+                                  18
+                              ],
+                       "visible":  12,
+                       "memory":  {
+                                      "workingSet":  29896704,
+                                      "privateBytes":  163790848,
+                                      "managedBytes":  5487152,
+                                      "gdi":  17,
+                                      "user":  10,
+                                      "threads":  15
+                                  }
+                   },
+                   {
+                       "file":  "render-3x.json",
+                       "zoom":  3,
+                       "width":  1712,
+                       "height":  992,
+                       "frames":  10,
+                       "times":  {
+                                     "n":  10,
+                                     "median":  1355.4771,
+                                     "p95":  5200.7904,
+                                     "max":  5200.7904
+                                 },
+                       "meanMs":  2094.42067,
+                       "bytesPerFrame":  554372,
+                       "gc":  [
+                                  6,
+                                  6,
+                                  6
+                              ],
+                       "visible":  12,
+                       "memory":  {
+                                      "workingSet":  98353152,
+                                      "privateBytes":  183324672,
+                                      "managedBytes":  6035176,
+                                      "gdi":  25,
+                                      "user":  13,
+                                      "threads":  34
+                                  }
+                   },
+                   {
+                       "file":  "render-6x.json",
+                       "zoom":  6,
+                       "width":  3392,
+                       "height":  1952,
+                       "frames":  19,
+                       "times":  {
+                                     "n":  19,
+                                     "median":  822.1493,
+                                     "p95":  4727.0466,
+                                     "max":  4727.0466
+                                 },
+                       "meanMs":  1158.4497894736844,
+                       "bytesPerFrame":  549943,
+                       "gc":  [
+                                  20,
+                                  19,
+                                  19
+                              ],
+                       "visible":  12,
+                       "memory":  {
+                                      "workingSet":  220434432,
+                                      "privateBytes":  314204160,
+                                      "managedBytes":  5178872,
+                                      "gdi":  29,
+                                      "user":  13,
+                                      "threads":  34
+                                  }
+                   }
+               ],
+    "pack":  [
+                 {
+                     "loadMs":  624.7877,
+                     "decodeMs":  859.6336,
+                     "firstFrameMs":  4131.86,
+                     "inProcessFirstFrameMs":  5729.6616,
+                     "embeddedResources":  92,
+                     "decodedSheets":  96,
+                     "compressedBytes":  1900367,
+                     "decodedPixelBytes":  52712640,
+                     "before":  {
+                                    "workingSet":  38195200,
+                                    "privateBytes":  11866112,
+                                    "managedBytes":  864184,
+                                    "gdi":  0,
+                                    "user":  3,
+                                    "threads":  9
+                                },
+                     "loaded":  {
+                                    "workingSet":  60583936,
+                                    "privateBytes":  25595904,
+                                    "managedBytes":  12619072,
+                                    "gdi":  0,
+                                    "user":  3,
+                                    "threads":  9
+                                },
+                     "decoded":  {
+                                     "workingSet":  139231232,
+                                     "privateBytes":  103124992,
+                                     "managedBytes":  4632560,
+                                     "gdi":  1,
+                                     "user":  7,
+                                     "threads":  11
+                                 },
+                     "afterFrame":  {
+                                        "workingSet":  210563072,
+                                        "privateBytes":  149504000,
+                                        "managedBytes":  5056672,
+                                        "gdi":  8,
+                                        "user":  11,
+                                        "threads":  37
+                                    },
+                     "warnings":  [
+
+                                  ]
+                 },
+                 {
+                     "loadMs":  804.8045,
+                     "decodeMs":  1017.0256,
+                     "firstFrameMs":  3196.469,
+                     "inProcessFirstFrameMs":  5208.589,
+                     "embeddedResources":  92,
+                     "decodedSheets":  96,
+                     "compressedBytes":  1900367,
+                     "decodedPixelBytes":  52712640,
+                     "before":  {
+                                    "workingSet":  38453248,
+                                    "privateBytes":  11857920,
+                                    "managedBytes":  864184,
+                                    "gdi":  0,
+                                    "user":  3,
+                                    "threads":  9
+                                },
+                     "loaded":  {
+                                    "workingSet":  61468672,
+                                    "privateBytes":  25579520,
+                                    "managedBytes":  12634656,
+                                    "gdi":  0,
+                                    "user":  3,
+                                    "threads":  9
+                                },
+                     "decoded":  {
+                                     "workingSet":  140189696,
+                                     "privateBytes":  103374848,
+                                     "managedBytes":  4611816,
+                                     "gdi":  1,
+                                     "user":  7,
+                                     "threads":  11
+                                 },
+                     "afterFrame":  {
+                                        "workingSet":  220778496,
+                                        "privateBytes":  157138944,
+                                        "managedBytes":  8641232,
+                                        "gdi":  8,
+                                        "user":  11,
+                                        "threads":  37
+                                    },
+                     "warnings":  [
+
+                                  ]
+                 },
+                 {
+                     "loadMs":  618.6338,
+                     "decodeMs":  777.2818,
+                     "firstFrameMs":  3442.4408,
+                     "inProcessFirstFrameMs":  4970.6785,
+                     "embeddedResources":  92,
+                     "decodedSheets":  96,
+                     "compressedBytes":  1900367,
+                     "decodedPixelBytes":  52712640,
+                     "before":  {
+                                    "workingSet":  38219776,
+                                    "privateBytes":  11890688,
+                                    "managedBytes":  864184,
+                                    "gdi":  0,
+                                    "user":  3,
+                                    "threads":  8
+                                },
+                     "loaded":  {
+                                    "workingSet":  60768256,
+                                    "privateBytes":  25702400,
+                                    "managedBytes":  12642880,
+                                    "gdi":  0,
+                                    "user":  3,
+                                    "threads":  8
+                                },
+                     "decoded":  {
+                                     "workingSet":  139087872,
+                                     "privateBytes":  103038976,
+                                     "managedBytes":  4621480,
+                                     "gdi":  1,
+                                     "user":  7,
+                                     "threads":  11
+                                 },
+                     "afterFrame":  {
+                                        "workingSet":  87805952,
+                                        "privateBytes":  159596544,
+                                        "managedBytes":  8651600,
+                                        "gdi":  8,
+                                        "user":  11,
+                                        "threads":  37
+                                    },
+                     "warnings":  [
+
+                                  ]
+                 }
+             ]
+}

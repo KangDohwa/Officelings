@@ -1,0 +1,46 @@
+{
+  "zoom": 6,
+  "width": 3392,
+  "height": 1952,
+  "agents": 12,
+  "visible": 12,
+  "frames": 19,
+  "milliseconds": [
+    4727.0466,
+    1300.1993,
+    570.1169,
+    864.9991,
+    670.1271,
+    636.6542,
+    1525.7845,
+    1386.4127,
+    472.306,
+    581.7697,
+    1165.8811,
+    822.1493,
+    963.7815,
+    495.149,
+    623.4378,
+    492.6996,
+    701.6834,
+    932.5983,
+    3077.7499
+  ],
+  "allocatedBytes": 10448928,
+  "bytesPerFrame": 549943,
+  "gcCollections": [
+    20,
+    19,
+    19
+  ],
+  "wallSeconds": 22.0285307,
+  "memory": {
+    "workingSet": 220434432,
+    "privateBytes": 314204160,
+    "managedBytes": 5178872,
+    "gdi": 29,
+    "user": 13,
+    "threads": 34
+  },
+  "note": "Committed Program.RenderBitmap: fresh hidden HwndSource and RenderTargetBitmap each frame; includes View.Update, excludes OfficeAnimator.Update and PNG encoding."
+}

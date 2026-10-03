@@ -1,0 +1,78 @@
+{
+    "measurementStatus":  "COMPLETE",
+    "sourceCheckout":  "C:/Users/myori/AppData/Local/Temp/vd-perf",
+    "sourceCommit":  "280e7a61b0d3c049de75967892debac15627fbcc",
+    "sourceReferences":  [
+                             {
+                                 "path":  "src/Vibedotcom.Core/JsonlTail.cs",
+                                 "lines":  [
+                                               29,
+                                               53,
+                                               55,
+                                               65,
+                                               76,
+                                               79,
+                                               105,
+                                               125
+                                           ],
+                                 "evidence":  "Bounded identity/content checks; Probe allocates then slices/copies arrays; per-byte pending.WriteByte and per-call 16KiB read buffer."
+                             },
+                             {
+                                 "path":  "src/Vibedotcom.Core/AgentTracker.cs",
+                                 "lines":  [
+                                               53,
+                                               58,
+                                               66,
+                                               76,
+                                               79,
+                                               151
+                                           ],
+                                 "evidence":  "Enumerates archive at discovery; known sources become scan candidates; each scan reopens and probes tracked files; snapshots allocated each Poll."
+                             },
+                             {
+                                 "path":  "src/Vibedotcom.Core/Models.cs",
+                                 "lines":  [
+                                               9,
+                                               11,
+                                               16,
+                                               17
+                                           ],
+                                 "evidence":  "Home defaults to UserProfile but harness explicitly sets TEMP fake Home; ScanInterval defaults to 3s; OutputDirectory static member not used by harness."
+                             },
+                             {
+                                 "path":  "src/Vibedotcom.Core/Providers/AntigravityProvider.cs",
+                                 "lines":  [
+                                               24,
+                                               27,
+                                               28
+                                           ],
+                                 "evidence":  "Runtime probing is enabled only when explicit Home equals actual UserProfile; TEMP fake Home avoids real profile runtime probing."
+                             }
+                         ],
+    "sandboxLimitations":  {
+                               "provenance":  "User observation; not independently reproduced by tracker harness.",
+                               "foregroundWindow":  "GetForegroundWindow returned 0; tracker harness never calls foreground/input APIs.",
+                               "specialFolders":  "Environment.GetFolderPath returned empty in reported sandbox checks; implicit profile/local-app-data paths cannot be assumed representative.",
+                               "cim":  "Get-CimInstance was denied; tracker harness does not query CIM or system-wide process metrics.",
+                               "homeIsolation":  "Each AgentTracker receives a nonempty Home validated as a child of the new TEMP synthetic-data directory. No real LOCALAPPDATA/Vibedotcom state output.",
+                               "metricScope":  "Process-specific Windows CPU, WorkingSet/private memory and I/O counters only. An unavailable required metric raises an error; no fabricated zero or substituted host-wide measurement."
+                           },
+    "measurementLimitations":  [
+                                   "Synthetic single-pass workload, not real provider corpus.",
+                                   "Fresh tracker means cold tracker state; OS cache is warm after fixture creation.",
+                                   "Payload BytesRead excludes content probes; process I/O is logical process traffic, not physical disk traffic.",
+                                   "Short-Poll process CPU can quantize to zero; GC allocation counter is approximate and process-wide.",
+                                   "WorkingSet is sampled before/after Poll; it is not a Poll-local peak and includes prior scenarios/setup.",
+                                   "Steady total includes synthetic writers and logging; Poll intervals are recorded separately.",
+                                   "Provided DLL hash matches build copy; Core was not independently rebuilt or source-to-binary verified.",
+                                   "No measurements or synthetic data generation authorized yet; bounded run requires explicit RUN."
+                               ],
+    "measurementResultDirectory":  "C:\\Codex-Workspace\\Vibedotcom\\tools\\perf\\tracker\\results\\20261003T180544090Z-dc833495",
+    "measuredLimitations":  [
+                                "60 growing-file ticks took 70.9162339s, exceeding the intended 60s cadence; no claim of exact 1Hz appends or host-normal latency.",
+                                "Growing Poll wall p95=787.4652ms and max=1916.0623ms; cause is not isolated. Measured sandbox workload only.",
+                                "Sampled growing RSS varied 3358720..51474432 bytes. Do not treat RSS changes across ordered scenarios as tracker-retained memory or normal-desktop residency.",
+                                "Observed process CPU intervals are quantized in 15.625ms steps, with zero values and CPU/wall ratios above 100% for short cases; individual short-Poll CPU percentages are unreliable.",
+                                "Steady whole-process CPU=9000ms includes fixture appends/logging/watchers; Poll+drain CPU=1375ms only includes overlap with captured Poll intervals and omits watcher CPU between Polls."
+                            ]
+}

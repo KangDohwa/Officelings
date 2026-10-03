@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <!-- The committed App grants this assembly access to its internal render code. -->
+    <AssemblyName>Vibedotcom.Tests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AppHarness.cs" />
+    <Reference Include="Vibedotcom.App"><HintPath>$(AppBin)/Vibedotcom.App.dll</HintPath></Reference>
+    <Reference Include="Vibedotcom.Core"><HintPath>$(AppBin)/Vibedotcom.Core.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

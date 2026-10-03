@@ -1,0 +1,43 @@
+{
+  "loadMs": 618.6338,
+  "decodeMs": 777.2818,
+  "firstFrameMs": 3442.4408,
+  "inProcessFirstFrameMs": 4970.6785,
+  "embeddedResources": 92,
+  "decodedSheets": 96,
+  "compressedBytes": 1900367,
+  "decodedPixelBytes": 52712640,
+  "before": {
+    "workingSet": 38219776,
+    "privateBytes": 11890688,
+    "managedBytes": 864184,
+    "gdi": 0,
+    "user": 3,
+    "threads": 8
+  },
+  "loaded": {
+    "workingSet": 60768256,
+    "privateBytes": 25702400,
+    "managedBytes": 12642880,
+    "gdi": 0,
+    "user": 3,
+    "threads": 8
+  },
+  "decoded": {
+    "workingSet": 139087872,
+    "privateBytes": 103038976,
+    "managedBytes": 4621480,
+    "gdi": 1,
+    "user": 7,
+    "threads": 11
+  },
+  "afterFrame": {
+    "workingSet": 87805952,
+    "privateBytes": 159596544,
+    "managedBytes": 8651600,
+    "gdi": 8,
+    "user": 11,
+    "threads": 37
+  },
+  "warnings": []
+}

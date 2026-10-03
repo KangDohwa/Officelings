@@ -1,0 +1,74 @@
+{"name":"malformed skipped; partial deferred; identified one agent","passed":true,"evidence":null}
+{"name":"split record completes with exact unread bytes","passed":true,"evidence":null}
+{"name":"read-denied warns without advancing bytes or losing agent","passed":true,"evidence":null}
+{"name":"unlock retries exactly once","passed":true,"evidence":null}
+{"name":"20MiB exact fixture; bounded prefix\u002Bsuffix; correct identity/state","passed":true,"evidence":null}
+{"name":"20MiB unchanged payload zero","passed":true,"evidence":null}
+{"name":"20MiB append only reads exact 64KiB","passed":true,"evidence":null}
+{"name":"200MiB exact fixture; bounded prefix\u002Bsuffix; correct identity/state","passed":true,"evidence":null}
+{"name":"200MiB unchanged payload zero","passed":true,"evidence":null}
+{"name":"200MiB append only reads exact 64KiB","passed":true,"evidence":null}
+{"name":"startup visits 2000 old files without reading payload or spawning agents","passed":true,"evidence":null}
+{"name":"archive is not re-enumerated on next scan","passed":true,"evidence":null}
+{"name":"50 initial agents; seed bytes exact","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 1","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 2","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 3","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 4","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 5","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 6","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 7","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 8","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 9","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 10","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 11","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 12","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 13","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 14","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 15","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 16","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 17","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 18","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 19","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 20","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 21","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 22","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 23","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 24","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 25","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 26","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 27","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 28","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 29","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 30","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 31","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 32","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 33","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 34","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 35","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 36","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 37","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 38","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 39","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 40","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 41","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 42","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 43","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 44","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 45","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 46","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 47","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 48","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 49","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 50","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 51","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 52","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 53","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 54","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 55","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 56","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 57","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 58","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 59","passed":true,"evidence":null}
+{"name":"steady identities and warnings tick 60","passed":true,"evidence":null}
+{"name":"steady drains all appended bytes; exactly 50 agents","passed":true,"evidence":null}

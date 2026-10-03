@@ -1,0 +1,3 @@
+"seconds","pid","mode","agents","cpuCorePercent","cpuMachinePercent","workingSetBytes","privateBytes","gdi","user","threads","counterCpuCorePercent","counterWorkingSetBytes","counterPrivateBytes","counterThreads","foregroundHwnd"
+"8.2824211","35616","topmost","12","64.7078304192961","3.59487946773867","306532352","232337408","16","25","40","114.638804248427","351117312","265977856","40","0"
+"11.4385995","35616","topmost","12","59.9023489926932","3.32790827737184","308166656","226709504","16","25","40","97.3373485119378","351277056","266252288","40","0"

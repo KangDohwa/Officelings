@@ -1,0 +1,24 @@
+{
+  "pid": 55104,
+  "count": 12,
+  "mode": "transparent",
+  "startupRetries": 1,
+  "hwnd": 1575318,
+  "style": 370081792,
+  "exStyle": 134742272,
+  "nativeTopmost": false,
+  "allowsTransparency": true,
+  "foregroundUnchanged": true,
+  "startedUtc": "2026-10-03T18:18:16.2993958+00:00",
+  "memory": {
+    "workingSet": 121843712,
+    "privateBytes": 219631616,
+    "managedBytes": 7793944,
+    "gdi": 18,
+    "user": 23,
+    "threads": 37
+  },
+  "fakeHome": "C:\\Users\\myori\\AppData\\Local\\Temp\\vd-perf-empty-55104",
+  "decodedSheets": 96,
+  "warnings": []
+}
