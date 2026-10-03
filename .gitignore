@@ -55,3 +55,7 @@ assets/art/pets/references/
 assets/art/iso-concept/runs/
 assets/art/**/.publish.lock
 assets/art/**/*.tmp
+assets/art/iso/**/runs/
+assets/art/iso/**/qa/
+
+tools/perf/results/
