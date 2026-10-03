@@ -1,0 +1,107 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "corgi.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 2,
+  "variants": [
+    {
+      "name": "sable",
+      "sheet": "sable.png",
+      "substituted_pixels": 5069,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#3f2e29",
+          "pixels": 432
+        },
+        {
+          "from": "#b58043",
+          "to": "#804a2f",
+          "pixels": 3048
+        },
+        {
+          "from": "#eca662",
+          "to": "#c78251",
+          "pixels": 1589
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 4700,
+      "passthrough_color_count": 5,
+      "passthrough_colors": [
+        {
+          "hex": "#191e1e",
+          "pixels": 2271
+        },
+        {
+          "hex": "#faecc9",
+          "pixels": 1548
+        },
+        {
+          "hex": "#e7d1ac",
+          "pixels": 482
+        },
+        {
+          "hex": "#bf6554",
+          "pixels": 202
+        },
+        {
+          "hex": "#090b0b",
+          "pixels": 197
+        }
+      ],
+      "manifest": "sable.manifest.json"
+    },
+    {
+      "name": "cream",
+      "sheet": "cream.png",
+      "substituted_pixels": 5069,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#a08a6e",
+          "pixels": 432
+        },
+        {
+          "from": "#b58043",
+          "to": "#dbc5a3",
+          "pixels": 3048
+        },
+        {
+          "from": "#eca662",
+          "to": "#faecc9",
+          "pixels": 1589
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 4700,
+      "passthrough_color_count": 5,
+      "passthrough_colors": [
+        {
+          "hex": "#191e1e",
+          "pixels": 2271
+        },
+        {
+          "hex": "#faecc9",
+          "pixels": 1548
+        },
+        {
+          "hex": "#e7d1ac",
+          "pixels": 482
+        },
+        {
+          "hex": "#bf6554",
+          "pixels": 202
+        },
+        {
+          "hex": "#090b0b",
+          "pixels": 197
+        }
+      ],
+      "manifest": "cream.manifest.json"
+    }
+  ]
+}
