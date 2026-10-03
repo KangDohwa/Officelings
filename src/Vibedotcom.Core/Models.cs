@@ -77,7 +77,9 @@ public sealed record OfficeLayout(int WidthTiles, int HeightTiles, int TileSize,
 public sealed record Pose(double X, double Y, Tile Desk, string Action, string Facing, int SpriteRow, int SpriteColumn, bool Visible,
     double Opacity = 1, bool CarryingPaper = false, bool ReportOnDesk = false, string? Reaction = null, string? ChatPartnerId = null,
     string? CharacterId = null, SpriteFrame? Sprite = null, string? DeskId = null, string? OverflowSeatId = null,
-    string WorkLocation = "desk", bool Queued = false, string? DisplayName = null, string? ProviderIcon = null);
+    string WorkLocation = "desk", bool Queued = false, string? DisplayName = null, string? ProviderIcon = null,
+    string? SeatedVariant = null, PixelPoint? SeatAnchor = null, string? ChairBackId = null,
+    string? ChairFrontId = null, string? SeatPhase = null, int SeatPhaseFrame = 0);
 public sealed record AgentView(AgentInfo Agent, Pose Pose);
 public sealed record FurnitureSprite(string Id, SpriteFrame Sprite, string? MonitorState = null);
 public sealed record AtlasInfo(string File, int Width, int Height, int CellWidth, int CellHeight, int Columns, int Rows, int Version);
@@ -87,7 +89,7 @@ public sealed record StateSnapshot(int SchemaVersion, DateTimeOffset GeneratedAt
 
 public static class StateJson
 {
-    public const int SchemaVersion = 4;
+    public const int SchemaVersion = 5;
     public static string OutputPath(string path, string? sourceHome = null)
     {
         var output = Path.GetFullPath(path);

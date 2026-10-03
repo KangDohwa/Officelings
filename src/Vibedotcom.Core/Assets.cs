@@ -7,13 +7,15 @@ namespace Vibedotcom.Core;
 
 public sealed record PixelPoint(double X, double Y);
 public sealed record AnimationRow(string Name, string Direction, int Row, int Frames, double Fps,
-    int Column = 0, bool Loop = true, PixelPoint? FootOffset = null);
+    int Column = 0, bool Loop = true, PixelPoint? FootOffset = null, PixelPoint? SeatAnchor = null);
 public sealed record Sheet(string Id, string File, int CellW, int CellH, IReadOnlyList<AnimationRow> Rows,
     PixelPoint Anchor, double Scale = 1, int Width = 0, int Height = 0, string? Sha256 = null);
 public sealed record InteractionPoint(string Id, int X, int Y, string Action, string Facing = "up");
 public sealed record FurnitureVariant(int Rotation, string State, int FootprintW, int FootprintH,
     IReadOnlyList<InteractionPoint> Points, IReadOnlyList<Tile>? BlockedCells = null,
-    string? SheetId = null, string? Animation = null, int Layer = 1, double ZOrder = 0);
+    string? SheetId = null, string? Animation = null, int Layer = 1, double ZOrder = 0,
+    string? ChairBackId = null, string? ChairFrontId = null, PixelPoint? ChairOffset = null,
+    PixelPoint? ChairSeatAnchor = null);
 public sealed record FurnitureAsset(string Id, string Kind, IReadOnlyList<FurnitureVariant> Variants);
 public sealed record CharacterDesign(string Id, string SheetId, string? Provider = null, string? Role = null);
 public sealed record TileType(int Id, string Kind, string Color, string? SheetId = null, string? Animation = null);
@@ -142,7 +144,8 @@ public sealed class AssetPack
                 !double.IsFinite(s.Scale) || s.Scale is < .125 or > 4 || !double.IsFinite(s.Anchor.X) || !double.IsFinite(s.Anchor.Y) ||
                 s.Rows.Count == 0 || s.Rows.Select(r => (r.Name, r.Direction)).Distinct().Count() != s.Rows.Count ||
                 s.Rows.Any(r => r.Row < 0 || r.Column < 0 || r.Frames is < 1 or > 256 || !double.IsFinite(r.Fps) || r.Fps is <= 0 or > 60 ||
-                    r.Direction is not ("any" or "up" or "down" or "left" or "right") || r.FootOffset is {} p && (!double.IsFinite(p.X) || !double.IsFinite(p.Y))))
+                    r.Direction is not ("any" or "up" or "down" or "left" or "right") || r.FootOffset is {} p && (!double.IsFinite(p.X) || !double.IsFinite(p.Y)) ||
+                    r.SeatAnchor is {} seat && (!double.IsFinite(seat.X) || !double.IsFinite(seat.Y) || seat.X < 0 || seat.Y < 0 || seat.X > s.CellW || seat.Y > s.CellH)))
                 throw new InvalidDataException("Invalid sheet: " + s.Id);
         bool HasSheet(string? id) => id == null || m.Sheets.Any(s => s.Id == id);
         if (m.Characters.Any(c => !HasSheet(c.SheetId) || c.Provider is not (null or "codex" or "claude" or "antigravity") || c.Role is not (null or "supervisor" or "worker")))
@@ -151,6 +154,8 @@ public sealed class AssetPack
             if (f.Variants.Count == 0 || f.Variants.Select(v => (v.Rotation, v.State)).Distinct().Count() != f.Variants.Count || f.Variants.Any(v =>
                 v.Rotation is not (0 or 90 or 180 or 270) || v.FootprintW is < 1 or > 64 || v.FootprintH is < 1 or > 64 ||
                 v.Layer is < 0 or > 2 || !double.IsFinite(v.ZOrder) || !HasSheet(v.SheetId) ||
+                new[] { v.ChairBackId, v.ChairFrontId }.Any(id => id != null && !m.Furniture.Any(a => a.Id == id)) ||
+                new[] { v.ChairOffset, v.ChairSeatAnchor }.Any(p => p != null && (!double.IsFinite(p.X) || !double.IsFinite(p.Y))) ||
                 v.Points.Select(p => p.Id).Distinct().Count() != v.Points.Count ||
                 v.Points.Any(p => p.Facing is not ("up" or "down" or "left" or "right")) ||
                 v.BlockedCells?.Any(t => t.X < 0 || t.Y < 0 || t.X >= v.FootprintW || t.Y >= v.FootprintH) == true))
@@ -165,8 +170,13 @@ public sealed class AssetPack
         var variant = Manifest.Furniture.FirstOrDefault(a => a.Id == (f.AssetId ?? f.Kind))?.Variants
             .FirstOrDefault(v => v.Rotation == f.Rotation && v.State == f.State)
             ?? throw new InvalidDataException("Unknown furniture variant: " + (f.AssetId ?? f.Kind) + "/" + f.Rotation + "/" + f.State);
-        return f.Seat == null ? variant : variant with
-        { Points = variant.Points.Where(p => p.Action != "typing").Append(f.Seat).ToArray() };
+        if (f.Seat == null) return variant;
+        var authored = variant.Points.FirstOrDefault(p => p.Action == "typing");
+        var dx = (f.Seat.X - (authored?.X ?? f.Seat.X)) * 16;
+        var dy = (f.Seat.Y - (authored?.Y ?? f.Seat.Y)) * 16;
+        return variant with { Points = variant.Points.Where(p => p.Action != "typing").Append(f.Seat).ToArray(),
+            ChairSeatAnchor = variant.ChairSeatAnchor is {} seat ? new(seat.X + dx, seat.Y + dy) : null,
+            ChairOffset = variant.ChairOffset is {} offset ? new(offset.X + dx, offset.Y + dy) : null };
     }
     public IEnumerable<(Tile Tile, InteractionPoint Point)> Points(OfficeLayout layout) => layout.Furniture.SelectMany(f =>
         Variant(f).Points.Select(p => (new Tile(f.X + p.X, f.Y + p.Y), p))).Concat((layout.Zones ?? []).SelectMany(z =>
@@ -210,6 +220,29 @@ public sealed class AssetPack
         var identity = int.TryParse(design.Id.AsSpan("fallback-".Length), out var value) ? value : SpriteAtlas.Variant(a.Id);
         var row = SpriteAtlas.Row(a.Provider, a.IsSubagent, a.Id, identity); var col = SpriteAtlas.Frame(action, facing, elapsedMilliseconds, identity);
         return new("fallback", row, col, col * 16, row * 24, 16, 24, 8, 24, 1, 0, action == "napping" ? -10 : 0);
+    }
+
+    public string? SeatedVariant(CharacterDesign design, string facing)
+    {
+        var name = facing == "up" ? "seated_back" : "seated_" + facing;
+        return Manifest.Sheets.First(s => s.Id == design.SheetId).Rows.Any(r => r.Name == name && r.Direction == facing && r.SeatAnchor != null) ? name : null;
+    }
+
+    public (SpriteFrame Frame, PixelPoint Anchor) SeatedFrame(AgentInfo agent, CharacterDesign design,
+        string variant, string facing, long elapsed, bool blink)
+    {
+        var sheet = Manifest.Sheets.First(s => s.Id == design.SheetId);
+        var row = sheet.Rows.First(r => r.Name == variant && r.Direction == facing);
+        var phase = agent.State == AgentState.Working ? SpriteAtlas.Hash(agent.Id) % (uint)row.Frames : 0;
+        if (agent.State == AgentState.Waiting) elapsed = 0;
+        else if (agent.State == AgentState.Thinking)
+        {
+            var cycle = elapsed % 8000;
+            var column = cycle is >= 6000 and < 6600 ? 2 : new[] { 0, 1, 0, 3 }[(cycle / 1000) % 4];
+            elapsed = (long)Math.Ceiling(column * 1000 / row.Fps);
+        }
+        var closed = blink ? sheet.Rows.FirstOrDefault(r => r.Name == "blink-" + variant && r.Direction == facing) : null;
+        return (Frame(sheet.Id, closed?.Name ?? variant, facing, elapsed, phase), row.SeatAnchor!);
     }
     // Hashed sheet names keep old snapshots valid while another tracker publishes a new pack.
     public AssetManifest Export(string output)
