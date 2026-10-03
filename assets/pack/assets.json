@@ -1,0 +1,8416 @@
+{
+  "version": 1,
+  "generatedBy": "tools/build_pack.py",
+  "sheets": [
+    {
+      "id": "char-antigravity-subagent-01",
+      "file": "sheets/pack-6240a61910f0edef05c8ccd64c7951c800bddff42a0edca68274402f2cf71923.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-subagent-02",
+      "file": "sheets/pack-b57ee04fbaa6c03da31830c7579b020a371abc068d951ec1c8b909b2fa87a2cf.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-subagent-03",
+      "file": "sheets/pack-e4b857b0533f394deeecd76beee31fe27fecdd68a23ef084ca0d6af5e1fc233b.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-subagent-04",
+      "file": "sheets/pack-a97ef27c28634b6d44ba25b196f0f11f06f9d1b345234388d3486d4530ffba1d.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-supervisor-01",
+      "file": "sheets/pack-158f2961e6b5adec9834df44839aa9000dd143cafd4f0e4f9e461837c72461fe.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-supervisor-02",
+      "file": "sheets/pack-742fef58db56144a2597e7621a183161502a8ce81ec2e951c51416b6ef0801bf.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-supervisor-03",
+      "file": "sheets/pack-eef97d01ee773b20ed7a03f7a89d18e007c9568a8a974cbb4210a94e45ce96e9.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-supervisor-04",
+      "file": "sheets/pack-31d7e69cdcbe21f1a667963faf52c10456b922abf38afe61f3bc148f31128a96.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-worker-01",
+      "file": "sheets/pack-8622e6ba650daad0d7cb909ae598e7e29dc736793e6e33ed0684d037ae641017.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-worker-02",
+      "file": "sheets/pack-013d5ddac7791ce56b1925600e2d726484666ea11acad9fb9f583569f50bfb29.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-worker-03",
+      "file": "sheets/pack-0232967e0aca11e001d4bfa6168d7e35e0c346f208287f3a50037903042ff1c2.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-antigravity-worker-04",
+      "file": "sheets/pack-1be681c805174d2424394ff52916cde624600c42b0df65027dd7dbd7379091ec.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-subagent-01",
+      "file": "sheets/pack-aac9f1306eb236d4207d32ce8837add890488d0e3c34216837148e7384c60202.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-subagent-02",
+      "file": "sheets/pack-3c849473d545e80b75eea5c62d683de68031c4458deec209b9d2a3998b75a80c.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-subagent-03",
+      "file": "sheets/pack-004894872c9206df5af55b0254a716b9fe47ecc269e920520bcc1fb1aaefdaf0.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-subagent-04",
+      "file": "sheets/pack-9f3e246c9373a4e54e1eed41906920c003e409cc35eb44ec7a546405b229ed3a.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-supervisor-01",
+      "file": "sheets/pack-25dc2d9ee57e7c21fedead826c38e9ebcc4f66ec47a24b20eab8d9a2c8e1249e.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-supervisor-02",
+      "file": "sheets/pack-468a60209b907702ba8658c8e4388e8c15df353fba981e7e7a3b98be834e2e53.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-supervisor-03",
+      "file": "sheets/pack-bb95f33773b8a3509f2723d04ac7b3b02ea71707bef89dcb76dee8b0c78facbb.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-supervisor-04",
+      "file": "sheets/pack-9a31438b3fa3f4a2e3fbb543d009242763b62a499be4cd2e95e7ce30c7c31db2.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-worker-01",
+      "file": "sheets/pack-6b8c37f1dc33143f08ed1eee6b28e98b65c89bce0456ddee7b6856cd268908b3.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-worker-02",
+      "file": "sheets/pack-91c658392609a3d385c2f628237c42c73b4f6686d340cfa5f468a720abae7faa.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-worker-03",
+      "file": "sheets/pack-2fa9f2653aef9a7ceb1f4ba74465843ffa487eae3c7d92e0c28c3dcebe1e44c5.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-claude-worker-04",
+      "file": "sheets/pack-2d57feaa25d5659c571705a6708b96e07cc0ab918e43ff7f61fe900a526dbd8b.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-subagent-01",
+      "file": "sheets/pack-b39ef1f4d7a2adc2b2657f5e59e0c510d5ebe9f6f9a402afd8bc02386db517c2.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-subagent-02",
+      "file": "sheets/pack-a66ef7db359ac2b45bcec4b502afcd5171a639621c7130c0f11512b75b5eb780.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-subagent-03",
+      "file": "sheets/pack-587348365ac318a400ea7be13d24bcf1aaee7c73491ba2f8756ed403abc96513.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-subagent-04",
+      "file": "sheets/pack-33ec26e34403cf804e78b1c308e03fdea62e6916886d20834f57ec4cd9e79407.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-supervisor-01",
+      "file": "sheets/pack-4f37a014bfcbe1258a731cee914d4cb5eba1235a8e6c4da99a37c2354c3177f3.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-supervisor-02",
+      "file": "sheets/pack-1915257e7e11bf29ac01c70571faa51c71b7fd8af868956e79ab16fc56a63570.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-supervisor-03",
+      "file": "sheets/pack-ace26fcca1ad96ecda51fd6ca644c8a7944abcdc7af934b73c1162959eae693a.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-supervisor-04",
+      "file": "sheets/pack-2089f820410847e12c4179051fb0f5a4f1687e1991b2b9f3ed0c3a7d089e28df.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-worker-01",
+      "file": "sheets/pack-98ddc433d48ea29cac3f3c74e55cf23dfd21dba9713062602fc4ef7e66d2bff1.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-worker-02",
+      "file": "sheets/pack-b98259e2252171d09543866ab47d197607653b5418d108ba6b54ed76fea2dbf5.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-worker-03",
+      "file": "sheets/pack-0cf7ae64d9ab3fd4d1241cf48748989f27397fe6f0505e31119ef1435c49c199.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-codex-worker-04",
+      "file": "sheets/pack-d4ba927deaa57771dd544cb02c8c85a3babaab53462259ab6fdf083fdb8193b3.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-beanie-scarf",
+      "file": "sheets/pack-90329532193e1224a32858a5fa9bdddf6ac94392303b07961a8e80548df4eb8d.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-dev-hoodie",
+      "file": "sheets/pack-1cd6c8ba26888b5f7c2f2188c50505d19db2b97469dbe3e00c5afacdd1e53380.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-glasses-bun",
+      "file": "sheets/pack-aedbbd686fbf1041ae46ae2a52a4ddeb4f216c0f96a7281daac34a8527a6316b.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-labcoat-tall",
+      "file": "sheets/pack-cb666fb9bf3b4c0ef9053d24d3806f405b9333248960b36c72bd368463d2bd01.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-professor",
+      "file": "sheets/pack-989e693b8a7ee5851b2faf7dc861b5fab94cc68f73c46d8caf8a944df633bc75.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-punk-girl",
+      "file": "sheets/pack-46ab3fb6b2d37b62e6f2bd690ca67a4e73f3c6e065724526ffe6e53ccf891f35.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-desk",
+      "file": "sheets/pack-77445f88a8b760a8f4785a56786919984913e7e7f4c03ae29d580394ef6a3c3e.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 28
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-desk",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-pantry",
+      "file": "sheets/pack-8b400bbea1594f14969c54191526d8f15eb840f74911055aaba2c09f95087db1.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-pantry",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-water",
+      "file": "sheets/pack-b641332d5575878b3eca129cb8a0fcb27e08a01455e4e0399e525087d80bc0c5.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-water",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-tv",
+      "file": "sheets/pack-1013006620ff18bc09f3555d9b87f9020ab068defce0c708bd59a93037dda524.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-tv",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "cozy-sofa",
+      "file": "sheets/pack-b9838933064455441b992bb4eace8421eb196b68916e67fcd81bea5029168dcf.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-sofa",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-table",
+      "file": "sheets/pack-dc727332381e02af4ec3e5e8b25ee96eea6d0c4a34595c1fbb8287ff318a321c.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-table",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant",
+      "file": "sheets/pack-424b0fb106cc749a2d5b17b03ead1cdb1af2d066a589d76b06e4829715208098.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-plant",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-snake",
+      "file": "sheets/pack-6e7a4677fc86cb3ea4a54cd7061a5898bbfe0968c8a0e79a2cef64aab6809d56.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-plant-snake",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-fern",
+      "file": "sheets/pack-89b1387a278da784c990f3f7d9c00f86ee5218c060b3f3bc1a020a6a72b9aef0.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-plant-fern",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-succulent",
+      "file": "sheets/pack-52c3930258806364e00718cc9ce835a32097d97f8d42bed9ff59de520795f87d.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-plant-succulent",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-ficus",
+      "file": "sheets/pack-d31ebce6afc7613723e8e81b65f425b5998cb1964b1ac145ef69320485f07f87.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-plant-ficus",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-bookshelf",
+      "file": "sheets/pack-a085f9892409c9ec8fd4c361b071b58e999ecbb620a69f5406417dc3dc63d807.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-bookshelf",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-cabinet",
+      "file": "sheets/pack-35b2a49236711fc5b01585fe3466ff2bfc71edc37ddddb3b1a55f10d0d37d0ff.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-cabinet",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-server",
+      "file": "sheets/pack-fbff9b278043b00cf6eefd5e9bb6553b99490de0bce715e2d8dff99d459027b7.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 13
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-server",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        }
+      ]
+    },
+    {
+      "id": "cozy-meeting",
+      "file": "sheets/pack-db1d5958c7ba4451ded7e6a0d04a17d21b40b7b888cf2b62c8394bab93d4c209.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 0,
+        "y": 13
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-meeting",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-armchair",
+      "file": "sheets/pack-18f541bd2ffd74698e3ca20b487d6bf741f85b6b6da4bb79200ea59a76ca422d.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-armchair",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-rug",
+      "file": "sheets/pack-8cda06d6983641aca08e4f1216e1dfa1d40b769b34b326cc8735d3a5d61b903c.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 0,
+        "y": 13
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-rug",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-picture",
+      "file": "sheets/pack-82cf61cd58f94b1a48a134961311fe3cf5bfc47771344baec2ceff9353b2385e.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-picture",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-whiteboard",
+      "file": "sheets/pack-f972c6ebb7175b2f84ac96bba73f3a17a9afb97a412eb4179cee34b82c6487b0.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-whiteboard",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-clock",
+      "file": "sheets/pack-2865b77613d084071a036f348f094a7ad6fe9cecb703cdbc4ac91ab92ac12f73.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-clock",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-window",
+      "file": "sheets/pack-9b26f891191c129b6d8c8912eb1c563949e8451fe7613c1a1c20c5139689b594.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-window",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-door",
+      "file": "sheets/pack-f260c28ab990e6ffc34cd58efe13f5c7516dd09786478be95682772e0f78958e.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-door",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "icons",
+      "file": "sheets/pack-581c208d7e1041409983a6dc09909d64728dbf5f07512b639e8d33dff489d0e8.png",
+      "cellW": 32,
+      "cellH": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "bubble-working",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "bubble-thinking",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "bubble-waiting",
+          "direction": "any",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "bubble-done",
+          "direction": "any",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "bubble-napping",
+          "direction": "any",
+          "row": 0,
+          "column": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "bubble-reaction",
+          "direction": "any",
+          "row": 0,
+          "column": 5,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "role-supervisor",
+          "direction": "any",
+          "row": 0,
+          "column": 6,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "role-worker",
+          "direction": "any",
+          "row": 0,
+          "column": 7,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "report-item",
+          "direction": "any",
+          "row": 0,
+          "column": 8,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "tiles",
+      "file": "sheets/pack-20557ac2ff1558bfcfe2f54f1aad3417837eca8cf1764745ce092d4a768c854b.png",
+      "cellW": 32,
+      "cellH": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "wall",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "wood",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "checker",
+          "direction": "any",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "carpet",
+          "direction": "any",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "void",
+          "direction": "any",
+          "row": 0,
+          "column": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "wall-baseboard",
+          "direction": "any",
+          "row": 0,
+          "column": 5,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "floor-tiles",
+      "file": "sheets/pack-61e1090c93a532245d4fa80fbdb3385db532be6e38006ea4f1535adaa34cf938.png",
+      "cellW": 16,
+      "cellH": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "wood-0",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "wood-1",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "wood-2",
+          "direction": "any",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "wood-3",
+          "direction": "any",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "checker-0",
+          "direction": "any",
+          "row": 0,
+          "column": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "checker-1",
+          "direction": "any",
+          "row": 0,
+          "column": 5,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "checker-2",
+          "direction": "any",
+          "row": 0,
+          "column": 6,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "checker-3",
+          "direction": "any",
+          "row": 0,
+          "column": 7,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "carpet-0",
+          "direction": "any",
+          "row": 0,
+          "column": 8,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "carpet-1",
+          "direction": "any",
+          "row": 0,
+          "column": 9,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "carpet-2",
+          "direction": "any",
+          "row": 0,
+          "column": 10,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "carpet-3",
+          "direction": "any",
+          "row": 0,
+          "column": 11,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    }
+  ],
+  "characters": [
+    {
+      "id": "antigravity-subagent-01",
+      "sheetId": "char-antigravity-subagent-01"
+    },
+    {
+      "id": "antigravity-subagent-02",
+      "sheetId": "char-antigravity-subagent-02"
+    },
+    {
+      "id": "antigravity-subagent-03",
+      "sheetId": "char-antigravity-subagent-03"
+    },
+    {
+      "id": "antigravity-subagent-04",
+      "sheetId": "char-antigravity-subagent-04"
+    },
+    {
+      "id": "antigravity-supervisor-01",
+      "sheetId": "char-antigravity-supervisor-01"
+    },
+    {
+      "id": "antigravity-supervisor-02",
+      "sheetId": "char-antigravity-supervisor-02"
+    },
+    {
+      "id": "antigravity-supervisor-03",
+      "sheetId": "char-antigravity-supervisor-03"
+    },
+    {
+      "id": "antigravity-supervisor-04",
+      "sheetId": "char-antigravity-supervisor-04"
+    },
+    {
+      "id": "antigravity-worker-01",
+      "sheetId": "char-antigravity-worker-01"
+    },
+    {
+      "id": "antigravity-worker-02",
+      "sheetId": "char-antigravity-worker-02"
+    },
+    {
+      "id": "antigravity-worker-03",
+      "sheetId": "char-antigravity-worker-03"
+    },
+    {
+      "id": "antigravity-worker-04",
+      "sheetId": "char-antigravity-worker-04"
+    },
+    {
+      "id": "claude-subagent-01",
+      "sheetId": "char-claude-subagent-01"
+    },
+    {
+      "id": "claude-subagent-02",
+      "sheetId": "char-claude-subagent-02"
+    },
+    {
+      "id": "claude-subagent-03",
+      "sheetId": "char-claude-subagent-03"
+    },
+    {
+      "id": "claude-subagent-04",
+      "sheetId": "char-claude-subagent-04"
+    },
+    {
+      "id": "claude-supervisor-01",
+      "sheetId": "char-claude-supervisor-01"
+    },
+    {
+      "id": "claude-supervisor-02",
+      "sheetId": "char-claude-supervisor-02"
+    },
+    {
+      "id": "claude-supervisor-03",
+      "sheetId": "char-claude-supervisor-03"
+    },
+    {
+      "id": "claude-supervisor-04",
+      "sheetId": "char-claude-supervisor-04"
+    },
+    {
+      "id": "claude-worker-01",
+      "sheetId": "char-claude-worker-01"
+    },
+    {
+      "id": "claude-worker-02",
+      "sheetId": "char-claude-worker-02"
+    },
+    {
+      "id": "claude-worker-03",
+      "sheetId": "char-claude-worker-03"
+    },
+    {
+      "id": "claude-worker-04",
+      "sheetId": "char-claude-worker-04"
+    },
+    {
+      "id": "codex-subagent-01",
+      "sheetId": "char-codex-subagent-01"
+    },
+    {
+      "id": "codex-subagent-02",
+      "sheetId": "char-codex-subagent-02"
+    },
+    {
+      "id": "codex-subagent-03",
+      "sheetId": "char-codex-subagent-03"
+    },
+    {
+      "id": "codex-subagent-04",
+      "sheetId": "char-codex-subagent-04"
+    },
+    {
+      "id": "codex-supervisor-01",
+      "sheetId": "char-codex-supervisor-01"
+    },
+    {
+      "id": "codex-supervisor-02",
+      "sheetId": "char-codex-supervisor-02"
+    },
+    {
+      "id": "codex-supervisor-03",
+      "sheetId": "char-codex-supervisor-03"
+    },
+    {
+      "id": "codex-supervisor-04",
+      "sheetId": "char-codex-supervisor-04"
+    },
+    {
+      "id": "codex-worker-01",
+      "sheetId": "char-codex-worker-01"
+    },
+    {
+      "id": "codex-worker-02",
+      "sheetId": "char-codex-worker-02"
+    },
+    {
+      "id": "codex-worker-03",
+      "sheetId": "char-codex-worker-03"
+    },
+    {
+      "id": "codex-worker-04",
+      "sheetId": "char-codex-worker-04"
+    },
+    {
+      "id": "beanie-scarf",
+      "sheetId": "char-beanie-scarf"
+    },
+    {
+      "id": "dev-hoodie",
+      "sheetId": "char-dev-hoodie"
+    },
+    {
+      "id": "glasses-bun",
+      "sheetId": "char-glasses-bun"
+    },
+    {
+      "id": "labcoat-tall",
+      "sheetId": "char-labcoat-tall"
+    },
+    {
+      "id": "professor",
+      "sheetId": "char-professor"
+    },
+    {
+      "id": "punk-girl",
+      "sheetId": "char-punk-girl"
+    }
+  ],
+  "furniture": [
+    {
+      "id": "cozy-desk",
+      "kind": "desk",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 1,
+              "y": 2,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-pantry",
+      "kind": "pantry",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "coffee",
+              "x": 1,
+              "y": 2,
+              "action": "coffee",
+              "facing": "up"
+            }
+          ],
+          "sheetId": "cozy-pantry",
+          "animation": "cozy-pantry",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-water",
+      "kind": "water",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "water",
+              "x": 0,
+              "y": 2,
+              "action": "water",
+              "facing": "up"
+            }
+          ],
+          "sheetId": "cozy-water",
+          "animation": "cozy-water",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-tv",
+      "kind": "tv",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "tv",
+              "x": 1,
+              "y": 3,
+              "action": "tv",
+              "facing": "up"
+            }
+          ],
+          "sheetId": "cozy-tv",
+          "animation": "cozy-tv",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-sofa",
+      "kind": "sofa",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "nap",
+              "x": 1,
+              "y": 2,
+              "action": "napping",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-sofa",
+          "animation": "cozy-sofa",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-table",
+      "kind": "table",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "chat-left",
+              "x": 0,
+              "y": 2,
+              "action": "chatting",
+              "facing": "right"
+            },
+            {
+              "id": "chat-right",
+              "x": 2,
+              "y": 2,
+              "action": "chatting",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-table",
+          "animation": "cozy-table",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant",
+      "kind": "plant",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant",
+          "animation": "cozy-plant",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-monstera",
+      "kind": "plant",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant",
+          "animation": "cozy-plant",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-snake",
+      "kind": "plant",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-snake",
+          "animation": "cozy-plant-snake",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-fern",
+      "kind": "plant",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-fern",
+          "animation": "cozy-plant-fern",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-succulent",
+      "kind": "plant",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-succulent",
+          "animation": "cozy-plant-succulent",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-plant-ficus",
+      "kind": "plant",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-ficus",
+          "animation": "cozy-plant-ficus",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-bookshelf",
+      "kind": "bookshelf",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-bookshelf",
+          "animation": "cozy-bookshelf",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-cabinet",
+      "kind": "cabinet",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-cabinet",
+          "animation": "cozy-cabinet",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-server",
+      "kind": "server",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 2
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-server",
+          "animation": "cozy-server",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-meeting",
+      "kind": "table",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 4,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 3,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 3,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 2,
+              "y": 2
+            },
+            {
+              "x": 3,
+              "y": 2
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-meeting",
+          "animation": "cozy-meeting",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-armchair",
+      "kind": "chair",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-armchair",
+          "animation": "cozy-armchair",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-rug",
+      "kind": "rug",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 4,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-rug",
+          "animation": "cozy-rug",
+          "layer": 0,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-picture",
+      "kind": "picture",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-picture",
+          "animation": "cozy-picture",
+          "layer": 2,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-whiteboard",
+      "kind": "whiteboard",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-whiteboard",
+          "animation": "cozy-whiteboard",
+          "layer": 2,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-clock",
+      "kind": "clock",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-clock",
+          "animation": "cozy-clock",
+          "layer": 2,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-window",
+      "kind": "window",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-window",
+          "animation": "cozy-window",
+          "layer": 2,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-door",
+      "kind": "door",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-door",
+          "animation": "cozy-door",
+          "layer": 2,
+          "zOrder": 0
+        }
+      ]
+    }
+  ],
+  "tileTypes": [
+    {
+      "id": 0,
+      "kind": "wall",
+      "color": "#E7D1AC",
+      "sheetId": "tiles",
+      "animation": "wall"
+    },
+    {
+      "id": 1,
+      "kind": "floor",
+      "color": "#B58043",
+      "sheetId": "floor-tiles",
+      "animation": "wood-0"
+    },
+    {
+      "id": 2,
+      "kind": "floor",
+      "color": "#FAECC9",
+      "sheetId": "floor-tiles",
+      "animation": "checker-0"
+    },
+    {
+      "id": 3,
+      "kind": "floor",
+      "color": "#48728F",
+      "sheetId": "floor-tiles",
+      "animation": "carpet-0"
+    },
+    {
+      "id": 5,
+      "kind": "wall",
+      "color": "#674638"
+    },
+    {
+      "id": 6,
+      "kind": "wall",
+      "color": "#E7D1AC",
+      "sheetId": "tiles",
+      "animation": "wall-baseboard"
+    },
+    {
+      "id": 10,
+      "kind": "floor",
+      "color": "#B58043",
+      "sheetId": "floor-tiles",
+      "animation": "wood-1"
+    },
+    {
+      "id": 11,
+      "kind": "floor",
+      "color": "#B58043",
+      "sheetId": "floor-tiles",
+      "animation": "wood-2"
+    },
+    {
+      "id": 12,
+      "kind": "floor",
+      "color": "#B58043",
+      "sheetId": "floor-tiles",
+      "animation": "wood-3"
+    },
+    {
+      "id": 13,
+      "kind": "floor",
+      "color": "#FAECC9",
+      "sheetId": "floor-tiles",
+      "animation": "checker-1"
+    },
+    {
+      "id": 14,
+      "kind": "floor",
+      "color": "#FAECC9",
+      "sheetId": "floor-tiles",
+      "animation": "checker-2"
+    },
+    {
+      "id": 15,
+      "kind": "floor",
+      "color": "#FAECC9",
+      "sheetId": "floor-tiles",
+      "animation": "checker-3"
+    },
+    {
+      "id": 16,
+      "kind": "floor",
+      "color": "#48728F",
+      "sheetId": "floor-tiles",
+      "animation": "carpet-1"
+    },
+    {
+      "id": 17,
+      "kind": "floor",
+      "color": "#48728F",
+      "sheetId": "floor-tiles",
+      "animation": "carpet-2"
+    },
+    {
+      "id": 18,
+      "kind": "floor",
+      "color": "#48728F",
+      "sheetId": "floor-tiles",
+      "animation": "carpet-3"
+    },
+    {
+      "id": 255,
+      "kind": "void",
+      "color": "#6C4B2F",
+      "sheetId": "tiles",
+      "animation": "void"
+    }
+  ]
+}
