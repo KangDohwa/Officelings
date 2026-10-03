@@ -15,12 +15,19 @@ public sealed class IsoPack
     public IsoManifest Manifest { get; private set; } = null!;
     public IReadOnlyDictionary<string, byte[]> Images => images;
     private readonly Dictionary<string, byte[]> images = new(StringComparer.Ordinal);
+    public IsoLayout Layout { get; private set; } = null!;
     public IReadOnlyList<CharacterDesign> Characters => Manifest.Characters ?? [];
     public static IsoPack Load(string dir)
     {
         dir = Path.GetFullPath(dir);
         var manifest = Path.Combine(dir, "assets.json");
-        if (File.Exists(manifest)) return Build([Read(manifest)], (_, path) => File.ReadAllBytes(AssetPack.LocalFile(dir, path)));
+        if (File.Exists(manifest))
+        {
+            var result = Build([Read(manifest)], (_, path) => File.ReadAllBytes(AssetPack.LocalFile(dir, path)));
+            var layoutFile = Path.Combine(dir, "layout.json");
+            if (File.Exists(layoutFile)) result.Layout = IsoLayoutLoader.Load(layoutFile, result);
+            return result;
+        }
         // Temporary source adapter: enumerate only the approved final exports, never intermediate art.
         var files = new List<string> { "env/floors/floors.iso.json", "env/walls/walls.iso.json" };
         files.AddRange(Directory.EnumerateFiles(Path.Combine(dir, "furniture-v2"), "*.iso.json", SearchOption.AllDirectories)
@@ -38,7 +45,7 @@ public sealed class IsoPack
             ?? throw new InvalidDataException("Embedded iso pack is unavailable; merge/build the isopack lane first.");
         if (manifest.Length > 4 * 1024 * 1024) throw new InvalidDataException("JSON exceeds 4 MiB.");
         var m = JsonSerializer.Deserialize<IsoManifest>(manifest, StateJson.Options) ?? throw new InvalidDataException("Empty iso manifest.");
-        return Build([m], (_, path) =>
+        var result = Build([m], (_, path) =>
         {
             // Validate paths even though resources cannot escape the assembly.
             ValidateRelativePath(path);
@@ -47,6 +54,9 @@ public sealed class IsoPack
             if (png.Length > 32 * 1024 * 1024) throw new InvalidDataException("Sheet exceeds 32 MiB.");
             using var buffer = new MemoryStream(); png.CopyTo(buffer); return buffer.ToArray();
         });
+        using var layout = assembly.GetManifestResourceStream("Vibedotcom.Core.IsoPack.layout.json");
+        if (layout != null) result.Layout = IsoLayoutLoader.Validate(JsonSerializer.Deserialize<IsoLayout>(layout, StateJson.Options) ?? throw new InvalidDataException("Empty iso layout."), result);
+        return result;
     }
     private static IsoManifest Read(string file) => AssetPack.Read<IsoManifest>(file);
     private static void ValidateRelativePath(string path)
@@ -104,8 +114,15 @@ public sealed class IsoPack
         foreach (var wall in walls) foreach (var p in wall.Parts) pack.ValidatePart(p);
         foreach (var p in props) pack.Clip(p.SheetId, p.Animation, "se");
         foreach (var pet in pets) pack.Sheet(pet.SheetId);
+        // Runtime-only ground art is kept in the same sheet API; it is never written into the I1 pack.
+        var shadowBytes = IsoActorShadow.Png();
+        var shadow = new IsoSheet(IsoActorShadow.SheetId, "shadow", "core-contact-shadow.png", 32, 32, new(16, 20),
+            [new("contact", "any", 0, 1, 1)], Width: 32, Height: 32, Sha256: Convert.ToHexString(SHA256.HashData(shadowBytes)).ToLowerInvariant());
+        pack.sheets.Add(shadow.Id, shadow); pack.images.Add(shadow.Id, shadowBytes); pack.masks.Add(shadow.Id, IsoPngMask.Read(shadowBytes));
+        pack.clips.Add((shadow.Id, "contact/any"), shadow.Rows![0]); loaded.Add(shadow);
         pack.Manifest = new(1, "iso2to1", loaded.AsReadOnly(), furniture.AsReadOnly(), characters.AsReadOnly(),
             tiles.AsReadOnly(), walls.AsReadOnly(), pets.AsReadOnly(), props.AsReadOnly(), ["iso2to1", "renderItemsV1"]);
+        pack.Layout = IsoLayoutLoader.Default(pack);
         return pack;
     }
     private static void RequireUnique(IEnumerable<string> ids)
@@ -275,4 +292,5 @@ public sealed class IsoPack
         return 21;
     }
 }
+
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup><InternalsVisibleTo Include="Vibedotcom.Tests" /></ItemGroup>
   <ItemGroup><EmbeddedResource Include="Data/*.json" /></ItemGroup>
   <ItemGroup>
@@ -6,6 +6,7 @@
     <EmbeddedResource Include="../../assets/pack/sheets/*.png" LogicalName="Vibedotcom.Core.Pack.%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup Condition="Exists('../../assets/art/iso/pack/assets.json')">
+    <EmbeddedResource Include="../../assets/art/iso/pack/layout.json" Condition="Exists('../../assets/art/iso/pack/layout.json')" LogicalName="Vibedotcom.Core.IsoPack.layout.json" />
     <EmbeddedResource Include="../../assets/art/iso/pack/assets.json" LogicalName="Vibedotcom.Core.IsoPack.assets.json" />
     <EmbeddedResource Include="../../assets/art/iso/pack/sheets/*.png" LogicalName="Vibedotcom.Core.IsoPack.%(Filename)%(Extension)" />
   </ItemGroup>

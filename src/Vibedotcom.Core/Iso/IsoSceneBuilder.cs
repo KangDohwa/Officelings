@@ -61,8 +61,12 @@ public sealed class IsoSceneBuilder
             // Source corner patches cover authored diagonal material junctions inside the same diamond.
             foreach (var c in floor.Rows!.Where(c => c.Transition && c.Name.Contains("corner")))
             {
-                var positiveI = c.Name.Contains("pos-i"); var positiveJ = c.Name.Contains("pos-j");
-                var di = positiveI ? 1 : -1; var dj = positiveJ ? 1 : -1;
+                var (di, dj) = c.Name switch
+                {
+                    "wood-checker-corner-0-1" => (1, 1), "wood-checker-corner-1-2" => (-1, 1),
+                    "wood-checker-corner-2-3" => (-1, -1), "wood-checker-corner-3-0" => (1, -1),
+                    _ => throw new InvalidDataException("Unknown floor corner patch.")
+                };
                 if (Checker(i + di, j + dj) && !Checker(i + di, j) && !Checker(i, j + dj))
                     AddStatic("tile-" + i + "-" + j, IsoLayer.Floor, floor.Id, c, i, j, IsoPass.Floor, 2, c.Name);
             }
@@ -195,6 +199,9 @@ public sealed class IsoSceneBuilder
                 dest = new(origin.X + (int)s.ContactOffset.X - (int)source.X, origin.Y + (int)s.ContactOffset.Y - (int)source.Y);
             }
         }
+        if (!hasSeat || actor.SeatPhase is null or "turn")
+            AddDynamic(actor.AgentId, "contact-shadow", IsoLayer.Shadow, IsoActorShadow.SheetId, pack.Clip(IsoActorShadow.SheetId, "contact/any"),
+                ground, depth, 0, 0, null, actor.Alpha, pass: IsoPass.Shadows);
         AddDynamic(actor.AgentId, "body", IsoLayer.Character, sheetId, clip, ground, depth, 0, actor.ElapsedSeconds, actor.AgentId,
             actor.Alpha, dest, actor.SeatPhase is "lower" or "raise" ? frame : null);
         labels.Add(new(actor.AgentId, actor.Name, dest.X + 16 + camera.X, dest.Y + pack.HeadTop(sheetId, clip, frame) - 6 + camera.Y));
@@ -241,4 +248,6 @@ public sealed class IsoSceneBuilder
         return null;
     }
 }
+
+
 

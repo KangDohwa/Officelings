@@ -43,7 +43,7 @@ public sealed class IsoOffice : IIsoOffice
     private double time, simulatedTime, nextDue;
     public IsoLayout Layout { get; }
     public double NextChangeSeconds { get; private set; }
-    public IsoOffice(IsoPack pack, int seed) : this(pack, seed, IsoLayoutLoader.Default(pack)) { }
+    public IsoOffice(IsoPack pack, int seed) : this(pack, seed, pack.Layout) { }
     public IsoOffice(IsoPack pack, int seed, IsoLayout layout)
     {
         this.pack = pack; random = new(seed); Layout = IsoLayoutLoader.Validate(layout, pack);
@@ -69,6 +69,7 @@ public sealed class IsoOffice : IIsoOffice
         var elapsed = time - simulatedTime; simulatedTime = time;
         AssignSeats();
         foreach (var actor in ordered) Advance(actor, elapsed);
+        AssignSeats();
         AdvanceCat(elapsed);
         poses.Clear(); var next = double.PositiveInfinity;
         foreach (var a in ordered)
@@ -91,8 +92,9 @@ public sealed class IsoOffice : IIsoOffice
     private bool Synchronize(IReadOnlyList<AgentInfo> incoming)
     {
         present.Clear(); var changed = false;
-        foreach (var info in incoming)
+        for (var index = 0; index < incoming.Count; index++)
         {
+            var info = incoming[index];
             if (!present.Add(info.Id)) throw new ArgumentException("Duplicate agent ID.");
             if (!actors.TryGetValue(info.Id, out var a)) { changed = true; continue; }
             if (a.Info.State != info.State || a.Info.Name != info.Name || a.Info.ParentId != info.ParentId || a.Gone != (info.State == AgentState.Gone)) changed = true;
@@ -280,3 +282,5 @@ public sealed class IsoOffice : IIsoOffice
     public Tile? PickTile(int sceneX, int sceneY) => builder.PickTile(sceneX, sceneY);
     public IsoPixel Camera => builder.Camera;
 }
+
+

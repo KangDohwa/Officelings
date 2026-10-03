@@ -13,7 +13,7 @@ public class IsoPackTests
     public void LoadsActualProductionSheetsAndEveryPhysicalAnchor()
     {
         var p = Source.Value;
-        Assert.Equal(37, p.Manifest.Sheets.Count);
+        Assert.Equal(37, p.Manifest.Sheets.Count(s => s.Id != "iso/core-contact-shadow"));
         Assert.Equal(12, p.Manifest.Furniture!.Count);
         Assert.Equal(3, p.Characters.Count);
         Assert.Single(p.Manifest.Pets!);
@@ -77,3 +77,4 @@ public class IsoPackTests
         Assert.Equal(32, left.AnchorX); Assert.Equal(0, right.AnchorX); Assert.Equal(48, right.AnchorY);
     }
 }
+

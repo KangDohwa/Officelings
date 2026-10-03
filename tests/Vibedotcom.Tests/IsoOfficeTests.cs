@@ -35,7 +35,7 @@ public class IsoOfficeTests
         var first = Advance(office, agents, 12);
         var bodies = first.Items.Where(i => i.Layer == IsoLayer.Character).ToArray();
         Assert.Equal(14, bodies.Length); Assert.Equal(3, bodies.Count(i => i.Clip.StartsWith("typing/")));
-        Assert.Equal(3, bodies.Take(3).Select(i => i.SheetId).Distinct().Count());
+        Assert.Equal(3, bodies.Where(i => i.HitTargetId is "a00" or "a01" or "a02").Select(i => i.SheetId).Distinct().Count());
         var mapping = bodies.ToDictionary(i => i.HitTargetId!, i => i.SheetId);
         var second = Advance(office, agents.Reverse().ToArray(), 1);
         Assert.All(second.Items.Where(i => i.Layer == IsoLayer.Character), i => Assert.Equal(mapping[i.HitTargetId!], i.SheetId));
@@ -140,3 +140,4 @@ public class IsoOfficeTests
         Assert.Contains(last.Items, i => i.HitTargetId == child.Id && i.Layer == IsoLayer.Character && i.Clip.StartsWith("seated-idle/"));
     }
 }
+
