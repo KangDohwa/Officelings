@@ -10,6 +10,33 @@ public sealed class OfficeAssignmentTests
     private static AgentInfo Agent(string id, AgentState state = AgentState.Working, string? parent = null) =>
         new(id, Provider.Codex, parent, parent != null, id, null, null, null, "", null, null, state, Now, Now, false);
 
+    private static AgentInfo[] SeatedAgents(AssetPack pack, int count)
+    {
+        var agents = new List<AgentInfo>();
+        var designs = new List<string>();
+        for (var i = 0; i < 2048 && agents.Count < count; i++)
+        {
+            var agent = Agent("seated:" + i.ToString("D4"));
+            var design = pack.Assign(agent, designs);
+            if (new[] { "up", "left", "right" }.Any(facing => pack.SeatedVariant(design, facing) == null)) continue;
+            agents.Add(agent); designs.Add(design.Id);
+        }
+        Assert.Equal(count, agents.Count);
+        return agents.ToArray();
+    }
+
+    private static IReadOnlyList<AgentView> SettleAtWork(OfficeAnimator office, AgentInfo[] agents)
+    {
+        IReadOnlyList<AgentView> views = [];
+        for (var step = 0; step < 400; step++)
+        {
+            views = office.Update(agents, Now.AddSeconds(step * .1), .1);
+            if (views.All(v => v.Pose.Queued ? v.Pose.Action == "waiting" : v.Pose.SeatPhase == "seated")) return views;
+        }
+        Assert.All(views.Where(v => !v.Pose.Queued), v => Assert.Equal("seated", v.Pose.SeatPhase));
+        return views;
+    }
+
     private static OfficeLayout Room(int desks = 3, int overflow = 2)
     {
         var furniture = Enumerable.Range(0, desks).Select(i => new Furniture("desk", 3 + i % 3 * 5, 5 + i / 3 * 4, 3, 2,
@@ -41,10 +68,102 @@ public sealed class OfficeAssignmentTests
             var desks = office.Layout.Furniture.Where(f => f.Kind == "desk").ToArray();
             Assert.Equal(12, desks.Length);
             Assert.Equal(12, desks.Select(f => f.DeskId).Distinct().Count());
-            Assert.All(desks, f => Assert.Single(office.Layout.Furniture, c => c.Kind == "chair" && c.Id == f.Id + "-chair"));
+            Assert.All(desks, f => {
+                var variant = pack.Variant(f);
+                var layers = new[] { variant.ChairBackId, variant.ChairFrontId }.OfType<string>().ToArray();
+                if (layers.Length == 0) Assert.Single(office.Layout.Furniture, c => c.Kind == "chair" && c.Id == f.Id + "-chair");
+                else Assert.All(layers, asset => Assert.Single(office.Layout.Furniture,
+                    c => c.Kind == "chair" && c.DeskId == f.DeskId && c.AssetId == asset));
+            });
             LayoutLoader.Validate(office.Layout, pack);
         }
         Assert.All(office.SourceLayout.Furniture, f => Assert.Null(f.AgentId));
+    }
+
+    [Fact]
+    public void DefaultOfficeKeepsEightBackSeatsAndAFourSeatPodFacingEachOtherWithReachableWorkplaces()
+    {
+        var pack = AssetPack.LoadDefault(useUserPack: false);
+        var office = new OfficeAnimator(42, pack);
+        var layout = office.SourceLayout;
+        Assert.Equal((35, 20), (layout.WidthTiles, layout.HeightTiles));
+        Assert.Null(layout.AutoDesks);
+        var workplaces = layout.Furniture.Where(f => f.Kind == "desk").Select(f =>
+            (Furniture: f, Point: Assert.Single(pack.Variant(f).Points, p => p.Action == "typing"))).ToArray();
+        Assert.Equal(12, workplaces.Length);
+        Assert.Equal(8, workplaces.Count(p => p.Point.Facing == "up"));
+        var right = workplaces.Where(p => p.Point.Facing == "right").OrderBy(p => p.Furniture.Y + p.Point.Y).ToArray();
+        var left = workplaces.Where(p => p.Point.Facing == "left").OrderBy(p => p.Furniture.Y + p.Point.Y).ToArray();
+        Assert.Equal(2, right.Length); Assert.Equal(2, left.Length);
+        for (var i = 0; i < 2; i++)
+        {
+            Assert.Equal(90, right[i].Furniture.Rotation);
+            Assert.Equal(270, left[i].Furniture.Rotation);
+            Assert.Equal(right[i].Furniture.Y + right[i].Point.Y, left[i].Furniture.Y + left[i].Point.Y);
+            Assert.True(right[i].Furniture.X + right[i].Point.X < left[i].Furniture.X + left[i].Point.X);
+        }
+        var blocked = LayoutLoader.Blocked(layout, pack);
+        foreach (var tile in pack.Points(layout).Select(p => p.Tile).Concat(layout.OverflowSeats!.Select(s => new Tile(s.X, s.Y))))
+        {
+            Assert.True(LayoutLoader.Walkable(layout, tile, blocked));
+            if (tile != layout.Door) Assert.NotEmpty(OfficeAnimator.FindPath(layout, layout.Door, tile, blocked));
+        }
+        var views = SettleAtWork(office, SeatedAgents(pack, 12));
+        Assert.Equal(12, views.Select(v => v.Pose.DeskId).Distinct().Count());
+        Assert.All(views, view => {
+            var desk = Assert.Single(office.Layout.Furniture, f => f.Kind == "desk" && f.DeskId == view.Pose.DeskId);
+            var variant = pack.Variant(desk);
+            var point = Assert.Single(variant.Points, p => p.Action == "typing");
+            Assert.Equal(new Tile(desk.X + point.X, desk.Y + point.Y), view.Pose.Desk);
+            Assert.Equal(new Position(view.Pose.Desk.X, view.Pose.Desk.Y), new Position(view.Pose.X, view.Pose.Y));
+            Assert.Equal(point.Facing, view.Pose.Facing);
+            Assert.Equal("typing", view.Pose.Action);
+            Assert.Equal("desk", view.Pose.WorkLocation);
+            Assert.Equal(point.Facing == "up" ? "seated_back" : "seated_" + point.Facing, view.Pose.SeatedVariant);
+            Assert.Equal("seated", view.Pose.SeatPhase);
+            Assert.Equal(variant.ChairBackId, view.Pose.ChairBackId);
+            Assert.Equal(variant.ChairFrontId, view.Pose.ChairFrontId);
+            if (variant.ChairSeatAnchor is {} anchor)
+                Assert.Equal(new PixelPoint(desk.X * 16 + anchor.X, desk.Y * 16 + anchor.Y), view.Pose.SeatAnchor);
+        });
+    }
+
+    [Fact]
+    public void DefaultOverflowClaimsExistingSeatsAndQueuesAfterTheFixedCapacity()
+    {
+        var pack = AssetPack.LoadDefault(useUserPack: false);
+        var office = new OfficeAnimator(42, pack);
+        var original = JsonSerializer.Serialize(office.SourceLayout, StateJson.Options);
+        var overflow = office.SourceLayout.OverflowSeats!;
+        var views = SettleAtWork(office, SeatedAgents(pack, 12 + overflow.Count + 3));
+        Assert.Equal(12, views.Count(v => v.Pose.WorkLocation == "desk"));
+        Assert.Equal(overflow.Count, views.Count(v => v.Pose.WorkLocation == "overflow"));
+        Assert.Equal(3, views.Count(v => v.Pose.Queued));
+        Assert.All(views.Where(v => v.Pose.WorkLocation == "overflow"), view => {
+            var seat = Assert.Single(overflow, s => s.Id == view.Pose.OverflowSeatId);
+            Assert.Null(view.Pose.DeskId);
+            Assert.Equal(new Tile(seat.X, seat.Y), view.Pose.Desk);
+            Assert.Equal(seat.Facing, view.Pose.Facing);
+            Assert.Equal("typing", view.Pose.Action);
+            Assert.Equal("seated", view.Pose.SeatPhase);
+        });
+        Assert.All(views.Where(v => v.Pose.Queued), view => {
+            Assert.Equal("waiting", view.Pose.Action);
+            Assert.Equal("…", view.Pose.Reaction);
+            Assert.Null(view.Pose.DeskId); Assert.Null(view.Pose.OverflowSeatId); Assert.Null(view.Pose.SeatPhase);
+        });
+        var laptop = Assert.Single(office.Layout.Furniture, f => f.AssetId == "cozy-laptop-table-side");
+        Assert.Equal("table", laptop.Kind);
+        Assert.Null(laptop.DeskId);
+        var variant = pack.Variant(laptop);
+        Assert.Empty(variant.Points);
+        var laptopSeat = Assert.Single(overflow, s => s.FurnitureId == laptop.Id);
+        Assert.Equal((laptop.X - 1, laptop.Y + 1, "right"), (laptopSeat.X, laptopSeat.Y, laptopSeat.Facing));
+        var laptopOwner = Assert.Single(views, v => v.Pose.OverflowSeatId == laptopSeat.Id);
+        Assert.Equal(variant.ChairBackId, laptopOwner.Pose.ChairBackId);
+        Assert.Equal(variant.ChairFrontId, laptopOwner.Pose.ChairFrontId);
+        Assert.Equal(new PixelPoint(laptop.X * 16 + variant.ChairSeatAnchor!.X, laptop.Y * 16 + variant.ChairSeatAnchor.Y), laptopOwner.Pose.SeatAnchor);
+        Assert.Equal(original, JsonSerializer.Serialize(office.SourceLayout, StateJson.Options));
     }
 
     [Fact]
@@ -288,7 +407,7 @@ public sealed class OfficeAssignmentTests
     [InlineData("Claude Max", null, null, Provider.Claude, false, "Claude")]
     [InlineData("ChatGPT Pro", "worker", null, Provider.Codex, true, "Codex worker")]
     [InlineData("Night Owl", "worker", "gpt", Provider.Codex, true, "Night Owl")]
-    [InlineData("abcdefghijklmnopqrst", null, null, Provider.Codex, false, "abcdefghijklmno…")]
+    [InlineData("abcdefghijklmnopqrst", null, null, Provider.Codex, false, "abcdefghijklmn…")]
     [InlineData(" ", null, null, Provider.Antigravity, false, "Antigravity")]
     [InlineData("Google AI Ultra", "Ultra", "Pro", Provider.Antigravity, false, "Antigravity")]
     public void DisplayNameRejectsPlanTitlesAndKeepsOriginalNameForTooltip(string name, string? role, string? model, Provider provider, bool worker, string expected)
@@ -304,12 +423,12 @@ public sealed class OfficeAssignmentTests
     {
         var name = string.Concat(Enumerable.Repeat("👩‍💻", 17));
         var view = Assert.Single(new OfficeAnimator(42, layout: Room()).Update([Agent("unicode") with { Name = name }], Now, 0));
-        Assert.Equal(string.Concat(Enumerable.Repeat("👩‍💻", 15)) + "…", view.Pose.DisplayName);
+        Assert.Equal(string.Concat(Enumerable.Repeat("👩‍💻", 14)) + "…", view.Pose.DisplayName);
         Assert.Equal(name, view.Agent.Name);
     }
 
     [Fact]
-    public void MonitorMetadataWorksWithoutPngStatesAndVersionFourKeepsLegacyFields()
+    public void MonitorMetadataWorksWithoutPngStatesAndVersionFiveKeepsLegacyFields()
     {
         var office = new OfficeAnimator(42, layout: Room(3, 0));
         AgentInfo[] agents = [Agent("a"), Agent("b", AgentState.Idle)];
@@ -324,7 +443,7 @@ public sealed class OfficeAssignmentTests
         Assert.All(desks, f => Assert.Equal("default", f.State));
         var snapshot = new StateSnapshot(StateJson.SchemaVersion, Now, 1, SpriteAtlas.Info, office.Layout, views, [], FurnitureSprites: office.FurnitureSprites);
         using var json = JsonDocument.Parse(JsonSerializer.Serialize(snapshot, StateJson.Options));
-        Assert.Equal(4, json.RootElement.GetProperty("schemaVersion").GetInt32());
+        Assert.Equal(5, json.RootElement.GetProperty("schemaVersion").GetInt32());
         var pose = json.RootElement.GetProperty("agents")[0].GetProperty("pose");
         foreach (var field in new[] { "x", "y", "desk", "action", "facing", "spriteRow", "spriteColumn", "visible", "opacity", "carryingPaper", "reportOnDesk", "reaction", "chatPartnerId", "characterId", "sprite" })
             Assert.True(pose.TryGetProperty(field, out _));

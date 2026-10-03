@@ -38,6 +38,18 @@ public sealed class OfficeEditorTests : IDisposable
                     new(90, "default", 2, 3, [new("seat", -1, 1, "typing", "right")]),
                     new(270, "default", 2, 3, [new("seat", 2, 1, "typing", "left")])
                 ]),
+                new("paired-desk", "desk", [
+                    new(0, "default", 3, 2, [new("seat", -1, 1, "typing", "right")],
+                        ChairBackId: "right-chair-back", ChairFrontId: "right-chair-front",
+                        ChairOffset: new(-16, 16), ChairSeatAnchor: new(-8, 28)),
+                    new(180, "default", 3, 2, [new("seat", 3, 1, "typing", "left")],
+                        ChairBackId: "left-chair-back", ChairFrontId: "left-chair-front",
+                        ChairOffset: new(48, 16), ChairSeatAnchor: new(56, 28))
+                ]),
+                new("right-chair-back", "chair", [new(0, "default", 1, 1, [], [])]),
+                new("right-chair-front", "chair", [new(0, "default", 1, 1, [], [])]),
+                new("left-chair-back", "chair", [new(0, "default", 1, 1, [], [])]),
+                new("left-chair-front", "chair", [new(0, "default", 1, 1, [], [])]),
                 new("no-turn", "plant", [new(0, "default", 1, 1, [])])
             ], [new("person", "people")], []);
         File.WriteAllBytes(Path.Combine(folder, "people.png"), SpriteAtlas.CreatePng());
@@ -191,6 +203,7 @@ public sealed class OfficeEditorTests : IDisposable
         var chair = Assert.Single(editor.Layout.Furniture, f => f.Id == id + "-chair");
         Assert.Equal("cozy-chair-front", chair.AssetId);
         Assert.Equal(id, chair.DeskId);
+        Assert.Single(editor.Layout.Furniture, f => f.Id == id + "-chair-back" && f.AssetId == "cozy-chair-back");
         var legacy = editor.Layout with {
             Furniture = editor.Layout.Furniture.Select(f => f.Id == chair.Id ? f with { DeskId = null } : f).ToArray(),
             OverflowSeats = [new("linked-seat", 2, 6, "left", id)]
@@ -210,23 +223,127 @@ public sealed class OfficeEditorTests : IDisposable
         Assert.Equal(beforeRotation, Json(editor.Layout));
         var duplicate = editor.Duplicate(chair.Id, new(14, 8));
         Assert.NotEqual(id, duplicate);
-        Assert.Equal(4, editor.Layout.Furniture.Count);
+        Assert.Equal(6, editor.Layout.Furniture.Count);
         Assert.Equal(duplicate, editor.Layout.Furniture.Single(f => f.Id == duplicate).DeskId);
         Assert.Equal(duplicate, editor.Layout.Furniture.Single(f => f.Id == duplicate + "-chair").DeskId);
         Assert.Equal((14, 8), editor.Layout.Furniture.Where(f => f.Id == duplicate + "-chair").Select(f => (f.X, f.Y)).Single());
         Assert.Contains(editor.Layout.OverflowSeats!, s => s.FurnitureId == duplicate && s.X == 12 && s.Y == 10);
         editor.Delete(chair.Id);
-        Assert.Equal(2, editor.Layout.Furniture.Count);
+        Assert.Equal(3, editor.Layout.Furniture.Count);
         Assert.DoesNotContain(editor.Layout.Furniture, f => f.Id == id || f.Id == chair.Id);
         Assert.Equal(duplicate, Assert.Single(editor.Layout.OverflowSeats!).FurnitureId);
         var deleted = Json(editor.Layout);
         Assert.True(editor.Undo());
-        Assert.Equal(4, editor.Layout.Furniture.Count);
+        Assert.Equal(6, editor.Layout.Furniture.Count);
         Assert.True(editor.Redo());
         Assert.Equal(deleted, Json(editor.Layout));
         var before = editor.Layout;
         Assert.Throws<InvalidOperationException>(() => editor.Move(duplicate, new(31, 30)));
         Assert.Same(before, editor.Layout);
+        Assert.Empty(editor.Validate());
+    }
+
+    [Fact]
+    public void AuthoredSideDeskChairsMoveRotateDuplicateAndDeleteAsOneGroup()
+    {
+        var assets = AuthoredPack();
+        var editor = new OfficeEditor(assets, Room(32, 32));
+        var id = editor.Place("paired-desk", new(6, 6));
+        Assert.Equal(3, editor.Layout.Furniture.Count);
+        Assert.All(editor.Layout.Furniture.Where(f => f.Kind == "chair"), chair => {
+            Assert.Equal(id, chair.DeskId);
+            Assert.Equal((5, 7), (chair.X, chair.Y));
+            Assert.Empty(LayoutLoader.Cells(chair, assets.Variant(chair)));
+        });
+        editor.Move(id + "-chair-front", new(10, 10));
+        var beforeRotation = Json(editor.Layout);
+        editor.Rotate(id + "-chair-back");
+        var desk = Assert.Single(editor.Layout.Furniture, f => f.Id == id);
+        Assert.Equal((180, 3, 2), (desk.Rotation, desk.Width, desk.Height));
+        Assert.Null(desk.Seat);
+        Assert.Equal(new InteractionPoint("seat", 3, 1, "typing", "left"), Assert.Single(assets.Variant(desk).Points));
+        Assert.All(editor.Layout.Furniture.Where(f => f.Kind == "chair"), chair => {
+            Assert.Equal((13, 11), (chair.X, chair.Y));
+            Assert.Equal(0, chair.Rotation); // The metadata selects separate, already authored left-facing assets.
+            Assert.StartsWith("left-chair-", chair.AssetId!);
+        });
+        editor.Rotate(id);
+        Assert.Equal(beforeRotation, Json(editor.Layout));
+        editor.Rotate(id);
+        var duplicate = editor.Duplicate(id + "-chair-front", new(18, 10));
+        Assert.All(editor.Layout.Furniture.Where(f => f.DeskId == duplicate && f.Kind == "chair"), chair => {
+            Assert.Equal((21, 11), (chair.X, chair.Y));
+            Assert.Null(chair.AgentId);
+        });
+        Assert.Single(editor.Layout.Furniture, f => f.Id == duplicate + "-chair-back");
+        Assert.Single(editor.Layout.Furniture, f => f.Id == duplicate + "-chair-front");
+        editor.Delete(id + "-chair-back");
+        Assert.Equal(3, editor.Layout.Furniture.Count);
+        Assert.DoesNotContain(editor.Layout.Furniture, f => f.DeskId == id);
+        var deleted = Json(editor.Layout);
+        Assert.True(editor.Undo());
+        Assert.Equal(6, editor.Layout.Furniture.Count);
+        Assert.True(editor.Redo());
+        Assert.Equal(deleted, Json(editor.Layout));
+        var before = editor.Layout;
+        Assert.Throws<ArgumentOutOfRangeException>(() => editor.Move(duplicate, new(29, 10))); // The desk fits, but its separate seat does not.
+        Assert.Same(before, editor.Layout);
+        Assert.Empty(editor.Validate());
+    }
+
+    [Fact]
+    public void CustomSideSeatKeepsChairLayersAlignedAcrossRotationAndSave()
+    {
+        var assets = AuthoredPack();
+        var editor = new OfficeEditor(assets, Room(32, 32));
+        var id = editor.Place("paired-desk", new(6, 6));
+        editor.SetDeskSeat(id + "-chair-front", new(5, 9));
+        Assert.All(editor.Layout.Furniture.Where(f => f.Kind == "chair"), chair => Assert.Equal((5, 9), (chair.X, chair.Y)));
+        var custom = Json(editor.Layout);
+        editor.Rotate(id);
+        var desk = Assert.Single(editor.Layout.Furniture, f => f.Id == id);
+        Assert.Equal(new InteractionPoint("seat", 3, -2, "typing", "left"), desk.Seat);
+        Assert.All(editor.Layout.Furniture.Where(f => f.Kind == "chair"), chair => Assert.Equal((9, 4), (chair.X, chair.Y)));
+        Assert.Empty(editor.Validate());
+        var file = Path.Combine(root, "paired-seat.json");
+        editor.Save(file);
+        var warnings = new List<string>();
+        var loaded = LayoutLoader.Load(assets, file, warnings);
+        Assert.Empty(warnings);
+        Assert.Equal(Json(editor.Layout), Json(loaded));
+        editor.Rotate(id);
+        Assert.Equal(custom, Json(editor.Layout));
+        var before = editor.Layout;
+        Assert.Throws<ArgumentOutOfRangeException>(() => editor.Move(id, new(0, 6))); // The separate seat would leave the room.
+        Assert.Same(before, editor.Layout);
+    }
+
+    [Fact]
+    public void LaptopTableChairsAndExplicitOverflowSeatFollowItsAuthoredFacing()
+    {
+        var assets = AssetPack.LoadDefault(useUserPack: false);
+        var editor = new OfficeEditor(assets, Room(32, 32));
+        var id = editor.Place("cozy-laptop-table-side", new(6, 6));
+        var table = Assert.Single(editor.Layout.Furniture, f => f.Id == id);
+        Assert.Equal("table", table.Kind);
+        Assert.Null(table.DeskId);
+        Assert.Empty(assets.Variant(table).Points);
+        editor = new OfficeEditor(assets, editor.Layout with { OverflowSeats = [new("laptop-seat", 5, 7, "right", id)] });
+        editor.Move(id + "-chair-front", new(10, 10));
+        Assert.All(editor.Layout.Furniture, f => Assert.Equal((10, 10), (f.X, f.Y)));
+        Assert.Equal((9, 11, "right"), editor.Layout.OverflowSeats!.Select(s => (s.X, s.Y, s.Facing)).Single());
+        var beforeRotation = Json(editor.Layout);
+        editor.Rotate(id + "-chair-back");
+        Assert.All(editor.Layout.Furniture, f => Assert.Equal(270, f.Rotation));
+        Assert.Equal((13, 11, "left"), editor.Layout.OverflowSeats!.Select(s => (s.X, s.Y, s.Facing)).Single());
+        editor.Rotate(id);
+        Assert.Equal(beforeRotation, Json(editor.Layout));
+        var duplicate = editor.Duplicate(id + "-chair-front", new(18, 10));
+        Assert.Null(editor.Layout.Furniture.Single(f => f.Id == duplicate).DeskId);
+        Assert.Contains(editor.Layout.OverflowSeats!, s => s.FurnitureId == duplicate && s.X == 17 && s.Y == 11);
+        editor.Delete(id + "-chair-back");
+        Assert.Equal(3, editor.Layout.Furniture.Count);
+        Assert.Equal(duplicate, Assert.Single(editor.Layout.OverflowSeats!).FurnitureId);
         Assert.Empty(editor.Validate());
     }
 

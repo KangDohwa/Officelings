@@ -84,7 +84,7 @@ public sealed class PackTests
         Assert.Equal(office.Layout.Door.Y - 1, office.Layout.Furniture.Single(f => f.Kind == "door").Y);
         Assert.Equal(12, office.Layout.Furniture.Count(f => f.Kind == "desk"));
         Assert.Equal(3, office.Layout.Door.Y);
-        Assert.All(views.Where(v=>v.Pose.WorkLocation=="desk"), v => Assert.Equal("up", pack.Variant(office.Layout.Furniture.Single(f => f.AgentId == v.Agent.Id)).Points.Single(p => p.Action == "typing").Facing));
+        Assert.All(views.Where(v=>v.Pose.WorkLocation=="desk"), v => Assert.Contains(pack.Variant(office.Layout.Furniture.Single(f => f.AgentId == v.Agent.Id)).Points.Single(p => p.Action == "typing").Facing, new[] { "up", "left", "right" }));
     }
 
     [Fact]

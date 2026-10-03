@@ -279,7 +279,7 @@ public sealed class CoreTests : IDisposable
         StateJson.WriteAtomic(path, snapshot); StateJson.WriteAtomic(path, snapshot with { Sequence = 2 });
         using var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
         var result = JsonSerializer.Deserialize<StateSnapshot>(reader, StateJson.Options)!;
-        Assert.Equal(4, result.SchemaVersion); Assert.Equal(2, result.Sequence); Assert.Empty(result.Agents); Assert.Equal(35, result.Office.WidthTiles);
+        Assert.Equal(5, result.SchemaVersion); Assert.Equal(2, result.Sequence); Assert.Empty(result.Agents); Assert.Equal(35, result.Office.WidthTiles);
         Assert.Empty(Directory.GetFiles(root, "*.tmp"));
     }
 
