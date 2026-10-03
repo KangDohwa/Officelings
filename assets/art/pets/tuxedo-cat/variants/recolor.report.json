@@ -1,0 +1,107 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "tuxedo-cat.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 2,
+  "variants": [
+    {
+      "name": "blue-grey",
+      "sheet": "blue-grey.png",
+      "substituted_pixels": 4125,
+      "substitutions": [
+        {
+          "from": "#262d38",
+          "to": "#263b4a",
+          "pixels": 634
+        },
+        {
+          "from": "#3e403f",
+          "to": "#48728f",
+          "pixels": 3433
+        },
+        {
+          "from": "#5c5c5a",
+          "to": "#6492a3",
+          "pixels": 58
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 4183,
+      "passthrough_color_count": 5,
+      "passthrough_colors": [
+        {
+          "hex": "#090b0b",
+          "pixels": 2098
+        },
+        {
+          "hex": "#faecc9",
+          "pixels": 1053
+        },
+        {
+          "hex": "#191e1e",
+          "pixels": 602
+        },
+        {
+          "hex": "#e7d1ac",
+          "pixels": 283
+        },
+        {
+          "hex": "#bf6554",
+          "pixels": 147
+        }
+      ],
+      "manifest": "blue-grey.manifest.json"
+    },
+    {
+      "name": "chocolate",
+      "sheet": "chocolate.png",
+      "substituted_pixels": 4125,
+      "substitutions": [
+        {
+          "from": "#262d38",
+          "to": "#3f2e29",
+          "pixels": 634
+        },
+        {
+          "from": "#3e403f",
+          "to": "#6c4b2f",
+          "pixels": 3433
+        },
+        {
+          "from": "#5c5c5a",
+          "to": "#9a7044",
+          "pixels": 58
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 4183,
+      "passthrough_color_count": 5,
+      "passthrough_colors": [
+        {
+          "hex": "#090b0b",
+          "pixels": 2098
+        },
+        {
+          "hex": "#faecc9",
+          "pixels": 1053
+        },
+        {
+          "hex": "#191e1e",
+          "pixels": 602
+        },
+        {
+          "hex": "#e7d1ac",
+          "pixels": 283
+        },
+        {
+          "hex": "#bf6554",
+          "pixels": 147
+        }
+      ],
+      "manifest": "chocolate.manifest.json"
+    }
+  ]
+}

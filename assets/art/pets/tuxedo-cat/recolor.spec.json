@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-recolor",
+  "match": "exact",
+  "tolerance": 0,
+  "variants": [
+    {
+      "name": "blue-grey",
+      "map": {
+        "#262d38": "#263b4a",
+        "#3e403f": "#48728f",
+        "#5c5c5a": "#6492a3"
+      }
+    },
+    {
+      "name": "chocolate",
+      "map": {
+        "#262d38": "#3f2e29",
+        "#3e403f": "#6c4b2f",
+        "#5c5c5a": "#9a7044"
+      }
+    }
+  ]
+}

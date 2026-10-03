@@ -1,0 +1,583 @@
+{
+  "characterId": "tuxedo-cat-chocolate",
+  "engine": "component-row",
+  "game_input": "chocolate.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "chocolate.png",
+  "sprite_sheet_alpha_report": "../../qa/validation.json",
+  "base_image": "../../runs/seeds/sprite-sheet-alpha.png",
+  "cell": {
+    "shape": "square",
+    "width": 32,
+    "height": 32,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 29
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "sit": {
+        "row": 5,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 6,
+        "frames": 3,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "eat_drink": {
+        "row": 7,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "play": {
+        "row": 8,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "react": {
+        "row": 9,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "blink": {
+        "row": 10,
+        "frames": 4,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 352,
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "sit": [
+        {
+          "x": 0,
+          "y": 160,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 160,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "eat_drink": [
+        {
+          "x": 0,
+          "y": 224,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 224,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 224,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "play": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "react": [
+        {
+          "x": 0,
+          "y": 288,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 288,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "blink": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        }
+      ]
+    }
+  },
+  "idleFacings": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pet": {
+    "name": "Tuxedo cat",
+    "locomotion": "walk",
+    "actionFacings": {
+      "sit": "down",
+      "sleep": "right",
+      "eat_drink": "right",
+      "play": "right",
+      "react": "down"
+    },
+    "sleepContact": {
+      "x": 16,
+      "y": 27
+    },
+    "muzzleContact": {
+      "x": 27,
+      "y": 21
+    },
+    "headLock": {
+      "method": "one accepted opaque head per facing, integer translations only",
+      "heads": {
+        "down": {
+          "file": "chocolate-heads/down.png",
+          "rect": [
+            9,
+            13,
+            23,
+            24
+          ],
+          "eyes": [
+            [
+              13,
+              19
+            ],
+            [
+              19,
+              19
+            ]
+          ]
+        },
+        "left": {
+          "file": "chocolate-heads/left.png",
+          "rect": [
+            5,
+            11,
+            17,
+            23
+          ],
+          "eyes": [
+            [
+              9,
+              19
+            ]
+          ]
+        },
+        "right": {
+          "file": "chocolate-heads/right.png",
+          "rect": [
+            15,
+            11,
+            27,
+            23
+          ],
+          "eyes": [
+            [
+              22,
+              19
+            ]
+          ]
+        },
+        "up": {
+          "file": "chocolate-heads/up.png",
+          "rect": [
+            7,
+            7,
+            24,
+            20
+          ],
+          "eyes": []
+        }
+      },
+      "exceptions": [
+        "sleep: closed eyes",
+        "blink: closed eyes",
+        "eat_drink: tongue/beak pixels",
+        "react: ears/antenna only"
+      ]
+    },
+    "integration": "Production art only; an adapter and pet behaviour system are separate work."
+  },
+  "blink": {
+    "down": {
+      "file": "chocolate-blink-down.png",
+      "source": {
+        "state": "idle",
+        "frame": 0
+      },
+      "durationMs": 100,
+      "visibleEyes": true
+    },
+    "left": {
+      "file": "chocolate-blink-left.png",
+      "source": {
+        "state": "idle",
+        "frame": 1
+      },
+      "durationMs": 100,
+      "visibleEyes": true
+    },
+    "right": {
+      "file": "chocolate-blink-right.png",
+      "source": {
+        "state": "idle",
+        "frame": 2
+      },
+      "durationMs": 100,
+      "visibleEyes": true
+    },
+    "up": {
+      "file": "chocolate-blink-up.png",
+      "source": {
+        "state": "idle",
+        "frame": 3
+      },
+      "durationMs": 100,
+      "visibleEyes": false
+    }
+  },
+  "provenance": {
+    "provider": "codex",
+    "pipeline": "still-image component-row seeds + deterministic pixel assembly",
+    "sourceState": "tuxedo-cat",
+    "sourceFrameHashes": [
+      "9596fd3c6285756cb37cc22c3374273b5b6ea4d8e1d1282a01ebc6c7d20a61ab",
+      "485ec09846761e71ad7bb96867df40c5ce26abc99f02a00fab5dfafad70d3a44",
+      "736d2f00f72c23601abf4cc195a5e86474f59a3f3ecd326a7c1ef5f7c08316af",
+      "dbd48853f8cd64d9ec4aafa5ebc3d4c1c56db333e4dfdfeca47cb8e317c721a2"
+    ],
+    "video": false,
+    "recolorReport": "recolor.report.json"
+  },
+  "variantOf": "tuxedo-cat",
+  "coatVariant": "chocolate"
+}
