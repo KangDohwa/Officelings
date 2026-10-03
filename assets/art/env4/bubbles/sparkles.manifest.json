@@ -1,0 +1,61 @@
+{
+  "characterId": "sparkles",
+  "engine": "component-row",
+  "game_input": "sparkles.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sparkles.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/sparkles.png",
+  "cell": {
+    "shape": "square",
+    "width": 12,
+    "height": 12,
+    "safe_margin_x": 1,
+    "safe_margin_y": 1
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 12,
+    "cellHeight": 12,
+    "columns": 1,
+    "rows": {
+      "variants": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 12,
+    "sheetHeight": 12,
+    "cellWidth": 12,
+    "cellHeight": 12,
+    "rows": {
+      "variants": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        }
+      ]
+    }
+  }
+}

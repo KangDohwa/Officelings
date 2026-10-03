@@ -1,0 +1,145 @@
+{
+  "characterId": "icons",
+  "engine": "component-row",
+  "game_input": "icons.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "icons.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/icons.png",
+  "cell": {
+    "shape": "square",
+    "width": 12,
+    "height": 12,
+    "safe_margin_x": 1,
+    "safe_margin_y": 1
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 12,
+    "cellHeight": 12,
+    "columns": 13,
+    "rows": {
+      "variants": {
+        "row": 0,
+        "frames": 13,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 156,
+    "sheetHeight": 12,
+    "cellWidth": 12,
+    "cellHeight": 12,
+    "rows": {
+      "variants": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 12,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 24,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 36,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 48,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 60,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 72,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 84,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 108,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 120,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 132,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        },
+        {
+          "x": 144,
+          "y": 0,
+          "w": 12,
+          "h": 12
+        }
+      ]
+    }
+  }
+}
