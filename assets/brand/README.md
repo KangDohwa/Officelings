@@ -1,11 +1,13 @@
-# Brand icons
+# Brand icons (local use only)
 
-Official provider icons used (downscaled) in the agent name tags. They are **not** part of this project's own artwork and remain the property of their owners. This repository is private; check each owner's brand guidelines before making it public or redistributing.
+Official provider icons are **not** redistributed with this project. See the "Trademarks, brand assets and licensing" section of the top-level README for the owners' rules and the pre-publication checklist.
 
-| File | Provider | Source (fetched 2026-10-04) |
+`tools/fetch_brand_icons.ps1` downloads the originals below onto your own machine (into the git-ignored `assets/brand/originals/`) and builds the optional overlay.
+
+| Provider | Icon | Official source (checked 2026-10-04) |
 | --- | --- | --- |
-| `originals/claude-apple-touch-icon.png` | Claude (Anthropic) | https://claude.ai/apple-touch-icon.png |
-| `originals/gemini-favicon.png`, `originals/gemini-sparkle.svg` | Gemini (Google), used for Antigravity | https://www.gstatic.com/lamda/images/ |
-| `originals/chatgpt-favicon.ico`, `originals/chatgpt-logo.svg` | ChatGPT (OpenAI), used for Codex | https://cdn.oaistatic.com/assets/favicon-eex17e9e.ico, Wikimedia Commons `ChatGPT-Logo.svg` |
+| Claude (Anthropic) | apple-touch icon | https://claude.ai/apple-touch-icon.png |
+| Gemini (Google), used for Antigravity | sparkle SVG / favicon PNG | https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d4735304ff6292a690345.svg , https://www.gstatic.com/lamda/images/gemini_favicon_f069958c85030456e93de685481c559f160ea06b.png |
+| ChatGPT (OpenAI), used for Codex | favicon | https://cdn.oaistatic.com/assets/favicon-eex17e9e.ico (the www.openai.com / chatgpt.com hosts block scripted downloads) |
 
-`tools/build_pack.py` downsamples these into the runtime pack tag icons.
+Guidelines: https://openai.com/brand/ , https://www.anthropic.com/legal/trademark-guidelines , https://about.google/brand-resource-center/guidance/
