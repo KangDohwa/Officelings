@@ -38,15 +38,18 @@ try
     var lockName = "Vibedotcom.Tracker." + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(output.ToUpperInvariant())))[..24];
     using var mutex = new Mutex(true, lockName, out var owns);
     if (!owns) throw new IOException("Another tracker already writes this output directory.");
-    var assets = AssetPack.LoadDefault(assetDirectory);
-    var manifest = assets.Export(output);
-    var layout = LayoutLoader.Load(assets,layoutFile ?? Path.Combine(TrackerOptions.OutputDirectory,"layout.json"),assets.Warnings);
-    if (!File.Exists(Path.Combine(output,"layout.json")))
-        StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(layout,StateJson.Options));
-    using var tracker = new AgentTracker(options);
-    var office = new OfficeAnimator(null,assets,layout);
     using var cancellation = new CancellationTokenSource();
     Console.CancelKeyPress += (_, e) => { e.Cancel = true; cancellation.Cancel(); };
+    var publicationLogged = false;
+    void LogPublication(string message) { if (!publicationLogged) { Console.Error.WriteLine(message); publicationLogged = true; } }
+    var assets = AssetPack.LoadDefault(assetDirectory);
+    AssetManifest? manifest = null;
+    await StateJson.PublishWithRetryAsync(() => manifest = assets.Export(output), LogPublication, cancellation.Token);
+    var layout = LayoutLoader.Load(assets,layoutFile ?? Path.Combine(TrackerOptions.OutputDirectory,"layout.json"),assets.Warnings);
+    if (!File.Exists(Path.Combine(output,"layout.json")))
+        await StateJson.PublishWithRetryAsync(() => StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(layout,StateJson.Options)), LogPublication, cancellation.Token);
+    using var tracker = new AgentTracker(options);
+    var office = new OfficeAnimator(null,assets,layout);
     var started = DateTimeOffset.UtcNow;
     var previous = started;
     long sequence = 0;
@@ -58,13 +61,17 @@ try
         var agents = tracker.Poll(now);
         var views = office.Update(agents, now, (now - previous).TotalSeconds);
         previous = now;
-        if (!ReferenceEquals(previousLayout,office.Layout))
+        await StateJson.PublishWithRetryAsync(() =>
         {
-            // Preserve the editable layout.json source; publish the resolved map separately.
-            StateJson.WriteAtomic(Path.Combine(output,"runtime-layout.json"),JsonSerializer.SerializeToUtf8Bytes(office.Layout,StateJson.Options));
-            previousLayout=office.Layout;
-        }
-        StateJson.WriteAtomic(Path.Combine(output, "state.json"), new StateSnapshot(StateJson.SchemaVersion, now, ++sequence, SpriteAtlas.Info, office.Layout, views, tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,office.FurnitureSprites));
+            if (!ReferenceEquals(previousLayout,office.Layout))
+            {
+                // Preserve the editable source; retry any locked publication together.
+                StateJson.WriteAtomic(Path.Combine(output,"runtime-layout.json"),JsonSerializer.SerializeToUtf8Bytes(office.Layout,StateJson.Options));
+                previousLayout=office.Layout;
+            }
+            StateJson.WriteAtomic(Path.Combine(output, "state.json"), new StateSnapshot(StateJson.SchemaVersion, now, sequence + 1, SpriteAtlas.Info, office.Layout, views, tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,office.FurnitureSprites));
+        }, LogPublication, cancellation.Token);
+        sequence++;
         var counts = string.Join(", ", Enum.GetValues<Provider>().Select(p => $"{p}={agents.Count(a => a.Provider == p && a.State != AgentState.Gone)}"));
         if (counts != lastCounts || sequence == 1)
         { Console.WriteLine($"{now:O} alive: {counts}; total={agents.Count}; bytesRead={tracker.BytesRead}"); lastCounts = counts; }
@@ -75,5 +82,6 @@ try
     foreach (var warning in assets.Warnings) Console.Error.WriteLine(warning);
     Console.WriteLine($"Wrote {sequence} snapshots to {output}; log bytes read={tracker.BytesRead}.");
 }
+catch (OperationCanceledException) { }
 catch (Exception e) when (e is ArgumentException or IOException or UnauthorizedAccessException)
 { Console.Error.WriteLine(e.Message); Environment.ExitCode = 1; }
