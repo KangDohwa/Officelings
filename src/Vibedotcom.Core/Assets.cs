@@ -30,23 +30,40 @@ public sealed class AssetPack
     public List<string> Warnings { get; } = [];
     public static string DefaultDirectory => Path.Combine(TrackerOptions.OutputDirectory, "assets");
 
-    public AssetPack(string? directory = null)
+    public static AssetPack LoadDefault(string? directory = null, bool useUserPack = true) =>
+        directory != null ? new(directory) : useUserPack && ManifestFile(DefaultDirectory) != null
+            ? new(DefaultDirectory) : new(null, bundled: true);
+
+    private static string? ManifestFile(string directory) => new[] { "assets.json", "manifest.json" }
+        .Select(name => Path.Combine(directory, name)).FirstOrDefault(File.Exists);
+
+    public AssetPack(string? directory = null, bool bundled = false)
     {
         using var resource = typeof(AssetPack).Assembly.GetManifestResourceStream("Vibedotcom.Core.Data.assets.json")!;
         Manifest = JsonSerializer.Deserialize<AssetManifest>(resource, StateJson.Options)!;
         Images["fallback"] = SpriteAtlas.CreatePng();
-        var file = directory == null ? null : Path.Combine(directory, "manifest.json");
-        if (file != null && File.Exists(file))
+        var file = directory == null ? null : ManifestFile(directory);
+        if (bundled || file != null)
         {
             try
             {
-                var custom = Read<AssetManifest>(file);
+                using var input = bundled ? typeof(AssetPack).Assembly.GetManifestResourceStream("Vibedotcom.Core.Pack.assets.json")
+                    ?? throw new InvalidDataException("Bundled art pack missing; run tools/build_pack.py before building.") : null;
+                var custom = bundled ? JsonSerializer.Deserialize<AssetManifest>(input!, StateJson.Options)!
+                    : Read<AssetManifest>(file!);
                 Validate(custom);
                 var images = new Dictionary<string, byte[]>();
                 var sheets = new List<Sheet>();
                 foreach (var sheet in custom.Sheets)
                 {
-                    var bytes = File.ReadAllBytes(LocalFile(directory!, sheet.File));
+                    byte[] bytes;
+                    if (bundled)
+                    {
+                        using var png = typeof(AssetPack).Assembly.GetManifestResourceStream("Vibedotcom.Core.Pack." + Path.GetFileName(sheet.File))
+                            ?? throw new InvalidDataException("Bundled sheet missing: " + sheet.File);
+                        using var buffer = new MemoryStream(); png.CopyTo(buffer); bytes = buffer.ToArray();
+                    }
+                    else bytes = File.ReadAllBytes(LocalFile(directory!, sheet.File));
                     var (width, height) = PngSize(bytes);
                     if (width % sheet.CellW != 0 || height % sheet.CellH != 0 || sheet.Rows.Any(r =>
                         (r.Row + 1) * sheet.CellH > height || (r.Column + r.Frames) * sheet.CellW > width))

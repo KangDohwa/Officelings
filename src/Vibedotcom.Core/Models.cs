@@ -68,7 +68,7 @@ public sealed record Furniture(string Kind, int X, int Y, int Width, int Height,
     string Id = "", string? AssetId = null, int Rotation = 0, string State = "default");
 public sealed record Zone(string Name, int X, int Y, int Width, int Height, IReadOnlyList<InteractionPoint>? Points = null);
 public sealed record AutoDesks(string AssetId = "desk", int X = 2, int Y = 5, int SpacingX = 5, int SpacingY = 4,
-    int MaxColumns = 4, bool AdaptiveColumns = true, bool Expand = true);
+    int MaxColumns = 4, bool AdaptiveColumns = true, bool Expand = true, int MinColumns = 1);
 public sealed record OfficeLayout(int WidthTiles, int HeightTiles, int TileSize, Tile Door, IReadOnlyList<Furniture> Furniture,
     int Version = 1, IReadOnlyList<int>? Tiles = null, IReadOnlyList<Zone>? Zones = null, AutoDesks? AutoDesks = null);
 public sealed record Pose(double X, double Y, Tile Desk, string Action, string Facing, int SpriteRow, int SpriteColumn, bool Visible,
