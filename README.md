@@ -2,7 +2,22 @@
 
 A passive pixel office for local Codex, Claude Code and Antigravity sessions. Each recent session gets a character; supervisors wear ties, workers use plain shirts, and dotted lines connect known parents. Characters enter through the door, type at desks, wait, deliver reports, take varied breaks and leave when stale. Hover for provider, role, model, project, last prompt, tool, state and elapsed time. There is no task assignment or control of agents.
 
-Phase 1 includes a standalone WPF viewer, a headless tracker and their shared .NET 10 library. **Windhawk is deferred:** this repository does not implement, install or compile a Windhawk mod. Its future input contract is [docs/state-schema.md](docs/state-schema.md).
+Two variants share one .NET 10 tracker core and one art pack:
+
+- **Standalone** (`src/Vibedotcom.App`): a WPF viewer that reads the logs itself. No Windhawk needed.
+- **Windhawk** (`windhawk/`): a C++ Windhawk mod that renders the same office inside Explorer, fed by the headless tracker (`src/Vibedotcom.Tracker`) through `state.json`. Contract: [docs/state-schema.md](docs/state-schema.md).
+
+### Status (work in progress)
+
+| Area | State |
+| --- | --- |
+| Tracker (Codex, Claude Code, Antigravity), animation state machine, A* pathfinding | Done, covered by tests |
+| Standalone WPF viewer, window modes, tooltip, zoom/pan | Done; native desktop-level/click-through behaviour is checked with fake HWND topologies, not yet on the live shell |
+| Art: 44+ chibi characters, 37 environment sheets, face-lock (stable eyes), blink | Done; the last roster team is still being produced |
+| Fixed pre-furnished office, provider tags, opacity fix, office editor | In progress |
+| Windhawk mod | In progress; compiles with Windhawk's bundled clang, Explorer injection not yet verified (checklist will live in `windhawk/README.md`) |
+
+Lock-screen display is not possible for a normal user application (see Limits).
 
 ## Build and run
 
@@ -22,7 +37,7 @@ Settings are persisted atomically in `%LOCALAPPDATA%\Vibedotcom\settings.json`: 
 
 `--demo` starts three provider supervisors and six workers that enter, finish, deliver papers, take breaks and leave on a repeating schedule (initially two workers are already on break). Models/tasks are explicitly fabricated. Repeatable startup overrides: `--zoom 2`, `--mode desktop`, `--click-through`, `--borderless`, `--transparent`, `--opacity .85`, `--quit-after 30`. Overrides use default settings; demo never writes personal settings. `--demo --smoke-test OUTPUT_DIR` renders a fabricated scene without opening a window.
 
-For the future Phase 2 consumer, run the tracker:
+The headless tracker feeds the Windhawk variant (the standalone app does not need it):
 
 ```powershell
 dotnet run --project src/Vibedotcom.Tracker --no-build
@@ -43,11 +58,11 @@ dotnet publish src/Vibedotcom.Tracker -c Release -o artifacts/publish/tracker
 # artifacts/publish/app/Vibedotcom.App.exe
 ```
 
-These publishes require the .NET 10 runtime on the destination. No Phase 2 installation is available yet.
+These publishes require the .NET 10 runtime on the destination. Windhawk installation steps will be in `windhawk/README.md` once the mod is finished.
 
 ## Pluggable art and office
 
-Normal startup reads `%LOCALAPPDATA%\Vibedotcom\assets\manifest.json` (PNG sheets, clips, roster, furniture and tile definitions) and `%LOCALAPPDATA%\Vibedotcom\layout.json` (tiles, rotated furniture and workspace/pantry/lounge/door zones). Missing or invalid input uses the bundled procedural fallback. Restart to reload; there is no live editor. Art being produced under `assets/art/` is separate and is not automatically bundled. See [docs/asset-format.md](docs/asset-format.md) for a small runtime manifest and the adapter naming rules for those production sheets.
+Normal startup reads `%LOCALAPPDATA%\Vibedotcom\assets\manifest.json` (PNG sheets, clips, roster, furniture and tile definitions) and `%LOCALAPPDATA%\Vibedotcom\layout.json` (tiles, rotated furniture and workspace/pantry/lounge/door zones). Missing or invalid input uses the bundled art pack (`assets/pack/`, embedded in the app by `tools/build_pack.py`), and finally a procedural fallback. Restart to reload; the in-app office editor is still in progress. See [docs/asset-format.md](docs/asset-format.md) for the runtime manifest and layout format.
 
 ```powershell
 dotnet run --project src/Vibedotcom.App --no-build -- --demo --asset-dir C:/MyOfficeArt --layout C:/MyOffice/layout.json
@@ -55,6 +70,16 @@ dotnet run --project src/Vibedotcom.Tracker --no-build -- --asset-dir C:/MyOffic
 ```
 
 Each agent's ID hash selects a roster design, probing unused eligible designs while available. Core chooses the exact PNG frame, foot anchor and rotation-specific seat; both WPF and the future Windhawk consumer receive that choice. The tracker emits schema v3, asset/layout format 1, hashed `sheets/*.png`, `manifest.json`, source `layout.json` (only if missing), resolved `runtime-layout.json` and the legacy fallback `atlas.png`. It never overwrites an existing editable layout. [docs/state-schema.md](docs/state-schema.md) documents version changes, atomic delivery and render equations.
+
+## Art pipeline and credits
+
+All pixel art in `assets/` is generated for this project (2D pixel chibi style). Nothing is copied from other projects; [pixel-agents](https://github.com/pixel-agents-hq/pixel-agents) (MIT) was studied only as a design reference, see [docs/pixel-agents-notes.md](docs/pixel-agents-notes.md).
+
+1. **Generate** characters, props and tiles with the [sprite-gen](https://github.com/aldegad/sprite-gen) skill (Apache-2.0). Final sheets live in `assets/art/sheets`, `assets/art/roster/<id>` and `assets/art/env2`; scratch runs are git-ignored. Overview: [assets/art/MANIFEST.md](assets/art/MANIFEST.md), [assets/art/env2/MANIFEST.md](assets/art/env2/MANIFEST.md).
+2. **Face-lock**: `python tools/facelock.py --all --blink` makes eyes identical across a facing's frames (re-generated frames otherwise make eyes jitter while walking) and adds blink frames. Output goes to `locked/` next to the originals. See [docs/facelock.md](docs/facelock.md).
+3. **Pack**: `python tools/build_pack.py` normalizes character height, prefers locked sheets and writes the runtime pack in `assets/pack/`, which the Core embeds. Re-run it whenever art changes.
+
+Generated assets are produced with an AI image model; check the terms that apply to your use before redistributing them.
 
 ## Sources and inference
 
@@ -70,7 +95,7 @@ Codex's `session_index.jsonl` and `state_5.sqlite` were considered; the database
 
 All transcript opens use `FileAccess.Read` and `FileShare.ReadWrite | FileShare.Delete`. No provider file, credential, setting, database or annotation is changed. Discovery enumerates file metadata every three seconds so a resumed old session can be found. Only recently modified logs, plus already-tracked files, are opened; unchanged files are skipped. Cold start reads at most a 512 KiB prefix and 512 KiB suffix for large logs. Subsequent reads continue from byte offsets, preserve partial UTF-8 records and recover after truncation. Records over 2 MiB are skipped with a warning; an unusually large metadata/prompt record crossing the bootstrap gap may be unavailable. Up to 8 MiB of newly appended data is processed per source per scan. This is observation by writes, not process enumeration.
 
-Working/thinking become idle after two minutes without a write. Explicit waiting remains waiting until another event or the 30-minute gone threshold. Workers' completion becomes reporting for 12 seconds, then idle; visual pickup/carry/handover can outlast that window. Gone characters walk to the door and fade, then remain invisible until 60-second retention expires. Idle activities include coffee, silent TV, phone scrolling, sofa naps, paired chatting and water. A* avoids wall/void tiles and furniture collision cells; desk rows and office width adapt to allocated agents. Activity duration starts after arrival.
+Working/thinking become idle after two minutes without a write. Explicit waiting remains waiting until another event or the 30-minute gone threshold. Workers' completion becomes reporting for 12 seconds, then idle; visual pickup/carry/handover can outlast that window. Gone characters walk to the door and fade, then remain invisible until 60-second retention expires. Idle activities include coffee, silent TV, phone scrolling, sofa naps, paired chatting and water. A* avoids wall/void tiles and furniture collision cells. Activity duration starts after arrival. (The current build still grows desk rows with the number of agents; this is being replaced by a fixed, pre-furnished office where agents claim existing desks.)
 
 ## Limits and verification
 
