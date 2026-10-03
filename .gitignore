@@ -11,15 +11,21 @@ atlas.png
 settings.json
 .claude/
 
-# Windhawk PoC 컴파일 산출물
-windhawk/poc/*.exe
+# Windhawk PoC 컴파???�출�?windhawk/poc/*.exe
 windhawk/poc/*.dll
 windhawk/poc/*.log
 
-# sprite-gen 중간 산출물(재생성 가능, 용량 큼)
+# sprite-gen 중간 ?�출�??�생??가?? ?�량 ??
 assets/art/runs/
 assets/art/references/
 assets/art/assembly/
 assets/art/qa/
-assets/art/roster/*/runs/
-assets/art/roster/*/raw/
+assets/art/roster/*/run/*
+!assets/art/roster/*/run/sprite-sheet-alpha.png
+!assets/art/roster/*/run/manifest.json
+assets/art/roster/*/generation*/
+assets/art/roster/*/rejected/
+assets/art/roster/*/*.raw.png
+assets/art/env2/runs/
+assets/art/env2/qa/
+assets/art/env2/references/
