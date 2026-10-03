@@ -6,6 +6,11 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <EmbedBrandOverlay Condition="'$(EmbedBrandOverlay)' == ''">false</EmbedBrandOverlay>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../Vibedotcom.Core/Vibedotcom.Core.csproj" /></ItemGroup>
+  <ItemGroup><InternalsVisibleTo Include="Vibedotcom.Tests" /></ItemGroup>
+  <ItemGroup Condition="'$(EmbedBrandOverlay)' == 'true' And Exists('../../assets/brand-overlay')">
+    <EmbeddedResource Include="../../assets/brand-overlay/*.png" LogicalName="Vibedotcom.App.Brand.%(Filename)%(Extension)" />
+  </ItemGroup>
 </Project>
