@@ -1,0 +1,96 @@
+{
+    "cell":  {
+                 "width":  32,
+                 "height":  64,
+                 "safe_margin_x":  1,
+                 "safe_margin_y":  4
+             },
+    "style":  "Exactly match attached accepted character reference: pixel density, chibi proportions, face, highlighted eyes, distinctive hair silhouette, outfit layers, accessories, dark selective outline and warm limited palette. No identity changes between poses.",
+    "fit":  {
+                "pixel_unfake":  true,
+                "palette_size":  32,
+                "align_x":  "foot-centroid",
+                "align_y":  "bottom",
+                "ground_frames":  true
+            },
+    "states":  {
+                   "idle":  {
+                                "frames":  4,
+                                "fps":  0,
+                                "loop":  false,
+                                "action":  "Four STATIC orientation anchors: frame 0 faces DOWN toward viewer; frame 1 faces LEFT; frame 2 faces RIGHT; frame 3 faces UP away, back of head visible. Same full-body idle stance in every direction. Do not animate between these views."
+                            },
+                   "walk_down":  {
+                                     "frames":  4,
+                                     "fps":  7,
+                                     "loop":  true,
+                                     "action":  "Walking in place facing DOWN toward viewer, top of head visible. Four DISTINCT gait phases: left foot forward/right back; feet pass under body; right foot forward/left back; opposite passing. Short readable steps, opposite arm swing, constant head size, no horizontal travel."
+                                 },
+                   "walk_left":  {
+                                     "frames":  4,
+                                     "fps":  7,
+                                     "loop":  true,
+                                     "action":  "Walking in place toward LEFT in top-down 3/4 side view. Four DISTINCT gait phases: left-leg contact, passing, right-leg contact, passing. Clearly alternate forward legs and arms. No travel across slots."
+                                 },
+                   "walk_right":  {
+                                      "frames":  4,
+                                      "fps":  7,
+                                      "loop":  true,
+                                      "action":  "Walking in place toward RIGHT in top-down 3/4 side view. Four DISTINCT gait phases: left-leg contact, passing, right-leg contact, passing. Clearly alternate forward legs and arms. No travel across slots."
+                                  },
+                   "walk_up":  {
+                                   "frames":  4,
+                                   "fps":  7,
+                                   "loop":  true,
+                                   "action":  "Walking in place UP away from viewer, back of head visible, face hidden. Four DISTINCT gait phases: opposite foot contacts and passes, alternating shoes visible beneath trousers. Arms counter-swing. No travel across slots."
+                               },
+                   "typing_back":  {
+                                       "frames":  3,
+                                       "fps":  5,
+                                       "loop":  true,
+                                       "action":  "Seated worker typing, viewed from BACK facing UP. Show ONLY worker in a seated pose, knees bent, hands extended at keyboard height: left hand presses, both hands hover, right hand presses. No desk, monitor, chair or keyboard; furniture is a separate game layer. Back of the same distinctive hair and outfit clear."
+                                   },
+                   "typing_side":  {
+                                       "frames":  3,
+                                       "fps":  5,
+                                       "loop":  true,
+                                       "action":  "Seated worker typing, 3/4 SIDE facing RIGHT. Show ONLY worker, bent knees, forearms extended horizontally at waist: left fingers down, both hands poised, right fingers down. No desk, monitor, keyboard or chair; separate furniture layer."
+                                   },
+                   "report":  {
+                                  "frames":  3,
+                                  "fps":  5,
+                                  "loop":  false,
+                                  "action":  "Facing RIGHT, exactly THREE hand-over report poses: frame 0 hold a tiny cream paper at chest, frame 1 extend elbow moderately with paper just ahead, frame 2 offer paper with open hand. Paper always touches fingers. FEET PLANTED, head shape and SIZE EXACTLY IDENTICAL in every frame. Do NOT let the last pose grow taller or the hair get larger. Use SHORT arms and a TINY paper so the entire widest pose including hair and paper is at most 28 logical pixels wide, body roughly 48 logical pixels tall, clean square chunky blocks, same pixel density in all three poses. Copy short pastel pink asymmetric bob, black studded cropped jacket, off-white shirt, ripped charcoal shorts and black chunky boots exactly. No extra person, no text."
+                              },
+                   "sleep":  {
+                                 "frames":  2,
+                                 "fps":  2,
+                                 "loop":  true,
+                                 "action":  "Napping seated upright facing DOWN, knees bent, head slumped gently toward shoulder, eyes shut; two subtly different breathing poses. No bed, sofa, furniture, pillow, zzz or floating marks."
+                             },
+                   "coffee":  {
+                                  "frames":  3,
+                                  "fps":  3,
+                                  "loop":  true,
+                                  "action":  "Facing DOWN-right, drinking coffee from one small cream mug: hold mug at chest, lift mug to mouth, lower mug. Mug must touch hand. No steam, no detached pixels. Feet planted."
+                              },
+                   "phone":  {
+                                 "frames":  3,
+                                 "fps":  3,
+                                 "loop":  true,
+                                 "action":  "Facing DOWN-right, scrolling dark navy phone held in both hands near chest, head tilted down: thumb at top, thumb lower, thumb taps. Phone screen a few pale blue pixels, touches hands. Feet planted."
+                             },
+                   "talk":  {
+                                "frames":  3,
+                                "fps":  4,
+                                "loop":  true,
+                                "action":  "Facing DOWN-right, friendly talking gesture: relaxed mouth, one hand palm open at chest, hand lowers with tiny open mouth. Feet planted. No speech bubbles, text or other person."
+                            },
+                   "surprised":  {
+                                     "frames":  2,
+                                     "fps":  5,
+                                     "loop":  false,
+                                     "action":  "Facing DOWN, surprised expression: frame 0 large wide expressive eyes with bright highlights and small O mouth, shoulders lift; frame 1 hands raised beside cheeks, slightly leaning back. No punctuation or floating exclamation; exclamation bubble is separate overlay."
+                                 }
+               }
+}
