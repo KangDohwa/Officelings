@@ -275,30 +275,20 @@ def atlas(frames: list[Image.Image]) -> Image.Image:
     return image
 
 
-def provider_icons() -> dict[str, Image.Image]:
-    """Original two-colour glyphs, drawn at native 12px without logo inputs."""
+def neutral_provider_icons() -> dict[str, Image.Image]:
+    """Original neutral circle, five-point star and diamond; no brand inputs."""
     result = {}
-    outline = "#20252b"
     for name, accent in (("codex", "#58b8a8"), ("claude", "#e79a68"),
                          ("antigravity", "#b1a2e5")):
         image = Image.new("RGBA", (12, 12))
         draw = ImageDraw.Draw(image)
         if name == "codex":
-            # Two squared loops with alternating over/under crossings.
-            paths = ([(2, 4), (3, 3), (8, 3), (9, 4), (9, 7), (8, 8),
-                      (3, 8), (2, 7), (2, 4)],
-                     [(4, 1), (7, 1), (8, 2), (8, 9), (7, 10), (4, 10),
-                      (3, 9), (3, 2), (4, 1)])
-            for path in (*paths, [(7, 3), (8, 3), (9, 4)], [(2, 7), (3, 8), (4, 8)]):
-                draw.line(path, fill=outline, width=3)
-                draw.line(path, fill=accent, width=1)
+            draw.ellipse((1, 1, 10, 10), fill=accent)
         elif name == "claude":
-            draw.polygon([(5, 1), (6, 3), (9, 2), (8, 4), (10, 5), (8, 6),
-                          (9, 9), (6, 8), (5, 10), (4, 8), (2, 9), (3, 6),
-                          (1, 5), (3, 4), (2, 2), (4, 3)], fill=accent, outline=outline)
+            draw.polygon([(5, 1), (7, 4), (10, 4), (8, 7), (9, 10),
+                          (5, 8), (2, 10), (3, 7), (1, 4), (4, 4)], fill=accent)
         else:
-            draw.polygon([(5, 1), (7, 4), (10, 5), (7, 7), (5, 10), (4, 7),
-                          (1, 5), (4, 4)], fill=accent, outline=outline)
+            draw.polygon([(5, 1), (10, 5), (6, 10), (1, 6)], fill=accent)
         result[name] = image
     return result
 
@@ -629,17 +619,28 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     variants.extend(dict(variants[0], state=state, animation=f"cozy-desk-{state}")
                     for state in ("off", "working", "screensaver"))
     if all(desk_parts):
-        chair = Image.new("RGBA", (64, 64))
-        part = desk_parts[2][0][0]
-        chair.alpha_composite(part.crop(part.getchannel("A").getbbox()).resize((18, 24), Image.Resampling.NEAREST), (23, 34))
-        back = chair.copy()
-        back.paste((0, 0, 0, 0), (0, 49, 64, 64))
-        furniture("cozy-chair-back", "chair", (3, 2), [back], anchor={"x": 8, "y": 8})
-        manifest["furniture"][-1]["variants"][0]["blockedCells"] = []
-        front = Image.new("RGBA", (64, 64))
-        front.paste(chair.crop((0, 49, 64, 64)), (0, 49))
-        furniture("cozy-chair-front", "chair", (3, 2), [front], anchor={"x": 8, "y": 8})
-        manifest["furniture"][-1]["variants"][0].update(blockedCells=[], zOrder=18)
+        # All authored chair colours remain selectable, with the same contact.
+        chairs = []
+        for part in desk_parts[2][0]:
+            chair = Image.new("RGBA", (64, 64))
+            chair.alpha_composite(part.crop(part.getchannel("A").getbbox()).resize((18, 24), Image.Resampling.NEAREST), (23, 34))
+            chairs.append(chair)
+        for part_name, z_order in (("back", 0), ("front", 18)):
+            asset_id = f"cozy-chair-{part_name}"
+            frames, rows, variants = [], [], []
+            for index, chair in enumerate(chairs):
+                layer = chair.copy()
+                # Viewed from behind: the visible backrest/arms hide the torso.
+                # Only the base below the pelvis belongs behind the character.
+                layer.paste((0, 0, 0, 0), (0, 0, 64, 50) if part_name == "back" else (0, 50, 64, 64))
+                state = "default" if index == 0 else f"color-{index + 1}"
+                animation = asset_id if index == 0 else f"{asset_id}-{state}"
+                rows.append(clip(animation, 0, column=index))
+                frames.append(layer)
+                variants.append(dict(rotation=0, state=state, footprintW=3, footprintH=2,
+                    blockedCells=[], points=[], sheetId=asset_id, animation=animation, layer=1, zOrder=z_order))
+            add_sheet(asset_id, atlas(frames), (64, 64), {"x": 8, "y": 8}, rows)
+            manifest["furniture"].append(dict(id=asset_id, kind="chair", variants=variants))
     furniture("cozy-pantry", "pantry", (3, 2), [p5_prop("coffee_machine")],
               points=[point("coffee", 1, 2, "coffee", "up")])
     furniture("cozy-water", "water", (1, 2), [p5_prop("water_cooler")],
@@ -650,6 +651,9 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     sofa = preferred("sofa-red", ([p5_prop("sofa")], 1, False))
     furniture("cozy-sofa", "sofa", (3, 2), *sofa,
               points=[point("nap", 1, 2, "napping", "down")])
+    # Pelvis contacts on the authored cushion, rather than the approach tile's feet.
+    # The anchor is for the first (leftmost) overflow work point on this host.
+    manifest["furniture"][-1]["variants"][0]["chairSeatAnchor"] = {"x": 16, "y": 18}
     table = preferred("round-table", ([p5_prop("desk", 0)], 1, False))
     furniture("cozy-table", "table", (3, 2), *table,
               points=[point("chat-left", 0, 2, "chatting", "right"),
@@ -687,6 +691,8 @@ def build_pack(art_dir: Path, output: Path) -> dict:
             frames = preferred(source_name, fallback, row="blink" if animated else "variants",
                                animated=animated)
         furniture(f"cozy-{asset_id}", kind, footprint, *frames, layer=layer)
+        if asset_id == "armchair":
+            manifest["furniture"][-1]["variants"][0]["chairSeatAnchor"] = {"x": 16, "y": 19}
 
     for asset_id, kind, footprint, source_name in (("lamp", "lamp", (1, 1), "lamp"),
             ("fridge", "cabinet", (2, 3), "fridge"), ("trash", "plant", (1, 1), "trash-bin"),
@@ -703,7 +709,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     add_sheet("icons", atlas(icon_frames), (32, 32), {"x": 0, "y": 0},
               [clip(name, 0, column=column) for column, name in enumerate(icon_names)])
 
-    providers = provider_icons()
+    providers = neutral_provider_icons()
     add_sheet("provider-icons", atlas(list(providers.values())), (12, 12), {"x": 0, "y": 0},
               [clip(name, 0, column=column) for column, name in enumerate(providers)])
     laptop = laptop_sprite()
@@ -711,6 +717,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     furniture("cozy-laptop", "laptop", (1, 1), [laptop], sheet_id="office-extras")
     manifest["furniture"][-1]["variants"][0]["blockedCells"] = []
     furniture("cozy-counter-stool", "chair", (1, 1), [counter_stool_sprite()])
+    manifest["furniture"][-1]["variants"][0]["chairSeatAnchor"] = {"x": 8, "y": -5}
     manifest["furniture"][-1]["variants"][0]["blockedCells"] = []
     rotate_furniture(manifest, images)
 

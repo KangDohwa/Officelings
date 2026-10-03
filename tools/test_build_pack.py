@@ -371,9 +371,12 @@ class BuildPackTests(unittest.TestCase):
                                          variant["points"])
                         z_order = base["zOrder"]
                         if "chairSeatAnchor" in base:
-                            z_order = {90: -32, 180: -48, 270: -32}[rotation]
-                            self.assertEqual({90: {"x": -9, "y": 24}, 180: {"x": 24, "y": -9},
-                                              270: {"x": 41, "y": 24}}[rotation], variant["chairSeatAnchor"])
+                            if "chairBackId" in base:
+                                z_order = {90: -32, 180: -48, 270: -32}[rotation]
+                            cx, cy = base["chairSeatAnchor"]["x"], base["chairSeatAnchor"]["y"]
+                            self.assertEqual({90: {"x": height * 16 - cy, "y": cx},
+                                              180: {"x": width * 16 - cx, "y": height * 16 - cy},
+                                              270: {"x": cy, "y": width * 16 - cx}}[rotation], variant["chairSeatAnchor"])
                         elif asset["id"] == "cozy-chair-back":
                             z_order = {90: -32, 180: -48, 270: -32}[rotation]
                         elif asset["id"] == "cozy-chair-front":
@@ -545,7 +548,7 @@ class BuildPackTests(unittest.TestCase):
         self.assertEqual((32, 32, 1, {"x": 0, "y": 0}),
                          (sheets["icons"]["cellW"], sheets["icons"]["cellH"], sheets["icons"]["scale"], sheets["icons"]["anchor"]))
 
-    def test_original_provider_icons_laptop_and_fallback_desk_states(self):
+    def test_neutral_provider_icons_laptop_and_fallback_desk_states(self):
         build_pack.build_pack(self.art, self.output)
         manifest = self.manifest()
         sheets = {s["id"]: s for s in manifest["sheets"]}
@@ -565,8 +568,12 @@ class BuildPackTests(unittest.TestCase):
                 pixels = set(glyph.get_flattened_data())
                 colours = {p[:3] for p in pixels if p[3]}
                 self.assertEqual({0, 255}, {p[3] for p in pixels})
-                self.assertEqual(2, len(colours))
-                self.assertIn((32, 37, 43), colours)
+                self.assertEqual(1, len(colours))
+                self.assertNotIn(hashlib.sha256(glyph.tobytes()).hexdigest(), {
+                    "f52d51ec68055ba7b597e5181c672b45d48c7dd0c77eb866c8064a0078a87d2c",
+                    "5605ba5fedf0a75472635c465ce5898aee523660452633a193f0da613948c6fa",
+                    "3813091ed56339a245ae4cca26405f94b577abc647f62869a45963118fbeccde"})
+                self.assertEqual(build_pack.neutral_provider_icons()[row["name"]].tobytes(), glyph.tobytes())
                 glyphs.append(glyph.getchannel("A").tobytes())
         self.assertEqual(3, len(set(glyphs)))
         extras = sheets["office-extras"]
