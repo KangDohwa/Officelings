@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "env5-office-bodies",
+    "description": "Different static props; reference gives ONLY style and perspective, not identity.",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "office_a": {
+      "frames": 5,
+      "fps": 1,
+      "loop": false,
+      "action": "Five DIFFERENT static office objects, left to right: 0 KITCHEN ISLAND with THREE joined round stools in front, warm walnut cabinets, ivory countertop with teal kettle and tiny mug, visible flat front and tabletop; 56x36 logical pixels. 1 LARGE CONFERENCE TABLE, long horizontal walnut top viewed a little from above, THREE teal chairs along FAR long edge, THREE teal chairs along NEAR long edge, ONE chair at EACH short end (EIGHT distinct chairs total); 58x42 logical pixels; tiny paper and pitcher on top; all chairs touch table, complete connected grouping. 2 MOBILE WHITEBOARD on wheels, ivory framed horizontal white writing surface with short teal/red sketch dashes, walnut/charcoal posts, marker tray, two caster wheels, whole connected silhouette; 42x44 pixels. 3 PRINTER STATION, cream office printer on walnut two-door storage pedestal, sheets emerging at top, paper reams in lower shelf; 32x40 pixels. 4 PLANT WALL, one walnut-framed vertical living garden panel, densely layered green fern and monstera leaves, two or three flat teal-green shades; 48x42 pixels. All objects separate with huge magenta gaps."
+    },
+    "office_b": {
+      "frames": 4,
+      "fps": 1,
+      "loop": false,
+      "action": "Four DIFFERENT static office props, left to right: 0 COAT RACK, dark walnut standing tree with three hooks, an ivory coat and a dusty blue scarf hanging from hooks, splayed feet, full connected silhouette; 28x48 logical pixels. 1 SHOE RACK, low walnut two-tier open bench with three pairs of cream/blue/red shoes, complete connected object, no floor; 42x24 pixels. 2 RETRO TELEVISION, complete warm walnut cabinet, cream/dark round-corner CRT glass, small knobs on right, attached short V-shaped antenna and four short feet; 36x36 pixels. 3 GAME CONSOLE CORNER, low walnut media cabinet with a charcoal flat TV on top, empty dark teal screen, tiny ivory game console and two controllers on middle shelf, everything touching cabinet as one connected unit; 48x38 pixels. Huge solid magenta gaps between objects."
+    }
+  },
+  "style": "Match the attached ENV2 office sprites: orthographic front view with a little top surface visible, level horizontal edges, NEVER isometric. True chunky pixel art, single logical pixel outlines, warm walnut/honey, ivory, muted teal, dusty blue and brick red. Two or three flat shades per material. No antialiasing, gradients, blurry pixels, floor patches, detached ground shadows, people, words, grid lines or borders. STATIC choices, not animation poses. Complete connected objects, visible feet, widely separated, solid #FF00FF background. Each requested item exactly once.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": false,
+    "resample": "kcentroid",
+    "palette_size": 32,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
