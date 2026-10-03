@@ -146,6 +146,7 @@ public sealed class RenderingTests
                 Sprite: sprite, DisplayName: provider.ToString()));
         }).ToArray();
         var view = View(pack, layout, people, directory);
+        view.TagMode = "always";
         for (var zoom = 1; zoom <= 3; zoom++)
         {
             view.SetZoom(zoom);
