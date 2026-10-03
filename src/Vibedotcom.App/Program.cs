@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -129,10 +130,22 @@ internal static class Program
     }
     internal static void Render(FrameworkElement view,int width,int height,string file)
     {
-        view.Width=width; view.Height=height; view.Measure(new(width,height)); view.Arrange(new(0,0,width,height)); view.UpdateLayout();
-        var bitmap=new RenderTargetBitmap(width,height,96,96,PixelFormats.Pbgra32); bitmap.Render(view);
+        var bitmap=RenderBitmap(view,width,height);
         var png=new PngBitmapEncoder(); png.Frames.Add(BitmapFrame.Create(bitmap));
         using var stream=File.Create(file); png.Save(stream);
+    }
+    internal static BitmapSource RenderBitmap(FrameworkElement view,int width,int height)
+    {
+        // A hidden, owned presentation source makes WPF process visual invalidation
+        // even for repeated renders at the same size. It is never shown/activated.
+        using var source=new HwndSource(new HwndSourceParameters("Vibedotcom offscreen render")
+        { PositionX=-30000,PositionY=-30000,Width=width,Height=height,
+            WindowStyle=unchecked((int)0x80000000),ExtendedWindowStyle=0x08000080 });
+        var root=new ContainerVisual();root.Children.Add(view);source.RootVisual=root;
+        view.Width=width; view.Height=height; view.Measure(new(width,height)); view.Arrange(new(0,0,width,height)); view.UpdateLayout();
+        view.Dispatcher.Invoke(() => { },DispatcherPriority.ApplicationIdle);
+        var bitmap=new RenderTargetBitmap(width,height,96,96,PixelFormats.Pbgra32);bitmap.Render(root);bitmap.Freeze();
+        source.RootVisual=null;root.Children.Remove(view);return bitmap;
     }
     private static void ReviewRenders(string output,AssetPack assets,OfficeLayout layout)
     {

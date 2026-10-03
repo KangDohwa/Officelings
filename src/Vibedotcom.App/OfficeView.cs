@@ -20,6 +20,7 @@ internal sealed class OfficeView : FrameworkElement
     private IReadOnlyList<AgentView> agents = Array.Empty<AgentView>();
     private readonly Dictionary<string, AgentView> byId = new();
     private readonly AssetPack assets;
+    private readonly BrandIcons brandIcons;
     private readonly Dictionary<string, BitmapSource> sheets = new();
     private readonly Dictionary<(string, int, int, int, int), BitmapSource> sprites = new();
     private readonly Dictionary<(string, int, int, int, int), Rect> spriteContent = new();
@@ -48,16 +49,17 @@ internal sealed class OfficeView : FrameworkElement
     public bool TransparentBackground
     {
         get => transparent;
-        set { if (transparent == value) return; transparent = value; room = null; InvalidateVisual(); }
+        set { if (transparent == value) return; transparent = value; InvalidateVisual(); }
     }
     public IReadOnlyList<AgentView> Agents => agents;
     public OfficeLayout Layout => office;
     public int RenderedAgentTags { get; private set; }
     public int RenderedReservedTags { get; private set; }
 
-    public OfficeView(AssetPack? assets = null)
+    public OfficeView(AssetPack? assets = null, string? brandDirectory = null)
     {
         this.assets = assets ?? new();
+        brandIcons = new(brandDirectory);
         foreach (var (id, bytes) in this.assets.Images)
         {
             using var stream = new MemoryStream(bytes);
@@ -199,32 +201,31 @@ internal sealed class OfficeView : FrameworkElement
         room = new DrawingGroup();
         using (var dc = room.Open())
         {
-            if (!transparent)
+            for (var y=0; y<office.HeightTiles; y++) for (var x=0; x<office.WidthTiles; x++)
             {
-                for (var y=0; y<office.HeightTiles; y++) for (var x=0; x<office.WidthTiles; x++)
+                var t = assets.Manifest.TileTypes.First(t=>t.Id==office.Tiles![y*office.WidthTiles+x]);
+                if (t.Kind == "void") continue;
+                // Tile art may contain alpha at its edges. The office surface
+                // stays opaque; only void tiles and the window margins are clear.
+                R(dc,t.Color,x*16,y*16,16,16);
+                if (t.SheetId != null && t.Animation != null)
                 {
-                    var t = assets.Manifest.TileTypes.First(t=>t.Id==office.Tiles![y*office.WidthTiles+x]);
-                    if (t.Kind == "void") continue;
-                    if (t.SheetId != null && t.Animation != null)
-                    {
-                        var f = assets.Frame(t.SheetId,t.Animation,"any",0);
-                        dc.DrawImage(Image(f),new(x*16,y*16,16,16));
-                    }
-                    else
-                    {
-                        R(dc,t.Color,x*16,y*16,16,16);
-                        if (t.Kind == "floor")
-                        { R(dc,t.Id == 2 ? "#c9d1b8" : "#d9c6a8",x*16,y*16+15,16,1); if ((x+y)%3==0) R(dc,"#d9c6a8",x*16,y*16,1,15); }
-                    }
+                    var f = assets.Frame(t.SheetId,t.Animation,"any",0);
+                    dc.DrawImage(Image(f),new(x*16,y*16,16,16));
                 }
-                foreach (var z in office.Zones ?? Array.Empty<Zone>())
-                    if (!assets.Manifest.Furniture.Any(f => f.Id == "cozy-desk"))
-                    if (z.Name is "workspace" or "pantry")
-                    {
-                        R(dc,"#eee5d2",z.X*16+24,24,Math.Min(72,z.Width*16-24),11);
-                        Text(dc,z.Name.ToUpperInvariant(),z.X*16+26,25,7,"#59654c",true,maxWidth:z.Width*16-28);
-                    }
+                else
+                {
+                    if (t.Kind == "floor")
+                    { R(dc,t.Id == 2 ? "#c9d1b8" : "#d9c6a8",x*16,y*16+15,16,1); if ((x+y)%3==0) R(dc,"#d9c6a8",x*16,y*16,1,15); }
+                }
             }
+            foreach (var z in office.Zones ?? Array.Empty<Zone>())
+                if (!assets.Manifest.Furniture.Any(f => f.Id == "cozy-desk"))
+                if (z.Name is "workspace" or "pantry" && z.Width * 16 > 28)
+                {
+                    R(dc,"#eee5d2",z.X*16+24,24,Math.Min(72,z.Width*16-24),11);
+                    Text(dc,z.Name.ToUpperInvariant(),z.X*16+26,25,7,"#59654c",true,maxWidth:z.Width*16-28);
+                }
             if (!office.Furniture.Any(f => f.Kind == "door"))
             {
                 var door=office.Door;
@@ -332,6 +333,12 @@ internal sealed class OfficeView : FrameworkElement
             }
             if (v.ChairSeatAnchor != null && (v.Points.Any(p => p.Facing is "left" or "right") || f.Kind == "table"))
                 return f.Y * 16 + v.ChairSeatAnchor.Y + 12 + .1;
+            // Unsplit lounge seats have no linked front asset. Their visible backrest,
+            // arms and seat edge still cover a worker sitting with their back to us.
+            var seated = agents.Where(a => a.Pose.Visible && a.Pose.SeatAnchor != null && a.Pose.SeatPhase != "turn" &&
+                a.Pose.ChairFrontId == null && a.Pose.OverflowSeatId != null &&
+                office.OverflowSeats?.Any(s => s.Id == a.Pose.OverflowSeatId && s.FurnitureId == f.Id) == true).ToArray();
+            if (seated.Length != 0) return seated.Max(a => AgentDepth(a.Pose)) + .2;
             return (f.Y + f.Height) * 16 + v.ZOrder;
         }
         var scene = office.Furniture.Select(f=>(Layer:assets.Variant(f).Layer,Y:FurnitureDepth(f),Id:f.Id,F:(Furniture?)f,A:(AgentView?)null))
@@ -418,8 +425,8 @@ internal sealed class OfficeView : FrameworkElement
         var name = agent.Pose.DisplayName ?? agent.Agent.Name;
         var elements = StringInfo.ParseCombiningCharacters(name);
         if (elements.Length > 14) name = name[..elements[14]]+"…";
-        var width = Math.Clamp(Math.Ceiling(FormatText(name,6,"#f5edce").WidthIncludingTrailingWhitespace)+11,22,94);
-        var plate = new Rect(Math.Round(Math.Clamp(anchor.X-width/2,2,Math.Max(2,office.WidthTiles*16-width-2))),Math.Round(anchor.Y),width,9);
+        var width = Math.Clamp(Math.Ceiling(FormatText(name,6,"#f5edce").WidthIncludingTrailingWhitespace)+16,27,99);
+        var plate = new Rect(Math.Round(Math.Clamp(anchor.X-width/2,2,Math.Max(2,office.WidthTiles*16-width-2))),Math.Round(anchor.Y)-5,width,14);
         var outline = plate; outline.Inflate(1,1);
         if (stack)
             for (var attempt=0;attempt<20 && plates.Any(p=>p.IntersectsWith(outline));attempt++)
@@ -428,23 +435,23 @@ internal sealed class OfficeView : FrameworkElement
         plates.Add(outline);
         R(dc,agent.Agent.IsSubagent ? "#738b84" : "#c99a52",plate.X-1,plate.Y-1,plate.Width+2,plate.Height+2);
         R(dc,"#172b30",plate.X,plate.Y,plate.Width,plate.Height);
-        if (sheets.ContainsKey("provider-icons"))
-            dc.DrawImage(Image(assets.Frame("provider-icons",agent.Agent.Provider.ToString().ToLowerInvariant(),"any",0)),new(plate.X+1,plate.Y+1,7,7));
-        else { dc.PushTransform(new TranslateTransform(plate.X+1,plate.Y+1)); dc.PushTransform(new ScaleTransform(7d/12,7d/12)); DrawProviderIcon(dc,agent.Agent.Provider,0,0); dc.Pop(); dc.Pop(); }
-        Text(dc,name,plate.X+10,plate.Y+1,6,"#f5edce",maxWidth:plate.Width-11);
+        var icon = brandIcons.Get(agent.Agent.Provider, (int)Math.Ceiling(zoom));
+        if (icon == null && sheets.ContainsKey("provider-icons"))
+            icon = Image(assets.Frame("provider-icons",agent.Agent.Provider.ToString().ToLowerInvariant(),"any",0));
+        if (icon != null) dc.DrawImage(icon,new(plate.X+1,plate.Y+1,12,12));
+        else DrawNeutralIcon(dc,agent.Agent.Provider,plate.X+1,plate.Y+1);
+        Text(dc,name,plate.X+15,plate.Y+4,6,"#f5edce",maxWidth:plate.Width-16);
         return plate;
     }
-    private void DrawProviderIcon(DrawingContext dc, Provider provider, double x, double y)
+    private void DrawNeutralIcon(DrawingContext dc, Provider provider, double x, double y)
     {
-        // Small original pixel silhouettes also cover custom packs without the icon sheet.
+        // Neutral shapes for custom packs with no provider sheet; no logo lookalikes.
         var rows=provider switch
         {
-            Provider.Codex => new[] { "000001110000","000110011000","001100001100","011001100110","010011110010","110110011011","110110011011","010011110010","011001100110","001100001100","000110011000","000001110000" },
-            Provider.Claude => new[] { "000001000000","010001001000","001001010010","100101010100","011111111000","000111111111","111111110000","000111111110","001010101001","010010100100","000010001010","000010000000" },
-            _ => new[] { "000001000000","000001100000","000001100000","000011110000","000111111000","111111111111","011111111110","000111111000","000011110000","000001100000","000001100000","000001000000" }
+            Provider.Codex => new[] { "000000000000","000011110000","001111111100","001111111100","011111111110","011111111110","011111111110","011111111110","001111111100","001111111100","000011110000","000000000000" },
+            Provider.Claude => new[] { "000000000000","000001000000","000001100000","000001100000","011111111110","001111111100","000111111000","000111111000","000110011000","001100001100","001000000100","000000000000" },
+            _ => new[] { "000000000000","000001100000","000011110000","000111111000","001111111100","011111111110","011111111110","001111111100","000111111000","000011110000","000001100000","000000000000" }
         };
-        for(var py=0;py<12;py++) for(var px=0;px<12;px++)
-            if(rows[py][px]=='1') R(dc,"#101c24",x+px-1,y+py-1,3,3);
         for(var py=0;py<12;py++) for(var px=0;px<12;px++)
             if(rows[py][px]=='1') R(dc,ProviderColor(provider),x+px,y+py,1,1);
     }
