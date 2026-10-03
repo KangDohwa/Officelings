@@ -1,0 +1,315 @@
+{
+  "characterId": "wall-white-plaster",
+  "engine": "component-row",
+  "game_input": "wall-white-plaster.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "wall-white-plaster.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/wall-white-plaster.png",
+  "cell": {
+    "shape": "square",
+    "width": 32,
+    "height": 32,
+    "safe_margin_x": 0,
+    "safe_margin_y": 0,
+    "size": 32,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "columns": 1,
+    "rows": {
+      "panel": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "top_left": {
+        "row": 1,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "top_right": {
+        "row": 2,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "inside_left": {
+        "row": 3,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "inside_right": {
+        "row": 4,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "vertical": {
+        "row": 5,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "tee_left": {
+        "row": 6,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "tee_right": {
+        "row": 7,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "tee_up": {
+        "row": 8,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "tee_down": {
+        "row": 9,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "door_frame": {
+        "row": 10,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "window_classic": {
+        "row": 11,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "window_wide": {
+        "row": 12,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "window_round": {
+        "row": 13,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "archway": {
+        "row": 14,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 32,
+    "sheetHeight": 480,
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "rows": {
+      "panel": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "top_left": [
+        {
+          "x": 0,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "top_right": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "inside_left": [
+        {
+          "x": 0,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "inside_right": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "vertical": [
+        {
+          "x": 0,
+          "y": 160,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "tee_left": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "tee_right": [
+        {
+          "x": 0,
+          "y": 224,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "tee_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "tee_down": [
+        {
+          "x": 0,
+          "y": 288,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "door_frame": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "window_classic": [
+        {
+          "x": 0,
+          "y": 352,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "window_wide": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "window_round": [
+        {
+          "x": 0,
+          "y": 416,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "archway": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 32
+        }
+      ]
+    }
+  }
+}

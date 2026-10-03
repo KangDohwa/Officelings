@@ -1,0 +1,70 @@
+{
+  "characterId": "floor-wood-herringbone",
+  "engine": "component-row",
+  "game_input": "floor-wood-herringbone.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "floor-wood-herringbone.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/floor-wood-herringbone.png",
+  "cell": {
+    "shape": "square",
+    "width": 32,
+    "height": 32,
+    "safe_margin_x": 0,
+    "safe_margin_y": 0,
+    "size": 32,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "columns": 2,
+    "rows": {
+      "variants": {
+        "row": 0,
+        "frames": 2,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 64,
+    "sheetHeight": 32,
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "rows": {
+      "variants": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        }
+      ]
+    }
+  }
+}

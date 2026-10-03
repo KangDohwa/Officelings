@@ -1,0 +1,75 @@
+{
+  "characterId": "hanging-plants",
+  "engine": "component-row",
+  "game_input": "hanging-plants.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "hanging-plants.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/hanging-plants.png",
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 3,
+    "rows": {
+      "variants": {
+        "row": 0,
+        "frames": 3,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 192,
+    "sheetHeight": 64,
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "rows": {
+      "variants": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ]
+    }
+  }
+}

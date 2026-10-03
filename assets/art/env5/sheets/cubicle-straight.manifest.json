@@ -1,0 +1,115 @@
+{
+  "characterId": "cubicle-straight",
+  "engine": "component-row",
+  "game_input": "cubicle-straight.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "cubicle-straight.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/cubicle-straight.png",
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 1,
+    "rows": {
+      "r0": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "r90": {
+        "row": 1,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "r180": {
+        "row": 2,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "r270": {
+        "row": 3,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 64,
+    "sheetHeight": 256,
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "rows": {
+      "r0": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "r90": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "r180": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "r270": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 64,
+          "h": 64
+        }
+      ]
+    }
+  }
+}

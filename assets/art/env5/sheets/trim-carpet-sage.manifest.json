@@ -1,0 +1,189 @@
+{
+  "characterId": "trim-carpet-sage",
+  "engine": "component-row",
+  "game_input": "trim-carpet-sage.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "trim-carpet-sage.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/trim-carpet-sage.png",
+  "cell": {
+    "shape": "square",
+    "width": 32,
+    "height": 32,
+    "safe_margin_x": 0,
+    "safe_margin_y": 0,
+    "size": 32,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "columns": 1,
+    "rows": {
+      "north": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "east": {
+        "row": 1,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "south": {
+        "row": 2,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "west": {
+        "row": 3,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "north_east": {
+        "row": 4,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "south_east": {
+        "row": 5,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "south_west": {
+        "row": 6,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "north_west": {
+        "row": 7,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 32,
+    "sheetHeight": 256,
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "rows": {
+      "north": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "east": [
+        {
+          "x": 0,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "south": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "west": [
+        {
+          "x": 0,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "north_east": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "south_east": [
+        {
+          "x": 0,
+          "y": 160,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "south_west": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "north_west": [
+        {
+          "x": 0,
+          "y": 224,
+          "w": 32,
+          "h": 32
+        }
+      ]
+    }
+  }
+}

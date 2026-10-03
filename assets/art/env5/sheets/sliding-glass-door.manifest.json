@@ -1,0 +1,79 @@
+{
+  "characterId": "sliding-glass-door",
+  "engine": "component-row",
+  "game_input": "sliding-glass-door.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "sliding-glass-door.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/sliding-glass-door.png",
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 1,
+    "rows": {
+      "closed": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "open": {
+        "row": 1,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 64,
+    "sheetHeight": 128,
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "rows": {
+      "closed": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "open": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        }
+      ]
+    }
+  }
+}
