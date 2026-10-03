@@ -37,3 +37,7 @@ assets/art/env3/runs/
 assets/art/env3/qa/
 assets/art/seated/*/source-contact-*.png
 assets/art/seated/*/qa.json
+
+# 공식 브랜드 로고 원본/오버레이는 재배포하지 않는다(README의 상표 섹션 참고)
+assets/brand/originals/
+assets/brand-overlay/
