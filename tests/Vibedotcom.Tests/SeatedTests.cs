@@ -103,6 +103,33 @@ public sealed class SeatedTests
     }
 
     [Fact]
+    public void OverflowPelvisUsesCushionsAndTwoSofaOccupantsKeepDistinctContacts()
+    {
+        var pack = AssetPack.LoadDefault(useUserPack: false); var office = new OfficeAnimator(42, pack);
+        var agents = new List<AgentInfo>(); var used = new List<string>();
+        for (var i = 0; agents.Count < 20; i++)
+        {
+            var a = Agent($"overflow-contact:{i:0000}"); var design = pack.Assign(a, used);
+            if (new[] { "up", "left", "right" }.Any(f => pack.SeatedVariant(design, f) == null)) continue;
+            agents.Add(a); used.Add(design.Id);
+        }
+        IReadOnlyList<AgentView> views = [];
+        for (var i = 0; i < 800; i++) views = office.Update(agents, Epoch.AddMilliseconds(i * 100), .1);
+        var contacts = new Dictionary<string, PixelPoint>();
+        foreach (var seat in office.SourceLayout.OverflowSeats!.Where(s => s.Id.StartsWith("lounge-sofa") || s.Id == "lounge-armchair" || s.Id.StartsWith("pantry-")))
+        {
+            var p = views.Single(v => v.Pose.OverflowSeatId == seat.Id).Pose;
+            Assert.Equal("seated", p.SeatPhase); Assert.NotNull(p.SeatAnchor);
+            var host = office.SourceLayout.Furniture.Single(f => f.Id == seat.FurnitureId);
+            var expectedY = host.AssetId switch { "cozy-sofa" => 18, "cozy-armchair" => 19, _ => -5 };
+            Assert.Equal(host.Y * 16 + expectedY, p.SeatAnchor!.Y);
+            contacts[seat.Id] = p.SeatAnchor;
+        }
+        Assert.Equal(16, contacts["lounge-sofa-2"].X - contacts["lounge-sofa-1"].X);
+        Assert.Equal(contacts["lounge-sofa-1"].Y, contacts["lounge-sofa-2"].Y);
+    }
+
+    [Fact]
     public void SeatContactMatchesPublishedChairAndV5FieldsRemainAdditive()
     {
         var pack = AssetPack.LoadDefault(useUserPack: false);
