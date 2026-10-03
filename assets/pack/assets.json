@@ -10080,7 +10080,7 @@
     },
     {
       "id": "cozy-desk",
-      "file": "sheets/pack-2698d1214f1106fec2564a232b12b2b6abd1e66df7de333603449117800d9eec.png",
+      "file": "sheets/pack-67debabe115d155de64388b02191c6bd45749e1ea4d38a6949b6914860936023.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10097,12 +10097,195 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-desk-off",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-working",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "cozy-desk-screensaver",
+          "direction": "any",
+          "row": 0,
+          "column": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-desk-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-desk-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-desk-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-desk-off-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-desk-off-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-desk-off-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-desk-working-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 1,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-desk-working-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 1,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-desk-working-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 1,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-desk-screensaver-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-desk-screensaver-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-desk-screensaver-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
         }
       ]
     },
     {
       "id": "cozy-chair-front",
-      "file": "sheets/pack-7a01da2086fa9cee8e32df35db6c5f0d7da2224da48d166a79b7fb6cf48e0403.png",
+      "file": "sheets/pack-6f600d02ee77848cf815c41b8ae8e23efaa4f5bbaa7727cf247ce643dc5567c8.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10119,12 +10302,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-chair-front-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-front-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-chair-front-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
         }
       ]
     },
     {
       "id": "cozy-pantry",
-      "file": "sheets/pack-8b400bbea1594f14969c54191526d8f15eb840f74911055aaba2c09f95087db1.png",
+      "file": "sheets/pack-9f03c79920a16392d47dceb3e775cd6d331fc7125747b9f3a98aa86b79341948.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10141,12 +10363,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-pantry-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 5,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-pantry-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-pantry-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-water",
-      "file": "sheets/pack-b641332d5575878b3eca129cb8a0fcb27e08a01455e4e0399e525087d80bc0c5.png",
+      "file": "sheets/pack-e0ea1fa3768ce6fd82659eeb6a69615ce36f98f3483ca84d418b23478c04f32c.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10163,12 +10424,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-water-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 5
+          }
+        },
+        {
+          "name": "cozy-water-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-water-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -5,
+            "y": 5
+          }
         }
       ]
     },
     {
       "id": "cozy-tv",
-      "file": "sheets/pack-1013006620ff18bc09f3555d9b87f9020ab068defce0c708bd59a93037dda524.png",
+      "file": "sheets/pack-3599f31caf15b082df2750f20a633ddd45507db7c01762942a82d4f12d8bc240.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10185,12 +10485,51 @@
           "frames": 3,
           "fps": 3,
           "loop": true
+        },
+        {
+          "name": "cozy-tv-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": 5,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-tv-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-tv-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-sofa",
-      "file": "sheets/pack-b9838933064455441b992bb4eace8421eb196b68916e67fcd81bea5029168dcf.png",
+      "file": "sheets/pack-5d96d44dfbfe26b1819d42d56f2a801e66cf4ebdcd4078812e50a3e13516fe94.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10207,12 +10546,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-sofa-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 5,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-sofa-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-sofa-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-table",
-      "file": "sheets/pack-dc727332381e02af4ec3e5e8b25ee96eea6d0c4a34595c1fbb8287ff318a321c.png",
+      "file": "sheets/pack-62e5582f3b4768d38ceaf75a1f4e091b7614510dd6a474235a0f28b5fe86b64e.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10229,12 +10607,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-table-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 5,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-table-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-table-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-plant",
-      "file": "sheets/pack-424b0fb106cc749a2d5b17b03ead1cdb1af2d066a589d76b06e4829715208098.png",
+      "file": "sheets/pack-43fd62003558ebf810221dd2b5c5c694366b55b152f821e2dbf08b8a150071ae.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10251,12 +10668,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-plant-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-plant-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-plant-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-plant-snake",
-      "file": "sheets/pack-6e7a4677fc86cb3ea4a54cd7061a5898bbfe0968c8a0e79a2cef64aab6809d56.png",
+      "file": "sheets/pack-c081d93cc797cc125cc16889d91389049f08d788c750e0527856ec39cc67a23e.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10273,12 +10729,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-plant-snake-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-plant-snake-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-plant-snake-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-plant-fern",
-      "file": "sheets/pack-89b1387a278da784c990f3f7d9c00f86ee5218c060b3f3bc1a020a6a72b9aef0.png",
+      "file": "sheets/pack-9c66548976e11df04ffa17e51851bffb7d378155543ed7ed9323eabd8009e788.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10295,12 +10790,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-plant-fern-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-plant-fern-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-plant-fern-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-plant-succulent",
-      "file": "sheets/pack-52c3930258806364e00718cc9ce835a32097d97f8d42bed9ff59de520795f87d.png",
+      "file": "sheets/pack-73cb35bb4b3bf2701db4365b279c6594285484f395f9d70f8a2e6e009a3e0a48.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10317,12 +10851,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-plant-succulent-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-plant-succulent-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-plant-succulent-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-plant-ficus",
-      "file": "sheets/pack-d31ebce6afc7613723e8e81b65f425b5998cb1964b1ac145ef69320485f07f87.png",
+      "file": "sheets/pack-5d7c444e77704ad3d19825e727fd9b8053f04ec0cd192d04fdfbfe30edd7df63.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10339,12 +10912,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-plant-ficus-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-plant-ficus-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-plant-ficus-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-bookshelf",
-      "file": "sheets/pack-a085f9892409c9ec8fd4c361b071b58e999ecbb620a69f5406417dc3dc63d807.png",
+      "file": "sheets/pack-99b163792aaa8fe7382aa4f7760d0f1f572e91fe68bc26f5913c37a3f99b7df5.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10361,12 +10973,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-bookshelf-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 5,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-bookshelf-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-bookshelf-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-cabinet",
-      "file": "sheets/pack-35b2a49236711fc5b01585fe3466ff2bfc71edc37ddddb3b1a55f10d0d37d0ff.png",
+      "file": "sheets/pack-48aa1cf3d54b00db31efefcc73238a61770712dc0d4f880aa42d1bef87466a0e.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10383,12 +11034,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-cabinet-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 13,
+            "y": 13
+          }
+        },
+        {
+          "name": "cozy-cabinet-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-cabinet-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -13,
+            "y": 13
+          }
         }
       ]
     },
     {
       "id": "cozy-server",
-      "file": "sheets/pack-fbff9b278043b00cf6eefd5e9bb6553b99490de0bce715e2d8dff99d459027b7.png",
+      "file": "sheets/pack-6c2a28714afddfcafb034d696d11ad2ee8ac08f650326a4a2115f5628dfe16f1.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10405,12 +11095,51 @@
           "frames": 3,
           "fps": 3,
           "loop": true
+        },
+        {
+          "name": "cozy-server-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": 13,
+            "y": -3
+          }
+        },
+        {
+          "name": "cozy-server-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": 0,
+            "y": 10
+          }
+        },
+        {
+          "name": "cozy-server-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true,
+          "footOffset": {
+            "x": 3,
+            "y": -3
+          }
         }
       ]
     },
     {
       "id": "cozy-meeting",
-      "file": "sheets/pack-db1d5958c7ba4451ded7e6a0d04a17d21b40b7b888cf2b62c8394bab93d4c209.png",
+      "file": "sheets/pack-b45a64406c6feaf0143d0698fdb9bb3465126d69231700c9afd904aa9e63affd.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10427,12 +11156,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-meeting-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -3,
+            "y": 13
+          }
+        },
+        {
+          "name": "cozy-meeting-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 10
+          }
+        },
+        {
+          "name": "cozy-meeting-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -13,
+            "y": 13
+          }
         }
       ]
     },
     {
       "id": "cozy-armchair",
-      "file": "sheets/pack-18f541bd2ffd74698e3ca20b487d6bf741f85b6b6da4bb79200ea59a76ca422d.png",
+      "file": "sheets/pack-6a57d8c5b71e297199a64dfea9df8c08232d40a529a2d0a8255dcdbbdfd3dc56.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10449,12 +11217,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-armchair-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 13,
+            "y": 13
+          }
+        },
+        {
+          "name": "cozy-armchair-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-armchair-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -13,
+            "y": 13
+          }
         }
       ]
     },
     {
       "id": "cozy-rug",
-      "file": "sheets/pack-8cda06d6983641aca08e4f1216e1dfa1d40b769b34b326cc8735d3a5d61b903c.png",
+      "file": "sheets/pack-9c89306bf2abfaacdd5a94175340a13188112ec79c1ed19dfe1e68c4c045989a.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10471,12 +11278,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-rug-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -3,
+            "y": 13
+          }
+        },
+        {
+          "name": "cozy-rug-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 10
+          }
+        },
+        {
+          "name": "cozy-rug-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -13,
+            "y": 13
+          }
         }
       ]
     },
     {
       "id": "cozy-picture",
-      "file": "sheets/pack-82cf61cd58f94b1a48a134961311fe3cf5bfc47771344baec2ceff9353b2385e.png",
+      "file": "sheets/pack-01661b77be45f5a65f347fc98ef3a094eb54607c68753eb79e1a5e467cd70558.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10493,12 +11339,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-picture-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 13,
+            "y": 29
+          }
+        },
+        {
+          "name": "cozy-picture-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-picture-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -29,
+            "y": 29
+          }
         }
       ]
     },
     {
       "id": "cozy-whiteboard",
-      "file": "sheets/pack-f972c6ebb7175b2f84ac96bba73f3a17a9afb97a412eb4179cee34b82c6487b0.png",
+      "file": "sheets/pack-8865bcf5cabbbf7fb074afd3b06ff633833665ee4caf78d0cb89583e469285a0.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10515,12 +11400,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-whiteboard-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 5,
+            "y": 37
+          }
+        },
+        {
+          "name": "cozy-whiteboard-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-whiteboard-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -37,
+            "y": 37
+          }
         }
       ]
     },
     {
       "id": "cozy-clock",
-      "file": "sheets/pack-2865b77613d084071a036f348f094a7ad6fe9cecb703cdbc4ac91ab92ac12f73.png",
+      "file": "sheets/pack-7865d41ffca4470d68b897e86e509e56bcf07c5dca87add95f35901ccfacaad0.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10537,12 +11461,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-clock-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-clock-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-clock-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-window",
-      "file": "sheets/pack-429a8ee6ad67ceb52745a5232ff82f24d7f2c839955d412adbc402122c12a049.png",
+      "file": "sheets/pack-ea86e37ae88ac044fd5930ca6f8e1ca1885b3ff62e07a00b0d7e8901e58067c9.png",
       "cellW": 32,
       "cellH": 32,
       "anchor": {
@@ -10559,12 +11522,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-window-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -8,
+            "y": 24
+          }
+        },
+        {
+          "name": "cozy-window-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 16
+          }
+        },
+        {
+          "name": "cozy-window-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -24,
+            "y": 24
+          }
         }
       ]
     },
     {
       "id": "cozy-door",
-      "file": "sheets/pack-442bc0a0424c1e805331f863961eb36ea321191736f2e0f2907d1fb36fc47251.png",
+      "file": "sheets/pack-1dd686acd89405034082cc993a88ef4f8de967ce1cfa7a6015bd7f9c4ebc1366.png",
       "cellW": 32,
       "cellH": 32,
       "anchor": {
@@ -10581,12 +11583,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-door-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 16
+          }
+        },
+        {
+          "name": "cozy-door-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 16
+          }
+        },
+        {
+          "name": "cozy-door-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 16
+          }
         }
       ]
     },
     {
       "id": "cozy-lamp",
-      "file": "sheets/pack-2d034712277f87ab5d3d406bfdaacec8ed765f8004462cc42d1c1ea29fe8ac11.png",
+      "file": "sheets/pack-15d619b09d90a75206210924fe8ab5f92a37ee0b02aa15af770402f3d3d9415d.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10603,12 +11644,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-lamp-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-lamp-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-lamp-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-fridge",
-      "file": "sheets/pack-9311567feb8aadf32a16d991a6dfd96ae6c5a31c1dac85623d0550d1469f4508.png",
+      "file": "sheets/pack-fdd0cc9ea2f4f10115a9e1e1729f32845636880a983ac4724be40e9e49c11b4b.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10625,12 +11705,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-fridge-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 13,
+            "y": -3
+          }
+        },
+        {
+          "name": "cozy-fridge-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 10
+          }
+        },
+        {
+          "name": "cozy-fridge-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 3,
+            "y": -3
+          }
         }
       ]
     },
     {
       "id": "cozy-trash",
-      "file": "sheets/pack-406bba49022ca7876f5afa791bf03d57e4fcc58aae88d1d40e3e1ce0fd43cb01.png",
+      "file": "sheets/pack-bc0f52a8d0e54fd2e5ae36a0aa3eb5d60dad319fd2a0095959484981bd4d08f8.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10647,12 +11766,51 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-trash-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 21,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-trash-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 42
+          }
+        },
+        {
+          "name": "cozy-trash-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
     {
       "id": "cozy-coffee-table",
-      "file": "sheets/pack-72083f8ac65f54b1c795736ed3d79d7a6f22c738eab0b84aef0a8294fc1cb671.png",
+      "file": "sheets/pack-1a9214792e7dda328b7b97a209b266e391b33331cebc7242dc3553cd777b3099.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -10669,6 +11827,45 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        },
+        {
+          "name": "cozy-coffee-table-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 5,
+            "y": 21
+          }
+        },
+        {
+          "name": "cozy-coffee-table-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 26
+          }
+        },
+        {
+          "name": "cozy-coffee-table-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -21,
+            "y": 21
+          }
         }
       ]
     },
@@ -10763,6 +11960,168 @@
           "frames": 1,
           "fps": 1,
           "loop": false
+        }
+      ]
+    },
+    {
+      "id": "provider-icons",
+      "file": "sheets/pack-bee60862c3ea5e189b0252faee999f8405f469da707e3d4bd6f874a8070fbb53.png",
+      "cellW": 12,
+      "cellH": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "codex",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "claude",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "antigravity",
+          "direction": "any",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "office-extras",
+      "file": "sheets/pack-e1951f57825565bb528f40151114fa87e4ff28f46a5669c4f9ffe42e7d5c2342.png",
+      "cellW": 16,
+      "cellH": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "laptop",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "laptop-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "laptop-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "laptop-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "cozy-counter-stool",
+      "file": "sheets/pack-82e0ef78d155edb7f09d8b291456e8825ef64b186fb2181b43564b82847a1e47.png",
+      "cellW": 32,
+      "cellH": 32,
+      "anchor": {
+        "x": 8,
+        "y": 14
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-counter-stool",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-counter-stool-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 6,
+            "y": 6
+          }
+        },
+        {
+          "name": "cozy-counter-stool-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 12
+          }
+        },
+        {
+          "name": "cozy-counter-stool-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -6,
+            "y": 6
+          }
         }
       ]
     },
@@ -11222,6 +12581,681 @@
           "animation": "cozy-desk",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 0,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 1,
+              "y": 2,
+              "action": "typing",
+              "facing": "up"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-off",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 0,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 1,
+              "y": 2,
+              "action": "typing",
+              "facing": "up"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-working",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 0,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 1,
+              "y": 2,
+              "action": "typing",
+              "facing": "up"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-screensaver",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 1,
+              "y": -1,
+              "action": "typing",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 2,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-r270",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "off",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-off-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "off",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 1,
+              "y": -1,
+              "action": "typing",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-off-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "off",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 2,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-off-r270",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "working",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-working-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "working",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 1,
+              "y": -1,
+              "action": "typing",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-working-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "working",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 2,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-working-r270",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "screensaver",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": -1,
+              "y": 1,
+              "action": "typing",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-screensaver-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "screensaver",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 1,
+              "y": -1,
+              "action": "typing",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-screensaver-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "screensaver",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "seat",
+              "x": 2,
+              "y": 1,
+              "action": "typing",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-desk",
+          "animation": "cozy-desk-screensaver-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11238,6 +13272,42 @@
           "points": [],
           "sheetId": "cozy-chair-front",
           "animation": "cozy-chair-front",
+          "layer": 1,
+          "zOrder": 18
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-r90",
+          "layer": 1,
+          "zOrder": 18
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-r180",
+          "layer": 1,
+          "zOrder": 18
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-r270",
           "layer": 1,
           "zOrder": 18
         }
@@ -11291,6 +13361,141 @@
           "animation": "cozy-pantry",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [
+            {
+              "id": "coffee",
+              "x": -1,
+              "y": 1,
+              "action": "coffee",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-pantry",
+          "animation": "cozy-pantry-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "coffee",
+              "x": 1,
+              "y": -1,
+              "action": "coffee",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-pantry",
+          "animation": "cozy-pantry-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "coffee",
+              "x": 2,
+              "y": 1,
+              "action": "coffee",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-pantry",
+          "animation": "cozy-pantry-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11324,6 +13529,93 @@
           ],
           "sheetId": "cozy-water",
           "animation": "cozy-water",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "water",
+              "x": -1,
+              "y": 0,
+              "action": "water",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-water",
+          "animation": "cozy-water-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "water",
+              "x": 0,
+              "y": -1,
+              "action": "water",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-water",
+          "animation": "cozy-water-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "water",
+              "x": 2,
+              "y": 0,
+              "action": "water",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-water",
+          "animation": "cozy-water-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -11377,6 +13669,141 @@
           "animation": "cozy-tv",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [
+            {
+              "id": "tv",
+              "x": -2,
+              "y": 1,
+              "action": "tv",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-tv",
+          "animation": "cozy-tv-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "tv",
+              "x": 1,
+              "y": -2,
+              "action": "tv",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-tv",
+          "animation": "cozy-tv-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "tv",
+              "x": 3,
+              "y": 1,
+              "action": "tv",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-tv",
+          "animation": "cozy-tv-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11426,6 +13853,141 @@
           ],
           "sheetId": "cozy-sofa",
           "animation": "cozy-sofa",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [
+            {
+              "id": "nap",
+              "x": -1,
+              "y": 1,
+              "action": "napping",
+              "facing": "left"
+            }
+          ],
+          "sheetId": "cozy-sofa",
+          "animation": "cozy-sofa-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "nap",
+              "x": 1,
+              "y": -1,
+              "action": "napping",
+              "facing": "up"
+            }
+          ],
+          "sheetId": "cozy-sofa",
+          "animation": "cozy-sofa-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "nap",
+              "x": 2,
+              "y": 1,
+              "action": "napping",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-sofa",
+          "animation": "cozy-sofa-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -11486,6 +14048,162 @@
           "animation": "cozy-table",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [
+            {
+              "id": "chat-left",
+              "x": -1,
+              "y": 0,
+              "action": "chatting",
+              "facing": "down"
+            },
+            {
+              "id": "chat-right",
+              "x": -1,
+              "y": 2,
+              "action": "chatting",
+              "facing": "up"
+            }
+          ],
+          "sheetId": "cozy-table",
+          "animation": "cozy-table-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "chat-left",
+              "x": 2,
+              "y": -1,
+              "action": "chatting",
+              "facing": "left"
+            },
+            {
+              "id": "chat-right",
+              "x": 0,
+              "y": -1,
+              "action": "chatting",
+              "facing": "right"
+            }
+          ],
+          "sheetId": "cozy-table",
+          "animation": "cozy-table-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [
+            {
+              "id": "chat-left",
+              "x": 2,
+              "y": 2,
+              "action": "chatting",
+              "facing": "up"
+            },
+            {
+              "id": "chat-right",
+              "x": 2,
+              "y": 0,
+              "action": "chatting",
+              "facing": "down"
+            }
+          ],
+          "sheetId": "cozy-table",
+          "animation": "cozy-table-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11507,6 +14225,57 @@
           "points": [],
           "sheetId": "cozy-plant",
           "animation": "cozy-plant",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant",
+          "animation": "cozy-plant-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant",
+          "animation": "cozy-plant-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant",
+          "animation": "cozy-plant-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -11532,6 +14301,57 @@
           "animation": "cozy-plant",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant",
+          "animation": "cozy-plant-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant",
+          "animation": "cozy-plant-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant",
+          "animation": "cozy-plant-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11553,6 +14373,57 @@
           "points": [],
           "sheetId": "cozy-plant-snake",
           "animation": "cozy-plant-snake",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-snake",
+          "animation": "cozy-plant-snake-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-snake",
+          "animation": "cozy-plant-snake-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-snake",
+          "animation": "cozy-plant-snake-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -11578,6 +14449,57 @@
           "animation": "cozy-plant-fern",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-fern",
+          "animation": "cozy-plant-fern-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-fern",
+          "animation": "cozy-plant-fern-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-fern",
+          "animation": "cozy-plant-fern-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11601,6 +14523,57 @@
           "animation": "cozy-plant-succulent",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-succulent",
+          "animation": "cozy-plant-succulent-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-succulent",
+          "animation": "cozy-plant-succulent-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-succulent",
+          "animation": "cozy-plant-succulent-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11622,6 +14595,57 @@
           "points": [],
           "sheetId": "cozy-plant-ficus",
           "animation": "cozy-plant-ficus",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-ficus",
+          "animation": "cozy-plant-ficus-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-ficus",
+          "animation": "cozy-plant-ficus-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-plant-ficus",
+          "animation": "cozy-plant-ficus-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -11667,6 +14691,117 @@
           "animation": "cozy-bookshelf",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-bookshelf",
+          "animation": "cozy-bookshelf-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-bookshelf",
+          "animation": "cozy-bookshelf-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-bookshelf",
+          "animation": "cozy-bookshelf-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11700,6 +14835,93 @@
           "points": [],
           "sheetId": "cozy-cabinet",
           "animation": "cozy-cabinet",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-cabinet",
+          "animation": "cozy-cabinet-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-cabinet",
+          "animation": "cozy-cabinet-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-cabinet",
+          "animation": "cozy-cabinet-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -11743,6 +14965,117 @@
           "points": [],
           "sheetId": "cozy-server",
           "animation": "cozy-server",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-server",
+          "animation": "cozy-server-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-server",
+          "animation": "cozy-server-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-server",
+          "animation": "cozy-server-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -11812,6 +15145,189 @@
           "animation": "cozy-meeting",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 4,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 2
+            },
+            {
+              "x": 2,
+              "y": 3
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 3
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 3
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-meeting",
+          "animation": "cozy-meeting-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 4,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 3,
+              "y": 2
+            },
+            {
+              "x": 2,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 3,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 3,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-meeting",
+          "animation": "cozy-meeting-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 4,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 3
+            },
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 3
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 3
+            },
+            {
+              "x": 2,
+              "y": 2
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-meeting",
+          "animation": "cozy-meeting-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11847,6 +15363,93 @@
           "animation": "cozy-armchair",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-armchair",
+          "animation": "cozy-armchair-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-armchair",
+          "animation": "cozy-armchair-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-armchair",
+          "animation": "cozy-armchair-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -11863,6 +15466,42 @@
           "points": [],
           "sheetId": "cozy-rug",
           "animation": "cozy-rug",
+          "layer": 0,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 4,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-rug",
+          "animation": "cozy-rug-r90",
+          "layer": 0,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 4,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-rug",
+          "animation": "cozy-rug-r180",
+          "layer": 0,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 4,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-rug",
+          "animation": "cozy-rug-r270",
           "layer": 0,
           "zOrder": 0
         }
@@ -11883,6 +15522,42 @@
           "animation": "cozy-picture",
           "layer": 2,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-picture",
+          "animation": "cozy-picture-r90",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-picture",
+          "animation": "cozy-picture-r180",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-picture",
+          "animation": "cozy-picture-r270",
+          "layer": 2,
+          "zOrder": 0
         }
       ]
     },
@@ -11899,6 +15574,42 @@
           "points": [],
           "sheetId": "cozy-whiteboard",
           "animation": "cozy-whiteboard",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-whiteboard",
+          "animation": "cozy-whiteboard-r90",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-whiteboard",
+          "animation": "cozy-whiteboard-r180",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-whiteboard",
+          "animation": "cozy-whiteboard-r270",
           "layer": 2,
           "zOrder": 0
         }
@@ -11919,6 +15630,42 @@
           "animation": "cozy-clock",
           "layer": 2,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-clock",
+          "animation": "cozy-clock-r90",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-clock",
+          "animation": "cozy-clock-r180",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-clock",
+          "animation": "cozy-clock-r270",
+          "layer": 2,
+          "zOrder": 0
         }
       ]
     },
@@ -11937,6 +15684,42 @@
           "animation": "cozy-window",
           "layer": 2,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-window",
+          "animation": "cozy-window-r90",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-window",
+          "animation": "cozy-window-r180",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-window",
+          "animation": "cozy-window-r270",
+          "layer": 2,
+          "zOrder": 0
         }
       ]
     },
@@ -11953,6 +15736,42 @@
           "points": [],
           "sheetId": "cozy-door",
           "animation": "cozy-door",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-door",
+          "animation": "cozy-door-r90",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-door",
+          "animation": "cozy-door-r180",
+          "layer": 2,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-door",
+          "animation": "cozy-door-r270",
           "layer": 2,
           "zOrder": 0
         }
@@ -11976,6 +15795,57 @@
           "points": [],
           "sheetId": "cozy-lamp",
           "animation": "cozy-lamp",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-lamp",
+          "animation": "cozy-lamp-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-lamp",
+          "animation": "cozy-lamp-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-lamp",
+          "animation": "cozy-lamp-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -12021,6 +15891,117 @@
           "animation": "cozy-fridge",
           "layer": 1,
           "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-fridge",
+          "animation": "cozy-fridge-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-fridge",
+          "animation": "cozy-fridge-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-fridge",
+          "animation": "cozy-fridge-r270",
+          "layer": 1,
+          "zOrder": 0
         }
       ]
     },
@@ -12042,6 +16023,57 @@
           "points": [],
           "sheetId": "cozy-trash",
           "animation": "cozy-trash",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-trash",
+          "animation": "cozy-trash-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-trash",
+          "animation": "cozy-trash-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-trash",
+          "animation": "cozy-trash-r270",
           "layer": 1,
           "zOrder": 0
         }
@@ -12085,6 +16117,225 @@
           "points": [],
           "sheetId": "cozy-coffee-table",
           "animation": "cozy-coffee-table",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-coffee-table",
+          "animation": "cozy-coffee-table-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 2,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-coffee-table",
+          "animation": "cozy-coffee-table-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-coffee-table",
+          "animation": "cozy-coffee-table-r270",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-laptop",
+      "kind": "laptop",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "office-extras",
+          "animation": "laptop",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "office-extras",
+          "animation": "laptop-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "office-extras",
+          "animation": "laptop-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "office-extras",
+          "animation": "laptop-r270",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-counter-stool",
+      "kind": "chair",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-counter-stool",
+          "animation": "cozy-counter-stool",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 90,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-counter-stool",
+          "animation": "cozy-counter-stool-r90",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 180,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-counter-stool",
+          "animation": "cozy-counter-stool-r180",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 270,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-counter-stool",
+          "animation": "cozy-counter-stool-r270",
           "layer": 1,
           "zOrder": 0
         }
