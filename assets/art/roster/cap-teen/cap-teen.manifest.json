@@ -1,0 +1,481 @@
+{
+  "characterId": "cap-teen",
+  "engine": "component-row",
+  "game_input": "cap-teen.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "cap-teen.png",
+  "sprite_sheet_alpha_report": "cap-teen.report.json",
+  "base_image": "base.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 832,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "palette_size": 32
+}
