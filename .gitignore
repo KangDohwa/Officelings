@@ -29,3 +29,5 @@ assets/art/roster/*/*.raw.png
 assets/art/env2/runs/
 assets/art/env2/qa/
 assets/art/env2/references/
+assets/art/roster/*/locked/curated/
+assets/art/sheets/locked/curated/
