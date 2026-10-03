@@ -1,3 +1,12 @@
+param(
+    [string]$Source = "$PSScriptRoot\poc.wh.cpp",
+    [string]$OutputDirectory = $PSScriptRoot,
+    [string]$OutputName = 'poc',
+    [string]$ModId = 'vibedotcom-desktop-poc',
+    [string]$ModVersion = '0.1.0',
+    [string[]]$AdditionalOptions = @(),
+    [switch]$Executable
+)
 $ErrorActionPreference = 'Stop'
 $pocCompiler = 'C:\Program Files\Windhawk\Compiler\bin\clang++.exe'
 $pocEngineLib = 'C:/Program Files/Windhawk/Engine/1.7.3/64/windhawk.lib'
@@ -28,16 +37,28 @@ $pocArgs = @'
 -lgdi32
 -luser32
 '@
-$pocDirectory = $PSScriptRoot.Replace('\', '/')
-$pocArgs += "`n-I`"$pocInclude`"`n`"$pocEngineLib`"`n`"$pocDirectory/poc.wh.cpp`"`n-o `"$pocDirectory/poc.dll`"`n"
-[IO.File]::WriteAllText("$PSScriptRoot\compile.rsp", $pocArgs, [Text.UTF8Encoding]::new($false))
+if ($ModId -notmatch '^[a-z0-9-]+$' -or $ModVersion -notmatch '^[0-9.]+$' -or $OutputName -notmatch '^[a-zA-Z0-9_-]+$') { throw 'Invalid build identifier' }
+$pocArgs = $pocArgs.Replace('vibedotcom-desktop-poc', $ModId).Replace('0.1.0', $ModVersion)
+if ($Executable) {
+    # Same compiler/target/optimization/Windows macros, without Windhawk linkage.
+    $pocArgs = (($pocArgs -split "`r?`n") | Where-Object { $_ -ne '-shared' -and $_ -notmatch '^-DWH_' -and $_ -ne '-include windhawk_api.h' -and $_ -ne '-Wl,--export-all-symbols' }) -join "`n"
+} else { $pocArgs += "`n`"$pocEngineLib`"" }
+$pocDirectory = [IO.Path]::GetFullPath($OutputDirectory).Replace('\', '/')
+$pocSource = [IO.Path]::GetFullPath($Source).Replace('\', '/')
+New-Item -ItemType Directory -Force -Path $pocDirectory | Out-Null
+$pocExtension = if ($Executable) { 'exe' } else { 'dll' }
+$pocArgs += "`n-I`"$pocInclude`"`n`"$pocSource`"`n-o `"$pocDirectory/$OutputName.$pocExtension`"`n" + ($AdditionalOptions -join "`n") + "`n"
+$pocBuildName = if ($OutputName -eq 'poc') { 'compile' } else { $OutputName }
+$pocResponse = "$pocDirectory/$pocBuildName.rsp"
+$pocLog = "$pocDirectory/$pocBuildName.log"
+[IO.File]::WriteAllText($pocResponse, $pocArgs, [Text.UTF8Encoding]::new($false))
 $ErrorActionPreference = 'Continue'
-$pocOutput = & $pocCompiler "@$PSScriptRoot\compile.rsp" 2>&1
+$pocOutput = & $pocCompiler "@$pocResponse" 2>&1
 $pocExit = $LASTEXITCODE
 $ErrorActionPreference = 'Stop'
 $pocOutput = @($pocOutput | ForEach-Object { $_.ToString() })
-$pocOutput | Set-Content -LiteralPath "$PSScriptRoot\compile.log" -Encoding UTF8
+[IO.File]::WriteAllLines($pocLog, [string[]]$pocOutput, [Text.UTF8Encoding]::new($false))
 $pocOutput
-"clang exit code: $pocExit" | Add-Content -LiteralPath "$PSScriptRoot\compile.log"
+"clang exit code: $pocExit" | Add-Content -LiteralPath $pocLog
 if ($pocExit -ne 0) { throw "clang failed with exit code $pocExit" }
-Get-Item -LiteralPath "$PSScriptRoot\poc.dll" | Select-Object FullName,Length
+Get-Item -LiteralPath "$pocDirectory/$OutputName.$pocExtension" | Select-Object FullName,Length
