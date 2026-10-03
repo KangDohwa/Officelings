@@ -231,7 +231,10 @@ public sealed class CoreTests : IDisposable
         var office = new OfficeAnimator(42);
         var agents = Enumerable.Range(0, 30).Select(i => new AgentInfo("agent:" + i, Provider.Codex, null, false, "Example", null, null, null, "", null, null, AgentState.Working, Now, Now, false)).ToArray();
         var views = office.Update(agents, Now, 0);
-        Assert.True(office.Layout.HeightTiles > 28);
+        // Fixed authored capacity replaces the former membership-driven expansion assertion.
+        Assert.Equal(office.SourceLayout.HeightTiles, office.Layout.HeightTiles);
+        Assert.Equal(12,office.Layout.Furniture.Count(f=>f.Kind=="desk"));
+        Assert.Contains(views,v=>v.Pose.Queued);
         Assert.All(views, a => Assert.Equal(new Position(office.Layout.Door.X, office.Layout.Door.Y), new Position(a.Pose.X, a.Pose.Y)));
     }
 
@@ -276,12 +279,12 @@ public sealed class CoreTests : IDisposable
         StateJson.WriteAtomic(path, snapshot); StateJson.WriteAtomic(path, snapshot with { Sequence = 2 });
         using var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
         var result = JsonSerializer.Deserialize<StateSnapshot>(reader, StateJson.Options)!;
-        Assert.Equal(3, result.SchemaVersion); Assert.Equal(2, result.Sequence); Assert.Empty(result.Agents); Assert.Equal(17, result.Office.WidthTiles);
+        Assert.Equal(4, result.SchemaVersion); Assert.Equal(2, result.Sequence); Assert.Empty(result.Agents); Assert.Equal(35, result.Office.WidthTiles);
         Assert.Empty(Directory.GetFiles(root, "*.tmp"));
     }
 
     [Fact]
-    public void OfficeCompactsAndGoneCharacterFadesAtDoorBeforeDisappearing()
+    public void OfficeRemainsFixedAndGoneCharacterFadesAtDoorBeforeDisappearing()
     {
         AgentInfo Info(int i) => new("agent:" + i, Provider.Claude, null, false, "Example", null, null, null, "", null, null, AgentState.Working, Now, Now, false);
         var office = new OfficeAnimator(12);
@@ -289,8 +292,8 @@ public sealed class CoreTests : IDisposable
         var largeWidth = office.Layout.WidthTiles;
         var agent = Info(0);
         office.Update([agent], Now, 0);
-        Assert.True(office.Layout.WidthTiles < largeWidth);
-        Assert.Single(office.Layout.Furniture, f => f.Kind == "desk");
+        Assert.Equal(largeWidth,office.Layout.WidthTiles);
+        Assert.Equal(12,office.Layout.Furniture.Count(f => f.Kind == "desk"));
         for (var i = 0; i < 150; i++) office.Update([agent], Now.AddSeconds(i * .1), .1);
         agent = agent with { State = AgentState.Gone };
         var fading = false; var hidden = false;
@@ -376,7 +379,8 @@ public sealed class CoreTests : IDisposable
         var variant=new FurnitureVariant(90,"default",2,3,[new("seat",2,1,"typing","left")]);
         var pack=CustomPack([new("side-desk","desk",[variant])]);
         var layout=LayoutLoader.Load(pack,null) with { AutoDesks=null };
-        layout=layout with { Furniture=layout.Furniture.Concat([new Furniture("desk",2,5,2,3,null,"side-1","side-desk",90)]).ToArray() };
+        layout=layout with { Furniture=layout.Furniture.Where(f=>f.Kind!="desk" && !f.Id.EndsWith("-chair",StringComparison.Ordinal))
+            .Concat([new Furniture("desk",2,5,2,3,null,"side-1","side-desk",90)]).ToArray() };
         var tiles=layout.Tiles!.ToArray(); tiles[9*layout.WidthTiles+2]=0; layout=layout with { Tiles=tiles };
         var file=Path.Combine(root,"layout.json"); File.WriteAllText(file,JsonSerializer.Serialize(layout,StateJson.Options));
         var loaded=LayoutLoader.Load(pack,file,pack.Warnings); Assert.Empty(pack.Warnings);
@@ -405,7 +409,9 @@ public sealed class CoreTests : IDisposable
         var after=animator.Update(agents.Where((a,i)=>i!=2).ToArray(),Now.AddSeconds(1),.1);
         Assert.Equal(5,after.Count);
         Assert.All(after,v=>Assert.Equal(before.Single(b=>b.Agent.Id==v.Agent.Id).Pose.CharacterId,v.Pose.CharacterId));
-        Assert.Equal(6,animator.Layout.Furniture.Count(f=>f.Kind=="desk"));
+        // Departures preserve all 12 authored desks, rather than the old occupied-slot count.
+        Assert.Equal(12,animator.Layout.Furniture.Count(f=>f.Kind=="desk"));
+        Assert.All(after,v=>Assert.Equal(before.Single(b=>b.Agent.Id==v.Agent.Id).Pose.DeskId,v.Pose.DeskId));
     }
     [Fact]
     public void ResumingDuringDoorFadeRestoresOpacity()

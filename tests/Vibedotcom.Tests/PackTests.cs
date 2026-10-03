@@ -74,15 +74,17 @@ public sealed class PackTests
         var agents = Enumerable.Range(0, count).Select(i => Agent("office:" + i)).ToArray();
         var views = office.Update(agents, Now, 0);
         LayoutLoader.Validate(office.Layout, pack);
-        Assert.Equal(count, office.Layout.Furniture.Count(f => f.AgentId != null));
-        Assert.Equal(count, views.Select(v => v.Pose.Desk).Distinct().Count());
+        // Only fixed desks have furniture ownership; overflow/queue are explicit pose reservations.
+        Assert.Equal(Math.Min(count,12), office.Layout.Furniture.Count(f => f.AgentId != null));
+        Assert.Equal(Math.Min(count,12+office.Layout.OverflowSeats!.Count), views.Where(v=>!v.Pose.Queued).Select(v => v.Pose.Desk).Distinct().Count());
+        Assert.Equal(Math.Max(0,count-12-office.Layout.OverflowSeats!.Count),views.Count(v=>v.Pose.Queued));
         Assert.Contains(1, office.Layout.Tiles!); Assert.Contains(2, office.Layout.Tiles!); Assert.Contains(3, office.Layout.Tiles!);
         var blocked = LayoutLoader.Blocked(office.Layout, pack);
         Assert.All(views, v => Assert.NotEmpty(OfficeAnimator.FindPath(office.Layout, office.Layout.Door, v.Pose.Desk, blocked)));
         Assert.Equal(office.Layout.Door.Y - 1, office.Layout.Furniture.Single(f => f.Kind == "door").Y);
-        Assert.Equal(count + 1, office.Layout.Furniture.Count(f => f.Kind == "desk"));
+        Assert.Equal(12, office.Layout.Furniture.Count(f => f.Kind == "desk"));
         Assert.Equal(3, office.Layout.Door.Y);
-        Assert.All(views, v => Assert.Equal("up", pack.Variant(office.Layout.Furniture.Single(f => f.AgentId == v.Agent.Id)).Points.Single(p => p.Action == "typing").Facing));
+        Assert.All(views.Where(v=>v.Pose.WorkLocation=="desk"), v => Assert.Equal("up", pack.Variant(office.Layout.Furniture.Single(f => f.AgentId == v.Agent.Id)).Points.Single(p => p.Action == "typing").Facing));
     }
 
     [Fact]
@@ -140,9 +142,10 @@ public sealed class PackTests
         var agents=Enumerable.Range(0,24).Select(i=>Agent("shrink:"+i)).ToArray();
         office.Update(agents,Now,0); var large=office.Layout;
         office.Update([agents[0]],Now.AddSeconds(1),0);
-        Assert.True(office.Layout.WidthTiles<large.WidthTiles);
-        Assert.True(office.Layout.HeightTiles<large.HeightTiles);
-        Assert.Equal(2,office.Layout.Furniture.Count(f=>f.Kind=="desk"));
+        // Membership no longer shrinks the furnished office or creates one spare desk.
+        Assert.Equal(large.WidthTiles,office.Layout.WidthTiles);
+        Assert.Equal(large.HeightTiles,office.Layout.HeightTiles);
+        Assert.Equal(12,office.Layout.Furniture.Count(f=>f.Kind=="desk"));
         Assert.Equal(large.Door,office.Layout.Door);
     }
 
