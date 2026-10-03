@@ -142,8 +142,8 @@ internal static class Program
             $"review:{i:00}",(Provider)(i%3),i>=3 ? $"review:{i%3:00}" : null,i>=3,
             i==0 ? "Codex worker" : i==1 ? "Claude" : i==2 ? "Antigravity" : i==6 ? "A very long nickname" : $"Worker {i+1}",
             i<3 ? "Lead" : "Worker","demo-model","C:/Demo/Office","Fabricated review session","edit_file","file",
-            rest && i%3==0 ? AgentState.Idle : AgentState.Working,epoch,epoch,false)).ToArray();
-        foreach(var scenario in new[] { (Name:"normal",Count:7,TakeBreak:false),(Name:"reserved-tags",Count:7,TakeBreak:true),
+            rest && i%3==0 ? AgentState.Idle : i%5==3 ? AgentState.Thinking : i%5==4 ? AgentState.Waiting : AgentState.Working,epoch,epoch,false)).ToArray();
+        foreach(var scenario in new[] { (Name:"normal",Count:deskCount,TakeBreak:false),(Name:"reserved-tags",Count:deskCount,TakeBreak:true),
             (Name:"overflow",Count:deskCount+(layout.OverflowSeats?.Count ?? 0)+3,TakeBreak:false) })
         {
             var office=new OfficeAnimator(42,assets,layout);var agents=Scenario(scenario.Count,scenario.TakeBreak);IReadOnlyList<AgentView> poses=Array.Empty<AgentView>();
@@ -156,6 +156,8 @@ internal static class Program
             if(scenario.Name=="overflow" && (!poses.Any(a=>a.Pose.WorkLocation=="overflow") || !poses.Any(a=>a.Pose.Queued))) throw new InvalidOperationException("Overflow and door queue were not exercised.");
             if(scenario.Name=="normal")
             {
+                foreach (var zoom in new[] { 1, 2, 3 })
+                { view.SetZoom(zoom); Render(view,office.Layout.WidthTiles*16*zoom+32,office.Layout.HeightTiles*16*zoom+32,Path.Combine(output,$"normal-{zoom}x.png")); }
                 view.SetZoom(0);Render(view,400,300,Path.Combine(output,"auto-fit-small.png"));
                 view.Width=double.NaN;view.Height=double.NaN;
                 var panel=new OfficeEditorPanel(view,assets,office.SourceLayout);
@@ -163,6 +165,40 @@ internal static class Program
                 Render(host,1500,840,Path.Combine(output,"editor-ui.png"));panel.Detach();
             }
             StateJson.WriteAtomic(Path.Combine(output,scenario.Name+"-state.json"),new StateSnapshot(StateJson.SchemaVersion,epoch.AddSeconds(140),1,SpriteAtlas.Info,office.Layout,poses,Array.Empty<string>(),assets.Manifest,office.FurnitureSprites));
+        }
+        var transitionOffice = new OfficeAnimator(42,assets,layout);
+        var transitionAgents = Scenario(deskCount,false);
+        var transitionView = new OfficeView(assets); transitionView.SetZoom(3);
+        var captured = new HashSet<string>();
+        AgentView? selected = null;
+        var tick = 0;
+        for (; tick < 2000; tick++)
+        {
+            var poses = transitionOffice.Update(transitionAgents,epoch.AddMilliseconds(tick*40),.04);
+            selected = poses.FirstOrDefault(a=>a.Pose.Facing=="right" && a.Pose.SeatPhase!=null);
+            if (selected == null) continue;
+            var key = selected.Pose.SeatPhase+"-"+selected.Pose.SeatPhaseFrame;
+            if (captured.Add(key))
+            {
+                transitionView.Update(transitionOffice.Layout,poses,epoch.AddMilliseconds(tick*40),transitionOffice.FurnitureSprites);
+                Render(transitionView,layout.WidthTiles*48+32,layout.HeightTiles*48+32,Path.Combine(output,"sit-"+key+".png"));
+            }
+            if (selected.Pose.SeatPhase == "seated") break;
+        }
+        if (selected != null)
+        {
+            transitionAgents = transitionAgents.Select(a=>a.Id==selected.Agent.Id ? a with {State=AgentState.Idle} : a).ToArray();
+            for(var i=1;i<=8;i++)
+            {
+                var poses=transitionOffice.Update(transitionAgents,epoch.AddMilliseconds((tick+i)*40),.04);
+                var pose=poses.Single(a=>a.Agent.Id==selected.Agent.Id).Pose;
+                var key=pose.SeatPhase+"-"+pose.SeatPhaseFrame;
+                if(pose.SeatPhase=="raise" && captured.Add(key))
+                {
+                    transitionView.Update(transitionOffice.Layout,poses,epoch.AddMilliseconds((tick+i)*40),transitionOffice.FurnitureSprites);
+                    Render(transitionView,layout.WidthTiles*48+32,layout.HeightTiles*48+32,Path.Combine(output,"stand-"+key+".png"));
+                }
+            }
         }
     }
     private static int ProfileIdle(string output,AssetPack assets,OfficeLayout layout)
@@ -420,7 +456,7 @@ internal sealed class OfficeWindow : Window
         {
             var views = office.Update(agents,now,(now-previous).TotalSeconds);
             view.Update(editor?.Editor.Layout ?? office.Layout,views,now,office.FurnitureSprites);
-            var animated = views.Any(a=>a.Pose.Visible && (a.Pose.Action is "walking" or "entering" or "exiting" ||
+            var animated = views.Any(a=>a.Pose.Visible && (a.Pose.SeatPhase is "turn" or "lower" or "raise" || a.Pose.Action is "walking" or "entering" or "exiting" ||
                 a.Pose.Sprite is {} s && assets.Manifest.Sheets.First(sheet=>sheet.Id==s.SheetId).Rows.Any(row=>row.Row==s.Row && row.Name.StartsWith("blink-",StringComparison.Ordinal))));
             timer.Interval=TimeSpan.FromMilliseconds(animated ? 1000d/30 : 125);
             if (!qa && editor == null && now>=nextHover) { view.PollHover(modes.Cursor(view),now); nextHover = now.AddMilliseconds(100); }

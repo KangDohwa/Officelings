@@ -134,7 +134,7 @@ internal sealed class OfficeView : FrameworkElement
         {
             if (textCache.Count >= 256) textCache.Clear();
             formatted = new(text,CultureInfo.CurrentCulture,FlowDirection.LeftToRight,
-                new Typeface(new FontFamily("Segoe UI"),FontStyles.Normal,bold ? FontWeights.SemiBold : FontWeights.Normal,FontStretches.Normal),
+                new Typeface(new FontFamily(size <= 6 ? "Small Fonts" : "Segoe UI"),FontStyles.Normal,bold ? FontWeights.SemiBold : FontWeights.Normal,FontStretches.Normal),
                 size,Color(color),VisualTreeHelper.GetDpi(this).PixelsPerDip) { MaxTextWidth = Math.Max(1,maxWidth), MaxLineCount = 1, Trimming = TextTrimming.CharacterEllipsis };
             textCache[key] = formatted;
         }
@@ -162,7 +162,9 @@ internal sealed class OfficeView : FrameworkElement
     private Rect ContentBounds(Pose p)
     {
         var s=p.Sprite!; var content=ImageContentBounds(s); var bounds=SpriteBounds(p);
-        return new(bounds.Left+content.Left*s.Scale,bounds.Top+content.Top*s.Scale,content.Width*s.Scale,content.Height*s.Scale);
+        var height = content.Height*s.Scale;
+        if (p.SeatAnchor != null && p.SeatPhase != "turn") height = Math.Min(height,Math.Max(0,p.SeatAnchor.Y+1-bounds.Top-content.Top*s.Scale));
+        return new(bounds.Left+content.Left*s.Scale,bounds.Top+content.Top*s.Scale,content.Width*s.Scale,height);
     }
     private Rect ImageContentBounds(SpriteFrame s)
     {
@@ -183,6 +185,7 @@ internal sealed class OfficeView : FrameworkElement
         return content;
     }
     private double HeadY(Pose p) => ContentBounds(p).Top;
+    private static double AgentDepth(Pose p) => p.SeatAnchor is {} seat && p.SeatPhase != "turn" ? seat.Y + 12 : (p.Y + 1) * 16;
     private Rect FurnitureBounds(Furniture f)
     {
         var v=assets.Variant(f);
@@ -317,15 +320,29 @@ internal sealed class OfficeView : FrameworkElement
                 if (distance > 64 || distance < 12) continue;
                 dc.DrawLine(line,start,start+(end-start)*Math.Min(1,40/distance));
             }
-        var scene = office.Furniture.Select(f=>(Layer:assets.Variant(f).Layer,Y:(double)(f.Y+f.Height)*16+assets.Variant(f).ZOrder,Id:f.Id,F:(Furniture?)f,A:(AgentView?)null))
-            .Concat(agents.Where(a=>a.Pose.Visible).Select(a=>(Layer:1,Y:(a.Pose.Y+1)*16,Id:a.Agent.Id,F:(Furniture?)null,A:(AgentView?)a)))
+        double FurnitureDepth(Furniture f)
+        {
+            var v = assets.Variant(f);
+            var host = office.Furniture.FirstOrDefault(h => h.Id != f.Id && assets.Variant(h).ChairSeatAnchor != null &&
+                (f.DeskId != null && f.DeskId == (h.DeskId ?? h.Id) || f.Id.StartsWith(h.Id + "-chair", StringComparison.Ordinal)));
+            if (host != null)
+            {
+                var chair = assets.Variant(host);
+                return host.Y * 16 + chair.ChairSeatAnchor!.Y + 12 + (f.AssetId == chair.ChairBackId ? -.2 : .2);
+            }
+            if (v.ChairSeatAnchor != null && (v.Points.Any(p => p.Facing is "left" or "right") || f.Kind == "table"))
+                return f.Y * 16 + v.ChairSeatAnchor.Y + 12 + .1;
+            return (f.Y + f.Height) * 16 + v.ZOrder;
+        }
+        var scene = office.Furniture.Select(f=>(Layer:assets.Variant(f).Layer,Y:FurnitureDepth(f),Id:f.Id,F:(Furniture?)f,A:(AgentView?)null))
+            .Concat(agents.Where(a=>a.Pose.Visible).Select(a=>(Layer:1,Y:AgentDepth(a.Pose),Id:a.Agent.Id,F:(Furniture?)null,A:(AgentView?)a)))
             .OrderBy(d=>d.Layer).ThenBy(d=>d.Y).ThenBy(d=>d.Id,StringComparer.Ordinal);
         foreach (var drawable in scene)
         {
             if (drawable.F is {} furniture) DrawFurniture(dc,furniture);
             else if (drawable.A is {} agent) DrawAgent(dc,agent);
         }
-        foreach(var agent in agents.Where(a=>a.Pose.Visible && a.Pose.WorkLocation=="overflow" && a.Pose.Action is "typing" or "thinking" or "waiting"))
+        foreach(var agent in agents.Where(a=>a.Pose.Visible && a.Pose.WorkLocation=="overflow" && a.Pose.ChairFrontId == null && a.Pose.Action is "typing" or "thinking" or "waiting"))
             DrawLaptop(dc,agent.Pose);
         foreach (var desk in office.Furniture.Where(f=>f.AgentId != null))
         {
@@ -336,8 +353,6 @@ internal sealed class OfficeView : FrameworkElement
         }
         if (EditorMode) DrawEditorGrid(dc);
         var plates = new List<Rect>();
-        plates.AddRange(agents.Where(a=>a.Pose.Visible && a.Pose.WorkLocation=="overflow" && a.Pose.Action is "typing" or "thinking" or "waiting")
-            .Select(a=>LaptopBounds(a.Pose)));
         var queuePlates = new List<Rect>();
         RenderedAgentTags=RenderedReservedTags=0;
         foreach (var agent in agents.Where(a=>a.Pose.Visible)) DrawBubble(dc,agent);
@@ -347,7 +362,7 @@ internal sealed class OfficeView : FrameworkElement
         {
             if (!byId.TryGetValue(desk.AgentId!,out var owner)) continue;
             var near = Math.Abs(owner.Pose.X-owner.Pose.Desk.X)+Math.Abs(owner.Pose.Y-owner.Pose.Desk.Y) <= 1.5;
-            if (near && owner.Agent.State is AgentState.Working or AgentState.Thinking or AgentState.Waiting) continue;
+            if (owner.Pose.SeatPhase != null || near && owner.Agent.State is AgentState.Working or AgentState.Thinking or AgentState.Waiting) continue;
             DrawTag(dc,owner,new(desk.X*16+desk.Width*8,desk.Y*16+desk.Height*16-13),plates,true);
             RenderedReservedTags++;
         }
@@ -370,7 +385,11 @@ internal sealed class OfficeView : FrameworkElement
     private void DrawAgent(DrawingContext dc, AgentView agent)
     {
         var p=agent.Pose; var bounds=SpriteBounds(p);
-        dc.PushOpacity(p.Opacity); dc.DrawImage(Image(p.Sprite!),bounds);
+        dc.PushOpacity(p.Opacity);
+        var cropLegs = p.SeatAnchor != null && p.SeatPhase != "turn";
+        if (cropLegs) dc.PushClip(new RectangleGeometry(new(bounds.X,bounds.Y,bounds.Width,Math.Max(0,p.SeatAnchor!.Y+1-bounds.Y))));
+        dc.DrawImage(Image(p.Sprite!),bounds);
+        if (cropLegs) dc.Pop();
         if (p.CarryingPaper && p.Action is "walking" or "entering")
         { var x=(p.X+.5)*16; var y=(p.Y+1)*16-12; R(dc,"#fff9e7",x+(p.Facing=="left" ? -10 : 4),y,6,8); }
         dc.Pop();
@@ -391,28 +410,28 @@ internal sealed class OfficeView : FrameworkElement
     }
     private Rect DrawName(DrawingContext dc, AgentView agent, List<Rect> plates)
     {
-        var seated=agent.Pose.WorkLocation=="desk" && agent.Pose.Action is "typing" or "thinking" or "waiting";
-        return DrawTag(dc,agent,new(Math.Round((agent.Pose.X+.5)*16),HeadY(agent.Pose)-(seated ? 34 : 17)),plates,true);
+        var body = ContentBounds(agent.Pose);
+        return DrawTag(dc,agent,new(Math.Round(body.X+body.Width/2),HeadY(agent.Pose)-12),plates,true);
     }
     private Rect DrawTag(DrawingContext dc, AgentView agent, Point anchor, List<Rect> plates, bool stack)
     {
         var name = agent.Pose.DisplayName ?? agent.Agent.Name;
         var elements = StringInfo.ParseCombiningCharacters(name);
-        if (elements.Length > 16) name = name[..elements[15]]+"…";
-        var width = Math.Clamp(Math.Ceiling(FormatText(name,7,"#f5edce").WidthIncludingTrailingWhitespace)+18,32,132);
-        var plate = new Rect(Math.Clamp(anchor.X-width/2,2,Math.Max(2,office.WidthTiles*16-width-2)),anchor.Y,width,15);
-        var visibleTop = -Origin.Y/zoom+1;
-        plate.Y = Math.Max(visibleTop,plate.Y);
+        if (elements.Length > 14) name = name[..elements[14]]+"…";
+        var width = Math.Clamp(Math.Ceiling(FormatText(name,6,"#f5edce").WidthIncludingTrailingWhitespace)+11,22,94);
+        var plate = new Rect(Math.Round(Math.Clamp(anchor.X-width/2,2,Math.Max(2,office.WidthTiles*16-width-2))),Math.Round(anchor.Y),width,9);
+        var outline = plate; outline.Inflate(1,1);
         if (stack)
-            for (var attempt=0;attempt<8 && plates.Any(p=>p.IntersectsWith(plate)) && plate.Y-16>=visibleTop;attempt++) plate.Y-=16;
+            for (var attempt=0;attempt<20 && plates.Any(p=>p.IntersectsWith(outline));attempt++)
+            { plate.Y-=2; outline.Y-=2; }
         // A name is never omitted. Crowded tags move vertically above their owner.
-        plates.Add(plate);
+        plates.Add(outline);
         R(dc,agent.Agent.IsSubagent ? "#738b84" : "#c99a52",plate.X-1,plate.Y-1,plate.Width+2,plate.Height+2);
         R(dc,"#172b30",plate.X,plate.Y,plate.Width,plate.Height);
         if (sheets.ContainsKey("provider-icons"))
-            dc.DrawImage(Image(assets.Frame("provider-icons",agent.Agent.Provider.ToString().ToLowerInvariant(),"any",0)),new(plate.X+1,plate.Y+1,12,12));
-        else DrawProviderIcon(dc,agent.Agent.Provider,plate.X+1,plate.Y+1);
-        Text(dc,name,plate.X+15,plate.Y+3,7,"#f5edce",maxWidth:plate.Width-16);
+            dc.DrawImage(Image(assets.Frame("provider-icons",agent.Agent.Provider.ToString().ToLowerInvariant(),"any",0)),new(plate.X+1,plate.Y+1,7,7));
+        else { dc.PushTransform(new TranslateTransform(plate.X+1,plate.Y+1)); dc.PushTransform(new ScaleTransform(7d/12,7d/12)); DrawProviderIcon(dc,agent.Agent.Provider,0,0); dc.Pop(); dc.Pop(); }
+        Text(dc,name,plate.X+10,plate.Y+1,6,"#f5edce",maxWidth:plate.Width-11);
         return plate;
     }
     private void DrawProviderIcon(DrawingContext dc, Provider provider, double x, double y)
@@ -433,6 +452,13 @@ internal sealed class OfficeView : FrameworkElement
     {
         var p=agent.Pose;
         if (p.Queued) return;
+        if (p.Action == "waiting")
+        {
+            var body = ContentBounds(p);
+            dc.PushOpacity(p.Opacity);
+            R(dc,"#738b84",body.Right+2,body.Top,9,10); R(dc,"#172b30",body.Right+3,body.Top+1,7,8);
+            Text(dc,"?",body.Right+4,body.Top+1,6,"#f5edce"); dc.Pop(); return;
+        }
         if (sheets.ContainsKey("icons"))
         {
             var clip = p.Reaction != null ? "bubble-reaction" : p.Action switch
@@ -443,8 +469,8 @@ internal sealed class OfficeView : FrameworkElement
             if (clip == null) return;
             var f = assets.Frame("icons",clip,"any",0);
             dc.PushOpacity(p.Opacity);
-            var seated=p.WorkLocation=="desk" && p.Action is "typing" or "thinking" or "waiting";
-            dc.DrawImage(Image(f),new(Math.Round((p.X+.5)*16+15),HeadY(p)-(seated ? 16 : 42),24,24));
+            var body = ContentBounds(p);
+            dc.DrawImage(Image(f),new(Math.Round(body.Right+2),HeadY(p)-2,12,12));
             dc.Pop(); return;
         }
         int? bubble=p.Reaction != null ? 5 : p.Action switch
@@ -465,7 +491,8 @@ internal sealed class OfficeView : FrameworkElement
     public AgentView? HitAgent(Point point)
     {
         var o=Origin; var world=new Point((point.X-o.X)/zoom,(point.Y-o.Y)/zoom);
-        return agents.Where(a=>a.Pose.Visible).OrderByDescending(a=>a.Pose.Y).FirstOrDefault(a=>ContentBounds(a.Pose).Contains(world));
+        return agents.Where(a=>a.Pose.Visible).OrderByDescending(a=>AgentDepth(a.Pose)).ThenByDescending(a=>a.Agent.Id,StringComparer.Ordinal)
+            .FirstOrDefault(a=>ContentBounds(a.Pose).Contains(world));
     }
     public Tile WorldTile(Point point)
     {
