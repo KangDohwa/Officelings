@@ -1,0 +1,27 @@
+{
+  "version": 1, "name": "busy-12", "duration": 330,
+  "supervisors": {"codex": 4, "claude": 4, "antigravity": 4},
+  "events": [
+    {"at": 10, "action": "working"},
+    {"at": 12, "action": "result"},
+    {"at": 15, "action": "working"},
+    {"at": 20, "action": "spawn", "index": 0},
+    {"at": 40, "action": "thinking", "target": "all"},
+    {"at": 60, "action": "waiting", "index": 1},
+    {"at": 80, "action": "finish", "target": "workers"},
+    {"at": 85, "action": "end", "target": "workers"},
+    {"at": 110, "action": "error", "index": 2},
+    {"at": 190, "action": "end"},
+    {"at": 280, "action": "resume", "target": "all"},
+    {"at": 285, "action": "working", "target": "workers"},
+    {"at": 300, "action": "end", "target": "all"}
+  ],
+  "checkpoints": [
+    {"at": 30, "label": "twelve supervisors and three workers", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 55, "label": "long thinking", "counts": {"codex": 5, "claude": 5, "antigravity": 5}, "states": ["thinking"]},
+    {"at": 100, "label": "workers report", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 265, "label": "workers expire", "counts": {"codex": 4, "claude": 4, "antigravity": 4}},
+    {"at": 295, "label": "workers resume with original parents", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 315, "label": "everyone has completed", "counts": {"codex": 5, "claude": 5, "antigravity": 5}}
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "version": 1, "name": "long-soak", "duration": 6000,
+  "supervisors": {"codex": 4, "claude": 4, "antigravity": 4},
+  "events": [
+    {"at": 10, "action": "working"},
+    {"at": 20, "every": 180, "until": 5780, "action": "spawn", "index": 0},
+    {"at": 50, "every": 180, "until": 5810, "action": "finish", "target": "workers"},
+    {"at": 60, "every": 180, "until": 5820, "action": "end", "target": "workers"},
+    {"at": 5980, "action": "end"}
+  ],
+  "checkpoints": [
+    {"at": 150, "label": "first churn cycle", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 600, "label": "early soak", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 1800, "label": "steady soak", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 3000, "label": "mid soak", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 5700, "label": "late soak", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 5950, "label": "last worker cycle", "counts": {"codex": 5, "claude": 5, "antigravity": 5}},
+    {"at": 5990, "label": "supervisors completed", "counts": {"codex": 4, "claude": 4, "antigravity": 4}}
+  ]
+}

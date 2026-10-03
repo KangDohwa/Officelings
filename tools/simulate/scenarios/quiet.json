@@ -1,0 +1,19 @@
+{
+  "version": 1, "name": "quiet", "duration": 320,
+  "supervisors": {"codex": 1, "claude": 1, "antigravity": 1},
+  "events": [
+    {"at": 10, "action": "waiting"},
+    {"at": 30, "action": "end"},
+    {"at": 220, "action": "resume"},
+    {"at": 225, "action": "working"},
+    {"at": 238, "action": "result"},
+    {"at": 250, "action": "end"}
+  ],
+  "checkpoints": [
+    {"at": 20, "label": "waiting for invented input", "counts": {"codex": 1, "claude": 1, "antigravity": 1}, "states": ["waiting"]},
+    {"at": 100, "label": "completed sessions stay visible", "counts": {"codex": 1, "claude": 1, "antigravity": 1}},
+    {"at": 205, "label": "ended sessions expire", "counts": {"codex": 0, "claude": 0, "antigravity": 0}},
+    {"at": 235, "label": "same IDs resume", "counts": {"codex": 1, "claude": 1, "antigravity": 1}, "states": ["working"]},
+    {"at": 300, "label": "resumed sessions complete", "counts": {"codex": 1, "claude": 1, "antigravity": 1}}
+  ]
+}

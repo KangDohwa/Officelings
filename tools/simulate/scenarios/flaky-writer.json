@@ -1,0 +1,28 @@
+{
+  "version": 1, "name": "flaky-writer", "duration": 620, "gone_seconds": 400,
+  "supervisors": {"codex": 1, "claude": 1, "antigravity": 1},
+  "events": [
+    {"at": 10, "action": "working"},
+    {"at": 20, "action": "partial", "delay": 8},
+    {"at": 40, "action": "huge", "bytes": 3145728},
+    {"at": 50, "action": "malformed"},
+    {"at": 65, "action": "truncate"},
+    {"at": 85, "action": "rotate"},
+    {"at": 100, "action": "silent_end"},
+    {"at": 560, "action": "resume"},
+    {"at": 565, "action": "working"},
+    {"at": 600, "action": "end"}
+  ],
+  "checkpoints": [
+    {"at": 24, "label": "writer paused inside UTF-8 codepoint", "counts": {"codex": 1, "claude": 1, "antigravity": 1}},
+    {"at": 35, "label": "partial line completes", "counts": {"codex": 1, "claude": 1, "antigravity": 1}, "states": ["thinking"]},
+    {"at": 45, "label": "oversize line skipped", "counts": {"codex": 1, "claude": 1, "antigravity": 1}, "warning_contains": "Oversize"},
+    {"at": 50, "label": "malformed line skipped", "counts": {"codex": 1, "claude": 1, "antigravity": 1}, "warning_contains": "Malformed"},
+    {"at": 75, "label": "truncate recovers identity", "counts": {"codex": 1, "claude": 1, "antigravity": 1}},
+    {"at": 95, "label": "rotation recovers identity", "counts": {"codex": 1, "claude": 1, "antigravity": 1}},
+    {"at": 180, "label": "crashed writer cannot keep working", "counts": {"codex": 1, "claude": 1, "antigravity": 1}, "states": ["idle"]},
+    {"at": 540, "label": "crashed writer expires", "counts": {"codex": 0, "claude": 0, "antigravity": 0}},
+    {"at": 575, "label": "old session resumes", "counts": {"codex": 1, "claude": 1, "antigravity": 1}, "states": ["working"]},
+    {"at": 615, "label": "resumed writer ends", "counts": {"codex": 1, "claude": 1, "antigravity": 1}}
+  ]
+}

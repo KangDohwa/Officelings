@@ -1,0 +1,18 @@
+{
+  "version": 1, "name": "burst-spawn", "duration": 320,
+  "supervisors": {"codex": 1, "claude": 1, "antigravity": 1},
+  "events": [
+    {"at": 18, "action": "spawn", "count": 6},
+    {"at": 45, "action": "finish", "target": "workers"},
+    {"at": 55, "action": "end", "target": "workers"},
+    {"at": 80, "action": "spawn", "count": 8},
+    {"at": 120, "action": "end", "target": "all"}
+  ],
+  "checkpoints": [
+    {"at": 25, "label": "first worker burst", "counts": {"codex": 7, "claude": 7, "antigravity": 7}},
+    {"at": 65, "label": "first burst completes", "counts": {"codex": 7, "claude": 7, "antigravity": 7}},
+    {"at": 90, "label": "second burst fills overflow and queue", "counts": {"codex": 15, "claude": 15, "antigravity": 15}},
+    {"at": 140, "label": "both bursts complete", "counts": {"codex": 15, "claude": 15, "antigravity": 15}},
+    {"at": 310, "label": "all sessions expire", "counts": {"codex": 0, "claude": 0, "antigravity": 0}}
+  ]
+}
