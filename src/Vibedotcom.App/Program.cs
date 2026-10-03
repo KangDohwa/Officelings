@@ -21,6 +21,7 @@ namespace Vibedotcom.App;
 internal sealed record Settings
 {
     public string Mode { get; init; } = "normal";
+    public string TagMode { get; init; } = "hover";
     public bool ClickThrough { get; init; }
     public double Zoom { get; init; }
     public double Width { get; init; } = 720;
@@ -38,6 +39,7 @@ internal sealed record Settings
         static double Number(double value, double fallback, double min, double max) => double.IsFinite(value) ? Math.Clamp(value, min, max) : fallback;
         var working = Number(WorkingSeconds, 120, 1, 86400);
         return this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
+            TagMode = NameTagHover.Normalize(TagMode),
             Zoom = Number(Zoom, 0, 0, 6), Width = Number(Width, 720, 400, 3000), Height = Number(Height, 480, 300, 2000),
             Left = Left is {} x && double.IsFinite(x) ? Math.Clamp(x, -100000, 100000) : null,
             Top = Top is {} y && double.IsFinite(y) ? Math.Clamp(y, -100000, 100000) : null,
@@ -55,6 +57,7 @@ internal sealed record Settings
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return new(); }
     }
+    internal void Write(string path) => StateJson.WriteAtomic(path,JsonSerializer.SerializeToUtf8Bytes(Normalize(),StateJson.Options));
 }
 
 internal static class Program
@@ -65,7 +68,7 @@ internal static class Program
         try
         {
             var demo = args.Contains("--demo"); Settings? initial = null;
-            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null; double quitAfter = 0; var qa = false;
+            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null; double quitAfter = 0; var qa = false; var smokeTags=false;
             for (var i = 0; i < args.Length; i++)
             {
                 string Value() => ++i < args.Length ? args[i] : throw new ArgumentException("Missing option value.");
@@ -74,6 +77,8 @@ internal static class Program
                 {
                     case "--demo": break;
                     case "--smoke-test": smoke = Value(); break;
+                    case "--smoke-tags": smokeTags = true; break;
+                    case "--tags": initial = (initial ?? new()) with { TagMode = ParseTags(Value()) }; break;
                     case "--asset-dir": assetDirectory = Value(); break;
                     case "--layout": layoutFile = Value(); break;
                     case "--qa": qa = true; break;
@@ -86,10 +91,11 @@ internal static class Program
                     case "--transparent": initial = (initial ?? new()) with { TransparentBackground = true }; break;
                     case "--opacity": initial = (initial ?? new()) with { Opacity = Number() }; break;
                     case "--quit-after": quitAfter = Number(); break;
-                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
+                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
                 }
             }
             using var storage = new AppStorage(demo || qa || profile != null || smoke != null || verifyOpacity != null);
+            if (smokeTags && smoke==null) throw new ArgumentException("--smoke-tags requires --smoke-test OUTPUT_DIR.");
             storage.CheckInput(layoutFile); storage.CheckInput(assetDirectory);
             var app = new Application();
             if (verifyOpacity != null) return OpacityVerification.Run(verifyOpacity);
@@ -98,8 +104,8 @@ internal static class Program
                 var assets = AssetPack.LoadDefault(assetDirectory, useUserPack: !storage.Isolated);
                 return (assets, LayoutLoader.Load(assets, layoutFile ?? storage.LayoutPath, assets.Warnings));
             }
-            if (profile != null) { var loaded = LoadOffice(); return ProfileIdle(profile,loaded.Assets,loaded.Layout); }
-            if (smoke != null) { var loaded = LoadOffice(); return Smoke(smoke,demo,loaded.Assets,loaded.Layout); }
+            if (profile != null) { var loaded = LoadOffice(); return ProfileIdle(profile,loaded.Assets,loaded.Layout,(initial ?? new()).TagMode); }
+            if (smoke != null) { var loaded = LoadOffice(); return smokeTags ? TagRenders(smoke,loaded.Assets,loaded.Layout) : Smoke(smoke,demo,loaded.Assets,loaded.Layout,(initial ?? new()).TagMode); }
             if (qa && (!double.IsFinite(quitAfter) || quitAfter<=0 || quitAfter>60)) throw new ArgumentException("--qa requires --quit-after in (0,60].");
             // Parsing user JSON and validating PNGs never occupies the dispatcher.
             app.Startup += async (_, _) =>
@@ -121,14 +127,43 @@ internal static class Program
         }
     }
 
-    private static int Smoke(string output, bool demo, AssetPack assets, OfficeLayout layout)
+    internal static string ParseTags(string value) => value is "hover" or "icon" or "always" ? value : throw new ArgumentException("--tags must be hover, icon or always.");
+    private static int TagRenders(string output,AssetPack assets,OfficeLayout layout)
+    {
+        output=StateJson.OutputPath(output); Directory.CreateDirectory(output);
+        var epoch=DateTimeOffset.Parse("2026-10-04T00:00:00Z"); var now=epoch.AddSeconds(140);
+        var office=new OfficeAnimator(42,assets,layout);
+        var agents=Enumerable.Range(0,12).Select(i=>new AgentInfo($"tags:{i:00}",(Provider)(i%3),i>=3 ? $"tags:{i%3:00}" : null,i>=3,
+            $"Agent {i+1}",i<3 ? "Lead" : "Worker","demo-model","C:/Demo/Office","Fabricated tag mode render",null,null,
+            i%4==0 ? AgentState.Idle : AgentState.Working,epoch,epoch,false)).ToArray();
+        IReadOnlyList<AgentView> poses=Array.Empty<AgentView>();
+        for(var frame=0;frame<1400;frame++) poses=office.Update(agents,epoch.AddMilliseconds(frame*100),.1);
+        var results=new List<object>();
+        foreach(var mode in new[] { "hover","icon","always" })
+        {
+            var view=new OfficeView(assets) { TagMode=mode }; view.SetZoom(2); view.Update(office.Layout,poses,now,office.FurnitureSprites);
+            var width=office.Layout.WidthTiles*32+32; var height=office.Layout.HeightTiles*32+32;
+            Render(view,width,height,Path.Combine(output,$"tags-{mode}.png"));
+            if(view.RenderedAgentTags!=(mode=="always" ? 12 : 0)) throw new InvalidOperationException("Tag mode baseline failed.");
+            var baselineTags=view.RenderedAgentTags; var baselineDesks=view.RenderedReservedTags;
+            var agent=poses.First(a=>a.Pose.Visible && a.Agent.State==AgentState.Working); var point=view.AgentPoint(agent);
+            view.SimulateHover(point,now); view.SimulateHover(point,now.AddMilliseconds(120));
+            Render(view,width,height,Path.Combine(output,$"tags-{mode}-hover.png"));
+            if(view.AgentTagRect(agent.Agent.Id).IsEmpty) throw new InvalidOperationException("Programmatic tag hover failed.");
+            results.Add(new { mode,agents=poses.Count,baselineTags,baselineDesks,hoverTags=view.RenderedAgentTags,hoverRect=view.AgentTagRect(agent.Agent.Id) });
+        }
+        File.WriteAllText(Path.Combine(output,"tags.json"),JsonSerializer.Serialize(results,StateJson.Options));
+        File.WriteAllText(Path.Combine(output,"smoke.txt"),"Offscreen tag modes OK; fabricated agents=12; modes=hover,icon,always; programmatic hover=120ms; logBytesRead=0\n");
+        return 0;
+    }
+    private static int Smoke(string output, bool demo, AssetPack assets, OfficeLayout layout,string tagMode)
     {
         output = StateJson.OutputPath(output); Directory.CreateDirectory(output);
         using var tracker = new AgentTracker(); var office = new OfficeAnimator(42,assets,layout);
         var now = demo ? DateTimeOffset.Parse("2026-10-03T12:00:00Z") : DateTimeOffset.UtcNow;
         IReadOnlyList<AgentInfo> sources = Array.Empty<AgentInfo>();
         IReadOnlyList<AgentView> views = Array.Empty<AgentView>();
-        var view = new OfficeView(assets);
+        var view = new OfficeView(assets) { TagMode=tagMode };
         if (!demo) sources = tracker.Poll(now);
         for (var frame = 0; frame <= 550; frame++)
         {
@@ -154,16 +189,17 @@ internal static class Program
         {
             var point=view.AgentPoint(hover);
             if (view.HitAgent(point) == null) throw new InvalidOperationException("Programmatic sprite hit test failed.");
-            view.SimulateHover(point,now.AddSeconds(55)); Render(view,700,480,Path.Combine(output,"tooltip.png"));
+            view.SimulateHover(point,now.AddSeconds(55)); view.SimulateHover(point,now.AddSeconds(55.42)); Render(view,700,480,Path.Combine(output,"tooltip.png"));
             File.WriteAllText(Path.Combine(output,"tooltip.txt"),view.DebugTooltipText);
-            view.SimulateHover(null,now); if (view.DebugTooltipText != null) throw new InvalidOperationException("Tooltip did not clear.");
+            view.SimulateHover(null,now.AddSeconds(56)); view.AdvanceHover(now.AddSeconds(56.26));
+            if (view.DebugTooltipText != null) throw new InvalidOperationException("Tooltip did not clear.");
         }
         view.TransparentBackground=true; Render(view,700,480,Path.Combine(output,"transparent.png"));
         var manifest=assets.Export(output);
         StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(office.Layout,StateJson.Options));
         StateJson.WriteAtomic(Path.Combine(output,"state.json"),new StateSnapshot(StateJson.SchemaVersion,now.AddSeconds(55),1,SpriteAtlas.Info,office.Layout,views,tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,office.FurnitureSprites));
-        File.WriteAllText(Path.Combine(output,"smoke.txt"),$"Offscreen WPF render OK; demo={demo}; agents={sources.Count}; zooms=1,2,3; hover={hover != null}; logBytesRead={tracker.BytesRead}\n"+string.Join("\n",assets.Warnings));
-        if(demo) ReviewRenders(output,assets,layout);
+        File.WriteAllText(Path.Combine(output,"smoke.txt"),$"Offscreen WPF render OK; demo={demo}; agents={sources.Count}; tagMode={tagMode}; zooms=1,2,3; hover={hover != null}; logBytesRead={tracker.BytesRead}\n"+string.Join("\n",assets.Warnings));
+        if(demo) ReviewRenders(output,assets,layout,tagMode);
         return 0;
     }
 
@@ -193,7 +229,7 @@ internal static class Program
         var bitmap=new RenderTargetBitmap(width,height,96,96,PixelFormats.Pbgra32);bitmap.Render(root);bitmap.Freeze();
         source.RootVisual=null;root.Children.Remove(view);return bitmap;
     }
-    private static void ReviewRenders(string output,AssetPack assets,OfficeLayout layout)
+    private static void ReviewRenders(string output,AssetPack assets,OfficeLayout layout,string tagMode)
     {
         var epoch=DateTimeOffset.Parse("2026-10-04T00:00:00Z");
         var deskCount=layout.Furniture.Count(f=>assets.Variant(f).Points.Any(p=>p.Action=="typing"));
@@ -207,10 +243,10 @@ internal static class Program
         {
             var office=new OfficeAnimator(42,assets,layout);var agents=Scenario(scenario.Count,scenario.TakeBreak);IReadOnlyList<AgentView> poses=Array.Empty<AgentView>();
             for(var frame=0;frame<1400;frame++) poses=office.Update(agents,epoch.AddSeconds(frame*.1),.1);
-            var view=new OfficeView(assets);view.SetZoom(2);view.Update(office.Layout,poses,epoch.AddSeconds(140),office.FurnitureSprites);
+            var view=new OfficeView(assets) { TagMode=tagMode };view.SetZoom(2);view.Update(office.Layout,poses,epoch.AddSeconds(140),office.FurnitureSprites);
             Render(view,office.Layout.WidthTiles*32+32,office.Layout.HeightTiles*32+32,Path.Combine(output,scenario.Name+".png"));
-            if(view.RenderedAgentTags!=poses.Count(a=>a.Pose.Visible)) throw new InvalidOperationException("A visible character lost its overhead tag.");
-            if(scenario.Name=="reserved-tags" && view.RenderedReservedTags==0) throw new InvalidOperationException("Away owners need reserved desk tags.");
+            if(view.RenderedAgentTags!=(tagMode=="always" ? poses.Count(a=>a.Pose.Visible) : 0)) throw new InvalidOperationException("Incorrect overhead tag mode.");
+            if(tagMode=="always" && scenario.Name=="reserved-tags" && view.RenderedReservedTags==0) throw new InvalidOperationException("Away owners need reserved desk tags.");
             if(scenario.Name=="normal" && view.RenderedReservedTags!=0) throw new InvalidOperationException("Working owners must not have duplicated desk tags.");
             if(scenario.Name=="overflow" && (!poses.Any(a=>a.Pose.WorkLocation=="overflow") || !poses.Any(a=>a.Pose.Queued))) throw new InvalidOperationException("Overflow and door queue were not exercised.");
             if(scenario.Name=="normal")
@@ -227,7 +263,7 @@ internal static class Program
         }
         var transitionOffice = new OfficeAnimator(42,assets,layout);
         var transitionAgents = Scenario(deskCount,false);
-        var transitionView = new OfficeView(assets); transitionView.SetZoom(3);
+        var transitionView = new OfficeView(assets) { TagMode=tagMode }; transitionView.SetZoom(3);
         var captured = new HashSet<string>();
         AgentView? selected = null;
         var tick = 0;
@@ -260,15 +296,23 @@ internal static class Program
             }
         }
     }
-    private static int ProfileIdle(string output,AssetPack assets,OfficeLayout layout)
+    private static int ProfileIdle(string output,AssetPack assets,OfficeLayout layout,string tagMode)
     {
         output=StateJson.OutputPath(output); Directory.CreateDirectory(output);
         var now=DateTimeOffset.UtcNow; var office=new OfficeAnimator(42,assets,layout);
         var agents=DemoScenario.Agents(now,30).Take(6).Select(a=>a with { State=AgentState.Idle }).ToArray();
         IReadOnlyList<AgentView> views=Array.Empty<AgentView>();
         for(var i=0;i<300;i++) views=office.Update(agents,now.AddSeconds(i*.1),.1);
-        var view=new OfficeView(assets); view.Update(office.Layout,views,now,office.FurnitureSprites); view.SetZoom(1);
+        var view=new OfficeView(assets) { TagMode=tagMode }; view.Update(office.Layout,views,now,office.FurnitureSprites); view.SetZoom(1);
         Render(view,700,480,Path.Combine(output,"idle.png"));
+        // Keep one nonactivating offscreen presentation source, just as the live window
+        // does. Neither HWND recreation nor per-frame bitmap copies are idle app work.
+        using var source=new HwndSource(new HwndSourceParameters("Vibedotcom idle profile")
+        { PositionX=-30000,PositionY=-30000,Width=700,Height=480,
+            WindowStyle=unchecked((int)0x90000000),ExtendedWindowStyle=0x08000080 });
+        source.RootVisual=view;
+        view.Measure(new(700,480)); view.Arrange(new(0,0,700,480)); view.UpdateLayout();
+        view.Dispatcher.Invoke(() => { },DispatcherPriority.ApplicationIdle);
         using var process=Process.GetCurrentProcess(); var startCpu=process.TotalProcessorTime; var elapsed=Stopwatch.StartNew();
         var frame=new DispatcherFrame(); var ticks=0;
         using var tracker=new AgentTracker(new() { Home=Path.Combine(output,"empty-home") }); var polling=false;
@@ -277,13 +321,13 @@ internal static class Program
         {
             var time=now.AddSeconds(30+elapsed.Elapsed.TotalSeconds);
             view.Update(office.Layout,office.Update(agents,time,.125),time,office.FurnitureSprites);
-            var bitmap=new RenderTargetBitmap(700,480,96,96,PixelFormats.Pbgra32); bitmap.Render(view); ticks++;
+            view.UpdateLayout(); ticks++;
             if (!polling && ticks%8==0) { polling=true; await Task.Run(()=>tracker.Poll(time)); polling=false; }
             if(elapsed.Elapsed.TotalSeconds>=20) { timer.Stop(); frame.Continue=false; }
         };
-        timer.Start(); Dispatcher.PushFrame(frame); process.Refresh();
+        timer.Start(); Dispatcher.PushFrame(frame); process.Refresh(); source.RootVisual=null;
         var cpu=(process.TotalProcessorTime-startCpu).TotalSeconds/elapsed.Elapsed.TotalSeconds/Environment.ProcessorCount*100;
-        File.WriteAllText(Path.Combine(output,"profile.json"),JsonSerializer.Serialize(new { wallSeconds=elapsed.Elapsed.TotalSeconds,cpuPercent=cpu,logicalProcessors=Environment.ProcessorCount,ticks,scenario="six idle agents; 8fps offscreen rendering; empty tracker home" },StateJson.Options));
+        File.WriteAllText(Path.Combine(output,"profile.json"),JsonSerializer.Serialize(new { wallSeconds=elapsed.Elapsed.TotalSeconds,cpuPercent=cpu,logicalProcessors=Environment.ProcessorCount,ticks,tagMode,sceneRenders=view.SceneRenderCount,roomBuilds=view.RoomBuildCount,scenario="six idle agents; 8fps WPF updates in one nonactivating offscreen window; no bitmap capture per frame; empty tracker home" },StateJson.Options));
         return cpu<2 ? 0 : 2;
     }
 }
@@ -351,6 +395,7 @@ internal sealed class OfficeWindow : Window
         this.assets = assets ?? new(); view = new(this.assets, this.storage.Isolated ? Path.Combine(this.storage.Home,"brand") : null, decodedSheets); office = liveOffice ?? new(42,this.assets,layout);
         agents=liveAgents ?? Array.Empty<AgentInfo>();
         settings = (initial ?? ReadSettings()).Normalize();
+        view.TagMode = settings.TagMode;
         if (qa) settings=settings with { Mode="normal",Borderless=true,Width=400,Height=300,Left=-30000,Top=-30000 };
         Title = demo ? "Vibedotcom — demo office" : "Vibedotcom — agent office";
         Width = Finite(settings.Width,720,400,3000); Height = Finite(settings.Height,480,300,2000);
@@ -418,7 +463,7 @@ internal sealed class OfficeWindow : Window
         var bounds = WindowState == WindowState.Normal ? modes.ScreenBounds : RestoreBounds;
         if (bounds.IsEmpty || !double.IsFinite(bounds.Left) || !double.IsFinite(bounds.Top)) return;
         settings = (settings with { Width = bounds.Width, Height = bounds.Height, Left = bounds.Left, Top = bounds.Top, Zoom = view.PreferredZoom }).Normalize();
-        try { StateJson.WriteAtomic(settingsPath,JsonSerializer.SerializeToUtf8Bytes(settings,StateJson.Options)); }
+        try { settings.Write(settingsPath); }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or ArgumentException or JsonException) { warning = "Cannot save settings: "+e.Message; }
     }
     private void ApplyModes()
@@ -436,6 +481,7 @@ internal sealed class OfficeWindow : Window
         else { ApplyModes(); Save(); }
     }
     private void ToggleClickThrough() { settings = settings with { ClickThrough = !settings.ClickThrough }; ApplyModes(); Save(); }
+    private void SetTags(string mode) { settings=settings with { TagMode=mode }; view.TagMode=mode; Save(); }
     private void ToggleBorderless() { settings = settings with { Borderless = !settings.Borderless }; ApplyModes(); Save(); }
     private void ToggleTransparent()
     {
@@ -490,6 +536,12 @@ internal sealed class OfficeWindow : Window
     private ContextMenu BuildContextMenu()
     {
         var menu = new ContextMenu();
+        var tags=new MenuItem { Header="Name tags" }; menu.Items.Add(tags);
+        foreach (var mode in new[] { "hover","icon","always" })
+        {
+            var item=new MenuItem { Header=TagTitle(mode) }; tags.Items.Add(item);
+            item.Click+=(_,_)=>SetTags(mode); menu.Opened+=(_,_)=>item.IsChecked=settings.TagMode==mode;
+        }
         foreach (var entry in MenuItems())
         {
             var item = new MenuItem { Header = entry.Title };
@@ -501,6 +553,12 @@ internal sealed class OfficeWindow : Window
     private Forms.ContextMenuStrip BuildTrayMenu()
     {
         var menu = new Forms.ContextMenuStrip();
+        var tags=new Forms.ToolStripMenuItem("Name tags"); menu.Items.Add(tags);
+        foreach (var mode in new[] { "hover","icon","always" })
+        {
+            var item=new Forms.ToolStripMenuItem(TagTitle(mode)); tags.DropDownItems.Add(item);
+            item.Click+=(_,_)=>Dispatcher.Invoke(()=>SetTags(mode)); menu.Opening+=(_,_)=>item.Checked=settings.TagMode==mode;
+        }
         foreach (var entry in MenuItems())
         {
             var item = new Forms.ToolStripMenuItem(entry.Title);
@@ -509,6 +567,7 @@ internal sealed class OfficeWindow : Window
         }
         return menu;
     }
+    private static string TagTitle(string mode) => mode switch { "hover"=>"Hover", "icon"=>"Icon", _=>"Always" };
     private void Animate()
     {
         if (closed) return;
@@ -520,8 +579,9 @@ internal sealed class OfficeWindow : Window
             view.Update(editor?.Editor.Layout ?? office.Layout,views,now,office.FurnitureSprites);
             var animated = views.Any(a=>a.Pose.Visible && (a.Pose.SeatPhase is "turn" or "lower" or "raise" || a.Pose.Action is "walking" or "entering" or "exiting" ||
                 a.Pose.Sprite is {} s && assets.Manifest.Sheets.First(sheet=>sheet.Id==s.SheetId).Rows.Any(row=>row.Row==s.Row && row.Name.StartsWith("blink-",StringComparison.Ordinal))));
-            timer.Interval=TimeSpan.FromMilliseconds(animated ? 1000d/30 : 125);
-            if (!qa && editor == null && now>=nextHover) { view.PollHover(modes.Cursor(view),now); nextHover = now.AddMilliseconds(100); }
+            view.AdvanceHover(now);
+            if (!qa && now>=nextHover) { view.PollHover(modes.Cursor(view),now); nextHover = now.AddMilliseconds(100); }
+            timer.Interval=TimeSpan.FromMilliseconds(animated || view.TagsAnimating ? 1000d/30 : 125);
         }
         previous = now;
         if (now>=nextHostCheck)

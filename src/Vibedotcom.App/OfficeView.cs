@@ -31,6 +31,27 @@ internal sealed class OfficeView : FrameworkElement
     private readonly Dictionary<string, SolidColorBrush> brushes = new();
     private readonly Dictionary<string, FormattedText> textCache = new();
     private DrawingGroup? room;
+    private readonly DrawingVisual tagsVisual = new();
+    private readonly NameTagHover tagHover = new();
+    private readonly Dictionary<string, Rect> tagRects = new(), iconRects = new();
+    private readonly Dictionary<string, double> tagOffsets = new();
+    private string tagMode = "hover";
+    private Rect tooltipRect = Rect.Empty;
+    internal int SceneRenderCount { get; private set; }
+    internal int RoomBuildCount { get; private set; }
+    internal bool TagsAnimating => tagHover.Animating;
+    internal Rect TooltipRect => tooltipRect;
+    internal Rect AgentTagRect(string id) => ScreenRect(tagRects.GetValueOrDefault("agent:" + id, Rect.Empty));
+    internal Rect DeskTagRect(string id) => ScreenRect(tagRects.GetValueOrDefault("desk:" + id, Rect.Empty));
+    internal Rect AgentIconRect(string id) => ScreenRect(iconRects.GetValueOrDefault("agent:" + id, Rect.Empty));
+    internal Rect DeskIconRect(string id) => ScreenRect(iconRects.GetValueOrDefault("desk:" + id, Rect.Empty));
+    public string TagMode
+    {
+        get => tagMode;
+        set { var mode = NameTagHover.Normalize(value); if (mode == tagMode) return; tagMode = mode; tagOffsets.Clear(); HideTooltip(); }
+    }
+    protected override int VisualChildrenCount => 1;
+    protected override Visual GetVisualChild(int index) => index == 0 ? tagsVisual : throw new ArgumentOutOfRangeException(nameof(index));
     private int ambient = -1;
     private double zoom = 1;
     private Vector pan;
@@ -40,7 +61,7 @@ internal sealed class OfficeView : FrameworkElement
     private readonly TextBlock tipTitle = new() { FontSize = 14, FontWeight = FontWeights.SemiBold, Foreground = Brushes.White };
     private readonly TextBlock tipBody = new() { FontSize = 12, Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(233,230,215)), TextWrapping = TextWrapping.Wrap, MaxWidth = 310, Margin = new(0,7,0,0) };
     private string? hovered, tipText;
-    private DateTimeOffset hoverSince, tipUpdated;
+    private DateTimeOffset tipUpdated;
     public int PreferredZoom => autoFit ? 0 : (int)zoom;
     public double Zoom => zoom;
     public bool EditorMode { get; set; }
@@ -71,6 +92,7 @@ internal sealed class OfficeView : FrameworkElement
     public OfficeView(AssetPack? assets = null, string? brandDirectory = null, IReadOnlyDictionary<string, BitmapSource>? decodedSheets = null)
     {
         this.assets = assets ?? new();
+        AddVisualChild(tagsVisual);
         brandIcons = new(brandDirectory);
         foreach (var (id, image) in decodedSheets ?? DecodeSheets(this.assets)) sheets[id] = image;
         RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
@@ -90,7 +112,7 @@ internal sealed class OfficeView : FrameworkElement
         };
         MouseLeftButtonUp += (_, _) => { drag = null; ReleaseMouseCapture(); };
         LostMouseCapture += (_, _) => drag = null;
-        Unloaded += (_, _) => HideTooltip();
+        Unloaded += (_, _) => tooltip.IsOpen = false;
     }
 
     public void SetZoom(int requested)
@@ -205,6 +227,7 @@ internal sealed class OfficeView : FrameworkElement
     }
     private void BuildRoom()
     {
+        RoomBuildCount++;
         room = new DrawingGroup();
         using (var dc = room.Open())
         {
@@ -313,6 +336,7 @@ internal sealed class OfficeView : FrameworkElement
 
     protected override void OnRender(DrawingContext dc)
     {
+        SceneRenderCount++;
         // Also supplies the empty floor with a hit-test surface for panning.
         dc.DrawRectangle(transparent ? Brushes.Transparent : Color("#10282b"),null,new(0,0,ActualWidth,ActualHeight));
         var origin = Origin; dc.PushTransform(new TranslateTransform(origin.X,origin.Y)); dc.PushTransform(new ScaleTransform(zoom,zoom));
@@ -320,7 +344,7 @@ internal sealed class OfficeView : FrameworkElement
         var line = new Pen(Color("#405cbbb5"),.6) { DashStyle = DashStyles.Dot }; line.Freeze();
         foreach (var child in agents)
             if (child.Pose.Visible && child.Agent.ParentId != null && byId.TryGetValue(child.Agent.ParentId,out var parent) && parent.Pose.Visible &&
-                (child.Agent.State is AgentState.Working or AgentState.Reporting || hovered == child.Agent.Id || hovered == parent.Agent.Id))
+                child.Agent.State is AgentState.Working or AgentState.Reporting)
             {
                 var start = new Point((child.Pose.X+.5)*16,(child.Pose.Y+1)*16-5);
                 var end = new Point((parent.Pose.X+.5)*16,(parent.Pose.Y+1)*16-5);
@@ -366,35 +390,74 @@ internal sealed class OfficeView : FrameworkElement
             if (owner.Pose.ReportOnDesk) { R(dc,"#fff9e7",x+desk.Width*16-12,y+18,9,7); R(dc,"#a19a7e",x+desk.Width*16-11,y+20,6,1); }
         }
         if (EditorMode) DrawEditorGrid(dc);
-        var plates = new List<Rect>();
-        var queuePlates = new List<Rect>();
-        RenderedAgentTags=RenderedReservedTags=0;
         foreach (var agent in agents.Where(a=>a.Pose.Visible)) DrawBubble(dc,agent);
-        foreach (var agent in agents.Where(a=>a.Pose.Visible).OrderBy(a=>HeadY(a.Pose)).ThenBy(a=>a.Agent.Id,StringComparer.Ordinal))
-        { var plate=DrawName(dc,agent,plates);if(agent.Pose.Queued) queuePlates.Add(plate);RenderedAgentTags++; }
-        foreach (var desk in office.Furniture.Where(f=>f.AgentId != null))
-        {
-            if (!byId.TryGetValue(desk.AgentId!,out var owner)) continue;
-            var near = Math.Abs(owner.Pose.X-owner.Pose.Desk.X)+Math.Abs(owner.Pose.Y-owner.Pose.Desk.Y) <= 1.5;
-            if (owner.Pose.SeatPhase != null || near && owner.Agent.State is AgentState.Working or AgentState.Thinking or AgentState.Waiting) continue;
-            DrawTag(dc,owner,new(desk.X*16+desk.Width*8,desk.Y*16+desk.Height*16-13),plates,true);
-            RenderedReservedTags++;
-        }
-        foreach(var plate in queuePlates)
-        {
-            var x=plate.Right+3;var y=plate.Y+2;
-            R(dc,"#738b84",x-1,y-1,17,12);R(dc,"#172b30",x,y,15,10);Text(dc,"...",x+2,y-2,8,"#f5edce");
-        }
         if (agents.Count == 0)
         { Text(dc,"A quiet moment.",30,132,10,bold:true); Text(dc,"Your agents will walk in.",30,151,7,maxWidth:95); }
         dc.Pop(); dc.Pop();
+        RenderTags();
+    }
+    private bool OwnerAway(AgentView owner)
+    {
+        var near = Math.Abs(owner.Pose.X-owner.Pose.Desk.X)+Math.Abs(owner.Pose.Y-owner.Pose.Desk.Y) <= 1.5;
+        return owner.Pose.Visible && owner.Pose.SeatPhase == null && !(near && owner.Agent.State is AgentState.Working or AgentState.Thinking or AgentState.Waiting);
+    }
+    private Rect ScreenRect(Rect rect) => rect.IsEmpty ? rect : new(Origin.X + rect.X * zoom, Origin.Y + rect.Y * zoom, rect.Width * zoom, rect.Height * zoom);
+    private void RenderTags()
+    {
+        using var dc = tagsVisual.RenderOpen();
+        var origin = Origin; dc.PushTransform(new TranslateTransform(origin.X,origin.Y)); dc.PushTransform(new ScaleTransform(zoom,zoom));
+        var plates = new List<Rect>();
+        tagRects.Clear(); iconRects.Clear(); RenderedAgentTags=RenderedReservedTags=0;
+        // Idle relationship hints belong to this layer so hover never rebuilds the scene.
+        foreach (var child in agents.Where(a=>a.Pose.Visible && a.Agent.State is not (AgentState.Working or AgentState.Reporting)))
+            if (child.Agent.ParentId != null && byId.TryGetValue(child.Agent.ParentId,out var parent) && parent.Pose.Visible &&
+                (hovered == child.Agent.Id || hovered == parent.Agent.Id))
+            {
+                var start = new Point((child.Pose.X+.5)*16,(child.Pose.Y+1)*16-5);
+                var end = new Point((parent.Pose.X+.5)*16,(parent.Pose.Y+1)*16-5); var distance=(end-start).Length;
+                if (distance is > 12 and <= 64) dc.DrawLine(new Pen(Color("#405cbbb5"),.6) { DashStyle=DashStyles.Dot },start,start+(end-start)*Math.Min(1,40/distance));
+            }
+        foreach (var agent in agents.Where(a=>a.Pose.Visible).OrderBy(a=>HeadY(a.Pose)).ThenBy(a=>a.Agent.Id,StringComparer.Ordinal))
+        {
+            var body=ContentBounds(agent.Pose); var anchor=new Point(Math.Round(body.X+body.Width/2),HeadY(agent.Pose)-12);
+            DrawModeTag(dc,"agent:"+agent.Agent.Id,agent,anchor,plates,false);
+        }
+        foreach (var desk in office.Furniture.Where(f=>f.AgentId != null))
+        {
+            if (!byId.TryGetValue(desk.AgentId!,out var owner) || !OwnerAway(owner)) continue;
+            DrawModeTag(dc,"desk:"+desk.Id,owner,new(desk.X*16+desk.Width*8,desk.Y*16+desk.Height*16-13),plates,true);
+        }
+        foreach (var key in tagOffsets.Keys.Where(k=>!tagRects.ContainsKey(k)).ToArray()) tagOffsets.Remove(key);
+        dc.Pop(); dc.Pop();
         if (debugTooltip && DebugTooltipText != null)
         {
-            var width=Math.Min(430,ActualWidth-16); var height=Math.Min(200,ActualHeight-16);
-            dc.DrawRoundedRectangle(Color("#303d40"),null,new(8,8,width,height),8,8);
+            dc.DrawRoundedRectangle(Color("#303d40"),null,tooltipRect,8,8);
             var lines=DebugTooltipText.Split('\n');
-            for(var i=0;i<lines.Length;i++) Text(dc,lines[i],20,20+i*23,i==0 ? 14 : 12,"#fff4df",i==0,width-24);
+            for(var i=0;i<lines.Length;i++) Text(dc,lines[i],tooltipRect.X+12,tooltipRect.Y+12+i*23,i==0 ? 14 : 12,"#fff4df",i==0,tooltipRect.Width-24);
         }
+    }
+    private void DrawModeTag(DrawingContext dc,string key,AgentView agent,Point anchor,List<Rect> plates,bool desk)
+    {
+        var opacity=tagMode=="always" ? 1 : tagHover.Opacity(key);
+        dc.PushOpacity(agent.Pose.Opacity);
+        if (tagMode=="icon" && opacity<1)
+        {
+            var rect=new Rect(anchor.X-6,anchor.Y-4,12,12); iconRects[key]=rect;
+            dc.PushOpacity(1-opacity); DrawProviderIcon(dc,agent.Agent.Provider,rect.X,rect.Y); dc.Pop();
+        }
+        if (opacity>0)
+        {
+            dc.PushOpacity(opacity);
+            var plate=DrawTag(dc,agent,anchor,plates,true,key); tagRects[key]=plate;
+            if (desk) RenderedReservedTags++; else RenderedAgentTags++;
+            if (!desk && agent.Pose.Queued)
+            {
+                var x=plate.Right+3;var y=plate.Y+2;
+                R(dc,"#738b84",x-1,y-1,17,12);R(dc,"#172b30",x,y,15,10);Text(dc,"...",x+2,y-2,8,"#f5edce");
+            }
+            dc.Pop();
+        }
+        dc.Pop();
     }
     private void DrawAgent(DrawingContext dc, AgentView agent)
     {
@@ -422,33 +485,36 @@ internal sealed class OfficeView : FrameworkElement
         var body=ContentBounds(p);
         return new(Math.Round(body.X+body.Width/2-8),Math.Round(body.Bottom-12),16,16);
     }
-    private Rect DrawName(DrawingContext dc, AgentView agent, List<Rect> plates)
-    {
-        var body = ContentBounds(agent.Pose);
-        return DrawTag(dc,agent,new(Math.Round(body.X+body.Width/2),HeadY(agent.Pose)-12),plates,true);
-    }
-    private Rect DrawTag(DrawingContext dc, AgentView agent, Point anchor, List<Rect> plates, bool stack)
+    private Rect DrawTag(DrawingContext dc, AgentView agent, Point anchor, List<Rect> plates, bool stack,string key)
     {
         var name = agent.Pose.DisplayName ?? agent.Agent.Name;
         var elements = StringInfo.ParseCombiningCharacters(name);
         if (elements.Length > 14) name = name[..elements[14]]+"…";
         var width = Math.Clamp(Math.Ceiling(FormatText(name,6,"#f5edce").WidthIncludingTrailingWhitespace)+16,27,99);
         var plate = new Rect(Math.Round(Math.Clamp(anchor.X-width/2,2,Math.Max(2,office.WidthTiles*16-width-2))),Math.Round(anchor.Y)-5,width,14);
+        var baseY=plate.Y;
+        if (tagMode!="always") plate.Y-=tagOffsets.GetValueOrDefault(key);
         var outline = plate; outline.Inflate(1,1);
         if (stack)
-            for (var attempt=0;attempt<20 && plates.Any(p=>p.IntersectsWith(outline));attempt++)
+            for (var attempt=0;attempt<20+plates.Count*8 && plates.Any(p=>p.IntersectsWith(outline));attempt++)
             { plate.Y-=2; outline.Y-=2; }
-        // A name is never omitted. Crowded tags move vertically above their owner.
+        // Keep stacking for always mode and simultaneous entering/leaving hover plates.
+        // Retain the offset until hidden: a fading neighbour must not move a plate out from under the pointer.
+        if (tagMode!="always") tagOffsets[key]=baseY-plate.Y;
         plates.Add(outline);
         R(dc,agent.Agent.IsSubagent ? "#738b84" : "#c99a52",plate.X-1,plate.Y-1,plate.Width+2,plate.Height+2);
         R(dc,"#172b30",plate.X,plate.Y,plate.Width,plate.Height);
-        var icon = brandIcons.Get(agent.Agent.Provider, (int)Math.Ceiling(zoom));
-        if (icon == null && sheets.ContainsKey("provider-icons"))
-            icon = Image(assets.Frame("provider-icons",agent.Agent.Provider.ToString().ToLowerInvariant(),"any",0));
-        if (icon != null) dc.DrawImage(icon,new(plate.X+1,plate.Y+1,12,12));
-        else DrawNeutralIcon(dc,agent.Agent.Provider,plate.X+1,plate.Y+1);
+        DrawProviderIcon(dc,agent.Agent.Provider,plate.X+1,plate.Y+1);
         Text(dc,name,plate.X+15,plate.Y+4,6,"#f5edce",maxWidth:plate.Width-16);
         return plate;
+    }
+    private void DrawProviderIcon(DrawingContext dc,Provider provider,double x,double y)
+    {
+        var icon = brandIcons.Get(provider, (int)Math.Ceiling(zoom));
+        if (icon == null && sheets.ContainsKey("provider-icons"))
+            icon = Image(assets.Frame("provider-icons",provider.ToString().ToLowerInvariant(),"any",0));
+        if (icon != null) dc.DrawImage(icon,new(x,y,12,12));
+        else DrawNeutralIcon(dc,provider,x,y);
     }
     private void DrawNeutralIcon(DrawingContext dc, Provider provider, double x, double y)
     {
@@ -554,9 +620,7 @@ internal sealed class OfficeView : FrameworkElement
     }
     public void SimulateHover(Point? point, DateTimeOffset now)
     {
-        var agent=point == null ? null : HitAgent(point.Value);
-        debugTooltip=agent != null; DebugTooltipText=agent == null ? null : TooltipText(agent,now);
-        InvalidateVisual();
+        PollHover(point,now,offscreen:true);
     }
     public static string TooltipText(AgentView agent, DateTimeOffset now)
     {
@@ -565,26 +629,78 @@ internal sealed class OfficeView : FrameworkElement
         return $"{a.Provider} · {a.Name}\n{(a.IsSubagent ? "Sub-agent" : "Supervisor")}{(a.Role==null ? "" : " · "+a.Role)}\nModel   {a.Model ?? "unknown"}\nProject   {a.Cwd ?? "unknown"}\nTask   {task}\nTool   {a.Tool ?? "none"}\n{a.State.ToString().ToLowerInvariant()} · {Math.Max(0,(now-a.StateSince).TotalSeconds):0}s · {agent.Pose.Action}";
     }
 
-    public void PollHover(Point? cursor, DateTimeOffset now)
+    public void PollHover(Point? cursor, DateTimeOffset now) => PollHover(cursor,now,offscreen:false);
+    internal void AdvanceHover(DateTimeOffset now)
     {
-        if (EditorMode || cursor == null || drag != null) { HideTooltip(); return; }
-        var point = cursor.Value;
-        if (point.X < 0 || point.Y < 0 || point.X >= ActualWidth || point.Y >= ActualHeight) { HideTooltip(); return; }
-        var agent = HitAgent(point);
-        if (agent == null) { HideTooltip(); return; }
-        if (hovered != agent.Agent.Id)
-        { HideTooltip(); hovered = agent.Agent.Id; hoverSince = now; }
-        if ((now-hoverSince).TotalMilliseconds < 220) return;
-        if (!tooltip.IsOpen)
-        {
-            tooltip.HorizontalOffset = Math.Clamp(point.X+18,0,Math.Max(0,ActualWidth-340));
-            tooltip.VerticalOffset = Math.Clamp(point.Y+22,0,Math.Max(0,ActualHeight-190));
-            tooltip.IsOpen = true;
-        }
-        var body=TooltipText(agent,now);
-        if (body != tipText && (now-tipUpdated).TotalMilliseconds>=200)
-        { tipTitle.Text=body.Split('\n')[0]; tipBody.Text=body[(body.IndexOf('\n')+1)..]; tipText=body; tipUpdated=now; }
+        if (tagHover.Advance(now)) RenderTags();
     }
-
-    public void HideTooltip() { tooltip.IsOpen = false; hovered = null; tipText = null; }
+    private (string? Key,AgentView? Agent) HoverTarget(Point? cursor)
+    {
+        if (cursor is not {} point || drag != null || point.X<0 || point.Y<0 || point.X>=ActualWidth || point.Y>=ActualHeight) return (null,null);
+        var origin=Origin; var world=new Point((point.X-origin.X)/zoom,(point.Y-origin.Y)/zoom);
+        // Another body takes priority over the incumbent's bridge or fading plate.
+        var agent=HitAgent(point);
+        if (agent != null) return ("agent:"+agent.Agent.Id,agent);
+        foreach (var person in agents.Where(a=>a.Pose.Visible))
+        {
+            var key="agent:"+person.Agent.Id;
+            if (tagRects.TryGetValue(key,out var plate))
+            {
+                var hit=plate;
+                if (tagHover.Target==key) hit.Union(ContentBounds(person.Pose));
+                hit.Inflate(2/zoom,2/zoom);
+                if (hit.Contains(world)) return (key,person);
+            }
+            if (iconRects.TryGetValue(key,out var icon) && icon.Contains(world)) return (key,person);
+        }
+        foreach (var desk in office.Furniture.Where(f=>f.AgentId != null))
+        {
+            if (!byId.TryGetValue(desk.AgentId!,out var owner) || !OwnerAway(owner)) continue;
+            var key="desk:"+desk.Id; var hit=new Rect(desk.X*16,desk.Y*16,desk.Width*16,desk.Height*16);
+            if (tagHover.Target==key && tagRects.TryGetValue(key,out var plate)) hit.Union(plate);
+            if (hit.Contains(world) || tagRects.TryGetValue(key,out plate) && plate.Contains(world)) return (key,owner);
+        }
+        return (null,null);
+    }
+    private void PollHover(Point? cursor,DateTimeOffset now,bool offscreen)
+    {
+        var (key,agent)=HoverTarget(cursor);
+        var previous=tagHover.Target;
+        var changed=tagHover.Update(key,now);
+        hovered=agent?.Agent.Id;
+        if (key!=previous || key==null || EditorMode) CloseTooltip();
+        if (changed) RenderTags();
+        if (agent==null || EditorMode || (now-tagHover.Entered).TotalMilliseconds<NameTagHover.TooltipDelayMs) return;
+        var body=TooltipText(agent,now);
+        if (body != tipText && (tipText==null || (now-tipUpdated).TotalMilliseconds>=200))
+        { tipTitle.Text=body.Split('\n')[0]; tipBody.Text=body[(body.IndexOf('\n')+1)..]; tipText=body; tipUpdated=now; }
+        tooltip.Child.Measure(new Size(Math.Max(1,ActualWidth-16),double.PositiveInfinity));
+        var size=offscreen ? new Size(Math.Min(340,ActualWidth-16),190) : tooltip.Child.DesiredSize;
+        tooltipRect=PlaceTooltip(cursor!.Value,size);
+        if (tooltipRect.IsEmpty) { CloseTooltip(); return; }
+        if (offscreen)
+        { tooltip.IsOpen=false; debugTooltip=true; DebugTooltipText=body; RenderTags(); }
+        else
+        { tooltip.HorizontalOffset=tooltipRect.X; tooltip.VerticalOffset=tooltipRect.Y; tooltip.IsOpen=true; }
+    }
+    private Rect PlaceTooltip(Point point,Size size)
+    {
+        if (size.Width>ActualWidth-16 || size.Height>ActualHeight-16) return Rect.Empty;
+        var plate=tagHover.Target is {} key ? ScreenRect(tagRects.GetValueOrDefault(key,Rect.Empty)) : Rect.Empty;
+        if (plate.IsEmpty) plate=new(point,new Size(1,1));
+        foreach (var candidate in new[] { new Point(plate.Right+12,point.Y+16),new Point(plate.Left-size.Width-12,point.Y+16),
+            new Point(point.X+12,plate.Bottom+12),new Point(point.X+12,plate.Top-size.Height-12) })
+        {
+            var rect=new Rect(Math.Clamp(candidate.X,8,ActualWidth-size.Width-8),Math.Clamp(candidate.Y,8,ActualHeight-size.Height-8),size.Width,size.Height);
+            if (!tagRects.Values.Select(ScreenRect).Any(p=> { p.Inflate(4,4); return p.IntersectsWith(rect); })) return rect;
+        }
+        return Rect.Empty;
+    }
+    private void CloseTooltip()
+    {
+        var redraw=debugTooltip;
+        tooltip.IsOpen=false; tipText=null; debugTooltip=false; DebugTooltipText=null; tooltipRect=Rect.Empty;
+        if (redraw) RenderTags();
+    }
+    public void HideTooltip() { CloseTooltip(); hovered=null; tagHover.Clear(); RenderTags(); }
 }
