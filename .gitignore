@@ -11,11 +11,11 @@ atlas.png
 settings.json
 .claude/
 
-# Windhawk PoC ì»´íŒŒ???°ì¶œë¬?windhawk/poc/*.exe
+# Windhawk PoC build outputs
 windhawk/poc/*.dll
 windhawk/poc/*.log
 
-# sprite-gen ì¤‘ê°„ ?°ì¶œë¬??¬ìƒ??ê°€?? ?©ëŸ‰ ??
+# sprite-gen intermediate outputs (regenerable, large)
 assets/art/runs/
 assets/art/references/
 assets/art/assembly/
