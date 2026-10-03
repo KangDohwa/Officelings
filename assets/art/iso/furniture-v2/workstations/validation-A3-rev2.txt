@@ -1,0 +1,44 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| iso-contact-v1.png | reference contacts | PASS | 50f61465b0068902 |
+| chair-shadow.iso.json:iso-chair-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| chair-shadow.iso.json:iso-chair-shadow | transparency | PASS | straight alpha and guards |
+| chair-shadow.iso.json:iso-chair-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| chair-shadow.iso.json:iso-chair-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| chair-shadow.iso.json:iso-chair-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| chair-shadow.iso.json:iso-chair-shadow | 6×6 seams | SKIP | floor sheets only |
+| chair-shadow.iso.json:iso-chair-shadow | depth-part names | SKIP | furniture sheets only |
+| chair-shadow.iso.json:iso-chair-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| chair.iso.json:iso-chair-parts | cell sizes | PASS | 512×256, 128×128 cells |
+| chair.iso.json:iso-chair-parts | transparency | PASS | straight alpha and guards |
+| chair.iso.json:iso-chair-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| chair.iso.json:iso-chair-parts | palette | PASS | 17 colors; RGB max-channel tolerance 0 |
+| chair.iso.json:iso-chair-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| chair.iso.json:iso-chair-parts | 6×6 seams | SKIP | floor sheets only |
+| chair.iso.json:iso-chair-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| chair.iso.json:iso-chair-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| desk-shadow.iso.json:iso-desk-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| desk-shadow.iso.json:iso-desk-shadow | transparency | PASS | straight alpha and guards |
+| desk-shadow.iso.json:iso-desk-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| desk-shadow.iso.json:iso-desk-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| desk-shadow.iso.json:iso-desk-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| desk-shadow.iso.json:iso-desk-shadow | 6×6 seams | SKIP | floor sheets only |
+| desk-shadow.iso.json:iso-desk-shadow | depth-part names | SKIP | furniture sheets only |
+| desk-shadow.iso.json:iso-desk-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| desk.iso.json:iso-desk-parts | cell sizes | PASS | 512×3584, 128×128 cells |
+| desk.iso.json:iso-desk-parts | transparency | PASS | straight alpha and guards |
+| desk.iso.json:iso-desk-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| desk.iso.json:iso-desk-parts | palette | PASS | 24 colors; RGB max-channel tolerance 0 |
+| desk.iso.json:iso-desk-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| desk.iso.json:iso-desk-parts | 6×6 seams | SKIP | floor sheets only |
+| desk.iso.json:iso-desk-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| desk.iso.json:iso-desk-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| desk.iso.json:iso-desk-screen | cell sizes | PASS | 512×1536, 128×128 cells |
+| desk.iso.json:iso-desk-screen | transparency | PASS | straight alpha and guards |
+| desk.iso.json:iso-desk-screen | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| desk.iso.json:iso-desk-screen | palette | PASS | 5 colors; RGB max-channel tolerance 0 |
+| desk.iso.json:iso-desk-screen | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| desk.iso.json:iso-desk-screen | 6×6 seams | SKIP | floor sheets only |
+| desk.iso.json:iso-desk-screen | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| desk.iso.json:iso-desk-screen | face-lock / blink | SKIP | checked from normal character sheet |
+41 checks; 0 failed

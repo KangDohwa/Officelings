@@ -471,7 +471,7 @@ def reference_image():
         draw.line((sx+16, sy+32, hx, hy), fill=color('#ECA662'), width=3)
         # CRT ground center A + 3/4 f, base z18, top z36.
         fi, fj = {'se': (1, 0), 'sw': (0, 1), 'ne': (0, -1), 'nw': (-1, 0)}[facing]
-        mx, my = project(ai+.75*fi, aj+.75*fj, 18)
+        mx, my = project(ai+1.125*fi, aj+1.125*fj, 18)
         mx, my = dx+int(mx), dy+int(my)
         draw.rectangle((mx-6, my-18, mx+6, my), fill=color('#E7D1AC'))
         draw.rectangle((mx-4, my-15, mx+4, my-4), fill=color('#186D7A'))

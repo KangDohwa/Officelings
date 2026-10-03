@@ -1,0 +1,125 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "sheets": [
+    {
+      "id": "iso-desk-shadow",
+      "kind": "shadow",
+      "file": "desk-shadow.png",
+      "cellW": 128,
+      "cellH": 128,
+      "anchor": {
+        "x": 76,
+        "y": 72
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "shadow",
+          "direction": "se",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "anchor": {
+            "x": 76,
+            "y": 72
+          },
+          "anchorChecks": [
+            {
+              "x": 76,
+              "y": 72,
+              "radius": 0
+            }
+          ],
+          "partId": "desk__shadow__se__00",
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 0,
+          "renderPass": "shadows"
+        },
+        {
+          "name": "shadow",
+          "direction": "sw",
+          "row": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "anchor": {
+            "x": 52,
+            "y": 72
+          },
+          "anchorChecks": [
+            {
+              "x": 52,
+              "y": 72,
+              "radius": 0
+            }
+          ],
+          "partId": "desk__shadow__sw__00",
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 0,
+          "renderPass": "shadows"
+        },
+        {
+          "name": "shadow",
+          "direction": "ne",
+          "row": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "anchor": {
+            "x": 52,
+            "y": 72
+          },
+          "anchorChecks": [
+            {
+              "x": 52,
+              "y": 72,
+              "radius": 0
+            }
+          ],
+          "partId": "desk__shadow__ne__00",
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 0,
+          "renderPass": "shadows"
+        },
+        {
+          "name": "shadow",
+          "direction": "nw",
+          "row": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "anchor": {
+            "x": 76,
+            "y": 72
+          },
+          "anchorChecks": [
+            {
+              "x": 76,
+              "y": 72,
+              "radius": 0
+            }
+          ],
+          "partId": "desk__shadow__nw__00",
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 0,
+          "renderPass": "shadows"
+        }
+      ]
+    }
+  ]
+}

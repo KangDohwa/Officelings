@@ -1,0 +1,210 @@
+[
+  {
+    "orientation": "se",
+    "pixelDelta": [
+      -12,
+      -6
+    ],
+    "gridDelta": [
+      -0.375,
+      0
+    ],
+    "restoredDesktopPixels": 691,
+    "restoredByPart": {
+      "desk__rear__se__04": 114,
+      "desk__rear__se__14": 577
+    },
+    "repaintedBasePixels": 12,
+    "filledMonitorPixels": 40,
+    "removedOldNonWoodPixelsUnderCRT": 35,
+    "propPlacements": [
+      {
+        "kind": "mug",
+        "canonicalGround": [
+          0.09999999999999981,
+          0.6599999999999999
+        ],
+        "rotatedGround": [
+          0.09999999999999981,
+          0.6599999999999999
+        ],
+        "partId": "desk__rear__se__15",
+        "pixels": 69,
+        "screenSilhouetteDisjoint": true
+      },
+      {
+        "kind": "paper",
+        "canonicalGround": [
+          0.09999999999999981,
+          0.9399999999999997
+        ],
+        "rotatedGround": [
+          0.09999999999999981,
+          0.9399999999999997
+        ],
+        "partId": "desk__rear__se__16",
+        "pixels": 80,
+        "screenSilhouetteDisjoint": true
+      }
+    ],
+    "fullyHiddenDeskParts": [
+      "desk__rear__se__07",
+      "desk__rear__se__08"
+    ]
+  },
+  {
+    "orientation": "sw",
+    "pixelDelta": [
+      12,
+      -6
+    ],
+    "gridDelta": [
+      0,
+      -0.375
+    ],
+    "restoredDesktopPixels": 940,
+    "restoredByPart": {
+      "desk__rear__sw__02": 337,
+      "desk__rear__sw__14": 603
+    },
+    "repaintedBasePixels": 12,
+    "filledMonitorPixels": 0,
+    "removedOldNonWoodPixelsUnderCRT": 43,
+    "propPlacements": [
+      {
+        "kind": "mug",
+        "canonicalGround": [
+          0.09999999999999981,
+          0.6599999999999999
+        ],
+        "rotatedGround": [
+          0.3400000000000001,
+          0.09999999999999981
+        ],
+        "partId": "desk__rear__sw__15",
+        "pixels": 69,
+        "screenSilhouetteDisjoint": true
+      },
+      {
+        "kind": "paper",
+        "canonicalGround": [
+          0.17999999999999977,
+          1.0199999999999998
+        ],
+        "rotatedGround": [
+          -0.019999999999999796,
+          0.17999999999999977
+        ],
+        "partId": "desk__rear__sw__16",
+        "pixels": 80,
+        "screenSilhouetteDisjoint": true
+      }
+    ],
+    "fullyHiddenDeskParts": [
+      "desk__rear__sw__10",
+      "desk__rear__sw__11"
+    ]
+  },
+  {
+    "orientation": "ne",
+    "pixelDelta": [
+      -12,
+      6
+    ],
+    "gridDelta": [
+      0,
+      0.375
+    ],
+    "restoredDesktopPixels": 568,
+    "restoredByPart": {
+      "desk__rear__ne__04": 140,
+      "desk__front__ne__06": 428
+    },
+    "repaintedBasePixels": 0,
+    "filledMonitorPixels": 52,
+    "removedOldNonWoodPixelsUnderCRT": 23,
+    "propPlacements": [
+      {
+        "kind": "mug",
+        "canonicalGround": [
+          0.1399999999999998,
+          0.7
+        ],
+        "rotatedGround": [
+          0.7,
+          -0.1399999999999998
+        ],
+        "partId": "desk__rear__ne__15",
+        "pixels": 74,
+        "screenSilhouetteDisjoint": true
+      },
+      {
+        "kind": "paper",
+        "canonicalGround": [
+          0.17999999999999977,
+          0.9799999999999998
+        ],
+        "rotatedGround": [
+          0.9799999999999998,
+          -0.17999999999999977
+        ],
+        "partId": "desk__rear__ne__16",
+        "pixels": 80,
+        "screenSilhouetteDisjoint": true
+      }
+    ],
+    "fullyHiddenDeskParts": [
+      "desk__rear__ne__07"
+    ]
+  },
+  {
+    "orientation": "nw",
+    "pixelDelta": [
+      12,
+      6
+    ],
+    "gridDelta": [
+      0.375,
+      0
+    ],
+    "restoredDesktopPixels": 742,
+    "restoredByPart": {
+      "desk__rear__nw__02": 229,
+      "desk__front__nw__04": 513
+    },
+    "repaintedBasePixels": 0,
+    "filledMonitorPixels": 2,
+    "removedOldNonWoodPixelsUnderCRT": 23,
+    "propPlacements": [
+      {
+        "kind": "mug",
+        "canonicalGround": [
+          -0.06000000000000011,
+          0.8999999999999998
+        ],
+        "rotatedGround": [
+          0.06000000000000011,
+          0.1000000000000002
+        ],
+        "partId": "desk__rear__nw__15",
+        "pixels": 74,
+        "screenSilhouetteDisjoint": true
+      },
+      {
+        "kind": "paper",
+        "canonicalGround": [
+          -0.26,
+          0.7799999999999998
+        ],
+        "rotatedGround": [
+          0.26,
+          0.2200000000000002
+        ],
+        "partId": "desk__rear__nw__16",
+        "pixels": 80,
+        "screenSilhouetteDisjoint": true
+      }
+    ],
+    "fullyHiddenDeskParts": []
+  }
+]

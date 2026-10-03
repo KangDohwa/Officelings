@@ -1,0 +1,27 @@
+{
+  "updated": [
+    "desk-empty-ne.png",
+    "desk-empty-nw.png",
+    "desk-empty-se.png",
+    "desk-empty-sw.png",
+    "desk-parts.png",
+    "desk-screen-mask-ne.png",
+    "desk-screen-mask-nw.png",
+    "desk-screen-mask-se.png",
+    "desk-screen-mask-sw.png",
+    "desk-screen.png",
+    "desk.iso.json"
+  ],
+  "checker": {
+    "exitCode": 0,
+    "counts": {
+      "PASS": 29,
+      "SKIP": 12,
+      "FAIL": 0
+    }
+  },
+  "imageGenerationCalls": 0,
+  "imageViews": 14,
+  "protectedFiles": 186,
+  "headMinimumBack": 0.8805970149253731
+}

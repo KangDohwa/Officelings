@@ -1,0 +1,475 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1"
+  ],
+  "sheets": [
+    {
+      "id": "iso-chair-parts",
+      "kind": "furniture",
+      "file": "chair-parts.png",
+      "cellW": 128,
+      "cellH": 128,
+      "anchor": {
+        "x": 64,
+        "y": 80
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "rear-00",
+          "direction": "se",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "chair__rear__se__00",
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": -20,
+          "anchorChecks": [
+            {
+              "x": 63,
+              "y": 87,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface",
+          "seatGroupId": "seat"
+        },
+        {
+          "name": "front-00",
+          "direction": "se",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "chair__front__se__00",
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 20,
+          "anchorChecks": [
+            {
+              "x": 63,
+              "y": 82,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface",
+          "seatGroupId": "seat"
+        },
+        {
+          "name": "rear-00",
+          "direction": "sw",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "chair__rear__sw__00",
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": -20,
+          "anchorChecks": [
+            {
+              "x": 62,
+              "y": 87,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface",
+          "seatGroupId": "seat"
+        },
+        {
+          "name": "front-00",
+          "direction": "sw",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "chair__front__sw__00",
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 20,
+          "anchorChecks": [
+            {
+              "x": 63,
+              "y": 82,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface",
+          "seatGroupId": "seat"
+        },
+        {
+          "name": "rear-00",
+          "direction": "ne",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "chair__rear__ne__00",
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": -20,
+          "anchorChecks": [
+            {
+              "x": 62,
+              "y": 85,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface",
+          "seatGroupId": "seat"
+        },
+        {
+          "name": "front-00",
+          "direction": "ne",
+          "row": 1,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "chair__front__ne__00",
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 20,
+          "anchorChecks": [
+            {
+              "x": 47,
+              "y": 80,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface",
+          "seatGroupId": "seat"
+        },
+        {
+          "name": "rear-00",
+          "direction": "nw",
+          "row": 1,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "chair__rear__nw__00",
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": -20,
+          "anchorChecks": [
+            {
+              "x": 62,
+              "y": 85,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface",
+          "seatGroupId": "seat"
+        },
+        {
+          "name": "front-00",
+          "direction": "nw",
+          "row": 1,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "chair__front__nw__00",
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 20,
+          "anchorChecks": [
+            {
+              "x": 81,
+              "y": 80,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface",
+          "seatGroupId": "seat"
+        }
+      ]
+    }
+  ],
+  "furniture": [
+    {
+      "id": "iso/chair",
+      "kind": "chair",
+      "variants": [
+        {
+          "rotation": 0,
+          "orientation": "se",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-chair-parts",
+              "animation": "rear-00",
+              "direction": "se",
+              "partId": "chair__rear__se__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
+            },
+            {
+              "sheetId": "iso-chair-parts",
+              "animation": "front-00",
+              "direction": "se",
+              "partId": "chair__front__se__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": 20,
+              "seatGroupId": "seat"
+            }
+          ],
+          "points": [],
+          "height": 12,
+          "shadow": {
+            "sheetId": "iso-chair-shadow",
+            "animation": "shadow",
+            "direction": "se",
+            "renderPass": "shadows"
+          },
+          "chairSeatAnchor": {
+            "x": 0,
+            "y": -12
+          },
+          "seatGround": {
+            "i": 0,
+            "j": 0
+          },
+          "seatFacing": "se",
+          "backHeight": 21
+        },
+        {
+          "rotation": 90,
+          "orientation": "sw",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-chair-parts",
+              "animation": "rear-00",
+              "direction": "sw",
+              "partId": "chair__rear__sw__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
+            },
+            {
+              "sheetId": "iso-chair-parts",
+              "animation": "front-00",
+              "direction": "sw",
+              "partId": "chair__front__sw__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": 20,
+              "seatGroupId": "seat"
+            }
+          ],
+          "points": [],
+          "height": 12,
+          "shadow": {
+            "sheetId": "iso-chair-shadow",
+            "animation": "shadow",
+            "direction": "sw",
+            "renderPass": "shadows"
+          },
+          "chairSeatAnchor": {
+            "x": 0,
+            "y": -12
+          },
+          "seatGround": {
+            "i": 0,
+            "j": 0
+          },
+          "seatFacing": "sw",
+          "backHeight": 21
+        },
+        {
+          "rotation": 270,
+          "orientation": "ne",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-chair-parts",
+              "animation": "rear-00",
+              "direction": "ne",
+              "partId": "chair__rear__ne__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
+            },
+            {
+              "sheetId": "iso-chair-parts",
+              "animation": "front-00",
+              "direction": "ne",
+              "partId": "chair__front__ne__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": 20,
+              "seatGroupId": "seat"
+            }
+          ],
+          "points": [],
+          "height": 12,
+          "shadow": {
+            "sheetId": "iso-chair-shadow",
+            "animation": "shadow",
+            "direction": "ne",
+            "renderPass": "shadows"
+          },
+          "chairSeatAnchor": {
+            "x": 0,
+            "y": -12
+          },
+          "seatGround": {
+            "i": 0,
+            "j": 0
+          },
+          "seatFacing": "ne",
+          "backHeight": 21
+        },
+        {
+          "rotation": 180,
+          "orientation": "nw",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [],
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-chair-parts",
+              "animation": "rear-00",
+              "direction": "nw",
+              "partId": "chair__rear__nw__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
+            },
+            {
+              "sheetId": "iso-chair-parts",
+              "animation": "front-00",
+              "direction": "nw",
+              "partId": "chair__front__nw__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": 20,
+              "seatGroupId": "seat"
+            }
+          ],
+          "points": [],
+          "height": 12,
+          "shadow": {
+            "sheetId": "iso-chair-shadow",
+            "animation": "shadow",
+            "direction": "nw",
+            "renderPass": "shadows"
+          },
+          "chairSeatAnchor": {
+            "x": 0,
+            "y": -12
+          },
+          "seatGround": {
+            "i": 0,
+            "j": 0
+          },
+          "seatFacing": "nw",
+          "backHeight": 21
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "designReference": "sprite-gen codex; six masters in runs/furniture-v2",
+    "derivation": "generated native master pixels reprojected through fixed geometry; hidden faces recomposed; upper-left shades repaired; opposite rug pairs identical",
+    "limitations": "Desk, chair and sofa have separately generated NE rear masters; other faces are baked mirrors or panel/component recompositions with fixed-light repaint. Contacts and all v1 part IDs/anchors/depth keys remain unchanged. Final-character/runtime occlusion acceptance is outside this lane.",
+    "A3rev1": "Backrest reauthored as rounded projected z12..21 panels; compact low arm caps/supports reauthored z12..13 / z10..12; fixed light, original cushion/base pixels outside physical masks retained. No upper-band shift."
+  }
+}
