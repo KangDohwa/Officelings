@@ -300,6 +300,9 @@ public sealed class OfficeEditor
     public IReadOnlyList<string> Validate()
     {
         var layout = Layout;
+        if ((layout.Zones?.Count ?? 0) > 256 || (layout.Zones ?? []).Sum(z => (long)(z.Points?.Count ?? 0)) > 4096 ||
+            (layout.Furniture?.Count ?? 0) > 1024 || (layout.OverflowSeats?.Count ?? 0) > 1024)
+            return new[] { "Layout exceeds its instance/interaction point budget." };
         var errors = BoundsErrors(layout);
         if (layout.Version != 1) errors.Add($"Layout version {layout.Version} is unsupported; use version 1.");
         if (layout.WidthTiles is < 8 or > 128 || layout.HeightTiles is < 8 or > 128)
@@ -391,16 +394,17 @@ public sealed class OfficeEditor
             errors.Add($"Seats share tile ({duplicate.Key.X},{duplicate.Key.Y}): {string.Join(", ", duplicate.Select(p => p.Label))}; move a seat.");
         var doorWalkable = dimensionsValid && tilesValid && LayoutLoader.Walkable(layout, layout.Door, blocked);
         if (!doorWalkable) errors.Add($"Entrance ({layout.Door.X},{layout.Door.Y}) must be an in-bounds floor tile without blocking furniture; move the door or clear its tile.");
-        var reachable = new Dictionary<Tile, bool>();
+        HashSet<Tile> reachable = [];
+        if (doorWalkable)
+            try { reachable = LayoutLoader.Reachable(layout, layout.Door, blocked); }
+            catch (InvalidDataException e) { errors.Add(e.Message); return errors.AsReadOnly(); }
         foreach (var point in points)
         {
             if (!Inside(layout, point.Tile) || blocked.Contains(point.Tile))
                 errors.Add($"{point.Label} at ({point.Tile.X},{point.Tile.Y}) must be on an in-bounds unblocked floor tile.");
             else if (doorWalkable)
             {
-                if (!reachable.TryGetValue(point.Tile, out var found))
-                    reachable[point.Tile] = found = point.Tile == layout.Door || OfficeAnimator.FindPath(layout, layout.Door, point.Tile, blocked).Count != 0;
-                if (!found) errors.Add($"{point.Label} at ({point.Tile.X},{point.Tile.Y}) is unreachable from the door; paint a floor passage or move blocking furniture.");
+                if (!reachable.Contains(point.Tile)) errors.Add($"{point.Label} at ({point.Tile.X},{point.Tile.Y}) is unreachable from the door; paint a floor passage or move blocking furniture.");
             }
         }
         if (layout.AutoDesks is {} auto && (auto.X < 0 || auto.Y < 3 || auto.SpacingX < 1 || auto.SpacingY < 1 ||

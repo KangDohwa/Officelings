@@ -16,6 +16,7 @@ public sealed class OfficeAnimator
         public AgentState? ObservedState;
         public string Action = "entering", Facing = "down";
         public bool Entering = true, Visible = true;
+        public bool Suppressed;
         // 1: fetch, 2: pickup, 3: carry, 4: handover, 5: delivered.
         public int ReportStage;
         public string Leisure = "phone";
@@ -37,7 +38,7 @@ public sealed class OfficeAnimator
     }
 
     private readonly Dictionary<string, Character> characters = [];
-    private readonly Dictionary<string, string> deskHistory = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, (string Desk, DateTimeOffset LastSeen)> deskHistory = new(StringComparer.Ordinal);
     private readonly Random random;
     private HashSet<Tile> obstacles = [];
     private HashSet<Tile> reachable = [];
@@ -92,11 +93,18 @@ public sealed class OfficeAnimator
             }
         foreach (var agent in agents) characters[agent.Id].Agent = agent;
         AssignWorkplaces();
+        foreach (var id in ids)
+            if (deskHistory.TryGetValue(id, out var history)) deskHistory[id] = (history.Desk, now);
+        var departed = deskHistory.Keys.Where(id => !ids.Contains(id)).OrderBy(id => deskHistory[id].LastSeen).ToArray();
+        foreach (var id in departed.Take(Math.Max(0, departed.Length - 1024)))
+            deskHistory.Remove(id);
         foreach (var c in newcomers) c.Position = new(Layout.Door.X, Layout.Door.Y);
 
         foreach (var agent in agents)
         {
             var c = characters[agent.Id]; var desk = c.WorkTile;
+            if (c.Suppressed)
+            { c.Entering = true; c.Target = null; c.Path.Clear(); ClearSeat(c); c.Action = "waiting"; continue; }
             if (agent.State != c.ObservedState)
             {
                 if (agent.State == AgentState.Reporting) { c.ReportStage = 1; c.PauseUntil = default; }
@@ -251,7 +259,7 @@ public sealed class OfficeAnimator
                 }
             }
             return new AgentView(a, new(c.Position.X, c.Position.Y, c.WorkTile, c.Action, c.Facing,
-                sprite.Row, sprite.Column, c.Visible,
+                sprite.Row, sprite.Column, c.Visible && !c.Suppressed,
                 c.FadeSince == default ? 1 : Math.Clamp(1 - (now - c.FadeSince).TotalSeconds / 1.2, 0, 1),
                 c.ReportStage is 3 or 4, c.DeskId != null && now < c.PaperUntil, Queued(c) ? "…" : now < c.ReactUntil ? "!" : null,
                 c.ChatPartner, c.Design.Id, sprite, c.DeskId, c.OverflowSeatId, WorkLocation(c), Queued(c), DisplayName(a),
@@ -299,7 +307,7 @@ public sealed class OfficeAnimator
 
     private static bool Queued(Character c) => c.Agent.State != AgentState.Gone && c.DeskId == null && c.OverflowSeatId == null;
     private static string WorkLocation(Character c) => c.DeskId != null ? "desk" : c.OverflowSeatId != null ? "overflow" : "queue";
-    private HashSet<Tile> WorkReservations() => characters.Values.Where(c => c.Agent.State != AgentState.Gone).Select(c => c.WorkTile).ToHashSet();
+    private HashSet<Tile> WorkReservations() => characters.Values.Where(c => c.Agent.State != AgentState.Gone && !c.Suppressed).Select(c => c.WorkTile).ToHashSet();
 
     private void AssignWorkplaces()
     {
@@ -308,16 +316,26 @@ public sealed class OfficeAnimator
         var overflow = source.OverflowSeats ?? [];
         var usedDesks = new HashSet<string>(StringComparer.Ordinal);
         var usedOverflow = new HashSet<string>(StringComparer.Ordinal);
+        var usedTiles = new HashSet<Tile>();
+        Tile? Reserve(Tile tile)
+        {
+            var free = reachable.Contains(tile) && !usedTiles.Contains(tile) ? tile :
+                reachable.Where(t => !usedTiles.Contains(t)).OrderBy(t => Distance(t, tile)).ThenBy(t => t.Y).ThenBy(t => t.X)
+                    .Select(t => (Tile?)t).FirstOrDefault();
+            if (free is {} found) usedTiles.Add(found);
+            return free;
+        }
         Tile DeskTile(Furniture f, InteractionPoint p) => new(f.X + p.X, f.Y + p.Y);
         foreach (var c in characters.Values.OrderBy(c => c.Order))
         {
+            c.Suppressed = false;
             if (c.Agent.State == AgentState.Gone) { SetWorkplace(c, null, null, Layout.Door, "down"); continue; }
             var desk = desks.FirstOrDefault(d => d.Furniture.DeskId == c.DeskId && c.DeskId != null);
             var seat = overflow.FirstOrDefault(s => s.Id == c.OverflowSeatId);
-            if (desk.Furniture != null && usedDesks.Add(desk.Furniture.DeskId!))
-                SetWorkplace(c, desk.Furniture.DeskId, null, NearestFree(DeskTile(desk.Furniture, desk.Point)), desk.Point.Facing);
-            else if (seat != null && usedOverflow.Add(seat.Id))
-                SetWorkplace(c, null, seat.Id, NearestFree(new(seat.X, seat.Y)), seat.Facing);
+            if (desk.Furniture != null && !usedDesks.Contains(desk.Furniture.DeskId!) && Reserve(DeskTile(desk.Furniture, desk.Point)) is {} deskTile)
+            { usedDesks.Add(desk.Furniture.DeskId!); SetWorkplace(c, desk.Furniture.DeskId, null, deskTile, desk.Point.Facing); }
+            else if (seat != null && !usedOverflow.Contains(seat.Id) && Reserve(new(seat.X, seat.Y)) is {} seatTile)
+            { usedOverflow.Add(seat.Id); SetWorkplace(c, null, seat.Id, seatTile, seat.Facing); }
             else SetWorkplace(c, null, null, c.WorkTile, "down");
         }
         var pending = characters.Values.Where(c => Queued(c)).OrderBy(c => c.Order).ToList();
@@ -326,33 +344,35 @@ public sealed class OfficeAnimator
             // Parents take their place first even when a child sorts before them by ID.
             var c = pending.FirstOrDefault(c => !pending.Any(p => p.Agent.Id == c.Agent.ParentId)) ?? pending[0];
             pending.Remove(c);
-            var free = desks.Where(d => !usedDesks.Contains(d.Furniture.DeskId!) && reachable.Contains(DeskTile(d.Furniture, d.Point))).ToArray();
-            var chosen = deskHistory.TryGetValue(c.Agent.Id, out var previous) ? free.FirstOrDefault(d => d.Furniture.DeskId == previous) : default;
+            var free = desks.Where(d => !usedDesks.Contains(d.Furniture.DeskId!) && !usedTiles.Contains(DeskTile(d.Furniture, d.Point)) && reachable.Contains(DeskTile(d.Furniture, d.Point))).ToArray();
+            var chosen = deskHistory.TryGetValue(c.Agent.Id, out var previous) ? free.FirstOrDefault(d => d.Furniture.DeskId == previous.Desk) : default;
             var parent = c.Agent.ParentId != null && characters.TryGetValue(c.Agent.ParentId, out var p) && p.Agent.State != AgentState.Gone ? p : null;
             if (chosen.Furniture == null && free.Length > 0)
                 chosen = parent == null ? free[0] : free.MinBy(d => Distance(DeskTile(d.Furniture, d.Point), parent.WorkTile));
             if (chosen.Furniture != null)
             {
-                var id = chosen.Furniture.DeskId!; usedDesks.Add(id); deskHistory[c.Agent.Id] = id;
+                var id = chosen.Furniture.DeskId!; usedDesks.Add(id); deskHistory[c.Agent.Id] = (id, lastUpdated);
+                usedTiles.Add(DeskTile(chosen.Furniture, chosen.Point));
                 SetWorkplace(c, id, null, DeskTile(chosen.Furniture, chosen.Point), chosen.Point.Facing);
                 continue;
             }
-            var freeOverflow = overflow.Where(s => !usedOverflow.Contains(s.Id) && reachable.Contains(new(s.X, s.Y))).ToArray();
+            var freeOverflow = overflow.Where(s => !usedOverflow.Contains(s.Id) && !usedTiles.Contains(new(s.X, s.Y)) && reachable.Contains(new(s.X, s.Y))).ToArray();
             var extra = parent == null ? freeOverflow.FirstOrDefault() : freeOverflow.MinBy(s => Distance(new(s.X, s.Y), parent.WorkTile));
             if (extra != null)
             {
-                usedOverflow.Add(extra.Id); SetWorkplace(c, null, extra.Id, new(extra.X, extra.Y), extra.Facing);
+                usedOverflow.Add(extra.Id); usedTiles.Add(new(extra.X, extra.Y)); SetWorkplace(c, null, extra.Id, new(extra.X, extra.Y), extra.Facing);
             }
         }
         var seats = desks.Select(d => DeskTile(d.Furniture, d.Point)).Concat(overflow.Select(s => new Tile(s.X, s.Y))).ToHashSet();
-        var queueTiles = reachable.Where(t => t != Layout.Door && Distance(t, Layout.Door) <= 4 && !seats.Contains(t))
+        var queueTiles = reachable.Where(t => t != Layout.Door && !usedTiles.Contains(t) && !seats.Contains(t))
             .OrderBy(t => Distance(t, Layout.Door)).ThenBy(t => t.Y).ThenBy(t => t.X).ToArray();
         var usedQueue = new HashSet<Tile>();
         foreach (var c in characters.Values.Where(Queued).OrderBy(c => c.Order))
         {
-            var tile = queueTiles.Contains(c.WorkTile) && usedQueue.Add(c.WorkTile) ? c.WorkTile :
-                queueTiles.FirstOrDefault(t => !usedQueue.Contains(t), queueTiles.FirstOrDefault(Layout.Door));
-            usedQueue.Add(tile); SetWorkplace(c, null, null, tile, "down");
+            var tile = queueTiles.Contains(c.WorkTile) && !usedQueue.Contains(c.WorkTile) ? c.WorkTile :
+                queueTiles.Where(t => !usedQueue.Contains(t)).Select(t => (Tile?)t).FirstOrDefault();
+            if (tile is {} free) { usedQueue.Add(free); SetWorkplace(c, null, null, free, "down"); }
+            else { c.Suppressed = true; SetWorkplace(c, null, null, new(-1, -1), "down"); }
         }
         var reserved = WorkReservations();
         foreach (var c in characters.Values)
@@ -400,10 +420,7 @@ public sealed class OfficeAnimator
             door = Enumerable.Range(0, Layout.WidthTiles * Layout.HeightTiles).Select(i => new Tile(i % Layout.WidthTiles, i / Layout.WidthTiles))
                 .Where(t => LayoutLoader.Walkable(Layout, t, obstacles)).OrderBy(t => Distance(t, Layout.Door)).FirstOrDefault(Layout.Door);
         if (!LayoutLoader.Walkable(Layout, door, obstacles)) return;
-        var queue = new Queue<Tile>(); queue.Enqueue(door); reachable.Add(door);
-        while (queue.TryDequeue(out var t))
-            foreach (var next in new Tile[] { new(t.X + 1, t.Y), new(t.X - 1, t.Y), new(t.X, t.Y + 1), new(t.X, t.Y - 1) })
-                if (LayoutLoader.Walkable(Layout, next, obstacles) && reachable.Add(next)) queue.Enqueue(next);
+        reachable = LayoutLoader.Reachable(Layout, door, obstacles);
     }
     private Tile NearestFree(Tile tile, HashSet<Tile>? excluded = null) => reachable.Contains(tile) && excluded?.Contains(tile) != true ? tile :
         reachable.Where(t => excluded?.Contains(t) != true).OrderBy(t => Distance(t, tile)).ThenBy(t => t.Y).ThenBy(t => t.X).FirstOrDefault(Layout.Door);
@@ -460,12 +477,16 @@ public sealed class OfficeAnimator
 
     public static IReadOnlyList<Tile> FindPath(OfficeLayout layout, Tile start, Tile target, HashSet<Tile>? blocked = null)
     {
+        if (layout.WidthTiles is < 1 or > 128 || layout.HeightTiles is < 1 or > 128) return [];
         blocked ??= LayoutLoader.Blocked(layout);
         if (start == target) return [];
         if (!LayoutLoader.Walkable(layout, start, blocked) || !LayoutLoader.Walkable(layout, target, blocked)) return [];
         var queue = new PriorityQueue<Tile, int>(); var from = new Dictionary<Tile, Tile> { [start] = start };
         var costs = new Dictionary<Tile, int> { [start] = 0 }; queue.Enqueue(start, 0);
+        var timer = System.Diagnostics.Stopwatch.StartNew(); var work = 0;
         while (queue.TryDequeue(out var current, out _))
+        {
+            if (++work > 65536 || work >= 4096 && timer.ElapsedMilliseconds > 50) return [];
             foreach (var next in new Tile[] { new(current.X + 1, current.Y), new(current.X - 1, current.Y), new(current.X, current.Y + 1), new(current.X, current.Y - 1) })
             {
                 if (!LayoutLoader.Walkable(layout, next, blocked)) continue;
@@ -480,6 +501,7 @@ public sealed class OfficeAnimator
                 }
                 queue.Enqueue(next, cost + Math.Abs(next.X - target.X) + Math.Abs(next.Y - target.Y));
             }
+        }
         return [];
     }
 }
