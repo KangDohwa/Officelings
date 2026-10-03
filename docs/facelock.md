@@ -23,7 +23,7 @@ For one sheet and its production manifest:
 
 ## Pixel operation
 
-Frame zero of each face-bearing row is the reference. The current p5 family and seven published roster designs have small manually reviewed native-pixel calibrations. These include glasses and white eyebrows, which are ambiguous to a skin-color classifier. Unlisted roster designs use conservative warm-skin spans, enclosed dark-feature detection and the eye-highlight band and are labelled `automatic-unreviewed` in their report. They need visual inspection after generation; a detection failure exits with an error and requests a reviewed profile rather than marking the character complete.
+Frame zero of each face-bearing row is the reference. The current p5 family and nine roster designs have small manually reviewed native-pixel calibrations. These include glasses, white eyebrows and the lavender cat hood, which are ambiguous to a skin-color classifier. Unlisted roster designs use conservative warm-skin spans, enclosed dark-feature detection and the eye-highlight band and are labelled `automatic-unreviewed` in their report. They need visual inspection after generation; a detection failure exits with an error and requests a reviewed profile rather than marking the character complete.
 
 For animation frames, search translations of ±7 native pixels by cross-correlating the head alpha/outline and hair colors **above the eye boxes**, so regenerated eyes do not drive alignment. Ties use a deterministic smallest-movement order. Reviewed placements handle differently pitched idle heads, the p5 sleep tilt and cap-teen's differently sized report heads, where hair geometry and facial geometry were generated inconsistently. Reviewed placements may exceed the automatic search range. No pixel scaling, rotation, interpolation or alpha blending occurs.
 
@@ -56,3 +56,26 @@ Processed 36 p5 variants, their three worker aliases and seven complete roster c
 | antigravity-worker-03 | 112 | 0 |
 
 Viewed before/after 6× nearest strips for those seven designs, including walking, idle and blink, plus all face-bearing activity rows for the four named roster characters. Reviewed cap-teen after it completed during this pass; added native boxes/placements and corrected blink remnants. Iterations corrected misplaced idle eyes, p5 sleep double lids and leftover blink highlights. Remaining limits include original head-size/pitch changes, authored idle mouths, cap-teen's report mouth and coffee mouth/cup occlusion; the score excludes those. Newly completed unlisted characters need visual review of their automatic masks. The report/strips under `%TEMP%\facelock-qa\` reflect the last QA snapshot, not future art-team changes.
+
+## Cat-hood and manager-suit follow-up (2026-10-04)
+
+Both characters now select built-in reviewed profiles by roster directory name. Cat-hood's lavender hood defeated the warm-skin detector; its profile supplies native eye/brow and mouth boxes for all ten face-bearing rows. Manager-suit's automatic boxes included side hair/ears and misplaced idle eyes, so it also uses a reviewed profile. The additions include per-facing idle placements and sleep placements. Cat-hood's right idle uses only the visible eye; the far eye in its three-quarter right walk stays hidden in the true-profile idle. Cat-hood's phone mouth is occluded and remains authored, as do talk articulation and coffee mouth/cup pixels.
+
+Run only these two publications (manager-suit retains its existing blink exports):
+
+```powershell
+& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/cat-hood/cat-hood.manifest.json --sheet assets/art/roster/cat-hood/cat-hood.png
+& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/manager-suit/manager-suit.manifest.json --sheet assets/art/roster/manager-suit/manager-suit.png --blink
+& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check
+```
+
+No external `--profile` file is needed for these named calibrations. An external profile replaces the eye/mouth rows and is labelled `custom`; named idle/sleep placement calibrations are not applied to that override.
+
+| Reviewed character | walk_down | walk_left | walk_right | talk | Maximum animated row | Maximum idle/walk group |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| cat-hood | 192 → 0 | 199 → 0 | 191 → 0 | 209 → 0 | 240 → 0 | 243 → 0 |
+| manager-suit | 232 → 0 | 232 → 0 | 231 → 0 | 232 → 0 | 232 → 0 | 232 → 0 |
+
+Values are the QA's maximum aligned RGB-channel difference over common-opaque eye boxes, measured from the original source to the final reviewed output. Viewed eight images total, including both characters' four-frame walking strips, idle and talk, calibration references, and before/after activity strips. Iteration enlarged incomplete eye/lid footprints and corrected idle placements without touching source art. The custom final strips are exact **5× nearest-neighbor** at `%TEMP%\facelock-qa\cat-hood-final-5x.png`, `manager-suit-final-5x.png` and `activities-final-5x.png`; the existing QA CLI still emits its standard 6× strips. Original ear/hood motion and head geometry remain authored, with alpha and all pixels outside the declared patches preserved.
+
+The full follow-up QA and corruption-detecting self-check passed: **49 publications, 490 animated eye rows + 147 idle/walk groups = 637 groups**, all after differences **0**, with no failures. Apron-baker and afro-sweater were not processed or edited. This snapshot does not mark other automatically detected designs visually reviewed.
