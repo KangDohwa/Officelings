@@ -1,0 +1,249 @@
+{
+  "native_size": [
+    640,
+    352
+  ],
+  "export_scale": 2,
+  "anchor": [
+    32,
+    61
+  ],
+  "background_sources": [
+    "../env2/sheets/floor-wood-oak.png",
+    "../env2/sheets/wall-navy.png"
+  ],
+  "placements": [
+    {
+      "sheet": "desk-side-wood-left",
+      "state": "on",
+      "frame": 0,
+      "desk_cell_top_left": [
+        32,
+        96
+      ],
+      "chair_cell_top_left": [
+        58,
+        96
+      ],
+      "chair_seat_anchor": [
+        32,
+        44
+      ],
+      "seat_in_scene": [
+        90,
+        140
+      ],
+      "facing": "left",
+      "character": "placeholder silhouette",
+      "draw_order": [
+        "chair-back",
+        "placeholder",
+        "desk",
+        "chair-front"
+      ]
+    },
+    {
+      "sheet": "desk-side-white-left",
+      "state": "off",
+      "frame": 0,
+      "desk_cell_top_left": [
+        184,
+        96
+      ],
+      "chair_cell_top_left": [
+        210,
+        96
+      ],
+      "chair_seat_anchor": [
+        32,
+        44
+      ],
+      "seat_in_scene": [
+        242,
+        140
+      ],
+      "facing": "left",
+      "character": "placeholder silhouette",
+      "draw_order": [
+        "chair-back",
+        "placeholder",
+        "desk",
+        "chair-front"
+      ]
+    },
+    {
+      "sheet": "desk-side-double-wood-left",
+      "state": "typing",
+      "frame": 1,
+      "desk_cell_top_left": [
+        336,
+        96
+      ],
+      "chair_cell_top_left": [
+        362,
+        96
+      ],
+      "chair_seat_anchor": [
+        32,
+        44
+      ],
+      "seat_in_scene": [
+        394,
+        140
+      ],
+      "facing": "left",
+      "character": "placeholder silhouette",
+      "draw_order": [
+        "chair-back",
+        "placeholder",
+        "desk",
+        "chair-front"
+      ]
+    },
+    {
+      "sheet": "laptop-table-side-left",
+      "state": "variants",
+      "frame": 0,
+      "desk_cell_top_left": [
+        488,
+        96
+      ],
+      "chair_cell_top_left": [
+        514,
+        96
+      ],
+      "chair_seat_anchor": [
+        32,
+        44
+      ],
+      "seat_in_scene": [
+        546,
+        140
+      ],
+      "facing": "left",
+      "character": "placeholder silhouette",
+      "draw_order": [
+        "chair-back",
+        "placeholder",
+        "desk",
+        "chair-front"
+      ]
+    },
+    {
+      "sheet": "desk-side-wood-right",
+      "state": "on",
+      "frame": 0,
+      "desk_cell_top_left": [
+        32,
+        224
+      ],
+      "chair_cell_top_left": [
+        6,
+        224
+      ],
+      "chair_seat_anchor": [
+        31,
+        44
+      ],
+      "seat_in_scene": [
+        37,
+        268
+      ],
+      "facing": "right",
+      "character": "placeholder silhouette",
+      "draw_order": [
+        "chair-back",
+        "placeholder",
+        "desk",
+        "chair-front"
+      ]
+    },
+    {
+      "sheet": "desk-side-white-right",
+      "state": "off",
+      "frame": 0,
+      "desk_cell_top_left": [
+        184,
+        224
+      ],
+      "chair_cell_top_left": [
+        158,
+        224
+      ],
+      "chair_seat_anchor": [
+        31,
+        44
+      ],
+      "seat_in_scene": [
+        189,
+        268
+      ],
+      "facing": "right",
+      "character": "placeholder silhouette",
+      "draw_order": [
+        "chair-back",
+        "placeholder",
+        "desk",
+        "chair-front"
+      ]
+    },
+    {
+      "sheet": "desk-side-double-wood-right",
+      "state": "typing",
+      "frame": 1,
+      "desk_cell_top_left": [
+        336,
+        224
+      ],
+      "chair_cell_top_left": [
+        310,
+        224
+      ],
+      "chair_seat_anchor": [
+        31,
+        44
+      ],
+      "seat_in_scene": [
+        341,
+        268
+      ],
+      "facing": "right",
+      "character": "placeholder silhouette",
+      "draw_order": [
+        "chair-back",
+        "placeholder",
+        "desk",
+        "chair-front"
+      ]
+    },
+    {
+      "sheet": "laptop-table-side-right",
+      "state": "variants",
+      "frame": 0,
+      "desk_cell_top_left": [
+        488,
+        224
+      ],
+      "chair_cell_top_left": [
+        462,
+        224
+      ],
+      "chair_seat_anchor": [
+        31,
+        44
+      ],
+      "seat_in_scene": [
+        493,
+        268
+      ],
+      "facing": "right",
+      "character": "placeholder silhouette",
+      "draw_order": [
+        "chair-back",
+        "placeholder",
+        "desk",
+        "chair-front"
+      ]
+    }
+  ]
+}
