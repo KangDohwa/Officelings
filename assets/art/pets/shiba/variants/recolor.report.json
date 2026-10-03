@@ -1,0 +1,107 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "shiba.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 2,
+  "variants": [
+    {
+      "name": "cream",
+      "sheet": "cream.png",
+      "substituted_pixels": 4784,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#a08a6e",
+          "pixels": 148
+        },
+        {
+          "from": "#b58043",
+          "to": "#dbc5a3",
+          "pixels": 968
+        },
+        {
+          "from": "#eca662",
+          "to": "#faecc9",
+          "pixels": 3668
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 4516,
+      "passthrough_color_count": 5,
+      "passthrough_colors": [
+        {
+          "hex": "#191e1e",
+          "pixels": 1936
+        },
+        {
+          "hex": "#faecc9",
+          "pixels": 1692
+        },
+        {
+          "hex": "#e7d1ac",
+          "pixels": 651
+        },
+        {
+          "hex": "#090b0b",
+          "pixels": 232
+        },
+        {
+          "hex": "#bf6554",
+          "pixels": 5
+        }
+      ],
+      "manifest": "cream.manifest.json"
+    },
+    {
+      "name": "sesame",
+      "sheet": "sesame.png",
+      "substituted_pixels": 4784,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#3e403f",
+          "pixels": 148
+        },
+        {
+          "from": "#b58043",
+          "to": "#6c4b2f",
+          "pixels": 968
+        },
+        {
+          "from": "#eca662",
+          "to": "#b58043",
+          "pixels": 3668
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 4516,
+      "passthrough_color_count": 5,
+      "passthrough_colors": [
+        {
+          "hex": "#191e1e",
+          "pixels": 1936
+        },
+        {
+          "hex": "#faecc9",
+          "pixels": 1692
+        },
+        {
+          "hex": "#e7d1ac",
+          "pixels": 651
+        },
+        {
+          "hex": "#090b0b",
+          "pixels": 232
+        },
+        {
+          "hex": "#bf6554",
+          "pixels": 5
+        }
+      ],
+      "manifest": "sesame.manifest.json"
+    }
+  ]
+}
