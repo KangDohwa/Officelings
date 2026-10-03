@@ -125,6 +125,30 @@ PROFILES = {
         ([(7,19,13,26),(16,19,22,26)], None),
         ([(9,19,15,26),(17,19,23,26)], (13,27,17,30)),
     ],
+    "cat-hood": [
+        ([(9,28,15,35),(18,28,24,35)], (14,34,19,36)),
+        ([(8,29,14,35)], (7,34,12,37)),
+        ([(17,28,22,35),(23,29,26,34)], (21,34,26,37)),
+        ([(18,32,23,38)], (19,38,23,40)),
+        ([(15,27,20,33)], (17,33,20,35)),
+        ([(9,37,14,40),(17,35,22,39)], (14,40,19,42)),
+        ([(17,27,23,33)], None),
+        ([(16,30,21,35)], None),
+        ([(17,27,23,33)], None),
+        ([(11,28,16,34),(19,28,24,34)], (14,33,19,35)),
+    ],
+    "manager-suit": [
+        ([(9,26,15,33),(18,26,24,33)], (14,33,19,36)),
+        ([(10,26,17,34)], (11,34,16,36)),
+        ([(15,26,22,33)], (18,34,23,36)),
+        ([(11,28,17,34),(19,28,22,34)], (13,34,18,36)),
+        ([(10,26,15,32),(18,26,21,32)], (13,33,18,35)),
+        ([(10,30,15,35),(17,30,23,35)], (14,37,19,39)),
+        ([(11,27,17,33),(19,26,24,33)], None),
+        ([(12,26,17,32),(20,26,24,32)], (15,32,20,34)),
+        ([(9,24,15,32),(17,24,22,32)], None),
+        ([(9,25,15,33),(18,25,23,33)], (14,33,19,37)),
+    ],
 }
 BLINK_EYES = {
     "dev-hoodie": [[(9,22,14,27),(20,22,24,27)],[(9,22,15,26)],[(17,22,22,26)]],
@@ -144,9 +168,15 @@ IDLE_OFFSETS = {
     "professor": [[0,-7],[1,-2],[2,-2]],
     "punk-girl": [[0,-1],[-2,-3],[4,-1]],
     "p5": [[0,-1],[-3,-4],[-1,-4]],
+    "cat-hood": [[0,-1],[0,-1],[2,-1]],
+    "manager-suit": [[0,-1],[-1,-2],[2,-2]],
 }
+# The cat's right idle hides the far eye visible in its three-quarter walk.
+IDLE_EYE_BOXES = {"cat-hood": {"right": [(17,28,22,35)]}}
 ROW_OFFSETS = {"p5": {"sleep": [[0,0],[0,0]]},
-               "cap-teen": {"report": [[0,0],[-2,5],[-4,9]]}}
+               "cap-teen": {"report": [[0,0],[-2,5],[-4,9]]},
+               "cat-hood": {"sleep": [[0,0],[0,-1]]},
+               "manager-suit": {"sleep": [[0,0],[1,-1]]}}
 
 
 class Incomplete(ValueError):
@@ -445,6 +475,7 @@ def process(name, mp, sp, roster=None, make_blink=False, frames_dir=None, profil
         # Her right idle is a true profile; its far eye is hidden behind hair.
         if profile_key=="punk-girl" and direction=="right":
             boxes=boxes[:1]
+        boxes=IDLE_EYE_BOXES.get(profile_key,{}).get(direction,boxes)
         out,record=lock_row([frames["idle"][i]],boxes,None,
                             reference=frames[state][0],ref_source={"state":state,"frame":0},
                             offsets=[IDLE_OFFSETS[profile_key][i]] if profile_key in IDLE_OFFSETS else None)
