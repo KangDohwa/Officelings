@@ -1,5 +1,7 @@
 ﻿**Performance measurement — committed `280e7a61b0d3c049de75967892debac15627fbcc`**
 
+The results in this first section describe an older build. Current-source profiling, changes and validation are recorded in **After optimization** at the end of this report. CPU always means percent of **one core**, `100 * process CPU seconds / wall seconds`; whole-machine percentages are separately divided by the logical processor count. Earlier “about 1% idle” whole-machine claims on this 18-thread machine meant roughly 18–27% of one core.
+
 Measured on 2026-10-04 KST with Release assemblies built in the detached `%TEMP%/vd-perf` worktree. Build: zero warnings/errors. Runtime: .NET 10.0.11, SDK 10.0.400, Windows NT 10.0.26200, 18 logical processors available to the process. Hardware inventory was denied by the sandbox. Other agents remained active; these are measurements of this constrained, busy environment, not a quiet reference machine.
 
 The rendering, pack and tracker measurements completed. **The requested twelve-condition, ten-minute idle soak did not complete within the approximately forty-minute work budget. There is no ten-minute leak verdict.** Failed startup attempts and short samples are retained, rather than presented as successful soaks. Native desktop hosting was not attempted: committed `WindowModes.EmbedDesktop` sends Explorer's private wallpaper messages, contrary to the requirement not to disturb the shell.
@@ -16,7 +18,7 @@ The initial `Get-Counter` collector incurred delays of tens of seconds; its part
 
 Repeated starts failed with `InvalidDataException: Layout navigation exceeded its work/time budget`, including a sequential start. The stack identifies `OfficeView.cs:19` creating its default `OfficeAnimator`, whose built-in layout traversal has a 50 ms wall-clock limit (`LayoutLoader.cs:156`). The final harness retries only this constructor rejection, records the retry count and keeps all product assemblies unchanged. These retries are a harness accommodation, not a claim that stock CLI startup succeeds. Final coverage and any available samples are appended below. Median/p95/max use sorted samples and nearest-rank p95; drift is least-squares slope against actual elapsed minutes. Short-run slopes cannot establish or exclude leaks.
 
-**Accepted short idle samples ??not ten-minute soaks**
+**Accepted short idle samples — not ten-minute soaks**
 
 All twelve owned windows eventually became ready. The common sampling epoch began only after prolonged startup, so their ages differed substantially. Sampling was stopped at the work budget. The first nine scheduled samples (approximately 5 to 45 seconds) precede shutdown and are used below; later raw rows overlap closure, including a zero working-set row, and are excluded explicitly. Every window decoded 96 sheets; 4 final starts needed 4 layout-budget retries in total. These results are a short concurrent observation, not a controlled ten-minute comparison.
 
@@ -137,4 +139,129 @@ try {
 ```
 
 `soak.ps1` kills only processes it created on failure and bounds readiness, sampling and shutdown. Startup retries and partial outputs must be inspected, not silently discarded. `results/pilot*`, `results/soak`, `results/soak-pdh` and `results/soak-final` are diagnostic/aborted runs; they are not ten-minute evidence. The raw renderer/pack records and tracker fixture checks are reproducible observations independent of the proposed fixes. No commit, upload or product change was made.
+
+## After optimization
+
+Measured on 2026-10-04 KST. The new before baseline is the unmodified App/Core/Tracker at `c9037585c1eb863aa7a64d83be206e68f9a0a8be`, captured before editing; it is **not** the historical `280e7a6` build above. The after build contains the current working-tree performance changes. Concurrent art commits advanced HEAD during the work, without changing `src/`, tests or the embedded `assets/pack/`; their files were preserved. App/Core DLL hashes and runtime MVIDs accompany the harness records. A first diagnostic after directory accidentally resolved historical DLLs through MSBuild default items: `current-first-after` is excluded. The harness projects now disable those implicit items and the build script verifies copied/reference DLL SHA-256 equality.
+
+This remained a busy 18-logical-processor machine. Own build/test work was paused during live intervals; other agents were still running. Processes run sequentially, with three repeats per WPF condition. Startup/readiness and at least ten seconds of live warmup are discarded, followed by roughly fifteen seconds of one-second CPU samples. Tables report the minimum of the three per-run medians, plus the arithmetic mean of the three full-window aggregate percentages. Raw per-run medians, p95/max and aggregate `CPU seconds / wall seconds` remain available: Windows CPU accounting can give a zero one-second median even when the aggregate is nonzero. The separate machine percentage divides the one-core percentage by 18. These short runs do not establish a ten-minute leak verdict.
+
+An observer control found another material measurement error: the original sampler queried process memory inside the target UI thread once per second. Three blank WPF windows with no product timers or drawing still had a minimum per-run CPU median of **1.534% of one core** (0.0852% of machine capacity); the sampler UI CPU median was 1.529%, with median memory-query time at least 13.05ms. Those internal live samples include observer overhead and are excluded from the final live comparison. The replacement PowerShell collector queries CPU/memory/threads outside the target; native target start/end counters provide the full aggregate and allocation/timer/damage totals. No estimated observer cost is subtracted. See `current-after-observer/observer-summary.json` and [the collector methodology](../tools/perf/README.md).
+
+The windows are nonactivating, offscreen, 720×480 at 1x, with temporary homes and brand directories. Fixed working fixtures disable source polling so it cannot replace the injected agents; a separate empty-home fixture exercises actual background polling. Normal/topmost/transparent are verified from native styles. Desktop hosting, visible compositor cost and visible foreground launch latency are not inferred from these runs. No real input, shell minimization or foreground-changing operation was used.
+
+**Live process measurements**
+
+The complete matched matrix below precedes the final transparent walking pacing/deadline correction. Every row has three before and three after processes. CPU columns are percent of **one core**, followed by the separate percentage of the 18-processor machine. The aggregate column retains the range of full-window averages across repeats; it prevents a quantized zero median from being mistaken for zero CPU.
+
+| Mode / workload | Before min-median core / machine % | After min-median core / machine % | Before mean core / machine % | After mean core / machine % | After aggregate one-core range % |
+|---|---:|---:|---:|---:|---:|
+| normal / 0 | 18.333 / 1.018 | 1.432 / 0.080 | 25.581 / 1.421 | 5.049 / 0.281 | 3.847–7.453 |
+| normal / 12 working | 31.522 / 1.751 | 0.761 / 0.042 | 33.953 / 1.886 | 3.144 / 0.175 | 2.584–4.051 |
+| normal / 12 mixed activities | 37.301 / 2.072 | 0.000 / 0.000 | 39.700 / 2.206 | 4.259 / 0.237 | 2.071–7.379 |
+| topmost / 0 | 15.155 / 0.842 | 0.000 / 0.000 | 22.978 / 1.277 | 2.982 / 0.166 | 2.395–3.433 |
+| topmost / 12 working | 17.552 / 0.975 | 1.531 / 0.085 | 27.676 / 1.538 | 2.842 / 0.158 | 2.497–3.430 |
+| topmost / 12 mixed activities | 22.928 / 1.274 | 0.764 / 0.042 | 30.765 / 1.709 | 3.316 / 0.184 | 2.183–3.933 |
+| transparent / 0 | 10.753 / 0.597 | 0.000 / 0.000 | 18.254 / 1.014 | 3.812 / 0.212 | 2.081–5.404 |
+| transparent / 12 working | 29.702 / 1.650 | 1.521 / 0.084 | 40.667 / 2.259 | 3.635 / 0.202 | 2.804–4.677 |
+| transparent / 12 mixed activities | 49.625 / 2.757 | 6.110 / 0.339 | 65.970 / 3.665 | 9.490 / 0.527 | 6.022–12.881 |
+| normal / 0, actual source polling | 14.501 / 0.806 | 0.000 / 0.000 | 21.666 / 1.204 | 4.018 / 0.223 | 3.528–4.677 |
+
+Mixed-activity after runs had up to four characters moving simultaneously and 245–308 moving animation callbacks per measured window. They are not twelve continuously walking characters. Empty normal allocation fell from **1,052.4 to 58.1 KiB/s**; all three after repeats were 58.1–58.4 KiB/s. App scheduled callbacks fell from 7.08 to **2.92/s**, with zero root scene redraws and zero room rebuilds during measurement. This callback count excludes OS/render-thread wakeups, which have not been measured. The matched count/allocation/damage comparison passed **52/52** gates. Raw records and repeat-level CPU/memory/allocation totals are in `current-before-external/`, `current-after-measured/comparison-summary.json` and `current-after-measured/final-matrix.csv`.
+
+The short matrix does **not** establish the idle ≤1% target or the transparent/topmost ≤1.3× target. A separate traced diagnostic observed 32 background-JIT batches compiling 160 methods, continuing 10.72 seconds beyond the ten-second warm marker. Their 239ms summed elapsed time is not CPU time and is not subtracted. Most diagnostic process CPU was outside the UI thread, but its dominant native function remains unidentified. `dotnet-trace` was installed in the disposable results directory; sampled Dispatcher.GetMessage/SystemEvents waits are not CPU hotspots. Kernel WPR capture failed with OS policy error `0xc5585011`, and left no recording active. See `native-diagnostics/` and `jit-reader/diagnostic.json`.
+
+Three separate representative native-memory diagnostics used `PROCESS_MEMORY_COUNTERS_EX2.PrivateWorkingSetSize`, rather than confusing private committed bytes or total RSS with private working set. Peaks were **121.5 MB** (normal/0), **143.3 MB** (normal/12), and **185.5 MB** (transparent/12), below 200 MB in those runs. They are not three-repeat memory results for every workload or a long-term growth test; the traced normal/0 CPU is excluded from the clean cohort. Total RSS and private commit are retained separately in the raw records.
+
+| Requested budget | Evidence from the short matrix |
+|---|---|
+| Empty idle ≤1% of one core | Not met by normal/0 median (1.432%); averages were 3.847–7.453%. |
+| Fewer than 3 wakeups/s; no animation ticks for a static scene | 2.92 app callbacks/s in the authored empty room; static-scene timer test has zero animation callbacks. OS wakeups remain unmeasured. |
+| Twelve mostly working ≤4% | All mode minimum medians were below 4%; some full-window averages exceeded 4%. |
+| Walking/activities ≤10% | Normal/topmost mixed-activity averages were below 10%; transparent reached 12.881% before the final pacing correction. |
+| Transparent/topmost within 1.3× normal | Not established by the short noisy/quantized matrix. |
+| Empty allocation ≤100 KiB/s | Met in all three normal/0 repeats (58.1–58.4 KiB/s); a long-term growth bound is not established. |
+| Visible first frame ≤1.5s | Offscreen marker met in three after runs; visible launch unmeasured. |
+| Private working set ≤200 MB | Met in the three representative native-memory diagnostics; broader/longer coverage unmeasured. |
+
+The final pacing/deadline build completed an additional three normal and three transparent mixed-activity runs **before the stop instruction**. These are a separate cohort, not replacements selected from the earlier matrix:
+
+| Mode / 12 mixed activities | Minimum of three medians, core / machine % | Mean of three aggregates, core / machine % | Aggregate core range % |
+|---|---:|---:|---:|
+| normal | 2.985 / 0.166 | 6.763 / 0.376 | 3.944–8.687 |
+| transparent, 10 fps walking | 1.521 / 0.084 | 5.334 / 0.296 | 3.121–7.584 |
+
+Normal repeats had 227–252 moving callbacks, transparent 124–137, and three to five characters moving simultaneously. Transparent app callbacks were 10.04–10.32/s. Both cohorts' measured activity averages were below 10%, but changing activity and machine noise still prevent certification of the 1.3× mode budget. Records: `current-after-activity-delta/summary.json` and `wrap-up/activity-delta-means.json`. The longer-warmup comparison was interrupted after only one before run; `current-before-warm45/` is excluded and there is no accepted matching after cohort. At the user's stop instruction, optimization and further CPU campaigns stopped; incomplete runs remain marked and are not used to claim a pass.
+
+**Hotspots and changes**
+
+The throwaway friend-assembly harness brackets actual product methods with Stopwatch and current-thread allocation counters after warmup. Reflection/boxing overhead is retained and separately controlled. Each cell below is minimum-of-three call medians, milliseconds / managed bytes. Fixed settled snapshots isolate the phases; Core.Update includes its own subphases. Direct OnRender records drawing commands without rasterization. Full RenderBitmap includes the smoke HWND/bitmap lifecycle and dispatcher work, so these measurements must not be subtracted to estimate an isolated HWND cost.
+
+| Agents / phase | Before ms / B | After ms / B |
+|---|---:|---:|
+| 0 / Core.Update | 0.0791 / 61,536 | 0.0218 / 32 |
+| 0 / AssignWorkplaces | 0.0298 / 17,088 | 0.0001 / 0 |
+| 0 / RefreshFurniture | 0.0449 / 43,720 | 0.0201 / 0 |
+| 12 / Core.Update | 0.3191 / 87,416 | 0.0430 / 3,888 |
+| 12 / AssignWorkplaces | 0.0628 / 21,792 | 0.0002 / 0 |
+| 12 / RefreshFurniture | 0.0642 / 44,672 | 0.0226 / 0 |
+| 12 / direct View.OnRender | 0.7237 / 172,752 | 0.2215 / 82,680 |
+| 12 / smoke RenderBitmap, 1x | 68.9551 / 390,260 | 14.5089 / 125,708 |
+
+Records: `tools/perf/results/current-before/phases-repeat-{1,2,3}` and `current-after/phases-repeat-{1,2,3}`. The empty direct Core call's 32 bytes include diagnostic boxed arguments; the unboxed static-room regression test measures **0B for 1,000 warmed calls**. Smoke timing is not a live frame time: production animation retains one window and does not allocate a RenderTargetBitmap/HwndSource every frame.
+
+Core now retains unchanged workplace assignments, geometry, furniture and immutable view/sprite outputs; bounded path and atlas/row/frame caches avoid repeated navigation and lookup work. WPF retains the rasterized room and separate furniture/body/overlay visuals. Only changed visual bounds are rerecorded; the static bitmap is regenerated for geometry/camera/DPI changes. This uses WPF's retained drawing invalidation, rather than manually repainting the whole scene. `RedrawPixelArea` is the sum of logical changed bounds, not an OS/GPU/compositor dirty-region measurement. Overlapping bounds may be counted more than once.
+
+A second attribution pass caught a remaining O(furniture²) depth/host search on every TV change: a warmed pass over 64 furniture objects allocated 50,744B and took 0.840ms. Retaining geometry depths while checking live lounge-seat occupancy reduced it to 2,080B / 0.0124ms. Direct changing-TV Core+View work fell from 63,999B / 0.777ms to 16,400B / 0.202ms per frame. These are mean diagnostic calls in `results/depth-probe`, not live CPU estimates; the final live matrix measures the complete process independently. Earlier phase rows above precede this last depth cache.
+
+The animation timer stops when no animation/deadline exists, wakes for scheduled blink/seat deadlines, follows authored ambient rates up to 8 fps and uses up to 30 fps for walking/tag fades. The final pacing correction samples transparent walking at 10 fps while tag fades remain 30 fps; authored poses/pixels at a specified animation time are unchanged, but transparent walking presentation has fewer intermediate samples. Past immediate deadlines cannot turn a continuously animating window into a 60 fps loop, and turn/lower/raise phases retain their actual 120/240/360ms deadlines. Visibility/source maintenance is coalesced into continuous animation callbacks, otherwise checked at 1 Hz. Minimized, hidden, DWM-cloaked or conservatively fully covered windows suspend animation; one higher opaque covering rectangle is detected, while unions of multiple or layered windows are not inferred. A low-frequency check permits resumption. Sheets decode on first use, freeze and share within the immutable pack; initial pack/layout preparation remains asynchronous. Text measurements and reusable scene ordering buffers are cached. Actual source polling runs on a background task.
+
+Fresh offscreen process-start-to-ContentRendered measurements were **5,937 / 6,078 / 2,279ms before**, and **1,165 / 1,119 / 1,497ms after** (three processes each; no cache flush). After loading and construction, zero sheets were decoded; the first scene used 36 shared sheets instead of eagerly decoding 96. The measured after marker was below 1.5s in these runs, but it is an offscreen ContentRendered marker, so the visible-launch requirement remains unverified. Deferred tray creation removed a separately attributed 337ms constructor cost; QA does not create the tray. See `startup-repeat-{1,2,3}/startup.json` in the matched directories.
+
+Tracker retains serialized static atlas/assets/layout and compares dynamic output before publishing, reuses serialization buffers, and updates at 1–2 Hz settled / nominal 5 Hz moving. An additional allocation finding showed that exact-length output arrays still reallocated when timestamp precision or sequence digits changed; serialization now exposes the reusable buffer as ReadOnlyMemory and atomic delivery synchronously writes its span. Compact cached JSON sections reduced the representative state from 744,903B to 356,387B while remaining equivalent as parsed JSON; three warmed native-CPU write probes reduced median CPU per 100 atomic writes from 156.25ms to 109.375ms. These probes attribute a change and do not stand in for E2E CPU. Unchanged snapshots publish a three-second freshness heartbeat; every successful publication advances sequence, with a fresh timestamp on each retry. Atomic delivery remains unchanged. See the additive [state contract](state-schema.md) and isolated WPF `--home` / `--output` smoke options in [limits](limits.md). E2E now includes the WPF snapshot renderer. Its exported manifest has an explicit import path with hash/dimension validation; ordinary authored packs still reserve the fallback ID.
+
+**Tracker targets remain unmet**
+
+Tracker values below are full-window mean CPU, **not minimum-of-three medians**: only one accepted run exists per listed stage. Quiet windows are not directly matched: the baseline uses the scenario's original resource interval; the latest quiet value restarts the tracker on the completed fake home, discards 20 seconds, then measures approximately 40 seconds. Long-soak uses 20× simulator speed, discards 20 seconds, and measures approximately 280 active seconds. Simulator/renderer/collector CPU is outside the tracker process.
+
+| Tracker workload | Before mean core / machine % | Measured after mean core / machine % | Target one-core % | Result |
+|---|---:|---:|---:|---|
+| quiet | 4.554 / 0.253 | **2.892 / 0.161** | ≤0.5 | Not met; latest compact-buffer build, 0 live agents, stable 40 file handles. |
+| long-soak, 20× | 10.468 / 0.582 | **12.986 / 0.721** | ≤3 | Not met; this run precedes the final compact JSON/cadence changes. No later complete long-soak CPU result exists. |
+
+The long-soak run's lifecycle/schema/shared-reader and offscreen Windhawk/WPF smoke checks passed, while CPU failed. It peaked at 85.1 MiB RSS with stable median file handles (44→44); latest quiet peaked at 69.5 MiB RSS. Earlier quiet startup handle growth is not evidence of an unbounded leak. Records: `tracker-e2e/baseline-repeat-1/`, `tracker-e2e/after-repeat-1/long-soak/cpu-summary.json` and `tracker-e2e/improved-quiet/cpu-summary.json`.
+
+Why the CPU budgets are not claimed: retained rendering and cached publication demonstrably remove work, but they do not explain all remaining process CPU. Actual completed-home phase diagnostics independently checked 0 and 12 live inputs. A sleeping main thread still accumulated 0.594 / 1.188 process CPU seconds over 12 seconds, with zero CPU on that main thread. A separate traced quiet run observed compilation activity on a background thread, but tracing itself adds cost. Neither observation identifies the dominant uninstrumented native function, nor permits subtraction from E2E CPU. The kernel recorder was blocked by OS policy; further actual-loop attribution, runtime-configuration comparisons and complete reruns were not finished before the user requested stopping. No experimental tiered-compilation setting was applied to the product. See `tracker-e2e/native-phase-summary.json` and `tracker-e2e/native-trace-quiet/`; these diagnostics are not replacement gate results.
+
+**Deterministic regression checks and validation**
+
+Three demo times (0, 12, 36 s), each at 1x/2x/3x, match the original decoded Pbgra32 SHA-256 exactly: **9/9**, with no intentionally different pixels. A nearest-neighbor cache rounding error found at 3x was fixed by rasterizing at the original viewport origin and transform. The golden hashes were captured from the unmodified before DLLs; after-rendered images did not become their own expectations.
+
+Regression tests enforce zero animation ticks for static empty scenes, zero static Core allocations, bounded settled Core allocations, unchanged room/damage counters, small bounds for one moving body, lazy/frozen/shared images, and heartbeat/locked-publisher freshness/sequence behavior. A retained-source empty-room test preserves changing TV frames and caps Core+View+dispatcher thread allocations at 100 KiB/s over 300 frames / 100 logical seconds, after 30 warmup frames; no wall-clock speed gate or per-frame bitmap capture is involved. Background-thread allocations are covered by the separate whole-process live collector. The count harness performs 240 fixed updates after 40 warmup updates and compares allocations, draw counts and logical area without timing gates. [Benchmark instructions](../tools/perf/README.md) describe fresh assembly snapshots, warmup, sequential repeats, pixel comparison and count-based regression gates.
+
+Final wrap-up Release `dotnet build Vibedotcom.sln -c Release`: **0 warnings, 0 errors**. Full `dotnet test ... --no-build`: **241 passed, 0 skipped**, approximately 40 s, including all nine baseline pixel comparisons and the changing-TV allocation gate. Python tool unit tests: **28 passed** (65.2 s); animation-normalization checks: **PASS**; quiet-tail QA unit checks: **4 passed**. All five simulator scenarios completed isolated generation/checkpoints at 1000× as functional checks; no tracker CPU campaign or live E2E measurement was added during wrap-up. The earlier E2E unit result remains **10 tests OK, including one existing expected failure**; it was not rerun as that same suite during wrap-up. Final logs, TRX, scenario logs and slowest-test JSON are under `tools/perf/results/wrap-up/`. Pixel tests still check all pixels; slow loops were reduced by copying tile buffers once, comparing spans, and formatting assertions only on failure. The archive discovery fixture still contains 1,000 files, with redundant directory/UTF-8 work removed. The publisher-lock test holds the lock across the three-second heartbeat; its further proposed shortening was not applied after the stop instruction.
+
+The slowest five tests in the final complete run (busy-machine elapsed durations, not standalone benchmarks):
+
+| Test | Seconds |
+|---|---:|
+| RenderingTests.TransparentMarginsPreserveOpaqueTilesAndSpritesAndUniformOpacity | 8.523 |
+| TrackerPerfTests.LockedPublicationRetriesWithAFreshTimestampAndIncreasingSequence | 8.124 |
+| NameTagTests.PlateAndIconVisibilityUseActualOffscreenPixels (icon) | 7.994 |
+| TrackerPerfTests.UnchangedRoomPublishesHeartbeatsWithoutRewritingLayout | 7.098 |
+| WpfPerfTests.DemoPixelsMatchUnmodifiedHeadAtAllThreeDensities (0 s) | 6.438 |
+
+`windhawk/` was read only. Corresponding follow-ups there are adaptive SceneLoopBody/UiLoopBody scheduling, cached Renderer::Room geometry with dirty Renderer::Render/CopyPixels updates, reused Scene/HitBoxes ordering buffers, and stable ParseSnapshot/Renderer::Load metadata validation. Windhawk already caches same-path/SHA decoded images and crops and skips unchanged PresentLatest pixels; eager sheet decoding should not be attributed to it.
+
+**Reproduction and next work, not executed during wrap-up**
+
+[The benchmark script](../tools/perf/benchmark.ps1) and [its methodology](../tools/perf/README.md) build a fresh frozen assembly snapshot, discard warmup, run sequential three-repeat suites, retain native aggregates, and compare independently captured pixels. Example after an already completed Release build:
+
+```powershell
+.\tools\perf\benchmark.ps1 -Mode All -AppBin src/Vibedotcom.App/bin/Release/net10.0-windows -Output tools/perf/results/NEW_RUN
+# Tracker/E2E source-tree run; existing Windhawk renderer is used read-only:
+.\tools\qa\e2e.ps1 -Workspace -DirectTracker -Scenario quiet,long-soak -Speed 20 -QuietSteadySeconds 60
+```
+
+Do not reuse a result directory. Before trusting another CPU result, use the external collector, retain both minimum medians and aggregate means, and establish a matching warmup protocol from observed settling rather than discard a favorable suffix. Next priorities are uninstrumented actual-loop Tracker phase attribution (including background CPU), a complete latest-code long-soak/quiet rerun, and supported native CPU stacks on a machine whose recording policy permits them. Then verify visible startup/compositor performance, OS wakeups and matched mode ratios on a quiet normal machine. Runtime/tiered-compilation alternatives need comparative evidence before a product change. These are future tasks, not claims of work completed here.
 

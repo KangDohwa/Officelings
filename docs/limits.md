@@ -6,7 +6,9 @@ Vibedotcom observes source activity, not the tools' computation or approval UI. 
 
 Log events may arrive late. Detached/background workers without transcripts cannot be discovered. Cold-start history outside the bounded JSONL prefix/suffix is intentionally not reconstructed. Claude worker parsing has synthetic coverage, but the initial investigation saw no live worker transcript. Antigravity remains `bestEffort:true`; its saved state, DB copies and local API can be incomplete or unavailable.
 
-The WPF app renders up to 30 fps while walking and 8 fps otherwise. It redraws when positions/frames change and caches the static room and decoded crops. Live tracker polling runs off the UI thread. Headless snapshots default to about 5 fps. No actual video or audio plays in the office. Missing parents use the worker's own desk vicinity. Rooms larger than the viewport at 1x require panning.
+The WPF app renders up to 30 fps while walking (10 fps in transparent mode) and follows authored animation rates (up to 8 fps) for ambient changes; tag fades use up to 30 fps. With nothing to animate its animation timer stops; timed blinks and transitions use their next deadline. Static room pixels and individual furniture/body visuals are retained; only changed visual bounds are invalidated. Sheets decode on first use and frozen bitmaps are shared within an asset pack. Live tracker polling runs off the UI thread. Headless updates use 1–2 Hz while idle and up to 5 Hz while moving, skip unchanged content, and publish an idle heartbeat every three seconds. No actual video or audio plays in the office. Missing parents use the worker's own desk vicinity. Rooms larger than the viewport at 1x require panning.
+
+Animation pauses for minimized, hidden or DWM-cloaked windows, and when one higher opaque window completely covers the office (including desktop hosting). Coverage by multiple windows or layered/per-pixel windows is not inferred. The low-frequency visibility/log check remains active so animation can resume; owned offscreen QA intentionally measures rendering instead of suspension.
 
 Tests exist for parsing, tailing, activity, pathfinding, sprites and snapshots. They do not imply that every layout, malformed setting or concurrent art publication is safe. The dated [Core review](review-core.md), [App review](review-app.md) and [Windhawk review](review-windhawk.md) record reproduced defects and verification gaps. Compare each finding with the current code before marking it resolved.
 
@@ -45,7 +47,7 @@ Without `--demo`, these read recent logs. Do not use their output in public scre
 Other bounded checks:
 
 ```powershell
-# 20-second CPU sample with fabricated idle agents and an empty tracker home:
+# 20-second CPU sample after >=5 seconds warmup, fabricated activity agents and an empty tracker home:
 Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--profile-idle artifacts/idle-profile' -Wait
 # Own-window lifecycle check, offscreen and nonactivating:
 Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--demo --qa --quit-after 5' -Wait
@@ -55,4 +57,6 @@ Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -W
 
 QA forces normal z-order, suppresses cursor polling and writes neither tray state nor personal settings. Fake HWND topologies check desktop/topmost/click-through policy and classic/Windows 11 host selection without altering the shell. These checks use no global input, Show Desktop, foreground activation or termination of unrelated processes. The [app review](review-app.md) found an earlier editor Save isolation failure. Current code uses a disposable Save directory for demo/QA; its recent changes need release verification. Use disposable layout inputs for that check.
 
-The idle sample computes process CPU seconds / wall seconds / logical processors. It is a bounded sample, not a performance guarantee for every machine or session set. Windhawk compilation, native harnesses and parity procedures are in its [guide](../windhawk/README.md); Python tool checks are in [contributing](../CONTRIBUTING.md).
+CPU is reported as **percent of one core**: `100 × process CPU seconds / wall seconds`, without dividing by logical processors. Whole-machine capacity is reported separately as that value divided by the logical processor count. Earlier claims near “1% idle” used the whole-machine denominator; on an 18-thread machine they represented roughly 18–27% of one core. See [the performance report](perf-report.md) for current measurements, warmup, repetitions and noise. A bounded sample is not a performance guarantee for every machine or session set. Windhawk compilation, native harnesses and parity procedures are in its [guide](../windhawk/README.md); Python tool checks are in [contributing](../CONTRIBUTING.md).
+
+Isolated source/snapshot smoke accepts `--qa --home DIR --smoke-test RENDER_DIR` and optionally `--output TRACKER_DIR` (or `--state FILE`) to render the published state at 1x/2x/3x. `--home` is limited to QA/smoke; `--output` names a state source, not the render destination. These modes never save personal settings.
