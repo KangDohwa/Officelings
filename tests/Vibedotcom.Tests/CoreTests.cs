@@ -148,10 +148,17 @@ public sealed class CoreTests : IDisposable
         var path = Path.Combine(dir, "example.db"); File.WriteAllText(path, "synthetic DB placeholder");
         File.SetLastWriteTimeUtc(path, Now.AddHours(-1).UtcDateTime);
         File.WriteAllText(path + "-shm", "synthetic shm"); File.SetLastWriteTimeUtc(path + "-shm", Now.UtcDateTime);
-        var tracker = new AgentTracker(new() { Home = root, ScanInterval = TimeSpan.FromMilliseconds(1) });
+        using var tracker = new AgentTracker(new() { Home = root, ScanInterval = TimeSpan.FromMilliseconds(1) });
         Assert.Empty(tracker.Poll(Now));
         File.WriteAllText(path + "-wal", "synthetic WAL"); File.SetLastWriteTimeUtc(path + "-wal", Now.UtcDateTime);
-        var agent = Assert.Single(tracker.Poll(Now.AddSeconds(1))); Assert.Equal(AgentState.Working, agent.State); Assert.True(agent.BestEffort);
+        // FileSystemWatcher delivers a newly created WAL asynchronously.
+        IReadOnlyList<AgentInfo> observed = [];
+        for (var attempt = 0; attempt < 100 && observed.Count == 0; attempt++)
+        {
+            Thread.Sleep(10);
+            observed = tracker.Poll(Now.AddSeconds(1).AddMilliseconds(attempt * 10));
+        }
+        var agent = Assert.Single(observed); Assert.Equal(AgentState.Working, agent.State); Assert.True(agent.BestEffort);
     }
 
     [Fact]
