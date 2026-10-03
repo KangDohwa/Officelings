@@ -1,0 +1,166 @@
+{
+  "native_size": [
+    448,
+    288
+  ],
+  "export_scale": 2,
+  "sampling": "nearest",
+  "anchor": [
+    32,
+    61
+  ],
+  "placements": [
+    {
+      "sheet": "sheets/window-views.png",
+      "state": "night",
+      "frame": 1,
+      "cell_top_left": [
+        96,
+        9
+      ]
+    },
+    {
+      "sheet": "sheets/string-lights.png",
+      "state": "twinkle",
+      "frame": 1,
+      "cell_top_left": [
+        165,
+        -3
+      ]
+    },
+    {
+      "sheet": "sheets/wall-clock.png",
+      "state": "tick",
+      "frame": 0,
+      "cell_top_left": [
+        240,
+        -8
+      ]
+    },
+    {
+      "sheet": "sheets/dartboard.png",
+      "state": "variants",
+      "frame": 0,
+      "cell_top_left": [
+        304,
+        -8
+      ]
+    },
+    {
+      "sheet": "sheets/vending-machine.png",
+      "state": "glow",
+      "frame": 1,
+      "cell_top_left": [
+        37,
+        58
+      ]
+    },
+    {
+      "sheet": "sheets/arcade.png",
+      "state": "screen",
+      "frame": 1,
+      "cell_top_left": [
+        105,
+        62
+      ]
+    },
+    {
+      "sheet": "sheets/fish-tank.png",
+      "state": "swim",
+      "frame": 1,
+      "cell_top_left": [
+        238,
+        69
+      ]
+    },
+    {
+      "sheet": "sheets/plant-ficus.png",
+      "state": "sway",
+      "frame": 0,
+      "cell_top_left": [
+        354,
+        68
+      ]
+    },
+    {
+      "sheet": "sheets/reading-nook.png",
+      "state": "variants",
+      "frame": 0,
+      "cell_top_left": [
+        327,
+        156
+      ]
+    },
+    {
+      "sheet": "sheets/bean-bag.png",
+      "state": "variants",
+      "frame": 0,
+      "cell_top_left": [
+        350,
+        217
+      ]
+    },
+    {
+      "sheet": "sheets/standing-desk.png",
+      "state": "variants",
+      "frame": 0,
+      "cell_top_left": [
+        38,
+        190
+      ]
+    },
+    {
+      "sheet": "sheets/mug-steam.png",
+      "state": "steam",
+      "frame": 1,
+      "cell_top_left": [
+        69,
+        161
+      ]
+    },
+    {
+      "sheet": "sheets/lava-lamp.png",
+      "state": "flow",
+      "frame": 1,
+      "cell_top_left": [
+        323,
+        120
+      ]
+    },
+    {
+      "sheet": "sheets/desk-fan.png",
+      "state": "spin",
+      "frame": 1,
+      "cell_top_left": [
+        25,
+        163
+      ]
+    },
+    {
+      "sheet": "sheets/ping-pong.png",
+      "state": "ball",
+      "frame": 0,
+      "cell_top_left": [
+        162,
+        176
+      ]
+    },
+    {
+      "sheet": "sheets/plant-monstera.png",
+      "state": "sway",
+      "frame": 1,
+      "cell_top_left": [
+        264,
+        213
+      ]
+    }
+  ],
+  "env2_read_only": [
+    "floor-wood-oak",
+    "wall-navy",
+    "wall-wood",
+    "rugs",
+    "office-chairs"
+  ],
+  "runtime_integration": false
+}
