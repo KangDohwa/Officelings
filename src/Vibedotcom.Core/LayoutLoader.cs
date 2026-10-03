@@ -149,11 +149,12 @@ public static class LayoutLoader
         var result = new HashSet<Tile>();
         if (!Walkable(layout, door, blocked)) return result;
         var queue = new Queue<Tile>(); queue.Enqueue(door); result.Add(door);
-        var timer = System.Diagnostics.Stopwatch.StartNew();
         while (queue.TryDequeue(out var tile))
         {
-            if (result.Count > 16384 || timer.ElapsedMilliseconds > 50)
-                throw new InvalidDataException("Layout navigation exceeded its work/time budget.");
+            // One flood fill visits at most the bounded grid, without treating
+            // dispatcher/GC pauses as an unreachable floor tile.
+            if (result.Count > 16384)
+                throw new InvalidDataException("Layout navigation exceeded its work budget.");
             foreach (var next in new Tile[] { new(tile.X + 1, tile.Y), new(tile.X - 1, tile.Y), new(tile.X, tile.Y + 1), new(tile.X, tile.Y - 1) })
                 if (Walkable(layout, next, blocked) && result.Add(next)) queue.Enqueue(next);
         }

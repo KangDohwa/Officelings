@@ -124,6 +124,21 @@ public static class StateJson
         finally { if (File.Exists(temporary)) File.Delete(temporary); }
     }
 
+    public static async Task PublishWithRetryAsync(Action publish, Action<string> log, CancellationToken cancellation = default)
+    {
+        var delay = 100; var logged = false;
+        while (true)
+        {
+            cancellation.ThrowIfCancellationRequested();
+            try { publish(); return; }
+            catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+            {
+                if (!logged) { log("Publication unavailable; retrying: " + e.Message); logged = true; }
+                await Task.Delay(delay, cancellation); delay = Math.Min(delay * 2, 2000);
+            }
+        }
+    }
+
     public static void WriteAtomic(string path, StateSnapshot snapshot) =>
         WriteAtomic(path, JsonSerializer.SerializeToUtf8Bytes(snapshot, Options));
 }
