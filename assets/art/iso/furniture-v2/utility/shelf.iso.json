@@ -1,0 +1,1015 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "facings": [
+    "se",
+    "sw",
+    "ne",
+    "nw"
+  ],
+  "light": {
+    "screenDirection": "upper-left",
+    "highlightVector": {
+      "x": -2,
+      "y": -1
+    },
+    "shadowOffset": {
+      "x": 6,
+      "y": 3
+    }
+  },
+  "sheets": [
+    {
+      "id": "iso-shelf-parts",
+      "kind": "furniture",
+      "file": "shelf-parts.png",
+      "cellW": 128,
+      "cellH": 128,
+      "anchor": {
+        "x": 80,
+        "y": 72
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "rear-00",
+          "direction": "se",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__rear__se__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.075
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 70,
+              "y": 38,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "front-00",
+          "direction": "se",
+          "row": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__front__se__00",
+          "depthAnchor": {
+            "i": 0.2,
+            "j": 0.075
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 75,
+              "y": 86,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "rear-01",
+          "direction": "se",
+          "row": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__rear__se__01",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.925
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 43,
+              "y": 51,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "front-01",
+          "direction": "se",
+          "row": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__front__se__01",
+          "depthAnchor": {
+            "i": 0.2,
+            "j": 0.925
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 47,
+              "y": 97,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "side-00",
+          "direction": "se",
+          "row": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__side__se__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 1.35
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 44,
+              "y": 97,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "rear-00",
+          "direction": "sw",
+          "row": 5,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__rear__sw__00",
+          "depthAnchor": {
+            "i": 0.075,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 57,
+              "y": 38,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "front-00",
+          "direction": "sw",
+          "row": 6,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__front__sw__00",
+          "depthAnchor": {
+            "i": 0.075,
+            "j": 0.2
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 56,
+              "y": 82,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "rear-01",
+          "direction": "sw",
+          "row": 7,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__rear__sw__01",
+          "depthAnchor": {
+            "i": 0.925,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 84,
+              "y": 51,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "front-01",
+          "direction": "sw",
+          "row": 8,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__front__sw__01",
+          "depthAnchor": {
+            "i": 0.925,
+            "j": 0.2
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 83,
+              "y": 95,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "side-00",
+          "direction": "sw",
+          "row": 9,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__side__sw__00",
+          "depthAnchor": {
+            "i": 1.35,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 84,
+              "y": 96,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "rear-00",
+          "direction": "ne",
+          "row": 10,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__rear__ne__00",
+          "depthAnchor": {
+            "i": 0.075,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 57,
+              "y": 38,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "side-00",
+          "direction": "ne",
+          "row": 11,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__side__ne__00",
+          "depthAnchor": {
+            "i": 0.075,
+            "j": 0.2
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 52,
+              "y": 85,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "rear-01",
+          "direction": "ne",
+          "row": 12,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__rear__ne__01",
+          "depthAnchor": {
+            "i": 0.925,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 84,
+              "y": 51,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "side-01",
+          "direction": "ne",
+          "row": 13,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__side__ne__01",
+          "depthAnchor": {
+            "i": 0.925,
+            "j": 0.2
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 82,
+              "y": 96,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "side-02",
+          "direction": "ne",
+          "row": 14,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "partId": "shelf__side__ne__02",
+          "depthAnchor": {
+            "i": 1.35,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 85,
+              "y": 95,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "rear-00",
+          "direction": "nw",
+          "row": 15,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__rear__nw__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.075
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 70,
+              "y": 38,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "side-00",
+          "direction": "nw",
+          "row": 16,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__side__nw__00",
+          "depthAnchor": {
+            "i": 0.2,
+            "j": 0.075
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 72,
+              "y": 82,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "rear-01",
+          "direction": "nw",
+          "row": 17,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__rear__nw__01",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.925
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 43,
+              "y": 51,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "side-01",
+          "direction": "nw",
+          "row": 18,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__side__nw__01",
+          "depthAnchor": {
+            "i": 0.2,
+            "j": 0.925
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 45,
+              "y": 95,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        },
+        {
+          "name": "side-02",
+          "direction": "nw",
+          "row": 19,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "partId": "shelf__side__nw__02",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 1.35
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 43,
+              "y": 95,
+              "radius": 0,
+              "meaning": "structural surface contact"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iso-shelf-shadow",
+      "kind": "shadow",
+      "file": "shelf-shadow.png",
+      "cellW": 128,
+      "cellH": 128,
+      "anchor": {
+        "x": 80,
+        "y": 72
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "shadow",
+          "direction": "se",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "anchorChecks": [
+            {
+              "x": 44,
+              "y": 96,
+              "radius": 0,
+              "meaning": "floor contact"
+            }
+          ]
+        },
+        {
+          "name": "shadow",
+          "direction": "sw",
+          "row": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "anchorChecks": [
+            {
+              "x": 79,
+              "y": 94,
+              "radius": 0,
+              "meaning": "floor contact"
+            }
+          ]
+        },
+        {
+          "name": "shadow",
+          "direction": "ne",
+          "row": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 48,
+            "y": 72
+          },
+          "anchorChecks": [
+            {
+              "x": 83,
+              "y": 96,
+              "radius": 0,
+              "meaning": "floor contact"
+            }
+          ]
+        },
+        {
+          "name": "shadow",
+          "direction": "nw",
+          "row": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 80,
+            "y": 72
+          },
+          "anchorChecks": [
+            {
+              "x": 49,
+              "y": 94,
+              "radius": 0,
+              "meaning": "floor contact"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "furniture": [
+    {
+      "id": "iso/shelf",
+      "name": "shelf",
+      "variants": [
+        {
+          "id": "se",
+          "name": "SE",
+          "rotation": 0,
+          "orientation": "se",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            }
+          ],
+          "height": 44,
+          "potHeight": null,
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "rear-00",
+              "direction": "se",
+              "partId": "shelf__rear__se__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.075
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "front-00",
+              "direction": "se",
+              "partId": "shelf__front__se__00",
+              "depthAnchor": {
+                "i": 0.2,
+                "j": 0.075
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "rear-01",
+              "direction": "se",
+              "partId": "shelf__rear__se__01",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.925
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "front-01",
+              "direction": "se",
+              "partId": "shelf__front__se__01",
+              "depthAnchor": {
+                "i": 0.2,
+                "j": 0.925
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "side-00",
+              "direction": "se",
+              "partId": "shelf__side__se__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 1.35
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "shadow": {
+            "sheetId": "iso-shelf-shadow",
+            "animation": "shadow",
+            "direction": "se",
+            "renderPass": "shadows"
+          }
+        },
+        {
+          "id": "sw",
+          "name": "SW",
+          "rotation": 90,
+          "orientation": "sw",
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "height": 44,
+          "potHeight": null,
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "rear-00",
+              "direction": "sw",
+              "partId": "shelf__rear__sw__00",
+              "depthAnchor": {
+                "i": 0.075,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "front-00",
+              "direction": "sw",
+              "partId": "shelf__front__sw__00",
+              "depthAnchor": {
+                "i": 0.075,
+                "j": 0.2
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "rear-01",
+              "direction": "sw",
+              "partId": "shelf__rear__sw__01",
+              "depthAnchor": {
+                "i": 0.925,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "front-01",
+              "direction": "sw",
+              "partId": "shelf__front__sw__01",
+              "depthAnchor": {
+                "i": 0.925,
+                "j": 0.2
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "side-00",
+              "direction": "sw",
+              "partId": "shelf__side__sw__00",
+              "depthAnchor": {
+                "i": 1.35,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "shadow": {
+            "sheetId": "iso-shelf-shadow",
+            "animation": "shadow",
+            "direction": "sw",
+            "renderPass": "shadows"
+          }
+        },
+        {
+          "id": "ne",
+          "name": "NE",
+          "rotation": 270,
+          "orientation": "ne",
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            }
+          ],
+          "height": 44,
+          "potHeight": null,
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "rear-00",
+              "direction": "ne",
+              "partId": "shelf__rear__ne__00",
+              "depthAnchor": {
+                "i": 0.075,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "side-00",
+              "direction": "ne",
+              "partId": "shelf__side__ne__00",
+              "depthAnchor": {
+                "i": 0.075,
+                "j": 0.2
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "rear-01",
+              "direction": "ne",
+              "partId": "shelf__rear__ne__01",
+              "depthAnchor": {
+                "i": 0.925,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "side-01",
+              "direction": "ne",
+              "partId": "shelf__side__ne__01",
+              "depthAnchor": {
+                "i": 0.925,
+                "j": 0.2
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "side-02",
+              "direction": "ne",
+              "partId": "shelf__side__ne__02",
+              "depthAnchor": {
+                "i": 1.35,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "shadow": {
+            "sheetId": "iso-shelf-shadow",
+            "animation": "shadow",
+            "direction": "ne",
+            "renderPass": "shadows"
+          }
+        },
+        {
+          "id": "nw",
+          "name": "NW",
+          "rotation": 180,
+          "orientation": "nw",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            }
+          ],
+          "height": 44,
+          "potHeight": null,
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "rear-00",
+              "direction": "nw",
+              "partId": "shelf__rear__nw__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.075
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "side-00",
+              "direction": "nw",
+              "partId": "shelf__side__nw__00",
+              "depthAnchor": {
+                "i": 0.2,
+                "j": 0.075
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "rear-01",
+              "direction": "nw",
+              "partId": "shelf__rear__nw__01",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.925
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "side-01",
+              "direction": "nw",
+              "partId": "shelf__side__nw__01",
+              "depthAnchor": {
+                "i": 0.2,
+                "j": 0.925
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-shelf-parts",
+              "animation": "side-02",
+              "direction": "nw",
+              "partId": "shelf__side__nw__02",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 1.35
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "shadow": {
+            "sheetId": "iso-shelf-shadow",
+            "animation": "shadow",
+            "direction": "nw",
+            "renderPass": "shadows"
+          }
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "provider": "built-in image_gen; sprite-gen chroma cleanup",
+    "frontMaster": "runs/a5-v2/shelf-master.png",
+    "derivation": "baked views, nearest native cleanup, frozen ramp snap; object-side accessories retained",
+    "runtimeAcceptance": "unverified"
+  },
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1"
+  ]
+}

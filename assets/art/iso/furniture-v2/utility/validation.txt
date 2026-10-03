@@ -1,0 +1,99 @@
+﻿| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| coffee-machine.iso.json:iso-coffee-machine-parts | cell sizes | PASS | 128×1536, 128×128 cells |
+| coffee-machine.iso.json:iso-coffee-machine-parts | transparency | PASS | straight alpha and guards |
+| coffee-machine.iso.json:iso-coffee-machine-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| coffee-machine.iso.json:iso-coffee-machine-parts | palette | PASS | 24 colors; RGB max-channel tolerance 0 |
+| coffee-machine.iso.json:iso-coffee-machine-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| coffee-machine.iso.json:iso-coffee-machine-parts | 6×6 seams | SKIP | floor sheets only |
+| coffee-machine.iso.json:iso-coffee-machine-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| coffee-machine.iso.json:iso-coffee-machine-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| coffee-machine.iso.json:iso-coffee-machine-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| coffee-machine.iso.json:iso-coffee-machine-shadow | transparency | PASS | straight alpha and guards |
+| coffee-machine.iso.json:iso-coffee-machine-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| coffee-machine.iso.json:iso-coffee-machine-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| coffee-machine.iso.json:iso-coffee-machine-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| coffee-machine.iso.json:iso-coffee-machine-shadow | 6×6 seams | SKIP | floor sheets only |
+| coffee-machine.iso.json:iso-coffee-machine-shadow | depth-part names | SKIP | furniture sheets only |
+| coffee-machine.iso.json:iso-coffee-machine-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| floor-lamp.iso.json:iso-floor-lamp-parts | cell sizes | PASS | 128×1024, 128×128 cells |
+| floor-lamp.iso.json:iso-floor-lamp-parts | transparency | PASS | straight alpha and guards |
+| floor-lamp.iso.json:iso-floor-lamp-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| floor-lamp.iso.json:iso-floor-lamp-parts | palette | PASS | 19 colors; RGB max-channel tolerance 0 |
+| floor-lamp.iso.json:iso-floor-lamp-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| floor-lamp.iso.json:iso-floor-lamp-parts | 6×6 seams | SKIP | floor sheets only |
+| floor-lamp.iso.json:iso-floor-lamp-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| floor-lamp.iso.json:iso-floor-lamp-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| floor-lamp.iso.json:iso-floor-lamp-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| floor-lamp.iso.json:iso-floor-lamp-shadow | transparency | PASS | straight alpha and guards |
+| floor-lamp.iso.json:iso-floor-lamp-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| floor-lamp.iso.json:iso-floor-lamp-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| floor-lamp.iso.json:iso-floor-lamp-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| floor-lamp.iso.json:iso-floor-lamp-shadow | 6×6 seams | SKIP | floor sheets only |
+| floor-lamp.iso.json:iso-floor-lamp-shadow | depth-part names | SKIP | furniture sheets only |
+| floor-lamp.iso.json:iso-floor-lamp-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| fridge.iso.json:iso-fridge-parts | cell sizes | PASS | 128×1536, 128×128 cells |
+| fridge.iso.json:iso-fridge-parts | transparency | PASS | straight alpha and guards |
+| fridge.iso.json:iso-fridge-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| fridge.iso.json:iso-fridge-parts | palette | PASS | 18 colors; RGB max-channel tolerance 0 |
+| fridge.iso.json:iso-fridge-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| fridge.iso.json:iso-fridge-parts | 6×6 seams | SKIP | floor sheets only |
+| fridge.iso.json:iso-fridge-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| fridge.iso.json:iso-fridge-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| fridge.iso.json:iso-fridge-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| fridge.iso.json:iso-fridge-shadow | transparency | PASS | straight alpha and guards |
+| fridge.iso.json:iso-fridge-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| fridge.iso.json:iso-fridge-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| fridge.iso.json:iso-fridge-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| fridge.iso.json:iso-fridge-shadow | 6×6 seams | SKIP | floor sheets only |
+| fridge.iso.json:iso-fridge-shadow | depth-part names | SKIP | furniture sheets only |
+| fridge.iso.json:iso-fridge-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| plant.iso.json:iso-plant-parts | cell sizes | PASS | 128×1024, 128×128 cells |
+| plant.iso.json:iso-plant-parts | transparency | PASS | straight alpha and guards |
+| plant.iso.json:iso-plant-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| plant.iso.json:iso-plant-parts | palette | PASS | 24 colors; RGB max-channel tolerance 0 |
+| plant.iso.json:iso-plant-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| plant.iso.json:iso-plant-parts | 6×6 seams | SKIP | floor sheets only |
+| plant.iso.json:iso-plant-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| plant.iso.json:iso-plant-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| plant.iso.json:iso-plant-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| plant.iso.json:iso-plant-shadow | transparency | PASS | straight alpha and guards |
+| plant.iso.json:iso-plant-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| plant.iso.json:iso-plant-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| plant.iso.json:iso-plant-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| plant.iso.json:iso-plant-shadow | 6×6 seams | SKIP | floor sheets only |
+| plant.iso.json:iso-plant-shadow | depth-part names | SKIP | furniture sheets only |
+| plant.iso.json:iso-plant-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| shelf.iso.json:iso-shelf-parts | cell sizes | PASS | 128×2560, 128×128 cells |
+| shelf.iso.json:iso-shelf-parts | transparency | PASS | straight alpha and guards |
+| shelf.iso.json:iso-shelf-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| shelf.iso.json:iso-shelf-parts | palette | PASS | 27 colors; RGB max-channel tolerance 0 |
+| shelf.iso.json:iso-shelf-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| shelf.iso.json:iso-shelf-parts | 6×6 seams | SKIP | floor sheets only |
+| shelf.iso.json:iso-shelf-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| shelf.iso.json:iso-shelf-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| shelf.iso.json:iso-shelf-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| shelf.iso.json:iso-shelf-shadow | transparency | PASS | straight alpha and guards |
+| shelf.iso.json:iso-shelf-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| shelf.iso.json:iso-shelf-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| shelf.iso.json:iso-shelf-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| shelf.iso.json:iso-shelf-shadow | 6×6 seams | SKIP | floor sheets only |
+| shelf.iso.json:iso-shelf-shadow | depth-part names | SKIP | furniture sheets only |
+| shelf.iso.json:iso-shelf-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| water-cooler.iso.json:iso-water-cooler-parts | cell sizes | PASS | 128×1536, 128×128 cells |
+| water-cooler.iso.json:iso-water-cooler-parts | transparency | PASS | straight alpha and guards |
+| water-cooler.iso.json:iso-water-cooler-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| water-cooler.iso.json:iso-water-cooler-parts | palette | PASS | 26 colors; RGB max-channel tolerance 0 |
+| water-cooler.iso.json:iso-water-cooler-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| water-cooler.iso.json:iso-water-cooler-parts | 6×6 seams | SKIP | floor sheets only |
+| water-cooler.iso.json:iso-water-cooler-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| water-cooler.iso.json:iso-water-cooler-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| water-cooler.iso.json:iso-water-cooler-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| water-cooler.iso.json:iso-water-cooler-shadow | transparency | PASS | straight alpha and guards |
+| water-cooler.iso.json:iso-water-cooler-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| water-cooler.iso.json:iso-water-cooler-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| water-cooler.iso.json:iso-water-cooler-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| water-cooler.iso.json:iso-water-cooler-shadow | 6×6 seams | SKIP | floor sheets only |
+| water-cooler.iso.json:iso-water-cooler-shadow | depth-part names | SKIP | furniture sheets only |
+| water-cooler.iso.json:iso-water-cooler-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+96 checks; 0 failed
