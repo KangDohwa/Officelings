@@ -1,0 +1,22 @@
+{
+  "cell": {
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 3,
+    "safe_margin_y": 10
+  },
+  "fit": {
+    "resample": "kcentroid",
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true
+  },
+  "states": {
+    "typing_back": {
+      "frames": 3,
+      "fps": 5,
+      "loop": true,
+      "action": "Seated worker typing, viewed from BACK facing UP. Show ONLY worker in a seated pose, knees bent, hands extended at keyboard height: left hand presses, both hands hover, right hand presses. No desk, monitor, chair or keyboard; furniture is a separate game layer. Back of hair and teal overshirt clear."
+    }
+  }
+}

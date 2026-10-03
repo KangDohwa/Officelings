@@ -1,0 +1,9 @@
+{
+  "cell": {"width": 32, "height": 64, "safe_margin_x": 1, "safe_margin_y": 4},
+  "style": "Copy identity and pixel density of attached worker EXACTLY. Hard square chunky pixels, 3 shades per material, top-down 3/4 side view. No restyling.",
+  "fit": {"pixel_unfake": true, "palette_size": 32, "align_x": "foot-centroid", "align_y": "bottom", "ground_frames": true},
+  "states": {
+    "walk_left": {"frames": 4, "fps": 7, "loop": true, "action": "Four-frame walking-in-place cycle, facing LEFT in every frame. Foreground/near leg is medium charcoal; background/far leg is darker charcoal. Frame 0: NEAR leg stretches FORWARD toward LEFT, FAR leg stretches BACK toward RIGHT, near arm back. Frame 1: near foot passes beneath hip moving BACK. Frame 2: NEAR leg stretches BACK toward RIGHT, FAR leg stretches FORWARD toward LEFT, near arm forward. Frame 3: near foot passes beneath hip moving FORWARD. In frame 2 the visible medium charcoal trouser leg MUST slope down to the RIGHT, opposite frame 0. Show two opposite CONTACTS plus two PASSING phases. Keep torso and hair absolutely unchanged, only limbs change. Do not reuse the same forward leg for both contact frames."},
+    "walk_right": {"frames": 4, "fps": 7, "loop": true, "action": "Four-frame walking-in-place cycle, facing RIGHT in every frame. Foreground/near leg is medium charcoal; background/far leg is darker charcoal. Frame 0: NEAR leg stretches FORWARD toward RIGHT, FAR leg stretches BACK toward LEFT, near arm back. Frame 1: near foot passes beneath hip moving BACK. Frame 2: NEAR leg stretches BACK toward LEFT, FAR leg stretches FORWARD toward RIGHT, near arm forward. Frame 3: near foot passes beneath hip moving FORWARD. In frame 2 the visible medium charcoal trouser leg MUST slope down to the LEFT, opposite frame 0. Show two opposite CONTACTS plus two PASSING phases. Keep torso and hair absolutely unchanged, only limbs change. Do not reuse the same forward leg for both contact frames."}
+  }
+}

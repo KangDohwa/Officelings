@@ -1,0 +1,11 @@
+{
+  "cell": {"width": 32, "height": 32, "safe_margin_x": 0, "safe_margin_y": 0},
+  "style": "Chunky actual pixel art on a TRUE 32x32 logical grid, hard-edged quiet warm palette, no antialiasing or noise. These are texture tiles, NOT human characters. Draw full opaque square texture panels, separated by chroma background. No border around tiles and no letters.",
+  "fit": {"resample": "kcentroid", "align_x": "bbox-center", "align_y": "center", "ground_frames": false},
+  "states": {
+    "floor_office": {"frames": 2, "fps": 1, "loop": false, "action": "Two STATIC square 32x32 seamless warm gray-sage office carpet tiles. Mostly calm flat olive gray field, just 3 small darker rectangular weave pixels, second tile slightly different sparse weave. Square front view, no perspective or outline. Match opposite edge pixels for tiling."},
+    "floor_pantry": {"frames": 2, "fps": 1, "loop": false, "action": "Two STATIC square 32x32 seamless golden-brown wooden floor tiles seen straight overhead. Four broad horizontal plank bands 8 pixels tall, subtle 1px darker joins, sparse short darker grain segments, no plank diagonal. Second tile staggered end joints. Match opposite edge pixels for tiling."},
+    "wall_office": {"frames": 1, "fps": 1, "loop": false, "action": "One full opaque square 32x32 office wall tile, warm ivory plaster upper 23 rows, wood dado lower 7 rows, charcoal baseboard bottom 2 rows. Front wall view, simple flat bands with two tiny plaster pixels. Left and right edges match exactly. No vertical border, no objects."},
+    "wall_pantry": {"frames": 1, "fps": 1, "loop": false, "action": "One full opaque square 32x32 wooden break-room wall tile, warm honey vertical wood paneling upper 24 rows with one subtle central join; deeper brown dado lower 6 rows, charcoal baseboard bottom 2 rows. Left and right edges match exactly. Front wall view, no objects, no outline around tile."}
+  }
+}

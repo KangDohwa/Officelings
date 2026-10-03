@@ -1,0 +1,11 @@
+{
+  "cell": {"width": 32, "height": 32, "safe_margin_x": 2, "safe_margin_y": 2},
+  "subject": "effect",
+  "style": "Original cozy chunky pixel game icons with 1-pixel warm charcoal selective outlines, ivory bubble interior, hard square pixel clusters, only 3 shades per material. Each icon about 22x22 logical pixels. No antialiasing, gradients, noise or dithering. Character reference is STYLE ONLY; no people.",
+  "fit": {"pixel_unfake": true, "palette_size": 24, "align_x": "bbox-center", "align_y": "center", "ground_frames": false},
+  "states": {
+    "report_item": {"frames": 1, "fps": 1, "loop": false, "action": "One little ivory paper report with folded top-right corner, 3 charcoal horizontal lines and tiny teal checkbox, about 14x18 logical pixels. No letters or words."},
+    "bubbles": {"frames": 6, "fps": 1, "loop": false, "action": "SIX STATIC speech/status bubbles, same ivory rounded square silhouette and small attached tail, separate evenly spaced: frame 0 teal working GEAR; frame 1 three violet THINKING dots; frame 2 orange WAITING question mark ?; frame 3 teal DONE checkmark; frame 4 navy sleeping zzz letters; frame 5 orange SURPRISED exclamation mark !. Glyphs are intentionally required game symbols, and lie INSIDE each connected bubble. No character."},
+    "role_badges": {"frames": 2, "fps": 1, "loop": false, "action": "TWO STATIC tiny wearable accessories isolated as connected sprites: frame 0 gold supervisor badge with simple small crown silhouette on navy square pin, about 7x7 logical pixels; frame 1 cream sub-agent ID card attached to dark navy neck lanyard loop, about 8x13 logical pixels. No human or clothes. These are game overlay objects."}
+  }
+}

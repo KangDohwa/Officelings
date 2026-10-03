@@ -1,0 +1,9 @@
+{
+  "cell": {"width": 32, "height": 64, "safe_margin_x": 1, "safe_margin_y": 4},
+  "style": "Tiny original chunky pixel game wearable accessory, matching worker reference outline and cozy palette. Reference person is STYLE ONLY, never draw a person. Very few logical pixels, uniform large crisp pixel blocks. No gradients, dithering, floor or shadow.",
+  "fit": {"pixel_unfake": true, "palette_size": 12, "align_x": "bbox-center", "align_y": "bottom", "ground_frames": true},
+  "states": {
+    "crown": {"frames": 1, "fps": 1, "loop": false, "action": "One tiny golden supervisor crown accessory ONLY, front view, 3 short crown points, gold bar below, one brown dark outline, about 9x6 logical pixels. Solid crown connected as one sprite. No head, person, box, badge, jewel sparkles or lettering. Keep it extremely chunky and tiny."},
+    "lanyard": {"frames": 1, "fps": 1, "loop": false, "action": "One tiny wearable dark navy neck lanyard loop with a small cream ID card attached below and one teal ID stripe. Accessory ONLY, front view, about 7x11 logical pixels. All pieces touching as one connected sprite. No person, clothes, text, box or hands."}
+  }
+}
