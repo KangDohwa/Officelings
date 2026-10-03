@@ -10,7 +10,13 @@ public sealed record TrackerOptions
 {
     public string Home { get; init; } = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
     public TimeSpan WorkingWindow { get; init; } = TimeSpan.FromMinutes(2);
-    public TimeSpan GoneAfter { get; init; } = TimeSpan.FromMinutes(30);
+    private TimeSpan? waiting;
+    private TimeSpan legacyGoneAfter = TimeSpan.FromMinutes(30);
+    public TimeSpan LeaveAfterIdle { get; init; } = TimeSpan.FromMinutes(5);
+    public TimeSpan LeaveAfterWaiting { get => waiting ?? legacyGoneAfter; init => waiting = value; }
+    // Deprecated alias. An explicit waiting threshold wins, regardless of initializer order.
+    public TimeSpan GoneAfter { get => LeaveAfterWaiting; init => legacyGoneAfter = value; }
+    internal TimeSpan DiscoveryWindow => LeaveAfterIdle > LeaveAfterWaiting ? LeaveAfterIdle : LeaveAfterWaiting;
     public TimeSpan GoneRetention { get; init; } = TimeSpan.FromSeconds(60);
     public TimeSpan ReportingWindow { get; init; } = TimeSpan.FromSeconds(12);
     public TimeSpan ScanInterval { get; init; } = TimeSpan.FromSeconds(3);
@@ -18,9 +24,9 @@ public sealed record TrackerOptions
 
     public void Validate()
     {
-        if (WorkingWindow <= TimeSpan.Zero || GoneAfter <= WorkingWindow || GoneRetention <= TimeSpan.Zero ||
+        if (WorkingWindow <= TimeSpan.Zero || LeaveAfterIdle <= WorkingWindow || LeaveAfterWaiting <= WorkingWindow || GoneRetention <= TimeSpan.Zero ||
             ReportingWindow <= TimeSpan.Zero || ScanInterval <= TimeSpan.Zero)
-            throw new ArgumentException("Require 0 < working window < gone timeout, and positive intervals.");
+            throw new ArgumentException("Require 0 < working window < both leave timeouts, and positive intervals.");
     }
 }
 
@@ -38,6 +44,7 @@ internal sealed class TrackedAgent(string id, Provider provider)
     public bool IsSubagent, Finished;
     public AgentState EventState = AgentState.Idle, DisplayState = AgentState.Idle;
     public DateTimeOffset LastSeen, LastEvent, StateSince;
+    public DateTimeOffset? ClosedAt;
 
     public void State(AgentState state, DateTimeOffset time)
     {
@@ -49,16 +56,25 @@ internal sealed class TrackedAgent(string id, Provider provider)
         if (state != AgentState.Working) Tool = ToolKind = null;
     }
 
-    public AgentInfo Snapshot(DateTimeOffset now, TrackerOptions options)
+    public AgentInfo Snapshot(DateTimeOffset now, TrackerOptions options, bool hasActiveChildren = false)
     {
-        var next = EventState;
-        if (now - LastSeen >= options.GoneAfter || EventState == AgentState.Gone) next = AgentState.Gone;
-        else if (next == AgentState.Reporting && now - LastEvent >= options.ReportingWindow) next = AgentState.Idle;
-        else if (next is AgentState.Working or AgentState.Thinking && now - LastSeen >= options.WorkingWindow) next = AgentState.Idle;
+        var next = StateAt(now, options, hasActiveChildren);
         if (DisplayState != next) { DisplayState = next; StateSince = now; }
         return new(Id, Provider, ParentId, IsSubagent, Name, Role, Model, Cwd, Task,
             next == AgentState.Working ? Tool : null, next == AgentState.Working ? ToolKind : null,
             next, LastSeen, StateSince, Provider == Provider.Antigravity);
+    }
+
+    internal AgentState StateAt(DateTimeOffset now, TrackerOptions options, bool hasActiveChildren = false)
+    {
+        var next = EventState;
+        var activity = LastEvent == default ? LastSeen : LastEvent;
+        var timeout = EventState == AgentState.Waiting ? options.LeaveAfterWaiting : options.LeaveAfterIdle;
+        if (ClosedAt is { } closed && now >= closed || EventState == AgentState.Gone) next = AgentState.Gone;
+        else if (!hasActiveChildren && now - activity >= timeout) next = AgentState.Gone;
+        else if (next == AgentState.Reporting && now - LastEvent >= options.ReportingWindow) next = AgentState.Idle;
+        else if (next is AgentState.Working or AgentState.Thinking && now - activity >= options.WorkingWindow) next = AgentState.Idle;
+        return next;
     }
 }
 

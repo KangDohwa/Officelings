@@ -21,17 +21,21 @@ public sealed class AgentTracker : IDisposable
     private readonly Dictionary<string, FileSystemWatcher> watchers = new(StringComparer.OrdinalIgnoreCase);
     private readonly ConcurrentDictionary<string, byte> dirty = new(StringComparer.OrdinalIgnoreCase);
     private readonly AntigravityProvider antigravity;
+    private readonly ClosedSessions closedSessions;
     private DateTimeOffset nextScan, nextDiscovery, lastPoll;
     private int overflow;
     public long BytesRead => sources.Values.Sum(s => s.Tail.BytesRead);
     public IReadOnlyList<string> Warnings => warnings.Order().ToArray();
     internal long DiscoveryFilesVisited { get; private set; }
 
-    public AgentTracker(TrackerOptions? options = null)
+    public AgentTracker(TrackerOptions? options = null) : this(options ?? new(), null) { }
+
+    internal AgentTracker(TrackerOptions options, Func<int, long?, bool?>? processAlive)
     {
         this.options = options ?? new();
         this.options.Validate();
         antigravity = new(this.options);
+        closedSessions = new(this.options.Home, processAlive);
     }
 
     public IReadOnlyList<AgentInfo> Poll(DateTimeOffset now)
@@ -71,17 +75,31 @@ public sealed class AgentTracker : IDisposable
             var changed = dirty.Keys.Where(p => p.StartsWith(Path.Combine(options.Home, ".gemini") + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)).ToArray();
             foreach (var path in changed) dirty.TryRemove(path, out _);
             antigravity.Poll(now, discover, changed, agents, warnings, Read);
+            closedSessions.Poll(now, agents, warnings, sources.Where(s => s.Value.Provider == Provider.Codex)
+                .Select(s => (s.Key, s.Value.Cached.Keys.ToArray())));
             if (discover) nextDiscovery = now + TimeSpan.FromMinutes(1);
         }
-        var snapshots = agents.Values.Select(a => a.Snapshot(now, options)).ToArray();
+        var activeParents = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var child in agents.Values.Where(a => a.StateAt(now, options) is AgentState.Working or AgentState.Thinking or AgentState.Waiting or AgentState.Reporting))
+        {
+            var parent = child.ParentId;
+            var visited = new HashSet<string>(StringComparer.Ordinal) { child.Id };
+            while (parent != null && visited.Add(parent))
+            {
+                activeParents.Add(parent);
+                parent = agents.TryGetValue(parent, out var a) ? a.ParentId : null;
+            }
+        }
+        var snapshots = agents.Values.Select(a => a.Snapshot(now, options, activeParents.Contains(a.Id))).ToArray();
         foreach (var old in snapshots.Where(a => a.State == AgentState.Gone && now - a.StateSince >= options.GoneRetention))
             agents.Remove(old.Id);
-        foreach (var path in sources.Where(s => now - new DateTimeOffset(s.Value.Modified, TimeSpan.Zero) >= options.GoneAfter + options.GoneRetention)
+        foreach (var path in sources.Where(s => now - new DateTimeOffset(s.Value.Modified, TimeSpan.Zero) >= options.DiscoveryWindow + options.GoneRetention &&
+                     !s.Value.Cached.Keys.Any(activeParents.Contains))
                      .Select(s => s.Key).ToArray()) sources.Remove(path);
         return snapshots.Where(a => agents.ContainsKey(a.Id)).OrderBy(a => a.Id, StringComparer.Ordinal).ToArray();
     }
 
-    private bool Recent(DateTime time, DateTimeOffset now) => now - new DateTimeOffset(time, TimeSpan.Zero) < options.GoneAfter;
+    private bool Recent(DateTime time, DateTimeOffset now) => now - new DateTimeOffset(time, TimeSpan.Zero) < options.DiscoveryWindow;
 
     private bool Watch(string root)
     {

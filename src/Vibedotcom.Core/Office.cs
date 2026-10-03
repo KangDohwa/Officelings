@@ -151,8 +151,10 @@ public sealed class OfficeAnimator
             {
                 c.Target = target;
                 var start = NearestFree(new((int)Math.Round(c.Position.X), (int)Math.Round(c.Position.Y)));
-                c.Position = new(start.X, start.Y);
-                c.Path = new(FindPath(Layout, start, target, obstacles));
+                // Finish the fraction of this tile edge before following the new route.
+                // Keeping the exact position matters when a break/exit interrupts a walk.
+                var path = FindPath(Layout, start, target, obstacles);
+                c.Path = new(c.Position == new Position(start.X, start.Y) ? path : new[] { start }.Concat(path));
             }
             var budget = standingUp ? 0 : Math.Clamp(deltaSeconds, 0, 1) * 3.5;
             while (budget > 0 && c.Path.TryPeek(out var next))

@@ -131,14 +131,15 @@ internal static class LogParser
                 case "task_started": SetState(a, AgentState.Thinking, time); break;
                 case "agent_reasoning": SetState(a, AgentState.Thinking, time); break;
                 case "task_complete": case "task_completed":
-                    SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time); break;
+                    Complete(a, time); break;
                 case "turn_aborted": SetState(a, AgentState.Waiting, time); break;
-                case "session_end": case "session_closed": SetState(a, AgentState.Gone, time); break;
+                case "session_end": case "session_closed": case "shutdown": case "shutdown_complete":
+                    SetState(a, AgentState.Gone, time); break;
                 case "approval_request": case "request_user_input": SetState(a, AgentState.Waiting, time); break;
                 case "item_completed":
                     var item = Get(p, "item");
                     if (String(item, "type") == "agent_message" && String(item, "phase") == "final_answer")
-                        SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
+                        Complete(a, time);
                     break;
             }
         }
@@ -159,8 +160,10 @@ internal static class LogParser
             case "message":
                 if (String(p, "role") == "user") { a.Task = Clip(Text(Get(p, "content"))); SetState(a, AgentState.Thinking, time); }
                 if (String(p, "role") == "assistant")
-                    SetState(a, String(p, "phase") == "final_answer" || String(p, "channel") == "final"
-                        ? a.IsSubagent ? AgentState.Reporting : AgentState.Waiting : AgentState.Thinking, time);
+                {
+                    if (String(p, "phase") == "final_answer" || String(p, "channel") == "final") Complete(a, time);
+                    else SetState(a, AgentState.Thinking, time);
+                }
                 break;
         }
     }
@@ -179,11 +182,11 @@ internal static class LogParser
         var message = Get(root, "message");
         ContextFields(a, String(message, "model"), String(root, "cwd"), time);
         if (time < a.LastEvent) return;
-        if (type == "last-prompt") { a.Task = Clip(String(root, "lastPrompt")); SetState(a, a.EventState, time); return; }
+        if (type == "last-prompt") { a.Task = Clip(String(root, "lastPrompt")); return; }
         if (type is "summary" or "file-history-snapshot" or "progress" or "queue-operation") return;
         if (type == "system")
         {
-            if (String(root, "subtype") == "turn_duration") SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
+            if (String(root, "subtype") == "turn_duration" && contexts.GetOrCreateValue(a).Questions.Count == 0) Complete(a, time);
             return;
         }
         var content = Get(message, "content");
@@ -202,7 +205,7 @@ internal static class LogParser
                 questions.Add(String(tool, "id") ?? "unknown-question");
         if (questions.Count > 0) SetState(a, AgentState.Waiting, time);
         else if (tools.Length > 0) Tool(a, String(tools[^1], "name") ?? "tool", time);
-        else if (String(message, "stop_reason") == "end_turn") SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
+        else if (String(message, "stop_reason") == "end_turn") Complete(a, time);
         else SetState(a, AgentState.Thinking, time);
     }
 
@@ -217,13 +220,21 @@ internal static class LogParser
             case "PLANNER_RESPONSE":
                 var tools = Items(Get(root, "tool_calls")).ToArray();
                 if (tools.Length > 0) Tool(a, String(tools[^1], "name") ?? "tool", time);
-                else SetState(a, String(root, "content") != null && status == "DONE" ? AgentState.Waiting : AgentState.Thinking, time);
+                else if (String(root, "content") != null && status == "DONE") Complete(a, time);
+                else SetState(a, AgentState.Thinking, time);
                 break;
             case "GENERIC": SetState(a, AgentState.Thinking, time); break;
             default:
                 if (status is "RUNNING" or "IN_PROGRESS") SetState(a, AgentState.Working, time);
                 break;
         }
+    }
+
+    private static void Complete(TrackedAgent a, DateTimeOffset time)
+    {
+        if (time < a.LastEvent) return;
+        SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Idle, time);
+        a.Finished = true;
     }
 
     private static void Tool(TrackedAgent a, string name, DateTimeOffset time)
