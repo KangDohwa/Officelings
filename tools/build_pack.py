@@ -1,4 +1,4 @@
-"""Adapt final sprite-gen art to the version-1 runtime pack using Pillow only."""
+"""Adapt final sprite-gen art to the runtime pack with the existing prop normalizer."""
 
 from __future__ import annotations
 
@@ -15,6 +15,8 @@ import sys
 import tempfile
 
 from PIL import Image, ImageDraw
+
+from anim_normalize import normalize_sheet
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,6 +44,7 @@ ACTIONS = (
     ("talk", 3, "chatting", "any"),
     ("surprised", 2, "waiting", "any"),
 )
+SEATED_ACTIONS = (("seated_back", "up"), ("seated_left", "left"), ("seated_right", "right"))
 
 
 class ProductionSheet:
@@ -109,6 +112,15 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
     box = frames_by_action["idle"][0].getchannel("A").getbbox()
     factor = 30 / (box[3] - box[1])
     size = (round(32 * factor), round(64 * factor))
+
+    # Seated rows share one integer placement, including their blink copies.
+    # Measuring each phase's alpha bottom would move the pelvis on back poses.
+    seated_position = (16 - size[0] // 2, 60 - round(60 * size[1] / 64))
+
+    def seated_normalized(frame):
+        result = Image.new("RGBA", (32, 64))
+        result.paste(frame.resize(size, Image.Resampling.NEAREST), seated_position)
+        return result
 
     def normalized(frame):
         bottom = frame.getchannel("A").getbbox()[3]
@@ -187,6 +199,64 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
             image.paste(normalized(frame), (column * 32, row * 64))
         base = next(c for c in clips if c["name"] == action and c["direction"] == facing)
         clips.append(clip("blink-" + action, row, len(group), base["fps"], base["loop"], facing))
+
+    if "seated" in source.data:
+        seated = source.data["seated"]
+        if seated["version"] != 1:
+            raise ValueError("unsupported seated version")
+        blink = seated["blinkSheet"]
+        if (blink["cellW"], blink["cellH"], blink["frames"]) != (32, 64, 4):
+            raise ValueError("seated blink cells/count must match the four normal phases")
+        with Image.open(source.directory / blink["file"]) as opened:
+            if opened.format != "PNG" or opened.size != (128, 128):
+                raise ValueError("seated blink sheet must be a 128x128 PNG")
+            blink_image = opened.convert("RGBA")
+        for name, direction in SEATED_ACTIONS:
+            frames = source.frames(name, (32, 64))
+            if len(frames) != 4 or source.animation[name]["frames"] != 4:
+                raise ValueError(f"{name}: expected four seated phases")
+            fps, loop = source.playback(name)
+            metadata = seated["rows"][name]
+            anchor = metadata["seatAnchor"]
+            if any(type(anchor[k]) is not int or not 0 <= anchor[k] <= limit
+                   for k, limit in (("x", 32), ("y", 64))):
+                raise ValueError(f"{name}: invalid seatAnchor")
+            if any(frame.crop((0, anchor["y"], 32, 64)).tobytes()
+                   != frames[0].crop((0, anchor["y"], 32, 64)).tobytes() for frame in frames[1:]):
+                raise ValueError(f"{name}: lower body moves between seated phases")
+            for rect in source.rows[name]:
+                rectangle = tuple(rect[k] for k in ("x", "y", "w", "h"))
+                if rectangle in rectangles:
+                    raise ValueError(f"{name}: overlapping character frame")
+                rectangles.add(rectangle)
+            transformed = {"x": seated_position[0] + round(anchor["x"] * size[0] / 32),
+                           "y": seated_position[1] + round(anchor["y"] * size[1] / 64)}
+            groups = [(name, frames)]
+            if direction != "up":
+                entry = seated["blink"][direction]
+                if entry["source"] != {"state": name, "frame": 0} or blink["fps"] != fps:
+                    raise ValueError(f"{name}: blink playback/source disagrees with seated clip")
+                blink_row = entry["sheetRow"]
+                if type(blink_row) is not int or blink_row not in (0, 1):
+                    raise ValueError(f"{name}: invalid blink row")
+                closed = [blink_image.crop((f * 32, blink_row * 64, (f + 1) * 32, (blink_row + 1) * 64))
+                          for f in range(4)]
+                for f, (normal, shut) in enumerate(zip(frames, closed)):
+                    head_end = (metadata["sourceNeckY"] + metadata["translation"]["y"]
+                                + metadata["headOffsets"][f]["y"])
+                    if (normal.getchannel("A").tobytes() != shut.getchannel("A").tobytes()
+                            or normal.crop((0, head_end, 32, 64)).tobytes()
+                            != shut.crop((0, head_end, 32, 64)).tobytes()):
+                        raise ValueError(f"{name}: blink phase {f} changes the body/alpha")
+                groups.append(("blink-" + name, closed))
+            for runtime_name, group in groups:
+                row = image.height // 64
+                extended = Image.new("RGBA", (128, image.height + 64))
+                extended.paste(image, (0, 0))
+                image = extended
+                for column, frame in enumerate(group):
+                    image.paste(seated_normalized(frame), (column * 32, row * 64))
+                clips.append(dict(clip(runtime_name, row, 4, fps, loop, direction), seatAnchor=transformed))
     return image, clips
 
 
@@ -293,6 +363,9 @@ def rotate_furniture(manifest: dict, images: dict[str, Image.Image]):
     sheets = {sheet["id"]: sheet for sheet in manifest["sheets"]}
     originals = {}
     facings = {"up": "right", "right": "down", "down": "left", "left": "up"}
+    linked_seats = {base[key]: next(p for p in base["points"] if p["action"] == "typing")
+                    for asset in manifest["furniture"] for base in asset["variants"][:1]
+                    for key in ("chairBackId", "chairFrontId") if key in base}
     for asset in manifest["furniture"]:
         variants = list(asset["variants"])
         for base in variants:
@@ -319,6 +392,10 @@ def rotate_furniture(manifest: dict, images: dict[str, Image.Image]):
             offset = original_clip.get("footOffset", {"x": 0, "y": 0})
             anchor_x, anchor_y = sheet["anchor"]["x"] - offset["x"], sheet["anchor"]["y"] - offset["y"]
             previous = base
+            seat = linked_seats.get(asset["id"])
+            if "chairBackId" in base:
+                seat = next(p for p in base["points"] if p["action"] == "typing")
+            depth_delta = base["footprintH"] * 16 + base["zOrder"] - (seat["y"] + 1) * 16 if seat else None
             for turn in range(1, 4):
                 width, height = previous["footprintW"], previous["footprintH"]
                 anchor_x, anchor_y = cell - anchor_y - height * 16, anchor_x
@@ -334,6 +411,12 @@ def rotate_furniture(manifest: dict, images: dict[str, Image.Image]):
                                points=[dict(point, x=height - 1 - point["y"], y=point["x"],
                                             facing=facings[point["facing"]]) for point in previous["points"]],
                                animation=animation)
+                if "chairSeatAnchor" in previous:
+                    contact = previous["chairSeatAnchor"]
+                    variant["chairSeatAnchor"] = {"x": height * 16 - contact["y"], "y": contact["x"]}
+                if seat is not None:
+                    seat = dict(seat, x=height - 1 - seat["y"], y=seat["x"])
+                    variant["zOrder"] = (seat["y"] + 1 - variant["footprintH"]) * 16 + depth_delta
                 asset["variants"].append(variant)
                 previous = variant
 
@@ -378,10 +461,12 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     fallbacks = []
     cache = {}
 
-    def production(path, metadata=None):
-        key = (path, metadata)
+    def production(path, metadata=None, prop=None):
+        key = (path, metadata, prop)
         if key not in cache:
             cache[key] = ProductionSheet(path, metadata or path.with_suffix(".manifest.json"))
+            if prop is not None:
+                cache[key].image, _ = normalize_sheet(cache[key].image, cache[key].data, prop=prop)
         return cache[key]
 
     def add_sheet(sheet_id, image, cell, anchor, rows):
@@ -391,24 +476,42 @@ def build_pack(art_dir: Path, output: Path) -> dict:
 
     def add_character(character_id, path, metadata=None):
         metadata = metadata or path.with_suffix(".manifest.json")
-        image, rows = None, None
+        image, rows = seated_characters.get(character_id, (None, None))
         locked = path.parent / "locked" / f"{character_id}.png"
         if not locked.is_file():
             locked = art_dir / "roster" / character_id / "locked" / f"{character_id}.png"
         locked_metadata = locked.with_suffix(".manifest.json")
-        try:
-            data = json.loads(locked_metadata.read_text(encoding="utf-8-sig"))
-            report = json.loads((locked.parent / data["facelock"]["report"]).read_text(encoding="utf-8-sig"))
-            if all(hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
-                   for name, digest in report["sourceHashes"].items()):
-                image, rows = character_sheet(production(locked, locked_metadata))
-        except (OSError, ValueError, KeyError, TypeError):
-            pass
+        if image is None:
+            try:
+                data = json.loads(locked_metadata.read_text(encoding="utf-8-sig"))
+                report = json.loads((locked.parent / data["facelock"]["report"]).read_text(encoding="utf-8-sig"))
+                if all(hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
+                       for name, digest in report["sourceHashes"].items()):
+                    image, rows = character_sheet(production(locked, locked_metadata))
+            except (OSError, ValueError, KeyError, TypeError):
+                pass
         if image is None:
             image, rows = character_sheet(production(path, metadata))
         sheet_id = f"char-{character_id}"
         add_sheet(sheet_id, image, (32, 64), {"x": 16, "y": 60}, rows)
         manifest["characters"].append({"id": character_id, "sheetId": sheet_id})
+
+    # Published seated pairs are authoritative; art authors can have pending
+    # directories. A broken published pair fails before roster's skip path.
+    seated_characters = {}
+    for directory in sorted((art_dir / "seated").glob("*")):
+        if not directory.is_dir() or directory.name.startswith("."):
+            continue
+        path = directory / f"{directory.name}.png"
+        if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
+            continue
+        try:
+            source = production(path)
+            if "seated" not in source.data:
+                raise ValueError("missing seated metadata")
+            seated_characters[directory.name] = character_sheet(source)
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            raise ValueError(f"{directory.name}: invalid seated publication: {error}") from error
 
     for character_id in P5_IDS:
         add_character(character_id, art_dir / "sheets" / f"{character_id}.png")
@@ -429,7 +532,13 @@ def build_pack(art_dir: Path, output: Path) -> dict:
             except (OSError, ValueError, KeyError, TypeError) as error:
                 skipped.append({"id": directory.name, "reason": str(error)})
 
-    props = production(art_dir / "sheets" / "props.png")
+    for character_id in sorted(seated_characters.keys() - {c["id"] for c in manifest["characters"]}):
+        add_character(character_id, art_dir / "seated" / character_id / f"{character_id}.png")
+
+    props_path = art_dir / "env2" / "normalized" / "base" / "props.png"
+    if not props_path.is_file() or not props_path.with_suffix(".manifest.json").is_file():
+        props_path = art_dir / "sheets" / "props.png"
+    props = production(props_path, prop="props")
     tiles = production(art_dir / "sheets" / "tiles.png")
     icons = production(art_dir / "sheets" / "icons.png")
 
@@ -437,14 +546,16 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         return props.frames(name, (64, 64))[index]
 
     def env_frames(name, row="variants", cell=(64, 64)):
-        path = art_dir / "env2" / "sheets" / f"{name}.png"
-        if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
-            return None
-        try:
-            source = production(path)
-            return source.frames(row, cell), source.playback(row)
-        except (OSError, ValueError, KeyError, TypeError):
-            return None
+        for directory in ("normalized", "sheets"):
+            path = art_dir / "env2" / directory / f"{name}.png"
+            if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
+                continue
+            try:
+                source = production(path, prop=name if cell == (64, 64) else None)
+                return source.frames(row, cell), source.playback(row)
+            except (OSError, ValueError, KeyError, TypeError):
+                continue
+        return None
 
     def preferred(name, fallback, index=0, row="variants", animated=False):
         final = env_frames(name, row)
@@ -474,35 +585,57 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         manifest["furniture"].append(dict(id=asset_id, kind=kind, variants=[variant]))
 
     desk_parts = [env_frames(name) for name in ("desks", "monitors", "office-chairs")]
+    desk_cell = 64
+    desk_padding = 14 if all(desk_parts) else 0
+    desk_anchor = {"x": 8, "y": 8 + desk_padding}
     if all(desk_parts):
-        desk = Image.new("RGBA", (64, 64))
+        desk = Image.new("RGBA", (desk_cell, desk_cell))
         # Back-facing seat below the tabletop, screen above it. All authored
-        # components and the agent share the same centreline (world x=24).
-        for part, size, position in ((desk_parts[2][0][0], (18, 24), (23, 34)),
-                                     (desk_parts[0][0][0], (48, 24), (8, 16)),
-                                     (desk_parts[1][0][0], (24, 21), (20, 4))):
+        # components share world x=24. Raise only the monitor 14 world pixels:
+        # its bottom at y=3 leaves the head-anchored outer nameplate clear.
+        # Padding keeps the tabletop/chair world positions fixed, without clipping.
+        for part, size, position in ((desk_parts[0][0][0], (48, 24), (8, 16 + desk_padding)),
+                                     (desk_parts[1][0][0], (24, 21), (20, 4 + desk_padding - 14))):
             cropped = part.crop(part.getchannel("A").getbbox())
             desk.alpha_composite(cropped.resize(size, Image.Resampling.NEAREST), position)
+        # A narrow, static continuation of the authored stand closes the five
+        # source-pixel gap to the unchanged tabletop; use its actual base colour.
+        ImageDraw.Draw(desk).rectangle((31, 25, 32, 29), fill=desk.getpixel((32, 24)))
     else:
         fallbacks.append("desk-composite")
         desk = p5_prop("desk", 1)
-    screen_bounds = (23, 9, 40, 16) if all(desk_parts) else (23, 27, 39, 33)
+    # Authored screen-interior bounds, shifted with the monitor independently of
+    # the static desk, not inferred from animated runtime pixels.
+    screen_bounds = (23, 9 + desk_padding - 14, 40, 16 + desk_padding - 14) if all(desk_parts) else (23, 27, 39, 33)
     off = desk_screen(desk, screen_bounds, "off")
     desk_frames = [off, *(desk_screen(desk, screen_bounds, "working", frame) for frame in range(3)),
                    desk_screen(desk, screen_bounds, "screensaver")]
-    add_sheet("cozy-desk", atlas(desk_frames), (64, 64), {"x": 8, "y": 8},
-              [clip("cozy-desk", 0), clip("cozy-desk-off", 0),
-               clip("cozy-desk-working", 0, 3, 3, True, column=1),
-               clip("cozy-desk-screensaver", 0, column=4)])
+    desk_rows = [clip("cozy-desk", 0), clip("cozy-desk-off", 0),
+                 clip("cozy-desk-working", 0, 3, 3, True, column=1),
+                 clip("cozy-desk-screensaver", 0, column=4)]
+    desk_image = atlas(desk_frames)
+    desk_image, _ = normalize_sheet(desk_image, {
+        "characterId": "desk", "animation": {"rows": {r["name"]: r for r in desk_rows}},
+        "frame_layout": {"sheetWidth": desk_image.width, "sheetHeight": desk_image.height,
+                         "rows": {r["name"]: [{"x": (r["column"] + f) * desk_cell, "y": 0, "w": desk_cell, "h": desk_cell}
+                                                for f in range(r["frames"])] for r in desk_rows}}})
+    add_sheet("cozy-desk", desk_image, (desk_cell, desk_cell), desk_anchor, desk_rows)
     furniture("cozy-desk", "desk", (3, 2), [off],
-              points=[point("seat", 1, 2, "typing", "up")], anchor={"x": 8, "y": 8})
+              points=[point("seat", 1, 2, "typing", "up")], anchor=desk_anchor)
     variants = manifest["furniture"][-1]["variants"]
+    if all(desk_parts):
+        variants[0].update(chairBackId="cozy-chair-back", chairFrontId="cozy-chair-front",
+                           chairOffset={"x": 0, "y": 0}, chairSeatAnchor={"x": 24, "y": 41})
     variants.extend(dict(variants[0], state=state, animation=f"cozy-desk-{state}")
                     for state in ("off", "working", "screensaver"))
     if all(desk_parts):
         chair = Image.new("RGBA", (64, 64))
         part = desk_parts[2][0][0]
         chair.alpha_composite(part.crop(part.getchannel("A").getbbox()).resize((18, 24), Image.Resampling.NEAREST), (23, 34))
+        back = chair.copy()
+        back.paste((0, 0, 0, 0), (0, 49, 64, 64))
+        furniture("cozy-chair-back", "chair", (3, 2), [back], anchor={"x": 8, "y": 8})
+        manifest["furniture"][-1]["variants"][0]["blockedCells"] = []
         front = Image.new("RGBA", (64, 64))
         front.paste(chair.crop((0, 49, 64, 64)), (0, 49))
         furniture("cozy-chair-front", "chair", (3, 2), [front], anchor={"x": 8, "y": 8})
@@ -580,6 +713,71 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     furniture("cozy-counter-stool", "chair", (1, 1), [counter_stool_sprite()])
     manifest["furniture"][-1]["variants"][0]["blockedCells"] = []
     rotate_furniture(manifest, images)
+
+    # Authored profile art is added AFTER the legacy square-cell rotation pass.
+    # A padded canvas bakes the +/-26px chair offset without clipping its base.
+    env3 = art_dir / "env3" / "sheets"
+    if env3.is_dir():
+        side_anchor = {"x": 40, "y": 29}
+        side_geometry = (("right", 90, -26, 31, -1), ("left", 270, 26, 32, 3))
+
+        def side_source(name, screen=False):
+            path = art_dir / "env2" / "normalized" / "env3" / f"{name}.png"
+            if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
+                path = env3 / f"{name}.png"
+            return production(path, prop="monitor" if screen else name)
+
+        for part, z_order in (("back", -2), ("front", 4)):
+            asset_id = f"cozy-chair-side-{part}"
+            frames, rows, variants = [], [], []
+            for direction, rotation, offset, _, _ in side_geometry:
+                source = side_source(f"office-chair-side-{direction}-{part}")
+                frame = Image.new("RGBA", (128, 64))
+                frame.paste(source.frames("variants", (64, 64))[0], (32 + offset, 0))
+                name = f"{asset_id}-{direction}"
+                rows.append(clip(name, 0, column=len(frames)))
+                frames.append(frame)
+                variants.append(dict(rotation=rotation, state="default", footprintW=3, footprintH=2,
+                                     blockedCells=[], points=[], sheetId=asset_id, animation=name,
+                                     layer=1, zOrder=z_order))
+            add_sheet(asset_id, atlas(frames), (128, 64), side_anchor, rows)
+            manifest["furniture"].append(dict(id=asset_id, kind="chair", variants=variants))
+
+        for source_name in ("desk-side-wood", "desk-side-white", "desk-side-double-wood",
+                            "desk-side-double-white", "laptop-table-side"):
+            asset_id = "cozy-" + source_name
+            is_desk = source_name.startswith("desk-")
+            rows, groups, variants = [], [], []
+            for direction, rotation, offset, seat_x, tile_x in side_geometry:
+                source = side_source(f"{source_name}-{direction}", screen=is_desk)
+                states = ("off", "on", "typing") if is_desk else ("variants",)
+                animations = {}
+                for state in states:
+                    originals = source.frames(state, (64, 64))
+                    fps, loop = source.playback(state)
+                    frames = []
+                    for original in originals:
+                        frame = Image.new("RGBA", (128, 64))
+                        frame.paste(original, (32, 0))
+                        frames.append(frame)
+                    animation = f"{asset_id}-{direction}-{state}"
+                    rows.append(clip(animation, len(groups), len(frames), fps, loop))
+                    groups.append(frames)
+                    animations[state] = animation
+                for state, source_state in (("default", "on"), ("off", "off"),
+                                            ("working", "typing"), ("screensaver", "on")) if is_desk else (("default", "variants"),):
+                    variants.append(dict(rotation=rotation, state=state, footprintW=3, footprintH=2,
+                        blockedCells=[{"x": x, "y": y} for y in range(2) for x in range(3)],
+                        points=[point("seat", tile_x, 1, "typing", direction)] if is_desk else [],
+                        sheetId=asset_id, animation=animations[source_state], layer=1, zOrder=2,
+                        chairBackId="cozy-chair-side-back", chairFrontId="cozy-chair-side-front",
+                        chairOffset={"x": 0, "y": 0},
+                        chairSeatAnchor={"x": 32 + offset + seat_x - side_anchor["x"], "y": 44 - side_anchor["y"]}))
+            image = Image.new("RGBA", (128 * max(map(len, groups)), 64 * len(groups)))
+            for row, frames in enumerate(groups):
+                image.paste(atlas(frames), (0, row * 64))
+            add_sheet(asset_id, image, (128, 64), side_anchor, rows)
+            manifest["furniture"].append(dict(id=asset_id, kind="desk" if is_desk else "table", variants=variants))
 
     palette = Counter()
     for name in ("wall_office", "floor_pantry", "floor_office"):
@@ -680,6 +878,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
             path.unlink()
             stale += 1
     return dict(manifest=str(output / "assets.json"), characters=len(manifest["characters"]),
+                seatedCharacters=len(seated_characters),
                 blinkCharacters=sum(any(row["name"].startswith("blink-") for row in sheet["rows"])
                                     for sheet in manifest["sheets"]),
                 sheets=len(manifest["sheets"]), pngs=len(pngs), furniture=len(manifest["furniture"]),
