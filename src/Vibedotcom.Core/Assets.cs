@@ -71,7 +71,7 @@ public sealed class AssetPack
                     else bytes = File.ReadAllBytes(LocalFile(directory!, sheet.File));
                     var (width, height) = PngSize(bytes);
                     if (width % sheet.CellW != 0 || height % sheet.CellH != 0 || sheet.Rows.Any(r =>
-                        (r.Row + 1) * sheet.CellH > height || (r.Column + r.Frames) * sheet.CellW > width))
+                        ((long)r.Row + 1) * sheet.CellH > height || ((long)r.Column + r.Frames) * sheet.CellW > width))
                         throw new InvalidDataException("Clip exceeds sheet: " + sheet.Id);
                     images.Add(sheet.Id, bytes);
                     sheets.Add(sheet with { Width = width, Height = height, Sha256 = Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant() });
@@ -87,6 +87,12 @@ public sealed class AssetPack
         }
         Manifest = Manifest with { Sheets = Manifest.Sheets.Select(s => s.Sha256 != null ? s : s with
             { Sha256 = Convert.ToHexString(SHA256.HashData(Images[s.Id])).ToLowerInvariant() }).ToArray() };
+    }
+
+    internal void UseSafeFallback()
+    {
+        var safe = new AssetPack(); Manifest = safe.Manifest;
+        Images.Clear(); foreach (var (id, bytes) in safe.Images) Images[id] = bytes;
     }
 
     internal static T Read<T>(string file)
@@ -134,7 +140,11 @@ public sealed class AssetPack
     }
     private static void Validate(AssetManifest m)
     {
-        if (m.Version != 1 || m.Sheets.Count == 0 || m.Characters.Count == 0 || m.Sheets.Count > 128 || m.Characters.Count > 512)
+        if (m == null || m.Sheets == null || m.Characters == null || m.Furniture == null || m.TileTypes == null ||
+            m.Version != 1 || m.Sheets.Count == 0 || m.Characters.Count == 0 || m.Sheets.Count > 128 || m.Characters.Count > 512 ||
+            m.Furniture.Count > 512 || m.TileTypes.Count > 512 ||
+            m.Sheets.Any(s => s == null) || m.Characters.Any(c => c == null || string.IsNullOrWhiteSpace(c.Id)) ||
+            m.Furniture.Any(f => f == null || string.IsNullOrWhiteSpace(f.Id)) || m.TileTypes.Any(t => t == null))
             throw new InvalidDataException("Unsupported/empty asset manifest.");
         if (m.Sheets.Select(s => s.Id).Distinct().Count() != m.Sheets.Count || m.Characters.Select(c => c.Id).Distinct().Count() != m.Characters.Count ||
             m.Furniture.Select(f => f.Id).Distinct().Count() != m.Furniture.Count || m.TileTypes.Select(t => t.Id).Distinct().Count() != m.TileTypes.Count)
@@ -142,20 +152,24 @@ public sealed class AssetPack
         foreach (var s in m.Sheets)
             if (string.IsNullOrWhiteSpace(s.Id) || s.Id == "fallback" || s.CellW is < 1 or > 512 || s.CellH is < 1 or > 512 ||
                 !double.IsFinite(s.Scale) || s.Scale is < .125 or > 4 || !double.IsFinite(s.Anchor.X) || !double.IsFinite(s.Anchor.Y) ||
-                s.Rows.Count == 0 || s.Rows.Select(r => (r.Name, r.Direction)).Distinct().Count() != s.Rows.Count ||
-                s.Rows.Any(r => r.Row < 0 || r.Column < 0 || r.Frames is < 1 or > 256 || !double.IsFinite(r.Fps) || r.Fps is <= 0 or > 60 ||
+                s.Rows == null || s.Rows.Count is 0 or > 512 || s.Rows.Any(r => r == null) ||
+                s.Rows.Select(r => (r.Name, r.Direction)).Distinct().Count() != s.Rows.Count ||
+                s.Rows.Any(r => string.IsNullOrWhiteSpace(r.Name) || r.Row < 0 || r.Column < 0 || r.Frames is < 1 or > 256 || !double.IsFinite(r.Fps) || r.Fps is <= 0 or > 60 ||
                     r.Direction is not ("any" or "up" or "down" or "left" or "right") || r.FootOffset is {} p && (!double.IsFinite(p.X) || !double.IsFinite(p.Y)) ||
                     r.SeatAnchor is {} seat && (!double.IsFinite(seat.X) || !double.IsFinite(seat.Y) || seat.X < 0 || seat.Y < 0 || seat.X > s.CellW || seat.Y > s.CellH)))
                 throw new InvalidDataException("Invalid sheet: " + s.Id);
         bool HasSheet(string? id) => id == null || m.Sheets.Any(s => s.Id == id);
-        if (m.Characters.Any(c => !HasSheet(c.SheetId) || c.Provider is not (null or "codex" or "claude" or "antigravity") || c.Role is not (null or "supervisor" or "worker")))
+        if (m.Characters.Any(c => string.IsNullOrWhiteSpace(c.SheetId) || !HasSheet(c.SheetId) || c.Provider is not (null or "codex" or "claude" or "antigravity") || c.Role is not (null or "supervisor" or "worker")))
             throw new InvalidDataException("Invalid character reference/filter.");
         foreach (var f in m.Furniture)
-            if (f.Variants.Count == 0 || f.Variants.Select(v => (v.Rotation, v.State)).Distinct().Count() != f.Variants.Count || f.Variants.Any(v =>
+            if (f.Variants == null || f.Variants.Count is 0 or > 64 || f.Variants.Any(v => v == null) ||
+                f.Variants.Select(v => (v.Rotation, v.State)).Distinct().Count() != f.Variants.Count || f.Variants.Any(v =>
                 v.Rotation is not (0 or 90 or 180 or 270) || v.FootprintW is < 1 or > 64 || v.FootprintH is < 1 or > 64 ||
                 v.Layer is < 0 or > 2 || !double.IsFinite(v.ZOrder) || !HasSheet(v.SheetId) ||
                 new[] { v.ChairBackId, v.ChairFrontId }.Any(id => id != null && !m.Furniture.Any(a => a.Id == id)) ||
                 new[] { v.ChairOffset, v.ChairSeatAnchor }.Any(p => p != null && (!double.IsFinite(p.X) || !double.IsFinite(p.Y))) ||
+                v.Points == null || v.Points.Count > 128 || v.BlockedCells?.Count > 4096 ||
+                v.Points.Any(p => p == null || string.IsNullOrWhiteSpace(p.Id) || p.X is < -128 or > 128 || p.Y is < -128 or > 128) ||
                 v.Points.Select(p => p.Id).Distinct().Count() != v.Points.Count ||
                 v.Points.Any(p => p.Facing is not ("up" or "down" or "left" or "right")) ||
                 v.BlockedCells?.Any(t => t.X < 0 || t.Y < 0 || t.X >= v.FootprintW || t.Y >= v.FootprintH) == true))
