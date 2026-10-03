@@ -32,30 +32,36 @@ internal sealed record Settings
     public bool TransparentBackground { get; init; }
     public double Opacity { get; init; } = 1;
     public double WorkingSeconds { get; init; } = 120;
-    public double GoneMinutes { get; init; } = 30;
+    private double? waitingMinutes;
+    private double legacyGoneMinutes = 30;
+    public double LeaveAfterIdleMinutes { get; init; } = 5;
+    public double LeaveAfterWaitingMinutes { get => waitingMinutes ?? legacyGoneMinutes; init => waitingMinutes = value; }
+    public double GoneMinutes { get => LeaveAfterWaitingMinutes; init => legacyGoneMinutes = value; }
 
     internal Settings Normalize()
     {
         static double Number(double value, double fallback, double min, double max) => double.IsFinite(value) ? Math.Clamp(value, min, max) : fallback;
         var working = Number(WorkingSeconds, 120, 1, 86400);
+        var waiting = Math.Max(Number(LeaveAfterWaitingMinutes, 30, 1, 10080), (working + 1) / 60);
         return this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
             TagMode = NameTagHover.Normalize(TagMode),
             Zoom = Number(Zoom, 0, 0, 6), Width = Number(Width, 720, 400, 3000), Height = Number(Height, 480, 300, 2000),
             Left = Left is {} x && double.IsFinite(x) ? Math.Clamp(x, -100000, 100000) : null,
             Top = Top is {} y && double.IsFinite(y) ? Math.Clamp(y, -100000, 100000) : null,
             Opacity = Number(Opacity, 1, .25, 1), WorkingSeconds = working,
-            GoneMinutes = Math.Max(Number(GoneMinutes, 30, 1, 10080), (working + 1) / 60) };
+            LeaveAfterIdleMinutes = Math.Max(Number(LeaveAfterIdleMinutes, 5, 1, 10080), (working + 1) / 60),
+            LeaveAfterWaitingMinutes = waiting, GoneMinutes = waiting };
     }
 
     internal static Settings Read(string path)
     {
         try
         {
-            if (new FileInfo(path).Length > 65536) return new();
+            if (new FileInfo(path).Length > 65536) return new Settings().Normalize();
             using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
             return (JsonSerializer.Deserialize<Settings>(file, StateJson.Options) ?? new()).Normalize();
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return new(); }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return new Settings().Normalize(); }
     }
     internal void Write(string path) => StateJson.WriteAtomic(path,JsonSerializer.SerializeToUtf8Bytes(Normalize(),StateJson.Options));
 }
@@ -73,6 +79,7 @@ internal static class Program
             {
                 string Value() => ++i < args.Length ? args[i] : throw new ArgumentException("Missing option value.");
                 double Number() => double.Parse(Value(),CultureInfo.InvariantCulture);
+                double Positive() => Number() is var value && double.IsFinite(value) && value > 0 ? value : throw new ArgumentException("Expected a positive finite number.");
                 switch (args[i])
                 {
                     case "--demo": break;
@@ -90,8 +97,12 @@ internal static class Program
                     case "--borderless": initial = (initial ?? new()) with { Borderless = true }; break;
                     case "--transparent": initial = (initial ?? new()) with { TransparentBackground = true }; break;
                     case "--opacity": initial = (initial ?? new()) with { Opacity = Number() }; break;
+                    case "--working-seconds": initial = (initial ?? new()) with { WorkingSeconds = Positive() }; break;
+                    case "--leave-after-idle-minutes": initial = (initial ?? new()) with { LeaveAfterIdleMinutes = Positive() }; break;
+                    case "--leave-after-waiting-minutes": initial = (initial ?? new()) with { LeaveAfterWaitingMinutes = Positive() }; break;
+                    case "--gone-minutes": initial = (initial ?? new()) with { GoneMinutes = Positive() }; break;
                     case "--quit-after": quitAfter = Number(); break;
-                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
+                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated)] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
                 }
             }
             using var storage = new AppStorage(demo || qa || profile != null || smoke != null || verifyOpacity != null);
@@ -199,8 +210,62 @@ internal static class Program
         StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(office.Layout,StateJson.Options));
         StateJson.WriteAtomic(Path.Combine(output,"state.json"),new StateSnapshot(StateJson.SchemaVersion,now.AddSeconds(55),1,SpriteAtlas.Info,office.Layout,views,tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,office.FurnitureSprites));
         File.WriteAllText(Path.Combine(output,"smoke.txt"),$"Offscreen WPF render OK; demo={demo}; agents={sources.Count}; tagMode={tagMode}; zooms=1,2,3; hover={hover != null}; logBytesRead={tracker.BytesRead}\n"+string.Join("\n",assets.Warnings));
-        if(demo) ReviewRenders(output,assets,layout,tagMode);
+        if(demo) { ReviewRenders(output,assets,layout,tagMode); DepartureRenders(output,assets,layout,tagMode); }
         return 0;
+    }
+
+    private static void DepartureRenders(string output, AssetPack assets, OfficeLayout layout, string tagMode)
+    {
+        using var storage = new AppStorage(true);
+        var root = Path.Combine(storage.Home, ".codex", "sessions"); Directory.CreateDirectory(root);
+        var path = Path.Combine(root, "rollout-leave-demo.jsonl");
+        var epoch = DateTimeOffset.Parse("2026-10-04T00:00:00Z");
+        string Event(string type, object payload, DateTimeOffset time) => JsonSerializer.Serialize(new { timestamp = time.ToString("O"), type, payload }) + "\n";
+        File.WriteAllText(path, Event("session_meta", new { id = "leave-demo", agent_nickname = "Mira", source = "cli", cwd = "C:/Demo/Office" }, epoch) +
+            Event("event_msg", new { type = "task_complete" }, epoch));
+        File.SetLastWriteTimeUtc(path, epoch.UtcDateTime);
+        using var tracker = new AgentTracker(new() { Home = storage.Home });
+        var office = new OfficeAnimator(42, assets, layout);
+        var view = new OfficeView(assets, Path.Combine(storage.Home, "brand")) { TagMode = tagMode }; view.SetZoom(2);
+        var trace = new List<object>();
+        AgentView? last = null; var walkCaptured = false; var doorCaptured = false;
+        void Capture(string name, IReadOnlyList<AgentView> views, DateTimeOffset time)
+        {
+            view.Update(office.Layout, views, time, office.FurnitureSprites);
+            Render(view, 1100, 780, Path.Combine(output, name));
+        }
+        for (var frame = 0; frame <= 3350; frame++)
+        {
+            var seconds = frame / 10d; var now = epoch.AddSeconds(seconds);
+            if (frame == 3350)
+            {
+                File.AppendAllText(path, Event("event_msg", new { type = "task_started" }, now)); File.SetLastWriteTimeUtc(path, now.UtcDateTime);
+                // The scan interval remains three seconds; advance to the next scan for this new event.
+                now = epoch.AddSeconds(336);
+            }
+            var views = office.Update(tracker.Poll(now), now, frame is 3000 or 3350 ? 0 : .1);
+            var traveler = views.Single(); var p = traveler.Pose;
+            if (frame == 2999) Capture("leave-1-break.png", views, now);
+            if (frame == 3000 && last is { } previous && (p.X != previous.Pose.X || p.Y != previous.Pose.Y))
+                throw new InvalidOperationException("Departure changed the character's position without a movement step.");
+            if (!walkCaptured && traveler.Agent.State == AgentState.Gone && p.Visible &&
+                Math.Abs(p.X - office.Layout.Door.X) + Math.Abs(p.Y - office.Layout.Door.Y) > 1 && seconds >= 300.5)
+            { Capture("leave-2-walk.png", views, now); walkCaptured = true; }
+            if (!doorCaptured && traveler.Agent.State == AgentState.Gone && p.Visible && p.Opacity is > 0 and < 1)
+            { Capture("leave-3-door-fade.png", views, now); doorCaptured = true; }
+            if (frame == 3350)
+            {
+                if (last?.Pose.Visible != false || !p.Visible || p.Action != "entering" || p.X != office.Layout.Door.X || p.Y != office.Layout.Door.Y)
+                    throw new InvalidOperationException("New activity did not re-enter through the door.");
+                Capture("leave-4-return.png", views, now);
+            }
+            if (seconds >= 299.8 && (frame % 5 == 0 || frame is 2999 or 3000 or 3350))
+                trace.Add(new { seconds = (now - epoch).TotalSeconds, state = traveler.Agent.State, p.Action, p.X, p.Y, p.Opacity, p.Visible });
+            last = traveler;
+        }
+        if (!walkCaptured || !doorCaptured) throw new InvalidOperationException("Departure walk/fade was not observed.");
+        StateJson.WriteAtomic(Path.Combine(output, "leave-walk.json"), JsonSerializer.SerializeToUtf8Bytes(new
+        { fabricated = true, workingSeconds = 120, leaveAfterIdleMinutes = 5, leaveAfterWaitingMinutes = 30, logBytesRead = tracker.BytesRead, trace }, StateJson.Options));
     }
 
     internal static Task<(AssetPack Assets, OfficeLayout Layout, OfficeAnimator Office, IReadOnlyDictionary<string, BitmapSource> Sheets)> LoadOfficeAsync(string? assetDirectory, string? layoutFile, AppStorage storage) => Task.Run(() =>
@@ -414,9 +479,9 @@ internal sealed class OfficeWindow : Window
         {
             Home = this.storage.Isolated ? this.storage.Home : new TrackerOptions().Home,
             WorkingWindow = TimeSpan.FromSeconds(Finite(settings.WorkingSeconds,120,1,86400)),
-            GoneAfter = TimeSpan.FromMinutes(Finite(settings.GoneMinutes,30,1,10080))
+            LeaveAfterIdle = TimeSpan.FromMinutes(settings.LeaveAfterIdleMinutes),
+            LeaveAfterWaiting = TimeSpan.FromMinutes(settings.LeaveAfterWaitingMinutes)
         };
-        if (options.GoneAfter <= options.WorkingWindow) options = options with { GoneAfter = options.WorkingWindow + TimeSpan.FromSeconds(1) };
         tracker = new(options); modes = new(this,qa);
         var root = new DockPanel { Background=settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor) };
         var bar = new DockPanel { Margin = new(16,9,16,9), LastChildFill = true };
