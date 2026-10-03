@@ -2,13 +2,15 @@
 
 The WPF app reads session sources itself. It does not need the headless tracker or Windhawk. Build and run commands are in the [README](../README.md); [tracker usage](tracker.md) covers the separate console program.
 
+Run the commands below from the repository root. Normal runs save settings changes and startup overrides when you close the app; demo and QA runs use disposable settings.
+
 ## Window and controls
 
 The default window is 720x480 and fits the compact office at an integer zoom. Wheel, with or without Ctrl, and `+` / `-` select 1x through 6x. Drag to pan. Hover shows provider, role, model, project, last prompt, tool, state and elapsed time. The tooltip is passive.
 
 Right-click the office or tray to fit the office, switch between normal, always-on-top and desktop-level modes, or change click-through, borders, transparent background, opacity and **Name tags**. Double-click the tray icon or choose **Show normal, clickable office** to recover. Closing exits and removes the icon.
 
-Name tags default to **Hover**: only the character under the pointer shows its `[provider icon] name` plate. A reserved desk shows its owner's plate only while that desk is hovered and its owner is away. **Icon** keeps a 12×12 world-pixel provider icon above each head and on away owners' desks; hover reveals the full plate. **Always** keeps full plates visible. Both menus apply the selection immediately and save it for the next launch.
+Name tags default to **Hover**: only the character under the pointer shows its `[provider icon] name` plate. A reserved desk shows its owner's plate only while that desk is hovered and its owner is away. **Icon** keeps the original provider icon above each head and on away owners' desks; hover reveals the full plate. Native 10px icons are used at 1× and 12px icons from 2×, with integer pixel scaling. A crown marks a supervisor; a badge marks a sub-agent. Local brand overrides retain their existing 12px size and precedence. **Always** keeps full plates visible. Both menus apply the selection immediately and save it for the next launch.
 
 Hover plates fade in over 120ms. Leaving has a 60ms boundary grace, then a 200ms fade out. Moving between the character and its plate, including the gap, keeps the same hover. Detail tooltips appear after 420ms on the same target, remain passive and avoid all visible plates; a tooltip is suppressed if the window has no room. Click-through uses the existing passive cursor polling. Only the tag layer redraws during fades.
 
@@ -22,6 +24,9 @@ Normal use writes `%LOCALAPPDATA%\Vibedotcom\settings.json` atomically. Close th
 | --- | --- |
 | `mode` | `normal`; also `topmost`, `desktop`. |
 | `tagMode` | `hover`; also `icon`, `always`. Missing, null or unknown values fall back to `hover`. Renderer setting; never stored in tracker `state.json`. |
+| `ambient.weather` | `off`; also `rain`, `snow`, `auto`. No network requests. `auto` shows snow in December and a clear view in other months. |
+| `seasonDecor` | `off`; `auto` adds a small winter window decoration in December. |
+| `pets` | `on`; `off` hides the roaming pets. Right-click **Pets** changes and saves this preference. Missing pet sheets simply leave the room without pets. |
 | `clickThrough` | `false`. |
 | `zoom` | `0` for auto-fit; integers 1 through 6. Fractional values are rounded. |
 | `width`, `height` | 720, 480; window sizing clamps to 400–3000 and 300–2000 respectively. |
@@ -39,6 +44,28 @@ Older settings are accepted. Invalid/nonfinite values are normalized before use 
 Working/Thinking becomes Idle after `workingSeconds`. Finished workers still deliver their report, then take breaks until the idle threshold. Parents stay while a tracked descendant is active. Departure begins wherever the character is, walks to the door and fades there. Later work re-enters through the door. [Closed-session signals](sources-and-inference.md#closed-sessions) can make agents leave sooner; undetectable closures use these time thresholds.
 
 ## Art packs and office editing
+
+Windows follow your computer's local time: day from 07:00 to 17:00, sunset from 17:00 to 19:00, and night until 07:00. Rain or snow replaces the clear view. The wall clock uses the same local time; string lights come on from 17:00 until 07:00. These effects keep working offline. For example:
+
+```json
+{ "ambient": { "weather": "rain" }, "seasonDecor": "auto", "pets": "on" }
+```
+
+Resting agents can play darts, pair up at the ping-pong table, use the arcade, read, lie on a bean bag, watch the fish, get a drink or look outside. Each interaction point admits one agent. Ping-pong waits for both players to arrive and stops if either returns to work or leaves. The room stays 35 by 20 tiles, with twelve desks and the existing overflow seats.
+
+To adjust the frequency or length of breaks, place `activities.json` next to `settings.json`, then restart. Unlisted activities keep the [bundled defaults](../src/Vibedotcom.Core/Data/activities.json). A zero weight disables an activity; durations are seconds counted after arrival. The tracker reads the same file from its output directory.
+
+```json
+{
+  "version": 1,
+  "activities": [
+    { "id": "darts", "weight": 3, "minSeconds": 14, "maxSeconds": 24 },
+    { "id": "pingpong", "weight": 4, "minSeconds": 20, "maxSeconds": 33 }
+  ]
+}
+```
+
+Available IDs are `coffee`, `water`, `tv`, `phone`, `napping`, `chatting`, `darts`, `pingpong`, `arcade`, `reading`, `beanbag`, `aquarium`, `vending`, `fridge` and `window`. Invalid files use the defaults and show a warning. Pets are part of the viewer's animation, separate from tracked agents: one or two available designs roam, sometimes follow a supervisor, and nap on an available cushion. They avoid work seats and never reserve a desk.
 
 Normal startup tries `%LOCALAPPDATA%\Vibedotcom\assets\manifest.json` and `%LOCALAPPDATA%\Vibedotcom\layout.json`. A pack describes PNG sheets, clips, roster, furniture and tiles. Layouts contain tiles, rotated furniture and workspace/pantry/lounge/door zones. Missing or invalid input falls back to the bundled pack in `assets/pack/`, embedded by Core, then procedural art. The current review also records fallback failures for some otherwise accepted custom packs.
 
@@ -59,6 +86,7 @@ Demo/QA skip implicit personal pack and layout loading. Explicit `--asset-dir` a
 | --- | --- |
 | `--demo` | Invented sessions and default settings, without saving personal settings. |
 | `--tags hover\|icon\|always` | Name tag startup override, including demo, editor, offscreen smoke and idle profiling. |
+| `--ambient-weather off\|rain\|snow\|auto`, `--season-decor off\|auto`, `--pets on\|off` | Ambient startup overrides, including offscreen smoke and idle profiling. |
 | `--asset-dir DIR`, `--layout FILE` | Explicit runtime art/layout inputs. |
 | `--working-seconds N`, `--leave-after-idle-minutes N`, `--leave-after-waiting-minutes N` | Startup activity/leave windows; defaults 120 seconds, 5 minutes and 30 minutes. Positive finite values; applied limits and ordering match settings normalization. |
 | `--gone-minutes N` | Deprecated waiting-window alias. An explicit new waiting option wins, in either argument order. |
@@ -66,7 +94,8 @@ Demo/QA skip implicit personal pack and layout loading. Explicit `--asset-dir` a
 | `--quit-after 30` | Bounded exit after the given seconds. |
 | `--smoke-test OUTPUT_DIR` | Offscreen render and interchange exports. Add `--demo` to avoid real sources. Demo also writes `leave-1-break.png` through `leave-4-return.png` and `leave-walk.json`, using an isolated synthetic tracker and its real five-minute threshold. |
 | `--smoke-tags` | With `--smoke-test`, render all three tag modes with 12 fabricated agents and programmatic hover, without reading logs or opening visible windows. Writes six PNGs, `tags.json` and `smoke.txt`. |
-| `--profile-idle OUTPUT_DIR` | Bounded 20-second process CPU sample: six fabricated idle agents, 8fps WPF updates in one nonactivating offscreen window and an empty tracker home. Saves one initial image; avoids per-frame bitmap copies. |
+| `--smoke-ambient` | With `--smoke-test`, capture day, night, rain and snow with fabricated resting agents, plus 1×/2×/3× tag crops. Uses a fake local clock, reads no provider logs and opens no visible window. |
+| `--profile-idle OUTPUT_DIR` | Bounded 20-second process CPU sample: six fabricated idle agents and available pets, adaptive 8?30fps WPF updates in one nonactivating offscreen window and an empty tracker home. Saves one initial image; avoids per-frame bitmap copies. |
 | `--verify-opacity OUTPUT_DIR` | Owned-window opacity verification. See [limits](limits.md#verification). |
 | `--qa --quit-after 5` | Own-window lifecycle check. QA requires a finite exit time above zero and at most 60 seconds. |
 
