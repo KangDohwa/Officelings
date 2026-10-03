@@ -1,0 +1,171 @@
+{
+  "characterId": "wall-wood",
+  "engine": "component-row",
+  "game_input": "wall-wood.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "wall-wood.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../runs/tiles/base-source.png",
+  "cell": {
+    "shape": "square",
+    "width": 32,
+    "height": 32,
+    "safe_margin_x": 0,
+    "safe_margin_y": 0,
+    "size": 32,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "columns": 1,
+    "rows": {
+      "panel": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "top_left": {
+        "row": 1,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "top_right": {
+        "row": 2,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "inside_left": {
+        "row": 3,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "inside_right": {
+        "row": 4,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "door_frame": {
+        "row": 5,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "window_wall": {
+        "row": 6,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 32,
+    "sheetHeight": 224,
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "rows": {
+      "panel": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "top_left": [
+        {
+          "x": 0,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "top_right": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "inside_left": [
+        {
+          "x": 0,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "inside_right": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "door_frame": [
+        {
+          "x": 0,
+          "y": 160,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "window_wall": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        }
+      ]
+    }
+  }
+}

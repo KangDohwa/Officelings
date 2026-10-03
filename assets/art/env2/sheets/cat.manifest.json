@@ -1,0 +1,86 @@
+{
+  "characterId": "cat",
+  "engine": "component-row",
+  "game_input": "cat.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "cat.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../runs/props/base-source.png",
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 2,
+    "rows": {
+      "sleep": {
+        "row": 0,
+        "frames": 1,
+        "fps": 4,
+        "durations_ms": [
+          250
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 1,
+        "frames": 2,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 128,
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "rows": {
+      "sleep": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        }
+      ]
+    }
+  }
+}
