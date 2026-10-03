@@ -4,6 +4,7 @@ from copy import deepcopy
 from collections import deque
 import hashlib
 import json
+import os
 from pathlib import Path
 import shutil
 import tempfile
@@ -20,6 +21,13 @@ class BuildPackTests(unittest.TestCase):
         self.temporary = tempfile.TemporaryDirectory(prefix="vibedotcom-pack-")
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
+        home = self.root / "home"
+        home.mkdir()
+        environment = patch.dict(os.environ, {"HOME": str(home), "USERPROFILE": str(home),
+                                              "LOCALAPPDATA": str(home / "local"),
+                                              "APPDATA": str(home / "roaming")})
+        environment.start()
+        self.addCleanup(environment.stop)
         self.art = self.root / "art"
         self.output = self.root / "pack"
         self.sheets = self.art / "sheets"
@@ -28,6 +36,16 @@ class BuildPackTests(unittest.TestCase):
         for name in [*build_pack.P5_IDS, "props", "icons", "tiles"]:
             for suffix in (".png", ".manifest.json"):
                 shutil.copyfile(originals / f"{name}{suffix}", self.sheets / f"{name}{suffix}")
+        provider_dir = originals.parent / "provider-icons"
+        target = self.art / "provider-icons"
+        target.mkdir()
+        shutil.copyfile(provider_dir / "manifest.json", target / "manifest.json")
+        provider_data = json.loads((provider_dir / "manifest.json").read_text(encoding="utf-8-sig"))
+        for asset in provider_data["assets"]:
+            if asset["size"] in (10, 12):
+                path = target / asset["files"]["1"]
+                path.parent.mkdir(exist_ok=True)
+                shutil.copyfile(provider_dir / asset["files"]["1"], path)
         self.base = build_pack.ProductionSheet(self.sheets / "codex-worker-01.png",
                                               self.sheets / "codex-worker-01.manifest.json")
 
@@ -65,7 +83,13 @@ class BuildPackTests(unittest.TestCase):
         return target
 
     def runtime_frames(self, manifest, sheet_id, name, direction="any"):
-        sheet = next(s for s in manifest["sheets"] if s["id"] == sheet_id)
+        sheet = next((s for s in manifest["sheets"] if s["id"] == sheet_id), None)
+        if sheet is None:
+            asset = next(f for f in manifest["furniture"] if f["id"] == sheet_id)
+            variant = next(v for v in asset["variants"] if v["rotation"] == 0
+                           and v["state"] == ("default" if name == "variants" else name))
+            sheet = next(s for s in manifest["sheets"] if s["id"] == variant["sheetId"])
+            name = variant["animation"]
         row = next(r for r in sheet["rows"] if (r["name"], r["direction"]) == (name, direction))
         cw, ch = sheet["cellW"], sheet["cellH"]
         with Image.open(self.output / sheet["file"]) as image:
@@ -548,34 +572,28 @@ class BuildPackTests(unittest.TestCase):
         self.assertEqual((32, 32, 1, {"x": 0, "y": 0}),
                          (sheets["icons"]["cellW"], sheets["icons"]["cellH"], sheets["icons"]["scale"], sheets["icons"]["anchor"]))
 
-    def test_neutral_provider_icons_laptop_and_fallback_desk_states(self):
+    def test_original_provider_art_laptop_and_fallback_desk_states(self):
         build_pack.build_pack(self.art, self.output)
         manifest = self.manifest()
         sheets = {s["id"]: s for s in manifest["sheets"]}
         self.assert_desk_states(manifest, (23, 27, 39, 33))
         self.assert_furniture_rotations(manifest)
-        providers = sheets["provider-icons"]
-        self.assertEqual((12, 12, 1, {"x": 0, "y": 0}),
-                         (providers["cellW"], providers["cellH"], providers["scale"], providers["anchor"]))
-        self.assertEqual({"codex", "claude", "antigravity"}, {r["name"] for r in providers["rows"]})
-        glyphs = []
-        with Image.open(self.output / providers["file"]) as image:
-            self.assertEqual((36, 12), image.size)
+        source_dir = self.art / "provider-icons"
+        source_data = json.loads((source_dir / "manifest.json").read_text(encoding="utf-8-sig"))
+        expected_ids = {"codex", "claude", "antigravity", "other-agent", "supervisor", "sub-agent"}
+        expected_ids.update(f"{provider}-{role}" for provider in ("codex", "claude", "antigravity", "other-agent")
+                            for role in ("supervisor", "sub-agent"))
+        for size, sheet_id in ((12, "provider-icons"), (10, "provider-icons-10")):
+            providers = sheets[sheet_id]
+            self.assertEqual((size, size, 1, {"x": 0, "y": 0}),
+                             (providers["cellW"], providers["cellH"], providers["scale"], providers["anchor"]))
+            self.assertEqual(expected_ids, {r["name"] for r in providers["rows"]})
             for row in providers["rows"]:
                 self.assertEqual(("any", 1, 1, False), (row["direction"], row["frames"], row["fps"], row["loop"]))
-                x, y = row["column"] * 12, row["row"] * 12
-                glyph = image.crop((x, y, x + 12, y + 12))
-                pixels = set(glyph.get_flattened_data())
-                colours = {p[:3] for p in pixels if p[3]}
-                self.assertEqual({0, 255}, {p[3] for p in pixels})
-                self.assertEqual(1, len(colours))
-                self.assertNotIn(hashlib.sha256(glyph.tobytes()).hexdigest(), {
-                    "f52d51ec68055ba7b597e5181c672b45d48c7dd0c77eb866c8064a0078a87d2c",
-                    "5605ba5fedf0a75472635c465ce5898aee523660452633a193f0da613948c6fa",
-                    "3813091ed56339a245ae4cca26405f94b577abc647f62869a45963118fbeccde"})
-                self.assertEqual(build_pack.neutral_provider_icons()[row["name"]].tobytes(), glyph.tobytes())
-                glyphs.append(glyph.getchannel("A").tobytes())
-        self.assertEqual(3, len(set(glyphs)))
+                asset = next(a for a in source_data["assets"] if (a["id"], a["size"]) == (row["name"], size))
+                with Image.open(source_dir / asset["files"]["1"]) as original:
+                    self.assertEqual(original.convert("RGBA").tobytes(),
+                                     self.runtime_frames(manifest, sheet_id, row["name"])[0].tobytes())
         extras = sheets["office-extras"]
         self.assertEqual((16, 16, 1, {"x": 0, "y": 0}),
                          (extras["cellW"], extras["cellH"], extras["scale"], extras["anchor"]))
@@ -630,6 +648,148 @@ class BuildPackTests(unittest.TestCase):
         self.assertEqual(b"preserve another author's file", foreign.read_bytes())
         self.assertEqual({"assets.json", "sheets", ".publish.lock"}, {p.name for p in self.output.iterdir()})
         self.assertFalse(list(self.output.rglob("*.tmp")))
+
+    def test_ambient_states_masks_bubbles_and_optional_pet_actions(self):
+        original_art = build_pack.ROOT / "assets/art"
+        for relative in ("env4/sheets", "env4/bubbles", "env4/qa/masks"):
+            shutil.copytree(original_art / relative, self.art / relative)
+        for directory in sorted((original_art / "pets").iterdir()):
+            if not directory.is_dir():
+                continue
+            for source in [directory / f"{directory.name}.png", *sorted((directory / "variants").glob("*.png"))]:
+                if source.is_file() and source.with_suffix(".manifest.json").is_file():
+                    target = self.art / source.relative_to(original_art)
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    for suffix in (".png", ".manifest.json"):
+                        shutil.copyfile(source.with_suffix(suffix), target.with_suffix(suffix))
+        pending = self.art / "pets/pending"
+        pending.mkdir()
+        self.base.image.save(pending / "pending.png")
+        before = {p.relative_to(self.art): hashlib.sha256(p.read_bytes()).digest()
+                  for p in self.art.rglob("*") if p.is_file()}
+        with patch.object(build_pack, "normalize_frames", wraps=build_pack.normalize_frames) as normalize:
+            build_pack.build_pack(self.art, self.output)
+        self.assertTrue(normalize.call_args_list)
+        self.assertTrue(all(call.kwargs["max_shift"] == 0 and call.kwargs["animated_mask"] is not None
+                            and call.kwargs["mode"] == "static-body-with-animated-mask"
+                            for call in normalize.call_args_list))
+        manifest = self.manifest()
+        sheets = {s["id"]: s for s in manifest["sheets"]}
+        furniture = {f["id"]: f for f in manifest["furniture"]}
+        self.assertLessEqual(len(sheets), 128)
+        self.assertFalse(any(c["sheetId"].startswith("pet-") for c in manifest["characters"]))
+        self.assertNotIn("pet-pending", sheets)
+        mapping = {"window-views": "window", "coffee-machine": "pantry", "wall-clock": "clock",
+                   "water-cooler": "water", "plant-monstera": "plant"}
+        for metadata in sorted((self.art / "env4/sheets").glob("*.manifest.json")):
+            name = metadata.name.removesuffix(".manifest.json")
+            sheet_id = "cozy-" + mapping.get(name, name)
+            source = build_pack.ProductionSheet(metadata.with_suffix("").with_suffix(".png"), metadata)
+            states = {v["state"] for v in furniture[sheet_id]["variants"]}
+            self.assertEqual({"default", *(s for s in source.rows if s != "variants"),
+                              *(["off"] if name == "string-lights" else []),
+                              *(["closed", "open"] if name == "vending-machine" else [])}, states)
+            self.assertEqual({0, 90, 180, 270}, {v["rotation"] for v in furniture[sheet_id]["variants"]})
+            with Image.open(self.art / "env4/qa/masks" / f"{name}.png") as authored:
+                mask = authored.convert("L")
+            reference = source.frames(next(iter(source.rows)), (64, 64))[0]
+            for state in source.rows:
+                variant = next(v for v in furniture[sheet_id]["variants"] if v["rotation"] == 0
+                               and v["state"] == ("default" if state == "variants" else state))
+                row = next(r for r in sheets[variant["sheetId"]]["rows"] if r["name"] == variant["animation"])
+                self.assertEqual(source.playback(state), (row["fps"], row["loop"]))
+                expected = source.frames(state, (64, 64))
+                actual = self.runtime_frames(manifest, sheet_id, state)
+                self.assertEqual(len(expected), len(actual))
+                for original, runtime in zip(expected, actual):
+                    self.assertEqual(original.tobytes(), runtime.tobytes(), f"{name}/{state}")
+                    self.assert_static_body(reference, runtime, mask)
+        expected_points = {"cozy-window": ("window", 70), "cozy-pantry": ("coffee", 72),
+                           "cozy-water": ("water", 74), "cozy-vending-machine": ("vending", 72),
+                           "cozy-fridge": ("fridge", 72), "cozy-dartboard": ("darts", 82),
+                           "cozy-ping-pong": ("pingpong", 72), "cozy-bean-bag": ("beanbag", 70),
+                           "cozy-arcade": ("arcade", 72), "cozy-reading-nook": ("reading", 70),
+                           "cozy-standing-desk": ("standing-work", 72), "cozy-fish-tank": ("aquarium", 74)}
+        for asset_id, (action, feet_y) in expected_points.items():
+            variant = furniture[asset_id]["variants"][0]
+            p = variant["points"][0]
+            self.assertEqual(action, p["action"])
+            sheet = sheets[variant["sheetId"]]
+            row = next(r for r in sheet["rows"] if r["name"] == variant["animation"])
+            offset = row.get("footOffset", {"x": 0, "y": 0})
+            self.assertEqual((p["x"] * 16 + 8, (p["y"] + 1) * 16),
+                             (32 - sheet["anchor"]["x"] + offset["x"], feet_y - sheet["anchor"]["y"] + offset["y"]))
+        bed = furniture["cozy-pet-bed"]["variants"][0]
+        self.assertEqual((2, 1, "pet-props", "dog_bed", {"x": 16, "y": 5}),
+                         (bed["footprintW"], bed["footprintH"], bed["sheetId"], bed["animation"], bed["chairSeatAnchor"]))
+        bed_row = next(r for r in sheets["pet-props"]["rows"] if r["name"] == "dog_bed")
+        self.assertEqual({"x": 16, "y": 16}, bed_row["footOffset"])
+        self.assertEqual([{"id": "nap", "x": 1, "y": 1, "action": "pet-napping", "facing": "up"}], bed["points"])
+        string = self.runtime_frames(manifest, "cozy-string-lights", "twinkle")[0]
+        off = self.runtime_frames(manifest, "cozy-string-lights", "off")[0]
+        with Image.open(self.art / "env4/qa/masks/string-lights.png") as authored:
+            self.assert_static_body(string, off, authored.convert("L"))
+        self.assertEqual(string.getchannel("A").tobytes(), off.getchannel("A").tobytes())
+        self.assertNotEqual(string.tobytes(), off.tobytes())
+        glow = self.runtime_frames(manifest, "cozy-vending-machine", "glow")
+        self.assertEqual([f.tobytes() for f in glow],
+                         [f.tobytes() for f in self.runtime_frames(manifest, "cozy-vending-machine", "open")])
+        self.assertEqual(glow[0].tobytes(), self.runtime_frames(manifest, "cozy-vending-machine", "closed")[0].tobytes())
+        self.assertEqual({"day", "sunset", "night", "rain", "snow"},
+                         {r["name"] for r in sheets["cozy-window"]["rows"] if r["row"] < 5})
+        self.assertEqual({"coffee", "music-note", "light-bulb", "sweat-drop", "heart", "exclamation-error",
+                          "question", "sparkles", "zzz", "check", "pizza", "headphones", "magnifier"},
+                         {r["name"] for r in sheets["bubble-icons"]["rows"]})
+        for row in sheets["bubble-icons"]["rows"]:
+            with Image.open(self.art / "env4/bubbles" / f"{row['name']}.png") as original:
+                self.assertEqual(original.convert("RGBA").tobytes(),
+                                 self.runtime_frames(manifest, "bubble-icons", row["name"])[0].tobytes())
+        pet_ids = {"shiba", "tuxedo-cat", "orange-tabby", "corgi", "hamster-ball", "robot-buddy", "parrot", "capybara"}
+        pet_ids.update(f"{pet}-{coat}" for pet, coats in (("shiba", ("cream", "sesame")),
+                       ("tuxedo-cat", ("blue-grey", "chocolate")), ("orange-tabby", ("silver", "brown")),
+                       ("corgi", ("sable", "cream"))) for coat in coats)
+        self.assertEqual({"pet-" + p for p in pet_ids | {"props"}}, {s for s in sheets if s.startswith("pet-")})
+        for directory in sorted((self.art / "pets").iterdir()):
+            for path in [directory / f"{directory.name}.png", *sorted((directory / "variants").glob("*.png"))]:
+                if not path.with_suffix(".manifest.json").is_file():
+                    continue
+                source = build_pack.ProductionSheet(path, path.with_suffix(".manifest.json"))
+                pet_id = directory.name if path.parent == directory else f"{directory.name}-{path.stem}"
+                sheet_id = "pet-" + pet_id
+                cell = (source.layout["cellWidth"], source.layout["cellHeight"])
+                self.assertEqual(source.data["anchor"], sheets[sheet_id]["anchor"])
+                for state in source.rows:
+                    originals = source.frames(state, cell)
+                    if state in ("idle", "blink"):
+                        for column, direction in enumerate(("down", "left", "right", "up")):
+                            action = "idle" if state == "idle" else "blink-idle"
+                            row = next(r for r in sheets[sheet_id]["rows"] if (r["name"], r["direction"]) == (action, direction))
+                            self.assertEqual((1, 1, False), (row["frames"], row["fps"], row["loop"]))
+                            self.assertEqual(originals[column].tobytes(), self.runtime_frames(manifest, sheet_id, action, direction)[0].tobytes())
+                    else:
+                        action, direction = (state.split("_", 1) if state.startswith(("walk_", "roll_"))
+                                             else (state, source.data.get("pet", {}).get("actionFacings", {}).get(state, "any")))
+                        row = next(r for r in sheets[sheet_id]["rows"] if (r["name"], r["direction"]) == (action, direction))
+                        self.assertEqual(source.playback(state), (row["fps"], row["loop"]))
+                        if state == "sleep":
+                            self.assertEqual(source.data["pet"]["sleepContact"], row["seatAnchor"])
+                        for original, actual in zip(originals, self.runtime_frames(manifest, sheet_id, action, direction)):
+                            self.assertEqual(original.tobytes(), actual.tobytes(), f"{pet_id}/{state}")
+        self.assertEqual(before, {p.relative_to(self.art): hashlib.sha256(p.read_bytes()).digest()
+                                 for p in self.art.rglob("*") if p.is_file()})
+
+    def test_optional_provider_overlays_and_invalid_native_size(self):
+        for relative in ("12/supervisor.png", "10/sub-agent.png"):
+            (self.art / "provider-icons" / relative).unlink()
+        build_pack.build_pack(self.art, self.output)
+        manifest = self.manifest()
+        self.assertNotIn("supervisor", {r["name"] for s in manifest["sheets"] if s["id"] == "provider-icons" for r in s["rows"]})
+        self.assertNotIn("sub-agent", {r["name"] for s in manifest["sheets"] if s["id"] == "provider-icons-10" for r in s["rows"]})
+        before = self.files()
+        Image.new("RGBA", (12, 12), "red").save(self.art / "provider-icons/10/codex.png")
+        with self.assertRaisesRegex(ValueError, "native 10x10"):
+            build_pack.build_pack(self.art, self.output)
+        self.assertEqual(before, self.files())
 
     def test_failed_manifest_replace_preserves_published_pack(self):
         build_pack.build_pack(self.art, self.output)

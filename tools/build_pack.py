@@ -17,7 +17,7 @@ import time
 
 from PIL import Image, ImageDraw
 
-from anim_normalize import normalize_sheet
+from anim_normalize import normalize_frames, normalize_sheet
 from publication import writer_lock
 
 
@@ -280,21 +280,31 @@ def atlas(frames: list[Image.Image]) -> Image.Image:
     return image
 
 
-def neutral_provider_icons() -> dict[str, Image.Image]:
-    """Original neutral circle, five-point star and diamond; no brand inputs."""
+def provider_icons(art_dir: Path, size: int) -> dict[str, Image.Image]:
+    """Copy independently authored native cells, including published role art."""
+    directory = art_dir / "provider-icons"
+    if not (directory / "manifest.json").is_file():
+        return {}
+    data = json.loads((directory / "manifest.json").read_text(encoding="utf-8-sig"))
+    overlays = {icon["id"] for icon in data["icons"] if icon["type"] == "overlay"}
     result = {}
-    for name, accent in (("codex", "#58b8a8"), ("claude", "#e79a68"),
-                         ("antigravity", "#b1a2e5")):
-        image = Image.new("RGBA", (12, 12))
-        draw = ImageDraw.Draw(image)
-        if name == "codex":
-            draw.ellipse((1, 1, 10, 10), fill=accent)
-        elif name == "claude":
-            draw.polygon([(5, 1), (7, 4), (10, 4), (8, 7), (9, 10),
-                          (5, 8), (2, 10), (3, 7), (1, 4), (4, 4)], fill=accent)
-        else:
-            draw.polygon([(5, 1), (10, 5), (6, 10), (1, 6)], fill=accent)
-        result[name] = image
+    for asset in data["assets"]:
+        if asset["size"] != size:
+            continue
+        name = asset["id"]
+        path = directory / asset["files"]["1"]
+        if name in overlays and not path.is_file():
+            continue
+        if name in result or asset["anchor"] != {"x": 0, "y": 0}:
+            raise ValueError(f"{name}: invalid provider icon metadata")
+        with Image.open(path) as image:
+            if image.format != "PNG" or image.size != (size, size):
+                raise ValueError(f"{name}: provider icon must be a native {size}x{size} PNG")
+            result[name] = image.convert("RGBA")
+        if result[name].getchannel("A").getbbox() is None:
+            raise ValueError(f"{name}: empty provider icon")
+    if not {"codex", "claude", "antigravity"} <= result.keys():
+        raise ValueError(f"missing native {size}px provider icons")
     return result
 
 
@@ -466,8 +476,13 @@ def build_pack(art_dir: Path, output: Path) -> dict:
 
     def add_sheet(sheet_id, image, cell, anchor, rows):
         images[sheet_id] = image
-        manifest["sheets"].append(dict(id=sheet_id, file="", cellW=cell[0],
-                                      cellH=cell[1], anchor=anchor, scale=1, rows=rows))
+        entry = dict(id=sheet_id, file="", cellW=cell[0], cellH=cell[1],
+                     anchor=anchor, scale=1, rows=rows)
+        existing = next((s for s in manifest["sheets"] if s["id"] == sheet_id), None)
+        if existing is None:
+            manifest["sheets"].append(entry)
+        else:
+            existing.update(entry)
 
     def add_character(character_id, path, metadata=None):
         metadata = metadata or path.with_suffix(".manifest.json")
@@ -720,9 +735,12 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     add_sheet("icons", atlas(icon_frames), (32, 32), {"x": 0, "y": 0},
               [clip(name, 0, column=column) for column, name in enumerate(icon_names)])
 
-    providers = neutral_provider_icons()
-    add_sheet("provider-icons", atlas(list(providers.values())), (12, 12), {"x": 0, "y": 0},
-              [clip(name, 0, column=column) for column, name in enumerate(providers)])
+    for size, sheet_id in ((12, "provider-icons"), (10, "provider-icons-10")):
+        providers = provider_icons(art_dir, size)
+        if not providers:
+            continue
+        add_sheet(sheet_id, atlas(list(providers.values())), (size, size), {"x": 0, "y": 0},
+                  [clip(name, 0, column=column) for column, name in enumerate(providers)])
     laptop = laptop_sprite()
     add_sheet("office-extras", laptop, (16, 16), {"x": 0, "y": 0}, [clip("laptop", 0)])
     furniture("cozy-laptop", "laptop", (1, 1), [laptop], sheet_id="office-extras")
@@ -730,7 +748,197 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     furniture("cozy-counter-stool", "chair", (1, 1), [counter_stool_sprite()])
     manifest["furniture"][-1]["variants"][0]["chairSeatAnchor"] = {"x": 8, "y": -5}
     manifest["furniture"][-1]["variants"][0]["blockedCells"] = []
+
+    # Replace reused bodies in place; all states share one anchor and geometry.
+    # Published masks preserve the deliberately tiny motion without guessing it.
+    ambient = (
+        ("window-views", "window", "window", (3, 1), 0, [point("view", 1, 1, "window", "up")]),
+        ("coffee-machine", "pantry", "pantry", (3, 2), 1, []),
+        ("mug-steam", "mug-steam", "decoration", (1, 1), 2, []),
+        *((f"plant-{name}", "plant" if name == "monstera" else f"plant-{name}",
+           "plant", (1, 1), 1, []) for name in ("monstera", "snake", "fern", "succulent", "ficus")),
+        ("wall-clock", "clock", "clock", (1, 1), 2, []),
+        ("ceiling-light", "ceiling-light", "lamp", (1, 1), 2, []),
+        ("vending-machine", "vending-machine", "cabinet", (2, 3), 1,
+         [point("snack", 1, 3, "vending", "up")]),
+        ("fridge", "fridge", "cabinet", (2, 3), 1, [point("snack", 1, 3, "fridge", "up")]),
+        ("water-cooler", "water", "water", (1, 2), 1, []),
+        ("dartboard", "dartboard", "dartboard", (2, 1), 2,
+         [point("darts", 1, 2, "darts", "up")]),
+        ("ping-pong", "ping-pong", "ping-pong", (3, 2), 1,
+         [point("near", 1, 2, "pingpong", "up"), point("far", 1, -1, "pingpong", "down")]),
+        ("bean-bag", "bean-bag", "chair", (2, 1), 1,
+         [point("rest", 1, 1, "beanbag", "up")]),
+        ("arcade", "arcade", "arcade", (2, 3), 1,
+         [point("play", 1, 3, "arcade", "up")]),
+        ("reading-nook", "reading-nook", "reading-nook", (3, 2), 1,
+         [point("read", 1, 2, "reading", "up")]),
+        ("standing-desk", "standing-desk", "standing-desk", (3, 2), 1,
+         [point("work", 1, 2, "standing-work", "up")]),
+        ("fish-tank", "fish-tank", "fish-tank", (3, 2), 1,
+         [point("watch", 1, 2, "aquarium", "up")]),
+        ("lava-lamp", "lava-lamp", "lamp", (1, 1), 1, []),
+        ("desk-fan", "desk-fan", "decoration", (1, 1), 1, []),
+        ("string-lights", "string-lights", "lamp", (3, 1), 2, []),
+    )
+    shared_ambient = set()
+    for name, suffix, kind, footprint, layer, points in ambient:
+        path = art_dir / "env4" / "sheets" / f"{name}.png"
+        if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
+            continue
+        source = production(path)
+        with Image.open(art_dir / "env4" / "qa" / "masks" / f"{name}.png") as opened:
+            mask = opened.convert("L")
+        if mask.size != (64, 64):
+            raise ValueError(f"{name}: invalid ambient animation mask")
+        groups, rows = [], []
+        for state in source.rows:
+            frames = source.frames(state, (64, 64))
+            if len(frames) != source.animation[state]["frames"]:
+                raise ValueError(f"{name}/{state}: frame count disagrees with animation")
+            frames, _, _ = normalize_frames(frames, name, animated_mask=mask, max_shift=0,
+                                           mode="static-body-with-animated-mask")
+            fps, loop = source.playback(state)
+            rows.append(clip(state, len(groups), len(frames), fps, loop))
+            groups.append(frames)
+        if name == "string-lights":
+            original = groups[0][0]
+            dark = min((p for p in original.get_flattened_data() if p[3] == 255),
+                       key=lambda p: sum(p[:3]))
+            unlit = Image.new("RGBA", (64, 64), dark)
+            unlit.putalpha(original.getchannel("A"))
+            groups.append([Image.composite(unlit, original, mask)])
+            rows.append(clip("off", len(groups) - 1))
+        if name == "vending-machine":
+            rows.extend((dict(rows[0], name="closed", frames=1, fps=1, loop=False),
+                         dict(rows[0], name="open")))
+        image = Image.new("RGBA", (64 * max(map(len, groups)), 64 * len(groups)))
+        for row, frames in enumerate(groups):
+            image.paste(atlas(frames), (0, row * 64))
+        asset_id = "cozy-" + suffix
+        asset = next((f for f in manifest["furniture"] if f["id"] == asset_id), None)
+        approach = points or (asset["variants"][0]["points"] if asset else [])
+        anchor = furniture_anchor(sum(groups, []), footprint)
+        actor_feet = {"window-views": 70, "coffee-machine": 72, "water-cooler": 74,
+                      "vending-machine": 72, "fridge": 72, "dartboard": 82,
+                      "ping-pong": 72, "bean-bag": 70, "arcade": 72,
+                      "reading-nook": 70, "standing-desk": 72, "fish-tank": 74}
+        if approach and name in actor_feet:
+            p = approach[0]
+            anchor = {"x": 32 - (p["x"] * 16 + 8), "y": actor_feet[name] - (p["y"] + 1) * 16}
+        elif name == "string-lights":
+            anchor = {"x": 8, "y": 38}
+        add_sheet(asset_id, image, (64, 64), anchor, rows)
+        if asset_id not in ("cozy-window", "cozy-clock", "cozy-string-lights"):
+            shared_ambient.add(asset_id)
+        if asset is None:
+            furniture(asset_id, kind, footprint, groups[0], points=points, layer=layer)
+            asset = manifest["furniture"][-1]
+        base = dict(asset["variants"][0], layer=layer)
+        if points:
+            base = dict(base, points=points)
+        states = [("default", rows[0]["name"])]
+        states.extend((row["name"], row["name"]) for row in rows if row["name"] != "variants")
+        asset["variants"] = [dict(base, state=state, animation=animation) for state, animation in states]
+        if name == "plant-monstera":
+            alias = next(f for f in manifest["furniture"] if f["id"] == "cozy-plant-monstera")
+            alias["variants"] = [dict(v) for v in asset["variants"]]
+        if name in ("bean-bag", "reading-nook"):
+            contact_y = 50 if name == "bean-bag" else 55
+            anchor = next(s for s in manifest["sheets"] if s["id"] == asset_id)["anchor"]
+            for variant in asset["variants"]:
+                variant["chairSeatAnchor"] = {"x": 32 - anchor["x"], "y": contact_y - anchor["y"]}
+
+    bubble_dir = art_dir / "env4" / "bubbles"
+    glyphs = {}
+    for metadata in sorted(bubble_dir.glob("*.manifest.json")):
+        name = metadata.name.removesuffix(".manifest.json")
+        if name == "icons" or not (bubble_dir / f"{name}.png").is_file():
+            continue
+        source = production(bubble_dir / f"{name}.png")
+        glyphs[name] = source.frames("variants", (12, 12))[0]
+    if glyphs:
+        add_sheet("bubble-icons", atlas(list(glyphs.values())), (12, 12), {"x": 0, "y": 0},
+                  [clip(name, 0, column=column) for column, name in enumerate(glyphs)])
+
     rotate_furniture(manifest, images)
+
+    # Ambient furniture resolves its exact clip through its variant. Share the
+    # native cells to leave room for every published human and optional pet.
+    if shared_ambient:
+        sheets = [s for s in manifest["sheets"] if s["id"] in shared_ambient]
+        image = Image.new("RGBA", (max(images[s["id"]].width for s in sheets),
+                                    sum(images[s["id"]].height for s in sheets)))
+        rows, animations, y = [], {}, 0
+        for sheet in sheets:
+            image.paste(images[sheet["id"]], (0, y))
+            for row in sheet["rows"]:
+                name = sheet["id"] + "-" + row["name"]
+                animations[sheet["id"], row["name"]] = name
+                offset = row.get("footOffset", {"x": 0, "y": 0})
+                rows.append(dict(row, name=name, row=row["row"] + y // 64,
+                                 footOffset={axis: offset[axis] - sheet["anchor"][axis] for axis in ("x", "y")}))
+            y += images[sheet["id"]].height
+        manifest["sheets"] = [s for s in manifest["sheets"] if s["id"] not in shared_ambient]
+        for sheet_id in shared_ambient:
+            del images[sheet_id]
+        add_sheet("env4-props", image, (64, 64), {"x": 0, "y": 0}, rows)
+        for asset in manifest["furniture"]:
+            for variant in asset["variants"]:
+                if variant["sheetId"] in shared_ambient:
+                    variant.update(animation=animations[variant["sheetId"], variant["animation"]], sheetId="env4-props")
+
+    # Pets use the normalizer's existing full-body exception at fixed placement.
+    # Their facing selectors are single-frame clips, never a four-facing loop.
+    pet_paths = []
+    for directory in sorted((art_dir / "pets").glob("*")):
+        if not directory.is_dir() or directory.name.startswith("."):
+            continue
+        pet_paths.append((directory.name, directory / f"{directory.name}.png"))
+        pet_paths.extend((f"{directory.name}-{p.stem}", p)
+                         for p in sorted((directory / "variants").glob("*.png")))
+    for pet_id, path in pet_paths:
+        if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
+            continue
+        source = production(path)
+        cell = (source.layout["cellWidth"], source.layout["cellHeight"])
+        source.image, _ = normalize_sheet(source.image, source.data, prop="pet", max_shift=0)
+        groups, rows = [], []
+        for state in source.rows:
+            frames = source.frames(state, cell)
+            fps, loop = source.playback(state)
+            row = len(groups)
+            if state in ("idle", "blink"):
+                if len(frames) != 4:
+                    raise ValueError(f"{pet_id}/{state}: expected four facing choices")
+                for column, direction in enumerate(("down", "left", "right", "up")):
+                    rows.append(clip("idle" if state == "idle" else "blink-idle", row,
+                                     direction=direction, column=column))
+            elif state.startswith(("walk_", "roll_")):
+                action, direction = state.split("_", 1)
+                rows.append(clip(action, row, len(frames), fps, loop, direction))
+            else:
+                direction = source.data.get("pet", {}).get("actionFacings", {}).get(state, "any")
+                entry = clip(state, row, len(frames), fps, loop, direction)
+                if state == "sleep" and "pet" in source.data:
+                    entry["seatAnchor"] = dict(source.data["pet"]["sleepContact"])
+                rows.append(entry)
+            groups.append(frames)
+        image = Image.new("RGBA", (cell[0] * max(map(len, groups)), cell[1] * len(groups)))
+        for row, frames in enumerate(groups):
+            image.paste(atlas(frames), (0, row * cell[1]))
+        add_sheet("pet-" + pet_id, image, cell, source.data["anchor"], rows)
+        if pet_id == "props" and "dog_bed" in source.rows:
+            bed_frames = source.frames("dog_bed", cell)
+            bed_anchor = furniture_anchor(bed_frames, (2, 1))
+            bed_row = next(row for row in rows if row["name"] == "dog_bed")
+            bed_row["footOffset"] = {axis: source.data["anchor"][axis] - bed_anchor[axis] for axis in ("x", "y")}
+            furniture("cozy-pet-bed", "bed", (2, 1), bed_frames,
+                      points=[point("nap", 1, 1, "pet-napping", "up")], sheet_id="pet-props")
+            manifest["furniture"][-1]["variants"][0]["animation"] = "dog_bed"
+            target = source.data["interactions"]["points"]["dog_bed"][0]["target"]
+            manifest["furniture"][-1]["variants"][0]["chairSeatAnchor"] = {
+                axis: target[axis] - bed_anchor[axis] for axis in ("x", "y")}
 
     # Authored profile art is added AFTER the legacy square-cell rotation pass.
     # A padded canvas bakes the +/-26px chair offset without clipping its base.
@@ -873,8 +1081,8 @@ def build_pack(art_dir: Path, output: Path) -> dict:
                                          sheetId="room-walls", animation=animation))
     manifest["tileTypes"].sort(key=lambda entry: entry["id"])
 
-    if len(manifest["sheets"]) > 128:
-        raise ValueError("runtime pack exceeds the 128-sheet limit")
+    if len(manifest["sheets"]) > 127:
+        raise ValueError("runtime pack exceeds 127 sheets plus the runtime fallback")
     for sheet in manifest["sheets"]:
         image = images[sheet["id"]]
         if image.width > 8192 or image.height > 8192 or image.width * image.height > 16_777_216:
@@ -912,7 +1120,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     return dict(manifest=str(output / "assets.json"), characters=len(manifest["characters"]),
                 seatedCharacters=len(seated_characters),
                 blinkCharacters=sum(any(row["name"].startswith("blink-") for row in sheet["rows"])
-                                    for sheet in manifest["sheets"]),
+                                    for sheet in manifest["sheets"] if sheet["id"].startswith("char-")),
                 sheets=len(manifest["sheets"]), pngs=len(pngs), furniture=len(manifest["furniture"]),
                 tileTypes=len(manifest["tileTypes"]), skipped=skipped,
                 p5Fallbacks=sorted(set(fallbacks)), removedStale=stale)
