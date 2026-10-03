@@ -1,5 +1,19 @@
 namespace Vibedotcom.Core;
 
+public enum WindowOpacityPath { PerPixelContent, LayeredAttributes }
+
+public sealed record WindowOpacityPlan(double Opacity, byte ExpectedAlpha, WindowOpacityPath Path, bool Embedded)
+{
+    internal static double Normalize(double opacity) => double.IsFinite(opacity) ? Math.Clamp(opacity, .25, 1) : 1;
+
+    public static WindowOpacityPlan Create(double opacity, bool usesPerPixel, bool embedded)
+    {
+        var target = Normalize(opacity);
+        return new(target, (byte)Math.Round(target * 255, MidpointRounding.AwayFromZero),
+            usesPerPixel ? WindowOpacityPath.PerPixelContent : WindowOpacityPath.LayeredAttributes, embedded);
+    }
+}
+
 public sealed record DesktopWindow(long Id, long Parent, string ClassName, int ExStyle = 0);
 public sealed record DesktopHost(long Parent, long After);
 public sealed record WindowModePlan(string Mode, bool ClickThrough, bool Borderless, bool TransparentBackground,
@@ -10,7 +24,7 @@ public sealed record WindowModePlan(string Mode, bool ClickThrough, bool Borderl
         mode = mode is "desktop" or "topmost" ? mode : "normal";
         if (qa) mode = "normal";
         return new(mode, through, borderless || transparent || mode == "desktop", transparent,
-            double.IsFinite(opacity) ? Math.Clamp(opacity, .25, 1) : 1, mode == "topmost", mode != "desktop" && !qa,
+            WindowOpacityPlan.Normalize(opacity), mode == "topmost", mode != "desktop" && !qa,
             mode == "desktop" || through || qa);
     }
     // Input is a fake or a read-only HWND topology, in native top-level z-order.

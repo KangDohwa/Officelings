@@ -1,72 +1,178 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Vibedotcom.Core;
 
 namespace Vibedotcom.App;
 
-internal sealed class WindowModes(Window window, bool qa = false)
+internal sealed class WindowModes(Window window, bool qa = false, nint? desktopParentOverride = null)
 {
     public string Mode { get; private set; } = "normal";
     public bool ClickThrough { get; private set; }
-    public bool Embedded => desktopHost != 0 && IsWindow(desktopHost);
+    public bool Embedded => desktopHost != 0 && IsWindow(desktopHost) && GetParent(hwnd) == desktopHost &&
+        (GetWindowLong(hwnd,Style) & Child) != 0;
+    public nint Handle { get { Attach(); return hwnd; } }
+    public nint HookHandle => hookSource is { IsDisposed: false } ? hookSource.Handle : 0;
+    public string? OpacityError { get; private set; }
     public Rect ScreenBounds
     {
         get
         {
+            Attach();
             if (hwnd == 0 || !GetWindowRect(hwnd, out var r)) return new(window.Left, window.Top, window.Width, window.Height);
             var dpi = VisualTreeHelper.GetDpi(window);
             return new(r.Left / dpi.DpiScaleX, r.Top / dpi.DpiScaleY, (r.Right-r.Left) / dpi.DpiScaleX, (r.Bottom-r.Top) / dpi.DpiScaleY);
         }
     }
     private nint desktopHost, desktopAfter, hwnd, requestedShell;
+    private HwndSource? hookSource;
     private const int Style = -16, ExStyle = -20, Transparent = 0x20, Layered = 0x80000, NoActivateStyle = 0x08000000;
-    private const uint NoMove = 2, NoSize = 1, NoActivate = 0x10, FrameChanged = 0x20;
+    private const int Child = 0x40000000, Popup = unchecked((int)0x80000000);
+    private const uint NoMove = 2, NoSize = 1, NoZOrder = 4, NoActivate = 0x10, FrameChanged = 0x20;
     private static readonly nint Bottom = new(1), Topmost = new(-1), NotTopmost = new(-2);
-    private bool applying;
+    private bool applying, restoringOpacity, closed, closeAttached;
+    private byte? requestedAlpha;
+    private DispatcherOperation? opacityRestore;
 
     public void Attach()
     {
-        hwnd = new WindowInteropHelper(window).Handle;
-        HwndSource.FromHwnd(hwnd)?.AddHook(Hook);
+        if (closed) return;
+        if (!closeAttached)
+        {
+            closeAttached = true;
+            window.Closed += (_,_) =>
+            {
+                closed = true; requestedAlpha = null;
+                opacityRestore?.Abort(); opacityRestore = null;
+                if (hookSource is { IsDisposed: false }) hookSource.RemoveHook(Hook);
+                hookSource = null; hwnd = 0;
+            };
+        }
+        var current = new WindowInteropHelper(window).Handle;
+        var source = current == 0 ? null : HwndSource.FromHwnd(current);
+        if (current == hwnd && ReferenceEquals(source,hookSource)) return;
+        if (hookSource is { IsDisposed: false }) hookSource.RemoveHook(Hook);
+        hwnd = current; hookSource = source;
+        hookSource?.AddHook(Hook);
     }
 
     public void Apply(string mode, bool clickThrough, bool borderless = false, bool transparentBackground = false, double opacity = 1)
     {
-        if (hwnd == 0) return;
+        Attach();
+        if (hwnd == 0 || applying) return;
         applying = true;
         try
         {
             GetWindowRect(hwnd,out var rect);
+            var plan = WindowModePlan.Create(mode,clickThrough,borderless,transparentBackground,opacity,qa);
+            // Set this before WPF changes styles or sources so our hook can retain the bit it owns.
+            requestedAlpha = window.AllowsTransparency ? null : WindowOpacityPlan.Create(plan.Opacity,false,false).ExpectedAlpha;
+            OpacityError = null;
             if (desktopHost != 0)
             {
                 SetParent(hwnd,0);
-                SetWindowLong(hwnd,Style,(GetWindowLong(hwnd,Style) & ~0x40000000) | unchecked((int)0x80000000));
+                SetWindowLong(hwnd,Style,(GetWindowLong(hwnd,Style) & ~Child) | Popup);
                 SetWindowPos(hwnd,NotTopmost,rect.Left,rect.Top,rect.Right-rect.Left,rect.Bottom-rect.Top,NoActivate|FrameChanged);
                 desktopHost = desktopAfter = 0;
             }
-            var plan = WindowModePlan.Create(mode,clickThrough,borderless,transparentBackground,opacity,qa);
             Mode = plan.Mode; ClickThrough = plan.ClickThrough;
-            window.Topmost = plan.Topmost;
-            window.ShowInTaskbar = plan.ShowInTaskbar;
-            window.ShowActivated = !plan.NoActivate;
+            // Verification uses only hidden, owned HWNDs and native SWP_NOACTIVATE positioning.
+            var verification = desktopParentOverride.HasValue;
+            window.ShowActivated = !plan.NoActivate && !verification;
+            if (!verification) window.Topmost = plan.Topmost;
+            window.ShowInTaskbar = plan.ShowInTaskbar && !verification;
             window.WindowStyle = window.AllowsTransparency || plan.Borderless ? WindowStyle.None : WindowStyle.SingleBorderWindow;
-            hwnd = new WindowInteropHelper(window).Handle;
-            var ex = GetWindowLong(hwnd,ExStyle) | Layered;
-            ex = clickThrough ? ex | Transparent : ex & ~Transparent;
-            ex = plan.NoActivate ? ex | NoActivateStyle : ex & ~NoActivateStyle;
+            // ShowInTaskbar can replace WPF's native source. Move the hook to the current HWND.
+            Attach();
+            if (hwnd == 0) return;
+            // WPF taskbar/source changes can replace the HWND or reinterpret child coordinates.
+            if (GetWindowRect(hwnd,out var currentRect) && !currentRect.Equals(rect)) RestoreScreenBounds(rect);
+            var ex = GetWindowLong(hwnd,ExStyle);
+            if (!window.AllowsTransparency) ex |= Layered;
+            ex = plan.ClickThrough ? ex | Transparent : ex & ~Transparent;
+            ex = plan.NoActivate || verification ? ex | NoActivateStyle : ex & ~NoActivateStyle;
             SetWindowLong(hwnd,ExStyle,ex);
-            // Per-pixel windows use WPF's UpdateLayeredWindow path; mixing SLA into it breaks rendering.
-            if (window.AllowsTransparency) window.Opacity = plan.Opacity;
-            else SetLayeredWindowAttributes(hwnd,0,(byte)Math.Round(plan.Opacity*255),2);
-            if (Mode == "desktop") EmbedDesktop();
-            SetWindowPos(hwnd,Embedded ? desktopAfter : Mode == "desktop" ? Bottom : Mode == "topmost" ? Topmost : NotTopmost,
-                0,0,0,0,NoMove|NoSize|NoActivate|FrameChanged);
+            if (Mode == "desktop")
+            {
+                if (desktopParentOverride is { } host)
+                {
+                    GetWindowThreadProcessId(host,out var process);
+                    if (!IsWindow(host) || process != (uint)Environment.ProcessId)
+                        throw new ArgumentException("The desktop override must be a live HWND owned by this process.",nameof(desktopParentOverride));
+                    EmbedAt(host,0);
+                }
+                else EmbedDesktop();
+            }
+            if (!SetWindowPos(hwnd,Embedded ? desktopAfter : Mode == "desktop" ? Bottom : Mode == "topmost" ? Topmost : NotTopmost,
+                0,0,0,0,NoMove|NoSize|NoActivate|FrameChanged))
+                throw new Win32Exception(Marshal.GetLastWin32Error(),"Cannot position the opacity HWND.");
+
+            var opacityPlan = WindowOpacityPlan.Create(plan.Opacity,window.AllowsTransparency,Embedded);
+            window.Opacity = 1;
+            if (opacityPlan.Path == WindowOpacityPath.PerPixelContent)
+            {
+                // Fade content pixels so the per-pixel path also works after WS_CHILD reparenting.
+                // Never use SLA here: it disables WPF's UpdateLayeredWindow rendering path.
+                window.Background = Brushes.Transparent;
+                if (window.Content is not UIElement content)
+                    throw new InvalidOperationException("Per-pixel opacity requires UIElement window content.");
+                content.Opacity = opacityPlan.Opacity;
+            }
+            else
+            {
+                if (window.Content is UIElement content) content.Opacity = 1;
+                // Parent, style and z-order must be final before applying native constant alpha.
+                RestoreNativeOpacity();
+            }
         }
         finally { applying = false; }
+    }
+
+    private void RestoreScreenBounds(NativeRect rect)
+    {
+        var point = new NativePoint { X = rect.Left, Y = rect.Top };
+        if ((GetWindowLong(hwnd,Style)&Child) != 0 && GetParent(hwnd) is var parent && parent != 0)
+            ScreenToClient(parent,ref point);
+        if (!SetWindowPos(hwnd,0,point.X,point.Y,rect.Right-rect.Left,rect.Bottom-rect.Top,NoZOrder|NoActivate|FrameChanged))
+            throw new Win32Exception(Marshal.GetLastWin32Error(),"Cannot restore HWND screen bounds.");
+    }
+
+    private void RestoreNativeOpacity()
+    {
+        if (closed || restoringOpacity || requestedAlpha is not { } alpha || hwnd == 0 || window.AllowsTransparency) return;
+        restoringOpacity = true;
+        try
+        {
+            var ex = GetWindowLong(hwnd,ExStyle);
+            if ((ex&Layered) == 0) SetWindowLong(hwnd,ExStyle,ex|Layered);
+            if ((GetWindowLong(hwnd,ExStyle)&Layered) == 0)
+                throw new Win32Exception(Marshal.GetLastWin32Error(),"WPF removed WS_EX_LAYERED from the opacity HWND.");
+            if (!SetLayeredWindowAttributes(hwnd,0,alpha,2))
+                throw new Win32Exception(Marshal.GetLastWin32Error(),"SetLayeredWindowAttributes failed.");
+            OpacityError = null;
+        }
+        catch (Win32Exception e) { OpacityError = $"{e.Message} (Win32 {e.NativeErrorCode})"; throw; }
+        finally { restoringOpacity = false; }
+    }
+
+    private void QueueOpacityRestore()
+    {
+        if (closed || applying || restoringOpacity || requestedAlpha == null || opacityRestore != null ||
+            window.Dispatcher.HasShutdownStarted) return;
+        // AddHook runs before HwndTarget's default position handling. Restore only after it returns.
+        opacityRestore = window.Dispatcher.BeginInvoke(DispatcherPriority.Render,new Action(() =>
+        {
+            opacityRestore = null;
+            if (closed) return;
+            Attach();
+            try { RestoreNativeOpacity(); }
+            catch (Win32Exception) { } // OpacityError preserves asynchronous native failures for readback.
+        }));
     }
 
     private void EmbedDesktop()
@@ -94,21 +200,26 @@ internal sealed class WindowModes(Window window, bool qa = false)
         },0);
         var selection = WindowModePlan.FindHost(topology,progman.ToInt64());
         if (selection == null) return;
-        var host = new nint(selection.Parent); var after = new nint(selection.After);
+        EmbedAt(new(selection.Parent),new(selection.After));
+    }
+
+    private void EmbedAt(nint host, nint after)
+    {
         GetWindowRect(hwnd,out var rect);
         var point = new NativePoint { X = rect.Left, Y = rect.Top }; ScreenToClient(host,ref point);
         var originalStyle = GetWindowLong(hwnd,Style);
-        SetWindowLong(hwnd,Style,(originalStyle & ~unchecked((int)0x80000000)) | 0x40000000);
+        SetWindowLong(hwnd,Style,(originalStyle & ~Popup) | Child);
         SetParent(hwnd,host);
-        if (GetParent(hwnd) != host)
+        if (GetParent(hwnd) != host || (GetWindowLong(hwnd,Style)&Child) == 0)
         { SetParent(hwnd,0); SetWindowLong(hwnd,Style,originalStyle); return; }
         desktopHost = host; desktopAfter = after;
         SetWindowPos(hwnd,after,point.X,point.Y,rect.Right-rect.Left,rect.Bottom-rect.Top,NoActivate|FrameChanged);
     }
 
-    public bool DesktopHostLost => Mode == "desktop" && (desktopHost == 0 || !IsWindow(desktopHost));
+    public bool DesktopHostLost { get { Attach(); return Mode == "desktop" && !Embedded; } }
     public Point? Cursor(FrameworkElement element)
     {
+        Attach();
         if (!IsWindowVisible(hwnd) || window.WindowState == WindowState.Minimized || !GetCursorPos(out var point)) return null;
         var hit = WindowFromPoint(point);
         if (!ClickThrough && Mode != "desktop" && hit != hwnd && !IsChild(hwnd,hit)) return null;
@@ -142,7 +253,20 @@ internal sealed class WindowModes(Window window, bool qa = false)
 
     private nint Hook(nint handle, int message, nint wParam, nint lParam, ref bool handled)
     {
-        if ((Mode == "desktop" || ClickThrough || qa) && message == 0x0021)
+        if (handle == hwnd && requestedAlpha.HasValue && !window.AllowsTransparency)
+        {
+            if (message == 0x007c && wParam == new nint(ExStyle) && lParam != 0) // WM_STYLECHANGING
+            {
+                // HwndTarget always clears this bit for opaque sources. Preempt only that ownership
+                // rule; preserve every other requested style, including NoActivate and Transparent.
+                var styles = Marshal.PtrToStructure<NativeStyles>(lParam);
+                styles.New |= Layered;
+                Marshal.StructureToPtr(styles,lParam,false);
+                handled = true; return 0;
+            }
+            if (message is 0x0047 or 0x0005 or 0x0003 or 0x007d) QueueOpacityRestore();
+        }
+        if ((Mode == "desktop" || ClickThrough || qa || desktopParentOverride.HasValue) && message == 0x0021)
         { handled = true; return new(3); } // MA_NOACTIVATE
         if (ClickThrough && message == 0x0084) { handled = true; return new(-1); }
         if (!applying && Mode == "desktop" && message == 0x0046)
@@ -156,6 +280,7 @@ internal sealed class WindowModes(Window window, bool qa = false)
     }
 
     [StructLayout(LayoutKind.Sequential)] internal struct NativePoint { public int X,Y; }
+    [StructLayout(LayoutKind.Sequential)] private struct NativeStyles { public int Old,New; }
     [StructLayout(LayoutKind.Sequential)] private struct NativeRect { public int Left,Top,Right,Bottom; }
     [StructLayout(LayoutKind.Sequential)] private struct WindowPosition { public nint Handle,InsertAfter; public int X,Y,Width,Height; public uint Flags; }
     private delegate bool EnumWindowsProc(nint hwnd,nint parameter);
@@ -172,10 +297,11 @@ internal sealed class WindowModes(Window window, bool qa = false)
     [DllImport("user32.dll")] private static extern bool IsChild(nint parent,nint child);
     [DllImport("user32.dll")] private static extern bool IsWindow(nint hwnd);
     [DllImport("user32.dll")] private static extern bool IsWindowVisible(nint hwnd);
+    [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(nint hwnd,out uint process);
     [DllImport("user32.dll")] private static extern nint GetWindow(nint hwnd,uint command);
     [DllImport("user32.dll",CharSet=CharSet.Unicode)] private static extern int GetClassName(nint hwnd,System.Text.StringBuilder text,int count);
     [DllImport("user32.dll")] private static extern int GetWindowLong(nint hwnd,int index);
-    [DllImport("user32.dll")] private static extern int SetWindowLong(nint hwnd,int index,int value);
-    [DllImport("user32.dll")] private static extern bool SetLayeredWindowAttributes(nint hwnd,uint color,byte alpha,uint flags);
-    [DllImport("user32.dll")] private static extern bool SetWindowPos(nint hwnd,nint after,int x,int y,int w,int h,uint flags);
+    [DllImport("user32.dll",SetLastError=true)] private static extern int SetWindowLong(nint hwnd,int index,int value);
+    [DllImport("user32.dll",SetLastError=true)] private static extern bool SetLayeredWindowAttributes(nint hwnd,uint color,byte alpha,uint flags);
+    [DllImport("user32.dll",SetLastError=true)] private static extern bool SetWindowPos(nint hwnd,nint after,int x,int y,int w,int h,uint flags);
 }
