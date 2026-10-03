@@ -17,7 +17,6 @@ internal static partial class Program
         Console.WriteLine($"Sharing checks: {passed} passed, {failed} failed. Synthetic data; no network.");
         return failed == 0 ? 0 : 1;
     }
-    private static Task TransportChecks() => Task.CompletedTask;
     internal static void Check(string name, Action action)
     {
         try { action(); passed++; Console.WriteLine("PASS " + name); }
