@@ -3,7 +3,8 @@
 // @name            Vibedotcom pixel office
 // @description     Passive pixel office driven by the headless Vibedotcom tracker
 // @version         0.1.0
-// @author          Vibedotcom contributors
+// @author          KangDohwa
+// @license         MIT
 // @include         explorer.exe
 // @architecture    amd64
 // @compilerOptions -fms-extensions -lgdiplus -lgdi32 -luser32 -lbcrypt -lole32 -ldwmapi -ldwrite
