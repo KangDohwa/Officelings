@@ -1,0 +1,580 @@
+{
+  "characterId": "robot-buddy",
+  "engine": "component-row",
+  "game_input": "robot-buddy.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "robot-buddy.png",
+  "sprite_sheet_alpha_report": "../qa/validation.json",
+  "base_image": "../runs/seeds/sprite-sheet-alpha.png",
+  "cell": {
+    "shape": "square",
+    "width": 32,
+    "height": 32,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 29
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "roll_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "roll_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "roll_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "roll_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 6,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "sit": {
+        "row": 5,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 6,
+        "frames": 3,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "eat_drink": {
+        "row": 7,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "play": {
+        "row": 8,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "react": {
+        "row": 9,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "blink": {
+        "row": 10,
+        "frames": 4,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 352,
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "roll_down": [
+        {
+          "x": 0,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "roll_left": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "roll_right": [
+        {
+          "x": 0,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 96,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "roll_up": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "sit": [
+        {
+          "x": 0,
+          "y": 160,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 160,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "eat_drink": [
+        {
+          "x": 0,
+          "y": 224,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 224,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 224,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "play": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "react": [
+        {
+          "x": 0,
+          "y": 288,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 288,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "blink": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 320,
+          "w": 32,
+          "h": 32
+        }
+      ]
+    }
+  },
+  "idleFacings": [
+    "down",
+    "left",
+    "right",
+    "up"
+  ],
+  "pet": {
+    "name": "Robot buddy",
+    "locomotion": "roll",
+    "actionFacings": {
+      "sit": "down",
+      "sleep": "right",
+      "eat_drink": "right",
+      "play": "right",
+      "react": "down"
+    },
+    "sleepContact": {
+      "x": 16,
+      "y": 27
+    },
+    "muzzleContact": {
+      "x": 21,
+      "y": 19
+    },
+    "headLock": {
+      "method": "one accepted opaque head per facing, integer translations only",
+      "heads": {
+        "down": {
+          "file": "heads/down.png",
+          "rect": [
+            9,
+            7,
+            22,
+            21
+          ],
+          "eyes": [
+            [
+              13,
+              17
+            ],
+            [
+              18,
+              17
+            ]
+          ]
+        },
+        "left": {
+          "file": "heads/left.png",
+          "rect": [
+            11,
+            7,
+            21,
+            21
+          ],
+          "eyes": [
+            [
+              12,
+              16
+            ]
+          ]
+        },
+        "right": {
+          "file": "heads/right.png",
+          "rect": [
+            11,
+            7,
+            21,
+            21
+          ],
+          "eyes": [
+            [
+              19,
+              16
+            ]
+          ]
+        },
+        "up": {
+          "file": "heads/up.png",
+          "rect": [
+            9,
+            7,
+            22,
+            21
+          ],
+          "eyes": []
+        }
+      },
+      "exceptions": [
+        "sleep: closed eyes",
+        "blink: closed eyes",
+        "eat_drink: tongue/beak pixels",
+        "react: ears/antenna only"
+      ]
+    },
+    "integration": "Production art only; an adapter and pet behaviour system are separate work."
+  },
+  "blink": {
+    "down": {
+      "file": "blink-down.png",
+      "source": {
+        "state": "idle",
+        "frame": 0
+      },
+      "durationMs": 100,
+      "visibleEyes": true
+    },
+    "left": {
+      "file": "blink-left.png",
+      "source": {
+        "state": "idle",
+        "frame": 1
+      },
+      "durationMs": 100,
+      "visibleEyes": true
+    },
+    "right": {
+      "file": "blink-right.png",
+      "source": {
+        "state": "idle",
+        "frame": 2
+      },
+      "durationMs": 100,
+      "visibleEyes": true
+    },
+    "up": {
+      "file": "blink-up.png",
+      "source": {
+        "state": "idle",
+        "frame": 3
+      },
+      "durationMs": 100,
+      "visibleEyes": false
+    }
+  },
+  "provenance": {
+    "provider": "codex",
+    "pipeline": "still-image component-row seeds + deterministic pixel assembly",
+    "sourceState": "robot-buddy",
+    "sourceFrameHashes": [
+      "eb02ec55cbe68f15851aeb3704d37095a054fd14d7402ab521edd79a15c5cf9c",
+      "f6aba37481e550e808b9244094e8d506755b3d3e35fb44d90ea5b29e368530cd",
+      "571111534efb66623167d18657edef99116ca2ad712ae80dfc5a08417a1dd4de",
+      "cbcd348ca0cb7733c654b3b4dfa039ddb8ba8ece974fc4520d4e98e43990d3dd"
+    ],
+    "video": false
+  }
+}
