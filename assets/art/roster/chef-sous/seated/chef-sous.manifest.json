@@ -1,0 +1,836 @@
+{
+  "characterId": "chef-sous",
+  "engine": "component-row",
+  "game_input": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/chef-sous.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/chef-sous.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "palette_size": 21,
+  "blink": {
+    "down": {
+      "file": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/source.facelock.json",
+    "inputSha256": "671183c765b62e4fd3fa3f9a92c92e871faf90a02e7f6055ddc6c16e841475de"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "transferred-locked-blink"
+      },
+      "right": {
+        "file": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "transferred-locked-blink"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 48,
+        "sourceNeckY": 37,
+        "translation": {
+          "x": 0,
+          "y": 4
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 48,
+        "sourceNeckY": 37,
+        "translation": {
+          "x": 0,
+          "y": 4
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 48,
+        "sourceNeckY": 37,
+        "translation": {
+          "x": 0,
+          "y": 4
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/roster/chef-sous/locked/chef-sous.manifest.json": "27755f40aee8c2df6ed852f60079bb4d3d975f85dfc573b189f31b13f63bf326",
+      "assets/art/roster/chef-sous/locked/.generations/5aa61f1033a91215eebc1d77a622ff16f2f767ad0c539f4370b2abb2e60deb80/chef-sous.png": "f25487137632dde8f1aacfc8a876903a459385cd54d0785996b0008c77fb91f7",
+      "assets/art/roster/chef-sous/locked/.generations/5aa61f1033a91215eebc1d77a622ff16f2f767ad0c539f4370b2abb2e60deb80/chef-sous.facelock.json": "a3ae4ee7da05d13e19105acb7bf981a5ec5af48ccb92cb0fb2703e3e37b5bcc0",
+      "assets/art/roster/chef-sous/cleanup/source/chef-sous.manifest.json": "8174730eb9943097bd100c92c01d342819852c380b408e5e4094fb6dcc544118",
+      "assets/art/roster/chef-sous/cleanup/source/chef-sous.png": "e4227af0e0dc33feffc39e39334f0af144fdbd0522a10c24faf35ee9eaeb095b",
+      "assets/art/roster/chef-sous/cleanup/source/curated/idle-frame-0.png": "bb87db895b22eb122046ca6da6e2221b77613870dc7986d56a16f216bd1aaec4",
+      "assets/art/roster/chef-sous/cleanup/source/curated/idle-frame-1.png": "ee248fd3177a15d9568f4e6e701fcd5860c354e716f5b61683ccb9cce46427a8",
+      "assets/art/roster/chef-sous/cleanup/source/curated/idle-frame-2.png": "954215d8b9148c6df5bf78d89c7ddfcfe45fe5e9f0d3141d9943edf4113be00e",
+      "assets/art/roster/chef-sous/cleanup/source/curated/idle-frame-3.png": "764fdc4b46b446a5b860d5328e27d8fb39b204ab8ed773f746c9a7f3620df546",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_down-frame-0.png": "8240f0851989fbb04545da233c3cfc25703bea014eaf1683065f55ab756003b5",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_down-frame-1.png": "918afbdaff5a9ebe54853ffe0818e4e2725851175062e17e6bc0ef7ba9fa54df",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_down-frame-2.png": "fdfe3a5a1c1527a1b6910723fb823a556445a31f4f78abcc66813ab7394f05b0",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_down-frame-3.png": "2f61b058307e2c24330cb08fcc335c0d65c6b8dc482ced99b608d4cdac037aad",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_left-frame-0.png": "dc0e7d2ef3a300f266bf8f131135137592bf086b3c1b469607f7d10e57639b98",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_left-frame-1.png": "e9bd36531b574fddda253eb5574350425f4fb55a2dd5685b9392206ce8332bd2",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_left-frame-2.png": "de0e4016371a2ddf62614d576f3130e43a4538b54e026ba38bc337cac4c7578a",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_left-frame-3.png": "0fe15c845fd6f326d932b72b316da383a343576a87ae15e9756d246dac14be2b",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_right-frame-0.png": "c6f629ca83a881547cc9aee6c58a3fc1fdc7d71a450d70522bb0b5db1e38482f",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_right-frame-1.png": "e5b1ea0b8a2b909225e8b69fe0c59f128fca7024dbf320e5de1670a172e5624a",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_right-frame-2.png": "eb76051c9f825148ec9f08f0f9092f9a210f423a596784248d5f84e880856ab8",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_right-frame-3.png": "a548700b189574d6b853fb84ad3ee276af26470f67f11bce4be05af0f56a0942",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_up-frame-0.png": "b8e4990ca5417ed623b48100fc0048fc112aad786fe48edd1b5bece07de72a5f",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_up-frame-1.png": "9a3a6400ecaa630905639088131e6aa08f538015b0de56277a62ee522643680f",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_up-frame-2.png": "7be2f40d3ecbc0b0c5790c9b3364772b793168abcc9d9e4855711b441dc6d658",
+      "assets/art/roster/chef-sous/cleanup/source/curated/walk_up-frame-3.png": "998bc703ba845f7e480b0203954b073e8579431de347e6ba4429f9a3f61bc96c",
+      "assets/art/roster/chef-sous/cleanup/source/curated/typing_back-frame-0.png": "aaaf3498c7e60997cf5c16b5fdc44cc66e1d8d5d0034733fa6055dacd19284b8",
+      "assets/art/roster/chef-sous/cleanup/source/curated/typing_back-frame-1.png": "a342b058615ad65ab0bb559bca08191b67bdeb156cea16735bf4744295293763",
+      "assets/art/roster/chef-sous/cleanup/source/curated/typing_back-frame-2.png": "cb508131e64f8e57e1878a87bfb6a65e04a614857c2b4796d1aa42c9d7028102",
+      "assets/art/roster/chef-sous/cleanup/source/curated/typing_side-frame-0.png": "c61cd946d4588a048ee8b80125cbb3dda3c18719d66abf0f8fab7700686b1bff",
+      "assets/art/roster/chef-sous/cleanup/source/curated/typing_side-frame-1.png": "0a20192dc82acbdc4329447b1ba15971d034a9d1f27dfd7ecac47c1ae5321224",
+      "assets/art/roster/chef-sous/cleanup/source/curated/typing_side-frame-2.png": "31aa791e7125b4543818ec85908723b088df7f446ec0bafee9fcbe47a7b8f67c",
+      "assets/art/roster/chef-sous/cleanup/source/curated/report-frame-0.png": "0f5fd6f82aa904233b7b45778860e1d2b788e66a3f6777b466544e248bb7862b",
+      "assets/art/roster/chef-sous/cleanup/source/curated/report-frame-1.png": "5c83d0c9f8604b4a0ed98952cecf07a181e0f6b1cea709046eff49cd392fd95d",
+      "assets/art/roster/chef-sous/cleanup/source/curated/report-frame-2.png": "98a7bd86a30ed98e0099cda677be8cc8339abea976f75ac7221cff915e4cb465",
+      "assets/art/roster/chef-sous/cleanup/source/curated/sleep-frame-0.png": "1fab4c1f97ac8ea34f3f3490ae4f0b18aec0f56f9cfa27f510677c1b00867720",
+      "assets/art/roster/chef-sous/cleanup/source/curated/sleep-frame-1.png": "27bed3a390a73f9ff44ccdd8a9aeed2f698602eafc9118e6a469db56ffd25543",
+      "assets/art/roster/chef-sous/cleanup/source/curated/coffee-frame-0.png": "b39c428ab471608e3a29c7c87e8e8815d15a1166ac082792bb7f5229eea9dada",
+      "assets/art/roster/chef-sous/cleanup/source/curated/coffee-frame-1.png": "7553a5f5525b6f298150059b4018a4c13622b71a3f15a43bbb310f8bbcc74f24",
+      "assets/art/roster/chef-sous/cleanup/source/curated/coffee-frame-2.png": "c238033bdffa0292c8263fba46ff3bf07e8028db63cf59718dfadb582e1f4559",
+      "assets/art/roster/chef-sous/cleanup/source/curated/phone-frame-0.png": "afdfde6b09354083076f5d6b7f7af7422b5ba1f5e6f16da2774ca92447dc506e",
+      "assets/art/roster/chef-sous/cleanup/source/curated/phone-frame-1.png": "d27a7299d5e5c05f59227f910ff73a539b004bea5e43f29ce29505cb8dd23133",
+      "assets/art/roster/chef-sous/cleanup/source/curated/phone-frame-2.png": "a0618c3678458f1fc0a05bf365ca06acdd94bff23ea8d3e5961da58269684188",
+      "assets/art/roster/chef-sous/cleanup/source/curated/talk-frame-0.png": "f8a7a76ace8046562dc0246c1eb9cf0f7c37e8d2165740143c6e7761a4a07251",
+      "assets/art/roster/chef-sous/cleanup/source/curated/talk-frame-1.png": "6ab96a1ac4764675ca887d089e88ccffe23d526ea5359165d9262205b33995e8",
+      "assets/art/roster/chef-sous/cleanup/source/curated/talk-frame-2.png": "6bf95fdf50e3e9e34180c7dc1c35e96a3da1b94db5f51afde509d65116b2eff7",
+      "assets/art/roster/chef-sous/cleanup/source/curated/surprised-frame-0.png": "fb986c9603b818e0a5c66134fdd79d0123ac01124fc103c9b3c05608ab04ba87",
+      "assets/art/roster/chef-sous/cleanup/source/curated/surprised-frame-1.png": "a1be67302d8005a0eced109537a5ed4d4f83fecb5870c33bb4b9b51463f0668f",
+      "assets/art/roster/chef-sous/locked/.generations/5aa61f1033a91215eebc1d77a622ff16f2f767ad0c539f4370b2abb2e60deb80/blink-down.png": "abc6ba0f30cf11ac7efd963f2e758112b787b894edfdc4328ba6dcbd220ac7e4",
+      "assets/art/roster/chef-sous/locked/.generations/5aa61f1033a91215eebc1d77a622ff16f2f767ad0c539f4370b2abb2e60deb80/blink-left.png": "cb25131a524d99db70d781d2ae3c12246e2f844a7badc81f436aadd42409e2e2",
+      "assets/art/roster/chef-sous/locked/.generations/5aa61f1033a91215eebc1d77a622ff16f2f767ad0c539f4370b2abb2e60deb80/blink-right.png": "8779aebba06a287b5020ff2115eec02c535303a4a1ef4cc9b0bd6a7ae6be691f"
+    },
+    "blinkSheet": {
+      "file": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11/seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  },
+  "publication": {
+    "generation": ".generations/0ab00cc8587f4edae57cc11bd0df25c9aa74fff531d9542617860bf46fe23e11"
+  }
+}
