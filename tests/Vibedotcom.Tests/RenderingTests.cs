@@ -55,7 +55,7 @@ public sealed class RenderingTests
     }
     private static OfficeView View(AssetPack pack, OfficeLayout layout, IReadOnlyList<AgentView> agents, string? brand = null)
     {
-        var view = new OfficeView(pack, brand ?? Path.Combine(Output, "missing-brand")) { TransparentBackground = true };
+        var view = new OfficeView(pack, brand ?? Path.Combine(Output, "missing-brand")) { TransparentBackground = true, PetsEnabled = false };
         view.SetZoom(1); view.Update(layout, agents, Epoch); return view;
     }
 

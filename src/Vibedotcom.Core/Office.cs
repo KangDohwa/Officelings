@@ -2,6 +2,7 @@
 
 public sealed class OfficeAnimator
 {
+    private sealed record ActivitySpot(string Key, string Group, string? FurnitureId, Tile Tile, InteractionPoint Point, PixelPoint? Contact = null);
     private sealed class Character(int order, AgentInfo agent)
     {
         public readonly int Order = order;
@@ -24,9 +25,13 @@ public sealed class OfficeAnimator
         public string LastAction = "";
         public DateTimeOffset ActionSince;
         public bool LeisureArrived;
-        public int LeisureSeconds;
+        public double LeisureSeconds;
         public Tile LeisureTarget;
         public string? ChatPartner;
+        public string? ActivityPartner;
+        public ActivitySpot? Spot;
+        public bool HasLeisure;
+        public Random ActivityRandom = new(0);
         public DateTimeOffset PauseUntil, NextLeisure, FadeSince, PaperUntil, ReactUntil;
         public Random BlinkRandom = new(0);
         public DateTimeOffset NextBlink, BlinkUntil;
@@ -45,7 +50,9 @@ public sealed class OfficeAnimator
     private readonly HashSet<string> ids = new(StringComparer.Ordinal);
     private readonly List<string> removedIds = [];
     private readonly List<AgentInfo> newcomers = [];
+    private readonly List<Character> leisureDue = [];
     private readonly Dictionary<string, Character> furnitureOwners = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, Character> activityFurnitureOwners = new(StringComparer.Ordinal);
     private readonly Dictionary<(Furniture Furniture, string State), bool> monitorSupport = [];
     private readonly Dictionary<(Tile Start, Tile Target), IReadOnlyList<Tile>> paths = [];
     private (Furniture Furniture, InteractionPoint Point)[] desks = [];
@@ -53,23 +60,25 @@ public sealed class OfficeAnimator
     private bool workplacesDirty = true;
     private IReadOnlyList<AgentView> views = [];
     private double furnitureFps;
-    private readonly Random random;
+    private readonly int activitySeed;
+    private readonly ActivityCatalog activities;
+    private ActivitySpot[] activitySpots = [];
     private HashSet<Tile> obstacles = [];
     private HashSet<Tile> reachable = [];
     private readonly AssetPack assets;
     private OfficeLayout source;
     private DateTimeOffset started, lastUpdated;
     private int nextOrder;
-    private static readonly string[] LeisureActions = ["coffee", "tv", "phone", "napping", "chatting", "water"];
     public OfficeLayout Layout { get; private set; }
     public OfficeLayout SourceLayout => source;
     public IReadOnlyList<FurnitureSprite> FurnitureSprites { get; private set; } = [];
     public bool HasMovingCharacters { get; private set; }
     public TimeSpan AnimationInterval { get; private set; }
     public DateTimeOffset NextUpdateAt { get; private set; } = DateTimeOffset.MaxValue;
-    public OfficeAnimator(int? seed = null, AssetPack? assets = null, OfficeLayout? layout = null)
+    public OfficeAnimator(int? seed = null, AssetPack? assets = null, OfficeLayout? layout = null, ActivityCatalog? activities = null)
     {
-        random = seed.HasValue ? new(seed.Value) : new();
+        activitySeed = seed ?? 42;
+        this.activities = activities ?? ActivityCatalog.Load();
         this.assets = assets ?? new();
         source = LayoutLoader.Prepare(layout ?? LayoutLoader.Load(this.assets, null), this.assets);
         Layout = source;
@@ -80,6 +89,7 @@ public sealed class OfficeAnimator
     public void ReloadLayout(OfficeLayout layout, bool validate = false)
     {
         var prepared = LayoutLoader.Prepare(layout, assets, validate);
+        foreach (var c in characters.Values) CancelLeisure(c);
         source = prepared; Layout = source;
         RefreshNavigation(); AssignWorkplaces();
         foreach (var c in characters.Values)
@@ -103,12 +113,13 @@ public sealed class OfficeAnimator
             if (ids.Add(agent.Id) && !characters.ContainsKey(agent.Id)) newcomers.Add(agent);
         foreach (var id in characters.Keys)
             if (!ids.Contains(id)) removedIds.Add(id);
-        foreach (var id in removedIds) { characters.Remove(id); workplacesDirty = true; }
+        foreach (var id in removedIds) { CancelLeisure(characters[id]); characters.Remove(id); workplacesDirty = true; }
         newcomers.Sort((a, b) => StringComparer.Ordinal.Compare(a.Id, b.Id));
         foreach (var agent in newcomers)
         {
             var c = new Character(nextOrder++, agent) { Design = assets.Assign(agent, characters.Values.Select(c => c.Design.Id)),
-                BlinkRandom = new(unchecked((int)SpriteAtlas.Hash(agent.Id))) };
+                BlinkRandom = new(unchecked((int)SpriteAtlas.Hash(agent.Id))),
+                ActivityRandom = new(unchecked((int)SpriteAtlas.Hash(agent.Id)) ^ activitySeed) };
             characters[agent.Id] = c; workplacesDirty = true;
         }
         foreach (var agent in agents)
@@ -127,27 +138,37 @@ public sealed class OfficeAnimator
         }
         foreach (var agent in newcomers) characters[agent.Id].Position = new(Layout.Door.X, Layout.Door.Y);
 
-        foreach (var agent in agents)
+        leisureDue.Clear();
+        foreach (var c in characters.Values)
         {
-            var c = characters[agent.Id]; var desk = c.WorkTile;
-            if (c.Suppressed)
-            { c.Entering = true; c.Target = null; c.Path.Clear(); ClearSeat(c); c.Action = "waiting"; continue; }
+            var agent = c.Agent;
             if (agent.State != c.ObservedState)
             {
                 if (agent.State == AgentState.Reporting) { c.ReportStage = 1; c.PauseUntil = default; }
                 else if (agent.State is not AgentState.Idle) c.ReportStage = 0;
-                c.NextLeisure = default;
-                c.LeisureArrived = false;
+                CancelLeisure(c);
                 if (agent.State != AgentState.Gone) c.FadeSince = default;
                 if (agent.State != AgentState.Gone && !c.Visible)
                 { c.Position = new(Layout.Door.X, Layout.Door.Y); c.Visible = c.Entering = true; c.FadeSince = default; }
             }
             c.ObservedState = agent.State;
+            if (c.HasLeisure && (!AvailableForLeisure(c) || workReservations.Contains(c.LeisureTarget))) CancelLeisure(c);
+            if (c.ActivityPartner != null && (!characters.TryGetValue(c.ActivityPartner, out var partner) ||
+                partner.ActivityPartner != agent.Id || partner.Agent.State != AgentState.Idle || !AvailableForLeisure(partner))) CancelLeisure(c);
+        }
+        foreach (var c in characters.Values)
+            if (AvailableForLeisure(c) && now >= c.NextLeisure) leisureDue.Add(c);
+        leisureDue.Sort((a, b) => StringComparer.Ordinal.Compare(a.Agent.Id, b.Agent.Id));
+        foreach (var c in leisureDue)
+            if (now >= c.NextLeisure) ChooseLeisure(c, now);
+
+        foreach (var agent in agents)
+        {
+            var c = characters[agent.Id]; var desk = c.WorkTile;
+            if (c.Suppressed)
+            { c.Entering = true; c.Target = null; c.Path.Clear(); ClearSeat(c); c.Action = "waiting"; continue; }
             var reporting = c.ReportStage is >= 1 and <= 4;
             var idle = agent.State == AgentState.Idle || agent.State == AgentState.Reporting && c.ReportStage == 5;
-            if (idle && !reporting && !c.Entering && !Queued(c) && now >= c.NextLeisure) ChooseLeisure(agent, agents, now);
-            if (c.ChatPartner != null && (!characters.TryGetValue(c.ChatPartner, out var partner) || partner.ObservedState != AgentState.Idle))
-            { c.ChatPartner = null; c.NextLeisure = default; }
 
             Tile target; string action;
             if (agent.State == AgentState.Gone) { c.Entering = false; target = Layout.Door; action = "exiting"; }
@@ -195,7 +216,8 @@ public sealed class OfficeAnimator
                 else { c.Position = new(c.Position.X + Math.Sign(dx) * budget, c.Position.Y + Math.Sign(dy) * budget); budget = 0; }
             }
             var arrived = c.Path.Count == 0 && c.Position == new Position(target.X, target.Y);
-            c.Action = arrived ? action : agent.State == AgentState.Gone ? "exiting" : c.Entering ? "entering" : "walking";
+            c.Action = arrived ? c.Leisure == "pingpong" && c.ActivityPartner != null && !PairArrived(c) ? "waiting" : action :
+                agent.State == AgentState.Gone ? "exiting" : c.Entering ? "entering" : "walking";
             if (arrived && !standingUp)
             {
                 if (c.Entering) { c.Entering = false; c.Target = null; }
@@ -227,7 +249,7 @@ public sealed class OfficeAnimator
                     if (!c.LeisureArrived)
                     {
                         c.LeisureArrived = true; c.NextLeisure = now.AddSeconds(c.LeisureSeconds);
-                        if (c.ChatPartner != null && characters.TryGetValue(c.ChatPartner, out var p))
+                        if (c.ActivityPartner != null && characters.TryGetValue(c.ActivityPartner, out var p))
                         { c.NextLeisure = DateTimeOffset.MaxValue; if (p.LeisureArrived) c.NextLeisure = p.NextLeisure = now.AddSeconds(c.LeisureSeconds); }
                     }
                 }
@@ -254,7 +276,7 @@ public sealed class OfficeAnimator
             }
             if (!c.Visible) c.Action = "gone";
             if (c.Action != c.LastAction) { c.LastAction = c.Action; c.ActionSince = now; }
-            var still = arrived && c.Visible && c.Action is not ("entering" or "walking" or "exiting" or "gone" or "napping");
+            var still = arrived && c.Visible && c.Action is not ("entering" or "walking" or "exiting" or "gone" or "napping" or "beanbag");
             if (!still || c.NextBlink == default)
             {
                 c.BlinkUntil = default;
@@ -266,9 +288,9 @@ public sealed class OfficeAnimator
                 c.NextBlink = now.AddSeconds(3 + c.BlinkRandom.NextDouble() * 3);
             }
         }
-        foreach (var (id, c) in characters)
-            if (c.ChatPartner != null && (!characters.TryGetValue(c.ChatPartner, out var partner) || partner.ChatPartner != id))
-            { c.ChatPartner = null; c.NextLeisure = default; if (c.Action == "chatting") c.Action = "phone"; }
+        foreach (var c in characters.Values)
+            if (c.ActivityPartner != null && PairArrived(c) && c.Action != c.Leisure)
+            { c.Action = c.LastAction = c.Leisure; c.ActionSince = now; }
         RefreshFurniture(now);
         RefreshCadence(now);
         AgentView[]? nextViews = views.Count == agents.Count ? null : new AgentView[agents.Count];
@@ -281,6 +303,8 @@ public sealed class OfficeAnimator
             { c.DisplayName = DisplayName(a); c.ProviderIcon = a.Provider.ToString().ToLowerInvariant(); }
             c.NamedAgent = a;
             var sprite = assets.CharacterFrame(a, c.Design, c.Action, c.Facing, (long)(now - c.ActionSince).TotalMilliseconds, now < c.BlinkUntil);
+            var poseSeatedVariant = c.SeatedVariant;
+            var poseSeatAnchor = c.SeatAnchor;
             if (c.SeatedVariant != null && c.SeatAnchor is {} seat)
             {
                 c.Facing = c.SeatedFacing;
@@ -296,12 +320,26 @@ public sealed class OfficeAnimator
                         OffsetY = seat.Y - (c.Position.Y + 1) * 16 + (sprite.AnchorY - seated.Anchor.Y) * sprite.Scale + rise };
                 }
             }
+            else if (c.HasLeisure && c.LeisureArrived && c.Spot?.Contact is {} contact && c.Action is "reading" or "beanbag")
+            {
+                var variant = c.Action == "reading" ? assets.SeatedVariant(c.Design, c.Facing) : null;
+                if (variant != null)
+                {
+                    var seated = assets.SeatedFrame(a with { State = AgentState.Idle }, c.Design, variant, c.Facing, 0, now < c.BlinkUntil);
+                    sprite = seated.Frame with { OffsetX = contact.X - (c.Position.X + .5) * 16 + (seated.Frame.AnchorX - seated.Anchor.X) * seated.Frame.Scale,
+                        OffsetY = contact.Y - (c.Position.Y + 1) * 16 + (seated.Frame.AnchorY - seated.Anchor.Y) * seated.Frame.Scale };
+                    poseSeatedVariant = variant; poseSeatAnchor = contact;
+                }
+                else sprite = sprite with { OffsetX = sprite.OffsetX + contact.X - (c.Position.X + .5) * 16,
+                    OffsetY = sprite.OffsetY + contact.Y - (c.Position.Y + 1) * 16 };
+            }
             var pose = new Pose(c.Position.X, c.Position.Y, c.WorkTile, c.Action, c.Facing,
                 sprite.Row, sprite.Column, c.Visible && !c.Suppressed,
                 c.FadeSince == default ? 1 : Math.Clamp(1 - (now - c.FadeSince).TotalSeconds / 1.2, 0, 1),
                 c.ReportStage is 3 or 4, c.DeskId != null && now < c.PaperUntil, Queued(c) ? "…" : now < c.ReactUntil ? "!" : null,
                 c.ChatPartner, c.Design.Id, sprite, c.DeskId, c.OverflowSeatId, WorkLocation(c), Queued(c), c.DisplayName,
-                c.ProviderIcon, c.SeatedVariant, c.SeatAnchor, c.ChairBackId, c.ChairFrontId, c.SeatPhase, c.SeatPhaseFrame);
+                c.ProviderIcon, poseSeatedVariant, poseSeatAnchor, c.ChairBackId, c.ChairFrontId, c.SeatPhase, c.SeatPhaseFrame,
+                ActivitySpotId: c.Spot?.FurnitureId, ActivityPartnerId: c.ActivityPartner);
             if (c.View == null || !ReferenceEquals(c.View.Agent, a) || c.View.Pose != pose) c.View = new(a, pose);
             if (nextViews == null && !ReferenceEquals(views[i], c.View))
             {
@@ -314,47 +352,85 @@ public sealed class OfficeAnimator
         return views;
     }
 
-    private void ChooseLeisure(AgentInfo agent, IReadOnlyList<AgentInfo> agents, DateTimeOffset now)
+    private void ChooseLeisure(Character c, DateTimeOffset now)
     {
-        var c = characters[agent.Id];
-        if (c.ChatPartner != null && characters.TryGetValue(c.ChatPartner, out var former) && former.ChatPartner == agent.Id)
-        { former.ChatPartner = null; former.NextLeisure = default; if (former.Action == "chatting") former.Action = "phone"; }
-        c.ChatPartner = null;
-        var candidates = LeisureActions.OrderBy(_ => random.Next()).Where(s => s != c.Leisure).ToArray();
-        foreach (var activity in candidates)
+        CancelLeisure(c);
+        var candidates = new List<(ActivityDefinition Definition, ActivitySpot[] Spots, Character? Partner)>();
+        foreach (var definition in activities.Activities)
         {
-            var reserved = WorkReservations();
-            var spots = assets.Points(Layout).Where(p => p.Point.Action == activity && reachable.Contains(p.Tile) && !reserved.Contains(p.Tile)).ToArray();
-            var available = spots.Where(p => !characters.Values.Any(v => v != c &&
-                (v.ObservedState == AgentState.Idle || v.ObservedState == AgentState.Reporting && v.ReportStage == 5) && v.LeisureTarget == p.Tile)).ToArray();
-            if (available.Length == 0 || activity == "chatting" && available.Length < 2) continue;
-            if (activity == "chatting")
+            if (definition.Weight == 0) continue;
+            var paired = definition.Id is "chatting" or "pingpong";
+            var friend = !paired || c.Agent.State != AgentState.Idle ? null : characters.Values.Where(p => p != c && p.Agent.State == AgentState.Idle &&
+                AvailableForLeisure(p) && p.ActivityPartner == null)
+                .OrderBy(p => p.Agent.Id, StringComparer.Ordinal).FirstOrDefault();
+            if (paired && friend == null) continue;
+            var available = activitySpots.Where(s => s.Point.Action == definition.Id && reachable.Contains(s.Tile) &&
+                !workReservations.Contains(s.Tile) && !characters.Values.Any(p => p != c && p.HasLeisure && p.LeisureTarget == s.Tile)).ToArray();
+            if (paired)
             {
-                var friend = agents.FirstOrDefault(a => a.Id != agent.Id && a.State == AgentState.Idle &&
-                    !characters[a.Id].Entering && !Queued(characters[a.Id]) && characters[a.Id].ChatPartner == null && characters[a.Id].ReportStage is 0 or 5);
-                if (friend == null || characters.Values.Any(v => v != c && v.Leisure == "chatting" && v.ChatPartner != null)) continue;
-                var p = characters[friend.Id];
-                c.ChatPartner = friend.Id; p.ChatPartner = agent.Id; p.Leisure = "chatting";
-                p.LeisureTarget = available[1].Tile; p.LeisureFacing = available[1].Point.Facing;
-                p.NextLeisure = DateTimeOffset.MaxValue; p.Target = null; p.LeisureArrived = false; p.LeisureSeconds = 16;
+                // Both players belong to the same table/zone, on two distinct reserved points.
+                var group = available.GroupBy(s => s.Group).FirstOrDefault(g => g.Select(s => s.Tile).Distinct().Count() >= 2);
+                if (group == null) continue;
+                available = group.DistinctBy(s => s.Tile).Take(2).ToArray();
             }
-            c.Leisure = activity; c.LeisureTarget = available[0].Tile; c.LeisureFacing = available[0].Point.Facing; c.Target = null;
-            c.LeisureArrived = false; c.NextLeisure = DateTimeOffset.MaxValue;
-            c.LeisureSeconds = activity switch { "coffee" or "water" => random.Next(10, 19), "napping" => random.Next(28, 43), "tv" => random.Next(20, 34), _ => random.Next(14, 25) };
-            if (c.ChatPartner != null) characters[c.ChatPartner].LeisureSeconds = c.LeisureSeconds;
+            if (available.Length != 0) candidates.Add((definition, available, paired ? friend : null));
+        }
+        if (candidates.Count != 0)
+        {
+            if (candidates.Any(p => p.Definition.Id != c.Leisure)) candidates.RemoveAll(p => p.Definition.Id == c.Leisure);
+            var weight = c.ActivityRandom.NextDouble() * candidates.Sum(p => p.Definition.Weight);
+            var chosen = candidates[^1];
+            foreach (var candidate in candidates)
+            {
+                weight -= candidate.Definition.Weight;
+                if (weight < 0) { chosen = candidate; break; }
+            }
+            var seconds = chosen.Definition.MinSeconds + c.ActivityRandom.NextDouble() * (chosen.Definition.MaxSeconds - chosen.Definition.MinSeconds);
+            if (chosen.Partner is {} p)
+            {
+                CancelLeisure(p);
+                var first = StringComparer.Ordinal.Compare(c.Agent.Id, p.Agent.Id) < 0;
+                StartLeisure(c, chosen.Definition.Id, chosen.Spots[first ? 0 : 1], seconds, p.Agent.Id);
+                StartLeisure(p, chosen.Definition.Id, chosen.Spots[first ? 1 : 0], seconds, c.Agent.Id);
+            }
+            else StartLeisure(c, chosen.Definition.Id, chosen.Spots[c.ActivityRandom.Next(chosen.Spots.Length)], seconds);
             return;
         }
         var lounge = Layout.Zones!.First(z => z.Name == "lounge");
-        var unavailable = WorkReservations();
-        unavailable.UnionWith(characters.Values.Where(v => v != c && v.LeisureArrived).Select(v => v.LeisureTarget));
-        c.Leisure = "phone"; c.LeisureTarget = NearestFree(new(lounge.X + random.Next(lounge.Width), lounge.Y + random.Next(lounge.Height)), unavailable);
-        c.LeisureFacing = "down"; c.LeisureSeconds = 15; c.LeisureArrived = false;
+        var unavailable = new HashSet<Tile>(workReservations);
+        foreach (var p in characters.Values) if (p != c && p.HasLeisure) unavailable.Add(p.LeisureTarget);
+        var phone = activities.Activities.FirstOrDefault(a => a.Id == "phone" && a.Weight > 0);
+        c.Leisure = phone == null ? "idle" : "phone";
+        c.LeisureTarget = NearestFree(new(lounge.X + c.ActivityRandom.Next(lounge.Width), lounge.Y + c.ActivityRandom.Next(lounge.Height)), unavailable);
+        c.LeisureFacing = "down"; c.LeisureSeconds = phone == null ? 15 :
+            phone.MinSeconds + c.ActivityRandom.NextDouble() * (phone.MaxSeconds - phone.MinSeconds);
+        c.LeisureArrived = false; c.HasLeisure = true;
         c.NextLeisure = DateTimeOffset.MaxValue; c.Target = null;
+    }
+
+    private static bool AvailableForLeisure(Character c) => !c.Entering && !c.Suppressed && !Queued(c) &&
+        c.ReportStage is 0 or 5 && (c.Agent.State == AgentState.Idle || c.Agent.State == AgentState.Reporting && c.ReportStage == 5);
+    private bool PairArrived(Character c) => c.LeisureArrived && c.ActivityPartner != null &&
+        characters.TryGetValue(c.ActivityPartner, out var p) && p.ActivityPartner == c.Agent.Id && p.LeisureArrived;
+    private static void StartLeisure(Character c, string action, ActivitySpot spot, double seconds, string? partner = null)
+    {
+        c.Leisure = action; c.Spot = spot; c.LeisureTarget = spot.Tile; c.LeisureFacing = spot.Point.Facing;
+        c.LeisureSeconds = seconds; c.ActivityPartner = partner; c.ChatPartner = action == "chatting" ? partner : null;
+        c.HasLeisure = true; c.LeisureArrived = false; c.NextLeisure = DateTimeOffset.MaxValue; c.Target = null; c.Path.Clear();
+    }
+    private void CancelLeisure(Character c)
+    {
+        if (c.ActivityPartner != null && characters.TryGetValue(c.ActivityPartner, out var p) && p.ActivityPartner == c.Agent.Id) ReleaseLeisure(p);
+        ReleaseLeisure(c);
+    }
+    private static void ReleaseLeisure(Character c)
+    {
+        c.ActivityPartner = c.ChatPartner = null; c.Spot = null; c.HasLeisure = c.LeisureArrived = false;
+        c.NextLeisure = default; c.Target = null; c.Path.Clear();
     }
 
     private static bool Queued(Character c) => c.Agent.State != AgentState.Gone && c.DeskId == null && c.OverflowSeatId == null;
     private static string WorkLocation(Character c) => c.DeskId != null ? "desk" : c.OverflowSeatId != null ? "overflow" : "queue";
-    private HashSet<Tile> WorkReservations() => characters.Values.Where(c => c.Agent.State != AgentState.Gone && !c.Suppressed).Select(c => c.WorkTile).ToHashSet();
 
     private void AssignWorkplaces()
     {
@@ -441,8 +517,7 @@ public sealed class OfficeAnimator
     private void CheckLeisureReservations()
     {
         foreach (var c in characters.Values)
-            if ((c.Agent.State == AgentState.Idle || c.Agent.State == AgentState.Reporting && c.ReportStage == 5) && workReservations.Contains(c.LeisureTarget))
-            { c.NextLeisure = default; c.Target = null; c.LeisureArrived = false; }
+            if (c.HasLeisure && workReservations.Contains(c.LeisureTarget)) CancelLeisure(c);
     }
 
     private static int Distance(Tile a, Tile b) => Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
@@ -471,10 +546,10 @@ public sealed class OfficeAnimator
         c.SeatedVariant = c.SeatPhase = c.ChairBackId = c.ChairFrontId = null;
         c.SeatAnchor = null; c.SeatPhaseFrame = 0;
     }
-    private static void SetWorkplace(Character c, string? deskId, string? overflowId, Tile tile, string facing)
+    private void SetWorkplace(Character c, string? deskId, string? overflowId, Tile tile, string facing)
     {
         if (c.DeskId != deskId || c.OverflowSeatId != overflowId || c.WorkTile != tile || c.WorkFacing != facing)
-        { c.Target = null; c.Path.Clear(); c.NextLeisure = default; c.ChatPartner = null; c.LeisureArrived = false; }
+        { CancelLeisure(c); }
         c.DeskId = deskId; c.OverflowSeatId = overflowId; c.WorkTile = tile; c.WorkFacing = facing;
     }
     private void RefreshNavigation()
@@ -482,6 +557,15 @@ public sealed class OfficeAnimator
         workplacesDirty = true; paths.Clear(); monitorSupport.Clear();
         desks = source.Furniture.Where(f => assets.Variant(f).Points.Any(p => p.Action == "typing"))
             .Select(f => (Furniture: f, Point: assets.Variant(f).Points.First(p => p.Action == "typing"))).ToArray();
+        activitySpots = source.Furniture.SelectMany(f =>
+        {
+            var variant = assets.Variant(f);
+            var contact = variant.ChairSeatAnchor is {} anchor ? new PixelPoint(f.X * 16 + anchor.X, f.Y * 16 + anchor.Y) : null;
+            return variant.Points.Select(p => new ActivitySpot(f.Id + ":" + p.Id, f.Id, f.Id, new(f.X + p.X, f.Y + p.Y), p, contact));
+        })
+            .Concat((source.Zones ?? []).SelectMany(z => (z.Points ?? []).Select(p =>
+                new ActivitySpot("zone:" + z.Name + ":" + p.Id, "zone:" + z.Name, null, new(z.X + p.X, z.Y + p.Y), p))))
+            .OrderBy(s => s.Key, StringComparer.Ordinal).ToArray();
         obstacles = LayoutLoader.Blocked(Layout, assets); reachable = [];
         var door = Layout.Door;
         if (!LayoutLoader.Walkable(Layout, door, obstacles))
@@ -508,9 +592,13 @@ public sealed class OfficeAnimator
 
     private void RefreshFurniture(DateTimeOffset now)
     {
-        furnitureOwners.Clear();
+        furnitureOwners.Clear(); activityFurnitureOwners.Clear();
         foreach (var c in characters.Values)
+        {
             if (c.Agent.State != AgentState.Gone && c.DeskId != null) furnitureOwners.Add(c.DeskId, c);
+            if (c.HasLeisure && c.LeisureArrived && c.Spot?.FurnitureId is {} host && c.Leisure is "fridge" or "vending")
+                activityFurnitureOwners[host] = c;
+        }
         Furniture[]? furniture = null;
         for (var i = 0; i < source.Furniture.Count; i++)
         {
@@ -519,6 +607,7 @@ public sealed class OfficeAnimator
             string? ownerId = null, monitor = null;
             var state = f.State;
             for (var p = 0; p < v.Points.Count; p++)
+            {
                 if (v.Points[p].Action == "typing")
                 {
                     furnitureOwners.TryGetValue(f.DeskId!, out var owner);
@@ -529,6 +618,13 @@ public sealed class OfficeAnimator
                     if (SupportedMonitor(f, v, monitor)) state = monitor;
                     break;
                 }
+                if (v.Points[p].Action is "fridge" or "vending")
+                {
+                    var doorState = activityFurnitureOwners.ContainsKey(f.Id) ? "open" : "closed";
+                    if (SupportedMonitor(f, v, doorState)) state = doorState;
+                    break;
+                }
+            }
             var previous = Layout.Furniture[i];
             if (previous.AgentId == ownerId && previous.MonitorState == monitor && previous.State == state) continue;
             furniture ??= Layout.Furniture.ToArray();
@@ -606,8 +702,10 @@ public sealed class OfficeAnimator
                 var animation = c.SeatedVariant != null ? assets.SeatedAnimationFps(c.Agent, c.Design, c.SeatedVariant,
                     c.SeatedFacing, elapsed, now < c.BlinkUntil) :
                     assets.CharacterAnimationFps(c.Agent, c.Design, c.Action, c.Facing, elapsed, now < c.BlinkUntil);
+                if (c.Action == "reading" && c.Spot?.Contact != null && assets.SeatedVariant(c.Design, c.Facing) != null) animation = 0;
                 if (animation > 0) fps = Math.Max(fps, Math.Clamp(animation, 4, 8));
             }
+            if (c.HasLeisure && c.LeisureArrived && c.Action is "darts" or "pingpong") fps = Math.Max(fps, 8);
             if (c.FadeSince != default)
             { fps = Math.Max(fps, 8); NextDue(c.FadeSince.AddSeconds(1.2), now); }
             if (c.Target == null && c.SeatPhase is not ("turn" or "lower" or "raise")) NextUpdateAt = now;
@@ -618,7 +716,7 @@ public sealed class OfficeAnimator
                 if (c.NextLeisure == default) NextUpdateAt = now;
                 else NextDue(c.NextLeisure, now);
             }
-            if (c.Action is not ("entering" or "walking" or "exiting" or "gone" or "napping") && c.Design.SheetId != "fallback")
+            if (c.Action is not ("entering" or "walking" or "exiting" or "gone" or "napping" or "beanbag") && c.Design.SheetId != "fallback")
             { NextDue(c.NextBlink, now); if (now < c.BlinkUntil) NextDue(c.BlinkUntil, now); }
             if (now < c.PaperUntil) NextDue(c.PaperUntil, now);
             if (now < c.ReactUntil) NextDue(c.ReactUntil, now);

@@ -95,13 +95,18 @@ public sealed record Pose(double X, double Y, Tile Desk, string Action, string F
     string? CharacterId = null, SpriteFrame? Sprite = null, string? DeskId = null, string? OverflowSeatId = null,
     string WorkLocation = "desk", bool Queued = false, string? DisplayName = null, string? ProviderIcon = null,
     string? SeatedVariant = null, PixelPoint? SeatAnchor = null, string? ChairBackId = null,
-    string? ChairFrontId = null, string? SeatPhase = null, int SeatPhaseFrame = 0);
+    string? ChairFrontId = null, string? SeatPhase = null, int SeatPhaseFrame = 0,
+    string? ActivitySpotId = null, string? ActivityPartnerId = null);
 public sealed record AgentView(AgentInfo Agent, Pose Pose);
 public sealed record FurnitureSprite(string Id, SpriteFrame Sprite, string? MonitorState = null);
+public sealed record PetView(string Id, string SheetId, double X, double Y, string Action, string Facing,
+    SpriteFrame Sprite, string? FollowingId = null, string? FurnitureId = null);
 public sealed record AtlasInfo(string File, int Width, int Height, int CellWidth, int CellHeight, int Columns, int Rows, int Version);
 public sealed record StateSnapshot(int SchemaVersion, DateTimeOffset GeneratedAt, long Sequence,
     AtlasInfo Atlas, OfficeLayout Office, IReadOnlyList<AgentView> Agents, IReadOnlyList<string> Warnings, AssetManifest? Assets = null,
-    IReadOnlyList<FurnitureSprite>? FurnitureSprites = null);
+    IReadOnlyList<FurnitureSprite>? FurnitureSprites = null,
+    [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] AmbientState? Ambient = null,
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] IReadOnlyList<PetView>? Pets = null);
 
 public static class StateJson
 {

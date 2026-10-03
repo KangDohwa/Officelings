@@ -112,9 +112,14 @@ public sealed class CorePerfTests
         }).ToArray();
         Assert.NotEmpty(animated);
         Assert.True(office.AnimationInterval > TimeSpan.Zero);
-        office.Update([], Epoch.AddMilliseconds(350), .35);
         foreach (var f in animated)
+        {
+            var variant = pack.Variant(f);
+            var clip = pack.Manifest.Sheets.Single(s => s.Id == variant.SheetId).Rows.First(r => r.Name == variant.Animation);
+            var step = TimeSpan.FromMilliseconds(Math.Ceiling(1000 / clip.Fps) + 1);
+            office.Update([], Epoch.Add(step), step.TotalSeconds);
             Assert.NotEqual(before.Single(s => s.Id == f.Id).Sprite, office.FurnitureSprites.Single(s => s.Id == f.Id).Sprite);
+        }
     }
 
     [Fact]

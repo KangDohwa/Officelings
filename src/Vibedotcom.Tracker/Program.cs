@@ -52,7 +52,7 @@ try
     if (!File.Exists(Path.Combine(output,"layout.json")))
         await StateJson.PublishWithRetryAsync(() => StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(layout,StateJson.Options)), LogPublication, cancellation.Token);
     using var tracker = new AgentTracker(options);
-    var office = new OfficeAnimator(null,assets,layout);
+    var office = new OfficeAnimator(null,assets,layout,ActivityCatalog.Load(output,assets.Warnings));
     var started = DateTimeOffset.UtcNow;
     var stopAt = seconds < (DateTimeOffset.MaxValue - started).TotalSeconds ? started.AddSeconds(seconds) : DateTimeOffset.MaxValue;
     var previous = started;

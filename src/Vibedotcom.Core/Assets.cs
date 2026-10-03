@@ -301,7 +301,7 @@ public sealed class AssetPack
     {
         if (design.SheetId != "fallback")
         {
-            var animation = action is "walking" or "entering" or "exiting" ? "walk" : action;
+            var animation = CharacterAnimation(action);
             if (facing == "up" && action is "thinking" or "waiting") animation = "idle";
             var phase = SpriteAtlas.Hash(a.Id) % 4;
             var frame = Frame(design.SheetId, animation, facing, elapsedMilliseconds, phase);
@@ -310,11 +310,12 @@ public sealed class AssetPack
             return closed == null ? frame : Frame(design.SheetId, closed.Name, closed.Direction, elapsedMilliseconds, phase);
         }
         var identity = int.TryParse(design.Id.AsSpan("fallback-".Length), out var value) ? value : SpriteAtlas.Variant(a.Id);
-        var row = SpriteAtlas.Row(a.Provider, a.IsSubagent, a.Id, identity); var col = SpriteAtlas.Frame(action, facing, elapsedMilliseconds, identity);
+        var row = SpriteAtlas.Row(a.Provider, a.IsSubagent, a.Id, identity); var col = SpriteAtlas.Frame(action == "beanbag" ? "napping" : action, facing, elapsedMilliseconds, identity);
         // The primitive atlas also has immutable frames, independent of the caller's identity.
-        var key = (row, col, action == "napping");
+        var sleeping = action is "napping" or "beanbag";
+        var key = (row, col, sleeping);
         if (!primitiveFrames.TryGetValue(key, out var primitive))
-            primitiveFrames[key] = primitive = new("fallback", row, col, col * 16, row * 24, 16, 24, 8, 24, 1, 0, action == "napping" ? -10 : 0);
+            primitiveFrames[key] = primitive = new("fallback", row, col, col * 16, row * 24, 16, 24, 8, 24, 1, 0, sleeping ? -10 : 0);
         return primitive;
     }
 
@@ -354,13 +355,20 @@ public sealed class AssetPack
             "entering" or "walking" or "exiting" or "typing" or "pickup" or "reporting" => 6.25,
             "coffee" or "water" => 1.5625, "tv" => 1.25, "phone" or "chatting" => 6.25 / 3, "napping" => 6.25 / 6, _ => 0
         };
-        var animation = action is "walking" or "entering" or "exiting" ? "walk" : action;
+        var animation = CharacterAnimation(action);
         if (facing == "up" && action is "thinking" or "waiting") animation = "idle";
         var direction = facing;
         if (blink && animation != "walk" && BlinkRow(Frame(design.SheetId, animation, facing, elapsed, SpriteAtlas.Hash(agent.Id) % 4)) is {} closed)
         { animation = closed.Name; direction = closed.Direction; }
         return AnimationFps(design.SheetId, animation, direction, elapsed);
     }
+
+    private static string CharacterAnimation(string action) => action switch
+    {
+        "walking" or "entering" or "exiting" => "walk", "beanbag" => "napping", "reading" => "phone",
+        "arcade" => "typing", "vending" or "fridge" => "coffee", "darts" or "pingpong" => "chatting",
+        "aquarium" or "window" => "idle", _ => action
+    };
 
     internal double SeatedAnimationFps(AgentInfo agent, CharacterDesign design, string variant, string facing, long elapsed, bool blink)
     {

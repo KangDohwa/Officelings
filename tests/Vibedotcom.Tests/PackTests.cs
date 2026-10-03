@@ -32,6 +32,65 @@ public sealed class PackTests
     }
 
     [Fact]
+    public void BundledAmbientStatesOriginalProviderCellsAndPetSheetsAreSelectable()
+    {
+        var pack = AssetPack.LoadDefault(useUserPack: false);
+        Assert.Empty(pack.Warnings);
+        Assert.InRange(pack.Manifest.Sheets.Count, 1, 128);
+        foreach (var (id, size) in new[] { ("provider-icons", 12), ("provider-icons-10", 10) })
+        {
+            var sheet = Assert.Single(pack.Manifest.Sheets, s => s.Id == id);
+            Assert.Equal((size, size, 1d, new PixelPoint(0, 0)), (sheet.CellW, sheet.CellH, sheet.Scale, sheet.Anchor));
+            foreach (var provider in new[] { "codex", "claude", "antigravity", "other-agent" })
+                foreach (var suffix in new[] { "", "-supervisor", "-sub-agent" })
+                    Assert.Contains(sheet.Rows, r => r.Name == provider + suffix && r.Direction == "any" && r.Frames == 1 && !r.Loop);
+            foreach (var overlay in new[] { "supervisor", "sub-agent" })
+                Assert.Contains(sheet.Rows, r => r.Name == overlay && r.Frames == 1);
+        }
+        foreach (var (id, states) in new[] {
+            ("cozy-window", new[] { "default", "day", "sunset", "night", "rain", "snow" }),
+            ("cozy-pantry", new[] { "default", "steam", "drip", "brew" }),
+            ("cozy-fridge", new[] { "default", "closed", "open" }),
+            ("cozy-vending-machine", new[] { "default", "glow", "closed", "open" }),
+            ("cozy-ceiling-light", new[] { "default", "warm", "flicker" }),
+            ("cozy-string-lights", new[] { "default", "twinkle", "off" }) })
+        {
+            var asset = Assert.Single(pack.Manifest.Furniture, f => f.Id == id);
+            foreach (var state in states)
+                Assert.Contains(asset.Variants, v => v.Rotation == 0 && v.State == state &&
+                    v.SheetId == (id is "cozy-window" or "cozy-string-lights" ? id : "env4-props"));
+        }
+        var clock = Assert.Single(pack.Manifest.Sheets, s => s.Id == "cozy-clock");
+        Assert.Contains(clock.Rows, r => r.Name == "tick" && r.Frames == 4 && r.Fps == 1 && r.Loop);
+        var bubbles = Assert.Single(pack.Manifest.Sheets, s => s.Id == "bubble-icons");
+        Assert.Equal((12, 12, 13), (bubbles.CellW, bubbles.CellH, bubbles.Rows.Count));
+        foreach (var pet in new[] { "shiba", "tuxedo-cat", "orange-tabby", "corgi", "hamster-ball", "robot-buddy", "parrot", "capybara",
+            "shiba-cream", "shiba-sesame", "tuxedo-cat-blue-grey", "tuxedo-cat-chocolate", "orange-tabby-silver", "orange-tabby-brown",
+            "corgi-sable", "corgi-cream" })
+        {
+            var sheet = Assert.Single(pack.Manifest.Sheets, s => s.Id == "pet-" + pet);
+            Assert.Equal((32, 32, new PixelPoint(16, 29)), (sheet.CellW, sheet.CellH, sheet.Anchor));
+            Assert.Equal(4, sheet.Rows.Count(r => r.Name == "idle" && r.Frames == 1 && !r.Loop));
+            Assert.Equal(4, sheet.Rows.Count(r => r.Name == "blink-idle" && r.Frames == 1 && !r.Loop));
+            Assert.Contains(sheet.Rows, r => r.Name == "play" && !r.Loop);
+            Assert.Contains(sheet.Rows, r => r.Name == "sleep" && r.Direction == "right" && r.Loop && r.SeatAnchor != null);
+            Assert.DoesNotContain(pack.Manifest.Characters, c => c.SheetId == sheet.Id);
+        }
+        var parrot = Assert.Single(pack.Manifest.Sheets, s => s.Id == "pet-parrot");
+        Assert.DoesNotContain(parrot.Rows, r => r.Name is "walk" or "roll");
+        Assert.Contains(parrot.Rows, r => r.Name == "head_bob" && r.Fps == 3);
+        Assert.Contains(parrot.Rows, r => r.Name == "wing_flap" && r.Fps == 6);
+        var hamster = Assert.Single(pack.Manifest.Sheets, s => s.Id == "pet-hamster-ball");
+        Assert.Equal(4, hamster.Rows.Count(r => r.Name == "roll" && r.Frames == 3 && r.Fps == 6));
+        Assert.Contains(pack.Manifest.Sheets, s => s.Id == "pet-props" && s.Rows.Count == 7);
+        var bed = Assert.Single(pack.Manifest.Furniture, f => f.Id == "cozy-pet-bed");
+        var bedVariant = Assert.Single(bed.Variants);
+        Assert.Equal(("bed", 2, 1, "pet-props", "dog_bed", new PixelPoint(16, 5)),
+            (bed.Kind, bedVariant.FootprintW, bedVariant.FootprintH, bedVariant.SheetId, bedVariant.Animation, bedVariant.ChairSeatAnchor));
+        Assert.Equal(new InteractionPoint("nap", 1, 1, "pet-napping", "up"), Assert.Single(bedVariant.Points));
+    }
+
+    [Fact]
     public void AssignmentUsesAllDesignsAndIsStableAcrossOrderProviderAndUpdates()
     {
         var pack = AssetPack.LoadDefault(useUserPack: false);

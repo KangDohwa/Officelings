@@ -29,6 +29,7 @@ internal sealed partial class OfficeView : FrameworkElement
     private readonly Dictionary<string, DrawingGroup> furnitureCache = new();
     private readonly Dictionary<string, (double Depth, bool Lounge)> furnitureDepths = new();
     private IReadOnlyList<FurnitureSprite> furnitureSprites = Array.Empty<FurnitureSprite>();
+    private readonly Dictionary<string, SpriteFrame> furnitureFramesById = new(StringComparer.Ordinal);
     private bool debugTooltip;
     public string? DebugTooltipText { get; private set; }
     private readonly Dictionary<string, SolidColorBrush> brushes = new();
@@ -198,12 +199,17 @@ internal sealed partial class OfficeView : FrameworkElement
         }
         furnitureFrames ??= Array.Empty<FurnitureSprite>();
         furnitureFrames = AmbientFrames(layout, views, now, furnitureFrames);
-        changed |= !furnitureSprites.SequenceEqual(furnitureFrames); furnitureSprites=furnitureFrames;
+        if (!ReferenceEquals(furnitureSprites, furnitureFrames))
+        {
+            changed = true; furnitureFramesById.Clear();
+            foreach (var frame in furnitureFrames) furnitureFramesById[frame.Id] = frame.Sprite;
+        }
+        furnitureSprites=furnitureFrames;
         var nextPets = pets.Update(layout, views, now);
         changed |= !petViews.SequenceEqual(nextPets); petViews = nextPets;
         var stamp = now.ToUnixTimeMilliseconds() / 125;
         changed |= stamp != activityStamp && views.Any(a => a.Pose.Action is "darts" or "pingpong");
-        changed |= ambientState?.LocalTime != previousLocalTime;
+        changed |= hasClock && ambientState?.LocalTime != previousLocalTime;
         previousLocalTime = ambientState?.LocalTime; activityStamp = stamp;
         var phase = (int)(now.ToUnixTimeMilliseconds() / 500 % 120);
         changed |= agents.Count != views.Count;
@@ -269,6 +275,15 @@ internal sealed partial class OfficeView : FrameworkElement
     }
     private Rect ContentBounds(Pose p)
     {
+        var raw = UnposedContentBounds(p);
+        if (p.Action != "beanbag") return raw;
+        var center = RecliningCenter(p);
+        return new(Math.Round(center.X - raw.Height / 2), Math.Round(center.Y - raw.Width / 2), raw.Height, raw.Width);
+    }
+    private static Point RecliningCenter(Pose p) => new((p.X + .5) * 16 + p.Sprite!.OffsetX,
+        (p.Y + 1) * 16 + p.Sprite.OffsetY - 4);
+    private Rect UnposedContentBounds(Pose p)
+    {
         var s=p.Sprite!; var content=ImageContentBounds(s); var bounds=SpriteBounds(p);
         var height = content.Height*s.Scale;
         if (p.SeatAnchor != null && p.SeatPhase != "turn") height = Math.Min(height,Math.Max(0,p.SeatAnchor.Y+1-bounds.Top-content.Top*s.Scale));
@@ -298,7 +313,7 @@ internal sealed partial class OfficeView : FrameworkElement
     {
         var v=assets.Variant(f);
         if (v.SheetId==null || v.Animation==null) return new(f.X*16,f.Y*16,f.Width*16,f.Height*16);
-        var s=furnitureSprites.FirstOrDefault(p=>p.Id==f.Id)?.Sprite ?? assets.Frame(v.SheetId,v.Animation,"any",0);
+        var s=furnitureFramesById.GetValueOrDefault(f.Id) ?? assets.Frame(v.SheetId,v.Animation,"any",0);
         var content=ImageContentBounds(s);
         return new(f.X*16+(content.X-s.AnchorX)*s.Scale+s.OffsetX,f.Y*16+(content.Y-s.AnchorY)*s.Scale+s.OffsetY,content.Width*s.Scale,content.Height*s.Scale);
     }
@@ -349,8 +364,19 @@ internal sealed partial class OfficeView : FrameworkElement
         var variant = assets.Variant(f);
         if (variant.SheetId != null && variant.Animation != null)
         {
-            var s = furnitureSprites.FirstOrDefault(p=>p.Id==f.Id)?.Sprite ?? assets.Frame(variant.SheetId,variant.Animation,"any",0);
+            var s = furnitureFramesById.GetValueOrDefault(f.Id) ?? assets.Frame(variant.SheetId,variant.Animation,"any",0);
             dc.DrawImage(Image(s),new(f.X*16-s.AnchorX*s.Scale+s.OffsetX,f.Y*16-s.AnchorY*s.Scale+s.OffsetY,s.Width*s.Scale,s.Height*s.Scale));
+            if (f.Kind == "clock") DrawClock(dc, f, s);
+            if (f.AssetId == "cozy-vending-machine" && f.State == "open")
+            {
+                var x = f.X * 16 - s.AnchorX * s.Scale + s.OffsetX;
+                var y = f.Y * 16 - s.AnchorY * s.Scale + s.OffsetY;
+                R(dc,"#172b30",x+23*s.Scale,y+53*s.Scale,14*s.Scale,6*s.Scale);
+                R(dc,"#9ba69a",x+23*s.Scale,y+52*s.Scale,14*s.Scale,s.Scale);
+                R(dc,"#f2ebd3",x+29*s.Scale,y+55*s.Scale,3*s.Scale,3*s.Scale);
+            }
+            if (f.Kind == "window" && ambientState?.WinterDecor == true)
+            { R(dc,"#eee5d2",f.X*16,f.Y*16-2,f.Width*16,2); R(dc,"#b45e4d",f.X*16+f.Width*8-2,f.Y*16-4,4,4); }
             return;
         }
         if (!furnitureCache.TryGetValue(f.Id,out var drawing))
@@ -471,8 +497,9 @@ internal sealed partial class OfficeView : FrameworkElement
         {
             var key = "f:"+furniture.Id;
             if (!retained.TryGetValue(key,out var item)) retained[key] = item = new(key);
-            var frame = furnitureSprites.FirstOrDefault(f=>f.Id==furniture.Id)?.Sprite;
-            var stamp = furniture.Kind == "clock" ? ambientState?.LocalTime.ToUnixTimeSeconds() ?? 0 : 0;
+            var frame = furnitureFramesById.GetValueOrDefault(furniture.Id);
+            var stamp = furniture.Kind == "clock" ? ambientState?.LocalTime.ToUnixTimeSeconds() ?? 0 :
+                furniture.Kind == "window" && ambientState?.WinterDecor == true ? 1 : 0;
             if (item.Furniture != furniture || item.Frame != frame || item.AnimationStamp != stamp)
             {
                 item.AnimationStamp = stamp;
@@ -558,12 +585,12 @@ internal sealed partial class OfficeView : FrameworkElement
     {
         foreach (var item in overlays.Values) item.Used=false;
         overlayOrder.Clear();
-        void Add(string key,AgentView agent,Furniture? furniture,Action<DrawingContext> draw)
+        void Add(string key,AgentView agent,Furniture? furniture,Action<DrawingContext> draw,long stamp=0)
         {
             if (!overlays.TryGetValue(key,out var item)) overlays[key]=item=new(key);
             var clockChanged=key[0]=='b' && agent.Pose.Action=="coffee" && !assets.Images.ContainsKey("icons") && item.Depth!=ambient;
-            if (item.Agent != agent || item.Furniture != furniture || clockChanged)
-            { item.Agent=agent; item.Furniture=furniture; Damage(item.Visual,draw); }
+            if (item.Agent != agent || item.Furniture != furniture || clockChanged || item.AnimationStamp!=stamp)
+            { item.Agent=agent; item.Furniture=furniture; item.AnimationStamp=stamp; Damage(item.Visual,draw); }
             item.Depth=ambient;
             item.Used=true; overlayOrder.Add(item);
         }
@@ -586,6 +613,9 @@ internal sealed partial class OfficeView : FrameworkElement
         { Damage(editorVisual,dc=> { if (EditorMode) DrawEditorGrid(dc); }); editorHash=editKey; }
         // The editor grid lies between desk indicators and bubbles.
         var bubbleStart=overlayOrder.Count;
+        foreach (var agent in agents)
+            if (agent.Pose.Visible && agent.Pose.Action is "darts" or "pingpong")
+                Add("g:"+agent.Agent.Id,agent,null,dc=>DrawActivity(dc,agent,true),activityStamp);
         foreach (var agent in agents) if (agent.Pose.Visible)
             Add("b:"+agent.Agent.Id,agent,null,dc=>DrawBubble(dc,agent));
         expiredKeys.Clear();
@@ -650,8 +680,9 @@ internal sealed partial class OfficeView : FrameworkElement
         dc.PushOpacity(agent.Pose.Opacity);
         if (tagMode=="icon" && opacity<1)
         {
-            var rect=new Rect(anchor.X-6,anchor.Y-4,12,12); iconRects[key]=rect;
-            dc.PushOpacity(1-opacity); DrawProviderIcon(dc,agent.Agent.Provider,rect.X,rect.Y); dc.Pop();
+            var size=ProviderIconSize(agent.Agent);
+            var rect=new Rect(anchor.X-size/2d,anchor.Y-4,size,size); iconRects[key]=rect;
+            dc.PushOpacity(1-opacity); DrawProviderIcon(dc,agent.Agent,rect.X,rect.Y); dc.Pop();
         }
         if (opacity>0)
         {
@@ -673,7 +704,15 @@ internal sealed partial class OfficeView : FrameworkElement
         dc.PushOpacity(p.Opacity);
         var cropLegs = p.SeatAnchor != null && p.SeatPhase != "turn";
         if (cropLegs) dc.PushClip(new RectangleGeometry(new(bounds.X,bounds.Y,bounds.Width,Math.Max(0,p.SeatAnchor!.Y+1-bounds.Y))));
+        if (p.Action == "beanbag")
+        {
+            var raw = UnposedContentBounds(p); var center = RecliningCenter(p);
+            var cx = raw.X + raw.Width / 2; var cy = raw.Y + raw.Height / 2;
+            dc.PushTransform(new TranslateTransform(Math.Round(center.X - cx), Math.Round(center.Y - cy)));
+            dc.PushTransform(new RotateTransform(90, cx, cy));
+        }
         dc.DrawImage(Image(p.Sprite!),bounds);
+        if (p.Action == "beanbag") { dc.Pop(); dc.Pop(); }
         if (cropLegs) dc.Pop();
         DrawActivity(dc, agent);
         if (p.CarryingPaper && p.Action is "walking" or "entering")
@@ -705,7 +744,8 @@ internal sealed partial class OfficeView : FrameworkElement
             if (names.Count >= 256) names.Clear();
             names[sourceName] = measured;
         }
-        var name=measured.Text; var width=measured.Width;
+        var iconSize=ProviderIconSize(agent.Agent);
+        var name=measured.Text; var width=measured.Width+iconSize-12;
         var plate = new Rect(Math.Round(Math.Clamp(anchor.X-width/2,2,Math.Max(2,office.WidthTiles*16-width-2))),Math.Round(anchor.Y)-5,width,14);
         var baseY=plate.Y;
         if (tagMode!="always") plate.Y-=tagOffsets.GetValueOrDefault(key);
@@ -719,17 +759,25 @@ internal sealed partial class OfficeView : FrameworkElement
         plates.Add(outline);
         R(dc,agent.Agent.IsSubagent ? "#738b84" : "#c99a52",plate.X-1,plate.Y-1,plate.Width+2,plate.Height+2);
         R(dc,"#172b30",plate.X,plate.Y,plate.Width,plate.Height);
-        DrawProviderIcon(dc,agent.Agent.Provider,plate.X+1,plate.Y+1);
-        Text(dc,name,plate.X+15,plate.Y+4,6,"#f5edce",maxWidth:plate.Width-16);
+        DrawProviderIcon(dc,agent.Agent,plate.X+1,plate.Y+(14-iconSize)/2);
+        Text(dc,name,plate.X+iconSize+3,plate.Y+4,6,"#f5edce",maxWidth:plate.Width-iconSize-4);
         return plate;
     }
-    private void DrawProviderIcon(DrawingContext dc,Provider provider,double x,double y)
+    private int ProviderIconSize(AgentInfo agent) => zoom < 2 && assets.Images.ContainsKey("provider-icons-10") && brandIcons.Get(agent.Provider, (int)Math.Ceiling(zoom)) == null ? 10 : 12;
+    private void DrawProviderIcon(DrawingContext dc,AgentInfo agent,double x,double y)
     {
-        var icon = brandIcons.Get(provider, (int)Math.Ceiling(zoom));
-        if (icon == null && assets.Images.ContainsKey("provider-icons"))
-            icon = Image(assets.Frame("provider-icons",provider.ToString().ToLowerInvariant(),"any",0));
-        if (icon != null) dc.DrawImage(icon,new(x,y,12,12));
-        else DrawNeutralIcon(dc,provider,x,y);
+        var icon = brandIcons.Get(agent.Provider, (int)Math.Ceiling(zoom));
+        var size=ProviderIconSize(agent);
+        var sheet=size==10 && assets.Images.ContainsKey("provider-icons-10") ? "provider-icons-10" : "provider-icons";
+        if (icon == null && assets.Images.ContainsKey(sheet))
+        {
+            var provider=agent.Provider.ToString().ToLowerInvariant();
+            var role=provider+(agent.IsSubagent ? "-sub-agent" : "-supervisor");
+            var clip=assets.Manifest.Sheets.First(s=>s.Id==sheet).Rows.Any(r=>r.Name==role) ? role : provider;
+            icon = Image(assets.Frame(sheet,clip,"any",0));
+        }
+        if (icon != null) dc.DrawImage(icon,new(Math.Round(x),Math.Round(y),size,size));
+        else DrawNeutralIcon(dc,agent.Provider,x,y);
     }
     private void DrawNeutralIcon(DrawingContext dc, Provider provider, double x, double y)
     {
@@ -747,6 +795,17 @@ internal sealed partial class OfficeView : FrameworkElement
     {
         var p=agent.Pose;
         if (p.Queued) return;
+        if (assets.Images.ContainsKey("bubble-icons"))
+        {
+            var glyph = p.Action switch { "beanbag" => "zzz", "aquarium" => "heart", "window" => "sparkles",
+                "vending" or "fridge" => "coffee", "reading" => "light-bulb", _ => null };
+            if (glyph != null)
+            {
+                var body = ContentBounds(p); dc.PushOpacity(p.Opacity);
+                dc.DrawImage(Image(assets.Frame("bubble-icons",glyph,"any",0)),new(Math.Round(body.Right+2),HeadY(p)-2,12,12));
+                dc.Pop(); return;
+            }
+        }
         if (p.Action == "waiting")
         {
             var body = ContentBounds(p);

@@ -22,6 +22,9 @@ internal sealed record Settings
 {
     public string Mode { get; init; } = "normal";
     public string TagMode { get; init; } = "hover";
+    public AmbientSettings Ambient { get; init; } = new();
+    public string SeasonDecor { get; init; } = "off";
+    public string Pets { get; init; } = "on";
     public bool ClickThrough { get; init; }
     public double Zoom { get; init; }
     public double Width { get; init; } = 720;
@@ -45,6 +48,8 @@ internal sealed record Settings
         var waiting = Math.Max(Number(LeaveAfterWaitingMinutes, 30, 1, 10080), (working + 1) / 60);
         return this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
             TagMode = NameTagHover.Normalize(TagMode),
+            Ambient = (Ambient ?? new()).Normalize(), SeasonDecor = SeasonDecor == "auto" ? "auto" : "off",
+            Pets = Pets == "off" ? "off" : "on",
             Zoom = Number(Zoom, 0, 0, 6), Width = Number(Width, 720, 400, 3000), Height = Number(Height, 480, 300, 2000),
             Left = Left is {} x && double.IsFinite(x) ? Math.Clamp(x, -100000, 100000) : null,
             Top = Top is {} y && double.IsFinite(y) ? Math.Clamp(y, -100000, 100000) : null,
@@ -66,7 +71,7 @@ internal sealed record Settings
     internal void Write(string path) => StateJson.WriteAtomic(path,JsonSerializer.SerializeToUtf8Bytes(Normalize(),StateJson.Options));
 }
 
-internal static class Program
+internal static partial class Program
 {
     [STAThread]
     public static int Main(string[] args)
@@ -74,7 +79,7 @@ internal static class Program
         try
         {
             var demo = args.Contains("--demo"); Settings? initial = null;
-            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null, home = null, stateSource = null; double quitAfter = 0; var qa = false; var smokeTags=false;
+            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null, home = null, stateSource = null; double quitAfter = 0; var qa = false; var smokeTags=false; var smokeAmbient=false;
             for (var i = 0; i < args.Length; i++)
             {
                 string Value() => ++i < args.Length ? args[i] : throw new ArgumentException("Missing option value.");
@@ -85,6 +90,10 @@ internal static class Program
                     case "--demo": break;
                     case "--smoke-test": smoke = Value(); break;
                     case "--smoke-tags": smokeTags = true; break;
+                    case "--smoke-ambient": smokeAmbient = true; break;
+                    case "--ambient-weather": initial = (initial ?? new()) with { Ambient = new(ParseChoice(Value(), "--ambient-weather", "off", "rain", "snow", "auto")) }; break;
+                    case "--season-decor": initial = (initial ?? new()) with { SeasonDecor = ParseChoice(Value(), "--season-decor", "off", "auto") }; break;
+                    case "--pets": initial = (initial ?? new()) with { Pets = ParseChoice(Value(), "--pets", "on", "off") }; break;
                     case "--tags": initial = (initial ?? new()) with { TagMode = ParseTags(Value()) }; break;
                     case "--asset-dir": assetDirectory = Value(); break;
                     case "--layout": layoutFile = Value(); break;
@@ -113,6 +122,7 @@ internal static class Program
             if (stateSource != null && smoke == null) throw new ArgumentException("--output/--state requires --smoke-test; pass a tracker output directory or state.json.");
             if (stateSource != null && Directory.Exists(stateSource)) stateSource = Path.Combine(stateSource,"state.json");
             if (smokeTags && smoke==null) throw new ArgumentException("--smoke-tags requires --smoke-test OUTPUT_DIR.");
+            if (smokeAmbient && smoke==null) throw new ArgumentException("--smoke-ambient requires --smoke-test OUTPUT_DIR.");
             storage.CheckInput(layoutFile); storage.CheckInput(assetDirectory);
             storage.CheckInput(stateSource);
             if (stateSource != null && assetDirectory == null) assetDirectory = Path.GetDirectoryName(stateSource);
@@ -124,8 +134,8 @@ internal static class Program
                     : AssetPack.LoadDefault(assetDirectory, useUserPack: !storage.Isolated);
                 return (assets, LayoutLoader.Load(assets, layoutFile ?? storage.LayoutPath, assets.Warnings));
             }
-            if (profile != null) { var loaded = LoadOffice(); return ProfileIdle(profile,loaded.Assets,loaded.Layout,(initial ?? new()).TagMode); }
-            if (smoke != null) { var loaded = LoadOffice(); return smokeTags ? TagRenders(smoke,loaded.Assets,loaded.Layout) : Smoke(smoke,demo,loaded.Assets,loaded.Layout,(initial ?? new()).TagMode,home ?? storage.Home,stateSource); }
+            if (profile != null) { var loaded = LoadOffice(); return ProfileIdle(profile,loaded.Assets,loaded.Layout,(initial ?? new()).Normalize()); }
+            if (smoke != null) { var loaded = LoadOffice(); return smokeAmbient ? AmbientRenders(smoke,loaded.Assets,loaded.Layout,storage.Home) : smokeTags ? TagRenders(smoke,loaded.Assets,loaded.Layout) : Smoke(smoke,demo,loaded.Assets,loaded.Layout,(initial ?? new()).Normalize(),home ?? storage.Home,stateSource); }
             if (qa && (!double.IsFinite(quitAfter) || quitAfter<=0 || quitAfter>60)) throw new ArgumentException("--qa requires --quit-after in (0,60].");
             // Parsing user JSON and validating PNGs never occupies the dispatcher.
             app.Startup += async (_, _) =>
@@ -176,14 +186,15 @@ internal static class Program
         File.WriteAllText(Path.Combine(output,"smoke.txt"),"Offscreen tag modes OK; fabricated agents=12; modes=hover,icon,always; programmatic hover=120ms; logBytesRead=0\n");
         return 0;
     }
-    private static int Smoke(string output, bool demo, AssetPack assets, OfficeLayout layout,string tagMode,string home,string? stateSource)
+    private static int Smoke(string output, bool demo, AssetPack assets, OfficeLayout layout,Settings settings,string home,string? stateSource)
     {
         output = StateJson.OutputPath(output,home); Directory.CreateDirectory(output);
-        using var tracker = new AgentTracker(new() { Home=home }); var office = new OfficeAnimator(42,assets,layout);
+        using var tracker = new AgentTracker(new() { Home=home }); var office = new OfficeAnimator(42,assets,layout,ActivityCatalog.Load(home,assets.Warnings));
         var now = demo ? DateTimeOffset.Parse("2026-10-03T12:00:00Z") : DateTimeOffset.UtcNow;
         IReadOnlyList<AgentInfo> sources = Array.Empty<AgentInfo>();
         IReadOnlyList<AgentView> views = Array.Empty<AgentView>();
-        var view = new OfficeView(assets,Path.Combine(home,"brand")) { TagMode=tagMode };
+        var tagMode=settings.TagMode;
+        var view = new OfficeView(assets,Path.Combine(home,"brand")) { TagMode=tagMode, AmbientSettings=settings.Ambient, SeasonDecor=settings.SeasonDecor, PetsEnabled=settings.Pets=="on" };
         if (stateSource != null)
         {
             if (new FileInfo(stateSource).Length > 4*1024*1024) throw new InvalidDataException("State exceeds 4 MiB.");
@@ -229,7 +240,7 @@ internal static class Program
         view.TransparentBackground=true; Render(view,700,480,Path.Combine(output,"transparent.png"));
         var manifest=assets.Export(output);
         StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(office.Layout,StateJson.Options));
-        StateJson.WriteAtomic(Path.Combine(output,"state.json"),new StateSnapshot(StateJson.SchemaVersion,now.AddSeconds(55),1,SpriteAtlas.Info,office.Layout,views,tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,office.FurnitureSprites));
+        StateJson.WriteAtomic(Path.Combine(output,"state.json"),new StateSnapshot(StateJson.SchemaVersion,now.AddSeconds(55),1,SpriteAtlas.Info,office.Layout,views,tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,view.ResolvedFurnitureSprites,view.AmbientState,view.Pets));
         File.WriteAllText(Path.Combine(output,"smoke.txt"),$"Offscreen WPF render OK; demo={demo}; agents={sources.Count}; tagMode={tagMode}; zooms=1,2,3; hover={hover != null}; logBytesRead={tracker.BytesRead}\n"+string.Join("\n",assets.Warnings));
         if(demo) { ReviewRenders(output,assets,layout,tagMode); DepartureRenders(output,assets,layout,tagMode); }
         return 0;
@@ -294,7 +305,7 @@ internal static class Program
         storage.CheckInput(assetDirectory); storage.CheckInput(layoutFile);
         var assets = AssetPack.LoadDefault(assetDirectory, useUserPack: !storage.Isolated);
         var layout = LayoutLoader.Load(assets, layoutFile ?? storage.LayoutPath, assets.Warnings);
-        return (assets, layout, new OfficeAnimator(42, assets, layout), (IReadOnlyDictionary<string, BitmapSource>)new Dictionary<string, BitmapSource>());
+        return (assets, layout, new OfficeAnimator(42, assets, layout, ActivityCatalog.Load(storage.Home,assets.Warnings)), (IReadOnlyDictionary<string, BitmapSource>)new Dictionary<string, BitmapSource>());
     });
     internal static void Render(FrameworkElement view,int width,int height,string file)
     {
@@ -382,14 +393,16 @@ internal static class Program
             }
         }
     }
-    private static int ProfileIdle(string output,AssetPack assets,OfficeLayout layout,string tagMode)
+    private static int ProfileIdle(string output,AssetPack assets,OfficeLayout layout,Settings settings)
     {
         output=StateJson.OutputPath(output); Directory.CreateDirectory(output);
+        using var profileStorage=new AppStorage(true);
         var now=DateTimeOffset.UtcNow; var office=new OfficeAnimator(42,assets,layout);
         var agents=DemoScenario.Agents(now,30).Take(6).Select(a=>a with { State=AgentState.Idle }).ToArray();
         IReadOnlyList<AgentView> views=Array.Empty<AgentView>();
         for(var i=0;i<300;i++) views=office.Update(agents,now.AddSeconds(i*.1),.1);
-        var view=new OfficeView(assets,Path.Combine(output,"empty-brand")) { TagMode=tagMode }; view.Update(office.Layout,views,now,office.FurnitureSprites); view.SetZoom(1);
+        var tagMode=settings.TagMode;
+        var view=new OfficeView(assets,Path.Combine(profileStorage.Home,"brand")) { TagMode=tagMode, AmbientSettings=settings.Ambient, SeasonDecor=settings.SeasonDecor, PetsEnabled=settings.Pets=="on" }; view.Update(office.Layout,views,now,office.FurnitureSprites); view.SetZoom(1);
         Render(view,700,480,Path.Combine(output,"idle.png"));
         // Keep one nonactivating offscreen presentation source, just as the live window
         // does. Neither HWND recreation nor per-frame bitmap copies are idle app work.
@@ -402,7 +415,7 @@ internal static class Program
         using var process=Process.GetCurrentProcess(); var startCpu=process.TotalProcessorTime; var elapsed=Stopwatch.StartNew();
         var frame=new DispatcherFrame(); var ticks=0; var warmupTicks=0; var warmupWall=0d; var warmed=false;
         var previousTime=now.AddSeconds(30);
-        using var tracker=new AgentTracker(new() { Home=Path.Combine(output,"empty-home") }); var polling=false;
+        using var tracker=new AgentTracker(new() { Home=profileStorage.Home }); var polling=false;
         var timer=new DispatcherTimer { Interval=TimeSpan.FromMilliseconds(125) };
         timer.Tick+=async (_,_)=>
         {
@@ -410,7 +423,7 @@ internal static class Program
             view.Update(office.Layout,office.Update(agents,time,(time-previousTime).TotalSeconds),time,office.FurnitureSprites); previousTime=time;
             view.UpdateLayout(); ticks++;
             if (!polling && ticks%8==0) { polling=true; await Task.Run(()=>tracker.Poll(time)); polling=false; }
-            var interval=office.AnimationInterval;
+            var interval=MinimumInterval(office.AnimationInterval,view.AnimationInterval);
             if (interval==TimeSpan.Zero) interval=office.NextUpdateAt==DateTimeOffset.MaxValue ? TimeSpan.FromSeconds(1) : TimeSpan.FromMilliseconds(Math.Max(16,(office.NextUpdateAt-time).TotalMilliseconds));
             timer.Interval=interval;
             if (!warmed && elapsed.Elapsed.TotalSeconds>=5)
@@ -491,10 +504,11 @@ internal sealed class OfficeWindow : Window
         this.demo = demo;
         this.storage = storage ?? new AppStorage(demo || qa);
         this.qa = qa; this.epoch=demoEpoch ?? DateTimeOffset.UtcNow;
-        this.assets = assets ?? new(); view = new(this.assets, this.storage.Isolated ? Path.Combine(this.storage.Home,"brand") : null, decodedSheets); office = liveOffice ?? new(42,this.assets,layout);
+        this.assets = assets ?? new(); view = new(this.assets, this.storage.Isolated ? Path.Combine(this.storage.Home,"brand") : null, decodedSheets); office = liveOffice ?? new(42,this.assets,layout,ActivityCatalog.Load(this.storage.Home,this.assets.Warnings));
         agents=liveAgents ?? Array.Empty<AgentInfo>();
         settings = (initial ?? ReadSettings()).Normalize();
         view.TagMode = settings.TagMode;
+        view.AmbientSettings=settings.Ambient; view.SeasonDecor=settings.SeasonDecor; view.PetsEnabled=settings.Pets=="on";
         if (qa) settings=settings with { Mode="normal",Borderless=true,Width=400,Height=300,Left=-30000,Top=-30000 };
         Title = demo ? "Vibedotcom — demo office" : "Vibedotcom — agent office";
         Width = Finite(settings.Width,720,400,3000); Height = Finite(settings.Height,480,300,2000);
@@ -595,6 +609,7 @@ internal sealed class OfficeWindow : Window
     }
     private void ToggleClickThrough() { settings = settings with { ClickThrough = !settings.ClickThrough }; ApplyModes(); Save(); }
     private void SetTags(string mode) { settings=settings with { TagMode=mode }; view.TagMode=mode; Save(); }
+    private void TogglePets() { settings=settings with { Pets=settings.Pets=="on" ? "off" : "on" }; view.PetsEnabled=settings.Pets=="on"; var now=DateTimeOffset.UtcNow; view.Update(office.Layout,office.Update(agents,now,0),now,office.FurnitureSprites); ScheduleAnimation(); Save(); }
     private void ToggleBorderless() { settings = settings with { Borderless = !settings.Borderless }; ApplyModes(); Save(); }
     private void ToggleTransparent()
     {
@@ -636,6 +651,7 @@ internal sealed class OfficeWindow : Window
         ("Click-through",ToggleClickThrough,()=>settings.ClickThrough),
         ("Borderless",ToggleBorderless,()=>settings.Borderless),
         ("Transparent background",ToggleTransparent,()=>settings.TransparentBackground),
+        ("Pets",TogglePets,()=>settings.Pets=="on"),
         ("Opacity 100%",()=>OpacityTo(1),()=>settings.Opacity==1),
         ("Opacity 85%",()=>OpacityTo(.85),()=>settings.Opacity==.85),
         ("Opacity 70%",()=>OpacityTo(.70),()=>settings.Opacity==.70),
@@ -708,7 +724,7 @@ internal sealed class OfficeWindow : Window
     {
         if (closed || animationSuspended || WindowState==WindowState.Minimized) { timer.Stop(); hoverTimer.Stop(); if (!closed) maintenance.Start(); return; }
         if (!office.HasMovingCharacters && !view.TagsAnimating && !view.TooltipPending) hoverTimer.Stop();
-        var interval = view.TagsAnimating ? TimeSpan.FromSeconds(1d/30) : office.AnimationInterval;
+        var interval = view.TagsAnimating ? TimeSpan.FromSeconds(1d/30) : Program.MinimumInterval(office.AnimationInterval,view.AnimationInterval);
         if (settings.TransparentBackground && office.HasMovingCharacters && !view.TagsAnimating)
             interval=TimeSpan.FromSeconds(.1);
         if (demo && interval==TimeSpan.Zero) interval=TimeSpan.FromMilliseconds(125);

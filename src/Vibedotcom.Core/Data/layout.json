@@ -244,8 +244,8 @@
       "id": "coffee",
       "kind": "pantry",
       "assetId": "cozy-pantry",
-      "x": 26,
-      "y": 15,
+      "x": 25,
+      "y": 14,
       "width": 3,
       "height": 2
     },
@@ -262,8 +262,8 @@
       "id": "water",
       "kind": "water",
       "assetId": "cozy-water",
-      "x": 33,
-      "y": 15,
+      "x": 28,
+      "y": 14,
       "width": 1,
       "height": 2
     },
@@ -271,9 +271,126 @@
       "id": "trash",
       "kind": "plant",
       "assetId": "cozy-trash",
-      "x": 32,
+      "x": 33,
       "y": 18,
       "width": 1,
+      "height": 1
+    },
+    {
+      "id": "window-work-west",
+      "kind": "window",
+      "assetId": "cozy-window",
+      "x": 13,
+      "y": 2,
+      "width": 3,
+      "height": 1
+    },
+    {
+      "id": "window-work-east",
+      "kind": "window",
+      "assetId": "cozy-window",
+      "x": 18,
+      "y": 2,
+      "width": 3,
+      "height": 1
+    },
+    {
+      "id": "dartboard",
+      "kind": "dartboard",
+      "assetId": "cozy-dartboard",
+      "x": 28,
+      "y": 2,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "id": "ping-pong",
+      "kind": "ping-pong",
+      "assetId": "cozy-ping-pong",
+      "x": 21,
+      "y": 4,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "bean-bag",
+      "kind": "chair",
+      "assetId": "cozy-bean-bag",
+      "x": 25,
+      "y": 6,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "id": "bean-bag-2",
+      "kind": "chair",
+      "assetId": "cozy-bean-bag",
+      "x": 29,
+      "y": 5,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "id": "arcade",
+      "kind": "arcade",
+      "assetId": "cozy-arcade",
+      "x": 21,
+      "y": 8,
+      "width": 2,
+      "height": 3
+    },
+    {
+      "id": "reading-nook",
+      "kind": "reading-nook",
+      "assetId": "cozy-reading-nook",
+      "x": 3,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "fish-tank",
+      "kind": "fish-tank",
+      "assetId": "cozy-fish-tank",
+      "x": 6,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "vending-machine",
+      "kind": "cabinet",
+      "assetId": "cozy-vending-machine",
+      "x": 32,
+      "y": 14,
+      "width": 2,
+      "height": 3
+    },
+    {
+      "id": "string-lights-work",
+      "kind": "lamp",
+      "assetId": "cozy-string-lights",
+      "x": 17,
+      "y": 1,
+      "width": 3,
+      "height": 1
+    },
+    {
+      "id": "pet-bed",
+      "kind": "bed",
+      "assetId": "cozy-pet-bed",
+      "x": 3,
+      "y": 17,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "id": "string-lights-lounge",
+      "kind": "lamp",
+      "assetId": "cozy-string-lights",
+      "x": 29,
+      "y": 1,
+      "width": 3,
       "height": 1
     },
     {

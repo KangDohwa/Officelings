@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "activities": [
+    { "id": "coffee", "weight": 3, "minSeconds": 10, "maxSeconds": 18 },
+    { "id": "water", "weight": 2, "minSeconds": 10, "maxSeconds": 18 },
+    { "id": "tv", "weight": 2, "minSeconds": 20, "maxSeconds": 33 },
+    { "id": "phone", "weight": 2, "minSeconds": 14, "maxSeconds": 24 },
+    { "id": "napping", "weight": 1, "minSeconds": 28, "maxSeconds": 42 },
+    { "id": "chatting", "weight": 2, "minSeconds": 14, "maxSeconds": 24 },
+    { "id": "darts", "weight": 3, "minSeconds": 14, "maxSeconds": 24 },
+    { "id": "pingpong", "weight": 3, "minSeconds": 20, "maxSeconds": 33 },
+    { "id": "arcade", "weight": 3, "minSeconds": 18, "maxSeconds": 30 },
+    { "id": "reading", "weight": 2, "minSeconds": 22, "maxSeconds": 36 },
+    { "id": "beanbag", "weight": 1, "minSeconds": 28, "maxSeconds": 42 },
+    { "id": "aquarium", "weight": 2, "minSeconds": 12, "maxSeconds": 22 },
+    { "id": "vending", "weight": 2, "minSeconds": 6, "maxSeconds": 10 },
+    { "id": "fridge", "weight": 2, "minSeconds": 6, "maxSeconds": 10 },
+    { "id": "window", "weight": 2, "minSeconds": 14, "maxSeconds": 24 }
+  ]
+}

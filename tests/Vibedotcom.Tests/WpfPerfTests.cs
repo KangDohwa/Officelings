@@ -14,13 +14,13 @@ namespace Vibedotcom.Tests;
 
 public sealed class WpfPerfTests
 {
-    // Decoded Pbgra32 hashes measured from unmodified c903758 Release assemblies,
-    // independently captured before changing either Core or the WPF renderer.
+    // Fixed scene fingerprints recaptured after the ambient layout/provider changes.
+    // Fixed local clock and pets off isolate pixel retention from autonomous pet motion.
     private static readonly string[][] DemoPixels =
     [
-        ["F31FF4EC5C5C26D02F07010EE12F4F2E42B30879C1DB27D9AECFAA1DDE3A39A8","898C4CE04E694A423E46D2902F70BEB9F4917440E7C52E7BB665EEBF595406C4","0FB3C6DBF9E7752A905631D6191B008A92B29BC23856B9BDC9E7640C460AD159"],
-        ["68F2653B37852E954421F3AF0D2B1A1FD7B082AABBBD21B34B8B4E3DFA08B4F0","D3DED12C91327D3C07D1A3C0C5547D29DF823DF721691E7E5201D0EFBFF3E37B","DF9599D8461E8F6F11D269FD02B2220451E99E29361189C9E821C4CFFE12C198"],
-        ["03031897ACA686E17FCCC3656C34C1C189EFC1E6EDE2B9D0C0D8D7DB9785238D","88E84D3409A34CEAD5D9932C9400DEA2AAE4D955DC819F73937C4F7CAE971388","6019EC848FB9991E29D2E560EB34AECF38FB5AF7675347EF458A2D9EB07DF1A9"]
+        ["0051B2B67F953235424E7116F65F3AA9189621E0D2099FE21897DF7FC41DECF0","CB7D8CA56C00FDFFAF7B65AB31F68B6F6AF153F21BF223932200249E30D92931","1EE447F385916A3F51EF42D7911DCFDC7C7D1A9C82216054A40D24D9E61B9438"],
+        ["0F98511E1D4941514CC8E76F7E8B55C19B497DCEB2772D43AFFCB49A15485C9E","457EBB6F0BBCDBEDC0E5E0CA4A4E7B4D0ED67CF833D7019F85E843E6F3E88239","B97A715ADE7CD85842E7990905591955FE5CBF15BE36F9473F3286B0691A72BA"],
+        ["2344EF83F991F17C5305F81A69E777B02F4907DA0C855219B87D23489B917952","0559E66BC258633E854E923AEF8EE2176136505887A5B2A7FF8B608662CA8B96","D6B5CCA6335956E84C1912698D65C4991BEDF29173391E2B02B0AC98EB26B786"]
     ];
     private static void Sta(Action action)
     {
@@ -37,7 +37,7 @@ public sealed class WpfPerfTests
     [InlineData(0,0)]
     [InlineData(12,1)]
     [InlineData(36,2)]
-    public void DemoPixelsMatchUnmodifiedHeadAtAllThreeDensities(int seconds,int index) => Sta(()=>
+    public void DemoPixelsMatchReviewedAmbientSceneAtAllThreeDensities(int seconds,int index) => Sta(()=>
     {
         var epoch=DateTimeOffset.Parse("2026-10-04T00:00:00Z");
         var pack=AssetPack.LoadDefault(useUserPack:false); var office=new OfficeAnimator(42,pack);
@@ -46,7 +46,8 @@ public sealed class WpfPerfTests
         { var t=-18+frame*.1; poses=office.Update(DemoScenario.Agents(epoch,t),epoch.AddSeconds(t),.1); }
         for (var zoom=1;zoom<=3;zoom++)
         {
-            var view=new OfficeView(pack,Path.Combine(Path.GetTempPath(),"vibedotcom-empty-perf-brand"));
+            var local=epoch.AddSeconds(seconds).ToOffset(TimeSpan.FromHours(9));
+            var view=new OfficeView(pack,Path.Combine(Path.GetTempPath(),"vibedotcom-empty-perf-brand"),localClock:()=>local) { PetsEnabled=false };
             view.SetZoom(zoom); view.Update(office.Layout,poses,epoch.AddSeconds(seconds),office.FurnitureSprites);
             var width=office.Layout.WidthTiles*16*zoom+32; var height=office.Layout.HeightTiles*16*zoom+32;
             var bitmap=Vibedotcom.App.Program.RenderBitmap(view,width,height);
@@ -74,7 +75,7 @@ public sealed class WpfPerfTests
         }).ToArray() };
         var office=new OfficeAnimator(42,pack,layout);
         using var storage=new AppStorage(true);
-        var window=new OfficeWindow(qa:true,assets:pack,liveOffice:office,storage:storage);
+        var window=new OfficeWindow(qa:true,initial:new Settings { Pets="off" },assets:pack,liveOffice:office,storage:storage);
         window.Show();
         try
         {
@@ -91,8 +92,9 @@ public sealed class WpfPerfTests
     public void SheetsDecodeOnUseAndUnchangedScenesHaveZeroDamage() => Sta(()=>
     {
         var pack=AssetPack.LoadDefault(useUserPack:false); var office=new OfficeAnimator(42,pack);
-        var view=new OfficeView(pack); Assert.Empty(view.DecodedSheets);
-        var now=DateTimeOffset.Parse("2026-10-04T00:00:00Z"); var poses=office.Update([],now,0);
+        var now=DateTimeOffset.Parse("2026-10-04T00:00:00Z");
+        var view=new OfficeView(pack,localClock:()=>now) { PetsEnabled=false }; Assert.Empty(view.DecodedSheets);
+        var poses=office.Update([],now,0);
         view.SetZoom(1); view.Update(office.Layout,poses,now,office.FurnitureSprites);
         _=Vibedotcom.App.Program.RenderBitmap(view,720,480);
         Assert.InRange(view.DecodedSheets.Count,1,pack.Images.Count-1);
