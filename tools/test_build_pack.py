@@ -621,11 +621,14 @@ class BuildPackTests(unittest.TestCase):
         build_pack.build_pack(self.art, self.output)
         self.assertEqual(before, self.files())
         (run / "sprite-sheet-alpha.png").unlink()
+        import os
+        old = (self.output / unique_file).stat().st_mtime - build_pack.PNG_GRACE_SECONDS - 1
+        os.utime(self.output / unique_file, (old, old))
         summary = build_pack.build_pack(self.art, self.output)
         self.assertEqual(1, summary["removedStale"])
         self.assertFalse((self.output / unique_file).exists())
         self.assertEqual(b"preserve another author's file", foreign.read_bytes())
-        self.assertEqual({"assets.json", "sheets"}, {p.name for p in self.output.iterdir()})
+        self.assertEqual({"assets.json", "sheets", ".publish.lock"}, {p.name for p in self.output.iterdir()})
         self.assertFalse(list(self.output.rglob("*.tmp")))
 
     def test_failed_manifest_replace_preserves_published_pack(self):

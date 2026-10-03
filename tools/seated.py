@@ -19,6 +19,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 sys.dont_write_bytecode = True
 from facelock import blink_frame
+from publication import atomic_write, publish_batch
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "assets/art"
@@ -78,9 +79,7 @@ def publish(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists() and path.read_bytes() == data:
         return
-    temp = path.with_suffix(path.suffix + ".tmp")
-    temp.write_bytes(data)
-    temp.replace(path)
+    atomic_write(path, data)
 
 
 def png(im):
@@ -257,6 +256,7 @@ def process(cid, mp, seat_y):
     sheet = Image.new("RGBA", (128, 1024))
     sheet.paste(original)
     result = copy.deepcopy(m)
+    result.pop("publication", None)
     result["characterId"] = cid
     result["game_input"] = result["sprite_sheet_alpha"] = f"{cid}.png"
     result["anchor"] = {"x": 16, "y": 60}
@@ -354,9 +354,16 @@ def process(cid, mp, seat_y):
     result["seated"]["blinkSheet"] = {"file": "seated-blink.png", "cellW": 32,
                                       "cellH": 64, "frames": 4, "fps": 4}
     # Preserve existing blink metadata and its relative files in the additive sheet.
-    for b in m.get("blink", {}).values():
-        files[b["file"]] = blobs[mp.parent / b["file"]]
-    files["source.facelock.json"] = blobs[mp.parent / m["facelock"]["report"]]
+    for direction, b in m.get("blink", {}).items():
+        filename = Path(b["file"]).name
+        files[filename] = blobs[mp.parent / b["file"]]
+        result["blink"][direction]["file"] = filename
+    report_path = mp.parent / m["facelock"]["report"]
+    source_report = json.loads(blobs[report_path])
+    for key in ("sourceManifest", "sourceSheet", "sourceFrames", "outputSheet", "outputManifest"):
+        if source_report.get(key):
+            source_report[key] = str((report_path.parent / source_report[key]).resolve())
+    files["source.facelock.json"] = (json.dumps(source_report, ensure_ascii=False, indent=2) + "\n").encode()
     files[f"{cid}.png"] = png(sheet)
     files["seated-blink.png"] = png(blink_sheet)
     files[f"{cid}.manifest.json"] = (json.dumps(result, ensure_ascii=False, indent=2) + "\n").encode()
@@ -365,9 +372,13 @@ def process(cid, mp, seat_y):
         "sourceManifest": mp.relative_to(ROOT).as_posix()}, indent=2) + "\n").encode()
     if any(p.read_bytes() != b for p, b in blobs.items()):
         raise ValueError("input changed during processing; rerun")
-    for name, data in files.items():
-        publish(OUT / cid / name, data)
+    publish_batch(OUT / cid, files, f"{cid}.manifest.json")
     return all_poses
+
+
+def published_file(cid, name):
+    manifest = json.loads((OUT / cid / f"{cid}.manifest.json").read_bytes())
+    return OUT / cid / manifest.get("publication", {}).get("generation", "") / name
 
 
 def scene(pose, direction, seat_y):
@@ -413,7 +424,7 @@ def preview(published, seat_y):
             draw.text((2, y), "red-braid corrected blink | left open/shut right open/shut", fill="white")
             for col, (direction, view, shut) in enumerate((("left", 1, False), ("left", 1, True),
                                                          ("right", 2, False), ("right", 2, True))):
-                p = Image.open(OUT / "red-braid" / f"blink-seated_{direction}.png").convert("RGBA") if shut else published["red-braid"][view][0]
+                p = Image.open(published_file("red-braid", f"blink-seated_{direction}.png")).convert("RGBA") if shut else published["red-braid"][view][0]
                 contact.alpha_composite(scene(p, direction, seat_y), (col * 104, y + 12))
         path = OUT / "preview-seated.png" if page == 0 else OUT / variants[0][0] / f"preview-variants-{page}.png"
         publish(path, png(contact.resize((contact.width * 5, contact.height * 5), Image.Resampling.NEAREST)))
@@ -431,7 +442,7 @@ def preview(published, seat_y):
         panels, names = [], []
         for cid in roster[start:start + 2]:
             names.append(cid)
-            closed = Image.open(OUT / cid / "blink-seated_left.png").convert("RGBA")
+            closed = Image.open(published_file(cid, "blink-seated_left.png")).convert("RGBA")
             panels.extend([scene(published[cid][1][0], "left", seat_y), scene(closed, "left", seat_y)])
         rows.append((" / ".join(names) + " | open / closed", panels))
     contact = Image.new("RGBA", (416, len(rows) * 102), "#35313e")
@@ -456,7 +467,7 @@ def preview(published, seat_y):
             panels.append((f"apron-baker seated {direction} | 0 1 2 3",
                            [scene(p, direction, seat_y) for p in published[cid][view]]))
         panels.append(("apron-baker blink | left open/shut right open/shut", [
-            scene(Image.open(OUT / cid / f"blink-seated_{direction}.png").convert("RGBA") if shut else
+            scene(Image.open(published_file(cid, f"blink-seated_{direction}.png")).convert("RGBA") if shut else
                   published[cid][view][0], direction, seat_y)
             for direction, view, shut in (("left", 1, False), ("left", 1, True),
                                          ("right", 2, False), ("right", 2, True))]))

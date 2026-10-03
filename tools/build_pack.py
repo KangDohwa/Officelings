@@ -13,15 +13,18 @@ from pathlib import Path
 import re
 import sys
 import tempfile
+import time
 
 from PIL import Image, ImageDraw
 
 from anim_normalize import normalize_sheet
+from publication import writer_lock
 
 
 ROOT = Path(__file__).resolve().parents[1]
 GENERATED_BY = "tools/build_pack.py"
 OWNED_PNG = re.compile(r"pack-[0-9a-f]{64}\.png\Z")
+PNG_GRACE_SECONDS = 3600
 P5_IDS = sorted(
     f"{provider}-{role}-{number:02d}"
     for provider in ("codex", "claude", "antigravity")
@@ -51,6 +54,8 @@ class ProductionSheet:
     def __init__(self, image_path: Path, manifest_path: Path):
         self.data = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
         self.directory = manifest_path.parent
+        if "publication" in self.data:
+            image_path = self.directory / self.data["sprite_sheet_alpha"]
         with Image.open(image_path) as source:
             if source.format != "PNG":
                 raise ValueError("final sheet is not a PNG")
@@ -468,7 +473,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         metadata = metadata or path.with_suffix(".manifest.json")
         image, rows = seated_characters.get(character_id, (None, None))
         locked = path.parent / "locked" / f"{character_id}.png"
-        if not locked.is_file():
+        if not locked.with_suffix(".manifest.json").is_file():
             locked = art_dir / "roster" / character_id / "locked" / f"{character_id}.png"
         locked_metadata = locked.with_suffix(".manifest.json")
         if image is None:
@@ -493,8 +498,14 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         if not directory.is_dir() or directory.name.startswith("."):
             continue
         path = directory / f"{directory.name}.png"
-        if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
+        if not path.with_suffix(".manifest.json").is_file():
             continue
+        if not path.is_file():
+            try:
+                if "publication" not in json.loads(path.with_suffix(".manifest.json").read_bytes()):
+                    continue  # Legacy pending directory, not a committed batch.
+            except (OSError, ValueError):
+                continue
         try:
             source = production(path)
             if "seated" not in source.data:
@@ -876,14 +887,28 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     # Content-addressed sheets leave the previously published manifest usable
     # until the final replacement succeeds. Never clean before publishing it.
     data = (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
-    for filename, png in sorted(pngs.items()):
-        atomic_write(output / filename, png)
-    atomic_write(output / "assets.json", data)
     stale = 0
-    for path in sorted((output / "sheets").glob("pack-*.png")):
-        if OWNED_PNG.fullmatch(path.name) and f"sheets/{path.name}" not in pngs:
-            path.unlink()
-            stale += 1
+    output.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=output, prefix=".build-pack-") as temporary:
+        stage = Path(temporary)
+        for filename, png in sorted(pngs.items()):
+            atomic_write(stage / filename, png)
+        atomic_write(stage / "assets.json", data)
+        with writer_lock(output):
+            for filename in sorted(pngs):
+                destination = output / filename
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                if not destination.exists():
+                    os.replace(stage / filename, destination)
+            atomic_write(output / "assets.json", (stage / "assets.json").read_bytes())
+            # Use the newly committed manifest; a grace period also protects
+            # readers that still hold the previous manifest.
+            referenced = {s["file"] for s in json.loads((output / "assets.json").read_bytes())["sheets"]}
+            cutoff = time.time() - PNG_GRACE_SECONDS
+            for path in sorted((output / "sheets").glob("pack-*.png")):
+                if OWNED_PNG.fullmatch(path.name) and f"sheets/{path.name}" not in referenced and path.stat().st_mtime < cutoff:
+                    path.unlink()
+                    stale += 1
     return dict(manifest=str(output / "assets.json"), characters=len(manifest["characters"]),
                 seatedCharacters=len(seated_characters),
                 blinkCharacters=sum(any(row["name"].startswith("blink-") for row in sheet["rows"])

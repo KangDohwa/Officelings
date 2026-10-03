@@ -57,7 +57,8 @@ def check(report_path,outdir):
     mp=(locked/report['sourceManifest']).resolve()
     sp=(locked/report['sourceSheet']).resolve() if report['sourceSheet'] else None
     source_frames=(locked/report['sourceFrames']).resolve() if report.get('sourceFrames') else None
-    roster=locked.parent if locked.parent.parent.name=='roster' else None
+    base=locked.parent.parent if locked.parent.name=='.generations' else locked
+    roster=base.parent if base.parent.parent.name=='roster' else None
     original_m,original,old,blobs=f.load_source(name,mp,sp,roster,source_frames)
     for relative,digest in report['sourceHashes'].items():
         p=Path(relative);p=p if p.is_absolute() else f.ROOT/p
@@ -152,6 +153,11 @@ def main():
         self_check()
     args.out.mkdir(parents=True,exist_ok=True)
     reports=sorted((f.ART/'sheets/locked').glob('*.facelock.json'))+sorted((f.ART/'roster').glob('*/locked/*.facelock.json'))
+    for mp in sorted((f.ART/'sheets/locked').glob('*.manifest.json'))+sorted((f.ART/'roster').glob('*/locked/*.manifest.json')):
+        m=f.read_json(mp)
+        if 'publication' in m:
+            reports=[p for p in reports if p.name!=mp.name.replace('.manifest.json','.facelock.json')]
+            reports.append(mp.parent/m['facelock']['report'])
     results=[];errors=[]
     for p in reports:
         if args.character and f.read_json(p)['character'] not in args.character:

@@ -14,6 +14,7 @@ from pathlib import Path
 
 import numpy as np
 from PIL import Image
+from publication import atomic_write, publish_batch
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "assets/art"
@@ -29,6 +30,19 @@ FACE_ROWS = tuple(s for s in STATES if s != "idle" and s not in BACK)
 # color-heuristic ambiguity. Unlisted characters use skin/hole detection below.
 # Each entry: eye/brow patches, optional mouth patch. Reference is frame zero.
 PROFILES = {
+    # Redone orange afro: explicit glasses/brow boxes avoid skin-hole detection.
+    "afro-sweater": [
+        ([(7,28,26,36)], (12,35,21,38)),
+        ([(5,30,16,38)], (6,37,14,40)),
+        ([(12,29,27,36)], (18,36,26,39)),
+        ([(12,29,28,36)], (17,36,25,39)),
+        ([(12,28,27,35)], (18,35,26,38)),
+        ([(8,35,25,43)], (13,42,21,44)),
+        ([(11,29,26,36)], None),
+        ([(10,30,26,36)], None),
+        ([(10,29,26,36)], None),
+        ([(8,29,25,36)], (13,36,21,39)),
+    ],
     "dev-hoodie": [
         ([(8,20,15,27),(19,20,25,27)], (15,27,21,29)),
         ([(8,20,15,26)], (8,26,13,28)),
@@ -163,6 +177,7 @@ BLINK_SKIN_POINTS = {"professor": [(16,30),(14,29),(24,28)]}
 # were reviewed against actual eye positions; hair cross-correlation alone is
 # insufficient across those pose changes. No scaling of facial pixels occurs.
 IDLE_OFFSETS = {
+    "afro-sweater": [[0,3],[-4,-3],[8,-3]],
     "dev-hoodie": [[0,-2],[-2,-1],[3,-1]],
     "glasses-bun": [[0,-2],[-1,-2],[1,-4]],
     "professor": [[0,-7],[1,-2],[2,-2]],
@@ -173,6 +188,8 @@ IDLE_OFFSETS = {
 }
 # The cat's right idle hides the far eye visible in its three-quarter walk.
 IDLE_EYE_BOXES = {"cat-hood": {"right": [(17,28,22,35)]}}
+# The true-profile right idle exposes only the near lens of the 3/4 walk.
+IDLE_EYE_BOXES["afro-sweater"] = {"right": [(12,29,21,36)]}
 ROW_OFFSETS = {"p5": {"sleep": [[0,0],[0,0]]},
                "cap-teen": {"report": [[0,0],[-2,5],[-4,9]]},
                "cat-hood": {"sleep": [[0,0],[0,-1]]},
@@ -374,9 +391,7 @@ def write_bytes(path, data):
     if path.exists() and path.read_bytes()==data:
         return
     path.parent.mkdir(parents=True,exist_ok=True)
-    temp=path.with_name(path.name+f".{os.getpid()}.tmp")
-    temp.write_bytes(data)
-    temp.replace(path)
+    atomic_write(path, data)
 
 
 def png_bytes(a):
@@ -527,11 +542,7 @@ def process(name, mp, sp, roster=None, make_blink=False, frames_dir=None, profil
     # Never resolve an output into a source/run directory, including symlinks.
     if outdir.is_symlink() or outdir.resolve()==Path(mp).parent.resolve():
         raise ValueError("unsafe locked output directory")
-    for relative,data in files.items():
-        target=outdir/relative
-        if not target.resolve().is_relative_to(outdir.resolve()) or target.is_symlink():
-            raise ValueError("output escapes locked directory")
-        write_bytes(target,data)
+    publish_batch(outdir, files, f"{name}.manifest.json" if roster else manifest_name)
     return report,outdir
 
 
