@@ -178,16 +178,27 @@ public sealed class AssetPack
         var sheet = Manifest.Sheets.First(s => s.Id == sheetId);
         var row = sheet.Rows.FirstOrDefault(r => r.Name == action && r.Direction == direction) ??
             sheet.Rows.FirstOrDefault(r => r.Name == action && r.Direction == "any") ??
+            sheet.Rows.FirstOrDefault(r => r.Name == "idle" && r.Direction == direction) ??
             sheet.Rows.FirstOrDefault(r => r.Name == "idle") ?? sheet.Rows[0];
         var tick = (long)Math.Floor(milliseconds / 1000d * row.Fps) + (row.Loop ? phase : 0);
         var column = row.Column + (int)(row.Loop ? (tick % row.Frames + row.Frames) % row.Frames : Math.Clamp(tick, 0, row.Frames - 1));
         return new(sheet.Id, row.Row, column, column * sheet.CellW, row.Row * sheet.CellH, sheet.CellW, sheet.CellH,
             sheet.Anchor.X, sheet.Anchor.Y, sheet.Scale, row.FootOffset?.X ?? 0, row.FootOffset?.Y ?? 0);
     }
-    public SpriteFrame CharacterFrame(AgentInfo a, CharacterDesign design, string action, string facing, long elapsedMilliseconds)
+    public SpriteFrame CharacterFrame(AgentInfo a, CharacterDesign design, string action, string facing, long elapsedMilliseconds, bool blink = false)
     {
-        if (design.SheetId != "fallback") return Frame(design.SheetId, action is "walking" or "entering" or "exiting" ? "walk" : action,
-            facing, elapsedMilliseconds, SpriteAtlas.Hash(a.Id) % 4);
+        if (design.SheetId != "fallback")
+        {
+            var animation = action is "walking" or "entering" or "exiting" ? "walk" : action;
+            if (facing == "up" && action is "thinking" or "waiting") animation = "idle";
+            var phase = SpriteAtlas.Hash(a.Id) % 4;
+            var frame = Frame(design.SheetId, animation, facing, elapsedMilliseconds, phase);
+            if (!blink || animation == "walk") return frame;
+            var rows = Manifest.Sheets.First(s => s.Id == design.SheetId).Rows;
+            var normal = rows.First(r => r.Row == frame.Row && frame.Column >= r.Column && frame.Column < r.Column + r.Frames);
+            var closed = rows.FirstOrDefault(r => r.Name == "blink-" + normal.Name && r.Direction == normal.Direction);
+            return closed == null ? frame : Frame(design.SheetId, closed.Name, closed.Direction, elapsedMilliseconds, phase);
+        }
         var identity = int.TryParse(design.Id.AsSpan("fallback-".Length), out var value) ? value : SpriteAtlas.Variant(a.Id);
         var row = SpriteAtlas.Row(a.Provider, a.IsSubagent, a.Id, identity); var col = SpriteAtlas.Frame(action, facing, elapsedMilliseconds, identity);
         return new("fallback", row, col, col * 16, row * 24, 16, 24, 8, 24, 1, 0, action == "napping" ? -10 : 0);
