@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-recolor",
+  "match": "exact",
+  "tolerance": 0,
+  "variants": [
+    {
+      "name": "silver",
+      "map": {
+        "#8d4620": "#3e403f",
+        "#da8035": "#89918f",
+        "#f5b356": "#d0dad3"
+      }
+    },
+    {
+      "name": "brown",
+      "map": {
+        "#8d4620": "#3f2e29",
+        "#da8035": "#804a2f",
+        "#f5b356": "#c79b67"
+      }
+    }
+  ]
+}

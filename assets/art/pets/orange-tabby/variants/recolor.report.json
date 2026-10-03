@@ -1,0 +1,107 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "orange-tabby.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 2,
+  "variants": [
+    {
+      "name": "silver",
+      "sheet": "silver.png",
+      "substituted_pixels": 4301,
+      "substitutions": [
+        {
+          "from": "#8d4620",
+          "to": "#3e403f",
+          "pixels": 355
+        },
+        {
+          "from": "#da8035",
+          "to": "#89918f",
+          "pixels": 1921
+        },
+        {
+          "from": "#f5b356",
+          "to": "#d0dad3",
+          "pixels": 2025
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 4031,
+      "passthrough_color_count": 5,
+      "passthrough_colors": [
+        {
+          "hex": "#191e1e",
+          "pixels": 2562
+        },
+        {
+          "hex": "#faecc9",
+          "pixels": 754
+        },
+        {
+          "hex": "#e7d1ac",
+          "pixels": 579
+        },
+        {
+          "hex": "#090b0b",
+          "pixels": 77
+        },
+        {
+          "hex": "#bf6554",
+          "pixels": 59
+        }
+      ],
+      "manifest": "silver.manifest.json"
+    },
+    {
+      "name": "brown",
+      "sheet": "brown.png",
+      "substituted_pixels": 4301,
+      "substitutions": [
+        {
+          "from": "#8d4620",
+          "to": "#3f2e29",
+          "pixels": 355
+        },
+        {
+          "from": "#da8035",
+          "to": "#804a2f",
+          "pixels": 1921
+        },
+        {
+          "from": "#f5b356",
+          "to": "#c79b67",
+          "pixels": 2025
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 4031,
+      "passthrough_color_count": 5,
+      "passthrough_colors": [
+        {
+          "hex": "#191e1e",
+          "pixels": 2562
+        },
+        {
+          "hex": "#faecc9",
+          "pixels": 754
+        },
+        {
+          "hex": "#e7d1ac",
+          "pixels": 579
+        },
+        {
+          "hex": "#090b0b",
+          "pixels": 77
+        },
+        {
+          "hex": "#bf6554",
+          "pixels": 59
+        }
+      ],
+      "manifest": "brown.manifest.json"
+    }
+  ]
+}
