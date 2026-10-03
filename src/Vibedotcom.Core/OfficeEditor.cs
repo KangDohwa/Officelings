@@ -35,7 +35,7 @@ public sealed class OfficeEditor
             Id: id, AssetId: definition.Id, Rotation: variant.Rotation, State: variant.State,
             DeskId: variant.Points.Any(p => p.Action == "typing") ? id : null);
         var placed = new List<Furniture> { furniture };
-        if (CreateChair(furniture) is {} chair) placed.Add(chair);
+        placed.AddRange(CreateChairs(furniture));
         CheckPlacements(placed);
         Commit(Layout with { Furniture = Layout.Furniture.Concat(placed).ToArray() });
         return id;
@@ -75,8 +75,17 @@ public sealed class OfficeEditor
             Seat = RotateSeat(furniture.Seat, furniture.Width, furniture.Height, delta) };
         var group = Group(furniture);
         var replacements = new List<Furniture> { rotated };
+        var previousChairs = CreateChairs(furniture);
+        foreach (var nextChair in CreateChairs(rotated))
+        {
+            var previous = previousChairs.FirstOrDefault(c => c.Id == nextChair.Id);
+            var linked = group.Skip(1).FirstOrDefault(c => c.Id == nextChair.Id || previous != null && c.AssetId == previous.AssetId);
+            replacements.Add(linked == null ? nextChair : nextChair with { Id = linked.Id, AgentId = linked.AgentId, DeskId = linked.DeskId,
+                Seat = RotateSeat(linked.Seat, linked.Width, linked.Height, delta) });
+        }
         foreach (var chair in group.Skip(1))
         {
+            if (replacements.Any(f => f.Id == chair.Id) || previousChairs.Any(c => c.Id == chair.Id || c.AssetId == chair.AssetId)) continue;
             var chairVariant = assets.Manifest.Furniture.First(f => f.Id == (chair.AssetId ?? chair.Kind)).Variants
                 .FirstOrDefault(v => v.State == chair.State && v.Rotation == next.Rotation)
                 ?? throw new InvalidOperationException($"Linked chair '{chair.Id}' has no authored rotation {next.Rotation}; the desk and chair cannot rotate together.");
@@ -88,11 +97,21 @@ public sealed class OfficeEditor
         {
             var host=group.FirstOrDefault(f=>f.Id==s.FurnitureId);
             if(host==null) return s;
+            var nextHost=replacements.FirstOrDefault(f=>f.Id==host.Id);
+            if(nextHost==null) return null;
             var point=RotateSeat(new(s.Id,s.X-host.X,s.Y-host.Y,"typing",s.Facing),host.Width,host.Height,delta)!;
-            var seat=s with { X=host.X+point.X,Y=host.Y+point.Y,Facing=point.Facing };
+            var previousVariant=assets.Variant(host);
+            var nextVariant=assets.Variant(nextHost);
+            if (!previousVariant.Points.Any(p => p.Action == "typing") && previousVariant.ChairSeatAnchor is {} previousAnchor &&
+                nextVariant.ChairSeatAnchor is {} nextAnchor)
+                point=point with {
+                    X=s.X-host.X+(int)Math.Floor(nextAnchor.X/Layout.TileSize)-(int)Math.Floor(previousAnchor.X/Layout.TileSize),
+                    Y=s.Y-host.Y+(int)Math.Floor(nextAnchor.Y/Layout.TileSize)-(int)Math.Floor(previousAnchor.Y/Layout.TileSize)
+                };
+            var seat=s with { X=nextHost.X+point.X,Y=nextHost.Y+point.Y,Facing=point.Facing };
             RequireTile(new(seat.X,seat.Y),$"Overflow seat '{seat.Id}'");return seat;
-        }).ToArray();
-        Commit(Layout with { Furniture = Replace(replacements),OverflowSeats=seats });
+        }).OfType<OverflowSeat>().ToArray();
+        Commit(Layout with { Furniture = ReplaceGroup(group, replacements),OverflowSeats=seats });
     }
 
     public void Delete(string id)
@@ -119,7 +138,9 @@ public sealed class OfficeEditor
         var ids = new Dictionary<string, string> { [id] = newId };
         foreach (var chair in group.Skip(1))
         {
-            var chairId = copies.Count == 1 ? newId + "-chair" : newId + "-chair-" + copies.Count;
+            var suffix = chair.Id == id + "-chair" ? "-chair" : chair.Id == id + "-chair-back" ? "-chair-back" : chair.Id == id + "-chair-front" ? "-chair-front" :
+                copies.Count == 1 ? "-chair" : "-chair-" + copies.Count;
+            var chairId = newId + suffix;
             ids.Add(chair.Id, chairId);
             copies.Add(chair with { Id = chairId, DeskId = duplicate.DeskId ?? newId, AgentId = null,
                 X = chair.X + tile.X - furniture.X, Y = chair.Y + tile.Y - furniture.Y });
@@ -230,7 +251,18 @@ public sealed class OfficeEditor
         RequireTile(tile, $"Desk '{id}' seat");
         var seat = (furniture.Seat ?? point) with { X = tile.X - furniture.X, Y = tile.Y - furniture.Y };
         if (seat == furniture.Seat) return;
-        Commit(Layout with { Furniture = Replace(furniture with { Seat = seat, DeskId = furniture.DeskId ?? id }) });
+        var replacements = new List<Furniture> { furniture with { Seat = seat, DeskId = furniture.DeskId ?? id } };
+        var previous = furniture.Seat ?? point;
+        foreach (var chair in Group(furniture).Skip(1).Where(c => c.AssetId != null &&
+            (c.AssetId == authored.ChairBackId || c.AssetId == authored.ChairFrontId)))
+            replacements.Add(chair with { X = chair.X + seat.X - previous.X, Y = chair.Y + seat.Y - previous.Y });
+        CheckPlacements(replacements, replacements.Select(f => f.Id).ToHashSet());
+        var moved = replacements.Skip(1).Select(f => f.Id).ToHashSet();
+        var seats = (Layout.OverflowSeats ?? []).Select(s => s.FurnitureId != null && moved.Contains(s.FurnitureId)
+            ? s with { X = s.X + seat.X - previous.X, Y = s.Y + seat.Y - previous.Y } : s).ToArray();
+        foreach (var linked in seats.Where(s => s.FurnitureId != null && moved.Contains(s.FurnitureId)))
+            RequireTile(new(linked.X, linked.Y), $"Overflow seat '{linked.Id}'");
+        Commit(Layout with { Furniture = Replace(replacements), OverflowSeats = seats });
     }
 
     public void Resize(int width, int height)
@@ -415,26 +447,46 @@ public sealed class OfficeEditor
         if (furniture.Kind == "chair")
         {
             var desk = Layout.Furniture.FirstOrDefault(f => f.Id != furniture.Id &&
-                (furniture.Id == f.Id + "-chair" || furniture.DeskId != null && furniture.DeskId == (f.DeskId ?? f.Id)) &&
-                assets.Variant(f).Points.Any(p => p.Action == "typing"));
+                LinkedChair(furniture, f) &&
+                (assets.Variant(f).Points.Any(p => p.Action == "typing") ||
+                    assets.Variant(f).ChairBackId != null || assets.Variant(f).ChairFrontId != null));
             if (desk != null) return desk;
         }
         return furniture;
     }
 
     private Furniture[] Group(Furniture furniture) => new[] { furniture }.Concat(Layout.Furniture.Where(f =>
-        f.Id != furniture.Id && f.Kind == "chair" && (f.Id == furniture.Id + "-chair" ||
-            f.DeskId != null && f.DeskId == (furniture.DeskId ?? furniture.Id)))).ToArray();
+        f.Id != furniture.Id && f.Kind == "chair" && LinkedChair(f, furniture))).ToArray();
 
-    private Furniture? CreateChair(Furniture desk)
+    private static bool LinkedChair(Furniture chair, Furniture desk) =>
+        chair.Id == desk.Id + "-chair" || chair.Id == desk.Id + "-chair-back" || chair.Id == desk.Id + "-chair-front" ||
+        chair.DeskId != null && chair.DeskId == (desk.DeskId ?? desk.Id);
+
+    private Furniture[] CreateChairs(Furniture desk)
     {
-        if (desk.AssetId != "cozy-desk") return null;
-        var definition = assets.Manifest.Furniture.FirstOrDefault(f => f.Id == "cozy-chair-front");
-        if (definition == null) return null;
-        var variant = definition.Variants.FirstOrDefault(v => v.Rotation == desk.Rotation && v.State == "default")
-            ?? throw new InvalidOperationException($"Asset 'cozy-chair-front' requires an authored rotation {desk.Rotation} to accompany this desk.");
-        return new(definition.Kind, desk.X, desk.Y, variant.FootprintW, variant.FootprintH,
-            Id: desk.Id + "-chair", AssetId: definition.Id, Rotation: variant.Rotation, State: variant.State, DeskId: desk.DeskId ?? desk.Id);
+        var authored = assets.Variant(desk);
+        var metadata = authored.ChairBackId != null || authored.ChairFrontId != null;
+        var front = authored.ChairFrontId ?? (!metadata && desk.AssetId == "cozy-desk" ? "cozy-chair-front" : null);
+        var offset = authored.ChairOffset ?? new PixelPoint(0, 0);
+        var x = offset.X / Layout.TileSize; var y = offset.Y / Layout.TileSize;
+        if ((metadata || front != null) && (x != Math.Truncate(x) || y != Math.Truncate(y)))
+            throw new InvalidOperationException($"Desk '{desk.Id}' chair offset must align to the {Layout.TileSize}-pixel tile grid.");
+        var chairs = new List<Furniture>();
+        foreach (var (assetId, suffix) in new[] { (authored.ChairBackId, "-chair-back"),
+            (front, desk.AssetId == "cozy-desk" ? "-chair" : "-chair-front") })
+        {
+            if (assetId == null) continue;
+            var definition = assets.Manifest.Furniture.FirstOrDefault(f => f.Id == assetId);
+            if (definition == null && !metadata) continue;
+            if (definition == null) throw new InvalidOperationException($"Desk '{desk.Id}' references missing chair asset '{assetId}'.");
+            var variants = definition.Variants.Where(v => v.State == "default").ToArray();
+            var variant = variants.FirstOrDefault(v => v.Rotation == desk.Rotation)
+                ?? (metadata && variants.Length == 1 ? variants[0] : null)
+                ?? throw new InvalidOperationException($"Asset '{assetId}' requires an authored rotation {desk.Rotation} to accompany this desk.");
+            chairs.Add(new(definition.Kind, desk.X + (int)x, desk.Y + (int)y, variant.FootprintW, variant.FootprintH,
+                Id: desk.Id + suffix, AssetId: definition.Id, Rotation: variant.Rotation, State: variant.State, DeskId: desk.DeskId ?? desk.Id));
+        }
+        return chairs.ToArray();
     }
 
     private Furniture[] Replace(Furniture furniture) => Layout.Furniture.Select(f => f.Id == furniture.Id ? furniture : f).ToArray();
@@ -443,6 +495,15 @@ public sealed class OfficeEditor
     {
         var replacements = furniture.ToDictionary(f => f.Id);
         return Layout.Furniture.Select(f => replacements.GetValueOrDefault(f.Id, f)).ToArray();
+    }
+
+    private Furniture[] ReplaceGroup(IReadOnlyList<Furniture> group, IReadOnlyList<Furniture> furniture)
+    {
+        var ids = group.Select(f => f.Id).ToHashSet();
+        var replacements = furniture.ToDictionary(f => f.Id);
+        var existing = Layout.Furniture.Select(f => f.Id).ToHashSet();
+        return Layout.Furniture.Where(f => !ids.Contains(f.Id) || replacements.ContainsKey(f.Id))
+            .Select(f => replacements.GetValueOrDefault(f.Id, f)).Concat(furniture.Where(f => !existing.Contains(f.Id))).ToArray();
     }
 
     private void CheckPlacements(IReadOnlyList<Furniture> furniture, IReadOnlySet<string>? ignored = null)
