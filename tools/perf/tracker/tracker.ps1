@@ -1,7 +1,7 @@
 param(
     [ValidateSet('Build', 'Run')][string]$Mode = 'Build',
     [string]$BuildRoot,
-    [string]$CoreDll = 'C:/Users/myori/AppData/Local/Temp/vd-perf/src/Vibedotcom.App/bin/Release/net10.0-windows/Vibedotcom.Core.dll'
+    [string]$CoreDll
 )
 $ErrorActionPreference = 'Stop'
 $tempPrefix = [IO.Path]::GetFullPath([IO.Path]::GetTempPath()).TrimEnd('\', '/') + [IO.Path]::DirectorySeparatorChar
@@ -10,6 +10,7 @@ $BuildRoot = [IO.Path]::GetFullPath($BuildRoot)
 if (!$BuildRoot.StartsWith($tempPrefix, [StringComparison]::OrdinalIgnoreCase)) { throw 'BuildRoot must be under TEMP.' }
 $binary = Join-Path $BuildRoot 'bin/TrackerPerf.dll'
 if ($Mode -eq 'Build') {
+    if (!$CoreDll -or !(Test-Path -LiteralPath $CoreDll -PathType Leaf)) { throw 'Supply -CoreDll with an already built Release assembly.' }
     if (Test-Path -LiteralPath $BuildRoot) { throw 'BuildRoot must be new; refusing existing build output.' }
     New-Item -ItemType Directory -Path $BuildRoot | Out-Null
     $priorCliHome = $env:DOTNET_CLI_HOME
@@ -42,7 +43,7 @@ if ($Mode -eq 'Build') {
     }
     Write-Output "BUILD_ROOT=$BuildRoot"
     Write-Output "READY_BINARY=$binary"
-    Write-Output 'Build only. Measurement requires explicit RUN authorization, then -Mode Run -BuildRoot <above>.'
+    Write-Output 'Build only. Run -Mode Run -BuildRoot <above> after coordinating the measurement window.'
 } else {
     if (!(Test-Path -LiteralPath $binary)) { throw 'Built harness missing; use -Mode Build first.' }
     $runId = [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssfffZ') + '-' + [guid]::NewGuid().ToString('N').Substring(0, 8)

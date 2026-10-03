@@ -5,7 +5,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <!-- Do not let RAR choose historical DLLs from results/** as None candidates. -->
+    <EnableDefaultItems>false</EnableDefaultItems>
     <!-- The committed App grants this assembly access to its internal render code. -->
     <AssemblyName>Vibedotcom.Tests</AssemblyName>
   </PropertyGroup>

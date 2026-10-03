@@ -10,7 +10,6 @@ using Vibedotcom.Core;
 // Synthetic performance test only. No application, renderer, real home or state output.
 internal static class Program
 {
-    private const string Commit = "280e7a61b0d3c049de75967892debac15627fbcc";
     private const int MiB = 1024 * 1024, RecordBytes = 4096;
     private static readonly Process Self = Process.GetCurrentProcess();
     private static readonly PropertyInfo Discovery = typeof(AgentTracker).GetProperty("DiscoveryFilesVisited", BindingFlags.Instance | BindingFlags.NonPublic)
@@ -19,6 +18,7 @@ internal static class Program
     private static string results = "", data = "";
     private static StreamWriter? raw, checks;
     private static readonly Stopwatch Lifetime = new();
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
     private static int Main(string[] args)
     {
@@ -41,7 +41,8 @@ internal static class Program
             var core = typeof(AgentTracker).Assembly.Location;
             Save("run.json", new
             {
-                commit = Commit, startedUtc = DateTimeOffset.UtcNow, coreDll = core,
+                startedUtc = DateTimeOffset.UtcNow, coreDll = core,
+                assemblyVersion = typeof(AgentTracker).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion,
                 coreSha256 = Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(core))),
                 coreMvid = typeof(AgentTracker).Module.ModuleVersionId, runtime = RuntimeInformation.FrameworkDescription,
                 os = RuntimeInformation.OSDescription, logicalProcessors = Environment.ProcessorCount,
@@ -78,7 +79,7 @@ internal static class Program
         return full;
     }
     private static StreamWriter NewWriter(string name) => new(new FileStream(Path.Combine(results, name), FileMode.CreateNew, FileAccess.Write), new UTF8Encoding(false)) { AutoFlush = true };
-    private static void Save(string name, object value) { using var output = NewWriter(name); output.WriteLine(JsonSerializer.Serialize(value)); }
+    private static void Save(string name, object value) { using var output = NewWriter(name); output.WriteLine(JsonSerializer.Serialize(value, JsonOptions)); }
     private static void Check(string name, bool passed, object? evidence = null)
     {
         checks!.WriteLine(JsonSerializer.Serialize(new { name, passed, evidence }));
@@ -123,11 +124,14 @@ internal static class Program
         var allocated = GC.GetTotalAllocatedBytes(false) - allocations;
         int d0 = GC.CollectionCount(0) - g0, d1 = GC.CollectionCount(1) - g1, d2 = GC.CollectionCount(2) - g2;
         Self.Refresh();
-        var sample = new Sample(scenario, index, now, wall, cpuAfter - cpu, wall == 0 ? 0 : 100 * (cpuAfter - cpu) / wall,
+        var wallSeconds = wall / 1000; var cpuSeconds = (cpuAfter - cpu) / 1000;
+        var cpuOneCorePercent = 100 * cpuSeconds / wallSeconds;
+        var sample = new Sample(scenario, index, now, wall, cpuAfter - cpu, wallSeconds, cpuSeconds, cpuOneCorePercent,
+            cpuOneCorePercent / Environment.ProcessorCount, Environment.ProcessorCount,
             rss, Self.WorkingSet64, privateBytes, Self.PrivateMemorySize64, tracker.BytesRead - bytes,
             (long)(ioAfter.ReadTransferCount - io.ReadTransferCount), (long)(ioAfter.ReadOperationCount - io.ReadOperationCount),
             Visited(tracker) - visited, appended, allocated, d0, d1, d2, agents.Count, tracker.Warnings.ToArray());
-        Samples.Add(sample); raw!.WriteLine(JsonSerializer.Serialize(sample));
+        Samples.Add(sample); raw!.WriteLine(JsonSerializer.Serialize(sample, JsonOptions));
         return (sample, agents);
     }
     private static void SelfCheck()
@@ -216,7 +220,9 @@ internal static class Program
         var wall = clock.Elapsed.TotalSeconds; var cpu = Cpu() - startCpu; var endIo = Io();
         Save("steady-total.json", new
         {
-            wallSeconds = wall, processCpuMs = cpu, cpuOneCorePercent = cpu / (wall * 10),
+            wallSeconds = wall, cpuSeconds = cpu / 1000, processCpuMs = cpu, cpuOneCorePercent = 100 * (cpu / 1000) / wall,
+            cpuMachinePercent = 100 * (cpu / 1000) / wall / Environment.ProcessorCount, logicalProcessors = Environment.ProcessorCount,
+            cpuFormula = "cpuOneCorePercent = 100 * cpuSeconds / wallSeconds; cpuMachinePercent = cpuOneCorePercent / logicalProcessors",
             appendedBytes = 60L * 50 * RecordBytes, payloadBytesIncludingSeed = tracker.BytesRead,
             processReadBytes = endIo.ReadTransferCount - startIo.ReadTransferCount,
             processWriteBytes = endIo.WriteTransferCount - startIo.WriteTransferCount,
@@ -224,7 +230,8 @@ internal static class Program
             note = "Whole-process total includes synthetic appends, watchers, raw measurement writes, metric sampling, sleeps and final logical-clock drain. Poll-only intervals are in polls.jsonl."
         });
     }
-    private sealed record Sample(string Scenario, int Index, DateTimeOffset PollTime, double WallMs, double CpuMs, double CpuOneCorePercent,
+    private sealed record Sample(string Scenario, int Index, DateTimeOffset PollTime, double WallMs, double CpuMs, double WallSeconds, double CpuSeconds,
+        double CpuOneCorePercent, double CpuMachinePercent, int LogicalProcessors,
         long RssBefore, long RssAfter, long PrivateBefore, long PrivateAfter, long PayloadBytes, long ProcessReadBytes, long ProcessReadOperations,
         long DiscoveryFiles, long AppendedBytes, long AllocatedBytes, int Gen0, int Gen1, int Gen2, int AgentCount, string[] Warnings);
     private static double Cpu()

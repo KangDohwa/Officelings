@@ -4,6 +4,7 @@ import csv
 import datetime as dt
 import json
 import math
+import struct
 import os
 from pathlib import Path
 import re
@@ -14,7 +15,7 @@ import sys
 import tempfile
 import time
 
-from check_snapshot import check_expectation, documented_version, hold_reader, read_json, validate_snapshot
+from check_snapshot import check_expectation, documented_version, hold_reader, read_json, timestamp, validate_snapshot
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "tools/simulate"))
@@ -65,17 +66,36 @@ def row(results, scope, check, status, detail):
     print("[%s] %s / %s: %s" % (status, scope, check, detail), flush=True)
 
 
-def tracker_args(worktree, home, output, spec, speed, once=False, direct=False):
+def tracker_args(worktree, home, output, spec, speed, once=False, direct=False, tracker_binary=None):
+    leave_minutes = str(spec.get("gone_seconds", 160) / speed / 60)
     args = ["dotnet", "run", "--disable-build-servers", "--project", str(worktree / "src/Vibedotcom.Tracker"),
             "--no-build", "--no-restore", "--", "--home", str(home), "--output", str(output),
             "--asset-dir", str(worktree / "assets/pack"),
             "--layout", str(output / "layout.json"),
             "--working-seconds", str(spec.get("working_seconds", 40) / speed),
-            "--gone-minutes", str(spec.get("gone_seconds", 160) / speed / 60),
+            "--leave-after-idle-minutes", leave_minutes,
+            "--leave-after-waiting-minutes", leave_minutes,
             "--scan-seconds", "0.25", "--interval-seconds", "0.2"]
-    if direct:
-        args = [str(worktree / "src/Vibedotcom.Tracker/bin/Debug/net10.0/Vibedotcom.Tracker.exe")] + args[args.index("--") + 1:]
+    if direct or tracker_binary:
+        args = [str(tracker_binary or worktree / "src/Vibedotcom.Tracker/bin/Debug/net10.0/Vibedotcom.Tracker.exe")] + args[args.index("--") + 1:]
     return args + (["--once"] if once else [])
+
+
+def wpf_smoke(binary, home, state, assets, output, cwd, env, log):
+    snapshot = read_json(state)
+    command([binary, "--home", home, "--output", state, "--asset-dir", assets,
+             "--qa", "--smoke-test", output], cwd, env, log, 90)
+    # Exit success alone does not prove that the supplied snapshot was rendered.
+    evidence = (output / "smoke.txt").read_text(encoding="utf-8-sig")
+    if ("sourceSequence=%s" % snapshot["sequence"] not in evidence or
+            "agents=%s" % len(snapshot["agents"]) not in evidence or "logBytesRead=0" not in evidence):
+        raise AssertionError("WPF smoke did not confirm the selected published snapshot")
+    for zoom in (1, 2, 3):
+        header = (output / ("office-%dx.png" % zoom)).read_bytes()[:24]
+        expected = (snapshot["office"]["widthTiles"] * 16 * zoom + 32,
+                    snapshot["office"]["heightTiles"] * 16 * zoom + 32)
+        if header[:8] != b"\x89PNG\r\n\x1a\n" or len(header) != 24 or struct.unpack(">II", header[16:24]) != expected:
+            raise AssertionError("Missing or incorrectly sized WPF %dx capture" % zoom)
 
 
 def performance(samples, results, name):
@@ -86,16 +106,102 @@ def performance(samples, results, name):
         return
     first, last = steady[0], steady[-1]
     active_wall = last["elapsed"] - first["elapsed"] - (last["snapshot_pause_seconds"] - first["snapshot_pause_seconds"])
-    cpu = 100 * (last["cpu_seconds"] - first["cpu_seconds"]) / active_wall
+    if active_wall <= 0 or (name == "quiet" and active_wall < 40):
+        row(results, name, "resource window", "FAIL", "Need a positive active CPU interval; quiet requires at least 40 measured seconds")
+        return
+    cpu_seconds = last["cpu_seconds"] - first["cpu_seconds"]
+    cpu_one_core_percent = 100 * cpu_seconds / active_wall
+    cpu_limit = .5 if name == "quiet" else 3
+    logical_processors = os.cpu_count()
+    cpu_machine_percent = cpu_one_core_percent / logical_processors
     peak = max(s["rss_mb"] for s in samples)
     # A Windows File handle count is integer and watcher reads can briefly overlap.
     baseline = statistics.median(s["file_handles"] for s in steady[:3])
     final = statistics.median(s["file_handles"] for s in steady[-3:])
     peak_files = max(s["file_handles"] for s in steady)
-    row(results, name, "CPU average", "PASS" if cpu <= 3 else "FAIL", "%.3f%% of one logical core (limit 3%%)" % cpu)
+    row(results, name, "CPU average", "PASS" if cpu_one_core_percent <= cpu_limit else "FAIL",
+        "cpuOneCorePercent=%.3f%% (limit %g%%), cpuMachinePercent=%.3f%%, cpuSeconds=%.6f, wallSeconds=%.6f, logicalProcessors=%d; 100*cpuSeconds/wallSeconds" %
+        (cpu_one_core_percent, cpu_limit, cpu_machine_percent, cpu_seconds, active_wall, logical_processors))
     row(results, name, "RSS peak", "PASS" if peak <= 200 else "FAIL", "%.1f MiB (limit 200 MiB)" % peak)
     row(results, name, "open File handles", "PASS" if final <= baseline else "FAIL",
         "median first/last=%g/%g, peak=%g; no median growth" % (baseline, final, peak_files))
+    return dict(cpuOneCorePercent=cpu_one_core_percent, cpuMachinePercent=cpu_machine_percent,
+                cpuSeconds=cpu_seconds, measuredWallSeconds=active_wall, logicalProcessors=logical_processors,
+                cpuLimitPercent=cpu_limit, warmupSeconds=20, sampleCount=len(steady), peakRssMiB=peak,
+                fileHandlesFirstMedian=baseline, fileHandlesLastMedian=final, fileHandlesPeak=peak_files,
+                formula="100 * cpuSeconds / wallSeconds; one logical core; no observer subtraction")
+
+
+def quiet_tail(args, worktree, folder, spec, env, version, results):
+    """Measure a fresh direct tracker on the completed quiet scenario's same home."""
+    from win_metrics import children, sample
+    home, output = folder / "home", folder / "tracker"
+    process, samples = None, []
+    try:
+        expected = read_json(home / "done.json")
+        (output / "state.json").unlink(missing_ok=True)
+        invocation = tracker_args(worktree, home, output, spec, args.speed, direct=True,
+                                  tracker_binary=getattr(args, "tracker_binary", None))
+        invocation += ["--seconds", str(args.quiet_steady_seconds + 90)]
+        process = start(invocation, worktree, env, folder / "tracker-quiet-tail.log")
+        ready_until = time.monotonic() + 60
+        while not (output / "state.json").exists():
+            if process.poll() is not None or time.monotonic() >= ready_until:
+                raise RuntimeError("Quiet tail did not publish an initial state within 60 seconds")
+            time.sleep(.05)
+        pid = next(p for p, exe in children(process.pid) if exe.lower() == "vibedotcom.tracker.exe")
+        begin, previous_sequence, steady_begin = time.monotonic(), None, None
+        ticks = list(range(0, args.quiet_steady_seconds, 5)) + [args.quiet_steady_seconds]
+        for tick in ticks:
+            deadline = begin + tick
+            if tick == ticks[-1] and steady_begin is not None:
+                deadline = max(deadline, steady_begin + args.quiet_steady_seconds - 20) + .1
+            time.sleep(max(0, deadline - time.monotonic()))
+            if process.poll() is not None:
+                raise RuntimeError("Quiet tail tracker exited before measurement completed")
+            elapsed = time.monotonic() - begin
+            measurement = sample(pid, home / ".vibedotcom-synthetic-home")
+            if elapsed >= 20 and steady_begin is None:
+                steady_begin = begin + elapsed
+            snapshot = read_json(output / "state.json")
+            validate_snapshot(snapshot, version, output)
+            heartbeat_age = time.time() - timestamp(snapshot["generatedAt"])
+            if previous_sequence is not None and snapshot["sequence"] <= previous_sequence:
+                raise AssertionError("Quiet tail publication sequence did not advance")
+            if elapsed >= 20 and not -.5 <= heartbeat_age <= 4:
+                raise AssertionError("Quiet tail heartbeat is stale or in the future: %.3f seconds" % heartbeat_age)
+            errors = check_expectation(snapshot, expected)
+            if errors:
+                raise AssertionError("Quiet tail correctness: " + "; ".join(errors))
+            previous_sequence = snapshot["sequence"]
+            live_agents = sum(v["agent"]["state"] != "gone" for v in snapshot["agents"])
+            if elapsed >= 20 and live_agents:
+                raise AssertionError("Quiet steady window requires zero live agents")
+            samples.append(dict(elapsed=elapsed, snapshot_pause_seconds=0, **measurement,
+                                sequence=snapshot["sequence"], heartbeat_age_seconds=heartbeat_age,
+                                live_agents=live_agents))
+        metrics = performance(samples, results, "quiet")
+        if metrics is None:
+            return
+        steady = [value for value in samples if value["elapsed"] >= 20]
+        metrics.update(firstSequence=steady[0]["sequence"], lastSequence=steady[-1]["sequence"],
+                       writesPerSecond=(steady[-1]["sequence"]-steady[0]["sequence"])/metrics["measuredWallSeconds"],
+                       maxLiveAgents=max(value["live_agents"] for value in steady),
+                       maxHeartbeatAgeSeconds=max(value["heartbeat_age_seconds"] for value in steady),
+                       note="Same completed synthetic home, fresh direct tracker; external process metrics; no observer subtraction. Scenario correctness failures remain in results.")
+        atomic_json(folder / "cpu-summary.json", metrics)
+        row(results, "quiet", "steady publication and correctness", "PASS",
+            "sequence %s -> %s; 20 s warmup + %.3f s measured; fresh heartbeat and final scenario intent checked" %
+            (samples[0]["sequence"], samples[-1]["sequence"], metrics["measuredWallSeconds"]))
+    except (OSError, ValueError, KeyError, AssertionError, RuntimeError, StopIteration) as error:
+        row(results, "quiet", "steady resource window", "FAIL", error)
+    finally:
+        stop(process)
+        if samples:
+            with (folder / "quiet-tail-samples.csv").open("w", newline="", encoding="utf-8") as stream:
+                writer = csv.DictWriter(stream, fieldnames=list(samples[0]))
+                writer.writeheader()
+                writer.writerows(samples)
 
 
 def run_scenario(value, args, worktree, run_root, env, renderer, version, results, full_renderer):
@@ -127,7 +233,8 @@ def run_scenario(value, args, worktree, run_root, env, renderer, version, result
 
     def launch_tracker(log):
         (output / "state.json").unlink(missing_ok=True)
-        process = start(tracker_args(worktree, home, output, spec, args.speed, direct=args.direct_tracker), worktree, env, log)
+        process = start(tracker_args(worktree, home, output, spec, args.speed, direct=args.direct_tracker,
+                                     tracker_binary=getattr(args, "tracker_binary", None)), worktree, env, log)
         try:
             ready_until = time.monotonic() + 60
             while not (output / "state.json").exists():
@@ -150,7 +257,8 @@ def run_scenario(value, args, worktree, run_root, env, renderer, version, result
             time.sleep(.05)
         # Obtain an actual tracker-produced sequence 1 for the existing renderer suite,
         # whose int64 mutation test specifically searches for '"sequence": 1'.
-        command(tracker_args(worktree, home, output, spec, args.speed, once=True, direct=args.direct_tracker), worktree, env,
+        command(tracker_args(worktree, home, output, spec, args.speed, once=True, direct=args.direct_tracker,
+                             tracker_binary=getattr(args, "tracker_binary", None)), worktree, env,
                 folder / "tracker-once.log", 60)
         initial = read_json(output / "state.json")
         validate_snapshot(initial, version, output, verify_hashes=True)
@@ -239,7 +347,9 @@ def run_scenario(value, args, worktree, run_root, env, renderer, version, result
         if metrics_error:
             row(results, name, "resource probe", "FAIL", metrics_error)
         elif name == "long-soak":
-            performance(samples, results, name)
+            metrics = performance(samples, results, name)
+            if metrics:
+                atomic_json(folder / "cpu-summary.json", metrics)
         if samples:
             with (folder / "samples.csv").open("w", newline="", encoding="utf-8") as stream:
                 writer = csv.DictWriter(stream, fieldnames=list(samples[0]))
@@ -276,51 +386,76 @@ def main():
     parser.add_argument("--speed", type=float, default=20)
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--soak-cap-seconds", type=int, default=600)
+    parser.add_argument("--quiet-steady-seconds", type=int, default=0,
+                        help="After quiet correctness/render checks, run a fresh direct tracker on the same fake home for 20 s warmup plus at least 40 s measurement (0 disables; 60..600 seconds)")
     parser.add_argument("--renderer-tests", help="Read-only use of an already compiled renderer_tests.exe")
     parser.add_argument("--direct-tracker", action="store_true", help="Run the fresh worktree apphost directly if SDK launch is blocked")
+    parser.add_argument("--workspace", nargs="?", const=str(REPO), type=Path,
+                        help="Read current sources (including uncommitted changes); build only under TEMP; no git worktree operations")
     args = parser.parse_args()
     if os.name != "nt":
         parser.error("The .NET Desktop/Windhawk/process metrics QA requires Windows")
     if not math.isfinite(args.speed) or args.speed <= 0 or not 30 <= args.soak_cap_seconds <= 600:
         parser.error("Require positive finite speed and soak cap in 30..600 seconds")
+    if args.quiet_steady_seconds and not 60 <= args.quiet_steady_seconds <= 600:
+        parser.error("Quiet steady seconds must be 0 or 60..600")
     for value in args.scenario:
         load_scenario(value)
     temp = safe_temp_path(Path(tempfile.gettempdir()) / "vibedotcom-e2e")
     temp.mkdir(exist_ok=True)
     run_root = Path(tempfile.mkdtemp(prefix=dt.datetime.now().strftime("%Y%m%d-%H%M%S-"), dir=temp))
-    worktree = run_root / "head"
+    worktree = args.workspace.resolve(strict=True) if args.workspace else run_root / "head"
     results = []
     env = dict(os.environ, LOCALAPPDATA=str(run_root / "localappdata"), APPDATA=str(run_root / "appdata"),
                DOTNET_CLI_HOME=str(run_root / "dotnet-home"), DOTNET_SKIP_FIRST_TIME_EXPERIENCE="1",
                DOTNET_CLI_TELEMETRY_OPTOUT="1", PYTHONDONTWRITEBYTECODE="1", DOTNET_CLI_USE_MSBUILD_SERVER="0",
                MSBUILDDISABLENODEREUSE="1", DOTNET_CLI_UI_LANGUAGE="en")
+    env.update(DOTNET_GENERATE_ASPNET_CERTIFICATE="false", DOTNET_ADD_GLOBAL_TOOLS_TO_PATH="false")
     attached = False
     renderer = None
     print("Logs: " + str(run_root), flush=True)
     try:
         revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=REPO, text=True, creationflags=CREATE_FLAGS).strip()
-        atomic_json(run_root / "run.json", dict(head=revision, scenarios=args.scenario, speed=args.speed,
+        atomic_json(run_root / "run.json", dict(head=revision, workspace=str(worktree) if args.workspace else None,
+                                               includes_uncommitted_changes=bool(args.workspace), scenarios=args.scenario, speed=args.speed,
                                                seed=args.seed, direct_tracker=args.direct_tracker,
+                                               quiet_steady_seconds=args.quiet_steady_seconds,
                                                started_at=dt.datetime.now(dt.timezone.utc).isoformat()))
-        command(["git", "worktree", "add", "--detach", worktree, revision], REPO, env, run_root / "worktree-add.log")
-        attached = True
-        command(["dotnet", "build", worktree / "src/Vibedotcom.Tracker", "--nologo", "--disable-build-servers"], worktree, env,
+        if not args.workspace:
+            command(["git", "worktree", "add", "--detach", worktree, revision], REPO, env, run_root / "worktree-add.log")
+            attached = True
+        build_flags = ["--nologo", "--disable-build-servers", "-m:1", "-p:UseSharedCompilation=false", "-p:NuGetAudit=false"]
+        if args.workspace:
+            build_flags += ["-c", "Release", "--artifacts-path", str(run_root / "build"), "-p:RestoreSources=",
+                            "-p:RestorePackagesPath=" + str(run_root / "packages")]
+            args.tracker_binary = run_root / "build/bin/Vibedotcom.Tracker/release/Vibedotcom.Tracker.exe"
+        command(["dotnet", "build", worktree / "src/Vibedotcom.Tracker", *build_flags], worktree, env,
                 run_root / "build-tracker.log", 180)
-        row(results, "HEAD", "tracker build", "PASS", revision + "; build once in TEMP worktree")
+        row(results, "workspace" if args.workspace else "HEAD", "tracker build", "PASS",
+            revision + ("; current sources; TEMP artifacts" if args.workspace else "; build once in TEMP worktree"))
         if args.direct_tracker:
             row(results, "HEAD", "tracker launch", "SKIP", "SDK run launcher bypassed; using the same newly built apphost directly")
         version = documented_version(worktree / "docs/state-schema.md")
         program = (worktree / "src/Vibedotcom.App/Program.cs").read_text(encoding="utf-8-sig")
-        smoke_possible = 'case "--home"' in program and "--smoke-test" in program
+        smoke_possible = all(flag in program for flag in ('case "--home"', 'case "--output"', "--smoke-test"))
         if not smoke_possible:
-            row(results, "WPF", "fake-home smoke", "SKIP", "HEAD Program.cs has no --home; smoke constructs AgentTracker() with real home")
+            row(results, "WPF", "fake-home smoke", "SKIP", "Selected source lacks --home/--output snapshot smoke CLI")
         else:
-            command(["dotnet", "build", worktree / "src/Vibedotcom.App", "--nologo"], worktree, env,
+            command(["dotnet", "build", worktree / "src/Vibedotcom.App", *build_flags], worktree, env,
                     run_root / "build-app.log", 180)
+            app_binary = (run_root / "build/bin/Vibedotcom.App/release/Vibedotcom.App.exe" if args.workspace else
+                          worktree / "src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe")
         try:
             if args.renderer_tests:
                 renderer = Path(args.renderer_tests).resolve(strict=True)
                 row(results, "Windhawk", "compiled test exe", "PASS", "read-only: " + str(renderer))
+            elif args.workspace:
+                existing = worktree / "windhawk/artifacts/renderer_tests.exe"
+                if existing.is_file():
+                    renderer = existing
+                    row(results, "Windhawk", "compiled test exe", "PASS", "read-only: " + str(renderer))
+                else:
+                    row(results, "Windhawk", "compiled test exe", "SKIP", "Workspace mode does not build windhawk; pass --renderer-tests")
             else:
                 command(["powershell.exe", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File",
                          worktree / "windhawk/compile.ps1", "-Tests"], worktree, env, run_root / "build-windhawk.log", 600)
@@ -333,14 +468,18 @@ def main():
             row(results, "Windhawk", "test harness build", "FAIL", error)
         for index, value in enumerate(args.scenario):
             folder = run_scenario(value, args, worktree, run_root, env, renderer, version, results, index == 0)
-            if smoke_possible and (folder / "home/manifest.json").exists():
+            if smoke_possible and (folder / "render-state.json").exists():
                 try:
-                    command([worktree / "src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe",
-                             "--home", folder / "home", "--qa", "--smoke-test", folder / "wpf-smoke"],
-                            worktree, env, folder / "wpf-smoke.log", 60)
-                    row(results, folder.name, "WPF fake-home smoke", "PASS", "offscreen; isolated application data")
-                except (OSError, RuntimeError, subprocess.TimeoutExpired) as error:
+                    wpf_smoke(app_binary, folder / "home", folder / "render-state.json", folder / "tracker",
+                              folder / "wpf-smoke", worktree, env, folder / "wpf-smoke.log")
+                    row(results, folder.name, "WPF fake-home smoke", "PASS", "selected tracker snapshot; offscreen 1/2/3x; source sequence/count and PNG sizes verified")
+                except (OSError, ValueError, KeyError, AssertionError, RuntimeError, subprocess.TimeoutExpired) as error:
                     row(results, folder.name, "WPF fake-home smoke", "FAIL", error)
+            elif smoke_possible:
+                row(results, folder.name, "WPF fake-home smoke", "FAIL", "No tracker-produced snapshot available")
+            spec, _ = load_scenario(value)
+            if spec["name"] == "quiet" and args.quiet_steady_seconds:
+                quiet_tail(args, worktree, folder, spec, env, version, results)
     except (OSError, RuntimeError, AssertionError, subprocess.SubprocessError) as error:
         row(results, "setup", "execution", "FAIL", error)
     finally:

@@ -4,11 +4,13 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <CoreDll Condition="'$(CoreDll)' == ''">C:/Users/myori/AppData/Local/Temp/vd-perf/src/Vibedotcom.App/bin/Release/net10.0-windows/Vibedotcom.Core.dll</CoreDll>
+    <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Reference Include="Vibedotcom.Core"><HintPath>$(CoreDll)</HintPath><Private>true</Private></Reference>
   </ItemGroup>
+  <Target Name="RequireCoreAssembly" BeforeTargets="ResolveReferences">
+    <Error Condition="'$(CoreDll)' == '' Or !Exists('$(CoreDll)')" Text="Supply CoreDll with an already built Release assembly." />
+  </Target>
 </Project>
