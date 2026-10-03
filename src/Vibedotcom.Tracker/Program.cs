@@ -34,11 +34,11 @@ try
         }
     }
     options.Validate();
-    output = StateJson.OutputPath(output, options.Home);
+    output = Path.TrimEndingDirectorySeparator(StateJson.OutputPath(output, options.Home));
     var lockName = "Vibedotcom.Tracker." + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(output.ToUpperInvariant())))[..24];
     using var mutex = new Mutex(true, lockName, out var owns);
     if (!owns) throw new IOException("Another tracker already writes this output directory.");
-    var assets = new AssetPack(assetDirectory ?? AssetPack.DefaultDirectory);
+    var assets = AssetPack.LoadDefault(assetDirectory);
     var manifest = assets.Export(output);
     var layout = LayoutLoader.Load(assets,layoutFile ?? Path.Combine(TrackerOptions.OutputDirectory,"layout.json"),assets.Warnings);
     if (!File.Exists(Path.Combine(output,"layout.json")))
