@@ -1,0 +1,789 @@
+{
+  "characterId": "antigravity-worker-04",
+  "engine": "component-row",
+  "game_input": "antigravity-worker-04.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "antigravity-worker-04.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "size": 32,
+    "safe_margin": 0
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ]
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "blink": {
+    "down": {
+      "file": "antigravity-worker-04-blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": "antigravity-worker-04-blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": "antigravity-worker-04-blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": "source.facelock.json",
+    "inputSha256": "e429b8dcc92f445e6c95928155bd1915e0ab4461af548f2b6687e6a9ba536a48"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": "blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "transferred-locked-blink"
+      },
+      "right": {
+        "file": "blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "transferred-locked-blink"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 51,
+        "sourceNeckY": 42,
+        "translation": {
+          "x": 0,
+          "y": 1
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 51,
+        "sourceNeckY": 42,
+        "translation": {
+          "x": 0,
+          "y": 1
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 51,
+        "sourceNeckY": 42,
+        "translation": {
+          "x": 0,
+          "y": 1
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/sheets/locked/antigravity-worker-04.manifest.json": "e2ffa6df2c758f3e1fa369110f1ce81d65a424bd9b1271d3bd689e3b936ef613",
+      "assets/art/sheets/locked/antigravity-worker-04.png": "ada54a6a0ef3f384592f8598ae3aea0b15aa5962d3f708ae8cc2371708e1d6eb",
+      "assets/art/sheets/locked/antigravity-worker-04.facelock.json": "318925ffebc8bf36c7bd970049c42430d6dcf38946125569a61ee2e0d6b4c95c",
+      "assets/art/sheets/antigravity-worker-04.manifest.json": "ae64160ed2b55e95e62fc326c49876fd34f920cb15faba7876e9f99fbbf64221",
+      "assets/art/sheets/antigravity-worker-04.png": "1b8a48c524790824731ba942f685df3f2006ea6df8d912ba7f13487f332b0274",
+      "assets/art/sheets/locked/antigravity-worker-04-blink-down.png": "563a887c3bd12be3137ad975d6dd08c3570768e8ca397b9e0b5e5440872868a5",
+      "assets/art/sheets/locked/antigravity-worker-04-blink-left.png": "cb6f1363d6a0317d44664f173ed7e9fed065de0135b3cce4d7b2b2dec353c5ed",
+      "assets/art/sheets/locked/antigravity-worker-04-blink-right.png": "7696693d3fecbf6d530e5f6ec4a0430e933d128f50714c8604c7e2770a3b089e"
+    },
+    "blinkSheet": {
+      "file": "seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  }
+}

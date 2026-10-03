@@ -1,0 +1,792 @@
+{
+  "characterId": "red-braid",
+  "engine": "component-row",
+  "game_input": "red-braid.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "red-braid.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "palette_size": 32,
+  "blink": {
+    "down": {
+      "file": "blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": "blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": "blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": "source.facelock.json",
+    "inputSha256": "b95baf536a4405670638d94f0d4935852cb5ea9e9b41036a00bde45fe08d27e8"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": "blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "reviewed-seated-eye-interiors"
+      },
+      "right": {
+        "file": "blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "reviewed-seated-eye-interiors"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 45,
+        "sourceNeckY": 31,
+        "translation": {
+          "x": 0,
+          "y": 7
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 45,
+        "sourceNeckY": 31,
+        "translation": {
+          "x": 0,
+          "y": 7
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 45,
+        "sourceNeckY": 31,
+        "translation": {
+          "x": 0,
+          "y": 7
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/roster/red-braid/locked/red-braid.manifest.json": "99cdadd60e5d9cb7c764050614b74752a23b8226999d3f00517aa283f5770746",
+      "assets/art/roster/red-braid/locked/red-braid.png": "6366ee5ddce12dedf93964d5afe337343b7431a34792da6493e84ddc640aee7e",
+      "assets/art/roster/red-braid/locked/red-braid.facelock.json": "a620429a3b310e361cfd30b2f2f01cc273c124bd08dc6a82af54d49d113d74b1",
+      "assets/art/roster/red-braid/red-braid.manifest.json": "a063d1934c4b75a30386f11d1a6ce1ea5e19b495f8e68e40977928f67fc2425c",
+      "assets/art/roster/red-braid/red-braid.png": "9ea10373119654df47a3ba9609c2bc6903f6891e0ac59685879eb3d07a9104df",
+      "assets/art/roster/red-braid/locked/blink-down.png": "795c62f9847463eebe1232f5e7495c0f58471811ea9d0d1eb731cb427b29c6e5",
+      "assets/art/roster/red-braid/locked/blink-left.png": "2ea27b539b3bd8cca1c21c98329b595aabdb1a44ac90bbe69854772a23d32e7f",
+      "assets/art/roster/red-braid/locked/blink-right.png": "bca9f33037b438fb97853a49c86c0ff8c05319f09ecd8075fd7497ff51287f3f",
+      "tools/facelock.py": "0d66bc84f38d6ba12a901e0dbed2a8766da678b1a599feb5adde94b111677b50"
+    },
+    "blinkSheet": {
+      "file": "seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  }
+}

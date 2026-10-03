@@ -1,0 +1,832 @@
+{
+  "characterId": "dev-hoodie",
+  "engine": "component-row",
+  "game_input": "dev-hoodie.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "dev-hoodie.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "blink": {
+    "down": {
+      "file": "blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": "blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": "blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": "source.facelock.json",
+    "inputSha256": "d92aa6238fb77600870e78bde01b5ed284297d914468743f9cb7b3b30a5e8749"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": "blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "transferred-locked-blink"
+      },
+      "right": {
+        "file": "blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "transferred-locked-blink"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 44,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 8
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 44,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 8
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 44,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 8
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/roster/dev-hoodie/locked/dev-hoodie.manifest.json": "7e501111ff864588dcdc0506f186dc9a88130f34c43645af5761ac929c926bb2",
+      "assets/art/roster/dev-hoodie/locked/dev-hoodie.png": "597dc493d252263ef65e192c4464886168b91959190ccd18e152f952dde7adfb",
+      "assets/art/roster/dev-hoodie/locked/dev-hoodie.facelock.json": "c514ab0c91cb5dc50566d27707816aa4bf571f664e2b17c9136795ffd742f409",
+      "assets/art/roster/dev-hoodie/run/manifest.json": "92b067541704e2e53d72c699725cefe91feaff80f588973df7fc50baafdc63c4",
+      "assets/art/roster/dev-hoodie/run/sprite-sheet-alpha.png": "93cb496ec760728d51fb7b638563ddc6cf2574cc1c94567d29a5e59885881795",
+      "assets/art/roster/dev-hoodie/run/curated/idle-frame-0.png": "4b98e5c0d49a7a89f7c78ebf3d297a522c31be4e2d65477b5ba475ba9e4e820f",
+      "assets/art/roster/dev-hoodie/run/curated/idle-frame-1.png": "0ec56162b7b05a5d2ad7f2eaf921958fd88324437f594d280293ea9b9db705b1",
+      "assets/art/roster/dev-hoodie/run/curated/idle-frame-2.png": "7da0f2e4b57782446797c939cbdfb6ee3a416c978a0aba1f1fbfd88a5b8481a7",
+      "assets/art/roster/dev-hoodie/run/curated/idle-frame-3.png": "ea6808e9ccc9665aad40455727ae713ce6a8231ecb459ed5584acbacd3e40575",
+      "assets/art/roster/dev-hoodie/run/curated/walk_down-frame-0.png": "495f00389afd3d8dbf984e14e27f6d5b0b7ecf63833f321f3227901243dd54b0",
+      "assets/art/roster/dev-hoodie/run/curated/walk_down-frame-1.png": "43f4f096b9ebc5f6e7ffed9b361aa7fdba61bfc5b62515c769b2fd1dbd5dfd07",
+      "assets/art/roster/dev-hoodie/run/curated/walk_down-frame-2.png": "06b11746f61e66825fdb195a0f9cf44f8164bd65d28a09afd600090674fd53a1",
+      "assets/art/roster/dev-hoodie/run/curated/walk_down-frame-3.png": "cc9ead25c844165febdbe5ff8769d2a010f0d89d5c16f5731bad06db10fa0190",
+      "assets/art/roster/dev-hoodie/run/curated/walk_left-frame-0.png": "5b7f924e9f7f930eeb76bc5a61d06c9b9dcd747bde6c980e52464503cc6feba6",
+      "assets/art/roster/dev-hoodie/run/curated/walk_left-frame-1.png": "072af9b889bf6dada96da7b28d44a12cf71303674b92ec3cf40b55dad46ead73",
+      "assets/art/roster/dev-hoodie/run/curated/walk_left-frame-2.png": "f955e2938f30cc590dd093b677071fa046fbdd1cbaa053bc26c9ee5aaa332c3f",
+      "assets/art/roster/dev-hoodie/run/curated/walk_left-frame-3.png": "9a6dddd1b3cfe20bc190d3ddb6f57307e20cc5c48815cb205c1a5ef4ca02ce37",
+      "assets/art/roster/dev-hoodie/run/curated/walk_right-frame-0.png": "af97e83bc492f700bf686daa4112eb5fe590a1fdc3fbbbb166164f0dc5809144",
+      "assets/art/roster/dev-hoodie/run/curated/walk_right-frame-1.png": "f0b9b6452c053500e4fb7824491bd85edcebce3d59445586e2ac183d98a6265f",
+      "assets/art/roster/dev-hoodie/run/curated/walk_right-frame-2.png": "d0481c6abcd54d000910ab3e995f15774aaeef1aba4ac735d9060cf987714181",
+      "assets/art/roster/dev-hoodie/run/curated/walk_right-frame-3.png": "f6aa0b3e120cc3d3d6f5b42685ee18aee8823ea2af20b89495796238f0c60ab2",
+      "assets/art/roster/dev-hoodie/run/curated/walk_up-frame-0.png": "ac5f411cca79d73196c5176c39ad49884e05a2cb128b34192beb07947f8b7a4c",
+      "assets/art/roster/dev-hoodie/run/curated/walk_up-frame-1.png": "4d3bed3f4a035d21eb66a2e38ea9ce768a8dea780b11b5427db4e5aa220d2802",
+      "assets/art/roster/dev-hoodie/run/curated/walk_up-frame-2.png": "3e17d8b83a96bad98b05d3064bde33fdcb939f1d77865c5c79a78ee2157f9168",
+      "assets/art/roster/dev-hoodie/run/curated/walk_up-frame-3.png": "c58ef9e0b16eb1bc3c0b91ad9a201392735a74e1aaebf113e9114cdbdf6c7a17",
+      "assets/art/roster/dev-hoodie/run/curated/typing_back-frame-0.png": "007e805f1c2c668129cb802fa9dc017f529cdc1f158b5253703e4ef863c7b74e",
+      "assets/art/roster/dev-hoodie/run/curated/typing_back-frame-1.png": "c7e49be472f47f79721fde6ca53eaf828fb1e921505405138e30773f1378d56a",
+      "assets/art/roster/dev-hoodie/run/curated/typing_back-frame-2.png": "a05ff5c594411ac909a86a066ae9db649e31fc3dbcc20b187ee5dfca3d70f7f7",
+      "assets/art/roster/dev-hoodie/run/curated/typing_side-frame-0.png": "762743fd972787cbfe20b61dc54cb4028dccaa06748e4f66e2ef9ff83c178b11",
+      "assets/art/roster/dev-hoodie/run/curated/typing_side-frame-1.png": "0319eca35074f2938794e25adb060a37b8e7578c3ec21e902ea17d6e80299bd4",
+      "assets/art/roster/dev-hoodie/run/curated/typing_side-frame-2.png": "c430045fc4ec5a51ff1de5eac805035ad7671bdd81bda3a13c0678489ae58eb2",
+      "assets/art/roster/dev-hoodie/run/curated/report-frame-0.png": "06fc92a99910f9184c32566af2881a88f12db426fd287a76bc37bdb02b4b7080",
+      "assets/art/roster/dev-hoodie/run/curated/report-frame-1.png": "4a188a0e547764c5eeccf3a705c81cae348473c669837a160f6786bf21814db2",
+      "assets/art/roster/dev-hoodie/run/curated/report-frame-2.png": "d39851a5617779c03a6a7091516789012003512e8780850c524f50d23226841b",
+      "assets/art/roster/dev-hoodie/run/curated/sleep-frame-0.png": "5f0167284c1e9ae5f00db5a91cf6544704437200e01e0bce1a9b90509b938a78",
+      "assets/art/roster/dev-hoodie/run/curated/sleep-frame-1.png": "cb6f8e47a27516effc3335e23ef57e63a429f09912e99b5d5e34cbb9b9e42e56",
+      "assets/art/roster/dev-hoodie/run/curated/coffee-frame-0.png": "e89033f3968e755fda8e50c66fc79019f7fbc9196fd00f482276782ea0f449a2",
+      "assets/art/roster/dev-hoodie/run/curated/coffee-frame-1.png": "a88c13c31ebe7794dd6af0c34a377db808d89eaef9c06f0acd7286a53674934a",
+      "assets/art/roster/dev-hoodie/run/curated/coffee-frame-2.png": "d6634e510de759fc493451cdcf67951202382c9b05464760b3f0b03b73dddb68",
+      "assets/art/roster/dev-hoodie/run/curated/phone-frame-0.png": "2f5ead89777c98a3a85dce951c45bcf06e52a421a0dbfb24c4d05e525ceadc7c",
+      "assets/art/roster/dev-hoodie/run/curated/phone-frame-1.png": "b61ce367349b5b88410b7d1d7e82a37dbaa4a5969e77a5e9445b10e67333184d",
+      "assets/art/roster/dev-hoodie/run/curated/phone-frame-2.png": "ea98d520067bb9afc320d1d604e36652c84edec62de02bd5d61e114ce8ffe967",
+      "assets/art/roster/dev-hoodie/run/curated/talk-frame-0.png": "173450640c5f2d09ffdae7d403370a201e3844847349f8ce5dda800f37057c3f",
+      "assets/art/roster/dev-hoodie/run/curated/talk-frame-1.png": "96b29ba353d7ad6a50219edef5eb8d034dc695710f222c9cf8694534bf994a6e",
+      "assets/art/roster/dev-hoodie/run/curated/talk-frame-2.png": "1ebf64dafce8686198afe5087e9ea4ddb479beb8cbcfdea2faf4271c8e5e395d",
+      "assets/art/roster/dev-hoodie/run/curated/surprised-frame-0.png": "a6a5aea8045aac2ce585fe5a0e4df2dc95def3531cc1437e6a12b3c8ed6972e8",
+      "assets/art/roster/dev-hoodie/run/curated/surprised-frame-1.png": "822063685402cb114df360bfb42111374001659a91ef357e65fc4e8e0b8398b2",
+      "assets/art/roster/dev-hoodie/locked/blink-down.png": "9025b1b311046b5c1d7838ebfe90fd7967fec4ca924581e080a70e196507ac38",
+      "assets/art/roster/dev-hoodie/locked/blink-left.png": "66678da5068e060c13ee984f4469fa88718e7b31fcceedd5a515146ad57ac5b8",
+      "assets/art/roster/dev-hoodie/locked/blink-right.png": "81855a4b7b98bac9fdcd932f668a1ce294568f708535926e2c25a5fc2c4d9e68"
+    },
+    "blinkSheet": {
+      "file": "seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  }
+}

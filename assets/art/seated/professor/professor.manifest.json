@@ -1,0 +1,832 @@
+{
+  "characterId": "professor",
+  "engine": "component-row",
+  "game_input": "professor.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "professor.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "blink": {
+    "down": {
+      "file": "blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": "blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": "blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": "source.facelock.json",
+    "inputSha256": "ce45bc58e2c7061dad4e3059eadc4fb3c885d8b4048650cf630cb2b004c2e8ac"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": "blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "transferred-locked-blink"
+      },
+      "right": {
+        "file": "blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "transferred-locked-blink"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 50,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 2
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 50,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 2
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 50,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 2
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/roster/professor/locked/professor.manifest.json": "cc16795881d354d82891be9cd5c07573373c22838e6ef628a3e2b47e73d35455",
+      "assets/art/roster/professor/locked/professor.png": "64a01007e3fd5f3cbee0a61656ceaf24b1b3a89b11854d99f64aa353a0fa8149",
+      "assets/art/roster/professor/locked/professor.facelock.json": "2c1822bd7a7fd5728e52d6fa85acb9c174ffaeb79d144e716b6cbb4484e003b8",
+      "assets/art/roster/professor/run/manifest.json": "46f739d8bb0314e6b583d0001678f28b223dfe85ab002e58145dc35b7c9423c9",
+      "assets/art/roster/professor/run/sprite-sheet-alpha.png": "95092a5ec42117f1e2111045d26daff88eb366afeb3886dbde568e4facf5db2a",
+      "assets/art/roster/professor/run/curated/idle-frame-0.png": "dc3be8660511d38434c54407f5a879ddeda52b4909e0f0a849e4216178f15fc3",
+      "assets/art/roster/professor/run/curated/idle-frame-1.png": "1423b97e5f4f08f31c0819442a996366fa52c45248870c10d820585cb04caa0a",
+      "assets/art/roster/professor/run/curated/idle-frame-2.png": "4fb3ead4303851f5bdce508eeeb435459264bc7e245f244fef25e76ebafc3715",
+      "assets/art/roster/professor/run/curated/idle-frame-3.png": "1aedb654cd0f0e2901a414d99216492a400373e9ec67facc6301a874379953cc",
+      "assets/art/roster/professor/run/curated/walk_down-frame-0.png": "02f57be3edfb1768d44664cfc68c48e8219cec17a3db47cdd5be9fce30c5ae50",
+      "assets/art/roster/professor/run/curated/walk_down-frame-1.png": "3063adc9afab4e0b6973b244da5e1a312fe96ceded8882e3e7d6182f35d102d9",
+      "assets/art/roster/professor/run/curated/walk_down-frame-2.png": "c203512051d79978e3fea4981c9a105d6260ba3c935f517427998c20183962ef",
+      "assets/art/roster/professor/run/curated/walk_down-frame-3.png": "f558d6dc4d6757c207d51c541277c135285a069849560e7c6b900fdb9e644593",
+      "assets/art/roster/professor/run/curated/walk_left-frame-0.png": "f79be476d650ca5d5488fddc20c63d2d75f59097ab7cb4fe6f9f820119fa745e",
+      "assets/art/roster/professor/run/curated/walk_left-frame-1.png": "f3f5bf4e696c2eaa8ac986a9ad30e7c73170bf3bbdd1f39f0d478696052c171e",
+      "assets/art/roster/professor/run/curated/walk_left-frame-2.png": "252ab7c38c675a0a39077f18f3ea81ba3f349555287fee3bafb8dc9a78ad6c87",
+      "assets/art/roster/professor/run/curated/walk_left-frame-3.png": "642d008b13be40297e32bb05c86df43e899cb62db428c2de17d4f48184f10485",
+      "assets/art/roster/professor/run/curated/walk_right-frame-0.png": "5558ff2116c940fb61aaf5e06dd9a4c007888a1a0736b2a729c947c2bc5c4f5f",
+      "assets/art/roster/professor/run/curated/walk_right-frame-1.png": "4f8cd6fad72456892dc17646c7709ba04ec2b204d58a31438f800a2775d74d69",
+      "assets/art/roster/professor/run/curated/walk_right-frame-2.png": "5ce48cdcc3f416a59926218a602843f8c8c8b50f53c574cbe8851246aa14b160",
+      "assets/art/roster/professor/run/curated/walk_right-frame-3.png": "7e1d1ab93565c88b67dd4c25c57639987f3be8eb8048c1c96d0214ad03a1d321",
+      "assets/art/roster/professor/run/curated/walk_up-frame-0.png": "31bbd824d9bed880a62f0f9f3907b85e59be459d4ebf99aff39428ef8ddee80b",
+      "assets/art/roster/professor/run/curated/walk_up-frame-1.png": "50e638dab2983fcaaa4a1b5c8d2c1a5304381fc55d4cf92c03d3f61165a942ad",
+      "assets/art/roster/professor/run/curated/walk_up-frame-2.png": "db3e6851d08322e1b165316048360f2466ca37d681f0313eec75193ca8888f48",
+      "assets/art/roster/professor/run/curated/walk_up-frame-3.png": "f51b2227a14a2498c6a806e9a2cefb11fa4fe68be432fef17ea40888ee0ef924",
+      "assets/art/roster/professor/run/curated/typing_back-frame-0.png": "99c21c8f5f296068d3cd6f10d410ee5e1c05ba3578b50635cb3b515fabbfe975",
+      "assets/art/roster/professor/run/curated/typing_back-frame-1.png": "d25a8fc46343adf44e146b610921e29bc979d990f967b014cdd6380a34343655",
+      "assets/art/roster/professor/run/curated/typing_back-frame-2.png": "da2278a192d9e63679163f9dc05c9a3adc959cda45fadcf7c7e67d66ba79f12d",
+      "assets/art/roster/professor/run/curated/typing_side-frame-0.png": "d7086f238d7857720a6933e4a69fc704a57b5c5c0c67aa0c4dd3a25048499208",
+      "assets/art/roster/professor/run/curated/typing_side-frame-1.png": "a5b085dc00278f615f114517682ac53568dbd203889541ba0aa19a6d46751bd7",
+      "assets/art/roster/professor/run/curated/typing_side-frame-2.png": "ecfc5508810af0ea2743fb5f57710d305c0c914539569139886c2f7bca4e6342",
+      "assets/art/roster/professor/run/curated/report-frame-0.png": "ed3b1357b8ee2fa1c3f0e48f53979359009549c0c5e3b9c2359254d4247ccd62",
+      "assets/art/roster/professor/run/curated/report-frame-1.png": "54f98e41609db2fb44d4b61278bdf79d53a78c9b4e86cb8a0cbbb2029c28dc80",
+      "assets/art/roster/professor/run/curated/report-frame-2.png": "7a83725a3f50c4b2126d2a00d639268f016bbadf0b902d615448ad8b5b7e8df2",
+      "assets/art/roster/professor/run/curated/sleep-frame-0.png": "57804cffeb8b0ff812c3a8b1cddbc939975eae096e1cd9c0f4989cd61600d432",
+      "assets/art/roster/professor/run/curated/sleep-frame-1.png": "447190e3fdb7e629b386c2d2306b454b073afd75cf6bf29205527dd01c061ed7",
+      "assets/art/roster/professor/run/curated/coffee-frame-0.png": "2f9eab46ab29f574113d6a153cd270f46d858cf3ffa35e3cef222d478fe84ea0",
+      "assets/art/roster/professor/run/curated/coffee-frame-1.png": "4eae4ed69e9392ce890e3328a737ca1f79856b134d7e9bb41e579fc7d5bb628f",
+      "assets/art/roster/professor/run/curated/coffee-frame-2.png": "fe2989f21fe7ae42785ea7d3321b603918def19ab8fd2b32c463fcca1c0ea6e3",
+      "assets/art/roster/professor/run/curated/phone-frame-0.png": "7906d578ad4f08608b2bec6398214ac2fec17d047fb9b9f83b4e499713a0e572",
+      "assets/art/roster/professor/run/curated/phone-frame-1.png": "fc0188ba59f7e850281a7f909d982a473148d12e1f315b55e3717f4083c37228",
+      "assets/art/roster/professor/run/curated/phone-frame-2.png": "b95d10102f2315f969c8223f996c14481a60bca217a837f6a89b7dff4d7e9afc",
+      "assets/art/roster/professor/run/curated/talk-frame-0.png": "8b552c5e98ebcf175354b77c61d4516484ec607346175f9aa1a81179ca1ad83f",
+      "assets/art/roster/professor/run/curated/talk-frame-1.png": "187e9e5ded7162446438e9ebe7d6c2ab1b081e7aa4b0329ca7bfd934c65e3962",
+      "assets/art/roster/professor/run/curated/talk-frame-2.png": "6752ab4b952a7eba4c0e922e06e929e0ce42f82a7aa77759303984120527c815",
+      "assets/art/roster/professor/run/curated/surprised-frame-0.png": "aaa58fea32b0d3f0bdb43350cb979ff2c3a317924372fbb17ed2be81ddfb689a",
+      "assets/art/roster/professor/run/curated/surprised-frame-1.png": "1c94f30405e241bdab3e7d7bf5322669f3a5fd417bdcfe67175cbdfd28effd18",
+      "assets/art/roster/professor/locked/blink-down.png": "c25dc741469e3d45babca5be3cb77b4005bb11afe8b7a9af32682c37365cba9e",
+      "assets/art/roster/professor/locked/blink-left.png": "2e983c62e7d23ca6e189bbb27b59d73e1bf41b086c3d115dd8716d6f3f07abff",
+      "assets/art/roster/professor/locked/blink-right.png": "802cb36d6f4c67dacc0a34b1e66ad4214a9a258d3c4ec8eb58e5944f12a5b259"
+    },
+    "blinkSheet": {
+      "file": "seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  }
+}

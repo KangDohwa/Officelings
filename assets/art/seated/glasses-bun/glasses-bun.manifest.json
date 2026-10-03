@@ -1,0 +1,832 @@
+{
+  "characterId": "glasses-bun",
+  "engine": "component-row",
+  "game_input": "glasses-bun.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "glasses-bun.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "blink": {
+    "down": {
+      "file": "blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": "blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": "blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": "source.facelock.json",
+    "inputSha256": "1e35a37d9f368513e1faac8e449089a4814f1c1d7511cd0b90f00bd9376e7c99"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": "blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "transferred-locked-blink"
+      },
+      "right": {
+        "file": "blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "transferred-locked-blink"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 44,
+        "sourceNeckY": 34,
+        "translation": {
+          "x": 0,
+          "y": 8
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 44,
+        "sourceNeckY": 34,
+        "translation": {
+          "x": 0,
+          "y": 8
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 44,
+        "sourceNeckY": 34,
+        "translation": {
+          "x": 0,
+          "y": 8
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/roster/glasses-bun/locked/glasses-bun.manifest.json": "567677ace56a8286503a5197238e0626be9dfc78b492c18c5ed3b46f4b92946f",
+      "assets/art/roster/glasses-bun/locked/glasses-bun.png": "af6258c822c4468fb692805b2549544277e3daabe75b2eebc7ae0fd525d2d7c7",
+      "assets/art/roster/glasses-bun/locked/glasses-bun.facelock.json": "b4a5f3b50908f74f7a8bf0cd59dd81088bf8ae283f106ee004278ffbd88449b4",
+      "assets/art/roster/glasses-bun/run/manifest.json": "f2e4b4b3d3b0d5897ca4fd2fb240a8241c8d9a27b8d0e79ddb34b3cfeed7a001",
+      "assets/art/roster/glasses-bun/run/sprite-sheet-alpha.png": "886dd2c56206dce6279c9d605eef7125e182772d72cf25b3399a8dbc0e30a75e",
+      "assets/art/roster/glasses-bun/run/curated/idle-frame-0.png": "1c4f1c176d02139eae20c537783576d050d5f43471a7a8ec352e5a84184ecae4",
+      "assets/art/roster/glasses-bun/run/curated/idle-frame-1.png": "26d6c3fbd3702e7783591f88b6021ff4254b98245b77f6c734f734058f979d93",
+      "assets/art/roster/glasses-bun/run/curated/idle-frame-2.png": "79d583ae16d43ffca3e435146c014b4937766a45d9d008f3815af217bc31047d",
+      "assets/art/roster/glasses-bun/run/curated/idle-frame-3.png": "b2335d79c0f770f6974b1279f3992285a5386f10dfd419d3a76bef0205fe0d64",
+      "assets/art/roster/glasses-bun/run/curated/walk_down-frame-0.png": "18df7dcfa6d21b7bb6801da8317ce973ee5dab0acdfc6e5352756a3ee6bcc7ba",
+      "assets/art/roster/glasses-bun/run/curated/walk_down-frame-1.png": "21aa90b147597fcecbe5b5c849738fdbe90967cc13970b665238b2ada4d927cd",
+      "assets/art/roster/glasses-bun/run/curated/walk_down-frame-2.png": "7745b628ad69cf9da95b2de5ec424467c33f33d73f91ba9c77cb69ecddf5d48c",
+      "assets/art/roster/glasses-bun/run/curated/walk_down-frame-3.png": "cb19a80588c7f908cee261b0c4dd37c5ff34d2f3f58a2c23ae7a785409319b38",
+      "assets/art/roster/glasses-bun/run/curated/walk_left-frame-0.png": "6dbadfb6e3f0391f6d2d24a4884398f04cc49dc99bc95030132f08c9637033b3",
+      "assets/art/roster/glasses-bun/run/curated/walk_left-frame-1.png": "e08567cb56771ceb67d1f2c261b289821df1364bbb0fa1c1dc57440396853c85",
+      "assets/art/roster/glasses-bun/run/curated/walk_left-frame-2.png": "2800a58a2aabff67b999175fc093c1d30fab819d615f1852a922bacc6a48cb4e",
+      "assets/art/roster/glasses-bun/run/curated/walk_left-frame-3.png": "7b597aac098887d4a5fcc340810bfcbcdd256d66f543acb0cde25e8af60be51c",
+      "assets/art/roster/glasses-bun/run/curated/walk_right-frame-0.png": "0548757bf41ce01f01dcc13336eaab56c52d89813622b9b830d10b0b4127feb4",
+      "assets/art/roster/glasses-bun/run/curated/walk_right-frame-1.png": "af44c45f01acbb8582046fefbf230b484bd07bdbabd9b5bf6eaccffe4d8c7e8f",
+      "assets/art/roster/glasses-bun/run/curated/walk_right-frame-2.png": "2524a0fa2c33d91db29795e4348a6eb7ef59edae935b0308e276dfb97be71fdf",
+      "assets/art/roster/glasses-bun/run/curated/walk_right-frame-3.png": "b063235ff25f854fe683704d2e99f89b1aefb2915c8a9b79259b1fd9e44b269c",
+      "assets/art/roster/glasses-bun/run/curated/walk_up-frame-0.png": "ad5c22e522b6f9b77bd01c6206e1f19ef4b605a1d089fbd12860444dc862ff96",
+      "assets/art/roster/glasses-bun/run/curated/walk_up-frame-1.png": "a871dbccea362b6de556930a8746b4a89642cb954def6b81da578a3b35777b8f",
+      "assets/art/roster/glasses-bun/run/curated/walk_up-frame-2.png": "9fc085ce7cfd1599f056ca37f50280a17aa2fbdeba112aafb171cea62aadfbae",
+      "assets/art/roster/glasses-bun/run/curated/walk_up-frame-3.png": "f7f3c0cae55efcdb07bdc641223a159259e56de1f0413737d84be897179b2691",
+      "assets/art/roster/glasses-bun/run/curated/typing_back-frame-0.png": "704397003cc86940c56459b4301ac630763291ff05efdbb4cffe7d9e5b7003ea",
+      "assets/art/roster/glasses-bun/run/curated/typing_back-frame-1.png": "d4d3501a98b4a9b40ac4d07e4c017b27f3c27d9d9d275b1a70beaefcee5e1405",
+      "assets/art/roster/glasses-bun/run/curated/typing_back-frame-2.png": "92062da2724b4d8feaab8d5e3c077063d4f070b28bc7fa6816e1f549b295bc86",
+      "assets/art/roster/glasses-bun/run/curated/typing_side-frame-0.png": "aa3b44a1093f0e1d087142e3d9c74b3c6d24360ae7ec34cbdddfbf8d413f48c7",
+      "assets/art/roster/glasses-bun/run/curated/typing_side-frame-1.png": "d59ec58e4e01145f492a8ead84cb3090f54bcae63a828b420b7ae4ed3f9d3dac",
+      "assets/art/roster/glasses-bun/run/curated/typing_side-frame-2.png": "ba29f53a6f6ff4ed0a2bf29d60847f75cccc0a7b2bd4334f23cd83bac2e896dd",
+      "assets/art/roster/glasses-bun/run/curated/report-frame-0.png": "7421b69b0c2b5d3cf4002527364245af7afffb05bb8304f46b256041c680e7ec",
+      "assets/art/roster/glasses-bun/run/curated/report-frame-1.png": "f2ea28d8747dc52972138f5f0cddf75719f41927297c5e1e01a02f609a52d628",
+      "assets/art/roster/glasses-bun/run/curated/report-frame-2.png": "6e3a0742049d9cabab6a9e5d7072adf9053574f11dd57983205cce8aeab5fc3f",
+      "assets/art/roster/glasses-bun/run/curated/sleep-frame-0.png": "38cc287d717ac1e88a85aac7555d613076181fa16c476146c122a9cd59c0a01e",
+      "assets/art/roster/glasses-bun/run/curated/sleep-frame-1.png": "1b3aba2470669b3b228380c1808f16a9239325801f66bc296e1ea6db80cb195e",
+      "assets/art/roster/glasses-bun/run/curated/coffee-frame-0.png": "71f53ce068aca192ecb2cdaa8a5f7539622cf7b6b8d3b87cbd7cd4c43b728560",
+      "assets/art/roster/glasses-bun/run/curated/coffee-frame-1.png": "0d860b52b0fb8a0e1fa81bb5213f68f30a97b1d4ed48532819f5f37627ea2ad3",
+      "assets/art/roster/glasses-bun/run/curated/coffee-frame-2.png": "cb34e00bf3394b45f32016b458be0afdd00cdd34a03f5511ed0cb53bceec4938",
+      "assets/art/roster/glasses-bun/run/curated/phone-frame-0.png": "0b08909268824d326ecf666d0b8015177f90ccca6fe2280ccf1ce31f47b04132",
+      "assets/art/roster/glasses-bun/run/curated/phone-frame-1.png": "24e59f5be7dd29f58dce435e1da4dc60f1b09c1b0a059a8cf2bfd75c368e20d2",
+      "assets/art/roster/glasses-bun/run/curated/phone-frame-2.png": "c983597d8be6eecdd3b731eaad09d00051b549c8131fcc9452670c5bb761ec3a",
+      "assets/art/roster/glasses-bun/run/curated/talk-frame-0.png": "532d9abcc05c4a2d6422f89a9c7683fcba914a843c6bb1604cf37a1192085277",
+      "assets/art/roster/glasses-bun/run/curated/talk-frame-1.png": "56e9007902bef35f098b4043ebd991c71046669d4cbf3c79b352911136e6704e",
+      "assets/art/roster/glasses-bun/run/curated/talk-frame-2.png": "f51f2f39cf003e848c4985cdf923cb482bbae25a616676ed6010be287df79cf1",
+      "assets/art/roster/glasses-bun/run/curated/surprised-frame-0.png": "265847020fa81a77f89046e842764d7fd10b297aaf2c6d811a1fd5045cf1834e",
+      "assets/art/roster/glasses-bun/run/curated/surprised-frame-1.png": "1b4bf89d03b6236ceebb34a3012b017f0ba641d0f1fc95c23add1f91ec3eee63",
+      "assets/art/roster/glasses-bun/locked/blink-down.png": "cfbb8bad34b1b255692440aa720ca95123c0f71383796a327a3541703f20d219",
+      "assets/art/roster/glasses-bun/locked/blink-left.png": "0cc4f5960d672ee9a1de38e324c388023ce08f50a6c149f377d10c8e947de250",
+      "assets/art/roster/glasses-bun/locked/blink-right.png": "6da0b504a218c944819db8100be93d65f1fa2872c98909a23036719046c1e086"
+    },
+    "blinkSheet": {
+      "file": "seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  }
+}
