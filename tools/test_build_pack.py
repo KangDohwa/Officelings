@@ -9,7 +9,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from PIL import Image
+from PIL import Image, ImageChops
 
 import build_pack
 
@@ -49,6 +49,88 @@ class BuildPackTests(unittest.TestCase):
     def files(self):
         return {str(p.relative_to(self.output)): (hashlib.sha256(p.read_bytes()).hexdigest(), p.stat().st_mtime_ns)
                 for p in self.output.rglob("*") if p.is_file()}
+
+    def assert_desk_states(self, manifest, screen_bounds):
+        sheet = next(s for s in manifest["sheets"] if s["id"] == "cozy-desk")
+        asset = next(f for f in manifest["furniture"] if f["id"] == "cozy-desk")
+        variants = {v["state"]: v for v in asset["variants"] if v["rotation"] == 0}
+        self.assertEqual(16, len(asset["variants"]))
+        self.assertEqual({"default", "off", "working", "screensaver"}, set(variants))
+        geometry = {key: value for key, value in variants["default"].items() if key not in ("state", "animation")}
+        self.assertEqual((3, 2, 6), (geometry["footprintW"], geometry["footprintH"], len(geometry["blockedCells"])))
+        self.assertEqual([{"id": "seat", "x": 1, "y": 2, "action": "typing", "facing": "up"}], geometry["points"])
+        self.assertEqual((64, 64, 1, {"x": 8, "y": 8}),
+                         (sheet["cellW"], sheet["cellH"], sheet["scale"], sheet["anchor"]))
+        rows = {r["name"]: r for r in sheet["rows"]}
+        with Image.open(self.output / sheet["file"]) as image:
+            off = image.crop((0, 0, 64, 64))
+            working = []
+            for state, variant in variants.items():
+                self.assertEqual(geometry, {k: v for k, v in variant.items() if k not in ("state", "animation")})
+                row = rows[variant["animation"]]
+                self.assertEqual("any", row["direction"])
+                self.assertEqual((3, 3, True) if state == "working" else (1, 1, False),
+                                 (row["frames"], row["fps"], row["loop"]))
+                for column in range(row["column"], row["column"] + row["frames"]):
+                    frame = image.crop((column * 64, row["row"] * 64, (column + 1) * 64, (row["row"] + 1) * 64))
+                    self.assertEqual(off.getchannel("A").tobytes(), frame.getchannel("A").tobytes())
+                    changed = ImageChops.difference(off.convert("RGB"), frame.convert("RGB")).getbbox()
+                    if state in ("default", "off"):
+                        self.assertIsNone(changed)
+                    else:
+                        self.assertIsNotNone(changed)
+                        x, y, right, bottom = screen_bounds
+                        self.assertTrue(changed[0] >= x and changed[1] >= y and changed[2] <= right + 1 and changed[3] <= bottom + 1)
+                    if state == "working":
+                        working.append(frame.tobytes())
+            self.assertEqual(3, len(set(working)))
+
+    def assert_furniture_rotations(self, manifest):
+        sheets = {s["id"]: s for s in manifest["sheets"]}
+        facings = ("up", "right", "down", "left")
+        for asset in manifest["furniture"]:
+            variants = {(v["rotation"], v["state"]): v for v in asset["variants"]}
+            bases = [v for v in asset["variants"] if v["rotation"] == 0]
+            self.assertEqual(len(variants), len(asset["variants"]))
+            self.assertEqual(4 * len(bases), len(variants), asset["id"])
+            for base in bases:
+                width, height = base["footprintW"], base["footprintH"]
+                transforms = {90: lambda x, y: (height - 1 - y, x),
+                              180: lambda x, y: (width - 1 - x, height - 1 - y),
+                              270: lambda x, y: (y, width - 1 - x)}
+                sheet = sheets[base["sheetId"]]
+                rows = {r["name"]: r for r in sheet["rows"]}
+                original = rows[base["animation"]]
+                cell = sheet["cellW"]
+                ax, ay = sheet["anchor"]["x"], sheet["anchor"]["y"]
+                anchors = {90: (cell - ay - height * 16, ax),
+                           180: (cell - ax - width * 16, cell - ay - height * 16),
+                           270: (ay, cell - ax - width * 16)}
+                with Image.open(self.output / sheet["file"]) as image:
+                    for rotation, transform in transforms.items():
+                        variant = variants[(rotation, base["state"])]
+                        self.assertEqual((height, width) if rotation in (90, 270) else (width, height),
+                                         (variant["footprintW"], variant["footprintH"]))
+                        self.assertEqual({transform(t["x"], t["y"]) for t in base["blockedCells"]},
+                                         {(t["x"], t["y"]) for t in variant["blockedCells"]})
+                        self.assertEqual([dict(p, x=transform(p["x"], p["y"])[0], y=transform(p["x"], p["y"])[1],
+                                               facing=facings[(facings.index(p["facing"]) + rotation // 90) % 4]) for p in base["points"]],
+                                         variant["points"])
+                        self.assertEqual((base["sheetId"], base["layer"], base["zOrder"]),
+                                         (variant["sheetId"], variant["layer"], variant["zOrder"]))
+                        row = rows[variant["animation"]]
+                        self.assertEqual({"x": ax - anchors[rotation][0], "y": ay - anchors[rotation][1]}, row["footOffset"])
+                        self.assertEqual((original["frames"], original["fps"], original["loop"], "any"),
+                                         (row["frames"], row["fps"], row["loop"], row["direction"]))
+                        for frame in range(original["frames"]):
+                            x, y = (original["column"] + frame) * cell, original["row"] * cell
+                            source = image.crop((x, y, x + cell, y + cell))
+                            x, y = (row["column"] + frame) * cell, row["row"] * cell
+                            actual = image.crop((x, y, x + cell, y + cell))
+                            transpose = {90: Image.Transpose.ROTATE_270, 180: Image.Transpose.ROTATE_180,
+                                         270: Image.Transpose.ROTATE_90}[rotation]
+                            self.assertEqual(source.transpose(transpose).tobytes(), actual.tobytes(),
+                                             f"{asset['id']}/{base['state']}/{rotation}/{frame}")
 
     def test_contract_and_partial_run_exclusion(self):
         self.roster("complete")
@@ -93,11 +175,15 @@ class BuildPackTests(unittest.TestCase):
         self.assertTrue({f"cozy-{name}" for name in required} <= furniture.keys())
         desk = furniture["cozy-desk"]
         self.assertEqual((3, 2, 6), (desk["footprintW"], desk["footprintH"], len(desk["blockedCells"])))
-        self.assertEqual({"id": "seat", "x": 1, "y": 2, "action": "typing", "facing": "right"}, desk["points"][0])
-        self.assertEqual({"x": 8, "y": 28}, sheets["cozy-desk"]["anchor"])
+        self.assertEqual({"id": "seat", "x": 1, "y": 2, "action": "typing", "facing": "up"}, desk["points"][0])
+        self.assert_desk_states(manifest, (23, 9, 40, 16))
+        self.assert_furniture_rotations(manifest)
         with Image.open(self.output / sheets["cozy-desk"]["file"]) as image:
-            box = image.getchannel("A").getbbox()
-            self.assertTrue(all(abs(a - b) <= 1 for a, b in zip(box, (12, 25, 52, 60))))
+            box = image.crop((0, 0, 64, 64)).getchannel("A").getbbox()
+            self.assertTrue(all(abs(a - b) <= 1 for a, b in zip(box, (8, 4, 56, 58))))
+        chair = furniture["cozy-chair-front"]
+        self.assertEqual(([], 18, {"x": 8, "y": 8}),
+                         (chair["blockedCells"], chair["zOrder"], sheets["cozy-chair-front"]["anchor"]))
         expected_points = {
             "cozy-pantry": [(1, 2, "coffee", "up")],
             "cozy-water": [(0, 2, "water", "up")],
@@ -111,26 +197,30 @@ class BuildPackTests(unittest.TestCase):
             self.assertEqual([], furniture[f"cozy-{name}"]["blockedCells"])
             self.assertEqual(0 if name == "rug" else 2, furniture[f"cozy-{name}"]["layer"])
         for asset_id, variant in furniture.items():
-            if asset_id == "cozy-desk":
+            if asset_id in ("cozy-desk", "cozy-chair-front", "cozy-laptop"):
                 continue
             sheet = sheets[variant["sheetId"]]
             with Image.open(self.output / sheet["file"]) as image:
-                frames = [image.crop((column * 64, 0, column * 64 + 64, 64))
-                          for column in range(image.width // 64)]
+                cw, ch = sheet["cellW"], sheet["cellH"]
+                frames = [image.crop((column * cw, 0, (column + 1) * cw, ch))
+                          for column in range(image.width // cw)]
             self.assertEqual(build_pack.furniture_anchor(frames, (variant["footprintW"], variant["footprintH"])),
                              sheet["anchor"])
         tiles = {t["id"]: t for t in manifest["tileTypes"]}
-        self.assertEqual({0, 1, 2, 3, 5, 6, 10, 11, 12, 13, 14, 15, 16, 17, 18, 255}, set(tiles))
-        self.assertEqual({"id": 5, "kind": "wall", "color": "#674638"}, tiles[5])
+        self.assertEqual({0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 255}, set(tiles))
+        for tile_id, animation in ((5, "partition"), (7, "wood-wall"), (8, "wood-baseboard")):
+            self.assertEqual({"id": tile_id, "kind": "wall", "color": "#252b48",
+                              "sheetId": "room-walls", "animation": animation}, tiles[tile_id])
+        source_tiles = build_pack.ProductionSheet(self.sheets / "tiles.png", self.sheets / "tiles.manifest.json")
         with Image.open(self.output / sheets["tiles"]["file"]) as image:
             self.assertEqual((255, 255), image.getchannel("A").getextrema())
-            self.assertEqual(set(image.crop((0, 0, 32, 22)).get_flattened_data()),
-                             set(image.crop((0, 22, 32, 32)).get_flattened_data()))
+            plaster = source_tiles.frames("wall_office", (32, 32))[0].crop((0, 0, 32, 26))
+            self.assertEqual(plaster.resize((32, 32), Image.Resampling.NEAREST).tobytes(),
+                             image.crop((0, 0, 32, 32)).tobytes())
         floor_sheet = sheets["floor-tiles"]
         self.assertEqual((16, 16, 1, {"x": 0, "y": 0}),
                          (floor_sheet["cellW"], floor_sheet["cellH"], floor_sheet["scale"], floor_sheet["anchor"]))
         floor_clips = {row["name"]: row for row in floor_sheet["rows"]}
-        source_tiles = build_pack.ProductionSheet(self.sheets / "tiles.png", self.sheets / "tiles.manifest.json")
         with Image.open(self.output / floor_sheet["file"]) as image:
             self.assertEqual((255, 255), image.getchannel("A").getextrema())
             for name, tile_ids, source_name in (("wood", (1, 10, 11, 12), "floor_pantry"),
@@ -164,6 +254,62 @@ class BuildPackTests(unittest.TestCase):
                          {r["name"] for r in sheets["icons"]["rows"]})
         self.assertEqual((32, 32, 1, {"x": 0, "y": 0}),
                          (sheets["icons"]["cellW"], sheets["icons"]["cellH"], sheets["icons"]["scale"], sheets["icons"]["anchor"]))
+
+    def test_original_provider_icons_laptop_and_fallback_desk_states(self):
+        build_pack.build_pack(self.art, self.output)
+        manifest = self.manifest()
+        sheets = {s["id"]: s for s in manifest["sheets"]}
+        self.assert_desk_states(manifest, (23, 27, 39, 33))
+        self.assert_furniture_rotations(manifest)
+        providers = sheets["provider-icons"]
+        self.assertEqual((12, 12, 1, {"x": 0, "y": 0}),
+                         (providers["cellW"], providers["cellH"], providers["scale"], providers["anchor"]))
+        self.assertEqual({"codex", "claude", "antigravity"}, {r["name"] for r in providers["rows"]})
+        glyphs = []
+        with Image.open(self.output / providers["file"]) as image:
+            self.assertEqual((36, 12), image.size)
+            for row in providers["rows"]:
+                self.assertEqual(("any", 1, 1, False), (row["direction"], row["frames"], row["fps"], row["loop"]))
+                x, y = row["column"] * 12, row["row"] * 12
+                glyph = image.crop((x, y, x + 12, y + 12))
+                pixels = set(glyph.get_flattened_data())
+                colours = {p[:3] for p in pixels if p[3]}
+                self.assertEqual({0, 255}, {p[3] for p in pixels})
+                self.assertEqual(2, len(colours))
+                self.assertIn((32, 37, 43), colours)
+                glyphs.append(glyph.getchannel("A").tobytes())
+        self.assertEqual(3, len(set(glyphs)))
+        extras = sheets["office-extras"]
+        self.assertEqual((16, 16, 1, {"x": 0, "y": 0}),
+                         (extras["cellW"], extras["cellH"], extras["scale"], extras["anchor"]))
+        self.assertEqual(("laptop", "any", 0, 0, 1, 1, False),
+                         tuple(extras["rows"][0][k] for k in ("name", "direction", "row", "column", "frames", "fps", "loop")))
+        self.assertEqual({"laptop", "laptop-r90", "laptop-r180", "laptop-r270"}, {r["name"] for r in extras["rows"]})
+        with Image.open(self.output / extras["file"]) as image:
+            self.assertEqual((16, 64), image.size)
+            self.assertEqual((1, 3, 15, 13), image.crop((0, 0, 16, 16)).getchannel("A").getbbox())
+            self.assertEqual({0, 255}, {p[3] for p in image.get_flattened_data()})
+        laptop = next(f for f in manifest["furniture"] if f["id"] == "cozy-laptop")["variants"][0]
+        self.assertEqual(("office-extras", "laptop", 1, 1, [], [], 1),
+                         (laptop["sheetId"], laptop["animation"], laptop["footprintW"], laptop["footprintH"],
+                          laptop["blockedCells"], laptop["points"], laptop["layer"]))
+        stool_sheet = sheets["cozy-counter-stool"]
+        self.assertEqual((32, 32, 1, {"x": 8, "y": 14}),
+                         (stool_sheet["cellW"], stool_sheet["cellH"], stool_sheet["scale"], stool_sheet["anchor"]))
+        stool = next(f for f in manifest["furniture"] if f["id"] == "cozy-counter-stool")
+        self.assertEqual("chair", stool["kind"])
+        self.assertEqual({0, 90, 180, 270}, {v["rotation"] for v in stool["variants"]})
+        for variant in stool["variants"]:
+            self.assertEqual((1, 1, [], [], 1),
+                             (variant["footprintW"], variant["footprintH"], variant["blockedCells"],
+                              variant["points"], variant["layer"]))
+        with Image.open(self.output / stool_sheet["file"]) as image:
+            self.assertEqual((32, 128), image.size)
+            box = image.crop((0, 0, 32, 32)).getchannel("A").getbbox()
+            self.assertEqual((8, 7, 24, 30), box)
+            # Bottom-centre feet land at (8,16), the owning tile's floor point.
+            self.assertEqual((8, 16), ((box[0] + box[2]) // 2 - stool_sheet["anchor"]["x"],
+                                      box[3] - stool_sheet["anchor"]["y"]))
 
     def test_deterministic_rerun_and_owned_stale_cleanup(self):
         unique = self.base.image.copy()

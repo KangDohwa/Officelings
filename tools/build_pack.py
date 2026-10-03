@@ -205,6 +205,139 @@ def atlas(frames: list[Image.Image]) -> Image.Image:
     return image
 
 
+def provider_icons() -> dict[str, Image.Image]:
+    """Original two-colour glyphs, drawn at native 12px without logo inputs."""
+    result = {}
+    outline = "#20252b"
+    for name, accent in (("codex", "#58b8a8"), ("claude", "#e79a68"),
+                         ("antigravity", "#b1a2e5")):
+        image = Image.new("RGBA", (12, 12))
+        draw = ImageDraw.Draw(image)
+        if name == "codex":
+            # Two squared loops with alternating over/under crossings.
+            paths = ([(2, 4), (3, 3), (8, 3), (9, 4), (9, 7), (8, 8),
+                      (3, 8), (2, 7), (2, 4)],
+                     [(4, 1), (7, 1), (8, 2), (8, 9), (7, 10), (4, 10),
+                      (3, 9), (3, 2), (4, 1)])
+            for path in (*paths, [(7, 3), (8, 3), (9, 4)], [(2, 7), (3, 8), (4, 8)]):
+                draw.line(path, fill=outline, width=3)
+                draw.line(path, fill=accent, width=1)
+        elif name == "claude":
+            draw.polygon([(5, 1), (6, 3), (9, 2), (8, 4), (10, 5), (8, 6),
+                          (9, 9), (6, 8), (5, 10), (4, 8), (2, 9), (3, 6),
+                          (1, 5), (3, 4), (2, 2), (4, 3)], fill=accent, outline=outline)
+        else:
+            draw.polygon([(5, 1), (7, 4), (10, 5), (7, 7), (5, 10), (4, 7),
+                          (1, 5), (4, 4)], fill=accent, outline=outline)
+        result[name] = image
+    return result
+
+
+def laptop_sprite() -> Image.Image:
+    """A tiny original open laptop for a single walkable world tile."""
+    image = Image.new("RGBA", (16, 16))
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((3, 3, 12, 9), fill="#20252b")
+    draw.rectangle((4, 4, 11, 8), fill="#d7c9ab")
+    draw.rectangle((4, 4, 11, 7), fill="#245154")
+    draw.line((5, 5, 8, 5), fill="#86c8bb")
+    draw.line((5, 6, 6, 6), fill="#86c8bb")
+    draw.polygon([(2, 10), (13, 10), (14, 12), (1, 12)], fill="#20252b")
+    draw.line((3, 10, 12, 10), fill="#d7c9ab")
+    draw.line((2, 11, 13, 11), fill="#9a9689")
+    draw.line((5, 10, 10, 10), fill="#20252b")
+    draw.line((7, 11, 8, 11), fill="#d7c9ab")
+    return image
+
+
+def counter_stool_sprite() -> Image.Image:
+    """Original backless pantry stool, with its feet on source y=30."""
+    image = Image.new("RGBA", (32, 32))
+    draw = ImageDraw.Draw(image)
+    outline = "#20252b"
+    draw.polygon([(11, 12), (14, 12), (12, 29), (8, 29)], fill=outline)
+    draw.polygon([(18, 12), (21, 12), (23, 29), (19, 29)], fill=outline)
+    draw.line((12, 14, 10, 27), fill="#8c9184", width=2)
+    draw.line((19, 14, 21, 27), fill="#8c9184", width=2)
+    draw.rectangle((11, 21, 20, 23), fill=outline)
+    draw.line((12, 21, 19, 21), fill="#b8b6a3")
+    draw.ellipse((8, 7, 23, 14), fill=outline)
+    draw.ellipse((9, 8, 22, 12), fill="#bb8350")
+    draw.line((12, 8, 19, 8), fill="#ddb88d")
+    draw.line((11, 12, 20, 12), fill="#80543a")
+    return image
+
+
+def desk_screen(desk: Image.Image, bounds: tuple[int, int, int, int],
+                state: str, frame: int = 0) -> Image.Image:
+    """Keep the computer, chair and desk fixed; change only screen pixels."""
+    image = desk.copy()
+    draw = ImageDraw.Draw(image)
+    x, y, right, bottom = bounds
+    draw.rectangle(bounds, fill="#172125" if state == "off" else "#10282c")
+    if state == "working":
+        for offset, length in ((1, 4), (3, 10), (5, 7)):
+            draw.line((x + 2, y + offset, min(x + length, right - 1), y + offset),
+                      fill="#86c8bb")
+        draw.point((right - 2, bottom - 1), fill="#d7c9ab" if frame % 2 == 0 else "#10282c")
+        draw.point((x + 6 + frame, y + 1), fill="#d7c9ab")
+    elif state == "screensaver":
+        cx, cy = (x + right) // 2, (y + bottom) // 2
+        draw.polygon([(cx, cy - 2), (cx + 3, cy), (cx, cy + 2), (cx - 3, cy)],
+                     fill="#b1a2e5")
+    return image
+
+
+def rotate_furniture(manifest: dict, images: dict[str, Image.Image]):
+    """Bake clockwise cells and matching geometry into each existing sheet."""
+    sheets = {sheet["id"]: sheet for sheet in manifest["sheets"]}
+    originals = {}
+    facings = {"up": "right", "right": "down", "down": "left", "left": "up"}
+    for asset in manifest["furniture"]:
+        variants = list(asset["variants"])
+        for base in variants:
+            sheet = sheets[base["sheetId"]]
+            sheet_id = sheet["id"]
+            cell = sheet["cellW"]
+            if cell != sheet["cellH"]:
+                raise ValueError(f"{sheet_id}: furniture rotation needs square cells")
+            if sheet_id not in originals:
+                original = images[sheet_id]
+                originals[sheet_id] = (original.height // cell,
+                                       {row["name"]: row.copy() for row in sheet["rows"]})
+                rotated = Image.new("RGBA", (original.width, original.height * 4))
+                rotated.paste(original, (0, 0))
+                for y in range(0, original.height, cell):
+                    for x in range(0, original.width, cell):
+                        frame = original.crop((x, y, x + cell, y + cell))
+                        for turn in range(1, 4):
+                            frame = frame.transpose(Image.Transpose.ROTATE_270)
+                            rotated.paste(frame, (x, y + turn * original.height))
+                images[sheet_id] = rotated
+            row_count, clips = originals[sheet_id]
+            original_clip = clips[base["animation"]]
+            offset = original_clip.get("footOffset", {"x": 0, "y": 0})
+            anchor_x, anchor_y = sheet["anchor"]["x"] - offset["x"], sheet["anchor"]["y"] - offset["y"]
+            previous = base
+            for turn in range(1, 4):
+                width, height = previous["footprintW"], previous["footprintH"]
+                anchor_x, anchor_y = cell - anchor_y - height * 16, anchor_x
+                animation = f"{base['animation']}-r{turn * 90}"
+                if not any(row["name"] == animation for row in sheet["rows"]):
+                    sheet["rows"].append(dict(original_clip, name=animation,
+                                              row=original_clip["row"] + turn * row_count,
+                                              footOffset={"x": sheet["anchor"]["x"] - anchor_x,
+                                                          "y": sheet["anchor"]["y"] - anchor_y}))
+                variant = dict(previous, rotation=turn * 90, footprintW=height, footprintH=width,
+                               blockedCells=[{"x": height - 1 - tile["y"], "y": tile["x"]}
+                                             for tile in previous["blockedCells"]],
+                               points=[dict(point, x=height - 1 - point["y"], y=point["x"],
+                                            facing=facings[point["facing"]]) for point in previous["points"]],
+                               animation=animation)
+                asset["variants"].append(variant)
+                previous = variant
+
+
 def furniture_anchor(frames, footprint):
     boxes = [frame.getchannel("A").getbbox() for frame in frames]
     left = min(box[0] for box in boxes)
@@ -240,6 +373,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     manifest = {"version": 1, "generatedBy": GENERATED_BY,
                 "sheets": [], "characters": [], "furniture": [], "tileTypes": []}
     pngs = {}
+    images = {}
     skipped = []
     fallbacks = []
     cache = {}
@@ -251,14 +385,8 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         return cache[key]
 
     def add_sheet(sheet_id, image, cell, anchor, rows):
-        if image.width > 8192 or image.height > 8192 or image.width * image.height > 16_777_216:
-            raise ValueError(f"{sheet_id}: runtime PNG is too large")
-        stream = BytesIO()
-        image.save(stream, format="PNG", compress_level=9)
-        data = stream.getvalue()
-        filename = f"sheets/pack-{hashlib.sha256(data).hexdigest()}.png"
-        pngs[filename] = data
-        manifest["sheets"].append(dict(id=sheet_id, file=filename, cellW=cell[0],
+        images[sheet_id] = image
+        manifest["sheets"].append(dict(id=sheet_id, file="", cellW=cell[0],
                                       cellH=cell[1], anchor=anchor, scale=1, rows=rows))
 
     def add_character(character_id, path, metadata=None):
@@ -358,8 +486,19 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     else:
         fallbacks.append("desk-composite")
         desk = p5_prop("desk", 1)
-    furniture("cozy-desk", "desk", (3, 2), [desk],
+    screen_bounds = (23, 9, 40, 16) if all(desk_parts) else (23, 27, 39, 33)
+    off = desk_screen(desk, screen_bounds, "off")
+    desk_frames = [off, *(desk_screen(desk, screen_bounds, "working", frame) for frame in range(3)),
+                   desk_screen(desk, screen_bounds, "screensaver")]
+    add_sheet("cozy-desk", atlas(desk_frames), (64, 64), {"x": 8, "y": 8},
+              [clip("cozy-desk", 0), clip("cozy-desk-off", 0),
+               clip("cozy-desk-working", 0, 3, 3, True, column=1),
+               clip("cozy-desk-screensaver", 0, column=4)])
+    furniture("cozy-desk", "desk", (3, 2), [off],
               points=[point("seat", 1, 2, "typing", "up")], anchor={"x": 8, "y": 8})
+    variants = manifest["furniture"][-1]["variants"]
+    variants.extend(dict(variants[0], state=state, animation=f"cozy-desk-{state}")
+                    for state in ("off", "working", "screensaver"))
     if all(desk_parts):
         chair = Image.new("RGBA", (64, 64))
         part = desk_parts[2][0][0]
@@ -430,6 +569,17 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     icon_names.extend(("role-supervisor", "role-worker", "report-item"))
     add_sheet("icons", atlas(icon_frames), (32, 32), {"x": 0, "y": 0},
               [clip(name, 0, column=column) for column, name in enumerate(icon_names)])
+
+    providers = provider_icons()
+    add_sheet("provider-icons", atlas(list(providers.values())), (12, 12), {"x": 0, "y": 0},
+              [clip(name, 0, column=column) for column, name in enumerate(providers)])
+    laptop = laptop_sprite()
+    add_sheet("office-extras", laptop, (16, 16), {"x": 0, "y": 0}, [clip("laptop", 0)])
+    furniture("cozy-laptop", "laptop", (1, 1), [laptop], sheet_id="office-extras")
+    manifest["furniture"][-1]["variants"][0]["blockedCells"] = []
+    furniture("cozy-counter-stool", "chair", (1, 1), [counter_stool_sprite()])
+    manifest["furniture"][-1]["variants"][0]["blockedCells"] = []
+    rotate_furniture(manifest, images)
 
     palette = Counter()
     for name in ("wall_office", "floor_pantry", "floor_office"):
@@ -509,6 +659,15 @@ def build_pack(art_dir: Path, output: Path) -> dict:
 
     if len(manifest["sheets"]) > 128:
         raise ValueError("runtime pack exceeds the 128-sheet limit")
+    for sheet in manifest["sheets"]:
+        image = images[sheet["id"]]
+        if image.width > 8192 or image.height > 8192 or image.width * image.height > 16_777_216:
+            raise ValueError(f"{sheet['id']}: runtime PNG is too large")
+        stream = BytesIO()
+        image.save(stream, format="PNG", compress_level=9)
+        png = stream.getvalue()
+        sheet["file"] = f"sheets/pack-{hashlib.sha256(png).hexdigest()}.png"
+        pngs[sheet["file"]] = png
     # Content-addressed sheets leave the previously published manifest usable
     # until the final replacement succeeds. Never clean before publishing it.
     data = (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
