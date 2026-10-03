@@ -12,11 +12,15 @@ Windows 11 with the .NET 10 SDK and Windows Desktop runtime. The application and
 dotnet build Vibedotcom.sln
 dotnet test Vibedotcom.sln --no-build
 dotnet run --project src/Vibedotcom.App --no-build
+# Fabricated sessions; no real logs or personal-settings writes:
+dotnet run --project src/Vibedotcom.App --no-build -- --demo
 ```
 
-The WPF app observes logs itself; it does not require the console tracker. Resize normally, use the mouse wheel (with or without Ctrl), `+` / `−`, or the zoom buttons. Right-click the office or tray icon for normal, always-on-top, desktop-level and click-through modes. Double-click the tray icon, or choose **Show office (normal, clickable)**, to recover a hidden/minimized/click-through window. Closing the window exits the app and removes the tray icon.
+The WPF app observes logs itself; it does not require the console tracker. It defaults to 720×480 and fits the compact office at integer zoom. Wheel (with or without Ctrl), `+` / `−` selects 1×–6×; drag to pan. Right-click the office or tray for **Fit office to window**, normal, always-on-top, desktop-level, click-through, borderless, transparent background and opacity. Double-click the tray icon or choose **Show normal, clickable office** to recover. Closing exits and removes the tray icon. Hover for a live, passive tooltip; no agent commands are available.
 
-Settings are persisted atomically in `%LOCALAPPDATA%\Vibedotcom\settings.json`: `mode` (`normal`, `topmost`, `desktop`), `clickThrough`, `zoom` (0.5–4), `width`, `height`, `workingSeconds` (default 120), `goneMinutes` (default 30). Edit the timeouts with the app closed. Invalid settings fall back to defaults. Desktop-level uses Windows bottom z-order, placing the window behind ordinary application windows. It does **not** embed in Explorer's WorkerW or guarantee placement behind desktop icons. Tray recovery remains available.
+Settings are persisted atomically in `%LOCALAPPDATA%\Vibedotcom\settings.json`: `mode` (`normal`, `topmost`, `desktop`), `clickThrough`, `zoom` (0=auto, integers 1–6), `width`, `height`, `left`, `top`, `borderless`, `transparentBackground`, `opacity` (.25–1), `workingSeconds` (120), `goneMinutes` (30). Older settings are accepted; fractional zoom is rounded. Edit timeouts with the app closed. Invalid/nonfinite values fall back or clamp. Desktop mode embeds under Explorer's icon layer through WorkerW or the Windows 11 24H2 raw-desktop Progman layout, with HWND_BOTTOM fallback. Hover in click-through polls cursor position without disabling click-through or activating the window; tray recovery remains available.
+
+`--demo` starts three provider supervisors and six workers that enter, finish, deliver papers, take breaks and leave on a repeating schedule (initially two workers are already on break). Models/tasks are explicitly fabricated. Repeatable startup overrides: `--zoom 2`, `--mode desktop`, `--click-through`, `--borderless`, `--transparent`, `--opacity .85`, `--quit-after 30`. Overrides use default settings; demo never writes personal settings. `--demo --smoke-test OUTPUT_DIR` renders a fabricated scene without opening a window.
 
 For the future Phase 2 consumer, run the tracker:
 
@@ -41,6 +45,17 @@ dotnet publish src/Vibedotcom.Tracker -c Release -o artifacts/publish/tracker
 
 These publishes require the .NET 10 runtime on the destination. No Phase 2 installation is available yet.
 
+## Pluggable art and office
+
+Normal startup reads `%LOCALAPPDATA%\Vibedotcom\assets\manifest.json` (PNG sheets, clips, roster, furniture and tile definitions) and `%LOCALAPPDATA%\Vibedotcom\layout.json` (tiles, rotated furniture and workspace/pantry/lounge/door zones). Missing or invalid input uses the bundled procedural fallback. Restart to reload; there is no live editor. Art being produced under `assets/art/` is separate and is not automatically bundled. See [docs/asset-format.md](docs/asset-format.md) for a small runtime manifest and the adapter naming rules for those production sheets.
+
+```powershell
+dotnet run --project src/Vibedotcom.App --no-build -- --demo --asset-dir C:/MyOfficeArt --layout C:/MyOffice/layout.json
+dotnet run --project src/Vibedotcom.Tracker --no-build -- --asset-dir C:/MyOfficeArt --layout C:/MyOffice/layout.json
+```
+
+Each agent's ID hash selects a roster design, probing unused eligible designs while available. Core chooses the exact PNG frame, foot anchor and rotation-specific seat; both WPF and the future Windhawk consumer receive that choice. The tracker emits schema v3, asset/layout format 1, hashed `sheets/*.png`, `manifest.json`, source `layout.json` (only if missing), resolved `runtime-layout.json` and the legacy fallback `atlas.png`. It never overwrites an existing editable layout. [docs/state-schema.md](docs/state-schema.md) documents version changes, atomic delivery and render equations.
+
 ## Sources and inference
 
 Formats were investigated read-only on this machine on 2026-10-03. No real prompts or transcripts are committed; fixtures contain invented example text.
@@ -55,15 +70,15 @@ Codex's `session_index.jsonl` and `state_5.sqlite` were considered; the database
 
 All transcript opens use `FileAccess.Read` and `FileShare.ReadWrite | FileShare.Delete`. No provider file, credential, setting, database or annotation is changed. Discovery enumerates file metadata every three seconds so a resumed old session can be found. Only recently modified logs, plus already-tracked files, are opened; unchanged files are skipped. Cold start reads at most a 512 KiB prefix and 512 KiB suffix for large logs. Subsequent reads continue from byte offsets, preserve partial UTF-8 records and recover after truncation. Records over 2 MiB are skipped with a warning; an unusually large metadata/prompt record crossing the bootstrap gap may be unavailable. Up to 8 MiB of newly appended data is processed per source per scan. This is observation by writes, not process enumeration.
 
-Working/thinking become idle after two minutes without a write. Explicit waiting remains waiting until another event or the 30-minute gone threshold. Workers' completion becomes reporting for 12 seconds, then idle. Gone characters remain for 60 seconds to walk out and are then forgotten; old sessions are omitted on a cold start. Idle activities rotate among coffee, TV, phone, napping and chatting. BFS avoids furniture; desks expand into additional rows as needed.
+Working/thinking become idle after two minutes without a write. Explicit waiting remains waiting until another event or the 30-minute gone threshold. Workers' completion becomes reporting for 12 seconds, then idle; visual pickup/carry/handover can outlast that window. Gone characters walk to the door and fade, then remain invisible until 60-second retention expires. Idle activities include coffee, silent TV, phone scrolling, sofa naps, paired chatting and water. A* avoids wall/void tiles and furniture collision cells; desk rows and office width adapt to allocated agents. Activity duration starts after arrival.
 
 ## Limits and verification
 
 - Log events can lag actual computation and approvals. Tool/result transitions infer work/thinking; waiting is inferred from explicit input requests or turn completion, not a live UI probe. Detached/background workers without transcripts cannot be discovered. Cold-start history outside the bounded prefix/suffix is intentionally not reconstructed.
 - No Claude subagent transcripts were present in the eight real files investigated. Worker path/sidechain parsing is covered by synthetic fixtures, not a live worker on this machine. Agent/Task tool calls show an agent bubble; they do not invent a worker before its transcript appears. Forked/historical sidechains can be ambiguous.
 - Antigravity is always marked `bestEffort:true`. DB checkpoints/WAL writes can look like work. SHM writes, empty WALs, annotations and general application logs do not count as activity. Model, project, role and subagent relationships are unknown when absent from the transcript. Versions with different transcript locations receive DB-mtime-only tracking.
-- The app uses nearest-neighbor sprites and a modest 10 fps scene loop. The tracker emits authoritative positions/frames at about 5 fps. Break-room actions are small visual poses; chatting is decorative, and no actual video/audio is played. A missing parent falls back to the worker's own desk.
-- Desktop-level is bottom z-order, not Explorer embedding. Fullscreen apps, virtual desktops and Explorer changes may affect visibility. Click-through disables office interaction; use the tray to recover. The normal/always-on-top/click-through native behavior follows [Windows layered-window rules](https://learn.microsoft.com/en-us/windows/win32/winmsg/window-features).
+- The app uses up to 30 fps while walking and 8 fps otherwise; it redraws when positions/frames change and caches the static room and decoded crops. Tracker polling runs off the UI thread. The tracker emits frames at about 5 fps. No actual video/audio plays. Missing parents fall back to the worker's own desk vicinity. Worlds larger than the viewport at 1× require panning.
+- Desktop embedding uses Explorer's private wallpaper protocol; shell/virtual-desktop changes can affect visibility. A lost host is retried, failure falls back to bottom z-order. Desktop icon hit testing cannot distinguish every icon shape. Click-through keeps clicks passing through; use the tray to change modes. Native behavior follows [Windows layered-window rules](https://learn.microsoft.com/en-us/windows/win32/winmsg/window-features); raw-desktop compatibility is best-effort shell integration.
 - **Lock-screen display is unavailable.** A normal user application remains on the Default desktop and cannot display on the protected Winlogon desktop. No workaround is attempted. See [Microsoft's desktop security documentation](https://learn.microsoft.com/en-us/windows/win32/winstation/desktops).
 - State snapshots contain local project paths and up to 240 characters of the last prompt; treat the output as private local data. No network traffic or uploads are performed by the tracker/viewer.
 
@@ -75,4 +90,14 @@ Start-Process artifacts/publish/app/Vibedotcom.App.exe -WindowStyle Hidden -Argu
 Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--smoke-test artifacts/app-smoke' -Wait
 ```
 
-This reads actual recent logs, decodes the generated atlas, advances the simulation and writes `office.png`, `smoke.txt` and the interchange files. It verifies WPF layout/rendering, not manual mouse/tray/native z-order behavior.
+With `--demo`, this reads no provider logs and writes phase captures, `office-1x/2x/3x.png`, a cropped viewport, `tooltip.png`, `transparent.png`, `smoke.txt` and interchange files. Without `--demo`, it reads recent logs. Hover is checked with a programmatic hit-test hook; no real cursor movement or keys are generated. It verifies offscreen layout/rendering, not native shell z-order or tray interaction.
+
+```powershell
+Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--demo --smoke-test artifacts/engine-qa' -Wait
+# 20-second bounded CPU sample, no visible window, fabricated idle agents/empty tracker home:
+Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--profile-idle artifacts/idle-profile' -Wait
+# Optional own-window lifecycle QA: nonactivating, offscreen, no tray/settings writes, bounded exit:
+Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--demo --qa --quit-after 5' -Wait
+```
+
+QA mode forces normal z-order and suppresses cursor polling. Desktop/topmost/click-through policy and classic/Win11 raw-desktop host selection are tested with fake HWND topologies, without changing the user's shell. No global keyboard/mouse input, Show Desktop, foreground activation or unrelated process termination is used. The controlled idle CPU sample is process CPU seconds / wall seconds / logical processors; it is a bounded measurement, not a guarantee for every log/art load.
