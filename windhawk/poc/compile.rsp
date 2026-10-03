@@ -1,0 +1,25 @@
+-std=c++23
+-O2
+-shared
+-target x86_64-w64-mingw32
+-DUNICODE
+-D_UNICODE
+-DWINVER=0x0A00
+-D_WIN32_WINNT=0x0A00
+-D_WIN32_IE=0x0A00
+-DNTDDI_VERSION=0x0A000008
+-D__USE_MINGW_ANSI_STDIO=0
+-DWH_MOD
+-DWH_MOD_ID=L\"vibedotcom-desktop-poc\"
+-DWH_MOD_VERSION=L\"0.1.0\"
+-include windhawk_api.h
+-Wl,--export-all-symbols
+-Wall
+-Wextra
+-lgdiplus
+-lgdi32
+-luser32
+-I"C:/Program Files/Windhawk/Compiler/include"
+"C:/Program Files/Windhawk/Engine/1.7.3/64/windhawk.lib"
+"C:/Codex-Workspace/Vibedotcom/windhawk/poc/poc.wh.cpp"
+-o "C:/Codex-Workspace/Vibedotcom/windhawk/poc/poc.dll"

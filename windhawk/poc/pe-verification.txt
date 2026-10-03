@@ -1,0 +1,4 @@
+﻿Machine: AMD64 (0x8664); format: PE32+ (0x20B)
+Imports: USER32.dll, gdiplus.dll, windhawk.dll, libc++.whl, libunwind.whl, msvcrt.dll, KERNEL32.dll
+Exported callbacks: _Z10Wh_ModInitv, _Z12Wh_ModUninitv, _Z15Wh_ModAfterInitv, _Z21Wh_ModSettingsChangedPi
+SHA256: 5D2D5794ADAB20EB83D76A32D56D1D25B9C2AA335EC1DA4156BC4A59D9749DA6
