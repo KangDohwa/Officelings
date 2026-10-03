@@ -1,0 +1,557 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1"
+  ],
+  "sheets": [
+    {
+      "id": "iso-carried-props",
+      "kind": "prop",
+      "file": "carried-props.png",
+      "cellW": 32,
+      "cellH": 32,
+      "anchor": {
+        "x": 16,
+        "y": 16
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "cup",
+          "direction": "se",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 24,
+            "y": 44
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "cup",
+          "direction": "sw",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 8,
+            "y": 44
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "cup",
+          "direction": "ne",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 24,
+            "y": 40
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "cup",
+          "direction": "nw",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 8,
+            "y": 40
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "water-cup",
+          "direction": "se",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 24,
+            "y": 44
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "water-cup",
+          "direction": "sw",
+          "row": 1,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 8,
+            "y": 44
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "water-cup",
+          "direction": "ne",
+          "row": 1,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 24,
+            "y": 40
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "water-cup",
+          "direction": "nw",
+          "row": 1,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 8,
+            "y": 40
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "phone",
+          "direction": "se",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 24,
+            "y": 44
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "phone",
+          "direction": "sw",
+          "row": 2,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 8,
+            "y": 44
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "phone",
+          "direction": "ne",
+          "row": 2,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 24,
+            "y": 40
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "phone",
+          "direction": "nw",
+          "row": 2,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 8,
+            "y": 40
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "report-paper",
+          "direction": "se",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 24,
+            "y": 44
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "report-paper",
+          "direction": "sw",
+          "row": 3,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 8,
+            "y": 44
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "report-paper",
+          "direction": "ne",
+          "row": 3,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 24,
+            "y": 40
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        },
+        {
+          "name": "report-paper",
+          "direction": "nw",
+          "row": 3,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactKind": "grasped-rim-or-edge",
+          "actorGripAnchor": {
+            "x": 8,
+            "y": 40
+          },
+          "handedness": "Uses the rig-authored S0 hand; no runtime body reflection."
+        }
+      ]
+    }
+  ],
+  "carriedProps": [
+    {
+      "id": "iso/prop/cup",
+      "sheetId": "iso-carried-props",
+      "animation": "cup",
+      "directions": [
+        "se",
+        "sw",
+        "ne",
+        "nw"
+      ],
+      "sourceGrip": {
+        "x": 16,
+        "y": 16
+      },
+      "actorGripAnchors": {
+        "se": {
+          "x": 24,
+          "y": 44
+        },
+        "sw": {
+          "x": 8,
+          "y": 44
+        },
+        "ne": {
+          "x": 24,
+          "y": 40
+        },
+        "nw": {
+          "x": 8,
+          "y": 40
+        }
+      },
+      "depth": "Owner ground depth; prop tie follows the authored hand, no independent floor shadow.",
+      "bodyPixelsIncluded": false
+    },
+    {
+      "id": "iso/prop/water-cup",
+      "sheetId": "iso-carried-props",
+      "animation": "water-cup",
+      "directions": [
+        "se",
+        "sw",
+        "ne",
+        "nw"
+      ],
+      "sourceGrip": {
+        "x": 16,
+        "y": 16
+      },
+      "actorGripAnchors": {
+        "se": {
+          "x": 24,
+          "y": 44
+        },
+        "sw": {
+          "x": 8,
+          "y": 44
+        },
+        "ne": {
+          "x": 24,
+          "y": 40
+        },
+        "nw": {
+          "x": 8,
+          "y": 40
+        }
+      },
+      "depth": "Owner ground depth; prop tie follows the authored hand, no independent floor shadow.",
+      "bodyPixelsIncluded": false
+    },
+    {
+      "id": "iso/prop/phone",
+      "sheetId": "iso-carried-props",
+      "animation": "phone",
+      "directions": [
+        "se",
+        "sw",
+        "ne",
+        "nw"
+      ],
+      "sourceGrip": {
+        "x": 16,
+        "y": 16
+      },
+      "actorGripAnchors": {
+        "se": {
+          "x": 24,
+          "y": 44
+        },
+        "sw": {
+          "x": 8,
+          "y": 44
+        },
+        "ne": {
+          "x": 24,
+          "y": 40
+        },
+        "nw": {
+          "x": 8,
+          "y": 40
+        }
+      },
+      "depth": "Owner ground depth; prop tie follows the authored hand, no independent floor shadow.",
+      "bodyPixelsIncluded": false
+    },
+    {
+      "id": "iso/prop/report-paper",
+      "sheetId": "iso-carried-props",
+      "animation": "report-paper",
+      "directions": [
+        "se",
+        "sw",
+        "ne",
+        "nw"
+      ],
+      "sourceGrip": {
+        "x": 16,
+        "y": 16
+      },
+      "actorGripAnchors": {
+        "se": {
+          "x": 24,
+          "y": 44
+        },
+        "sw": {
+          "x": 8,
+          "y": 44
+        },
+        "ne": {
+          "x": 24,
+          "y": 40
+        },
+        "nw": {
+          "x": 8,
+          "y": 40
+        }
+      },
+      "depth": "Owner ground depth; prop tie follows the authored hand, no independent floor shadow.",
+      "bodyPixelsIncluded": false
+    }
+  ],
+  "actionBindings": {
+    "coffee": "cup",
+    "water": "water-cup",
+    "phone": "phone",
+    "walk-report": "report-paper",
+    "pickup": "report-paper",
+    "report-handover": "report-paper",
+    "reporting": "report-paper"
+  },
+  "attachmentRule": {
+    "destination": "snapped actor destination + authored source-hand point - (16,16)",
+    "movingHandField": "handAnchorsByPhase",
+    "standingFallback": {
+      "se": {
+        "x": 24,
+        "y": 44
+      },
+      "sw": {
+        "x": 8,
+        "y": 44
+      },
+      "ne": {
+        "x": 24,
+        "y": 40
+      },
+      "nw": {
+        "x": 8,
+        "y": 40
+      }
+    },
+    "drawSeparate": true,
+    "actorPixelChanges": false
+  },
+  "provenance": {
+    "generation": "One GPT component row; sprite-gen component extraction; selected components each normalized once.",
+    "directionDerivation": "Grip-side variants; fixed upper-left repaint; authored phone/paper rear surfaces.",
+    "runtimeVerified": false
+  }
+}

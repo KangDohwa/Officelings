@@ -1,0 +1,11 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| carried-props.iso.json:iso-carried-props | cell sizes | PASS | 128×128, 32×32 cells |
+| carried-props.iso.json:iso-carried-props | transparency | PASS | straight alpha and guards |
+| carried-props.iso.json:iso-carried-props | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| carried-props.iso.json:iso-carried-props | palette | PASS | 12 colors; RGB max-channel tolerance 0 |
+| carried-props.iso.json:iso-carried-props | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| carried-props.iso.json:iso-carried-props | 6×6 seams | SKIP | floor sheets only |
+| carried-props.iso.json:iso-carried-props | depth-part names | SKIP | furniture sheets only |
+| carried-props.iso.json:iso-carried-props | face-lock / blink | SKIP | checked from normal character sheet |
+8 checks; 0 failed
