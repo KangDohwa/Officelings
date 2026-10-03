@@ -1,0 +1,19 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| cat.iso.json:iso-cat-normal | cell sizes | PASS | 128×288, 32×32 cells |
+| cat.iso.json:iso-cat-normal | transparency | PASS | straight alpha and guards |
+| cat.iso.json:iso-cat-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| cat.iso.json:iso-cat-normal | palette | PASS | 9 colors; RGB max-channel tolerance 0 |
+| cat.iso.json:iso-cat-normal | row contract | PASS | 9 rows / 36 cells |
+| cat.iso.json:iso-cat-normal | 6×6 seams | SKIP | floor sheets only |
+| cat.iso.json:iso-cat-normal | depth-part names | SKIP | furniture sheets only |
+| cat.iso.json:iso-cat-normal | face-lock / blink | SKIP | checked from normal character sheet |
+| cat.iso.json:iso-cat-shadow | cell sizes | PASS | 512×1152, 128×128 cells |
+| cat.iso.json:iso-cat-shadow | transparency | PASS | straight alpha and guards |
+| cat.iso.json:iso-cat-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| cat.iso.json:iso-cat-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| cat.iso.json:iso-cat-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| cat.iso.json:iso-cat-shadow | 6×6 seams | SKIP | floor sheets only |
+| cat.iso.json:iso-cat-shadow | depth-part names | SKIP | furniture sheets only |
+| cat.iso.json:iso-cat-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+16 checks; 0 failed
