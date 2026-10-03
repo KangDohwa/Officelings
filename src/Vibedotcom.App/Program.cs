@@ -32,6 +32,29 @@ internal sealed record Settings
     public double Opacity { get; init; } = 1;
     public double WorkingSeconds { get; init; } = 120;
     public double GoneMinutes { get; init; } = 30;
+
+    internal Settings Normalize()
+    {
+        static double Number(double value, double fallback, double min, double max) => double.IsFinite(value) ? Math.Clamp(value, min, max) : fallback;
+        var working = Number(WorkingSeconds, 120, 1, 86400);
+        return this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
+            Zoom = Number(Zoom, 0, 0, 6), Width = Number(Width, 720, 400, 3000), Height = Number(Height, 480, 300, 2000),
+            Left = Left is {} x && double.IsFinite(x) ? Math.Clamp(x, -100000, 100000) : null,
+            Top = Top is {} y && double.IsFinite(y) ? Math.Clamp(y, -100000, 100000) : null,
+            Opacity = Number(Opacity, 1, .25, 1), WorkingSeconds = working,
+            GoneMinutes = Math.Max(Number(GoneMinutes, 30, 1, 10080), (working + 1) / 60) };
+    }
+
+    internal static Settings Read(string path)
+    {
+        try
+        {
+            if (new FileInfo(path).Length > 65536) return new();
+            using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            return (JsonSerializer.Deserialize<Settings>(file, StateJson.Options) ?? new()).Normalize();
+        }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return new(); }
+    }
 }
 
 internal static class Program
@@ -66,14 +89,29 @@ internal static class Program
                     default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
                 }
             }
+            using var storage = new AppStorage(demo || qa || profile != null || smoke != null || verifyOpacity != null);
+            storage.CheckInput(layoutFile); storage.CheckInput(assetDirectory);
             var app = new Application();
             if (verifyOpacity != null) return OpacityVerification.Run(verifyOpacity);
-            var assets = AssetPack.LoadDefault(assetDirectory, useUserPack: !demo && !qa && profile == null);
-            var layout = LayoutLoader.Load(assets,layoutFile ?? (demo || qa || profile != null ? null : Path.Combine(TrackerOptions.OutputDirectory,"layout.json")),assets.Warnings);
-            if (profile != null) return ProfileIdle(profile,assets,layout);
-            if (smoke != null) return Smoke(smoke,demo,assets,layout);
+            (AssetPack Assets, OfficeLayout Layout) LoadOffice()
+            {
+                var assets = AssetPack.LoadDefault(assetDirectory, useUserPack: !storage.Isolated);
+                return (assets, LayoutLoader.Load(assets, layoutFile ?? storage.LayoutPath, assets.Warnings));
+            }
+            if (profile != null) { var loaded = LoadOffice(); return ProfileIdle(profile,loaded.Assets,loaded.Layout); }
+            if (smoke != null) { var loaded = LoadOffice(); return Smoke(smoke,demo,loaded.Assets,loaded.Layout); }
             if (qa && (!double.IsFinite(quitAfter) || quitAfter<=0 || quitAfter>60)) throw new ArgumentException("--qa requires --quit-after in (0,60].");
-            return app.Run(new OfficeWindow(demo,initial,quitAfter,assets,layout,qa));
+            // Parsing user JSON and validating PNGs never occupies the dispatcher.
+            app.Startup += async (_, _) =>
+            {
+                try
+                {
+                    var loaded = await LoadOfficeAsync(assetDirectory, layoutFile, storage);
+                    new OfficeWindow(demo,initial,quitAfter,loaded.Assets,loaded.Layout,qa,liveOffice: loaded.Office,storage: storage,decodedSheets: loaded.Sheets).Show();
+                }
+                catch (Exception e) { Console.Error.WriteLine(e); app.Shutdown(1); }
+            };
+            return app.Run();
         }
         catch (Exception e)
         {
@@ -128,6 +166,14 @@ internal static class Program
         if(demo) ReviewRenders(output,assets,layout);
         return 0;
     }
+
+    internal static Task<(AssetPack Assets, OfficeLayout Layout, OfficeAnimator Office, IReadOnlyDictionary<string, BitmapSource> Sheets)> LoadOfficeAsync(string? assetDirectory, string? layoutFile, AppStorage storage) => Task.Run(() =>
+    {
+        storage.CheckInput(assetDirectory); storage.CheckInput(layoutFile);
+        var assets = AssetPack.LoadDefault(assetDirectory, useUserPack: !storage.Isolated);
+        var layout = LayoutLoader.Load(assets, layoutFile ?? storage.LayoutPath, assets.Warnings);
+        return (assets, layout, new OfficeAnimator(42, assets, layout), OfficeView.DecodeSheets(assets));
+    });
     internal static void Render(FrameworkElement view,int width,int height,string file)
     {
         var bitmap=RenderBitmap(view,width,height);
@@ -173,7 +219,7 @@ internal static class Program
                 { view.SetZoom(zoom); Render(view,office.Layout.WidthTiles*16*zoom+32,office.Layout.HeightTiles*16*zoom+32,Path.Combine(output,$"normal-{zoom}x.png")); }
                 view.SetZoom(0);Render(view,400,300,Path.Combine(output,"auto-fit-small.png"));
                 view.Width=double.NaN;view.Height=double.NaN;
-                var panel=new OfficeEditorPanel(view,assets,office.SourceLayout);
+                var panel=new OfficeEditorPanel(view,assets,office.SourceLayout,Path.Combine(output,"layout.json"));
                 var host=new DockPanel { Background=new SolidColorBrush(OfficeView.BackgroundColor) };DockPanel.SetDock(panel,Dock.Left);host.Children.Add(panel);host.Children.Add(view);
                 Render(host,1500,840,Path.Combine(output,"editor-ui.png"));panel.Detach();
             }
@@ -273,7 +319,8 @@ internal static class DemoScenario
 
 internal sealed class OfficeWindow : Window
 {
-    private readonly string settingsPath = Path.Combine(TrackerOptions.OutputDirectory,"settings.json");
+    private readonly AppStorage storage;
+    private string settingsPath => storage.SettingsPath;
     private Settings settings;
     private readonly bool demo, qa;
     private readonly DateTimeOffset epoch = DateTimeOffset.UtcNow;
@@ -295,13 +342,15 @@ internal sealed class OfficeWindow : Window
     private string warning = "";
 
     public OfficeWindow(bool demo = false, Settings? initial = null, double quitAfter = 0, AssetPack? assets = null, OfficeLayout? layout = null, bool qa = false,
-        OfficeAnimator? liveOffice = null, IReadOnlyList<AgentInfo>? liveAgents = null, DateTimeOffset? demoEpoch = null)
+        OfficeAnimator? liveOffice = null, IReadOnlyList<AgentInfo>? liveAgents = null, DateTimeOffset? demoEpoch = null, AppStorage? storage = null,
+        IReadOnlyDictionary<string, BitmapSource>? decodedSheets = null)
     {
         this.demo = demo;
+        this.storage = storage ?? new AppStorage(demo || qa);
         this.qa = qa; this.epoch=demoEpoch ?? DateTimeOffset.UtcNow;
-        this.assets = assets ?? new(); view = new(this.assets); office = liveOffice ?? new(42,this.assets,layout);
+        this.assets = assets ?? new(); view = new(this.assets, this.storage.Isolated ? Path.Combine(this.storage.Home,"brand") : null, decodedSheets); office = liveOffice ?? new(42,this.assets,layout);
         agents=liveAgents ?? Array.Empty<AgentInfo>();
-        settings = initial ?? (demo || qa ? new() : ReadSettings());
+        settings = (initial ?? ReadSettings()).Normalize();
         if (qa) settings=settings with { Mode="normal",Borderless=true,Width=400,Height=300,Left=-30000,Top=-30000 };
         Title = demo ? "Vibedotcom — demo office" : "Vibedotcom — agent office";
         Width = Finite(settings.Width,720,400,3000); Height = Finite(settings.Height,480,300,2000);
@@ -311,19 +360,18 @@ internal sealed class OfficeWindow : Window
         Background = AllowsTransparency ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor);
         ShowInTaskbar = !qa && settings.Mode != "desktop"; Topmost = !qa && settings.Mode == "topmost";
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        if (settings.Left is { } left && settings.Top is { } top && double.IsFinite(left) && double.IsFinite(top) &&
-            new Rect(SystemParameters.VirtualScreenLeft,SystemParameters.VirtualScreenTop,SystemParameters.VirtualScreenWidth,SystemParameters.VirtualScreenHeight)
-                .IntersectsWith(new Rect(left,top,Width,Height)))
-        { WindowStartupLocation = WindowStartupLocation.Manual; Left = left; Top = top; }
+        if (settings.Left is { } left && settings.Top is { } top)
+        { WindowStartupLocation = WindowStartupLocation.Manual; Place(WindowPlacement.Clamp(new(left,top,Width,Height), WorkingAreas())); }
         if (qa) { WindowStartupLocation=WindowStartupLocation.Manual; Left=-30000; Top=-30000; }
         view.SetZoom((int)Math.Round(Finite(settings.Zoom,0,0,6)));
         ShowActivated = !qa && settings.Mode != "desktop" && !settings.ClickThrough;
         var options = new TrackerOptions
         {
+            Home = this.storage.Isolated ? this.storage.Home : new TrackerOptions().Home,
             WorkingWindow = TimeSpan.FromSeconds(Finite(settings.WorkingSeconds,120,1,86400)),
             GoneAfter = TimeSpan.FromMinutes(Finite(settings.GoneMinutes,30,1,10080))
         };
-        if (options.GoneAfter <= options.WorkingWindow) options = new();
+        if (options.GoneAfter <= options.WorkingWindow) options = options with { GoneAfter = options.WorkingWindow + TimeSpan.FromSeconds(1) };
         tracker = new(options); modes = new(this,qa);
         var root = new DockPanel { Background=settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor) };
         var bar = new DockPanel { Margin = new(16,9,16,9), LastChildFill = true };
@@ -363,22 +411,15 @@ internal sealed class OfficeWindow : Window
 
     private static double Finite(double value,double fallback,double min,double max) => double.IsFinite(value) ? Math.Clamp(value,min,max) : fallback;
     private Settings ReadSettings()
-    {
-        try
-        {
-            using var file = new FileStream(settingsPath,FileMode.Open,FileAccess.Read,FileShare.ReadWrite|FileShare.Delete);
-            return JsonSerializer.Deserialize<Settings>(file,StateJson.Options) ?? new();
-        }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return new(); }
-    }
+        => Settings.Read(settingsPath);
     private void Save()
     {
         if (demo || qa) return; // QA must not overwrite personal settings.
         var bounds = WindowState == WindowState.Normal ? modes.ScreenBounds : RestoreBounds;
         if (bounds.IsEmpty || !double.IsFinite(bounds.Left) || !double.IsFinite(bounds.Top)) return;
-        settings = settings with { Width = bounds.Width, Height = bounds.Height, Left = bounds.Left, Top = bounds.Top, Zoom = view.PreferredZoom };
+        settings = (settings with { Width = bounds.Width, Height = bounds.Height, Left = bounds.Left, Top = bounds.Top, Zoom = view.PreferredZoom }).Normalize();
         try { StateJson.WriteAtomic(settingsPath,JsonSerializer.SerializeToUtf8Bytes(settings,StateJson.Options)); }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException) { warning = "Cannot save settings: "+e.Message; }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or ArgumentException or JsonException) { warning = "Cannot save settings: "+e.Message; }
     }
     private void ApplyModes()
     {
@@ -402,13 +443,13 @@ internal sealed class OfficeWindow : Window
         if (AllowsTransparency != (settings.Mode == "desktop" || settings.TransparentBackground)) Reopen();
         else { if(Content is Panel root) root.Background = settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor); ApplyModes(); Save(); }
     }
-    private void Reopen()
+    private void Reopen(Rect? restoredBounds = null)
     {
-        var bounds = modes.ScreenBounds;
+        var bounds = restoredBounds ?? modes.ScreenBounds;
         settings = settings with { Width = bounds.Width, Height = bounds.Height, Left = bounds.Left, Top = bounds.Top, Zoom = view.PreferredZoom };
         // WPF fixes AllowsTransparency at HWND creation. Replace only when that native surface changes.
         var wasEditing=editor != null;
-        var replacement = new OfficeWindow(demo,settings,0,assets,editor?.Editor.Layout ?? office.SourceLayout,qa,office,agents,epoch);
+        var replacement = new OfficeWindow(demo,settings,0,assets,editor?.Editor.Layout ?? office.SourceLayout,qa,office,agents,epoch,storage,view.DecodedSheets);
         replacement.pendingEditor=editor?.Editor;
         if(wasEditing) replacement.ToggleEditor();
         Application.Current.MainWindow=replacement; replacement.Show(); Close();
@@ -417,9 +458,17 @@ internal sealed class OfficeWindow : Window
     private void Recover()
     {
         settings = settings with { Mode = "normal", ClickThrough = false, Borderless = false, TransparentBackground = false };
-        if (AllowsTransparency) { Reopen(); return; }
-        ApplyModes(); Show(); WindowState = WindowState.Normal; Save();
+        var bounds = WindowPlacement.Clamp(modes.ScreenBounds, WorkingAreas());
+        if (AllowsTransparency) { Reopen(bounds); return; }
+        ApplyModes(); Show(); WindowState = WindowState.Normal; Place(bounds); Save();
     }
+    private Rect[] WorkingAreas()
+    {
+        var dpi = VisualTreeHelper.GetDpi(this);
+        return Forms.Screen.AllScreens.Select(s => new Rect(s.WorkingArea.Left / dpi.DpiScaleX, s.WorkingArea.Top / dpi.DpiScaleY,
+            s.WorkingArea.Width / dpi.DpiScaleX, s.WorkingArea.Height / dpi.DpiScaleY)).ToArray();
+    }
+    private void Place(Rect bounds) { Width = bounds.Width; Height = bounds.Height; Left = bounds.Left; Top = bounds.Top; }
     private (string Title,Action Action,Func<bool>? Check)[] MenuItems() =>
     [
         ("Normal",()=>SetMode("normal"),()=>settings.Mode=="normal"),
@@ -490,7 +539,7 @@ internal sealed class OfficeWindow : Window
     {
         if(editor != null)
         { var old=editor;editor=null;old.Detach();surface.Children.Remove(old);ApplyModes();return; }
-        editor=new OfficeEditorPanel(view,assets,office.SourceLayout,pendingEditor);pendingEditor=null;
+        editor=new OfficeEditorPanel(view,assets,office.SourceLayout,storage.LayoutPath,pendingEditor);pendingEditor=null;
         editor.LayoutChanged+=()=>
         {
             try { office.ReloadLayout(editor.Editor.Layout);warning=""; }

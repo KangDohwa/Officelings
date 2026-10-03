@@ -56,16 +56,23 @@ internal sealed class OfficeView : FrameworkElement
     public int RenderedAgentTags { get; private set; }
     public int RenderedReservedTags { get; private set; }
 
-    public OfficeView(AssetPack? assets = null, string? brandDirectory = null)
+    internal IReadOnlyDictionary<string, BitmapSource> DecodedSheets => sheets;
+    internal static IReadOnlyDictionary<string, BitmapSource> DecodeSheets(AssetPack assets)
     {
-        this.assets = assets ?? new();
-        brandIcons = new(brandDirectory);
-        foreach (var (id, bytes) in this.assets.Images)
+        var result = new Dictionary<string, BitmapSource>();
+        foreach (var (id, bytes) in assets.Images)
         {
             using var stream = new MemoryStream(bytes);
             var image = new BitmapImage(); image.BeginInit(); image.CacheOption = BitmapCacheOption.OnLoad;
-            image.StreamSource = stream; image.EndInit(); image.Freeze(); sheets[id] = image;
+            image.StreamSource = stream; image.EndInit(); image.Freeze(); result[id] = image;
         }
+        return result;
+    }
+    public OfficeView(AssetPack? assets = null, string? brandDirectory = null, IReadOnlyDictionary<string, BitmapSource>? decodedSheets = null)
+    {
+        this.assets = assets ?? new();
+        brandIcons = new(brandDirectory);
+        foreach (var (id, image) in decodedSheets ?? DecodeSheets(this.assets)) sheets[id] = image;
         RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
         RenderOptions.SetEdgeMode(this, EdgeMode.Aliased); SnapsToDevicePixels = true; ClipToBounds = true;
         TextOptions.SetTextFormattingMode(this, TextFormattingMode.Display);

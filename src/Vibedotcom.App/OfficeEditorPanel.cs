@@ -15,6 +15,7 @@ internal sealed class OfficeEditorPanel : Border
 {
     private readonly OfficeView view;
     private readonly AssetPack assets;
+    private readonly string savePath;
     private readonly ComboBox tools = new() { Margin=new(0,5,0,6) };
     private readonly ListBox palette = new() { Height=240, Background=Brushes.Transparent, BorderThickness=new(0), Foreground=Brushes.White };
     private readonly TextBox search = new() { Margin=new(0,4,0,4) };
@@ -31,9 +32,9 @@ internal sealed class OfficeEditorPanel : Border
     public event Action? ExitRequested;
     public event Action? SaveSucceeded;
     private string Tool => (string?)tools.SelectedItem ?? "Select / move";
-    public OfficeEditorPanel(OfficeView view, AssetPack assets, OfficeLayout layout, OfficeEditor? liveEditor = null)
+    public OfficeEditorPanel(OfficeView view, AssetPack assets, OfficeLayout layout, string savePath, OfficeEditor? liveEditor = null)
     {
-        this.view=view; this.assets=assets; Editor=liveEditor ?? new(assets,layout);
+        this.view=view; this.assets=assets; this.savePath=savePath; Editor=liveEditor ?? new(assets,layout);
         Width=250; Background=new SolidColorBrush(Color.FromRgb(27,48,51)); Padding=new(12);
         var body=new StackPanel(); Child=new ScrollViewer { Content=body, VerticalScrollBarVisibility=ScrollBarVisibility.Auto };
         body.Children.Add(new TextBlock { Text="Edit office", Foreground=Brushes.White, FontSize=17, FontWeight=FontWeights.SemiBold });
@@ -166,7 +167,7 @@ internal sealed class OfficeEditorPanel : Border
     private void Save()
     {
         var errors=Editor.Validate();if(errors.Count>0) { Validate();return; }
-        try { Editor.Save(System.IO.Path.Combine(TrackerOptions.OutputDirectory,"layout.json"));message.Text="Saved office · previous layout kept as layout.json.bak.";SaveSucceeded?.Invoke(); }
+        try { Editor.Save(savePath);message.Text="Saved office · previous layout kept as layout.json.bak.";SaveSucceeded?.Invoke(); }
         catch(Exception e) when(e is IOException or UnauthorizedAccessException or InvalidOperationException) { message.Text="Save failed: "+e.Message; }
     }
     private void ResizeDialog()
