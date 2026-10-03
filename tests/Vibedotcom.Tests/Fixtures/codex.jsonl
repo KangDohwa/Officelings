@@ -1,0 +1,8 @@
+{"timestamp":"2026-10-03T12:00:00Z","type":"session_meta","payload":{"id":"child-1","parent_thread_id":"parent-1","cwd":"C:/Example","agent_nickname":"Ada","agent_role":"researcher","source":{"subagent":{"thread_spawn":{"parent_thread_id":"parent-1","depth":1,"agent_nickname":"Ada","agent_role":"researcher"}}}}}
+{"timestamp":"2026-10-03T12:00:01Z","type":"turn_context","payload":{"cwd":"C:/Example","model":"example-model"}}
+{"timestamp":"2026-10-03T12:00:02Z","type":"event_msg","payload":{"type":"user_message","message":"Inspect the example file."}}
+{"timestamp":"2026-10-03T12:00:03Z","type":"response_item","payload":{"type":"custom_tool_call","name":"exec","input":"text(await tools.exec_command({cmd: 'example'}));"}}
+{"timestamp":"2026-10-03T12:00:04Z","type":"response_item","payload":{"type":"custom_tool_call_output","output":"example output"}}
+{"timestamp":"2026-10-03T12:00:05Z","type":"response_item","payload":{"type":"function_call","name":"request_user_input","arguments":"{}"}}
+{"timestamp":"2026-10-03T12:00:06Z","type":"response_item","payload":{"type":"message","role":"assistant","phase":"final_answer","content":[{"type":"output_text","text":"Example finished."}]}}
+{"timestamp":"2026-10-03T12:00:07Z","type":"event_msg","payload":{"type":"task_complete"}}

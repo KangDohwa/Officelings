@@ -1,0 +1,5 @@
+{"timestamp":"2026-10-03T12:00:00Z","type":"user","sessionId":"parent-1","agentId":"worker-1","isSidechain":true,"parentUuid":"message-id-not-session-id","cwd":"C:/Example","message":{"role":"user","content":"Inspect the example file."}}
+{"timestamp":"2026-10-03T12:00:01Z","type":"assistant","sessionId":"parent-1","agentId":"worker-1","isSidechain":true,"message":{"model":"example-claude","content":[{"type":"thinking","thinking":"example"}],"stop_reason":null}}
+{"timestamp":"2026-10-03T12:00:02Z","type":"assistant","sessionId":"parent-1","agentId":"worker-1","isSidechain":true,"message":{"model":"example-claude","content":[{"type":"tool_use","id":"tool-1","name":"Read","input":{"file_path":"example.txt"}}],"stop_reason":"tool_use"}}
+{"timestamp":"2026-10-03T12:00:03Z","type":"user","sessionId":"parent-1","agentId":"worker-1","isSidechain":true,"message":{"role":"user","content":[{"type":"tool_result","tool_use_id":"tool-1","content":"example output"}]}}
+{"timestamp":"2026-10-03T12:00:04Z","type":"assistant","sessionId":"parent-1","agentId":"worker-1","isSidechain":true,"message":{"content":[{"type":"text","text":"Example finished."}],"stop_reason":"end_turn"}}
