@@ -55,16 +55,25 @@ Character delivery notes and QA records are listed below. They are art-productio
 | --- | --- | --- |
 | afro-sweater | [README](../assets/art/roster/afro-sweater/README.md) | [Notes](../assets/art/roster/afro-sweater/qa-notes.md) |
 | apron-baker | [README](../assets/art/roster/apron-baker/README.md) | [Notes](../assets/art/roster/apron-baker/qa-notes.md) |
+| astro-hoodie | [README](../assets/art/roster/astro-hoodie/README.md) | [Notes](../assets/art/roster/astro-hoodie/qa-notes.md) |
 | beanie-scarf | [README](../assets/art/roster/beanie-scarf/README.md) | [Notes](../assets/art/roster/beanie-scarf/qa-notes.md) |
 | cap-teen | [README](../assets/art/roster/cap-teen/README.md) | [Notes](../assets/art/roster/cap-teen/qa-notes.md) |
 | cat-hood | [README](../assets/art/roster/cat-hood/README.md) | [Notes](../assets/art/roster/cat-hood/qa-notes.md) |
 | chef-sous | [README](../assets/art/roster/chef-sous/README.md) | [Notes](../assets/art/roster/chef-sous/qa-notes.md) |
+| cyber-courier | [README](../assets/art/roster/cyber-courier/README.md) | [Notes](../assets/art/roster/cyber-courier/qa-notes.md) |
 | dev-hoodie | [README](../assets/art/roster/dev-hoodie/README.md) | [Notes](../assets/art/roster/dev-hoodie/qa-notes.md) |
+| gardener-botanist | [README](../assets/art/roster/gardener-botanist/README.md) | [Notes](../assets/art/roster/gardener-botanist/qa-notes.md) |
 | glasses-bun | [README](../assets/art/roster/glasses-bun/README.md) | [Notes](../assets/art/roster/glasses-bun/qa-notes.md) |
+| granny-knit | [README](../assets/art/roster/granny-knit/README.md) | [Notes](../assets/art/roster/granny-knit/qa-notes.md) |
+| hanbok-modern | [README](../assets/art/roster/hanbok-modern/README.md) | [Notes](../assets/art/roster/hanbok-modern/qa-notes.md) |
 | hijab-designer | [README](../assets/art/roster/hijab-designer/README.md) | [Notes](../assets/art/roster/hijab-designer/qa-notes.md) |
 | labcoat-tall | [README](../assets/art/roster/labcoat-tall/README.md) | [Notes](../assets/art/roster/labcoat-tall/qa-notes.md) |
 | manager-suit | [README](../assets/art/roster/manager-suit/README.md) | [Notes](../assets/art/roster/manager-suit/qa-notes.md) |
+| mohawk-skater | [README](../assets/art/roster/mohawk-skater/README.md) | [Notes](../assets/art/roster/mohawk-skater/qa-notes.md) |
 | nurse-nightowl | [README](../assets/art/roster/nurse-nightowl/README.md) | QA details in delivery notes. |
 | professor | [README](../assets/art/roster/professor/README.md) | [Notes](../assets/art/roster/professor/qa-notes.md) |
 | punk-girl | [README](../assets/art/roster/punk-girl/README.md) | [Notes](../assets/art/roster/punk-girl/qa-notes.md) |
+| punk-grandpa | [README](../assets/art/roster/punk-grandpa/README.md) | [Notes](../assets/art/roster/punk-grandpa/qa-notes.md) |
 | red-braid | [README](../assets/art/roster/red-braid/README.md) | [Notes](../assets/art/roster/red-braid/qa-notes.md) |
+| robot-intern | [README](../assets/art/roster/robot-intern/README.md) | [Notes](../assets/art/roster/robot-intern/qa-notes.md) |
+| viking-sysadmin | [README](../assets/art/roster/viking-sysadmin/README.md) | [Notes](../assets/art/roster/viking-sysadmin/qa-notes.md) |
