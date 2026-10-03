@@ -1,6 +1,6 @@
 # Brand icons (local use only)
 
-Official provider icons are **not** redistributed with this project. See the "Trademarks, brand assets and licensing" section of the top-level README for the owners' rules and the pre-publication checklist.
+Official provider icons are not redistributed with this project. See [TRADEMARKS.md](../../TRADEMARKS.md) for owner guidelines and the [release checklist](../../docs/release-checklist.md) for public-release work.
 
 The optional fetch tool downloads the originals below onto your own machine and writes a local PNG overlay. It does not run a build, rebuild the pack or enable embedding. Default builds use generic icons with `EmbedBrandOverlay=false`; keep that default for builds you share. Downloading an overlay does not change this setting.
 
@@ -14,7 +14,7 @@ These are provider-hosted UI assets, not a grant of permission to use or redistr
 
 ## Optional local usage
 
-Use an existing Python environment with **Pillow**, which the project's art tools also use. The tool never installs dependencies. If a working **CairoSVG** renderer is already installed, the Gemini SVG is rasterized at 288px first. Otherwise it uses the official 256px PNG, so an SVG renderer is not required.
+Use an existing Python environment with Pillow, which the project's art tools also use. The tool never installs dependencies. If a working CairoSVG renderer is already installed, the Gemini SVG is rasterized at 288px first. Otherwise it uses the official 256px PNG, so an SVG renderer is not required.
 
 From the repository root:
 
@@ -24,11 +24,11 @@ python -B tools/fetch_brand_icons.py --no-recolor
 ./tools/fetch_brand_icons.ps1 -Python 'C:\path\to\venv\Scripts\python.exe' -NoRecolor
 ```
 
-Both commands default to **original colors** (`--no-recolor` / `-NoRecolor` can be omitted). This conservative default avoids changing the glyph colors, but does not guarantee brand-guideline compliance. Each invocation downloads the sources again; network access is needed. A fetch or processing failure returns a nonzero exit code. If the SVG download or renderer is unavailable, the official PNG is tried instead.
+Both commands default to original colors (`--no-recolor` / `-NoRecolor` can be omitted). This conservative default avoids changing the glyph colors, but does not guarantee brand-guideline compliance. Each invocation downloads the sources again; network access is needed. A fetch or processing failure returns a nonzero exit code. If the SVG download or renderer is unavailable, the official PNG is tried instead.
 
 - Raw downloads keep their original bytes and URL filenames in git-ignored `assets/brand/originals/`. The fallback PNG is downloaded when needed.
-- The nine outputs go to git-ignored `assets/brand-overlay/`: `codex.png`, `claude.png`, `antigravity.png` on **12x12** canvases, plus `codex@2x.png`, `claude@2x.png`, `antigravity@2x.png` on **24x24**, and matching `@3x.png` files on **36x36**.
-- Every size is fitted proportionally and downsampled directly from the largest original ICO frame, original PNG or supersampled SVG using premultiplied-alpha **Lanczos**. The 2x/3x files are never enlarged from the 12px output. Fully transparent pixels have zero RGB; partial alpha and glyph holes are retained.
+- The nine outputs go to git-ignored `assets/brand-overlay/`: `codex.png`, `claude.png`, `antigravity.png` on 12x12 canvases, plus `codex@2x.png`, `claude@2x.png`, `antigravity@2x.png` on 24x24, and matching `@3x.png` files on 36x36.
+- Every size is fitted proportionally and downsampled directly from the largest original ICO frame, original PNG or supersampled SVG using premultiplied-alpha Lanczos. The 2x/3x files are never enlarged from the 12px output. Fully transparent pixels have zero RGB; partial alpha and glyph holes are retained.
 - Claude retains the orange square and white glyph. Only its corners are masked, at the original resolution, with a radius of 22% of the tile width to make a rounded app icon. Gemini retains its gradient. Neither logo is redrawn or reduced to a monochrome silhouette.
 
 For a light ChatGPT glyph on a dark background, explicitly opt in:
@@ -53,7 +53,7 @@ The default directories are resolved relative to the repository, independent of 
 
 ## Using the overlay in the app
 
-The runtime does **not** scan the repository's `assets/brand-overlay/` directory. Its precedence is valid per-provider icons in `%LOCALAPPDATA%\Vibedotcom\brand\`, then optional embedded icons, then the generic pack. It uses the nearest valid density when a density is missing or corrupt.
+The runtime does not scan the repository's `assets/brand-overlay/` directory. Its precedence is valid per-provider icons in `%LOCALAPPDATA%\Vibedotcom\brand\`, then optional embedded icons, then the generic pack. It uses the nearest valid density when a density is missing or corrupt.
 
 To copy the nine generated PNGs into the per-user runtime folder, explicitly use `--install`. This replaces those nine filenames there, preserves unrelated files and does not copy the originals:
 
