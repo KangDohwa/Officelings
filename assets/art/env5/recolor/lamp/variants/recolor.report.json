@@ -1,0 +1,179 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "material.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 3,
+  "variants": [
+    {
+      "name": "white",
+      "sheet": "white.png",
+      "substituted_pixels": 154,
+      "substitutions": [
+        {
+          "from": "#d0b999",
+          "to": "#808985",
+          "pixels": 15
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 37
+        },
+        {
+          "from": "#e7d1ac",
+          "to": "#e7d1ac",
+          "pixels": 22
+        },
+        {
+          "from": "#f2e7c0",
+          "to": "#faecc9",
+          "pixels": 69
+        },
+        {
+          "from": "#f2ebd3",
+          "to": "#faecc9",
+          "pixels": 1
+        },
+        {
+          "from": "#f6f3dc",
+          "to": "#f9f6e3",
+          "pixels": 1
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 1
+        },
+        {
+          "from": "#fbf5d9",
+          "to": "#f9f6e3",
+          "pixels": 2
+        },
+        {
+          "from": "#fbf5da",
+          "to": "#f9f6e3",
+          "pixels": 6
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "green",
+      "sheet": "green.png",
+      "substituted_pixels": 154,
+      "substitutions": [
+        {
+          "from": "#d0b999",
+          "to": "#1d3a39",
+          "pixels": 15
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#235e5c",
+          "pixels": 37
+        },
+        {
+          "from": "#e7d1ac",
+          "to": "#348884",
+          "pixels": 22
+        },
+        {
+          "from": "#f2e7c0",
+          "to": "#5db1a5",
+          "pixels": 69
+        },
+        {
+          "from": "#f2ebd3",
+          "to": "#5db1a5",
+          "pixels": 1
+        },
+        {
+          "from": "#f6f3dc",
+          "to": "#5db1a5",
+          "pixels": 1
+        },
+        {
+          "from": "#faecc9",
+          "to": "#5db1a5",
+          "pixels": 1
+        },
+        {
+          "from": "#fbf5d9",
+          "to": "#5db1a5",
+          "pixels": 2
+        },
+        {
+          "from": "#fbf5da",
+          "to": "#5db1a5",
+          "pixels": 6
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "red",
+      "sheet": "red.png",
+      "substituted_pixels": 154,
+      "substitutions": [
+        {
+          "from": "#d0b999",
+          "to": "#61282b",
+          "pixels": 15
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#61282b",
+          "pixels": 37
+        },
+        {
+          "from": "#e7d1ac",
+          "to": "#9a4240",
+          "pixels": 22
+        },
+        {
+          "from": "#f2e7c0",
+          "to": "#bf6554",
+          "pixels": 69
+        },
+        {
+          "from": "#f2ebd3",
+          "to": "#bf6554",
+          "pixels": 1
+        },
+        {
+          "from": "#f6f3dc",
+          "to": "#bd9a94",
+          "pixels": 1
+        },
+        {
+          "from": "#faecc9",
+          "to": "#bf6554",
+          "pixels": 1
+        },
+        {
+          "from": "#fbf5d9",
+          "to": "#bd9a94",
+          "pixels": 2
+        },
+        {
+          "from": "#fbf5da",
+          "to": "#bd9a94",
+          "pixels": 6
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    }
+  ]
+}

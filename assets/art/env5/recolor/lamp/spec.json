@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-recolor",
+  "match": "exact",
+  "tolerance": 0,
+  "variants": [
+    {
+      "name": "white",
+      "map": {
+        "#d0b999": "#808985",
+        "#dbc5a3": "#dbc5a3",
+        "#e7d1ac": "#e7d1ac",
+        "#f2e7c0": "#faecc9",
+        "#f2ebd3": "#faecc9",
+        "#f6f3dc": "#f9f6e3",
+        "#faecc9": "#faecc9",
+        "#fbf5d9": "#f9f6e3",
+        "#fbf5da": "#f9f6e3"
+      }
+    },
+    {
+      "name": "green",
+      "map": {
+        "#d0b999": "#1d3a39",
+        "#dbc5a3": "#235e5c",
+        "#e7d1ac": "#348884",
+        "#f2e7c0": "#5db1a5",
+        "#f2ebd3": "#5db1a5",
+        "#f6f3dc": "#5db1a5",
+        "#faecc9": "#5db1a5",
+        "#fbf5d9": "#5db1a5",
+        "#fbf5da": "#5db1a5"
+      }
+    },
+    {
+      "name": "red",
+      "map": {
+        "#d0b999": "#61282b",
+        "#dbc5a3": "#61282b",
+        "#e7d1ac": "#9a4240",
+        "#f2e7c0": "#bf6554",
+        "#f2ebd3": "#bf6554",
+        "#f6f3dc": "#bd9a94",
+        "#faecc9": "#bf6554",
+        "#fbf5d9": "#bd9a94",
+        "#fbf5da": "#bd9a94"
+      }
+    }
+  ]
+}

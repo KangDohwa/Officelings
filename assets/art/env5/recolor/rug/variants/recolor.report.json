@@ -1,0 +1,227 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "material.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 6,
+  "variants": [
+    {
+      "name": "green",
+      "sheet": "green.png",
+      "substituted_pixels": 1426,
+      "substitutions": [
+        {
+          "from": "#262d38",
+          "to": "#1d3a39",
+          "pixels": 177
+        },
+        {
+          "from": "#325571",
+          "to": "#235e5c",
+          "pixels": 43
+        },
+        {
+          "from": "#48728f",
+          "to": "#5db1a5",
+          "pixels": 1096
+        },
+        {
+          "from": "#537b78",
+          "to": "#5db1a5",
+          "pixels": 109
+        },
+        {
+          "from": "#6492a3",
+          "to": "#5db1a5",
+          "pixels": 1
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "blue",
+      "sheet": "blue.png",
+      "substituted_pixels": 1426,
+      "substitutions": [
+        {
+          "from": "#262d38",
+          "to": "#10282c",
+          "pixels": 177
+        },
+        {
+          "from": "#325571",
+          "to": "#325571",
+          "pixels": 43
+        },
+        {
+          "from": "#48728f",
+          "to": "#6492a3",
+          "pixels": 1096
+        },
+        {
+          "from": "#537b78",
+          "to": "#6492a3",
+          "pixels": 109
+        },
+        {
+          "from": "#6492a3",
+          "to": "#6492a3",
+          "pixels": 1
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "red",
+      "sheet": "red.png",
+      "substituted_pixels": 1426,
+      "substitutions": [
+        {
+          "from": "#262d38",
+          "to": "#61282b",
+          "pixels": 177
+        },
+        {
+          "from": "#325571",
+          "to": "#61282b",
+          "pixels": 43
+        },
+        {
+          "from": "#48728f",
+          "to": "#bf6554",
+          "pixels": 1096
+        },
+        {
+          "from": "#537b78",
+          "to": "#bf6554",
+          "pixels": 109
+        },
+        {
+          "from": "#6492a3",
+          "to": "#bd9a94",
+          "pixels": 1
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "white",
+      "sheet": "white.png",
+      "substituted_pixels": 1426,
+      "substitutions": [
+        {
+          "from": "#262d38",
+          "to": "#808985",
+          "pixels": 177
+        },
+        {
+          "from": "#325571",
+          "to": "#dbc5a3",
+          "pixels": 43
+        },
+        {
+          "from": "#48728f",
+          "to": "#faecc9",
+          "pixels": 1096
+        },
+        {
+          "from": "#537b78",
+          "to": "#faecc9",
+          "pixels": 109
+        },
+        {
+          "from": "#6492a3",
+          "to": "#f9f6e3",
+          "pixels": 1
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "black",
+      "sheet": "black.png",
+      "substituted_pixels": 1426,
+      "substitutions": [
+        {
+          "from": "#262d38",
+          "to": "#191e1e",
+          "pixels": 177
+        },
+        {
+          "from": "#325571",
+          "to": "#262d38",
+          "pixels": 43
+        },
+        {
+          "from": "#48728f",
+          "to": "#3e403f",
+          "pixels": 1096
+        },
+        {
+          "from": "#537b78",
+          "to": "#3e403f",
+          "pixels": 109
+        },
+        {
+          "from": "#6492a3",
+          "to": "#636a67",
+          "pixels": 1
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "lilac",
+      "sheet": "lilac.png",
+      "substituted_pixels": 1426,
+      "substitutions": [
+        {
+          "from": "#262d38",
+          "to": "#423f7e",
+          "pixels": 177
+        },
+        {
+          "from": "#325571",
+          "to": "#423f7e",
+          "pixels": 43
+        },
+        {
+          "from": "#48728f",
+          "to": "#9ca3dd",
+          "pixels": 1096
+        },
+        {
+          "from": "#537b78",
+          "to": "#9ca3dd",
+          "pixels": 109
+        },
+        {
+          "from": "#6492a3",
+          "to": "#9ca3dd",
+          "pixels": 1
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    }
+  ]
+}

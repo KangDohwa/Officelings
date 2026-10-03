@@ -1,0 +1,299 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "material.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 3,
+  "variants": [
+    {
+      "name": "walnut",
+      "sheet": "walnut.png",
+      "substituted_pixels": 494,
+      "substitutions": [
+        {
+          "from": "#4a3527",
+          "to": "#39261c",
+          "pixels": 9
+        },
+        {
+          "from": "#6c4b2f",
+          "to": "#39261c",
+          "pixels": 6
+        },
+        {
+          "from": "#784128",
+          "to": "#39261c",
+          "pixels": 1
+        },
+        {
+          "from": "#804a2f",
+          "to": "#39261c",
+          "pixels": 12
+        },
+        {
+          "from": "#82442c",
+          "to": "#39261c",
+          "pixels": 7
+        },
+        {
+          "from": "#966334",
+          "to": "#39261c",
+          "pixels": 10
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#39261c",
+          "pixels": 189
+        },
+        {
+          "from": "#a87136",
+          "to": "#784128",
+          "pixels": 3
+        },
+        {
+          "from": "#ad633d",
+          "to": "#784128",
+          "pixels": 48
+        },
+        {
+          "from": "#b58043",
+          "to": "#784128",
+          "pixels": 4
+        },
+        {
+          "from": "#b96537",
+          "to": "#784128",
+          "pixels": 6
+        },
+        {
+          "from": "#bb8b50",
+          "to": "#9a5c3a",
+          "pixels": 5
+        },
+        {
+          "from": "#bf7a4b",
+          "to": "#784128",
+          "pixels": 22
+        },
+        {
+          "from": "#c78251",
+          "to": "#784128",
+          "pixels": 5
+        },
+        {
+          "from": "#ce894f",
+          "to": "#9a5c3a",
+          "pixels": 25
+        },
+        {
+          "from": "#d0b999",
+          "to": "#b58043",
+          "pixels": 11
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#b58043",
+          "pixels": 131
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "oak",
+      "sheet": "oak.png",
+      "substituted_pixels": 494,
+      "substitutions": [
+        {
+          "from": "#4a3527",
+          "to": "#784128",
+          "pixels": 9
+        },
+        {
+          "from": "#6c4b2f",
+          "to": "#9a5c3a",
+          "pixels": 6
+        },
+        {
+          "from": "#784128",
+          "to": "#9a5c3a",
+          "pixels": 1
+        },
+        {
+          "from": "#804a2f",
+          "to": "#9a5c3a",
+          "pixels": 12
+        },
+        {
+          "from": "#82442c",
+          "to": "#9a5c3a",
+          "pixels": 7
+        },
+        {
+          "from": "#966334",
+          "to": "#9a5c3a",
+          "pixels": 10
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#9a5c3a",
+          "pixels": 189
+        },
+        {
+          "from": "#a87136",
+          "to": "#b58043",
+          "pixels": 3
+        },
+        {
+          "from": "#ad633d",
+          "to": "#b58043",
+          "pixels": 48
+        },
+        {
+          "from": "#b58043",
+          "to": "#b58043",
+          "pixels": 4
+        },
+        {
+          "from": "#b96537",
+          "to": "#b58043",
+          "pixels": 6
+        },
+        {
+          "from": "#bb8b50",
+          "to": "#dbc5a3",
+          "pixels": 5
+        },
+        {
+          "from": "#bf7a4b",
+          "to": "#b58043",
+          "pixels": 22
+        },
+        {
+          "from": "#c78251",
+          "to": "#b58043",
+          "pixels": 5
+        },
+        {
+          "from": "#ce894f",
+          "to": "#dbc5a3",
+          "pixels": 25
+        },
+        {
+          "from": "#d0b999",
+          "to": "#e7d1ac",
+          "pixels": 11
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#e7d1ac",
+          "pixels": 131
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "birch",
+      "sheet": "birch.png",
+      "substituted_pixels": 494,
+      "substitutions": [
+        {
+          "from": "#4a3527",
+          "to": "#9a5c3a",
+          "pixels": 9
+        },
+        {
+          "from": "#6c4b2f",
+          "to": "#b58043",
+          "pixels": 6
+        },
+        {
+          "from": "#784128",
+          "to": "#b58043",
+          "pixels": 1
+        },
+        {
+          "from": "#804a2f",
+          "to": "#b58043",
+          "pixels": 12
+        },
+        {
+          "from": "#82442c",
+          "to": "#b58043",
+          "pixels": 7
+        },
+        {
+          "from": "#966334",
+          "to": "#b58043",
+          "pixels": 10
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#b58043",
+          "pixels": 189
+        },
+        {
+          "from": "#a87136",
+          "to": "#dbc5a3",
+          "pixels": 3
+        },
+        {
+          "from": "#ad633d",
+          "to": "#dbc5a3",
+          "pixels": 48
+        },
+        {
+          "from": "#b58043",
+          "to": "#dbc5a3",
+          "pixels": 4
+        },
+        {
+          "from": "#b96537",
+          "to": "#dbc5a3",
+          "pixels": 6
+        },
+        {
+          "from": "#bb8b50",
+          "to": "#e7d1ac",
+          "pixels": 5
+        },
+        {
+          "from": "#bf7a4b",
+          "to": "#dbc5a3",
+          "pixels": 22
+        },
+        {
+          "from": "#c78251",
+          "to": "#dbc5a3",
+          "pixels": 5
+        },
+        {
+          "from": "#ce894f",
+          "to": "#e7d1ac",
+          "pixels": 25
+        },
+        {
+          "from": "#d0b999",
+          "to": "#faecc9",
+          "pixels": 11
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#faecc9",
+          "pixels": 131
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    }
+  ]
+}

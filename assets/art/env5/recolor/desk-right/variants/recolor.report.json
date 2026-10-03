@@ -1,0 +1,191 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "material.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 5,
+  "variants": [
+    {
+      "name": "wood",
+      "sheet": "wood.png",
+      "substituted_pixels": 290,
+      "substitutions": [
+        {
+          "from": "#784128",
+          "to": "#784128",
+          "pixels": 111
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#9a5c3a",
+          "pixels": 94
+        },
+        {
+          "from": "#b58043",
+          "to": "#b58043",
+          "pixels": 33
+        },
+        {
+          "from": "#ce894f",
+          "to": "#ce894f",
+          "pixels": 40
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 12
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "white",
+      "sheet": "white.png",
+      "substituted_pixels": 290,
+      "substitutions": [
+        {
+          "from": "#784128",
+          "to": "#808985",
+          "pixels": 111
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#dbc5a3",
+          "pixels": 94
+        },
+        {
+          "from": "#b58043",
+          "to": "#e7d1ac",
+          "pixels": 33
+        },
+        {
+          "from": "#ce894f",
+          "to": "#e7d1ac",
+          "pixels": 40
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#f9f6e3",
+          "pixels": 12
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "black",
+      "sheet": "black.png",
+      "substituted_pixels": 290,
+      "substitutions": [
+        {
+          "from": "#784128",
+          "to": "#191e1e",
+          "pixels": 111
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#262d38",
+          "pixels": 94
+        },
+        {
+          "from": "#b58043",
+          "to": "#3e403f",
+          "pixels": 33
+        },
+        {
+          "from": "#ce894f",
+          "to": "#3e403f",
+          "pixels": 40
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#636a67",
+          "pixels": 12
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "green",
+      "sheet": "green.png",
+      "substituted_pixels": 290,
+      "substitutions": [
+        {
+          "from": "#784128",
+          "to": "#1d3a39",
+          "pixels": 111
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#235e5c",
+          "pixels": 94
+        },
+        {
+          "from": "#b58043",
+          "to": "#348884",
+          "pixels": 33
+        },
+        {
+          "from": "#ce894f",
+          "to": "#348884",
+          "pixels": 40
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#5db1a5",
+          "pixels": 12
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "blue",
+      "sheet": "blue.png",
+      "substituted_pixels": 290,
+      "substitutions": [
+        {
+          "from": "#784128",
+          "to": "#10282c",
+          "pixels": 111
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#325571",
+          "pixels": 94
+        },
+        {
+          "from": "#b58043",
+          "to": "#48728f",
+          "pixels": 33
+        },
+        {
+          "from": "#ce894f",
+          "to": "#48728f",
+          "pixels": 40
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#6492a3",
+          "pixels": 12
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    }
+  ]
+}

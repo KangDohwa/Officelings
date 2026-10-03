@@ -1,0 +1,257 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "material.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 6,
+  "variants": [
+    {
+      "name": "green",
+      "sheet": "green.png",
+      "substituted_pixels": 201,
+      "substitutions": [
+        {
+          "from": "#10282c",
+          "to": "#1d3a39",
+          "pixels": 1
+        },
+        {
+          "from": "#1d3a39",
+          "to": "#235e5c",
+          "pixels": 6
+        },
+        {
+          "from": "#235e5c",
+          "to": "#235e5c",
+          "pixels": 112
+        },
+        {
+          "from": "#325571",
+          "to": "#348884",
+          "pixels": 6
+        },
+        {
+          "from": "#4eb5a9",
+          "to": "#5db1a5",
+          "pixels": 4
+        },
+        {
+          "from": "#5db1a5",
+          "to": "#5db1a5",
+          "pixels": 72
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "blue",
+      "sheet": "blue.png",
+      "substituted_pixels": 201,
+      "substitutions": [
+        {
+          "from": "#10282c",
+          "to": "#10282c",
+          "pixels": 1
+        },
+        {
+          "from": "#1d3a39",
+          "to": "#325571",
+          "pixels": 6
+        },
+        {
+          "from": "#235e5c",
+          "to": "#325571",
+          "pixels": 112
+        },
+        {
+          "from": "#325571",
+          "to": "#48728f",
+          "pixels": 6
+        },
+        {
+          "from": "#4eb5a9",
+          "to": "#6492a3",
+          "pixels": 4
+        },
+        {
+          "from": "#5db1a5",
+          "to": "#6492a3",
+          "pixels": 72
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "red",
+      "sheet": "red.png",
+      "substituted_pixels": 201,
+      "substitutions": [
+        {
+          "from": "#10282c",
+          "to": "#61282b",
+          "pixels": 1
+        },
+        {
+          "from": "#1d3a39",
+          "to": "#61282b",
+          "pixels": 6
+        },
+        {
+          "from": "#235e5c",
+          "to": "#61282b",
+          "pixels": 112
+        },
+        {
+          "from": "#325571",
+          "to": "#9a4240",
+          "pixels": 6
+        },
+        {
+          "from": "#4eb5a9",
+          "to": "#bd9a94",
+          "pixels": 4
+        },
+        {
+          "from": "#5db1a5",
+          "to": "#bd9a94",
+          "pixels": 72
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "white",
+      "sheet": "white.png",
+      "substituted_pixels": 201,
+      "substitutions": [
+        {
+          "from": "#10282c",
+          "to": "#808985",
+          "pixels": 1
+        },
+        {
+          "from": "#1d3a39",
+          "to": "#dbc5a3",
+          "pixels": 6
+        },
+        {
+          "from": "#235e5c",
+          "to": "#dbc5a3",
+          "pixels": 112
+        },
+        {
+          "from": "#325571",
+          "to": "#e7d1ac",
+          "pixels": 6
+        },
+        {
+          "from": "#4eb5a9",
+          "to": "#f9f6e3",
+          "pixels": 4
+        },
+        {
+          "from": "#5db1a5",
+          "to": "#f9f6e3",
+          "pixels": 72
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "black",
+      "sheet": "black.png",
+      "substituted_pixels": 201,
+      "substitutions": [
+        {
+          "from": "#10282c",
+          "to": "#191e1e",
+          "pixels": 1
+        },
+        {
+          "from": "#1d3a39",
+          "to": "#262d38",
+          "pixels": 6
+        },
+        {
+          "from": "#235e5c",
+          "to": "#262d38",
+          "pixels": 112
+        },
+        {
+          "from": "#325571",
+          "to": "#3e403f",
+          "pixels": 6
+        },
+        {
+          "from": "#4eb5a9",
+          "to": "#636a67",
+          "pixels": 4
+        },
+        {
+          "from": "#5db1a5",
+          "to": "#636a67",
+          "pixels": 72
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "lilac",
+      "sheet": "lilac.png",
+      "substituted_pixels": 201,
+      "substitutions": [
+        {
+          "from": "#10282c",
+          "to": "#423f7e",
+          "pixels": 1
+        },
+        {
+          "from": "#1d3a39",
+          "to": "#423f7e",
+          "pixels": 6
+        },
+        {
+          "from": "#235e5c",
+          "to": "#423f7e",
+          "pixels": 112
+        },
+        {
+          "from": "#325571",
+          "to": "#6464b8",
+          "pixels": 6
+        },
+        {
+          "from": "#4eb5a9",
+          "to": "#9ca3dd",
+          "pixels": 4
+        },
+        {
+          "from": "#5db1a5",
+          "to": "#9ca3dd",
+          "pixels": 72
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    }
+  ]
+}

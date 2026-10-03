@@ -1,0 +1,316 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "material.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 5,
+  "variants": [
+    {
+      "name": "wood",
+      "sheet": "wood.png",
+      "substituted_pixels": 724,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#724029",
+          "pixels": 63
+        },
+        {
+          "from": "#804a2f",
+          "to": "#804a2f",
+          "pixels": 1
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#9a5c3a",
+          "pixels": 72
+        },
+        {
+          "from": "#ad633d",
+          "to": "#ad633d",
+          "pixels": 15
+        },
+        {
+          "from": "#b58043",
+          "to": "#b58043",
+          "pixels": 4
+        },
+        {
+          "from": "#bf7a4b",
+          "to": "#bf7a4b",
+          "pixels": 75
+        },
+        {
+          "from": "#c48050",
+          "to": "#c48050",
+          "pixels": 5
+        },
+        {
+          "from": "#c58050",
+          "to": "#c58050",
+          "pixels": 90
+        },
+        {
+          "from": "#c78251",
+          "to": "#c78251",
+          "pixels": 367
+        },
+        {
+          "from": "#ce894f",
+          "to": "#ce894f",
+          "pixels": 32
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "white",
+      "sheet": "white.png",
+      "substituted_pixels": 724,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#808985",
+          "pixels": 63
+        },
+        {
+          "from": "#804a2f",
+          "to": "#dbc5a3",
+          "pixels": 1
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#e7d1ac",
+          "pixels": 72
+        },
+        {
+          "from": "#ad633d",
+          "to": "#e7d1ac",
+          "pixels": 15
+        },
+        {
+          "from": "#b58043",
+          "to": "#faecc9",
+          "pixels": 4
+        },
+        {
+          "from": "#bf7a4b",
+          "to": "#faecc9",
+          "pixels": 75
+        },
+        {
+          "from": "#c48050",
+          "to": "#f9f6e3",
+          "pixels": 5
+        },
+        {
+          "from": "#c58050",
+          "to": "#f9f6e3",
+          "pixels": 90
+        },
+        {
+          "from": "#c78251",
+          "to": "#f9f6e3",
+          "pixels": 367
+        },
+        {
+          "from": "#ce894f",
+          "to": "#f9f6e3",
+          "pixels": 32
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "black",
+      "sheet": "black.png",
+      "substituted_pixels": 724,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#191e1e",
+          "pixels": 63
+        },
+        {
+          "from": "#804a2f",
+          "to": "#262d38",
+          "pixels": 1
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#3e403f",
+          "pixels": 72
+        },
+        {
+          "from": "#ad633d",
+          "to": "#3e403f",
+          "pixels": 15
+        },
+        {
+          "from": "#b58043",
+          "to": "#3e403f",
+          "pixels": 4
+        },
+        {
+          "from": "#bf7a4b",
+          "to": "#3e403f",
+          "pixels": 75
+        },
+        {
+          "from": "#c48050",
+          "to": "#636a67",
+          "pixels": 5
+        },
+        {
+          "from": "#c58050",
+          "to": "#636a67",
+          "pixels": 90
+        },
+        {
+          "from": "#c78251",
+          "to": "#636a67",
+          "pixels": 367
+        },
+        {
+          "from": "#ce894f",
+          "to": "#636a67",
+          "pixels": 32
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "green",
+      "sheet": "green.png",
+      "substituted_pixels": 724,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#1d3a39",
+          "pixels": 63
+        },
+        {
+          "from": "#804a2f",
+          "to": "#235e5c",
+          "pixels": 1
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#348884",
+          "pixels": 72
+        },
+        {
+          "from": "#ad633d",
+          "to": "#348884",
+          "pixels": 15
+        },
+        {
+          "from": "#b58043",
+          "to": "#5db1a5",
+          "pixels": 4
+        },
+        {
+          "from": "#bf7a4b",
+          "to": "#5db1a5",
+          "pixels": 75
+        },
+        {
+          "from": "#c48050",
+          "to": "#5db1a5",
+          "pixels": 5
+        },
+        {
+          "from": "#c58050",
+          "to": "#5db1a5",
+          "pixels": 90
+        },
+        {
+          "from": "#c78251",
+          "to": "#5db1a5",
+          "pixels": 367
+        },
+        {
+          "from": "#ce894f",
+          "to": "#5db1a5",
+          "pixels": 32
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    },
+    {
+      "name": "blue",
+      "sheet": "blue.png",
+      "substituted_pixels": 724,
+      "substitutions": [
+        {
+          "from": "#724029",
+          "to": "#10282c",
+          "pixels": 63
+        },
+        {
+          "from": "#804a2f",
+          "to": "#325571",
+          "pixels": 1
+        },
+        {
+          "from": "#9a5c3a",
+          "to": "#48728f",
+          "pixels": 72
+        },
+        {
+          "from": "#ad633d",
+          "to": "#48728f",
+          "pixels": 15
+        },
+        {
+          "from": "#b58043",
+          "to": "#6492a3",
+          "pixels": 4
+        },
+        {
+          "from": "#bf7a4b",
+          "to": "#6492a3",
+          "pixels": 75
+        },
+        {
+          "from": "#c48050",
+          "to": "#6492a3",
+          "pixels": 5
+        },
+        {
+          "from": "#c58050",
+          "to": "#6492a3",
+          "pixels": 90
+        },
+        {
+          "from": "#c78251",
+          "to": "#6492a3",
+          "pixels": 367
+        },
+        {
+          "from": "#ce894f",
+          "to": "#6492a3",
+          "pixels": 32
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": []
+    }
+  ]
+}
