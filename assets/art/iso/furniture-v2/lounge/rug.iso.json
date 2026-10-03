@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1"
+  ],
+  "sheets": [
+    {
+      "id": "iso-rug-parts",
+      "kind": "furniture",
+      "file": "rug-parts.png",
+      "cellW": 192,
+      "cellH": 128,
+      "anchor": {
+        "x": 112,
+        "y": 40
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "ground-00",
+          "direction": "se",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "rug__ground__se__00",
+          "anchor": {
+            "x": 112,
+            "y": 40
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 17,
+              "y": 72,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface"
+        },
+        {
+          "name": "ground-00",
+          "direction": "sw",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "rug__ground__sw__00",
+          "anchor": {
+            "x": 80,
+            "y": 40
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 80,
+              "y": 24,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface"
+        },
+        {
+          "name": "ground-00",
+          "direction": "ne",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "rug__ground__ne__00",
+          "anchor": {
+            "x": 80,
+            "y": 40
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 80,
+              "y": 24,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface"
+        },
+        {
+          "name": "ground-00",
+          "direction": "nw",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "rug__ground__nw__00",
+          "anchor": {
+            "x": 112,
+            "y": 40
+          },
+          "depthAnchor": {
+            "i": 0,
+            "j": 0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 17,
+              "y": 72,
+              "radius": 0
+            }
+          ],
+          "contactKind": "assembly-surface"
+        }
+      ]
+    }
+  ],
+  "furniture": [
+    {
+      "id": "iso/rug",
+      "kind": "rug",
+      "variants": [
+        {
+          "rotation": 0,
+          "orientation": "se",
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "layer": 0,
+          "parts": [
+            {
+              "sheetId": "iso-rug-parts",
+              "animation": "ground-00",
+              "direction": "se",
+              "partId": "rug__ground__se__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "height": 0
+        },
+        {
+          "rotation": 90,
+          "orientation": "sw",
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "layer": 0,
+          "parts": [
+            {
+              "sheetId": "iso-rug-parts",
+              "animation": "ground-00",
+              "direction": "sw",
+              "partId": "rug__ground__sw__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "height": 0
+        },
+        {
+          "rotation": 270,
+          "orientation": "ne",
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "layer": 0,
+          "parts": [
+            {
+              "sheetId": "iso-rug-parts",
+              "animation": "ground-00",
+              "direction": "ne",
+              "partId": "rug__ground__ne__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "height": 0
+        },
+        {
+          "rotation": 180,
+          "orientation": "nw",
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "layer": 0,
+          "parts": [
+            {
+              "sheetId": "iso-rug-parts",
+              "animation": "ground-00",
+              "direction": "nw",
+              "partId": "rug__ground__nw__00",
+              "depthAnchor": {
+                "i": 0,
+                "j": 0
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "height": 0
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "designReference": "sprite-gen codex; six masters in runs/furniture-v2",
+    "derivation": "generated native master pixels reprojected through fixed geometry; hidden faces recomposed; upper-left shades repaired; opposite rug pairs identical",
+    "limitations": "Desk, chair and sofa have separately generated NE rear masters; other faces are baked mirrors or panel/component recompositions with fixed-light repaint. Contacts and all v1 part IDs/anchors/depth keys remain unchanged. Final-character/runtime occlusion acceptance is outside this lane."
+  }
+}
