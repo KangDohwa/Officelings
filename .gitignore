@@ -10,3 +10,8 @@ state.json
 atlas.png
 settings.json
 .claude/
+
+# Windhawk PoC 컴파일 산출물
+windhawk/poc/*.exe
+windhawk/poc/*.dll
+windhawk/poc/*.log
