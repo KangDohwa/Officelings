@@ -1,6 +1,30 @@
-# Local state contract (version 4)
+# Local state contract (version 5)
 
-The tracker and WPF engine share PNG sheets, an asset manifest, and an authored office. Writers emit **`schemaVersion:4`**, asset/layout format **1**, and legacy fallback **`atlas.version:2`**. Version 4 adds assignment, display and monitor fields without removing or changing the types of v3 fields. Strict older readers must explicitly accept v4. Both renderers use Core's supplied assignment, status and poses and must allow agents without desk furniture.
+The tracker and WPF engine share PNG sheets, an asset manifest, and an authored office. Writers emit **`schemaVersion:5`**, asset/layout format **1**, and legacy fallback **`atlas.version:2`**. Version 5 appends optional seated fields to v4; no v4 fields are removed, renamed or given new types. Strict older readers must explicitly accept v5. The separately developed Windhawk v4 consumer is not updated by this integration.
+
+## Version 5 additions
+
+All v4 fields and existing `action`/semantic state names remain. Seating is an additional visual phase, independent of assignment, collision coordinates and `Working/Thinking/Waiting` state.
+
+| Optional field | Meaning / default for older input |
+| --- | --- |
+| `pose.seatedVariant` | Selected `seated_back` (facing `up`), `seated_left` or `seated_right` clip; null outside seating or when the character has no seated sheet. |
+| `pose.seatAnchor` | Absolute world-pixel `{x,y}` chair/pelvis contact; null outside seating. |
+| `pose.chairBackId`, `pose.chairFrontId` | Chair layer **asset IDs**, related to the host variant metadata; null when absent. Linked layer instances remain in `office.furniture` and have their own supplied furniture frames. |
+| `pose.seatPhase` | Null while standing/walking; `turn` for 120ms on arrival, `lower` for two 120ms frames, `seated` during work, `raise` for two 120ms frames before departure. Interrupted work still finishes raising before path movement. |
+| `pose.seatPhaseFrame` | Integer 0/1 during `lower`/`raise`; default 0. |
+| `assets.sheets[].rows[].seatAnchor` | Optional source-pixel pelvis contact, transformed with the baked integer character placement; distinct from the sheet foot anchor. |
+| `assets.furniture[].variants[].chairBackId`, `chairFrontId` | Optional asset IDs for linked nonblocking chair layers. |
+| variant `chairOffset` | Optional world-pixel offset from the host origin to linked chair instance origins; default zero. |
+| variant `chairSeatAnchor` | Optional **world-pixel** contact relative to host origin. This differs from a clip's source-pixel `seatAnchor`. |
+
+Core already resolves seated alignment and the lower/raise offset into `pose.sprite.offsetX/offsetY`; consumers use the existing SpriteFrame destination equation and must not apply seating alignment twice. `turn` selects a stationary facing idle pose. `lower`/`raise` use seated frame zero and offsets −2/−1 or −1/−3 world pixels. Working plays the four authored phases; Thinking uses slower taps and a short frame-2 head nod once per eight-second cycle; Waiting holds phase zero, retaining matching closed-eye pixels during a blink, and shows a `?` bubble. Missing seated sheets retain the legacy typing selection. No walking loop is used for sitting or raising.
+
+Layer order at profile seats is chair back → character → desk/table edge → chair front/armrest. Back-facing desks retain the keyboard behind the worker and their lower chair overlay in front. Seated character drawing is clipped below `seatAnchor.y + 1` so authored calves/shoes never protrude. Source cells are not cropped/recentered independently. Keep the published tile position for navigation; WPF uses a common seat depth for these linked pieces, with small layer offsets, and normal world-Y depth for passing walkers.
+
+V5 overhead plates use a 9-world-pixel body, a crisp 6px font, a 7px provider glyph and a 2px head gap. Labels contain at most **14 Unicode text elements plus an ellipsis**; full names stay in tooltips. Only intersecting plates move upward in 2px increments. Reserved desk labels keep v4 visibility semantics: only away owners receive them. Sit/stand transitions still occupy the chair and never receive a second reserved label. The default office remains 35×20 tiles with twelve fixed desks: back-facing rows and a four-seat authored profile pod; profile laptop tables add designated overflow seats. Membership never changes office dimensions or furniture.
+
+All multi-frame runtime furniture is passed through the prop normalization API; only authored screen/LED/steam/water/glow regions animate. Static bodies are byte-identical.
 
 ## Files and delivery
 
@@ -25,7 +49,7 @@ All root/agent fields from v3 remain, including semantic metadata, timestamps, o
 
 | Field | Meaning |
 | --- | --- |
-| `schemaVersion` | 4. |
+| `schemaVersion` | 4 in historical v4 input; current writers emit 5. |
 | `assets` | Complete format 1 manifest: `version,sheets,furniture,characters,tileTypes`. Exported sheets include `width,height,sha256`. Authoritative over sibling manifest.json. |
 | `office` | Format 1: fixed dimensions, door, full row-major `tiles`, furniture with stable IDs/assets/rotation/state, zones and `overflowSeats`. Resolved source/runtime maps have `autoDesks:null`. |
 | `office.furniture[].deskId` | Optional stable work-station ID, unique among desks, independent of agent/order/coordinates. Legacy work furniture without it uses instance `id`. Instance IDs stay stable too. Foreground chair IDs are `desk.id + "-chair"`. |
@@ -91,6 +115,7 @@ WPF renders at up to 30fps during movement and 8fps otherwise, caches static fur
 
 ## Version history
 
+- v5: additive seated variants/contact anchors, chair-layer references and sit/stand phases; authored profile workstations, clipped seated legs, compact head-adjacent plates and normalized prop bodies. Asset/layout formats remain 1; fallback atlas remains 2. Windhawk v4 code is unchanged.
 - v4: fixed authored capacity, stable desk/overflow/queue reservations and reloadable previews; additive seat IDs/overrides, compact names, provider icon IDs, queue ellipsis and monitor status. Existing v3 fields/types remain.
 - v3: PNG sheets, anchors/scale, format 1 assets/layout, tile collision, rotated interactions, roster assignment, A*, furniture frames.
 - v2: fixed 16×24 procedural atlas with direction/identity rows and paper/chat/fade fields.

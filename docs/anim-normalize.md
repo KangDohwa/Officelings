@@ -108,4 +108,4 @@ new_frames, animated_mask, report = normalize_frames(
 A script running directly from `tools/` can use `from anim_normalize import ...`.
 `normalize_sheet` returns a new sheet and per-row report, preserving the supplied
 manifest. `normalize_frames` also returns the detected mask for a caller's QA.
-The pack builder can call either function later; this change leaves it untouched.
+The runtime pack builder calls this API for base/env2/env3 furniture and prefers available env2 normalized sheets. Runtime pack tests independently check fixed body pixels; rerun `tools/build_pack.py` before rebuilding the app.
