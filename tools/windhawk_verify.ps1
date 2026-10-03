@@ -25,6 +25,10 @@ $windhawkTestOutput = & (Join-Path $windhawkOut 'renderer_tests.exe') @windhawkT
 $windhawkTestExit = $LASTEXITCODE
 $windhawkTestOutput | Tee-Object -FilePath (Join-Path $windhawkOut 'tests.log')
 if ($windhawkTestExit -ne 0) { throw "Renderer tests failed: $windhawkTestExit" }
+$windhawkHostOutput = & (Join-Path $windhawkOut 'host_tests.exe') (Join-Path $windhawkDemo 'state.json') $windhawkDemo (Join-Path $PSScriptRoot '..\tests\windhawk\host_tests.manifest') 2>&1
+$windhawkHostExit = $LASTEXITCODE
+$windhawkHostOutput | Tee-Object -FilePath (Join-Path $windhawkOut 'host-tests.log')
+if ($windhawkHostExit -ne 0) { throw "Hidden host tests failed: $windhawkHostExit" }
 foreach ($windhawkScript in @('windhawk_install_tracker.ps1','windhawk_run_tracker.ps1')) {
     $windhawkTokens = $null; $windhawkErrors = $null
     [Management.Automation.Language.Parser]::ParseFile((Join-Path $PSScriptRoot $windhawkScript), [ref]$windhawkTokens, [ref]$windhawkErrors) | Out-Null
