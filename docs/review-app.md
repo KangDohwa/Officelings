@@ -163,3 +163,30 @@ P1은 앱/Tracker 종료, 시작을 오래 막는 입력, 사용자 데이터 �
 6. **Tracker 프로세스:** consumer의 delete-sharing 없는 일시 잠금 후 회복, 같은 canonical output 디렉터리의 이중 실행 차단, junction/다른 경로 표기로 동일 디렉터리를 가리킬 때의 배타성, 초깃값 layout 생성과 editor 저장의 경쟁. 반드시 모든 경로 override를 임시 경로로 지정한다.
 7. **장기 실행:** 많은 서로 다른 session ID가 떠난 뒤의 history 상한, 실제 agent churn과 반복 reopen 후 bitmap/handler/timer/handle의 잔존, polling 중 close. 현재 active 수가 줄었을 때 회수될 항목을 명확히 검사한다.
 8. **창/화면:** normal/topmost/desktop × transparent/click-through/borderless × opacity preset/live change; 100/150/200% mixed DPI, 음수 모니터 좌표, L자 빈 영역, 모니터 제거, 화면 끝에 일부만 걸친 복원, tray Recover, desktop host 유실. RootVisual 값과 별도로 실제 HWND/DWM 결과를 독립적으로 확인해야 한다. 사용자 입력/전경을 바꾸는 검사는 이번 요청에서 실행하지 않았다.
+
+## Review fixes
+
+F01–F16 모두 수정. C# 검사는 `tests/Vibedotcom.Tests/ReviewFixTests.cs`, Python 검사는 `tools/test_review_publication.py`에 추가했다. C# 테스트 이름의 `Fnn_` 접두사는 아래 표에서 생략했다.
+
+| Finding | 상태 / 변경 | 회귀 테스트 |
+| --- | --- | --- |
+| F01 | 수정: 레코드 숫자 정규화, 설정 크기 제한, 저장 오류 처리 | `SettingsHostileNumbersRoundTripAsFiniteValues` |
+| F02 | 수정: 그리드 좌표/간격 상한, long 크기 계산, fallback | `HostileLayoutsFallBackAndPreserveSource` |
+| F03 | 수정: long clip 끝 좌표 검사 | `OverflowingClipsAreRejectedBeforeFrameCreation` |
+| F04 | 수정: 필수 sheetId, null/빈 ID 검사 | `CharacterRequiresAnExistingSheet`, `MissingCharacterSheetIdIsRejected` |
+| F05 | 수정: 전체 기본 레이아웃 호환성 검사, 안전한 팩·레이아웃 쌍 | `PartialCozyPackAndIncompatibleDeskUseAValidFallback` |
+| F06 | 수정: 좁은 구역 라벨 생략 | `OneTileWideZonesRenderWithoutAWindow` |
+| F07 | 수정: 한 번의 bounded flood-fill, 지점/구역 상한, 큰 A* 작업·시간 제한, 초기 로드/Office/PNG 디코딩을 dispatcher 밖으로 이동 | `ReachabilityAndStartupHaveBoundedWork` |
+| F08 | 수정: backoff 재시도, 프로세스당 한 번 경고, 잠금 해제 후 재개 | `LockedPublicationRetriesLogsOnceAndResumes`, `TrackerProcessSurvivesAConsumerLock` |
+| F09 | 수정: demo/QA 임시 홈, 저장 경로 전달, 개인 홈 입력 차단 | `DemoAndQaEditorUseOnlyAnIsolatedHome` |
+| F10 | 수정: 고유 staging, writer lock, atomic manifest, 새 manifest 미참조 PNG만 1시간 유예 후 정리 | `test_F10_parallel_builds_publish_complete_packs_and_preserve_grace` |
+| F11 | 수정: 개별 모니터 작업 영역으로 restore/Recover 보정 | `RestoreAndRecoverClampAcrossMissingMonitorsAndDpi` |
+| F12 | 수정: preview 타일 예약, 대체 타일이 없으면 비표시 대기 | `PreviewSeatsReserveDistinctTilesAndHideWhenFull` |
+| F13 | 수정: 대기 영역 확장, 포화 시 비표시 대기, 공간이 생기면 복귀 | `WaitingTilesExpandWithoutReuseAndRecoverFromSaturation` |
+| F14 | 수정: 활성 이력 유지, 떠난 세션 이력은 마지막 사용 시간 순으로 최대 1024개 | `DepartedDeskHistoryIsBoundedAndRecentReentryKeepsItsDesk` |
+| F15 | 수정: immutable 세대 준비 후 manifest 하나로 commit | `test_F15_facelock_failed_report_or_commit_preserves_previous_batch` |
+| F16 | 수정: 고유 sibling temp, 세대 게시와 writer lock | `test_F16_seated_atomic_files_use_unique_temps`, `test_F16_seated_parallel_batches_and_failed_commit_keep_one_generation` |
+
+검증은 임시 홈/출력에서 수행했다. 창 표시는 하지 않고 좁은 구역은 메모리 렌더, 모니터 복원은 100/150/200% DPI 기하로 검증했다. facelock/seated 소비자는 새 manifest의 세대 경로를 따라야 하며 기존·미참조 세대는 reader 보존을 위해 남긴다. 이 작업에서는 커밋·원본 아트 변경을 실행하지 않았다.
+
+최종 검증: `dotnet build Vibedotcom.sln --nologo -v minimal` 경고 0 / 오류 0; `dotnet test Vibedotcom.sln --no-build --no-restore --nologo -v minimal` 167 통과 / 실패·건너뜀 0; sprite-gen Python의 `-B -m unittest discover -s tools -p 'test_*.py'` 28 통과. 잠금 회귀는 고정 지연 대신 세 번째 재시도 관측 후 잠금을 해제한다.
