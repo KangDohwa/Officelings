@@ -4,12 +4,22 @@ The WPF viewer and tracker use the same language-neutral JSON records. No .NET t
 
 ## Loading
 
-- Normal startup reads `%LOCALAPPDATA%\Vibedotcom\assets\manifest.json` and `%LOCALAPPDATA%\Vibedotcom\layout.json`. `--asset-dir DIR` / `--layout FILE` override them in both executables. Demo/QA use the bundled fallback unless explicitly overridden.
-- Missing files use the embedded [fallback catalog](../src/Vibedotcom.Core/Data/assets.json) and [default layout](../src/Vibedotcom.Core/Data/layout.json). Invalid input produces a warning and falls back; input files are never repaired or overwritten. Restart to reload. There is no live editor/hot reload.
+- Normal startup reads `%LOCALAPPDATA%\Vibedotcom\assets\assets.json` (or `manifest.json`) and `%LOCALAPPDATA%\Vibedotcom\layout.json` when present. `--asset-dir DIR` / `--layout FILE` override them in both executables. Demo/QA and normal startup without an installed pack use the generated art embedded from `assets/pack/`.
+- The bundled [default layout](../src/Vibedotcom.Core/Data/layout.json) uses this art for two furnished rooms. Explicit missing/invalid packs retain the procedural [fallback catalog](../src/Vibedotcom.Core/Data/assets.json) and its compatible fallback layout; invalid input produces a warning. Input files are never repaired or overwritten. Restart to reload. There is no live editor/hot reload.
 - JSON: UTF-8, camelCase; `version:1`; unknown additional fields tolerated. Maximum JSON 4 MiB. PNGs are relative local files within the pack directory, maximum 32 MiB each, 8-bit non-interlaced grayscale/RGB/indexed/gray-alpha/RGBA, maximum 8192 per axis and 16,777,216 pixels. Use transparent RGBA for characters and furniture. Dimensions, compressed scanline lengths, clip bounds and PNG filters are checked before use. There is no palette conversion at runtime.
 - A pack is loaded as a unit. `fallback` is a reserved sheet ID; the procedural atlas always supplies fallback characters and bubbles. Custom furniture/tile IDs override matching fallback definitions; omitted furniture/tile definitions are inherited. The custom character roster replaces the default roster. If a roster has no eligible design for a role/provider, that agent uses fallback art.
 
 ## manifest.json
+
+`assets.json` accepts the same schema and takes precedence if both filenames exist in an input directory. Exported snapshots still publish `manifest.json`.
+
+Rebuild the bundled runtime pack before `dotnet build` with:
+
+```powershell
+& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/build_pack.py
+```
+
+The builder reads final production sheets only, skips incomplete roster characters and partial environment files, prefers available env2 furniture, and writes compact PNG sheets plus `assets.json` to `assets/pack/`. Rerun as art production completes, then rebuild the executables to refresh their embedded art. Completed roster designs and the 36 p5 variants are eligible across providers and roles. Provider accents and supervisor crowns/sub-agent ID markers are drawn separately above each character.
 
 Minimal example (a real `people.png` is required):
 
@@ -97,10 +107,26 @@ Start from [Data/layout.json](../src/Vibedotcom.Core/Data/layout.json), which om
 | `door` | `{x,y}` walkable entrance/exit tile. |
 | `zones` | Required unique names `workspace/pantry/lounge/door`, each `{name,x,y,width,height,points?}`. Extra named zones allowed. Zone points use the same local-offset format as furniture points. Zones do not override supplied collision tiles. |
 | `furniture` | Instances `{id,kind,assetId?,x,y,width,height,rotation?,state?,agentId?}`. ID unique, assetId defaults to kind; rotation defaults 0, state `default`. Width/height must equal the chosen variant footprint. AgentId is runtime seat ownership; author with null/omitted. |
-| `autoDesks` | Optional grid `{assetId,x,y,spacingX,spacingY,maxColumns,adaptiveColumns,expand}`. Automatic desks supplement fixed desks. Defaults match the bundled map: desk at (2,5), 5×4 spacing, maxColumns 4, adaptive/expand true. |
+| `autoDesks` | Optional grid `{assetId,x,y,spacingX,spacingY,maxColumns,minColumns,adaptiveColumns,expand}`. Automatic desks supplement fixed desks. `minColumns` defaults to 1; the bundled art layout uses 2 with 6×5 spacing at (3,7), maxColumns 4, adaptive/expand true. |
 
-Automatic seats keep stable occupied slots; gaps from departed sessions retain an empty desk until reused. Adaptive columns choose 1/2/3/4 for capacities ≤2/≤6/≤15/larger, capped by maxColumns. Horizontal expansion inserts columns after the workspace's right edge and shifts zones/furniture to its right; vertical expansion extends floor and moves the door down. Use `adaptiveColumns:false` for a custom fixed-width map, and place a clear grid with enough spacing. `expand:false` keeps bounds fixed. Without `autoDesks`, the authored work seats must accommodate all tracked agents. Out-of-space layouts report an error rather than placing overlapping desks. Bounds/ID/variant/blocked overlap/door and point reachability are validated, including the generated desks.
+Automatic seats keep stable occupied slots; gaps from departed sessions retain an empty desk until reused. Adaptive columns choose 1/2/3/4 for capacities ≤2/≤6/≤15/larger, clamped by minColumns and maxColumns. Horizontal expansion inserts columns after the workspace's right edge and shifts zones/furniture to its right; vertical expansion extends floor and moves the door down. Use `adaptiveColumns:false` for a custom fixed-width map, and place a clear grid with enough spacing. `expand:false` keeps bounds fixed. Without `autoDesks`, the authored work seats must accommodate all tracked agents. Out-of-space layouts report an error rather than placing overlapping desks. Bounds/ID/variant/blocked overlap/door and point reachability are validated, including the generated desks.
 
 Normal WPF loading never saves layout edits. Tracker creates `layout.json` only if absent in its output directory, publishes expanded `runtime-layout.json` on membership changes, and preserves an existing editable `layout.json`. **Windhawk reads `layout.json` as the source, but renders the exact expanded `state.json.office` (or matching runtime layout)**; it must not assign desks or run an independent simulation.
 
 Asset exports use content-addressed `sheets/<sha256>.png` filenames. The manifest embedded in a state snapshot is authoritative, so old snapshots retain their matching PNGs during another tracker startup. There is no automatic sheet cleanup. See [state-schema.md](state-schema.md) for the runtime contract and render equations.
+
+## Optional production `blink` metadata
+
+Face-locked **production** manifests under `assets/art/**/locked/` may add a top-level `blink` object without changing `animation`, `frame_layout`, row counts, timing, or the existing runtime version-1 schema:
+
+```json
+"blink": {
+  "down": {"file":"blink-down.png", "source":{"state":"walk_down", "frame":0}, "durationMs":100},
+  "left": {"file":"blink-left.png", "source":{"state":"walk_left", "frame":0}, "durationMs":100},
+  "right": {"file":"blink-right.png", "source":{"state":"walk_right", "frame":0}, "durationMs":100}
+}
+```
+
+Keys are authored visible facings (`down`, `left`, `right`); back views have no blink. `file` is a PNG path relative to that manifest, with the same native cell size, straight alpha and foot anchor as its source frame. `source.state` and zero-based `source.frame` identify the normal frame used to make the closed-eye variant. `durationMs` is a suggested closure duration, not an automatic schedule. Sheet variants prefix filenames with the sheet name to avoid collisions. The field is optional; absence preserves existing behavior. Existing consumers may ignore it. This is authoring metadata and does not enable blinking in the current renderer or pack builder; an adapter must explicitly consume it. Full-cell blink PNGs use the source frame's body pose, so a consumer that blinks during another gait phase should substitute only the face pixels at the aligned head position.
+
+An additional optional `facelock` object identifies the deterministic post-process version, relative QA/provenance report and source-byte digest. It is also production-only metadata. See [facelock.md](facelock.md) for rerun commands, pixel comparison definitions and limits.

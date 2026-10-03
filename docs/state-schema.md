@@ -4,7 +4,7 @@ The tracker and WPF engine now share pluggable PNG sheets, a JSON asset manifest
 
 ## Files and delivery
 
-Default output: `%LOCALAPPDATA%\Vibedotcom`. Source layout is `layout.json`; default source art is `assets/manifest.json`. See [asset-format.md](asset-format.md) for full authoring fields and constraints.
+Default output: `%LOCALAPPDATA%\Vibedotcom`. Source layout is `layout.json`; installed source art is `assets/assets.json` or `assets/manifest.json`. Without an installed pack, both executables use the generated art embedded from `assets/pack/`. See [asset-format.md](asset-format.md) for loading precedence, pack rebuild instructions and full authoring fields.
 
 | File | Contract |
 | --- | --- |
