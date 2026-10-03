@@ -1,0 +1,97 @@
+{
+  "cell": {
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "style": "STRICT 2D PIXEL CHIBI cozy office game, top-down three-quarter view. Big head including hijab >= one third of full height, target 40 percent; eyes at least 2x3 logical pixels WITH ivory square highlights, never plain dots. Dark plum-brown selective one-pixel outline. Warm readable palette, 3-4 discrete hard-edged shades per material, deliberate chunky square pixel clusters. No smooth vector curves, gradients, anti-aliasing, dithering or realistic rendering. Target 26x46 logical-pixel full body inside 32x64 game cell. Same head size, face, proportions and clothing in every frame. Uniform pure magenta #FF00FF background and generous empty spacing. No magenta in subject, no shadows, furniture, text, grids, punctuation, floating marks or detached props. IDENTITY: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses.",
+  "fit": {
+    "pixel_unfake": false,
+    "palette_size": 32,
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "resample": "kcentroid"
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 0,
+      "loop": false,
+      "action": "Four STATIC orientation anchors: frame 0 faces DOWN toward viewer; frame 1 faces LEFT; frame 2 faces RIGHT; frame 3 faces UP away, back of hijab visible. Same full-body idle stance in every direction. Do not animate between these views. Hold a small dark slate stylus tablet in her right hand at waist/chest height, left hand holds a slim ivory stylus and rests naturally by the tablet; attached props in all four orientations. Keep ONE round tote at the left hip. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "walk_down": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place facing DOWN toward viewer, top of head visible. Four DISTINCT gait phases: left foot forward/right back; feet pass under body; right foot forward/left back; opposite passing. Short readable steps, opposite arm swing, constant head size, no horizontal travel. Tablet is stowed in the tote, hands free to swing. Long skirt hem sways only slightly; alternately show two small shoes below the skirt hem to make steps readable. Never change skirt into trousers, split skirt or shorten it. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "walk_left": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place toward LEFT in top-down 3/4 side view. Four DISTINCT gait phases: left-leg contact, passing, right-leg contact, passing. Clearly alternate forward legs and arms. No travel across slots. Tablet is stowed in the tote, hands free to swing. Long skirt hem sways only slightly; alternately show two small shoes below the skirt hem to make steps readable. Never change skirt into trousers, split skirt or shorten it. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "walk_right": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place toward RIGHT in top-down 3/4 side view. Four DISTINCT gait phases: left-leg contact, passing, right-leg contact, passing. Clearly alternate forward legs and arms. No travel across slots. Tablet is stowed in the tote, hands free to swing. Long skirt hem sways only slightly; alternately show two small shoes below the skirt hem to make steps readable. Never change skirt into trousers, split skirt or shorten it. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "walk_up": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place UP away from viewer, back of hijab visible, face hidden. Four DISTINCT gait phases: opposite foot contacts and passes, alternating shoes visible beneath long skirt. Arms counter-swing. No travel across slots. Tablet is stowed in the tote, hands free to swing. Long skirt hem sways only slightly; alternately show two small shoes below the skirt hem to make steps readable. Never change skirt into trousers, split skirt or shorten it. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "typing_back": {
+      "frames": 3,
+      "fps": 5,
+      "loop": true,
+      "action": "Exactly THREE seated full-body poses viewed from BACK facing UP. Copy the accepted identity from reference 1. Reference 2 is the SAME WOMAN in seated side typing: use ONLY its seated knees and LOW HAND HEIGHT as a posture reference, turn the body fully away. Reference 3 is the three-slot layout guide. Back of mint hijab hides the entire face. Upper arms descend vertically beside torso; elbows touch lower ribs at WAIST. Forearms point FORWARD AWAY FROM THE VIEWER at LAP/WAIST height. Hands are mostly occluded by the torso, tiny fingers visible only beside the LOWER cardigan hem, below the hanging hijab point. Never show a hand beside the head, cheeks or shoulder. Frame 0 tiny left fingers press at waist, frame 1 both rest at waist, frame 2 tiny right fingers press at waist. Fingers move 1-2 logical pixels; head, torso, hips and seated skirt remain unchanged. Long dusty-blue skirt draped over bent seated knees; two brown shoes below it. Keep the single round tan tote attached to left hip. Tablet/stylus stowed. No desk, chair, keyboard, props, symbols or face."
+    },
+    "typing_side": {
+      "frames": 3,
+      "fps": 5,
+      "loop": true,
+      "action": "Seated worker typing, 3/4 SIDE facing RIGHT. Show ONLY worker, bent knees, forearms extended horizontally at waist: left fingers down, both hands poised, right fingers down. No desk, monitor, keyboard or chair; separate furniture layer. Tablet and stylus stowed. Hands LOW at hip/lap height, below elbows, not raised at shoulder height. Long skirt drapes over bent seated knees; feet below. Back view hides face completely. Tote rests against left hip, stays attached. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "report": {
+      "frames": 3,
+      "fps": 5,
+      "loop": false,
+      "action": "Facing RIGHT, hand over a small cream paper report: frame 0 paper held close to chest, frame 1 forearm extends paper forward, frame 2 open hand offered outward with paper at fingertip. Paper always touches hand. Feet planted. Keep paper within sprite cell. No other person. Tablet and stylus stowed in tote; only the action-specific prop is in hands. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "sleep": {
+      "frames": 2,
+      "fps": 2,
+      "loop": true,
+      "action": "Napping seated upright facing DOWN, knees bent, head slumped gently toward shoulder, eyes shut; two subtly different breathing poses. No bed, sofa, furniture, pillow, zzz or floating marks. Tablet and stylus stowed in tote; only the action-specific prop is in hands. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "coffee": {
+      "frames": 3,
+      "fps": 3,
+      "loop": true,
+      "action": "Facing DOWN-right, drinking coffee from one small cream mug: hold mug at chest, lift mug to mouth, lower mug. Mug must touch hand. No steam, no detached pixels. Feet planted. Tablet and stylus stowed in tote; only the action-specific prop is in hands. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "phone": {
+      "frames": 3,
+      "fps": 3,
+      "loop": true,
+      "action": "Facing DOWN-right, scrolling dark navy phone held in both hands near chest, head tilted down: thumb at top, thumb lower, thumb taps. Phone screen a few pale blue pixels, touches hands. Feet planted. Tablet and stylus stowed in tote; only the action-specific prop is in hands. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "talk": {
+      "frames": 3,
+      "fps": 4,
+      "loop": true,
+      "action": "Facing DOWN-right, friendly talking gesture: relaxed mouth, one hand palm open at chest, hand lowers with tiny open mouth. Feet planted. No speech bubbles, text or other person. Tablet and stylus stowed in tote; only the action-specific prop is in hands. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    },
+    "surprised": {
+      "frames": 2,
+      "fps": 5,
+      "loop": false,
+      "action": "Facing DOWN, surprised expression: frame 0 wide expressive highlighted eyes and small O mouth, shoulders lift; frame 1 hands raised beside cheeks, slightly leaning back. No punctuation or floating exclamation; exclamation bubble is separate overlay. Tablet and stylus stowed in tote; only the action-specific prop is in hands. Preserve exact identity: Adult woman designer with a soft rounded pear-shaped silhouette. Pastel mint hijab, smooth rounded dome and layered pointed drape framing her cheeks and covering all hair; a small dark sage fold over the shoulder. Warm medium brown skin, round rosy cheeks, large expressive dark brown eyes each with a crisp ivory square highlight. Cream open cardigan with two square pockets over an ankle-length dusty-blue A-line skirt, small dark brown flat shoes. ONE round tan tote with a short rounded handle at her anatomical left hip. The same hijab, cardigan, long skirt and round tote in every pose. Friendly focused smile. No visible hair, trousers, hat, scarf or glasses."
+    }
+  }
+}
