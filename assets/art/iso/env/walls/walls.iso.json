@@ -1,0 +1,1010 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "sheets": [
+    {
+      "id": "iso-env-walls",
+      "kind": "wall",
+      "file": "walls.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 32,
+        "y": 48
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "plain-l",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "panel",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 0,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "window-frame-l",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "frame",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 0,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "window-glass-l",
+          "direction": "any",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "backdrop",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 6,
+              "y": 46,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "rear-walls"
+        },
+        {
+          "name": "door-frame-l",
+          "direction": "any",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "frame",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 0,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "door-opening-l",
+          "direction": "any",
+          "row": 1,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "opening",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 8,
+              "y": 57,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "rear-walls"
+        },
+        {
+          "name": "door-leaf-closed-l",
+          "direction": "any",
+          "row": 1,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "leaf",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 8,
+              "y": 57,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "mixed-depth",
+          "state": "closed"
+        },
+        {
+          "name": "door-leaf-open-l",
+          "direction": "any",
+          "row": 1,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "leaf",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 29,
+              "y": 52,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "mixed-depth",
+          "state": "open",
+          "hingeAlongEdge": 0.25,
+          "leafGroundStep": {
+            "i": 0.1875,
+            "j": 0
+          }
+        },
+        {
+          "name": "door-threshold-l",
+          "direction": "any",
+          "row": 1,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "threshold",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 8,
+              "y": 59,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "mixed-depth"
+        },
+        {
+          "name": "end-cap-l",
+          "direction": "any",
+          "row": 2,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "end",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 0,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "top-trim-l",
+          "direction": "any",
+          "row": 2,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "top-trim",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 0,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "base-trim-l",
+          "direction": "any",
+          "row": 2,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "base-trim",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 0,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "plain-r",
+          "direction": "any",
+          "row": 2,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "panel",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 31,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "window-frame-r",
+          "direction": "any",
+          "row": 3,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "frame",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 31,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "window-glass-r",
+          "direction": "any",
+          "row": 3,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "backdrop",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 25,
+              "y": 46,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "rear-walls"
+        },
+        {
+          "name": "door-frame-r",
+          "direction": "any",
+          "row": 3,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "frame",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 31,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "door-opening-r",
+          "direction": "any",
+          "row": 3,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "opening",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 23,
+              "y": 57,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "rear-walls"
+        },
+        {
+          "name": "door-leaf-closed-r",
+          "direction": "any",
+          "row": 4,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "leaf",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 23,
+              "y": 57,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "mixed-depth",
+          "state": "closed"
+        },
+        {
+          "name": "door-leaf-open-r",
+          "direction": "any",
+          "row": 4,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "leaf",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 2,
+              "y": 52,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "mixed-depth",
+          "state": "open",
+          "hingeAlongEdge": 0.25,
+          "leafGroundStep": {
+            "i": 0,
+            "j": 0.1875
+          }
+        },
+        {
+          "name": "door-threshold-r",
+          "direction": "any",
+          "row": 4,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "threshold",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 23,
+              "y": 59,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel",
+          "passName": "mixed-depth"
+        },
+        {
+          "name": "end-cap-r",
+          "direction": "any",
+          "row": 4,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "end",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 31,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "top-trim-r",
+          "direction": "any",
+          "row": 5,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "top-trim",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 31,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        },
+        {
+          "name": "base-trim-r",
+          "direction": "any",
+          "row": 5,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "base-trim",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 31,
+              "y": 63,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "lowest wall/base or aperture attachment texel"
+        }
+      ]
+    },
+    {
+      "id": "iso-env-wall-corner",
+      "kind": "wall",
+      "file": "walls-corner.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 32,
+        "y": 48
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "inner-rear-corner",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "rear-corner",
+          "role": "join",
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "anchorChecks": [
+            {
+              "x": 31,
+              "y": 47,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "rear ground join"
+        }
+      ]
+    }
+  ],
+  "light": {
+    "screenDirection": "upper-left"
+  },
+  "wallHeight": 48,
+  "wallRise": 16,
+  "wallModules": [
+    {
+      "id": "iso/wall-plain-l",
+      "face": "left",
+      "edgeAnchor": {
+        "x": 32,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "plain-l"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-window-l",
+      "face": "left",
+      "edgeAnchor": {
+        "x": 32,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "window-frame-l"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "window-glass-l"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-closed-door-l",
+      "face": "left",
+      "edgeAnchor": {
+        "x": 32,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-frame-l"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-opening-l"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-leaf-closed-l"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-threshold-l"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-open-door-l",
+      "face": "left",
+      "edgeAnchor": {
+        "x": 32,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-frame-l"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-opening-l"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-leaf-open-l"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-threshold-l"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-end-cap-l",
+      "face": "left",
+      "edgeAnchor": {
+        "x": 32,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "end-cap-l"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-top-trim-l",
+      "face": "left",
+      "edgeAnchor": {
+        "x": 32,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "top-trim-l"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-base-trim-l",
+      "face": "left",
+      "edgeAnchor": {
+        "x": 32,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "base-trim-l"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-plain-r",
+      "face": "right",
+      "edgeAnchor": {
+        "x": 0,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "plain-r"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-window-r",
+      "face": "right",
+      "edgeAnchor": {
+        "x": 0,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "window-frame-r"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "window-glass-r"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-closed-door-r",
+      "face": "right",
+      "edgeAnchor": {
+        "x": 0,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-frame-r"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-opening-r"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-leaf-closed-r"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-threshold-r"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-open-door-r",
+      "face": "right",
+      "edgeAnchor": {
+        "x": 0,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-frame-r"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-opening-r"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-leaf-open-r"
+        },
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "door-threshold-r"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-end-cap-r",
+      "face": "right",
+      "edgeAnchor": {
+        "x": 0,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "end-cap-r"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-top-trim-r",
+      "face": "right",
+      "edgeAnchor": {
+        "x": 0,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "top-trim-r"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-base-trim-r",
+      "face": "right",
+      "edgeAnchor": {
+        "x": 0,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-walls",
+          "clip": "base-trim-r"
+        }
+      ],
+      "trimPolicy": "Panel/frame contains caps. Separate trim modules replace these pixels; do not stack extra trim strokes."
+    },
+    {
+      "id": "iso/wall-inner-rear-corner",
+      "face": "rear-corner",
+      "edgeAnchor": {
+        "x": 32,
+        "y": 48
+      },
+      "parts": [
+        {
+          "sheetId": "iso-env-wall-corner",
+          "clip": "inner-rear-corner"
+        }
+      ],
+      "joinPolicy": "Overlay at the first rear endpoint; both edge segments remain present."
+    }
+  ],
+  "sourceGeometry": {
+    "left": [
+      [
+        32,
+        48
+      ],
+      [
+        0,
+        64
+      ]
+    ],
+    "right": [
+      [
+        0,
+        48
+      ],
+      [
+        32,
+        64
+      ]
+    ],
+    "height": 48,
+    "trimHeight": 2
+  },
+  "reviewFixture": {
+    "room": [
+      10,
+      10
+    ],
+    "door": {
+      "face": "left",
+      "tile": [
+        0,
+        4
+      ],
+      "state": "open"
+    },
+    "window": {
+      "face": "right",
+      "tile": [
+        4,
+        0
+      ]
+    }
+  }
+}

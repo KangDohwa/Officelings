@@ -1,0 +1,9 @@
+# A2 ENV handoff
+
+- Made 15 logical modules in `walls.iso.json`: seven L/R pairs and the inner rear corner. Physical storage is 22 native 32×64 face cells in `walls.png`, plus one 64×64 join in `walls-corner.png`. L/R anchors are (32,48)/(0,48); corner (32,48); height 48, rise 16, trims 2 inside height. L/R shading and reflections were authored separately under fixed upper-left light.
+- Door frame, opening, closed/open leaf and threshold are separate clips; window glass/backdrop is separate. `wallModules` lists assembly parts. Full panels already contain caps; standalone trims replace their pixels. Corner/end caps are overlays. Open leaves and thresholds declare mixed-depth placement; final actor crossing remains an integrator test.
+- `wall-review-room.png` joins 20 rear segments: door beside (0,4), window beside (4,0), corner and two ends. `../room-shell-review.png` and its `-3x` companion are 640×368 / 1920×1104. Closed-door and 4× module reviews are also included.
+- Lane time: approximately 0.10 hours for A2, including half shared preparation; ENV total approximately 0.20 hours. One shared still generation took 45.047 seconds.
+- Looks off: a one-edge window and door read narrow at 1×; walls are deliberately spare compared with the furnished hero. The open leaf is a small contained plane rather than a wide door swing.
+- Spec assumption to revisit: a full-width doorway/window would need explicit multi-edge scope and wider leaf canvas. No geometry change is needed for this slice. Packaging must implement the declared private module/layer records; these are not a runtime adapter.
+- Final `iso_check.py`: 16 PASS, 8 inapplicable SKIP, 0 FAIL across ENV. `../review-geometry.txt` additionally checks independent wall coverage and exact 3× expansion. No human art approval or runtime occlusion test is claimed.

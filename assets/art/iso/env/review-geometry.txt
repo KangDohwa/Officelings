@@ -1,0 +1,5 @@
+PASS: 11 logical floor cells; each base mask has 1,024 owned texels.
+PASS: 15 logical wall modules; 22 face cells plus one 64x64 corner overlay.
+PASS: 20 joined rear faces cover the independently computed 48px wall envelope once.
+PASS: window at right (4,0), open door at left (0,4); no alpha holes in wall envelope.
+PASS: room bounds 640x368; 3x output equals exact nearest-neighbor expansion.
