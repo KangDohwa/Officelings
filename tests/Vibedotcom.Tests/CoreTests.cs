@@ -199,15 +199,19 @@ public sealed class CoreTests : IDisposable
         IReadOnlyList<AgentView> views = office.Update([parent, worker], Now, 0);
         // The semantic state can be idle while its arrival/report sequence is still pending.
         worker = worker with { State = AgentState.Idle };
-        var delivered = false;
+        var delivered = false; var pickedUp = false; var carried = false; var reacted = false;
         for (var i = 0; i < 200; i++)
         {
             views = office.Update([parent, worker], Now.AddSeconds(i * .1), .1);
             var w = views.Single(v => v.Agent.Id == "worker");
+            pickedUp |= w.Pose.Action == "pickup";
+            carried |= w.Pose.Action == "walking" && w.Pose.CarryingPaper;
+            reacted |= views[0].Pose.Reaction == "!" && views[0].Pose.ReportOnDesk;
             if (w.Pose.Action == "reporting")
-            { delivered = true; Assert.Equal(new Position(views[0].Pose.Desk.X, views[0].Pose.Desk.Y), new Position(w.Pose.X, w.Pose.Y)); }
+            { delivered = true; Assert.Equal(new Position(views[0].Pose.Desk.X + 1, views[0].Pose.Desk.Y), new Position(w.Pose.X, w.Pose.Y)); }
         }
-        Assert.True(delivered); Assert.Contains(views[1].Pose.Action, new[] { "walking", "coffee", "tv", "phone", "napping", "chatting" });
+        Assert.True(pickedUp); Assert.True(carried); Assert.True(delivered); Assert.True(reacted);
+        Assert.Contains(views[1].Pose.Action, new[] { "walking", "coffee", "tv", "phone", "napping", "chatting", "water" });
         office = new(42); worker = Info("orphan", "missing", AgentState.Reporting); office.Update([worker], Now, 0);
         worker = worker with { State = AgentState.Idle };
         for (var i = 0; i < 200; i++) views = office.Update([worker], Now.AddSeconds(i * .1), .1);
@@ -237,8 +241,8 @@ public sealed class CoreTests : IDisposable
     {
         var png = SpriteAtlas.CreatePng();
         Assert.Equal(new byte[] { 137, 80, 78, 71, 13, 10, 26, 10 }, png[..8]);
-        Assert.Equal(208, BinaryPrimitives.ReadInt32BigEndian(png.AsSpan(16)));
-        Assert.Equal(168, BinaryPrimitives.ReadInt32BigEndian(png.AsSpan(20)));
+        Assert.Equal(720, BinaryPrimitives.ReadInt32BigEndian(png.AsSpan(16)));
+        Assert.Equal(1176, BinaryPrimitives.ReadInt32BigEndian(png.AsSpan(20)));
         using var compressed = new MemoryStream();
         for (var pos = 8; pos < png.Length;)
         {
@@ -247,18 +251,184 @@ public sealed class CoreTests : IDisposable
             pos += size + 12;
         }
         compressed.Position = 0; using var z = new ZLibStream(compressed, CompressionMode.Decompress); using var rgba = new MemoryStream(); z.CopyTo(rgba);
-        Assert.Equal(168 * (208 * 4 + 1), rgba.Length); Assert.Contains(rgba.ToArray(), b => b != 0);
+        Assert.Equal(1176 * (720 * 4 + 1), rgba.Length); Assert.Contains(rgba.ToArray(), b => b != 0);
+        var bytes = rgba.ToArray();
+        byte[] Cell(int row, int column) => Enumerable.Range(0, 24).SelectMany(y => bytes.Skip((row * 24 + y) * (720 * 4 + 1) + 1 + column * 16 * 4).Take(64)).ToArray();
+        Assert.NotEqual(Cell(0, 13), Cell(0, 17)); // front/back
+        Assert.NotEqual(Cell(0, 21), Cell(0, 25)); // right/left
+        Assert.NotEqual(Cell(0, 3), Cell(0, 4)); // typing hands
+        Assert.NotEqual(Cell(0, 0), Cell(7, 0)); // identity palette
+        Assert.Contains(Cell(0, 0).Take(16 * 4 * 3), b => b != 0); // head reaches top of cell
     }
 
     [Fact]
     public void AtomicSnapshotRoundTripsAndLeavesNoTemporaryFiles()
     {
         var office = new OfficeAnimator(); var path = Path.Combine(root, "state.json");
-        var snapshot = new StateSnapshot(1, Now, 1, SpriteAtlas.Info, office.Layout, [], []);
+        var snapshot = new StateSnapshot(StateJson.SchemaVersion, Now, 1, SpriteAtlas.Info, office.Layout, [], []);
         StateJson.WriteAtomic(path, snapshot); StateJson.WriteAtomic(path, snapshot with { Sequence = 2 });
         using var reader = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
         var result = JsonSerializer.Deserialize<StateSnapshot>(reader, StateJson.Options)!;
-        Assert.Equal(1, result.SchemaVersion); Assert.Equal(2, result.Sequence); Assert.Empty(result.Agents); Assert.Equal(48, result.Office.WidthTiles);
+        Assert.Equal(3, result.SchemaVersion); Assert.Equal(2, result.Sequence); Assert.Empty(result.Agents); Assert.Equal(17, result.Office.WidthTiles);
         Assert.Empty(Directory.GetFiles(root, "*.tmp"));
+    }
+
+    [Fact]
+    public void OfficeCompactsAndGoneCharacterFadesAtDoorBeforeDisappearing()
+    {
+        AgentInfo Info(int i) => new("agent:" + i, Provider.Claude, null, false, "Example", null, null, null, "", null, null, AgentState.Working, Now, Now, false);
+        var office = new OfficeAnimator(12);
+        office.Update(Enumerable.Range(0, 12).Select(Info).ToArray(), Now, 0);
+        var largeWidth = office.Layout.WidthTiles;
+        var agent = Info(0);
+        office.Update([agent], Now, 0);
+        Assert.True(office.Layout.WidthTiles < largeWidth);
+        Assert.Single(office.Layout.Furniture, f => f.Kind == "desk");
+        for (var i = 0; i < 150; i++) office.Update([agent], Now.AddSeconds(i * .1), .1);
+        agent = agent with { State = AgentState.Gone };
+        var fading = false; var hidden = false;
+        for (var i = 0; i < 200; i++)
+        {
+            var pose = Assert.Single(office.Update([agent], Now.AddSeconds(16 + i * .1), .1)).Pose;
+            if (pose.Visible && pose.Opacity < 1)
+            { fading = true; Assert.Equal(new Position(office.Layout.Door.X, office.Layout.Door.Y), new Position(pose.X, pose.Y)); }
+            hidden |= !pose.Visible;
+        }
+        Assert.True(fading); Assert.True(hidden);
+    }
+
+    [Fact]
+    public void IdleActivitiesVaryAndChattingHasAReciprocalPartner()
+    {
+        var office = new OfficeAnimator(42);
+        var agents = Enumerable.Range(0, 6).Select(i => new AgentInfo("idle:" + i, (Provider)(i % 3), null, false, "Example", null, null, null, "", null, null, AgentState.Idle, Now, Now, false)).ToArray();
+        var activities = new HashSet<string>(); var paired = false;
+        for (var i = 0; i < 2400; i++)
+        {
+            var views = office.Update(agents, Now.AddSeconds(i * .1), .1);
+            foreach (var v in views.Where(v => v.Pose.Action is not ("walking" or "entering")))
+            {
+                activities.Add(v.Pose.Action);
+                if (v.Pose.Action != "chatting") continue;
+                var friend = Assert.Single(views, f => f.Agent.Id == v.Pose.ChatPartnerId);
+                Assert.Equal(v.Agent.Id, friend.Pose.ChatPartnerId); paired = true;
+            }
+        }
+        Assert.True(paired);
+        Assert.Subset(new HashSet<string> { "coffee", "tv", "phone", "napping", "chatting", "water" }, activities);
+        Assert.Equal(6, activities.Count);
+    }
+
+    private AssetPack CustomPack(IReadOnlyList<FurnitureAsset>? furniture = null)
+    {
+        var rows = new AnimationRow[] { new("idle","any",0,1,1),new("walk","down",1,4,4),new("walk","up",2,4,4),new("reporting","any",3,3,5,Loop:false) };
+        var manifest = new AssetManifest(1,[new("people","people.png",16,24,rows,new(8,23),.75)],furniture ?? [],
+            Enumerable.Range(0,8).Select(i=>new CharacterDesign("design-"+i,"people")).ToArray(),[]);
+        File.WriteAllBytes(Path.Combine(root,"people.png"),SpriteAtlas.CreatePng());
+        File.WriteAllText(Path.Combine(root,"manifest.json"),JsonSerializer.Serialize(manifest,StateJson.Options));
+        return new(root);
+    }
+    [Fact]
+    public void SheetManifestControlsAnimationAnchorRosterAndExport()
+    {
+        var pack=CustomPack([new("plant","plant",[new(0,"default",1,1,[],SheetId:"people",Animation:"reporting")])]); Assert.Empty(pack.Warnings);
+        var f=pack.Frame("people","walk","up",750);
+        Assert.Equal(2,f.Row); Assert.Equal(3,f.Column); Assert.Equal(23,f.AnchorY); Assert.Equal(.75,f.Scale);
+        Assert.Equal(0,pack.Frame("people","reporting","any",0,3).Column);
+        Assert.Equal(2,pack.Frame("people","reporting","any",9999,3).Column);
+        var office=new OfficeAnimator(42,pack);
+        var agents=Enumerable.Range(0,8).Select(i=>new AgentInfo("art:"+i,Provider.Codex,null,false,"Demo",null,null,null,"",null,null,AgentState.Working,Now,Now,false)).ToArray();
+        var views=office.Update(agents,Now,0);
+        Assert.Equal(2,office.FurnitureSprites.Count); Assert.All(office.FurnitureSprites,f=>Assert.Equal(0,f.Sprite.Column));
+        Assert.Equal(8,views.Select(v=>v.Pose.CharacterId).Distinct().Count());
+        Assert.All(views,v=>Assert.Equal("people",v.Pose.Sprite!.SheetId));
+        var reversed=office.Update(agents.Reverse().ToArray(),Now,.1);
+        Assert.All(reversed,v=>Assert.Equal(views.Single(a=>a.Agent.Id==v.Agent.Id).Pose.CharacterId,v.Pose.CharacterId));
+        office.Update(agents,Now.AddSeconds(1),.1); Assert.All(office.FurnitureSprites,f=>Assert.Equal(2,f.Sprite.Column));
+        var exported=pack.Export(Path.Combine(root,"output"));
+        Assert.All(exported.Sheets,s=>Assert.True(File.Exists(Path.Combine(root,"output",s.File))));
+        Assert.Contains(exported.Sheets,s=>s.Id=="people" && s.Width==720 && s.Height==1176 && s.Sha256!.Length==64);
+    }
+    [Fact]
+    public void InvalidArtAndLayoutsFallBackWithoutOverwritingSource()
+    {
+        var pack=CustomPack();
+        var manifest=JsonSerializer.Deserialize<AssetManifest>(File.ReadAllText(Path.Combine(root,"manifest.json")),StateJson.Options)!;
+        File.WriteAllText(Path.Combine(root,"manifest.json"),JsonSerializer.Serialize(manifest with { Sheets=[manifest.Sheets[0] with { File="../outside.png" }] },StateJson.Options));
+        var rejected=new AssetPack(root); Assert.Single(rejected.Warnings); Assert.Single(rejected.Manifest.Sheets);
+        File.WriteAllText(Path.Combine(root,"manifest.json"),JsonSerializer.Serialize(manifest,StateJson.Options));
+        File.WriteAllBytes(Path.Combine(root,"people.png"),SpriteAtlas.CreatePng()[..33]);
+        var truncated=new AssetPack(root); Assert.Single(truncated.Warnings); Assert.Single(truncated.Manifest.Sheets);
+        var file=Path.Combine(root,"layout.json"); const string invalid="{\"version\":999}"; File.WriteAllText(file,invalid);
+        var warnings=new List<string>(); var layout=LayoutLoader.Load(pack,file,warnings);
+        Assert.Single(warnings); Assert.Equal(1,layout.Version); Assert.Equal(invalid,File.ReadAllText(file));
+    }
+    [Fact]
+    public void RotatedFurnitureSeatAndWallTilesDriveWorkAndPathfinding()
+    {
+        var variant=new FurnitureVariant(90,"default",2,3,[new("seat",2,1,"typing","left")]);
+        var pack=CustomPack([new("side-desk","desk",[variant])]);
+        var layout=LayoutLoader.Load(pack,null) with { AutoDesks=null };
+        layout=layout with { Furniture=layout.Furniture.Concat([new Furniture("desk",2,5,2,3,null,"side-1","side-desk",90)]).ToArray() };
+        var tiles=layout.Tiles!.ToArray(); tiles[9*layout.WidthTiles+2]=0; layout=layout with { Tiles=tiles };
+        var file=Path.Combine(root,"layout.json"); File.WriteAllText(file,JsonSerializer.Serialize(layout,StateJson.Options));
+        var loaded=LayoutLoader.Load(pack,file,pack.Warnings); Assert.Empty(pack.Warnings);
+        var animator=new OfficeAnimator(1,pack,loaded);
+        var agent=new AgentInfo("side",Provider.Codex,null,false,"Side",null,null,null,"",null,null,AgentState.Working,Now,Now,false);
+        AgentView view=Assert.Single(animator.Update([agent],Now,0)); Assert.Equal(new Tile(4,6),view.Pose.Desk);
+        for(var i=0;i<150;i++) view=Assert.Single(animator.Update([agent],Now.AddSeconds(i*.1),.1));
+        Assert.Equal("typing",view.Pose.Action); Assert.Equal("left",view.Pose.Facing);
+        Assert.DoesNotContain(new Tile(2,9),OfficeAnimator.FindPath(loaded,loaded.Door,new(4,6)));
+    }
+    [Fact]
+    public void AStarFindsShortestDetourAndRejectsBlockedDestination()
+    {
+        var tiles=Enumerable.Repeat(1,49).ToArray(); foreach(var y in new[] {2,3,4}) tiles[y*7+3]=0;
+        var layout=new OfficeLayout(7,7,16,new(1,3),[],Tiles:tiles);
+        var path=OfficeAnimator.FindPath(layout,new(1,3),new(5,3));
+        Assert.Equal(8,path.Count); Assert.Equal(new Tile(5,3),path[^1]);
+        Assert.Empty(OfficeAnimator.FindPath(layout,new(1,3),new(3,3)));
+    }
+    [Fact]
+    public void DepartedMiddleSlotDoesNotLoseSurvivingDeskOrIdentity()
+    {
+        var animator=new OfficeAnimator(42);
+        var agents=Enumerable.Range(0,6).Select(i=>new AgentInfo("slot:"+i,Provider.Codex,null,false,"Demo",null,null,null,"",null,null,AgentState.Working,Now,Now,false)).ToArray();
+        var before=animator.Update(agents,Now,0);
+        var after=animator.Update(agents.Where((a,i)=>i!=2).ToArray(),Now.AddSeconds(1),.1);
+        Assert.Equal(5,after.Count);
+        Assert.All(after,v=>Assert.Equal(before.Single(b=>b.Agent.Id==v.Agent.Id).Pose.CharacterId,v.Pose.CharacterId));
+        Assert.Equal(6,animator.Layout.Furniture.Count(f=>f.Kind=="desk"));
+    }
+    [Fact]
+    public void ResumingDuringDoorFadeRestoresOpacity()
+    {
+        var animator=new OfficeAnimator(42);
+        var agent=new AgentInfo("resume",Provider.Codex,null,false,"Demo",null,null,null,"",null,null,AgentState.Working,Now,Now,false);
+        for(var i=0;i<100;i++) animator.Update([agent],Now.AddSeconds(i*.1),.1);
+        agent=agent with { State=AgentState.Gone }; DateTimeOffset time=Now.AddSeconds(11); var sawFade=false;
+        for(var i=0;i<200;i++)
+        {
+            time=Now.AddSeconds(11+i*.1); var p=Assert.Single(animator.Update([agent],time,.1)).Pose;
+            if(p.Visible && p.Opacity<1) { sawFade=true; break; }
+        }
+        Assert.True(sawFade);
+        var resumed=Assert.Single(animator.Update([agent with { State=AgentState.Working }],time.AddMilliseconds(100),.1)).Pose;
+        Assert.True(resumed.Visible); Assert.Equal(1,resumed.Opacity); Assert.NotEqual("gone",resumed.Action);
+    }
+    [Fact]
+    public void FakeWindowTopologiesCoverClassicRawDesktopAndSafeQaPlans()
+    {
+        DesktopWindow[] classic=[new(10,0,"WorkerW"),new(1,0,"Progman"),new(2,1,"SHELLDLL_DefView"),new(3,0,"WorkerW")];
+        Assert.Equal(new DesktopHost(3,0),WindowModePlan.FindHost(classic,1));
+        DesktopWindow[] raw=[new(1,0,"Progman",0x00200000),new(2,1,"SHELLDLL_DefView"),new(3,1,"WorkerW")];
+        Assert.Equal(new DesktopHost(1,2),WindowModePlan.FindHost(raw,1));
+        Assert.Null(WindowModePlan.FindHost([new(1,0,"Progman"),new(9,0,"WorkerW")],1));
+        var desktop=WindowModePlan.Create("desktop",true,false,true,.85);
+        Assert.True(desktop.NoActivate); Assert.False(desktop.Topmost); Assert.False(desktop.ShowInTaskbar); Assert.True(desktop.Borderless);
+        var top=WindowModePlan.Create("topmost",false,false,false,5); Assert.True(top.Topmost); Assert.Equal(1,top.Opacity);
+        var qa=WindowModePlan.Create("desktop",false,false,false,double.NaN,true);
+        Assert.Equal("normal",qa.Mode); Assert.True(qa.NoActivate); Assert.False(qa.Topmost); Assert.False(qa.ShowInTaskbar); Assert.Equal(1,qa.Opacity);
+        var normal=WindowModePlan.Create("normal",false,false,false,1); Assert.False(normal.ClickThrough); Assert.False(normal.Borderless);
     }
 }
