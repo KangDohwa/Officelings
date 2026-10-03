@@ -1,0 +1,4903 @@
+{
+  "version": 1,
+  "kind": "art-composition-evidence",
+  "notes": "Production-pixel compositions, not installed or validated runtime layouts. All drawn art comes from env2..env5; labels are outside scenes.",
+  "scenes": [
+    {
+      "title": "Cozy studio",
+      "nativeWidth": 480,
+      "nativeHeight": 352,
+      "scale": 2,
+      "placements": [
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 320,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 384,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 448,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 320,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 384,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 448,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 320,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 384,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 448,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 320,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 384,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 448,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-light-oak.png",
+          "manifest": "env5/sheets/floor-wood-light-oak.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 0,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 32,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 64,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 96,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 128,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 160,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 192,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 224,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 256,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 288,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 320,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 352,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 384,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 416,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 448,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 0,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 32,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 64,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 96,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 128,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 160,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 192,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 224,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 256,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 288,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 320,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 352,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 384,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 416,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 448,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "window_classic",
+          "frame": 0,
+          "x": 64,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-wallpaper-rose.png",
+          "manifest": "env5/sheets/wall-wallpaper-rose.manifest.json",
+          "state": "window_classic",
+          "frame": 0,
+          "x": 128,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-carpet-sage.png",
+          "manifest": "env5/sheets/floor-carpet-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/rugs.png",
+          "manifest": "env5/sheets/rugs.manifest.json",
+          "state": "variants",
+          "frame": 3,
+          "x": 63,
+          "y": 221,
+          "role": "floor-overlay"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/sofas.png",
+          "manifest": "env5/sheets/sofas.manifest.json",
+          "state": "down",
+          "frame": 5,
+          "x": 36,
+          "y": 166,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/armchairs.png",
+          "manifest": "env5/sheets/armchairs.manifest.json",
+          "state": "variants",
+          "frame": 3,
+          "x": 170,
+          "y": 178,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/coffee-table-sets.png",
+          "manifest": "env5/sheets/coffee-table-sets.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 82,
+          "y": 207,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/standing-lamp.png",
+          "manifest": "env5/sheets/standing-lamp.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 1,
+          "y": 183,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-cushions.png",
+          "manifest": "env5/sheets/floor-cushions.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 175,
+          "y": 253,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/desks-front.png",
+          "manifest": "env5/sheets/desks-front.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 261,
+          "y": 100,
+          "role": "prop"
+        },
+        {
+          "pack": "env2",
+          "sheet": "env2/sheets/monitors.png",
+          "manifest": "env2/sheets/monitors.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 260,
+          "y": 75,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/chairs-front.png",
+          "manifest": "env5/sheets/chairs-front.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 261,
+          "y": 131,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/bookshelves.png",
+          "manifest": "env5/sheets/bookshelves.manifest.json",
+          "state": "open",
+          "frame": 2,
+          "x": 361,
+          "y": 80,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/tall-plants.png",
+          "manifest": "env5/sheets/tall-plants.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 86,
+          "role": "prop"
+        },
+        {
+          "pack": "env2",
+          "sheet": "env2/sheets/fridge.png",
+          "manifest": "env2/sheets/fridge.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 412,
+          "y": 157,
+          "role": "prop"
+        },
+        {
+          "pack": "env2",
+          "sheet": "env2/sheets/kitchen-counter-sink.png",
+          "manifest": "env2/sheets/kitchen-counter-sink.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 337,
+          "y": 156,
+          "role": "prop"
+        },
+        {
+          "pack": "env4",
+          "sheet": "env4/sheets/coffee-machine.png",
+          "manifest": "env4/sheets/coffee-machine.manifest.json",
+          "state": "brew",
+          "frame": 0,
+          "x": 297,
+          "y": 156,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/coat-rack.png",
+          "manifest": "env5/sheets/coat-rack.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 413,
+          "y": 259,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/shoe-rack.png",
+          "manifest": "env5/sheets/shoe-rack.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 344,
+          "y": 256,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/spring-cherry-branch.png",
+          "manifest": "env5/sheets/spring-cherry-branch.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 190,
+          "y": -3,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/framed-art.png",
+          "manifest": "env5/sheets/framed-art.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 283,
+          "y": -2,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-shelves.png",
+          "manifest": "env5/sheets/wall-shelves.manifest.json",
+          "state": "variants",
+          "frame": 2,
+          "x": 368,
+          "y": -3,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/hanging-plants.png",
+          "manifest": "env5/sheets/hanging-plants.manifest.json",
+          "state": "variants",
+          "frame": 2,
+          "x": 2,
+          "y": 26,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/spring-flowers.png",
+          "manifest": "env5/sheets/spring-flowers.manifest.json",
+          "state": "variants",
+          "frame": 2,
+          "x": 54,
+          "y": 71,
+          "role": "prop"
+        }
+      ]
+    },
+    {
+      "title": "Bright coworking space",
+      "nativeWidth": 480,
+      "nativeHeight": 352,
+      "scale": 2,
+      "placements": [
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 320,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 384,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 448,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 320,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 384,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 448,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 320,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 384,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 448,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 0,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 320,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 384,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 448,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 0,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 352,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 416,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-polished-stone.png",
+          "manifest": "env5/sheets/floor-polished-stone.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 0,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 32,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 64,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 96,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 128,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 160,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 192,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 224,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 256,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 288,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 320,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 352,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 384,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 416,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 448,
+          "y": 0,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 0,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 32,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 64,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 96,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 128,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 160,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 192,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 224,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 256,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 288,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 320,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 352,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 384,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 416,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "panel",
+          "frame": 0,
+          "x": 448,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "window_classic",
+          "frame": 0,
+          "x": 64,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/wall-white-plaster.png",
+          "manifest": "env5/sheets/wall-white-plaster.manifest.json",
+          "state": "window_classic",
+          "frame": 0,
+          "x": 128,
+          "y": 32,
+          "role": "wall"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 64,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 96,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 128,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 160,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 32,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 64,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 96,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 128,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 160,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 192,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 224,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 256,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 288,
+          "y": 192,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 32,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 64,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 96,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 128,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 160,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 192,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 224,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 256,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-wood-maple.png",
+          "manifest": "env5/sheets/floor-wood-maple.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 288,
+          "y": 224,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 256,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 288,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 320,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 352,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 384,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/floor-checker-sage.png",
+          "manifest": "env5/sheets/floor-checker-sage.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 448,
+          "y": 320,
+          "role": "floor"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/rugs.png",
+          "manifest": "env5/sheets/rugs.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 334,
+          "y": 189,
+          "role": "floor-overlay"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/plant-wall.png",
+          "manifest": "env5/sheets/plant-wall.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 2,
+          "y": 55,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/desks-front.png",
+          "manifest": "env5/sheets/desks-front.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 67,
+          "y": 94,
+          "role": "prop"
+        },
+        {
+          "pack": "env2",
+          "sheet": "env2/sheets/monitors.png",
+          "manifest": "env2/sheets/monitors.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 67,
+          "y": 69,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/chairs-front.png",
+          "manifest": "env5/sheets/chairs-front.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 67,
+          "y": 125,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/desks-front.png",
+          "manifest": "env5/sheets/desks-front.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 159,
+          "y": 94,
+          "role": "prop"
+        },
+        {
+          "pack": "env2",
+          "sheet": "env2/sheets/monitors.png",
+          "manifest": "env2/sheets/monitors.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 159,
+          "y": 69,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/chairs-front.png",
+          "manifest": "env5/sheets/chairs-front.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 159,
+          "y": 125,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/desks-front.png",
+          "manifest": "env5/sheets/desks-front.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 251,
+          "y": 94,
+          "role": "prop"
+        },
+        {
+          "pack": "env2",
+          "sheet": "env2/sheets/monitors.png",
+          "manifest": "env2/sheets/monitors.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 251,
+          "y": 69,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/chairs-front.png",
+          "manifest": "env5/sheets/chairs-front.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 251,
+          "y": 125,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/conference-table-eight.png",
+          "manifest": "env5/sheets/conference-table-eight.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 354,
+          "y": 92,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/projector-screen.png",
+          "manifest": "env5/sheets/projector-screen.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 357,
+          "y": -4,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/notice-board.png",
+          "manifest": "env5/sheets/notice-board.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 275,
+          "y": -3,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/cubicle-straight.png",
+          "manifest": "env5/sheets/cubicle-straight.manifest.json",
+          "state": "r0",
+          "frame": 0,
+          "x": 110,
+          "y": 151,
+          "role": "prop"
+        },
+        {
+          "pack": "env3",
+          "sheet": "env3/sheets/laptop-table-side-right.png",
+          "manifest": "env3/sheets/laptop-table-side-right.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 75,
+          "y": 223,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/chairs-side-right.png",
+          "manifest": "env5/sheets/chairs-side-right.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 49,
+          "y": 223,
+          "role": "prop"
+        },
+        {
+          "pack": "env3",
+          "sheet": "env3/sheets/laptop-table-side-left.png",
+          "manifest": "env3/sheets/laptop-table-side-left.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 180,
+          "y": 223,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/chairs-side-left.png",
+          "manifest": "env5/sheets/chairs-side-left.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 206,
+          "y": 223,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/whiteboard-wheels.png",
+          "manifest": "env5/sheets/whiteboard-wheels.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 264,
+          "y": 220,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/sofas.png",
+          "manifest": "env5/sheets/sofas.manifest.json",
+          "state": "down",
+          "frame": 1,
+          "x": 342,
+          "y": 157,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/coffee-table-sets.png",
+          "manifest": "env5/sheets/coffee-table-sets.manifest.json",
+          "state": "variants",
+          "frame": 1,
+          "x": 347,
+          "y": 202,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/kitchen-island.png",
+          "manifest": "env5/sheets/kitchen-island.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 346,
+          "y": 258,
+          "role": "prop"
+        },
+        {
+          "pack": "env2",
+          "sheet": "env2/sheets/fridge.png",
+          "manifest": "env2/sheets/fridge.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 417,
+          "y": 247,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/printer-station.png",
+          "manifest": "env5/sheets/printer-station.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 269,
+          "y": 288,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/bookshelves.png",
+          "manifest": "env5/sheets/bookshelves.manifest.json",
+          "state": "cabinet",
+          "frame": 1,
+          "x": 7,
+          "y": 270,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/tall-plants.png",
+          "manifest": "env5/sheets/tall-plants.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 416,
+          "y": 72,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/hanging-plants.png",
+          "manifest": "env5/sheets/hanging-plants.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 190,
+          "y": -3,
+          "role": "prop"
+        },
+        {
+          "pack": "env5",
+          "sheet": "env5/sheets/neon-open.png",
+          "manifest": "env5/sheets/neon-open.manifest.json",
+          "state": "variants",
+          "frame": 0,
+          "x": 415,
+          "y": -3,
+          "role": "prop"
+        }
+      ]
+    }
+  ]
+}
