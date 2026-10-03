@@ -4,7 +4,7 @@
   "sheets": [
     {
       "id": "char-antigravity-subagent-01",
-      "file": "sheets/pack-6240a61910f0edef05c8ccd64c7951c800bddff42a0edca68274402f2cf71923.png",
+      "file": "sheets/pack-6cbbb30a4a5cf2dafee7f8af0009a72bfaac0523a9894790fe735479e993db73.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -152,6 +152,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -161,7 +233,7 @@
     },
     {
       "id": "char-antigravity-subagent-02",
-      "file": "sheets/pack-b57ee04fbaa6c03da31830c7579b020a371abc068d951ec1c8b909b2fa87a2cf.png",
+      "file": "sheets/pack-bfe0ba60708ed59fe2add88aa363992b731f1788c4561cf4ef1fb3314151d964.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -309,6 +381,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -318,7 +462,7 @@
     },
     {
       "id": "char-antigravity-subagent-03",
-      "file": "sheets/pack-e4b857b0533f394deeecd76beee31fe27fecdd68a23ef084ca0d6af5e1fc233b.png",
+      "file": "sheets/pack-913d8f081eed32abe010fa75bb1c543d3ec83eb75166325cac12a881d1bcfee1.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -466,6 +610,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -475,7 +691,7 @@
     },
     {
       "id": "char-antigravity-subagent-04",
-      "file": "sheets/pack-a97ef27c28634b6d44ba25b196f0f11f06f9d1b345234388d3486d4530ffba1d.png",
+      "file": "sheets/pack-3df9365b629238ec1c93e1435e3bb30f1b73865d9890b3732b86c5279ea65618.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -623,6 +839,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -632,7 +920,7 @@
     },
     {
       "id": "char-antigravity-supervisor-01",
-      "file": "sheets/pack-158f2961e6b5adec9834df44839aa9000dd143cafd4f0e4f9e461837c72461fe.png",
+      "file": "sheets/pack-59c460e721e86b5181bf43c5e249230de2b97c15e885c45b81fd28189ee16e9d.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -780,6 +1068,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -789,7 +1149,7 @@
     },
     {
       "id": "char-antigravity-supervisor-02",
-      "file": "sheets/pack-742fef58db56144a2597e7621a183161502a8ce81ec2e951c51416b6ef0801bf.png",
+      "file": "sheets/pack-184a5a87abee037c1f48268929f05513cd4432c4e62439c347ed2a42159fce58.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -937,6 +1297,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -946,7 +1378,7 @@
     },
     {
       "id": "char-antigravity-supervisor-03",
-      "file": "sheets/pack-eef97d01ee773b20ed7a03f7a89d18e007c9568a8a974cbb4210a94e45ce96e9.png",
+      "file": "sheets/pack-855f4b8a547576f47e3573e2a6abde746a068c43dbfc859c38579a1cd40eef71.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1094,6 +1526,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -1103,7 +1607,7 @@
     },
     {
       "id": "char-antigravity-supervisor-04",
-      "file": "sheets/pack-31d7e69cdcbe21f1a667963faf52c10456b922abf38afe61f3bc148f31128a96.png",
+      "file": "sheets/pack-a0c89ffeeeb97bb474dd17ee2a094b5ebf74fc658ccffbfe06dcebdab2520abb.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1251,6 +1755,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -1260,7 +1836,7 @@
     },
     {
       "id": "char-antigravity-worker-01",
-      "file": "sheets/pack-8622e6ba650daad0d7cb909ae598e7e29dc736793e6e33ed0684d037ae641017.png",
+      "file": "sheets/pack-23f5fa9ab3d63d6ae91d235cbb0df23833501f58e7ab4022927b5fe5ccd2e700.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1408,6 +1984,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -1417,7 +2065,7 @@
     },
     {
       "id": "char-antigravity-worker-02",
-      "file": "sheets/pack-013d5ddac7791ce56b1925600e2d726484666ea11acad9fb9f583569f50bfb29.png",
+      "file": "sheets/pack-3fcebca0683d9d61b8fd9e2d73a3d779148a51f027c267d10eeb8653fbb1c47c.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1565,6 +2213,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -1574,7 +2294,7 @@
     },
     {
       "id": "char-antigravity-worker-03",
-      "file": "sheets/pack-0232967e0aca11e001d4bfa6168d7e35e0c346f208287f3a50037903042ff1c2.png",
+      "file": "sheets/pack-bb150625ecdfa096ecc72fd88019f61ba5407982e3e2bbe133ba7b1f2030c66b.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1722,6 +2442,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -1731,7 +2523,7 @@
     },
     {
       "id": "char-antigravity-worker-04",
-      "file": "sheets/pack-1be681c805174d2424394ff52916cde624600c42b0df65027dd7dbd7379091ec.png",
+      "file": "sheets/pack-2174a62f0c6950d205e17197f4c8c0a619f10e5c3e420c8b1fc77de5265652df.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -1879,6 +2671,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -1888,7 +2752,7 @@
     },
     {
       "id": "char-claude-subagent-01",
-      "file": "sheets/pack-aac9f1306eb236d4207d32ce8837add890488d0e3c34216837148e7384c60202.png",
+      "file": "sheets/pack-81d3dcf23ea5cf3a41e58b5f63e9b80725dd96c44b5becf5fa9b7f21c0cfe5c3.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2036,6 +2900,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -2045,7 +2981,7 @@
     },
     {
       "id": "char-claude-subagent-02",
-      "file": "sheets/pack-3c849473d545e80b75eea5c62d683de68031c4458deec209b9d2a3998b75a80c.png",
+      "file": "sheets/pack-27c3f4b2f5b982a7615297e6e5f4d7329ae950d48311866445470203db77b959.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2193,6 +3129,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -2202,7 +3210,7 @@
     },
     {
       "id": "char-claude-subagent-03",
-      "file": "sheets/pack-004894872c9206df5af55b0254a716b9fe47ecc269e920520bcc1fb1aaefdaf0.png",
+      "file": "sheets/pack-28cde6c2848ee31f2a80f51e83c169f9daff6e1a812e9c6032ea7ffc4024af23.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2350,6 +3358,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -2359,7 +3439,7 @@
     },
     {
       "id": "char-claude-subagent-04",
-      "file": "sheets/pack-9f3e246c9373a4e54e1eed41906920c003e409cc35eb44ec7a546405b229ed3a.png",
+      "file": "sheets/pack-0365a45abf043ecd905ac2884e51db244a99b16f81bda2d74095ca29922bc6e0.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2507,6 +3587,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -2516,7 +3668,7 @@
     },
     {
       "id": "char-claude-supervisor-01",
-      "file": "sheets/pack-25dc2d9ee57e7c21fedead826c38e9ebcc4f66ec47a24b20eab8d9a2c8e1249e.png",
+      "file": "sheets/pack-69c09b03913d190299a01be1b3b218f90522533ab6db6f646fca0c30625da448.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2664,6 +3816,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -2673,7 +3897,7 @@
     },
     {
       "id": "char-claude-supervisor-02",
-      "file": "sheets/pack-468a60209b907702ba8658c8e4388e8c15df353fba981e7e7a3b98be834e2e53.png",
+      "file": "sheets/pack-bba167e36ca5ef89831f7b1b19a0a6aa5914bd1b7662c799ea1b87dca73d18cb.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2821,6 +4045,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -2830,7 +4126,7 @@
     },
     {
       "id": "char-claude-supervisor-03",
-      "file": "sheets/pack-bb95f33773b8a3509f2723d04ac7b3b02ea71707bef89dcb76dee8b0c78facbb.png",
+      "file": "sheets/pack-d90f7774640c0ff9e89f2ff31056d663579a7071bb924e0c169e286ea566acc9.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -2978,6 +4274,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -2987,7 +4355,7 @@
     },
     {
       "id": "char-claude-supervisor-04",
-      "file": "sheets/pack-9a31438b3fa3f4a2e3fbb543d009242763b62a499be4cd2e95e7ce30c7c31db2.png",
+      "file": "sheets/pack-3c92da5b64591adead0961cd5352b6275d5e1b5eafe23594956d684923492d23.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3135,6 +4503,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -3144,7 +4584,7 @@
     },
     {
       "id": "char-claude-worker-01",
-      "file": "sheets/pack-6b8c37f1dc33143f08ed1eee6b28e98b65c89bce0456ddee7b6856cd268908b3.png",
+      "file": "sheets/pack-120f237bf2c3ec4d2ae2d5aa7d42abb593bc707659f1ccd02883338085e5fc53.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3292,6 +4732,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -3301,7 +4813,7 @@
     },
     {
       "id": "char-claude-worker-02",
-      "file": "sheets/pack-91c658392609a3d385c2f628237c42c73b4f6686d340cfa5f468a720abae7faa.png",
+      "file": "sheets/pack-540c81416a20a487b381e8790c904e4dabed3a6bf6a52a4d38ac6cc6c4517cc2.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3449,6 +4961,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -3458,7 +5042,7 @@
     },
     {
       "id": "char-claude-worker-03",
-      "file": "sheets/pack-2fa9f2653aef9a7ceb1f4ba74465843ffa487eae3c7d92e0c28c3dcebe1e44c5.png",
+      "file": "sheets/pack-e496b074ffbf7b7b9ad858a87607b705c75cd73542ac5e47cdd52a57c39d2eff.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3606,6 +5190,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -3615,7 +5271,7 @@
     },
     {
       "id": "char-claude-worker-04",
-      "file": "sheets/pack-2d57feaa25d5659c571705a6708b96e07cc0ab918e43ff7f61fe900a526dbd8b.png",
+      "file": "sheets/pack-88d2c9c565262fb9d12bcf309579d3ae4eb1d4e236b003ca64e857f76b514b48.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3763,6 +5419,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -3772,7 +5500,7 @@
     },
     {
       "id": "char-codex-subagent-01",
-      "file": "sheets/pack-b39ef1f4d7a2adc2b2657f5e59e0c510d5ebe9f6f9a402afd8bc02386db517c2.png",
+      "file": "sheets/pack-2d5ed6b360c6fff58e74ce0affeae903da06651dee528d17b92fd4ea22cdeb4e.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -3920,6 +5648,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -3929,7 +5729,7 @@
     },
     {
       "id": "char-codex-subagent-02",
-      "file": "sheets/pack-a66ef7db359ac2b45bcec4b502afcd5171a639621c7130c0f11512b75b5eb780.png",
+      "file": "sheets/pack-0448e735191731e04c0457d73443fa92ffb7dd3055c8f61efec67533c5bc43dd.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4077,6 +5877,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -4086,7 +5958,7 @@
     },
     {
       "id": "char-codex-subagent-03",
-      "file": "sheets/pack-587348365ac318a400ea7be13d24bcf1aaee7c73491ba2f8756ed403abc96513.png",
+      "file": "sheets/pack-f6a5bad6ad2cf747d1203694258003a74c6c06844c563a86dfb65572b1f4cf39.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4234,6 +6106,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -4243,7 +6187,7 @@
     },
     {
       "id": "char-codex-subagent-04",
-      "file": "sheets/pack-33ec26e34403cf804e78b1c308e03fdea62e6916886d20834f57ec4cd9e79407.png",
+      "file": "sheets/pack-1feefc639667737e5ef1735b9058495264908e25028fe494e4e11ee2d6759024.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4391,6 +6335,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -4400,7 +6416,7 @@
     },
     {
       "id": "char-codex-supervisor-01",
-      "file": "sheets/pack-4f37a014bfcbe1258a731cee914d4cb5eba1235a8e6c4da99a37c2354c3177f3.png",
+      "file": "sheets/pack-d523e922b2054e55ae89edaf3bcca167f9b62942cfd905a05dfe39c3d01ae1db.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4548,6 +6564,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -4557,7 +6645,7 @@
     },
     {
       "id": "char-codex-supervisor-02",
-      "file": "sheets/pack-1915257e7e11bf29ac01c70571faa51c71b7fd8af868956e79ab16fc56a63570.png",
+      "file": "sheets/pack-86d546da000003ff1cb2a18b483e559571cd7556449df90d9da6e84f1ed95938.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4705,6 +6793,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -4714,7 +6874,7 @@
     },
     {
       "id": "char-codex-supervisor-03",
-      "file": "sheets/pack-ace26fcca1ad96ecda51fd6ca644c8a7944abcdc7af934b73c1162959eae693a.png",
+      "file": "sheets/pack-d7f2903207719f69d9d9e032f7e01899685354aca953b735bb9f7af5d74918b4.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -4862,6 +7022,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -4871,7 +7103,7 @@
     },
     {
       "id": "char-codex-supervisor-04",
-      "file": "sheets/pack-2089f820410847e12c4179051fb0f5a4f1687e1991b2b9f3ed0c3a7d089e28df.png",
+      "file": "sheets/pack-be4ab1c03b336ad7c2d1548f2561161dcea63a48f1a85183bf5b77ff5ac062a6.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5019,6 +7251,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -5028,7 +7332,7 @@
     },
     {
       "id": "char-codex-worker-01",
-      "file": "sheets/pack-98ddc433d48ea29cac3f3c74e55cf23dfd21dba9713062602fc4ef7e66d2bff1.png",
+      "file": "sheets/pack-170db4c053a801df8f370e4df6996aa537811f5ccef27acba126b9580815aab7.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5176,6 +7480,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -5185,7 +7561,7 @@
     },
     {
       "id": "char-codex-worker-02",
-      "file": "sheets/pack-b98259e2252171d09543866ab47d197607653b5418d108ba6b54ed76fea2dbf5.png",
+      "file": "sheets/pack-a6fbf3a952822b337a708900aac6f571db93e33fcd6fd8257cc0935b9bccc956.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5333,6 +7709,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -5342,7 +7790,7 @@
     },
     {
       "id": "char-codex-worker-03",
-      "file": "sheets/pack-0cf7ae64d9ab3fd4d1241cf48748989f27397fe6f0505e31119ef1435c49c199.png",
+      "file": "sheets/pack-98d91d68da2df08ecd256d33a0bf370101af3b81e7cf089b25d53220f9a2a004.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5490,6 +7938,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -5499,7 +8019,7 @@
     },
     {
       "id": "char-codex-worker-04",
-      "file": "sheets/pack-d4ba927deaa57771dd544cb02c8c85a3babaab53462259ab6fdf083fdb8193b3.png",
+      "file": "sheets/pack-d1ddb790b26830510be90c55c565f1e0069439073cdcb4402ebb545c464cb303.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5647,6 +8167,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -5656,7 +8248,7 @@
     },
     {
       "id": "char-beanie-scarf",
-      "file": "sheets/pack-90329532193e1224a32858a5fa9bdddf6ac94392303b07961a8e80548df4eb8d.png",
+      "file": "sheets/pack-4bd04c0b1a3105ce8f3ed150fbdf0c74f3f86cd241734130e4e2c6236c24e07d.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5804,6 +8396,307 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-cap-teen",
+      "file": "sheets/pack-97f7e78fa8ec5c796a2bc0b21b1939e902c4357939d9e1ce547c87d1c76eb9e7.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -5813,7 +8706,7 @@
     },
     {
       "id": "char-dev-hoodie",
-      "file": "sheets/pack-1cd6c8ba26888b5f7c2f2188c50505d19db2b97469dbe3e00c5afacdd1e53380.png",
+      "file": "sheets/pack-6ffa76c6aaded1169b1ecdc5984929ac787a1eac794366d9e9cbf1a4066b2e5e.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -5961,6 +8854,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -5970,7 +8935,7 @@
     },
     {
       "id": "char-glasses-bun",
-      "file": "sheets/pack-aedbbd686fbf1041ae46ae2a52a4ddeb4f216c0f96a7281daac34a8527a6316b.png",
+      "file": "sheets/pack-71f03764914eece8fa1a2e2b8fb6161b0c58c8998311a71dd1e1784237c491b5.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -6118,6 +9083,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -6127,7 +9164,7 @@
     },
     {
       "id": "char-labcoat-tall",
-      "file": "sheets/pack-cb666fb9bf3b4c0ef9053d24d3806f405b9333248960b36c72bd368463d2bd01.png",
+      "file": "sheets/pack-3b283ce161ba4bed19bb749c67a2effb30c1c09560967f01ed219ce1f01a59b7.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -6275,6 +9312,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -6284,7 +9393,7 @@
     },
     {
       "id": "char-professor",
-      "file": "sheets/pack-989e693b8a7ee5851b2faf7dc861b5fab94cc68f73c46d8caf8a944df633bc75.png",
+      "file": "sheets/pack-ae2f654c5f2318c98f7b8b80f0deb6cc1e39e3f0fc92c7db25bd61dbc278e6d3.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -6432,6 +9541,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -6441,7 +9622,7 @@
     },
     {
       "id": "char-punk-girl",
-      "file": "sheets/pack-46ab3fb6b2d37b62e6f2bd690ca67a4e73f3c6e065724526ffe6e53ccf891f35.png",
+      "file": "sheets/pack-c621f00cbb072c4df1376e83d81f26380123778fbd6fd71c80cff5e2edee0a4b.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -6593,22 +9774,345 @@
           "frames": 2,
           "fps": 5,
           "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "char-red-braid",
+      "file": "sheets/pack-8c12b56bce5a3aa8f1f4634ea38891557c31883dd319baed00e0c0212695de72.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
         }
       ]
     },
     {
       "id": "cozy-desk",
-      "file": "sheets/pack-77445f88a8b760a8f4785a56786919984913e7e7f4c03ae29d580394ef6a3c3e.png",
+      "file": "sheets/pack-2698d1214f1106fec2564a232b12b2b6abd1e66df7de333603449117800d9eec.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
         "x": 8,
-        "y": 28
+        "y": 8
       },
       "scale": 1,
       "rows": [
         {
           "name": "cozy-desk",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-chair-front",
+      "file": "sheets/pack-7a01da2086fa9cee8e32df35db6c5f0d7da2224da48d166a79b7fb6cf48e0403.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 8
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-chair-front",
           "direction": "any",
           "row": 0,
           "column": 0,
@@ -7038,12 +10542,12 @@
     },
     {
       "id": "cozy-window",
-      "file": "sheets/pack-9b26f891191c129b6d8c8912eb1c563949e8451fe7613c1a1c20c5139689b594.png",
-      "cellW": 64,
-      "cellH": 64,
+      "file": "sheets/pack-429a8ee6ad67ceb52745a5232ff82f24d7f2c839955d412adbc402122c12a049.png",
+      "cellW": 32,
+      "cellH": 32,
       "anchor": {
-        "x": 8,
-        "y": 45
+        "x": -8,
+        "y": 16
       },
       "scale": 1,
       "rows": [
@@ -7060,17 +10564,105 @@
     },
     {
       "id": "cozy-door",
-      "file": "sheets/pack-f260c28ab990e6ffc34cd58efe13f5c7516dd09786478be95682772e0f78958e.png",
-      "cellW": 64,
-      "cellH": 64,
+      "file": "sheets/pack-442bc0a0424c1e805331f863961eb36ea321191736f2e0f2907d1fb36fc47251.png",
+      "cellW": 32,
+      "cellH": 32,
       "anchor": {
-        "x": 16,
-        "y": 45
+        "x": 0,
+        "y": 16
       },
       "scale": 1,
       "rows": [
         {
           "name": "cozy-door",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-lamp",
+      "file": "sheets/pack-2d034712277f87ab5d3d406bfdaacec8ed765f8004462cc42d1c1ea29fe8ac11.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-lamp",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-fridge",
+      "file": "sheets/pack-9311567feb8aadf32a16d991a6dfd96ae6c5a31c1dac85623d0550d1469f4508.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 13
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-fridge",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-trash",
+      "file": "sheets/pack-406bba49022ca7876f5afa791bf03d57e4fcc58aae88d1d40e3e1ce0fd43cb01.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 24,
+        "y": 45
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-trash",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
+    },
+    {
+      "id": "cozy-coffee-table",
+      "file": "sheets/pack-72083f8ac65f54b1c795736ed3d79d7a6f22c738eab0b84aef0a8294fc1cb671.png",
+      "cellW": 64,
+      "cellH": 64,
+      "anchor": {
+        "x": 8,
+        "y": 29
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "cozy-coffee-table",
           "direction": "any",
           "row": 0,
           "column": 0,
@@ -7176,7 +10768,7 @@
     },
     {
       "id": "tiles",
-      "file": "sheets/pack-20557ac2ff1558bfcfe2f54f1aad3417837eca8cf1764745ce092d4a768c854b.png",
+      "file": "sheets/pack-095723a8b983c1735c8aa6926fdc0c97c22c8be6070b7cac8c54989551512f88.png",
       "cellW": 32,
       "cellH": 32,
       "anchor": {
@@ -7361,6 +10953,46 @@
           "loop": false
         }
       ]
+    },
+    {
+      "id": "room-walls",
+      "file": "sheets/pack-dedcd92a0506e99bc45d7f0c9cb0465a5c7dfe6ea60d134a56f69e17e85bee1b.png",
+      "cellW": 32,
+      "cellH": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "partition",
+          "direction": "any",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "wood-wall",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "wood-baseboard",
+          "direction": "any",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        }
+      ]
     }
   ],
   "characters": [
@@ -7513,6 +11145,10 @@
       "sheetId": "char-beanie-scarf"
     },
     {
+      "id": "cap-teen",
+      "sheetId": "char-cap-teen"
+    },
+    {
       "id": "dev-hoodie",
       "sheetId": "char-dev-hoodie"
     },
@@ -7531,6 +11167,10 @@
     {
       "id": "punk-girl",
       "sheetId": "char-punk-girl"
+    },
+    {
+      "id": "red-braid",
+      "sheetId": "char-red-braid"
     }
   ],
   "furniture": [
@@ -7575,13 +11215,31 @@
               "x": 1,
               "y": 2,
               "action": "typing",
-              "facing": "right"
+              "facing": "up"
             }
           ],
           "sheetId": "cozy-desk",
           "animation": "cozy-desk",
           "layer": 1,
           "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-chair-front",
+      "kind": "chair",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front",
+          "layer": 1,
+          "zOrder": 18
         }
       ]
     },
@@ -8299,13 +11957,145 @@
           "zOrder": 0
         }
       ]
+    },
+    {
+      "id": "cozy-lamp",
+      "kind": "lamp",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-lamp",
+          "animation": "cozy-lamp",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-fridge",
+      "kind": "cabinet",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 0,
+              "y": 2
+            },
+            {
+              "x": 1,
+              "y": 2
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-fridge",
+          "animation": "cozy-fridge",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-trash",
+      "kind": "plant",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-trash",
+          "animation": "cozy-trash",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
+    },
+    {
+      "id": "cozy-coffee-table",
+      "kind": "table",
+      "variants": [
+        {
+          "rotation": 0,
+          "state": "default",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            },
+            {
+              "x": 1,
+              "y": 0
+            },
+            {
+              "x": 2,
+              "y": 0
+            },
+            {
+              "x": 0,
+              "y": 1
+            },
+            {
+              "x": 1,
+              "y": 1
+            },
+            {
+              "x": 2,
+              "y": 1
+            }
+          ],
+          "points": [],
+          "sheetId": "cozy-coffee-table",
+          "animation": "cozy-coffee-table",
+          "layer": 1,
+          "zOrder": 0
+        }
+      ]
     }
   ],
   "tileTypes": [
     {
       "id": 0,
       "kind": "wall",
-      "color": "#E7D1AC",
+      "color": "#27284D",
       "sheetId": "tiles",
       "animation": "wall"
     },
@@ -8333,14 +12123,30 @@
     {
       "id": 5,
       "kind": "wall",
-      "color": "#674638"
+      "color": "#252b48",
+      "sheetId": "room-walls",
+      "animation": "partition"
     },
     {
       "id": 6,
       "kind": "wall",
-      "color": "#E7D1AC",
+      "color": "#27284D",
       "sheetId": "tiles",
       "animation": "wall-baseboard"
+    },
+    {
+      "id": 7,
+      "kind": "wall",
+      "color": "#252b48",
+      "sheetId": "room-walls",
+      "animation": "wood-wall"
+    },
+    {
+      "id": 8,
+      "kind": "wall",
+      "color": "#252b48",
+      "sheetId": "room-walls",
+      "animation": "wood-baseboard"
     },
     {
       "id": 10,
