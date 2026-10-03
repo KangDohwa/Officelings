@@ -1,5 +1,11 @@
-PASS: 11 logical floor cells; each base mask has 1,024 owned texels.
-PASS: 15 logical wall modules; 22 face cells plus one 64x64 corner overlay.
-PASS: 20 joined rear faces cover the independently computed 48px wall envelope once.
-PASS: window at right (4,0), open door at left (0,4); no alpha holes in wall envelope.
-PASS: room bounds 640x368; 3x output equals exact nearest-neighbor expansion.
+PASS: existing floors.iso.json and walls.iso.json were read only; SHA256:
+floors.iso.json 0805b98dfbce1e62dd93791f210bda1b801918380c85db12e6b564425f6750dd
+walls.iso.json 5d6da41962d0426511ac18f8533d7e35ff1a4e5fc1cf3b6ba49d5bf84dde67dc
+PASS: 72 ordered wood-neighbor pairs across both axes; cross-owner RGB difference 0.
+PASS: six different wood cells, each 1,024 owned opaque texels; hash choice is deterministic.
+PASS: hash-selected 10x10 floor exactly covers the independent ground envelope.
+PASS: 20 closed rear segments exactly fill the independently computed 48px envelope.
+PASS: open/decorated walls fill the same envelope; open leaves may project in front within their frozen cells.
+PASS: all original physical contact checks remain on their own layers.
+PASS: 640x368 native room; 1920x1104 review is an exact nearest-neighbor 3x expansion.
+Scope: this is geometry/material evidence, not runtime integration or human art approval.

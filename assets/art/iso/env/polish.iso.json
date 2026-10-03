@@ -1,0 +1,539 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "light": {
+    "screenDirection": "upper-left"
+  },
+  "sheets": [
+    {
+      "id": "iso-env-wood-variants",
+      "kind": "floor",
+      "file": "floors/wood-variants.png",
+      "cellW": 64,
+      "cellH": 32,
+      "anchor": {
+        "x": 32,
+        "y": 16
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "wood-i-v0",
+          "direction": "any",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "wood",
+          "axis": "i"
+        },
+        {
+          "name": "wood-i-v1",
+          "direction": "any",
+          "row": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "wood",
+          "axis": "i"
+        },
+        {
+          "name": "wood-i-v2",
+          "direction": "any",
+          "row": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "wood",
+          "axis": "i"
+        },
+        {
+          "name": "wood-i-v3",
+          "direction": "any",
+          "row": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "wood",
+          "axis": "i"
+        },
+        {
+          "name": "wood-i-v4",
+          "direction": "any",
+          "row": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "wood",
+          "axis": "i"
+        },
+        {
+          "name": "wood-i-v5",
+          "direction": "any",
+          "row": 5,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "wood",
+          "axis": "i"
+        }
+      ],
+      "patches": [
+        {
+          "name": "wood-variants-6x6",
+          "family": "wood",
+          "axis": "i",
+          "tiles": [
+            {
+              "row": 0
+            },
+            {
+              "row": 1
+            },
+            {
+              "row": 2
+            },
+            {
+              "row": 3
+            },
+            {
+              "row": 4
+            },
+            {
+              "row": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iso-env-checker-border",
+      "kind": "floor",
+      "file": "floors/checker-border.png",
+      "cellW": 64,
+      "cellH": 32,
+      "anchor": {
+        "x": 32,
+        "y": 16
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "checker-dark",
+          "direction": "any",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker",
+          "phase": 0
+        },
+        {
+          "name": "checker-light",
+          "direction": "any",
+          "row": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker",
+          "phase": 1
+        },
+        {
+          "name": "checker-border-0",
+          "direction": "any",
+          "row": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker-trim",
+          "transition": true
+        },
+        {
+          "name": "checker-border-1",
+          "direction": "any",
+          "row": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker-trim",
+          "transition": true
+        },
+        {
+          "name": "checker-border-2",
+          "direction": "any",
+          "row": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker-trim",
+          "transition": true
+        },
+        {
+          "name": "checker-border-3",
+          "direction": "any",
+          "row": 5,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker-trim",
+          "transition": true
+        },
+        {
+          "name": "checker-border-4",
+          "direction": "any",
+          "row": 6,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker-trim",
+          "transition": true
+        },
+        {
+          "name": "checker-border-5",
+          "direction": "any",
+          "row": 7,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker-trim",
+          "transition": true
+        },
+        {
+          "name": "checker-border-6",
+          "direction": "any",
+          "row": 8,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker-trim",
+          "transition": true
+        },
+        {
+          "name": "checker-border-7",
+          "direction": "any",
+          "row": 9,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "family": "checker-trim",
+          "transition": true
+        }
+      ],
+      "patches": [
+        {
+          "name": "checker-trim-base-6x6",
+          "family": "checker",
+          "tiles": [
+            {
+              "row": 0
+            },
+            {
+              "row": 1
+            }
+          ],
+          "phaseRule": "parity"
+        }
+      ]
+    },
+    {
+      "id": "iso-env-wall-decor",
+      "kind": "wall",
+      "file": "walls/wall-decor.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 32,
+        "y": 48
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "curtain-l",
+          "direction": "any",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 6
+          },
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 14,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "picture-l",
+          "direction": "any",
+          "row": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 17,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "clock-l",
+          "direction": "any",
+          "row": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 17,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "string-lights-l",
+          "direction": "any",
+          "row": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 6
+          },
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 15,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "curtain-r",
+          "direction": "any",
+          "row": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 6
+          },
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 14,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "picture-r",
+          "direction": "any",
+          "row": 5,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 17,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "clock-r",
+          "direction": "any",
+          "row": 6,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 17,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "string-lights-r",
+          "direction": "any",
+          "row": 7,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 6
+          },
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 16,
+              "radius": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iso-env-wall-contact",
+      "kind": "shadow",
+      "file": "walls/wall-contact-shadows.png",
+      "cellW": 128,
+      "cellH": 128,
+      "anchor": {
+        "x": 64,
+        "y": 64
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "wall-contact-left",
+          "direction": "any",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "column": 0,
+          "face": "left",
+          "anchorChecks": [
+            {
+              "x": 63,
+              "y": 64,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "wall-contact-right",
+          "direction": "any",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "column": 1,
+          "face": "right",
+          "anchorChecks": [
+            {
+              "x": 63,
+              "y": 64,
+              "radius": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "optional": true,
+  "variantSelection": "See NOTES-polish.md; engine integration is outside this lane."
+}
