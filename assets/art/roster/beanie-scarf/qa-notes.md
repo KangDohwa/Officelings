@@ -1,0 +1,9 @@
+﻿# Visual QA — beanie-scarf
+
+Viewed the pixel-agents character reference, accepted base, every raw row, and final three-page 3× frame review. Raw/output duplicate files have identical generation content. Existing idle and locomotion identity stays consistent: large highlighted eyes, mustard beanie, orange scarf, broad vest and stocky legs. Props remain attached to hands. Sleep has closed eyes intentionally; back views hide the face intentionally.
+
+Regenerated: talk and surprised were missing. Back typing first retained raised hands despite a correction; preserved both rejected versions in `run/qa/rejected/`. Final retry attaches **base-source.png (identity)**, **raw/typing_side.png (seated posture/LOW arm-height motion reference)**, and **references/layout-guides/typing_back.png (three-slot geometry)**. Its prompt/report record the additional reference. Hands now sit at hip/lap height, with deliberately tiny finger changes.
+
+Extraction detected pitch ambiguities and unequal native-frame scale. Canonical extraction was retained. `run/curation.json` uses sprite-gen's standard per-frame scale/dy transform to fit a common within-row body height inside the same cell, preserving a baseline at y=60 and horizontal padding. No pose painting, mirroring, reordered frames, replacement stills or timing changes were used.
+
+Static motion verdicts: walk_down/up have alternating visible foot contacts; walk_left/right have stride and arm changes with small pixel variation. typing_back/side are subtle alternating hands; report has held/extended/offered paper; sleep has two seated head poses; coffee raises/lowers mug; phone changes finger position; talk raises/lowers hand; surprised raises hands beside cheeks. Idle is four static orientation anchors. All walk continuity/seams remain **experimental/unverified** because browser inventory was empty; GIF export does not prove played motion. `motion.html` is a local review aid, not a runtime implementation.
