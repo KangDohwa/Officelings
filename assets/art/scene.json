@@ -1,0 +1,2039 @@
+{
+  "kind": "sprite-gen-scene",
+  "version": 1,
+  "canvas": {
+    "width": 512,
+    "height": 352,
+    "background": [
+      231,
+      209,
+      172,
+      255
+    ]
+  },
+  "fps": 1,
+  "duration": 1,
+  "assets": {
+    "tiles-floor_office-0": {
+      "source": "qa/scene-assets/tiles-floor_office-0.png"
+    },
+    "tiles-floor_office-1": {
+      "source": "qa/scene-assets/tiles-floor_office-1.png"
+    },
+    "tiles-floor_pantry-0": {
+      "source": "qa/scene-assets/tiles-floor_pantry-0.png"
+    },
+    "tiles-floor_pantry-1": {
+      "source": "qa/scene-assets/tiles-floor_pantry-1.png"
+    },
+    "tiles-wall_office-0": {
+      "source": "qa/scene-assets/tiles-wall_office-0.png"
+    },
+    "tiles-wall_pantry-0": {
+      "source": "qa/scene-assets/tiles-wall_pantry-0.png"
+    },
+    "upper-wood": {
+      "source": "qa/scene-assets/plaster-wood.png"
+    },
+    "props-door-1": {
+      "source": "qa/scene-assets/props-door-1.png"
+    },
+    "props-window-0": {
+      "source": "qa/scene-assets/props-window-0.png"
+    },
+    "props-clock-0": {
+      "source": "qa/scene-assets/props-clock-0.png"
+    },
+    "props-plants-1": {
+      "source": "qa/scene-assets/props-plants-1.png"
+    },
+    "props-plants-0": {
+      "source": "qa/scene-assets/props-plants-0.png"
+    },
+    "props-plants-2": {
+      "source": "qa/scene-assets/props-plants-2.png"
+    },
+    "props-desk-2": {
+      "source": "qa/scene-assets/props-desk-2.png"
+    },
+    "props-chair-0": {
+      "source": "qa/scene-assets/props-chair-0.png"
+    },
+    "props-desk-1": {
+      "source": "qa/scene-assets/props-desk-1.png"
+    },
+    "codex-supervisor-01-typing_side-1": {
+      "source": "qa/scene-assets/codex-supervisor-01-typing_side-1.png"
+    },
+    "claude-subagent-02-typing_side-2": {
+      "source": "qa/scene-assets/claude-subagent-02-typing_side-2.png"
+    },
+    "antigravity-worker-03-typing_side-0": {
+      "source": "qa/scene-assets/antigravity-worker-03-typing_side-0.png"
+    },
+    "icons-bubbles-0": {
+      "source": "qa/scene-assets/icons-bubbles-0.png"
+    },
+    "props-desk-0": {
+      "source": "qa/scene-assets/props-desk-0.png"
+    },
+    "codex-worker-04-idle-0": {
+      "source": "qa/scene-assets/codex-worker-04-idle-0.png"
+    },
+    "icons-bubbles-1": {
+      "source": "qa/scene-assets/icons-bubbles-1.png"
+    },
+    "claude-supervisor-04-idle-0": {
+      "source": "qa/scene-assets/claude-supervisor-04-idle-0.png"
+    },
+    "claude-subagent-01-report-2": {
+      "source": "qa/scene-assets/claude-subagent-01-report-2.png"
+    },
+    "icons-bubbles-3": {
+      "source": "qa/scene-assets/icons-bubbles-3.png"
+    },
+    "antigravity-subagent-02-walk_down-1": {
+      "source": "qa/scene-assets/antigravity-subagent-02-walk_down-1.png"
+    },
+    "props-coffee_machine-0": {
+      "source": "qa/scene-assets/props-coffee_machine-0.png"
+    },
+    "props-water_cooler-0": {
+      "source": "qa/scene-assets/props-water_cooler-0.png"
+    },
+    "codex-worker-03-coffee-1": {
+      "source": "qa/scene-assets/codex-worker-03-coffee-1.png"
+    },
+    "props-tv-1": {
+      "source": "qa/scene-assets/props-tv-1.png"
+    },
+    "props-sofa-0": {
+      "source": "qa/scene-assets/props-sofa-0.png"
+    },
+    "antigravity-worker-04-sleep-1": {
+      "source": "qa/scene-assets/antigravity-worker-04-sleep-1.png"
+    },
+    "icons-bubbles-4": {
+      "source": "qa/scene-assets/icons-bubbles-4.png"
+    },
+    "codex-subagent-02-talk-1": {
+      "source": "qa/scene-assets/codex-subagent-02-talk-1.png"
+    },
+    "claude-worker-03-idle-1": {
+      "source": "qa/scene-assets/claude-worker-03-idle-1.png"
+    },
+    "antigravity-worker-01-phone-2": {
+      "source": "qa/scene-assets/antigravity-worker-01-phone-2.png"
+    }
+  },
+  "layers": [
+    {
+      "id": "layer-0",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        16,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-1",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        48,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-2",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        80,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-3",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        112,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-4",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        144,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-5",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        176,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-6",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        208,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-7",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        240,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-8",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        272,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-9",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        304,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-10",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        336,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-11",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        368,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-12",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        400,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-13",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        432,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-14",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        464,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-15",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        496,
+        96
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-16",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        16,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-17",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        48,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-18",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        80,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-19",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        112,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-20",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        144,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-21",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        176,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-22",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        208,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-23",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        240,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-24",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        272,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-25",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        304,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-26",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        336,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-27",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        368,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-28",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        400,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-29",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        432,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-30",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        464,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-31",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        496,
+        128
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-32",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        16,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-33",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        48,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-34",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        80,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-35",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        112,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-36",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        144,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-37",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        176,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-38",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        208,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-39",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        240,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-40",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        272,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-41",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        304,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-42",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        336,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-43",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        368,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-44",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        400,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-45",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        432,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-46",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        464,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-47",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        496,
+        160
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-48",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        16,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-49",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        48,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-50",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        80,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-51",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        112,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-52",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        144,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-53",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        176,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-54",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        208,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-55",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        240,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-56",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        272,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-57",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        304,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-58",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        336,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-59",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        368,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-60",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        400,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-61",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        432,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-62",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        464,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-63",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        496,
+        192
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-64",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        16,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-65",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        48,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-66",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        80,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-67",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        112,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-68",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        144,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-69",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        176,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-70",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        208,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-71",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        240,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-72",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        272,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-73",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        304,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-74",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        336,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-75",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        368,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-76",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        400,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-77",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        432,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-78",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        464,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-79",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        496,
+        224
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-80",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        16,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-81",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        48,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-82",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        80,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-83",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        112,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-84",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        144,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-85",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        176,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-86",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        208,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-87",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        240,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-88",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        272,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-89",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        304,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-90",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        336,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-91",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        368,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-92",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        400,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-93",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        432,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-94",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        464,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-95",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        496,
+        256
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-96",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        16,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-97",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        48,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-98",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        80,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-99",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        112,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-100",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        144,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-101",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        176,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-102",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        208,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-103",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        240,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-104",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        272,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-105",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        304,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-106",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        336,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-107",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        368,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-108",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        400,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-109",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        432,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-110",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        464,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-111",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        496,
+        288
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-112",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        16,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-113",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        48,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-114",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        80,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-115",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        112,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-116",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        144,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-117",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        176,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-118",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        208,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-119",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        240,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-120",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        272,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-121",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        304,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-122",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        336,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-123",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        368,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-124",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        400,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-125",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        432,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-126",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        464,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-127",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        496,
+        320
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-128",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        16,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-129",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        48,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-130",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        80,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-131",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        112,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-132",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        144,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-133",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        176,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-134",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        208,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-135",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        240,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-136",
+      "asset": "tiles-floor_office-0",
+      "at": [
+        272,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-137",
+      "asset": "tiles-floor_office-1",
+      "at": [
+        304,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-138",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        336,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-139",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        368,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-140",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        400,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-141",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        432,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-142",
+      "asset": "tiles-floor_pantry-0",
+      "at": [
+        464,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-143",
+      "asset": "tiles-floor_pantry-1",
+      "at": [
+        496,
+        352
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-144",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        16,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-145",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        48,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-146",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        80,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-147",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        112,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-148",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        144,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-149",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        176,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-150",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        208,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-151",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        240,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-152",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        272,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-153",
+      "asset": "tiles-wall_office-0",
+      "at": [
+        304,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-154",
+      "asset": "tiles-wall_pantry-0",
+      "at": [
+        336,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-155",
+      "asset": "tiles-wall_pantry-0",
+      "at": [
+        368,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-156",
+      "asset": "tiles-wall_pantry-0",
+      "at": [
+        400,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-157",
+      "asset": "tiles-wall_pantry-0",
+      "at": [
+        432,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-158",
+      "asset": "tiles-wall_pantry-0",
+      "at": [
+        464,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-159",
+      "asset": "tiles-wall_pantry-0",
+      "at": [
+        496,
+        64
+      ],
+      "z": 1
+    },
+    {
+      "id": "layer-160",
+      "asset": "upper-wood",
+      "at": [
+        336,
+        24
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-161",
+      "asset": "upper-wood",
+      "at": [
+        336,
+        48
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-162",
+      "asset": "upper-wood",
+      "at": [
+        368,
+        24
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-163",
+      "asset": "upper-wood",
+      "at": [
+        368,
+        48
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-164",
+      "asset": "upper-wood",
+      "at": [
+        400,
+        24
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-165",
+      "asset": "upper-wood",
+      "at": [
+        400,
+        48
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-166",
+      "asset": "upper-wood",
+      "at": [
+        432,
+        24
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-167",
+      "asset": "upper-wood",
+      "at": [
+        432,
+        48
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-168",
+      "asset": "upper-wood",
+      "at": [
+        464,
+        24
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-169",
+      "asset": "upper-wood",
+      "at": [
+        464,
+        48
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-170",
+      "asset": "upper-wood",
+      "at": [
+        496,
+        24
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-171",
+      "asset": "upper-wood",
+      "at": [
+        496,
+        48
+      ],
+      "z": 0
+    },
+    {
+      "id": "layer-172",
+      "asset": "props-door-1",
+      "at": [
+        32,
+        70
+      ],
+      "z": 5
+    },
+    {
+      "id": "layer-173",
+      "asset": "props-window-0",
+      "at": [
+        132,
+        58
+      ],
+      "z": 5
+    },
+    {
+      "id": "layer-174",
+      "asset": "props-window-0",
+      "at": [
+        420,
+        58
+      ],
+      "z": 5
+    },
+    {
+      "id": "layer-175",
+      "asset": "props-clock-0",
+      "at": [
+        260,
+        50
+      ],
+      "z": 5
+    },
+    {
+      "id": "layer-176",
+      "asset": "props-plants-1",
+      "at": [
+        300,
+        98
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-177",
+      "asset": "props-plants-0",
+      "at": [
+        328,
+        254
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-178",
+      "asset": "props-plants-2",
+      "at": [
+        288,
+        326
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-179",
+      "asset": "props-desk-2",
+      "at": [
+        96,
+        150
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-180",
+      "asset": "props-chair-0",
+      "at": [
+        76,
+        156
+      ],
+      "z": 11
+    },
+    {
+      "id": "layer-181",
+      "asset": "props-desk-1",
+      "at": [
+        208,
+        150
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-182",
+      "asset": "props-chair-0",
+      "at": [
+        188,
+        156
+      ],
+      "z": 11
+    },
+    {
+      "id": "layer-183",
+      "asset": "props-desk-2",
+      "at": [
+        292,
+        150
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-184",
+      "asset": "props-chair-0",
+      "at": [
+        272,
+        156
+      ],
+      "z": 11
+    },
+    {
+      "id": "layer-185",
+      "asset": "codex-supervisor-01-typing_side-1",
+      "at": [
+        76,
+        150
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-186",
+      "asset": "claude-subagent-02-typing_side-2",
+      "at": [
+        188,
+        150
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-187",
+      "asset": "antigravity-worker-03-typing_side-0",
+      "at": [
+        272,
+        150
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-188",
+      "asset": "icons-bubbles-0",
+      "at": [
+        76,
+        104
+      ],
+      "z": 20
+    },
+    {
+      "id": "layer-189",
+      "asset": "icons-bubbles-0",
+      "at": [
+        188,
+        104
+      ],
+      "z": 20
+    },
+    {
+      "id": "layer-190",
+      "asset": "icons-bubbles-0",
+      "at": [
+        272,
+        104
+      ],
+      "z": 20
+    },
+    {
+      "id": "layer-191",
+      "asset": "props-desk-0",
+      "at": [
+        96,
+        253
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-192",
+      "asset": "props-chair-0",
+      "at": [
+        76,
+        263
+      ],
+      "z": 11
+    },
+    {
+      "id": "layer-193",
+      "asset": "props-desk-1",
+      "at": [
+        208,
+        253
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-194",
+      "asset": "props-chair-0",
+      "at": [
+        188,
+        263
+      ],
+      "z": 11
+    },
+    {
+      "id": "layer-195",
+      "asset": "codex-worker-04-idle-0",
+      "at": [
+        76,
+        267
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-196",
+      "asset": "icons-bubbles-1",
+      "at": [
+        76,
+        218
+      ],
+      "z": 20
+    },
+    {
+      "id": "layer-197",
+      "asset": "claude-supervisor-04-idle-0",
+      "at": [
+        224,
+        285
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-198",
+      "asset": "claude-subagent-01-report-2",
+      "at": [
+        188,
+        285
+      ],
+      "z": 13
+    },
+    {
+      "id": "layer-199",
+      "asset": "icons-bubbles-3",
+      "at": [
+        188,
+        238
+      ],
+      "z": 20
+    },
+    {
+      "id": "layer-200",
+      "asset": "antigravity-subagent-02-walk_down-1",
+      "at": [
+        36,
+        122
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-201",
+      "asset": "props-coffee_machine-0",
+      "at": [
+        360,
+        121
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-202",
+      "asset": "props-water_cooler-0",
+      "at": [
+        480,
+        121
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-203",
+      "asset": "props-plants-2",
+      "at": [
+        428,
+        118
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-204",
+      "asset": "codex-worker-03-coffee-1",
+      "at": [
+        352,
+        185
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-205",
+      "asset": "props-tv-1",
+      "at": [
+        456,
+        187
+      ],
+      "z": 10
+    },
+    {
+      "id": "layer-206",
+      "asset": "props-sofa-0",
+      "at": [
+        448,
+        245
+      ],
+      "z": 11
+    },
+    {
+      "id": "layer-207",
+      "asset": "antigravity-worker-04-sleep-1",
+      "at": [
+        447,
+        253
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-208",
+      "asset": "icons-bubbles-4",
+      "at": [
+        447,
+        207
+      ],
+      "z": 20
+    },
+    {
+      "id": "layer-209",
+      "asset": "codex-subagent-02-talk-1",
+      "at": [
+        367,
+        314
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-210",
+      "asset": "claude-worker-03-idle-1",
+      "at": [
+        403,
+        314
+      ],
+      "z": 12
+    },
+    {
+      "id": "layer-211",
+      "asset": "antigravity-worker-01-phone-2",
+      "at": [
+        480,
+        323
+      ],
+      "z": 12
+    }
+  ]
+}
