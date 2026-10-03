@@ -1,22 +1,375 @@
 {
-  "version":1,"widthTiles":17,"heightTiles":21,"tileSize":16,"door":{"x":1,"y":18},
-  "autoDesks":{"assetId":"desk","x":2,"y":5,"spacingX":5,"spacingY":4,"maxColumns":4,"adaptiveColumns":true,"expand":true},
-  "zones":[
-    {"name":"workspace","x":1,"y":3,"width":6,"height":17},
-    {"name":"pantry","x":8,"y":3,"width":8,"height":7},
-    {"name":"lounge","x":8,"y":10,"width":8,"height":10,"points":[
-      {"id":"phone-1","x":6,"y":3,"action":"phone","facing":"down"},
-      {"id":"phone-2","x":0,"y":5,"action":"phone","facing":"down"},
-      {"id":"phone-3","x":6,"y":8,"action":"phone","facing":"down"}]},
-    {"name":"door","x":1,"y":18,"width":1,"height":1}
+  "version": 1,
+  "widthTiles": 35,
+  "heightTiles": 24,
+  "tileSize": 16,
+  "door": {
+    "x": 1,
+    "y": 21
+  },
+  "autoDesks": null,
+  "zones": [
+    {
+      "name": "workspace",
+      "x": 1,
+      "y": 3,
+      "width": 21,
+      "height": 20
+    },
+    {
+      "name": "pantry",
+      "x": 24,
+      "y": 3,
+      "width": 10,
+      "height": 9
+    },
+    {
+      "name": "lounge",
+      "x": 24,
+      "y": 12,
+      "width": 10,
+      "height": 11,
+      "points": [
+        {
+          "id": "phone-1",
+          "x": 9,
+          "y": 1,
+          "action": "phone",
+          "facing": "down"
+        },
+        {
+          "id": "phone-2",
+          "x": 0,
+          "y": 9,
+          "action": "phone",
+          "facing": "down"
+        }
+      ]
+    },
+    {
+      "name": "door",
+      "x": 1,
+      "y": 21,
+      "width": 1,
+      "height": 1
+    }
   ],
-  "furniture":[
-    {"id":"pantry","kind":"pantry","x":8,"y":5,"width":6,"height":2},
-    {"id":"water","kind":"water","x":14,"y":7,"width":1,"height":2},
-    {"id":"tv","kind":"tv","x":8,"y":10,"width":4,"height":1},
-    {"id":"sofa","kind":"sofa","x":11,"y":15,"width":4,"height":1},
-    {"id":"table","kind":"table","x":10,"y":17,"width":3,"height":1},
-    {"id":"plant-lounge","kind":"plant","x":14,"y":4,"width":1,"height":1},
-    {"id":"plant-work","kind":"plant","x":1,"y":3,"width":1,"height":1}
+  "furniture": [
+    {
+      "id": "pantry",
+      "kind": "pantry",
+      "x": 24,
+      "y": 5,
+      "width": 6,
+      "height": 2
+    },
+    {
+      "id": "water",
+      "kind": "water",
+      "x": 31,
+      "y": 7,
+      "width": 1,
+      "height": 2
+    },
+    {
+      "id": "tv",
+      "kind": "tv",
+      "x": 24,
+      "y": 12,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "id": "sofa",
+      "kind": "sofa",
+      "x": 28,
+      "y": 17,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "id": "table",
+      "kind": "table",
+      "x": 27,
+      "y": 20,
+      "width": 3,
+      "height": 1
+    },
+    {
+      "id": "plant-lounge",
+      "kind": "plant",
+      "x": 31,
+      "y": 4,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "plant-work",
+      "kind": "plant",
+      "x": 1,
+      "y": 3,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "desk-01",
+      "deskId": "desk-01",
+      "kind": "desk",
+      "x": 2,
+      "y": 5,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-01-chair",
+      "kind": "chair",
+      "x": 2,
+      "y": 5,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-02",
+      "deskId": "desk-02",
+      "kind": "desk",
+      "x": 7,
+      "y": 5,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-02-chair",
+      "kind": "chair",
+      "x": 7,
+      "y": 5,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-03",
+      "deskId": "desk-03",
+      "kind": "desk",
+      "x": 12,
+      "y": 5,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-03-chair",
+      "kind": "chair",
+      "x": 12,
+      "y": 5,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-04",
+      "deskId": "desk-04",
+      "kind": "desk",
+      "x": 17,
+      "y": 5,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-04-chair",
+      "kind": "chair",
+      "x": 17,
+      "y": 5,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-05",
+      "deskId": "desk-05",
+      "kind": "desk",
+      "x": 2,
+      "y": 9,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-05-chair",
+      "kind": "chair",
+      "x": 2,
+      "y": 9,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-06",
+      "deskId": "desk-06",
+      "kind": "desk",
+      "x": 7,
+      "y": 9,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-06-chair",
+      "kind": "chair",
+      "x": 7,
+      "y": 9,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-07",
+      "deskId": "desk-07",
+      "kind": "desk",
+      "x": 12,
+      "y": 9,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-07-chair",
+      "kind": "chair",
+      "x": 12,
+      "y": 9,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-08",
+      "deskId": "desk-08",
+      "kind": "desk",
+      "x": 17,
+      "y": 9,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-08-chair",
+      "kind": "chair",
+      "x": 17,
+      "y": 9,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-09",
+      "deskId": "desk-09",
+      "kind": "desk",
+      "x": 2,
+      "y": 13,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-09-chair",
+      "kind": "chair",
+      "x": 2,
+      "y": 13,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-10",
+      "deskId": "desk-10",
+      "kind": "desk",
+      "x": 7,
+      "y": 13,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-10-chair",
+      "kind": "chair",
+      "x": 7,
+      "y": 13,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-11",
+      "deskId": "desk-11",
+      "kind": "desk",
+      "x": 12,
+      "y": 13,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-11-chair",
+      "kind": "chair",
+      "x": 12,
+      "y": 13,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-12",
+      "deskId": "desk-12",
+      "kind": "desk",
+      "x": 17,
+      "y": 13,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-12-chair",
+      "kind": "chair",
+      "x": 17,
+      "y": 13,
+      "width": 3,
+      "height": 2
+    }
+  ],
+  "overflowSeats": [
+    {
+      "id": "lounge-sofa",
+      "x": 29,
+      "y": 18,
+      "facing": "up",
+      "furnitureId": "sofa"
+    },
+    {
+      "id": "lounge-tv",
+      "x": 25,
+      "y": 14,
+      "facing": "up",
+      "furnitureId": "tv"
+    },
+    {
+      "id": "pantry-1",
+      "x": 25,
+      "y": 7,
+      "facing": "up",
+      "furnitureId": "pantry"
+    },
+    {
+      "id": "pantry-2",
+      "x": 26,
+      "y": 7,
+      "facing": "up",
+      "furnitureId": "pantry"
+    }
+  ],
+  "tiles": [
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
   ]
 }

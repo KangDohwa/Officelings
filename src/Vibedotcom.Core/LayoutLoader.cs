@@ -11,17 +11,28 @@ public static class LayoutLoader
             ? "Vibedotcom.Core.Data.layout.json" : "Vibedotcom.Core.Data.fallback-layout.json")!;
         var fallback = JsonSerializer.Deserialize<OfficeLayout>(resource, StateJson.Options)!;
         if (file != null && File.Exists(file))
-            try { var custom = AssetPack.Read<OfficeLayout>(file); Validate(custom, assets); return WithTiles(custom, assets); }
+            try { return Prepare(AssetPack.Read<OfficeLayout>(file), assets); }
             catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or ArgumentException or NullReferenceException)
             { warnings?.Add("Layout rejected; using bundled default: " + e.Message); }
-        return WithTiles(fallback, assets);
+        return Prepare(fallback, assets);
+    }
+    internal static OfficeLayout Prepare(OfficeLayout layout, AssetPack assets, bool validate = true)
+    {
+        ValidateStructure(layout, assets);
+        layout = WithTiles(MigrateAutoDesks(layout, assets), assets);
+        layout = layout with { Furniture = layout.Furniture.Select(f =>
+            assets.Variant(f).Points.Any(p => p.Action == "typing") ? f with { DeskId = f.DeskId ?? f.Id } : f).ToArray(),
+            OverflowSeats = layout.OverflowSeats ?? [] };
+        ValidateStructure(layout, assets);
+        if (validate) Validate(layout, assets);
+        return layout;
     }
     private static OfficeLayout WithTiles(OfficeLayout layout, AssetPack assets)
     {
         if (layout.Tiles != null) return layout;
         var floor = assets.Manifest.TileTypes.First(t => t.Kind == "floor").Id;
         var wall = assets.Manifest.TileTypes.First(t => t.Kind == "wall").Id;
-        var art = layout.AutoDesks?.AssetId == "cozy-desk";
+        var art = layout.AutoDesks?.AssetId == "cozy-desk" || layout.Furniture.Any(f => f.AssetId == "cozy-desk");
         bool InZone(string name, int x, int y) => (layout.Zones ?? []).Any(z => z.Name == name &&
             x >= z.X && x < z.X + z.Width && y >= z.Y && y < z.Y + z.Height);
         var tiles = Enumerable.Range(0, layout.WidthTiles * layout.HeightTiles).Select(i =>
@@ -46,32 +57,60 @@ public static class LayoutLoader
     }
     public static void Validate(OfficeLayout l, AssetPack assets)
     {
-        if (l.Version != 1 || l.WidthTiles is < 8 or > 128 || l.HeightTiles is < 8 or > 128 || l.TileSize != 16 || l.Furniture.Count > 1024 ||
+        ValidateStructure(l, assets);
+        var occupied = new HashSet<Tile>();
+        foreach (var f in l.Furniture)
+            foreach (var t in Cells(f, assets.Variant(f)))
+                if (!occupied.Add(t)) throw new InvalidDataException("Overlapping blocked furniture: " + f.Id);
+        var complete = WithTiles(l, assets); var blocked = Blocked(complete, assets);
+        if (!Walkable(complete, l.Door, blocked)) throw new InvalidDataException("Door must be walkable.");
+        var workSeats = new HashSet<Tile>();
+        foreach (var f in l.Furniture.Where(f => assets.Variant(f).Points.Any(p => p.Action == "typing")))
+        {
+            var p = assets.Variant(f).Points.First(p => p.Action == "typing");
+            if (!workSeats.Add(new(f.X + p.X, f.Y + p.Y))) throw new InvalidDataException("Duplicate work seat.");
+        }
+        foreach (var s in l.OverflowSeats ?? [])
+            if (!workSeats.Add(new(s.X, s.Y))) throw new InvalidDataException("Overflow seats must be distinct from work seats.");
+        foreach (var tile in assets.Points(complete).Select(p => p.Tile).Concat((l.OverflowSeats ?? []).Select(s => new Tile(s.X, s.Y))))
+            if (!Walkable(complete, tile, blocked) || tile != l.Door && OfficeAnimator.FindPath(complete, l.Door, tile, blocked).Count == 0)
+                throw new InvalidDataException($"Unreachable interaction point at ({tile.X},{tile.Y}).");
+    }
+    private static void ValidateStructure(OfficeLayout l, AssetPack assets)
+    {
+        if (l == null || l.Version != 1 || l.WidthTiles is < 8 or > 128 || l.HeightTiles is < 8 or > 128 || l.TileSize != 16 || l.Furniture == null || l.Furniture.Count > 1024 ||
             l.Tiles != null && (l.Tiles.Count != l.WidthTiles * l.HeightTiles || l.Tiles.Any(id => !assets.Manifest.TileTypes.Any(t => t.Id == id))))
             throw new InvalidDataException("Unsupported layout dimensions/tiles/version.");
         if (l.Furniture.Any(f => string.IsNullOrWhiteSpace(f.Id)) || l.Furniture.Select(f => f.Id).Distinct().Count() != l.Furniture.Count)
             throw new InvalidDataException("Furniture instance IDs must be unique.");
         var zones = l.Zones ?? [];
         if (new[] { "workspace", "pantry", "lounge", "door" }.Any(n => zones.Count(z => z.Name == n) != 1) ||
-            zones.Select(z => z.Name).Distinct().Count() != zones.Count || zones.Any(z => z.X < 0 || z.Y < 0 || z.Width < 1 || z.Height < 1 || z.X + z.Width > l.WidthTiles || z.Y + z.Height > l.HeightTiles))
+            zones.Select(z => z.Name).Distinct().Count() != zones.Count || zones.Any(z => z.X < 0 || z.Y < 0 || z.Width < 1 || z.Height < 1 || (long)z.X + z.Width > l.WidthTiles || (long)z.Y + z.Height > l.HeightTiles))
             throw new InvalidDataException("Required named zones missing/invalid.");
-        var occupied = new HashSet<Tile>();
         foreach (var f in l.Furniture)
         {
             var v = assets.Variant(f);
-            if (f.Width != v.FootprintW || f.Height != v.FootprintH || f.X < 0 || f.Y < 0 || f.X + f.Width > l.WidthTiles || f.Y + f.Height > l.HeightTiles)
+            if (f.Width != v.FootprintW || f.Height != v.FootprintH || f.X < 0 || f.Y < 0 || f.X > l.WidthTiles - f.Width || f.Y > l.HeightTiles - f.Height)
                 throw new InvalidDataException("Furniture footprint mismatch: " + f.Id);
-            foreach (var t in Cells(f, v)) if (!occupied.Add(t)) throw new InvalidDataException("Overlapping blocked furniture: " + f.Id);
+            if (f.Seat != null && (string.IsNullOrWhiteSpace(f.Seat.Id) || f.Seat.Action != "typing" || !Facing(f.Seat.Facing)))
+                throw new InvalidDataException("Invalid work seat override: " + f.Id);
         }
-        var complete = WithTiles(l, assets); var blocked = Blocked(complete, assets);
-        if (!Walkable(complete, l.Door, blocked)) throw new InvalidDataException("Door must be walkable.");
-        foreach (var (tile, _) in assets.Points(complete))
-            if (!Walkable(complete, tile, blocked) || tile != l.Door && OfficeAnimator.FindPath(complete, l.Door, tile, blocked).Count == 0)
-                throw new InvalidDataException($"Unreachable interaction point at ({tile.X},{tile.Y}).");
+        var deskIds = l.Furniture.Where(f => assets.Variant(f).Points.Any(p => p.Action == "typing")).Select(f => f.DeskId ?? f.Id).ToArray();
+        if (deskIds.Any(string.IsNullOrWhiteSpace) || deskIds.Distinct(StringComparer.Ordinal).Count() != deskIds.Length)
+            throw new InvalidDataException("Desk IDs must be unique.");
+        var overflow = l.OverflowSeats ?? [];
+        if (overflow.Count > 1024 || overflow.Select(s => s.Id).Distinct(StringComparer.Ordinal).Count() != overflow.Count ||
+            overflow.Any(s => string.IsNullOrWhiteSpace(s.Id) || !Facing(s.Facing) || s.X < 0 || s.Y < 0 || s.X >= l.WidthTiles || s.Y >= l.HeightTiles ||
+                s.FurnitureId != null && !l.Furniture.Any(f => f.Id == s.FurnitureId)))
+            throw new InvalidDataException("Invalid overflow seats.");
+        if (l.Door.X < 0 || l.Door.Y < 0 || l.Door.X >= l.WidthTiles || l.Door.Y >= l.HeightTiles)
+            throw new InvalidDataException("Door outside office.");
         if (l.AutoDesks is {} a && (a.X < 0 || a.Y < 3 || a.SpacingX < 1 || a.SpacingY < 1 || a.MaxColumns is < 1 or > 16 || a.MinColumns < 1 || a.MinColumns > a.MaxColumns ||
+            a.Capacity is < 0 or > 1024 ||
             !assets.Manifest.Furniture.Any(f => f.Id == a.AssetId && f.Variants.Any(v => v.Rotation == 0 && v.State == "default" && v.Points.Any(p => p.Action == "typing")))))
             throw new InvalidDataException("Invalid automatic desk grid.");
     }
+    private static bool Facing(string facing) => facing is "up" or "down" or "left" or "right";
     public static IEnumerable<Tile> Cells(Furniture f, FurnitureVariant v) => (v.BlockedCells ??
         Enumerable.Range(0, f.Width * f.Height).Select(i => new Tile(i % f.Width, i / f.Width)).ToArray()).Select(t => new Tile(f.X + t.X, f.Y + t.Y));
     public static HashSet<Tile> Blocked(OfficeLayout l, AssetPack? assets = null)
@@ -89,77 +128,71 @@ public static class LayoutLoader
     public static bool Walkable(OfficeLayout l, Tile t, HashSet<Tile> blocked) =>
         t.X >= 0 && t.Y >= 0 && t.X < l.WidthTiles && t.Y < l.HeightTiles && !blocked.Contains(t);
 
-    public static OfficeLayout Adapt(OfficeLayout source, AssetPack assets, IReadOnlyList<(string Id, int Slot)> agents)
+    private static OfficeLayout MigrateAutoDesks(OfficeLayout source, AssetPack assets)
     {
-        var auto = source.AutoDesks;
-        var furniture = source.Furniture.ToList();
-        var result = source;
-        if (auto != null)
+        if (source.AutoDesks is not {} auto) return source;
+        // Freeze legacy grids at load. Membership never participates in this migration.
+        var definition = assets.Manifest.Furniture.First(f => f.Id == auto.AssetId);
+        var variant = definition.Variants.First(v => v.Rotation == 0 && v.State == "default");
+        var count = Math.Max(0, auto.Capacity - source.Furniture.Count(f => assets.Variant(f).Points.Any(p => p.Action == "typing")));
+        if (count == 0) return source with { AutoDesks = null };
+        var columns = Math.Min(auto.MaxColumns, count);
+        var workspace = source.Zones!.First(z => z.Name == "workspace");
+        var edge = workspace.X + workspace.Width;
+        var shift = auto.Expand ? Math.Max(0, auto.X + (columns - 1) * auto.SpacingX + variant.FootprintW + 1 - edge) : 0;
+        var seat = variant.Points.First(p => p.Action == "typing");
+        var height = auto.Expand ? Math.Max(source.HeightTiles, auto.Y + (count - 1) / columns * auto.SpacingY +
+            Math.Max(variant.FootprintH, seat.Y + 1) + 2) : source.HeightTiles;
+        var width = source.WidthTiles + shift;
+        if (width > 128 || height > 128) throw new InvalidDataException("Legacy desk capacity exceeds office bounds.");
+        var bottomDoor = source.Door.Y >= source.HeightTiles - 3;
+        var doorShift = bottomDoor ? height - source.HeightTiles : 0;
+        var furniture = source.Furniture.Select(f => f with {
+            X = f.X >= edge ? f.X + shift : f.X,
+            Y = f.Kind == "door" ? f.Y + doorShift : f.Y }).ToList();
+        var zones = source.Zones!.Select(z => z.Name == "workspace" ? z with { Width = z.Width + shift, Height = height - z.Y - 1 } :
+            z.Name == "door" ? z with { X = z.X >= edge ? z.X + shift : z.X, Y = z.Y + doorShift } : z with {
+                X = z.X >= edge ? z.X + shift : z.X,
+                Height = z.Name == "partition" ? height - z.Y - 1 : z.Height }).ToArray();
+        int[]? tiles = null;
+        if (source.Tiles != null)
         {
-            var capacity = agents.Count == 0 ? 0 : agents.Max(a => a.Slot) + 1;
-            var cozy = auto.AssetId == "cozy-desk";
-            var deskCount = cozy ? capacity + 1 : capacity;
-            var columns = auto.AdaptiveColumns ? Math.Clamp(capacity <= 2 ? 1 : capacity <= 6 ? 2 : capacity <= 15 ? 3 : 4, auto.MinColumns, auto.MaxColumns) : auto.MaxColumns;
-            var workspace = source.Zones!.First(z => z.Name == "workspace");
-            var shift = auto.AdaptiveColumns && auto.Expand ? (columns - auto.MinColumns) * auto.SpacingX : 0;
-            var height = auto.Expand ? Math.Min(128, Math.Max(source.HeightTiles, auto.Y + (int)Math.Ceiling((double)deskCount / columns) * auto.SpacingY + (cozy ? 1 : 2))) : source.HeightTiles;
-            var width = source.WidthTiles + shift;
-            if (width > 128) throw new InvalidDataException("Office exceeds 128 tiles.");
-            furniture = furniture.Select(f => f with {
-                X = f.X >= workspace.X + workspace.Width ? f.X + shift : f.X,
-                Y = !cozy && f.Kind == "door" ? f.Y + height - source.HeightTiles : f.Y }).ToList();
-            var zones = source.Zones!.Select(z => z.Name == "workspace" ? z with { Width = z.Width + shift, Height = height - z.Y - 1 } :
-                z.Name == "door" ? z with { Y = z.Y + (cozy ? 0 : height - source.HeightTiles) } : z with {
-                    X = z.X >= workspace.X + workspace.Width ? z.X + shift : z.X,
-                    Height = cozy && z.Name == "partition" ? height - z.Y - 1 : z.Height }).ToArray();
-            var tiles = new int[width * height];
-            var nativeFloors = assets.Manifest.Sheets.Any(s => s.Id == "floor-tiles");
+            tiles = new int[width * height];
             for (var y = 0; y < height; y++) for (var x = 0; x < width; x++)
             {
-                var oldX = x >= workspace.X + workspace.Width + shift ? x - shift : Math.Min(x, workspace.X + workspace.Width - 1);
+                var oldX = x < edge ? x : x >= edge + shift ? x - shift : edge - 1;
                 var oldY = y == height - 1 ? source.HeightTiles - 1 : Math.Min(y, source.HeightTiles - 2);
-                var tileId = source.Tiles![oldY * source.WidthTiles + oldX];
-                if (cozy && x >= workspace.X + workspace.Width + shift + 1 && y >= source.HeightTiles - 1)
-                    tileId = 255;
-                if (nativeFloors && (tileId is >= 1 and <= 3 || tileId is >= 10 and <= 18))
-                {
-                    var floorId = tileId >= 10 ? 1 + (tileId - 10) / 3 : tileId;
-                    var quarter = y % 2 * 2 + x % 2;
-                    tileId = quarter == 0 ? floorId : 10 + (floorId - 1) * 3 + quarter - 1;
-                }
-                tiles[y * width + x] = tileId;
-            }
-            result = source with { WidthTiles = width, HeightTiles = height, Door = source.Door with { Y = source.Door.Y + (cozy ? 0 : height - source.HeightTiles) }, Zones = zones, Tiles = tiles };
-            var definition = assets.Manifest.Furniture.First(f => f.Id == auto.AssetId);
-            var variant = definition.Variants.First(v => v.Rotation == 0 && v.State == "default");
-            var fixedSeats = furniture.Where(f => assets.Variant(f).Points.Any(p => p.Action == "typing")).ToArray();
-            for (var slot = 0; slot < deskCount - fixedSeats.Length; slot++)
-            {
-                var desk = new Furniture(definition.Kind, auto.X + slot % columns * auto.SpacingX, auto.Y + slot / columns * auto.SpacingY,
-                    variant.FootprintW, variant.FootprintH, null, "auto-desk-" + slot, definition.Id);
-                if (desk.Y + desk.Height + 1 >= height || desk.X + desk.Width >= width ||
-                    Cells(desk, variant).Any(t => Blocked(result with { Furniture = furniture }, assets).Contains(t)))
-                    throw new InvalidDataException("Not enough unobstructed desk space.");
-                furniture.Add(desk);
+                tiles[y * width + x] = source.Tiles[oldY * source.WidthTiles + oldX];
             }
         }
-        var desks = furniture.Select((f, i) => (f, i)).Where(p => assets.Variant(p.f).Points.Any(p => p.Action == "typing")).ToArray();
-        if (agents.Any(a => a.Slot >= desks.Length)) throw new InvalidDataException("Not enough seats; configure autoDesks or more desks.");
-        foreach (var a in agents) furniture[desks[a.Slot].i] = desks[a.Slot].f with { AgentId = a.Id };
-        if (auto?.AssetId == "cozy-desk")
+        for (var slot = 0; slot < count; slot++)
         {
-            if (assets.Manifest.Furniture.Any(f => f.Id == "cozy-chair-front"))
-                furniture.AddRange(desks.Select(p => new Furniture("chair",p.f.X,p.f.Y,3,2,null,p.f.Id+"-chair","cozy-chair-front")));
-            // Furnish a two-slot gap in the last row rather than leaving a bare
-            // strip of floor after the single spare desk.
-            var last = desks.Last().f;
-            var columns = (desks.Max(p => p.f.X) - auto.X) / auto.SpacingX + 1;
-            var remaining = columns - (last.X - auto.X) / auto.SpacingX - 1;
-            if (desks.Length > 6 && remaining >= 2 && assets.Manifest.Furniture.Any(f => f.Id == "cozy-meeting"))
-                furniture.Add(new("table",last.X+auto.SpacingX,last.Y,4,3,null,"meeting-corner","cozy-meeting"));
+            var id = "auto-desk-" + slot;
+            var desk = new Furniture(definition.Kind, auto.X + slot % columns * auto.SpacingX,
+                auto.Y + slot / columns * auto.SpacingY, variant.FootprintW, variant.FootprintH,
+                Id: id, AssetId: definition.Id, DeskId: id);
+            furniture.Add(desk);
+            var chairId = auto.AssetId == "cozy-desk" ? "cozy-chair-front" : "chair";
+            var chair = assets.Manifest.Furniture.FirstOrDefault(f => f.Id == chairId)?.Variants
+                .FirstOrDefault(v => v.Rotation == 0 && v.State == "default");
+            if (chair != null)
+                furniture.Add(new("chair", desk.X, desk.Y, chair.FootprintW, chair.FootprintH,
+                    Id: id + "-chair", AssetId: chairId));
         }
-        result = result with { Furniture = furniture, AutoDesks = null };
-        Validate(result, assets);
-        return result;
+        return source with { WidthTiles = width, HeightTiles = height,
+            Door = new(source.Door.X >= edge ? source.Door.X + shift : source.Door.X, source.Door.Y + doorShift),
+            Furniture = furniture, Zones = zones, Tiles = tiles, AutoDesks = null,
+            OverflowSeats = source.OverflowSeats?.Select(s => s with { X = s.X >= edge ? s.X + shift : s.X }).ToArray() };
+    }
+
+    public static OfficeLayout Adapt(OfficeLayout source, AssetPack assets, IReadOnlyList<(string Id, int Slot)> agents)
+    {
+        // Compatibility entry point: assign only the already-authored desks.
+        var result = Prepare(source with { AutoDesks = null }, assets);
+        var furniture = result.Furniture.Select(f => f with { AgentId = null }).ToArray();
+        var desks = furniture.Select((f, i) => (f, i)).Where(p => assets.Variant(p.f).Points.Any(p => p.Action == "typing")).ToArray();
+        foreach (var a in agents.Where(a => a.Slot >= 0 && a.Slot < desks.Length))
+            furniture[desks[a.Slot].i] = desks[a.Slot].f with { AgentId = a.Id };
+        return result with { Furniture = furniture };
     }
 }

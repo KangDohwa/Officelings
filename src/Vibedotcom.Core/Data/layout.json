@@ -1,34 +1,24 @@
 {
   "version": 1,
-  "widthTiles": 25,
+  "widthTiles": 35,
   "heightTiles": 20,
   "tileSize": 16,
   "door": {
     "x": 2,
     "y": 3
   },
-  "autoDesks": {
-    "assetId": "cozy-desk",
-    "x": 3,
-    "y": 6,
-    "spacingX": 5,
-    "spacingY": 4,
-    "maxColumns": 4,
-    "minColumns": 2,
-    "adaptiveColumns": true,
-    "expand": true
-  },
+  "autoDesks": null,
   "zones": [
     {
       "name": "workspace",
       "x": 1,
       "y": 3,
-      "width": 13,
+      "width": 23,
       "height": 16
     },
     {
       "name": "lounge",
-      "x": 15,
+      "x": 25,
       "y": 3,
       "width": 9,
       "height": 11,
@@ -51,21 +41,21 @@
     },
     {
       "name": "pantry",
-      "x": 15,
+      "x": 25,
       "y": 14,
       "width": 9,
       "height": 5
     },
     {
       "name": "partition",
-      "x": 14,
+      "x": 24,
       "y": 3,
       "width": 1,
       "height": 16
     },
     {
       "name": "passage",
-      "x": 14,
+      "x": 24,
       "y": 10,
       "width": 1,
       "height": 3
@@ -101,7 +91,7 @@
       "id": "window-lounge",
       "kind": "window",
       "assetId": "cozy-window",
-      "x": 20,
+      "x": 30,
       "y": 2,
       "width": 3,
       "height": 1
@@ -128,7 +118,7 @@
       "id": "picture",
       "kind": "picture",
       "assetId": "cozy-picture",
-      "x": 16,
+      "x": 26,
       "y": 2,
       "width": 2,
       "height": 1
@@ -182,7 +172,7 @@
       "id": "tv",
       "kind": "tv",
       "assetId": "cozy-tv",
-      "x": 16,
+      "x": 26,
       "y": 4,
       "width": 3,
       "height": 2
@@ -191,7 +181,7 @@
       "id": "sofa",
       "kind": "sofa",
       "assetId": "cozy-sofa",
-      "x": 20,
+      "x": 30,
       "y": 7,
       "width": 3,
       "height": 2
@@ -200,7 +190,7 @@
       "id": "rug",
       "kind": "rug",
       "assetId": "cozy-rug",
-      "x": 17,
+      "x": 27,
       "y": 10,
       "width": 4,
       "height": 3
@@ -209,7 +199,7 @@
       "id": "coffee-table",
       "kind": "table",
       "assetId": "cozy-coffee-table",
-      "x": 17,
+      "x": 27,
       "y": 10,
       "width": 3,
       "height": 2
@@ -218,7 +208,7 @@
       "id": "table",
       "kind": "table",
       "assetId": "cozy-table",
-      "x": 20,
+      "x": 30,
       "y": 11,
       "width": 3,
       "height": 2
@@ -227,7 +217,7 @@
       "id": "armchair",
       "kind": "armchair",
       "assetId": "cozy-armchair",
-      "x": 16,
+      "x": 26,
       "y": 8,
       "width": 2,
       "height": 2
@@ -236,7 +226,7 @@
       "id": "lamp",
       "kind": "lamp",
       "assetId": "cozy-lamp",
-      "x": 23,
+      "x": 33,
       "y": 8,
       "width": 1,
       "height": 1
@@ -245,7 +235,7 @@
       "id": "plant-lounge",
       "kind": "plant",
       "assetId": "cozy-plant",
-      "x": 23,
+      "x": 33,
       "y": 6,
       "width": 1,
       "height": 1
@@ -254,7 +244,7 @@
       "id": "coffee",
       "kind": "pantry",
       "assetId": "cozy-pantry",
-      "x": 16,
+      "x": 26,
       "y": 15,
       "width": 3,
       "height": 2
@@ -263,7 +253,7 @@
       "id": "fridge",
       "kind": "cabinet",
       "assetId": "cozy-fridge",
-      "x": 20,
+      "x": 30,
       "y": 15,
       "width": 2,
       "height": 3
@@ -272,7 +262,7 @@
       "id": "water",
       "kind": "water",
       "assetId": "cozy-water",
-      "x": 23,
+      "x": 33,
       "y": 15,
       "width": 1,
       "height": 2
@@ -281,10 +271,329 @@
       "id": "trash",
       "kind": "plant",
       "assetId": "cozy-trash",
-      "x": 22,
+      "x": 32,
       "y": 18,
       "width": 1,
       "height": 1
+    },
+    {
+      "id": "desk-01",
+      "deskId": "desk-01",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 3,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-01-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 3,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-02",
+      "deskId": "desk-02",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 8,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-02-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 8,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-03",
+      "deskId": "desk-03",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 13,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-03-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 13,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-04",
+      "deskId": "desk-04",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 18,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-04-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 18,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-05",
+      "deskId": "desk-05",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 3,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-05-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 3,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-06",
+      "deskId": "desk-06",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 8,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-06-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 8,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-07",
+      "deskId": "desk-07",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 13,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-07-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 13,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-08",
+      "deskId": "desk-08",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 18,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-08-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 18,
+      "y": 10,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-09",
+      "deskId": "desk-09",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 3,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-09-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 3,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-10",
+      "deskId": "desk-10",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 8,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-10-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 8,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-11",
+      "deskId": "desk-11",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 13,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-11-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 13,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-12",
+      "deskId": "desk-12",
+      "kind": "desk",
+      "assetId": "cozy-desk",
+      "x": 18,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "desk-12-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 18,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
+      "id": "pantry-stool-1",
+      "kind": "stool",
+      "assetId": "cozy-counter-stool",
+      "x": 27,
+      "y": 17,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "id": "pantry-stool-2",
+      "kind": "stool",
+      "assetId": "cozy-counter-stool",
+      "x": 28,
+      "y": 17,
+      "width": 1,
+      "height": 1
     }
+  ],
+  "overflowSeats": [
+    {
+      "id": "lounge-sofa-1",
+      "x": 31,
+      "y": 9,
+      "facing": "up",
+      "furnitureId": "sofa"
+    },
+    {
+      "id": "lounge-sofa-2",
+      "x": 32,
+      "y": 9,
+      "facing": "up",
+      "furnitureId": "sofa"
+    },
+    {
+      "id": "lounge-armchair",
+      "x": 26,
+      "y": 10,
+      "facing": "up",
+      "furnitureId": "armchair"
+    },
+    {
+      "id": "lounge-table-1",
+      "x": 30,
+      "y": 13,
+      "facing": "up",
+      "furnitureId": "table"
+    },
+    {
+      "id": "lounge-table-2",
+      "x": 32,
+      "y": 13,
+      "facing": "up",
+      "furnitureId": "table"
+    },
+    {
+      "id": "pantry-1",
+      "x": 27,
+      "y": 17,
+      "facing": "up",
+      "furnitureId": "pantry-stool-1"
+    },
+    {
+      "id": "pantry-2",
+      "x": 28,
+      "y": 17,
+      "facing": "up",
+      "furnitureId": "pantry-stool-2"
+    }
+  ],
+  "tiles": [
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,7,7,7,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,7,7,7,7,7,7,7,
+    6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,8,8,8,8,8,8,8,8,8,8,
+    5,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,5,18,17,18,17,18,17,18,17,18,5,
+    5,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,5,16,3,16,3,16,3,16,3,16,5,
+    5,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,5,18,17,18,17,18,17,18,17,18,5,
+    5,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,5,16,3,16,3,16,3,16,3,16,5,
+    5,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,5,18,17,18,17,18,17,18,17,18,5,
+    5,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,5,16,3,16,3,16,3,16,3,16,5,
+    5,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,5,18,17,18,17,18,17,18,17,18,5,
+    5,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,16,3,16,3,16,3,16,3,16,5,
+    5,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,18,17,18,17,18,17,18,17,18,5,
+    5,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,16,3,16,3,16,3,16,3,16,5,
+    5,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,5,18,17,18,17,18,17,18,17,18,5,
+    5,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,5,13,2,13,2,13,2,13,2,13,5,
+    5,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,5,15,14,15,14,15,14,15,14,15,5,
+    5,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,5,13,2,13,2,13,2,13,2,13,5,
+    5,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,11,12,5,15,14,15,14,15,14,15,14,15,5,
+    5,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,1,10,5,13,2,13,2,13,2,13,2,13,5,
+    5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5
   ]
 }

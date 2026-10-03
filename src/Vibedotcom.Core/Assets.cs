@@ -41,6 +41,9 @@ public sealed class AssetPack
     {
         using var resource = typeof(AssetPack).Assembly.GetManifestResourceStream("Vibedotcom.Core.Data.assets.json")!;
         Manifest = JsonSerializer.Deserialize<AssetManifest>(resource, StateJson.Options)!;
+        // A nonblocking foreground chair also gives the primitive fallback fixed, editable chair instances.
+        Manifest = Manifest with { Furniture = Manifest.Furniture.Append(new FurnitureAsset("chair", "chair",
+            [new(0, "default", 3, 2, [], [])])).ToArray() };
         Images["fallback"] = SpriteAtlas.CreatePng();
         var file = directory == null ? null : ManifestFile(directory);
         if (bundled || file != null)
@@ -157,9 +160,14 @@ public sealed class AssetPack
             throw new InvalidDataException("Invalid tile type.");
     }
 
-    public FurnitureVariant Variant(Furniture f) => Manifest.Furniture.FirstOrDefault(a => a.Id == (f.AssetId ?? f.Kind))?.Variants
-        .FirstOrDefault(v => v.Rotation == f.Rotation && v.State == f.State)
-        ?? throw new InvalidDataException("Unknown furniture variant: " + (f.AssetId ?? f.Kind) + "/" + f.Rotation + "/" + f.State);
+    public FurnitureVariant Variant(Furniture f)
+    {
+        var variant = Manifest.Furniture.FirstOrDefault(a => a.Id == (f.AssetId ?? f.Kind))?.Variants
+            .FirstOrDefault(v => v.Rotation == f.Rotation && v.State == f.State)
+            ?? throw new InvalidDataException("Unknown furniture variant: " + (f.AssetId ?? f.Kind) + "/" + f.Rotation + "/" + f.State);
+        return f.Seat == null ? variant : variant with
+        { Points = variant.Points.Where(p => p.Action != "typing").Append(f.Seat).ToArray() };
+    }
     public IEnumerable<(Tile Tile, InteractionPoint Point)> Points(OfficeLayout layout) => layout.Furniture.SelectMany(f =>
         Variant(f).Points.Select(p => (new Tile(f.X + p.X, f.Y + p.Y), p))).Concat((layout.Zones ?? []).SelectMany(z =>
         (z.Points ?? []).Select(p => (new Tile(z.X + p.X, z.Y + p.Y), p))));
