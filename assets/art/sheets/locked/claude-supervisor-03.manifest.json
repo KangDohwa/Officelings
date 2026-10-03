@@ -1,11 +1,11 @@
 {
   "characterId": ".supervisor-final.sg-staging",
   "engine": "component-row",
-  "game_input": "claude-supervisor-03.png",
+  "game_input": ".generations/c3feb4ed2710c7dd7fd3cdca45b5d3473302ee7977211a92b08c5bed4f351567/claude-supervisor-03.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "claude-supervisor-03.png",
+  "sprite_sheet_alpha": ".generations/c3feb4ed2710c7dd7fd3cdca45b5d3473302ee7977211a92b08c5bed4f351567/claude-supervisor-03.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "claude-supervisor-03-blink-down.png",
+      "file": ".generations/c3feb4ed2710c7dd7fd3cdca45b5d3473302ee7977211a92b08c5bed4f351567/claude-supervisor-03-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "claude-supervisor-03-blink-left.png",
+      "file": ".generations/c3feb4ed2710c7dd7fd3cdca45b5d3473302ee7977211a92b08c5bed4f351567/claude-supervisor-03-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "claude-supervisor-03-blink-right.png",
+      "file": ".generations/c3feb4ed2710c7dd7fd3cdca45b5d3473302ee7977211a92b08c5bed4f351567/claude-supervisor-03-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "claude-supervisor-03.facelock.json",
+    "report": ".generations/c3feb4ed2710c7dd7fd3cdca45b5d3473302ee7977211a92b08c5bed4f351567/claude-supervisor-03.facelock.json",
     "inputSha256": "d6e272500be0982d3a3603516eb91419b0d7f93dd1a8883565ec7d3e78e804ee"
+  },
+  "publication": {
+    "generation": ".generations/c3feb4ed2710c7dd7fd3cdca45b5d3473302ee7977211a92b08c5bed4f351567"
   }
 }

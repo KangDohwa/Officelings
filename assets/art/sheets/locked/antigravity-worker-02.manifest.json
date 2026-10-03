@@ -1,11 +1,11 @@
 {
   "characterId": ".worker-final.sg-staging",
   "engine": "component-row",
-  "game_input": "antigravity-worker-02.png",
+  "game_input": ".generations/06765a2e98dcaba6060f7092812ae082ce0e08147cd32c3285cf298cb84ffe94/antigravity-worker-02.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "antigravity-worker-02.png",
+  "sprite_sheet_alpha": ".generations/06765a2e98dcaba6060f7092812ae082ce0e08147cd32c3285cf298cb84ffe94/antigravity-worker-02.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "antigravity-worker-02-blink-down.png",
+      "file": ".generations/06765a2e98dcaba6060f7092812ae082ce0e08147cd32c3285cf298cb84ffe94/antigravity-worker-02-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "antigravity-worker-02-blink-left.png",
+      "file": ".generations/06765a2e98dcaba6060f7092812ae082ce0e08147cd32c3285cf298cb84ffe94/antigravity-worker-02-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "antigravity-worker-02-blink-right.png",
+      "file": ".generations/06765a2e98dcaba6060f7092812ae082ce0e08147cd32c3285cf298cb84ffe94/antigravity-worker-02-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "antigravity-worker-02.facelock.json",
+    "report": ".generations/06765a2e98dcaba6060f7092812ae082ce0e08147cd32c3285cf298cb84ffe94/antigravity-worker-02.facelock.json",
     "inputSha256": "1b8a6fce86a6250c2e7abedf3094f4f973ac7ff285ffff32fed46005e20481f5"
+  },
+  "publication": {
+    "generation": ".generations/06765a2e98dcaba6060f7092812ae082ce0e08147cd32c3285cf298cb84ffe94"
   }
 }

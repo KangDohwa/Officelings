@@ -1,11 +1,11 @@
 {
   "characterId": ".worker-final.sg-staging",
   "engine": "component-row",
-  "game_input": "codex-worker-02.png",
+  "game_input": ".generations/99ae390514a881623ae6db7ffe23f69308bb92d55ecb9b7f67c4f8cb3574da69/codex-worker-02.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "codex-worker-02.png",
+  "sprite_sheet_alpha": ".generations/99ae390514a881623ae6db7ffe23f69308bb92d55ecb9b7f67c4f8cb3574da69/codex-worker-02.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "codex-worker-02-blink-down.png",
+      "file": ".generations/99ae390514a881623ae6db7ffe23f69308bb92d55ecb9b7f67c4f8cb3574da69/codex-worker-02-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "codex-worker-02-blink-left.png",
+      "file": ".generations/99ae390514a881623ae6db7ffe23f69308bb92d55ecb9b7f67c4f8cb3574da69/codex-worker-02-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "codex-worker-02-blink-right.png",
+      "file": ".generations/99ae390514a881623ae6db7ffe23f69308bb92d55ecb9b7f67c4f8cb3574da69/codex-worker-02-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "codex-worker-02.facelock.json",
+    "report": ".generations/99ae390514a881623ae6db7ffe23f69308bb92d55ecb9b7f67c4f8cb3574da69/codex-worker-02.facelock.json",
     "inputSha256": "f79c0bfd70a37f26c61169be4df81713307ec9218a595b8fc47241fbec4d7786"
+  },
+  "publication": {
+    "generation": ".generations/99ae390514a881623ae6db7ffe23f69308bb92d55ecb9b7f67c4f8cb3574da69"
   }
 }

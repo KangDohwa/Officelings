@@ -1,11 +1,11 @@
 {
   "characterId": ".subagent-final.sg-staging",
   "engine": "component-row",
-  "game_input": "claude-subagent-04.png",
+  "game_input": ".generations/a85e9c15e896e6f8c57e32b00e75eca1a4befb945f54ca4f786be768f999c82d/claude-subagent-04.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "claude-subagent-04.png",
+  "sprite_sheet_alpha": ".generations/a85e9c15e896e6f8c57e32b00e75eca1a4befb945f54ca4f786be768f999c82d/claude-subagent-04.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "claude-subagent-04-blink-down.png",
+      "file": ".generations/a85e9c15e896e6f8c57e32b00e75eca1a4befb945f54ca4f786be768f999c82d/claude-subagent-04-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "claude-subagent-04-blink-left.png",
+      "file": ".generations/a85e9c15e896e6f8c57e32b00e75eca1a4befb945f54ca4f786be768f999c82d/claude-subagent-04-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "claude-subagent-04-blink-right.png",
+      "file": ".generations/a85e9c15e896e6f8c57e32b00e75eca1a4befb945f54ca4f786be768f999c82d/claude-subagent-04-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "claude-subagent-04.facelock.json",
+    "report": ".generations/a85e9c15e896e6f8c57e32b00e75eca1a4befb945f54ca4f786be768f999c82d/claude-subagent-04.facelock.json",
     "inputSha256": "afe3ae0531a64fc99f288a6af2e5392fc5817b09dd60f791f4dc0933cb10a991"
+  },
+  "publication": {
+    "generation": ".generations/a85e9c15e896e6f8c57e32b00e75eca1a4befb945f54ca4f786be768f999c82d"
   }
 }

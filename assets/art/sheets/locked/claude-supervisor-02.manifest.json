@@ -1,11 +1,11 @@
 {
   "characterId": ".supervisor-final.sg-staging",
   "engine": "component-row",
-  "game_input": "claude-supervisor-02.png",
+  "game_input": ".generations/8e28139f4ff5864cec6f31c0eb66e2e14565e4d820d4ca6e241d79b411d3f76c/claude-supervisor-02.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "claude-supervisor-02.png",
+  "sprite_sheet_alpha": ".generations/8e28139f4ff5864cec6f31c0eb66e2e14565e4d820d4ca6e241d79b411d3f76c/claude-supervisor-02.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "claude-supervisor-02-blink-down.png",
+      "file": ".generations/8e28139f4ff5864cec6f31c0eb66e2e14565e4d820d4ca6e241d79b411d3f76c/claude-supervisor-02-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "claude-supervisor-02-blink-left.png",
+      "file": ".generations/8e28139f4ff5864cec6f31c0eb66e2e14565e4d820d4ca6e241d79b411d3f76c/claude-supervisor-02-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "claude-supervisor-02-blink-right.png",
+      "file": ".generations/8e28139f4ff5864cec6f31c0eb66e2e14565e4d820d4ca6e241d79b411d3f76c/claude-supervisor-02-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "claude-supervisor-02.facelock.json",
+    "report": ".generations/8e28139f4ff5864cec6f31c0eb66e2e14565e4d820d4ca6e241d79b411d3f76c/claude-supervisor-02.facelock.json",
     "inputSha256": "f60a0f05bcce261bc5841e77a58f66c06f25922773c4dfadc3c2ded6b830d941"
+  },
+  "publication": {
+    "generation": ".generations/8e28139f4ff5864cec6f31c0eb66e2e14565e4d820d4ca6e241d79b411d3f76c"
   }
 }

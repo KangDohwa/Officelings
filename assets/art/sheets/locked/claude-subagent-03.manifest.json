@@ -1,11 +1,11 @@
 {
   "characterId": ".subagent-final.sg-staging",
   "engine": "component-row",
-  "game_input": "claude-subagent-03.png",
+  "game_input": ".generations/2aba25882b2c646fea276dfe30c6fd3720183bf9e8aa21193e87283acff34876/claude-subagent-03.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "claude-subagent-03.png",
+  "sprite_sheet_alpha": ".generations/2aba25882b2c646fea276dfe30c6fd3720183bf9e8aa21193e87283acff34876/claude-subagent-03.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "claude-subagent-03-blink-down.png",
+      "file": ".generations/2aba25882b2c646fea276dfe30c6fd3720183bf9e8aa21193e87283acff34876/claude-subagent-03-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "claude-subagent-03-blink-left.png",
+      "file": ".generations/2aba25882b2c646fea276dfe30c6fd3720183bf9e8aa21193e87283acff34876/claude-subagent-03-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "claude-subagent-03-blink-right.png",
+      "file": ".generations/2aba25882b2c646fea276dfe30c6fd3720183bf9e8aa21193e87283acff34876/claude-subagent-03-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "claude-subagent-03.facelock.json",
+    "report": ".generations/2aba25882b2c646fea276dfe30c6fd3720183bf9e8aa21193e87283acff34876/claude-subagent-03.facelock.json",
     "inputSha256": "be3011a930d13bb904defb269d530e40c6a4b42d9e192de65d711d3a421bb5d3"
+  },
+  "publication": {
+    "generation": ".generations/2aba25882b2c646fea276dfe30c6fd3720183bf9e8aa21193e87283acff34876"
   }
 }

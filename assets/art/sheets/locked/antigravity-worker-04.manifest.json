@@ -1,11 +1,11 @@
 {
   "characterId": ".worker-final.sg-staging",
   "engine": "component-row",
-  "game_input": "antigravity-worker-04.png",
+  "game_input": ".generations/39e0aa4c0abc5460b231f66d4d623458c93ea0afb32a6aed523420ddcba27b2b/antigravity-worker-04.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "antigravity-worker-04.png",
+  "sprite_sheet_alpha": ".generations/39e0aa4c0abc5460b231f66d4d623458c93ea0afb32a6aed523420ddcba27b2b/antigravity-worker-04.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "antigravity-worker-04-blink-down.png",
+      "file": ".generations/39e0aa4c0abc5460b231f66d4d623458c93ea0afb32a6aed523420ddcba27b2b/antigravity-worker-04-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "antigravity-worker-04-blink-left.png",
+      "file": ".generations/39e0aa4c0abc5460b231f66d4d623458c93ea0afb32a6aed523420ddcba27b2b/antigravity-worker-04-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "antigravity-worker-04-blink-right.png",
+      "file": ".generations/39e0aa4c0abc5460b231f66d4d623458c93ea0afb32a6aed523420ddcba27b2b/antigravity-worker-04-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "antigravity-worker-04.facelock.json",
+    "report": ".generations/39e0aa4c0abc5460b231f66d4d623458c93ea0afb32a6aed523420ddcba27b2b/antigravity-worker-04.facelock.json",
     "inputSha256": "e429b8dcc92f445e6c95928155bd1915e0ab4461af548f2b6687e6a9ba536a48"
+  },
+  "publication": {
+    "generation": ".generations/39e0aa4c0abc5460b231f66d4d623458c93ea0afb32a6aed523420ddcba27b2b"
   }
 }

@@ -1,11 +1,11 @@
 {
   "characterId": ".supervisor-final.sg-staging",
   "engine": "component-row",
-  "game_input": "claude-supervisor-01.png",
+  "game_input": ".generations/01ccb0108a1a31ed38ecd40b02f5b17f7c24afd7589d9bbb0e3d43265e3dcba0/claude-supervisor-01.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "claude-supervisor-01.png",
+  "sprite_sheet_alpha": ".generations/01ccb0108a1a31ed38ecd40b02f5b17f7c24afd7589d9bbb0e3d43265e3dcba0/claude-supervisor-01.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "claude-supervisor-01-blink-down.png",
+      "file": ".generations/01ccb0108a1a31ed38ecd40b02f5b17f7c24afd7589d9bbb0e3d43265e3dcba0/claude-supervisor-01-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "claude-supervisor-01-blink-left.png",
+      "file": ".generations/01ccb0108a1a31ed38ecd40b02f5b17f7c24afd7589d9bbb0e3d43265e3dcba0/claude-supervisor-01-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "claude-supervisor-01-blink-right.png",
+      "file": ".generations/01ccb0108a1a31ed38ecd40b02f5b17f7c24afd7589d9bbb0e3d43265e3dcba0/claude-supervisor-01-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "claude-supervisor-01.facelock.json",
+    "report": ".generations/01ccb0108a1a31ed38ecd40b02f5b17f7c24afd7589d9bbb0e3d43265e3dcba0/claude-supervisor-01.facelock.json",
     "inputSha256": "c86ac9ff91fb24f0c3f3f351bcd3ffd20cd067a66f8012440e35887b4bd8572e"
+  },
+  "publication": {
+    "generation": ".generations/01ccb0108a1a31ed38ecd40b02f5b17f7c24afd7589d9bbb0e3d43265e3dcba0"
   }
 }

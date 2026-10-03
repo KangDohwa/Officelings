@@ -1,11 +1,11 @@
 {
   "characterId": ".worker-final.sg-staging",
   "engine": "component-row",
-  "game_input": "claude-worker-02.png",
+  "game_input": ".generations/0aabe055e1069cd31a83feb1c034e1f50681ea61cec9ce4c4b857bd7aca36102/claude-worker-02.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "claude-worker-02.png",
+  "sprite_sheet_alpha": ".generations/0aabe055e1069cd31a83feb1c034e1f50681ea61cec9ce4c4b857bd7aca36102/claude-worker-02.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "claude-worker-02-blink-down.png",
+      "file": ".generations/0aabe055e1069cd31a83feb1c034e1f50681ea61cec9ce4c4b857bd7aca36102/claude-worker-02-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "claude-worker-02-blink-left.png",
+      "file": ".generations/0aabe055e1069cd31a83feb1c034e1f50681ea61cec9ce4c4b857bd7aca36102/claude-worker-02-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "claude-worker-02-blink-right.png",
+      "file": ".generations/0aabe055e1069cd31a83feb1c034e1f50681ea61cec9ce4c4b857bd7aca36102/claude-worker-02-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "claude-worker-02.facelock.json",
+    "report": ".generations/0aabe055e1069cd31a83feb1c034e1f50681ea61cec9ce4c4b857bd7aca36102/claude-worker-02.facelock.json",
     "inputSha256": "2bb9975bd635f65d87aa761914fafc88702a1d820ecac09b3a2f7dbbc1abd758"
+  },
+  "publication": {
+    "generation": ".generations/0aabe055e1069cd31a83feb1c034e1f50681ea61cec9ce4c4b857bd7aca36102"
   }
 }

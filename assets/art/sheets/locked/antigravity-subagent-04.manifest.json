@@ -1,11 +1,11 @@
 {
   "characterId": ".subagent-final.sg-staging",
   "engine": "component-row",
-  "game_input": "antigravity-subagent-04.png",
+  "game_input": ".generations/113e36fcdf8bf4b4318a996379a3f26a4e26b109a235ca1eb2b34eebe38184a2/antigravity-subagent-04.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "antigravity-subagent-04.png",
+  "sprite_sheet_alpha": ".generations/113e36fcdf8bf4b4318a996379a3f26a4e26b109a235ca1eb2b34eebe38184a2/antigravity-subagent-04.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "antigravity-subagent-04-blink-down.png",
+      "file": ".generations/113e36fcdf8bf4b4318a996379a3f26a4e26b109a235ca1eb2b34eebe38184a2/antigravity-subagent-04-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "antigravity-subagent-04-blink-left.png",
+      "file": ".generations/113e36fcdf8bf4b4318a996379a3f26a4e26b109a235ca1eb2b34eebe38184a2/antigravity-subagent-04-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "antigravity-subagent-04-blink-right.png",
+      "file": ".generations/113e36fcdf8bf4b4318a996379a3f26a4e26b109a235ca1eb2b34eebe38184a2/antigravity-subagent-04-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "antigravity-subagent-04.facelock.json",
+    "report": ".generations/113e36fcdf8bf4b4318a996379a3f26a4e26b109a235ca1eb2b34eebe38184a2/antigravity-subagent-04.facelock.json",
     "inputSha256": "b7ba063174e56cf1ba1b23631b444d84950e2496031051196a6964a4a57f64b3"
+  },
+  "publication": {
+    "generation": ".generations/113e36fcdf8bf4b4318a996379a3f26a4e26b109a235ca1eb2b34eebe38184a2"
   }
 }

@@ -1,11 +1,11 @@
 {
   "characterId": ".supervisor-final.sg-staging",
   "engine": "component-row",
-  "game_input": "claude-supervisor-04.png",
+  "game_input": ".generations/fd6308062093af64807a24f93988effa2b7d3362421050e1942a5a5989b4e023/claude-supervisor-04.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "claude-supervisor-04.png",
+  "sprite_sheet_alpha": ".generations/fd6308062093af64807a24f93988effa2b7d3362421050e1942a5a5989b4e023/claude-supervisor-04.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "claude-supervisor-04-blink-down.png",
+      "file": ".generations/fd6308062093af64807a24f93988effa2b7d3362421050e1942a5a5989b4e023/claude-supervisor-04-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "claude-supervisor-04-blink-left.png",
+      "file": ".generations/fd6308062093af64807a24f93988effa2b7d3362421050e1942a5a5989b4e023/claude-supervisor-04-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "claude-supervisor-04-blink-right.png",
+      "file": ".generations/fd6308062093af64807a24f93988effa2b7d3362421050e1942a5a5989b4e023/claude-supervisor-04-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "claude-supervisor-04.facelock.json",
+    "report": ".generations/fd6308062093af64807a24f93988effa2b7d3362421050e1942a5a5989b4e023/claude-supervisor-04.facelock.json",
     "inputSha256": "120ee1ef25a135ac1cf5035327dfde0c10f886e3c076e0911cf7149aca6734df"
+  },
+  "publication": {
+    "generation": ".generations/fd6308062093af64807a24f93988effa2b7d3362421050e1942a5a5989b4e023"
   }
 }

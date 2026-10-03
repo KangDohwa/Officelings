@@ -1,11 +1,11 @@
 {
   "characterId": ".supervisor-final.sg-staging",
   "engine": "component-row",
-  "game_input": "worker-supervisor.png",
+  "game_input": ".generations/1d18db748b0dfc646b10ee2a28a7fce7f011c488da63e27060b09a97a7a12232/worker-supervisor.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "worker-supervisor.png",
+  "sprite_sheet_alpha": ".generations/1d18db748b0dfc646b10ee2a28a7fce7f011c488da63e27060b09a97a7a12232/worker-supervisor.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "worker-supervisor-blink-down.png",
+      "file": ".generations/1d18db748b0dfc646b10ee2a28a7fce7f011c488da63e27060b09a97a7a12232/worker-supervisor-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "worker-supervisor-blink-left.png",
+      "file": ".generations/1d18db748b0dfc646b10ee2a28a7fce7f011c488da63e27060b09a97a7a12232/worker-supervisor-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "worker-supervisor-blink-right.png",
+      "file": ".generations/1d18db748b0dfc646b10ee2a28a7fce7f011c488da63e27060b09a97a7a12232/worker-supervisor-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "worker-supervisor.facelock.json",
+    "report": ".generations/1d18db748b0dfc646b10ee2a28a7fce7f011c488da63e27060b09a97a7a12232/worker-supervisor.facelock.json",
     "inputSha256": "e0048272c71afd2840e5b22c69a83a220d806da1fa9eecb100546df491a52740"
+  },
+  "publication": {
+    "generation": ".generations/1d18db748b0dfc646b10ee2a28a7fce7f011c488da63e27060b09a97a7a12232"
   }
 }

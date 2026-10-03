@@ -1,11 +1,11 @@
 {
   "characterId": ".supervisor-final.sg-staging",
   "engine": "component-row",
-  "game_input": "antigravity-supervisor-02.png",
+  "game_input": ".generations/913c7526d15b0b899a71e9d37758c9772bf9d40d9ad33fb3a5e5442a15b8be1b/antigravity-supervisor-02.png",
   "degraded_static_fallback": false,
   "curation_applied": false,
   "frame_variant": "pixel",
-  "sprite_sheet_alpha": "antigravity-supervisor-02.png",
+  "sprite_sheet_alpha": ".generations/913c7526d15b0b899a71e9d37758c9772bf9d40d9ad33fb3a5e5442a15b8be1b/antigravity-supervisor-02.png",
   "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
   "base_image": null,
   "cell": {
@@ -478,7 +478,7 @@
   },
   "blink": {
     "down": {
-      "file": "antigravity-supervisor-02-blink-down.png",
+      "file": ".generations/913c7526d15b0b899a71e9d37758c9772bf9d40d9ad33fb3a5e5442a15b8be1b/antigravity-supervisor-02-blink-down.png",
       "source": {
         "state": "walk_down",
         "frame": 0
@@ -486,7 +486,7 @@
       "durationMs": 100
     },
     "left": {
-      "file": "antigravity-supervisor-02-blink-left.png",
+      "file": ".generations/913c7526d15b0b899a71e9d37758c9772bf9d40d9ad33fb3a5e5442a15b8be1b/antigravity-supervisor-02-blink-left.png",
       "source": {
         "state": "walk_left",
         "frame": 0
@@ -494,7 +494,7 @@
       "durationMs": 100
     },
     "right": {
-      "file": "antigravity-supervisor-02-blink-right.png",
+      "file": ".generations/913c7526d15b0b899a71e9d37758c9772bf9d40d9ad33fb3a5e5442a15b8be1b/antigravity-supervisor-02-blink-right.png",
       "source": {
         "state": "walk_right",
         "frame": 0
@@ -504,7 +504,10 @@
   },
   "facelock": {
     "version": 1,
-    "report": "antigravity-supervisor-02.facelock.json",
+    "report": ".generations/913c7526d15b0b899a71e9d37758c9772bf9d40d9ad33fb3a5e5442a15b8be1b/antigravity-supervisor-02.facelock.json",
     "inputSha256": "d66a3e425aefa8571795cc6d5f38011885cfc4614d33823a1ece1eb6d5fe1fff"
+  },
+  "publication": {
+    "generation": ".generations/913c7526d15b0b899a71e9d37758c9772bf9d40d9ad33fb3a5e5442a15b8be1b"
   }
 }
