@@ -10588,7 +10588,7 @@
     },
     {
       "id": "char-afro-sweater",
-      "file": "sheets/pack-59136016bfe6600b61bc7ee9129bfd4ffd0316d6e344d7455edc3ad4bda78854.png",
+      "file": "sheets/pack-aaa532ffae7b91d3b289d65d825d6c4f0ea931675126ee3b8900b02257d89c4f.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -12509,7 +12509,7 @@
     },
     {
       "id": "char-hijab-designer",
-      "file": "sheets/pack-0ae9a8c66f7162de95f65e3cbbe7eaaa55d2dfc4605f11d882122f43e701e0ca.png",
+      "file": "sheets/pack-7e82256b3448a33415115feb1901aad9f4801f177cabc87421bedf9c1de75251.png",
       "cellW": 32,
       "cellH": 64,
       "anchor": {
@@ -12657,6 +12657,78 @@
           "name": "waiting",
           "direction": "any",
           "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "down",
+          "row": 13,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "left",
+          "row": 14,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-idle",
+          "direction": "right",
+          "row": 15,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "blink-typing",
+          "direction": "right",
+          "row": 16,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "any",
+          "row": 17,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "any",
+          "row": 18,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-chatting",
+          "direction": "any",
+          "row": 19,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-waiting",
+          "direction": "any",
+          "row": 20,
           "column": 0,
           "frames": 2,
           "fps": 5,
@@ -13249,6 +13321,163 @@
             "x": 16,
             "y": 55
           }
+        }
+      ]
+    },
+    {
+      "id": "char-nurse-nightowl",
+      "file": "sheets/pack-e320c7596603099e80549c60591a6d867d4d8f645fb8cede436d3b03ecf900dd.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "down",
+          "row": 0,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "left",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "right",
+          "row": 0,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "idle",
+          "direction": "up",
+          "row": 0,
+          "column": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "walk",
+          "direction": "down",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "left",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "right",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "walk",
+          "direction": "up",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 7,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "up",
+          "row": 5,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "typing",
+          "direction": "right",
+          "row": 6,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": true
+        },
+        {
+          "name": "reporting",
+          "direction": "any",
+          "row": 7,
+          "column": 0,
+          "frames": 3,
+          "fps": 5,
+          "loop": false
+        },
+        {
+          "name": "napping",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 2,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "coffee",
+          "direction": "any",
+          "row": 9,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "phone",
+          "direction": "any",
+          "row": 10,
+          "column": 0,
+          "frames": 3,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "chatting",
+          "direction": "any",
+          "row": 11,
+          "column": 0,
+          "frames": 3,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "waiting",
+          "direction": "any",
+          "row": 12,
+          "column": 0,
+          "frames": 2,
+          "fps": 5,
+          "loop": false
         }
       ]
     },
@@ -15223,7 +15452,7 @@
     },
     {
       "id": "cozy-chair-back",
-      "file": "sheets/pack-a22e907e1d9e2409a3587979efe0ee342552782426b071825edda44d0a32b148.png",
+      "file": "sheets/pack-c0bf0d93ae765bf8171b7b3cee8d8d01d60c9af55030bed9f65bbcc8940208eb.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -15237,6 +15466,24 @@
           "direction": "any",
           "row": 0,
           "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-chair-back-color-2",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-chair-back-color-3",
+          "direction": "any",
+          "row": 0,
+          "column": 2,
           "frames": 1,
           "fps": 1,
           "loop": false
@@ -15279,12 +15526,90 @@
             "x": 0,
             "y": 0
           }
+        },
+        {
+          "name": "cozy-chair-back-color-2-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-back-color-2-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-chair-back-color-2-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-back-color-3-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-back-color-3-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-chair-back-color-3-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
         }
       ]
     },
     {
       "id": "cozy-chair-front",
-      "file": "sheets/pack-6f600d02ee77848cf815c41b8ae8e23efaa4f5bbaa7727cf247ce643dc5567c8.png",
+      "file": "sheets/pack-8925a0fee0a59843abe7061ce44ecde813436c94cf559f3c1e04a9d8ac1ec2d3.png",
       "cellW": 64,
       "cellH": 64,
       "anchor": {
@@ -15298,6 +15623,24 @@
           "direction": "any",
           "row": 0,
           "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-chair-front-color-2",
+          "direction": "any",
+          "row": 0,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false
+        },
+        {
+          "name": "cozy-chair-front-color-3",
+          "direction": "any",
+          "row": 0,
+          "column": 2,
           "frames": 1,
           "fps": 1,
           "loop": false
@@ -15333,6 +15676,84 @@
           "direction": "any",
           "row": 3,
           "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-front-color-2-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-front-color-2-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-chair-front-color-2-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-front-color-3-r90",
+          "direction": "any",
+          "row": 1,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": -16,
+            "y": 0
+          }
+        },
+        {
+          "name": "cozy-chair-front-color-3-r180",
+          "direction": "any",
+          "row": 2,
+          "column": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "footOffset": {
+            "x": 0,
+            "y": -16
+          }
+        },
+        {
+          "name": "cozy-chair-front-color-3-r270",
+          "direction": "any",
+          "row": 3,
+          "column": 2,
           "frames": 1,
           "fps": 1,
           "loop": false,
@@ -16964,7 +17385,7 @@
     },
     {
       "id": "provider-icons",
-      "file": "sheets/pack-bee60862c3ea5e189b0252faee999f8405f469da707e3d4bd6f874a8070fbb53.png",
+      "file": "sheets/pack-fbe2d14f6a21460a0377a987a24821a9a625f45359f483c3c50a3cb4bb008586.png",
       "cellW": 12,
       "cellH": 12,
       "anchor": {
@@ -17900,6 +18321,10 @@
       "sheetId": "char-manager-suit"
     },
     {
+      "id": "nurse-nightowl",
+      "sheetId": "char-nurse-nightowl"
+    },
+    {
       "id": "professor",
       "sheetId": "char-professor"
     },
@@ -18828,6 +19253,30 @@
           "zOrder": 0
         },
         {
+          "rotation": 0,
+          "state": "color-2",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-color-2",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
+          "rotation": 0,
+          "state": "color-3",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-color-3",
+          "layer": 1,
+          "zOrder": 0
+        },
+        {
           "rotation": 90,
           "state": "default",
           "footprintW": 2,
@@ -18862,6 +19311,78 @@
           "animation": "cozy-chair-back-r270",
           "layer": 1,
           "zOrder": -32
+        },
+        {
+          "rotation": 90,
+          "state": "color-2",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-color-2-r90",
+          "layer": 1,
+          "zOrder": -32
+        },
+        {
+          "rotation": 180,
+          "state": "color-2",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-color-2-r180",
+          "layer": 1,
+          "zOrder": -48
+        },
+        {
+          "rotation": 270,
+          "state": "color-2",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-color-2-r270",
+          "layer": 1,
+          "zOrder": -32
+        },
+        {
+          "rotation": 90,
+          "state": "color-3",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-color-3-r90",
+          "layer": 1,
+          "zOrder": -32
+        },
+        {
+          "rotation": 180,
+          "state": "color-3",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-color-3-r180",
+          "layer": 1,
+          "zOrder": -48
+        },
+        {
+          "rotation": 270,
+          "state": "color-3",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-back",
+          "animation": "cozy-chair-back-color-3-r270",
+          "layer": 1,
+          "zOrder": -32
         }
       ]
     },
@@ -18878,6 +19399,30 @@
           "points": [],
           "sheetId": "cozy-chair-front",
           "animation": "cozy-chair-front",
+          "layer": 1,
+          "zOrder": 18
+        },
+        {
+          "rotation": 0,
+          "state": "color-2",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-color-2",
+          "layer": 1,
+          "zOrder": 18
+        },
+        {
+          "rotation": 0,
+          "state": "color-3",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-color-3",
           "layer": 1,
           "zOrder": 18
         },
@@ -18914,6 +19459,78 @@
           "points": [],
           "sheetId": "cozy-chair-front",
           "animation": "cozy-chair-front-r270",
+          "layer": 1,
+          "zOrder": -14
+        },
+        {
+          "rotation": 90,
+          "state": "color-2",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-color-2-r90",
+          "layer": 1,
+          "zOrder": -14
+        },
+        {
+          "rotation": 180,
+          "state": "color-2",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-color-2-r180",
+          "layer": 1,
+          "zOrder": -30
+        },
+        {
+          "rotation": 270,
+          "state": "color-2",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-color-2-r270",
+          "layer": 1,
+          "zOrder": -14
+        },
+        {
+          "rotation": 90,
+          "state": "color-3",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-color-3-r90",
+          "layer": 1,
+          "zOrder": -14
+        },
+        {
+          "rotation": 180,
+          "state": "color-3",
+          "footprintW": 3,
+          "footprintH": 2,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-color-3-r180",
+          "layer": 1,
+          "zOrder": -30
+        },
+        {
+          "rotation": 270,
+          "state": "color-3",
+          "footprintW": 2,
+          "footprintH": 3,
+          "blockedCells": [],
+          "points": [],
+          "sheetId": "cozy-chair-front",
+          "animation": "cozy-chair-front-color-3-r270",
           "layer": 1,
           "zOrder": -14
         }
@@ -19460,7 +20077,11 @@
           "sheetId": "cozy-sofa",
           "animation": "cozy-sofa",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 16,
+            "y": 18
+          }
         },
         {
           "rotation": 90,
@@ -19505,7 +20126,11 @@
           "sheetId": "cozy-sofa",
           "animation": "cozy-sofa-r90",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 14,
+            "y": 16
+          }
         },
         {
           "rotation": 180,
@@ -19550,7 +20175,11 @@
           "sheetId": "cozy-sofa",
           "animation": "cozy-sofa-r180",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 32,
+            "y": 14
+          }
         },
         {
           "rotation": 270,
@@ -19595,7 +20224,11 @@
           "sheetId": "cozy-sofa",
           "animation": "cozy-sofa-r270",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 18,
+            "y": 32
+          }
         }
       ]
     },
@@ -20968,7 +21601,11 @@
           "sheetId": "cozy-armchair",
           "animation": "cozy-armchair",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 16,
+            "y": 19
+          }
         },
         {
           "rotation": 90,
@@ -20997,7 +21634,11 @@
           "sheetId": "cozy-armchair",
           "animation": "cozy-armchair-r90",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 13,
+            "y": 16
+          }
         },
         {
           "rotation": 180,
@@ -21026,7 +21667,11 @@
           "sheetId": "cozy-armchair",
           "animation": "cozy-armchair-r180",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 16,
+            "y": 13
+          }
         },
         {
           "rotation": 270,
@@ -21055,7 +21700,11 @@
           "sheetId": "cozy-armchair",
           "animation": "cozy-armchair-r270",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 19,
+            "y": 16
+          }
         }
       ]
     },
@@ -21907,7 +22556,11 @@
           "sheetId": "cozy-counter-stool",
           "animation": "cozy-counter-stool",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 8,
+            "y": -5
+          }
         },
         {
           "rotation": 90,
@@ -21919,7 +22572,11 @@
           "sheetId": "cozy-counter-stool",
           "animation": "cozy-counter-stool-r90",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 21,
+            "y": 8
+          }
         },
         {
           "rotation": 180,
@@ -21931,7 +22588,11 @@
           "sheetId": "cozy-counter-stool",
           "animation": "cozy-counter-stool-r180",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": 8,
+            "y": 21
+          }
         },
         {
           "rotation": 270,
@@ -21943,7 +22604,11 @@
           "sheetId": "cozy-counter-stool",
           "animation": "cozy-counter-stool-r270",
           "layer": 1,
-          "zOrder": 0
+          "zOrder": 0,
+          "chairSeatAnchor": {
+            "x": -5,
+            "y": 8
+          }
         }
       ]
     },
