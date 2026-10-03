@@ -1,0 +1,20 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | transparency | PASS | straight alpha and guards |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | palette | PASS | 21 colors; RGB max-channel tolerance 0 |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | 6×6 seams | SKIP | floor sheets only |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | depth-part names | SKIP | furniture sheets only |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | transparency | PASS | straight alpha and guards |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | palette | PASS | 21 colors; RGB max-channel tolerance 0 |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | row contract | PASS | 24 rows / 96 cells |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | 6×6 seams | SKIP | floor sheets only |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | depth-part names | SKIP | furniture sheets only |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | face-lock / blink | SKIP | checked from normal character sheet |
+17 checks; 0 failed

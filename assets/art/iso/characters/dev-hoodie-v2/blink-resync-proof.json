@@ -1,0 +1,107 @@
+{
+  "character": "dev-hoodie-v2",
+  "normalHeadCellsByteIdentical": 152,
+  "blinkHeadCellsByteIdentical": 96,
+  "nonEyeCellsByteIdenticalToNewNormal": 96,
+  "closedEyeCellsByteIdenticalToApprovedBlink": 96,
+  "headOffsetsUnchanged": true,
+  "faceLockAndBlinkMapUnchanged": true,
+  "identityPaletteUnchanged": true,
+  "protectedFileSha256": {
+    "dev-hoodie.iso.json": "10a2e1ac7158477aece9711a7606293463846e4aee73f6a0bdb30485e62147ee",
+    "dev-hoodie-iso.manifest.json": "10a2e1ac7158477aece9711a7606293463846e4aee73f6a0bdb30485e62147ee",
+    "dev-hoodie-iso.png": "7f145a031f2942858d806eded412277acfc8cd093cd603033726a4e39f94c866",
+    "dev-hoodie-eyes-se.png": "8544aa4e30cc412739f2fbaf4228eea5827d826d6874b6f7956a29d2e0a59852",
+    "dev-hoodie-eyes-sw.png": "44e3ddfe50c2c8a33da9e422a9857243bd0334ed40177a109d260f9db4f7f15f"
+  },
+  "approvedBlinkSha256": "5284c2985e9ee60f612cb4e7e26fec60e8c964d50ccb19e3215889607bc05a08",
+  "resyncedBlinkSha256": "2a8c12925773268719a8205e0ed2ef3240ec2b52ea4e1386b3bc24f154695ff3",
+  "changedCellsFromApprovedBlink": [
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 0
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 1
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 2
+    },
+    {
+      "blinkRow": 2,
+      "normalRow": 4,
+      "phase": 3
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 0
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 1
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 2
+    },
+    {
+      "blinkRow": 3,
+      "normalRow": 5,
+      "phase": 3
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 0
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 1
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 2
+    },
+    {
+      "blinkRow": 4,
+      "normalRow": 8,
+      "phase": 3
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 0
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 1
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 2
+    },
+    {
+      "blinkRow": 5,
+      "normalRow": 9,
+      "phase": 3
+    }
+  ],
+  "rgbaEvidenceSha256": {
+    "normalHeadsBefore": "a8bf6048aee9074b107d88a00cd40aacbcca1e50e2f5e3a2556d84f2b2d19575",
+    "normalHeadsAfter": "a8bf6048aee9074b107d88a00cd40aacbcca1e50e2f5e3a2556d84f2b2d19575",
+    "closedEyesBefore": "8508d3e5164f6354e65b8697be502176a7960a657c93cad4334118cf54589d9a",
+    "closedEyesAfter": "8508d3e5164f6354e65b8697be502176a7960a657c93cad4334118cf54589d9a"
+  }
+}
