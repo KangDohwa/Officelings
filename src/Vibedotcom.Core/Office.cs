@@ -29,6 +29,11 @@ public sealed class OfficeAnimator
         public DateTimeOffset PauseUntil, NextLeisure, FadeSince, PaperUntil, ReactUntil;
         public Random BlinkRandom = new(0);
         public DateTimeOffset NextBlink, BlinkUntil;
+        public string? SeatedVariant, SeatPhase, ChairBackId, ChairFrontId;
+        public string SeatedFacing = "up";
+        public PixelPoint? SeatAnchor;
+        public DateTimeOffset SeatPhaseSince;
+        public int SeatPhaseFrame;
     }
 
     private readonly Dictionary<string, Character> characters = [];
@@ -62,6 +67,8 @@ public sealed class OfficeAnimator
         foreach (var c in characters.Values)
         {
             c.Target = null; c.Path.Clear(); c.NextLeisure = default; c.ChatPartner = null; c.LeisureArrived = false;
+            if (c.SeatPhase != null && (Queued(c) || c.WorkFacing != c.SeatedFacing || Contact(c) != c.SeatAnchor))
+            { c.SeatPhase = "raise"; c.SeatPhaseSince = lastUpdated; c.SeatPhaseFrame = 0; }
             var tile = new Tile((int)Math.Round(c.Position.X), (int)Math.Round(c.Position.Y));
             if (!reachable.Contains(tile)) { tile = NearestFree(tile); c.Position = new(tile.X, tile.Y); }
         }
@@ -123,14 +130,23 @@ public sealed class OfficeAnimator
                 target = desk;
                 action = agent.State switch { AgentState.Working => "typing", AgentState.Thinking => "thinking", _ => "waiting" };
             }
-            if (c.Target != target)
+            var wantsSeat = !Queued(c) && agent.State is AgentState.Working or AgentState.Thinking or AgentState.Waiting;
+            var standingUp = false;
+            if (c.SeatPhase != null && (!wantsSeat || c.Position != new Position(desk.X, desk.Y) || c.SeatPhase == "raise"))
+            {
+                if (c.SeatPhase != "raise") { c.SeatPhase = "raise"; c.SeatPhaseSince = now; }
+                if ((now - c.SeatPhaseSince).TotalMilliseconds < 240)
+                { standingUp = true; c.SeatPhaseFrame = (now - c.SeatPhaseSince).TotalMilliseconds < 120 ? 0 : 1; }
+                else ClearSeat(c);
+            }
+            if (!standingUp && c.Target != target)
             {
                 c.Target = target;
                 var start = NearestFree(new((int)Math.Round(c.Position.X), (int)Math.Round(c.Position.Y)));
                 c.Position = new(start.X, start.Y);
                 c.Path = new(FindPath(Layout, start, target, obstacles));
             }
-            var budget = Math.Clamp(deltaSeconds, 0, 1) * 3.5;
+            var budget = standingUp ? 0 : Math.Clamp(deltaSeconds, 0, 1) * 3.5;
             while (budget > 0 && c.Path.TryPeek(out var next))
             {
                 var dx = next.X - c.Position.X; var dy = next.Y - c.Position.Y;
@@ -141,7 +157,7 @@ public sealed class OfficeAnimator
             }
             var arrived = c.Path.Count == 0 && c.Position == new Position(target.X, target.Y);
             c.Action = arrived ? action : agent.State == AgentState.Gone ? "exiting" : c.Entering ? "entering" : "walking";
-            if (arrived)
+            if (arrived && !standingUp)
             {
                 if (c.Entering) { c.Entering = false; c.Target = null; }
                 else if (agent.State == AgentState.Gone)
@@ -177,6 +193,26 @@ public sealed class OfficeAnimator
                     }
                 }
             }
+            if (arrived && !standingUp && wantsSeat && !c.Entering)
+            {
+                c.Action = agent.State switch { AgentState.Working => "typing", AgentState.Thinking => "thinking", _ => "waiting" };
+                c.Facing = c.WorkFacing;
+                var variant = assets.SeatedVariant(c.Design, c.WorkFacing);
+                if (variant != null && c.SeatPhase == null)
+                {
+                    c.SeatedVariant = variant; c.SeatedFacing = c.WorkFacing; c.SeatPhase = "turn"; c.SeatPhaseSince = now;
+                    var host = WorkFurniture(c);
+                    var v = host == null ? null : assets.Variant(host);
+                    c.SeatAnchor = Contact(c);
+                    c.ChairBackId = v?.ChairBackId; c.ChairFrontId = v?.ChairFrontId;
+                }
+                if (c.SeatPhase is "turn" or "lower")
+                {
+                    var elapsed = (now - c.SeatPhaseSince).TotalMilliseconds;
+                    if (elapsed >= 360) { c.SeatPhase = "seated"; c.SeatPhaseFrame = 0; }
+                    else if (elapsed >= 120) { c.SeatPhase = "lower"; c.SeatPhaseFrame = elapsed < 240 ? 0 : 1; }
+                }
+            }
             if (!c.Visible) c.Action = "gone";
             if (c.Action != c.LastAction) { c.LastAction = c.Action; c.ActionSince = now; }
             var still = arrived && c.Visible && c.Action is not ("entering" or "walking" or "exiting" or "gone" or "napping");
@@ -199,12 +235,27 @@ public sealed class OfficeAnimator
         {
             var c = characters[a.Id];
             var sprite = assets.CharacterFrame(a, c.Design, c.Action, c.Facing, (long)(now - c.ActionSince).TotalMilliseconds, now < c.BlinkUntil);
+            if (c.SeatedVariant != null && c.SeatAnchor is {} seat)
+            {
+                c.Facing = c.SeatedFacing;
+                if (c.SeatPhase == "turn") sprite = assets.Frame(c.Design.SheetId, "idle", c.SeatedFacing, 0);
+                else
+                {
+                    var seated = assets.SeatedFrame(c.SeatPhase == "seated" ? a : a with { State = AgentState.Waiting }, c.Design,
+                        c.SeatedVariant, c.SeatedFacing, (long)(now - c.ActionSince).TotalMilliseconds, now < c.BlinkUntil);
+                    sprite = seated.Frame;
+                    var rise = c.SeatPhase == "lower" ? c.SeatPhaseFrame == 0 ? -2 : -1 :
+                        c.SeatPhase == "raise" ? c.SeatPhaseFrame == 0 ? -1 : -3 : 0;
+                    sprite = sprite with { OffsetX = seat.X - (c.Position.X + .5) * 16 + (sprite.AnchorX - seated.Anchor.X) * sprite.Scale,
+                        OffsetY = seat.Y - (c.Position.Y + 1) * 16 + (sprite.AnchorY - seated.Anchor.Y) * sprite.Scale + rise };
+                }
+            }
             return new AgentView(a, new(c.Position.X, c.Position.Y, c.WorkTile, c.Action, c.Facing,
                 sprite.Row, sprite.Column, c.Visible,
                 c.FadeSince == default ? 1 : Math.Clamp(1 - (now - c.FadeSince).TotalSeconds / 1.2, 0, 1),
                 c.ReportStage is 3 or 4, c.DeskId != null && now < c.PaperUntil, Queued(c) ? "…" : now < c.ReactUntil ? "!" : null,
                 c.ChatPartner, c.Design.Id, sprite, c.DeskId, c.OverflowSeatId, WorkLocation(c), Queued(c), DisplayName(a),
-                a.Provider.ToString().ToLowerInvariant()));
+                a.Provider.ToString().ToLowerInvariant(), c.SeatedVariant, c.SeatAnchor, c.ChairBackId, c.ChairFrontId, c.SeatPhase, c.SeatPhaseFrame));
         }).ToArray();
     }
 
@@ -310,6 +361,20 @@ public sealed class OfficeAnimator
     }
 
     private static int Distance(Tile a, Tile b) => Math.Abs(a.X - b.X) + Math.Abs(a.Y - b.Y);
+    private Furniture? WorkFurniture(Character c) => Layout.Furniture.FirstOrDefault(f => f.DeskId == c.DeskId && c.DeskId != null &&
+        assets.Variant(f).Points.Any(p => p.Action == "typing")) ??
+        Layout.Furniture.FirstOrDefault(f => f.Id == source.OverflowSeats?.FirstOrDefault(s => s.Id == c.OverflowSeatId)?.FurnitureId);
+    private PixelPoint Contact(Character c)
+    {
+        var host = WorkFurniture(c);
+        return host != null && assets.Variant(host).ChairSeatAnchor is {} anchor ? new(host.X * 16 + anchor.X, host.Y * 16 + anchor.Y) :
+            new((c.WorkTile.X + .5) * 16, (c.WorkTile.Y + 1) * 16 - 8);
+    }
+    private static void ClearSeat(Character c)
+    {
+        c.SeatedVariant = c.SeatPhase = c.ChairBackId = c.ChairFrontId = null;
+        c.SeatAnchor = null; c.SeatPhaseFrame = 0;
+    }
     private static void SetWorkplace(Character c, string? deskId, string? overflowId, Tile tile, string facing)
     {
         if (c.DeskId != deskId || c.OverflowSeatId != overflowId || c.WorkTile != tile || c.WorkFacing != facing)
@@ -370,7 +435,7 @@ public sealed class OfficeAnimator
                 !string.IsNullOrWhiteSpace(model) && !PlanTitle(model) ? model : provider + (agent.IsSubagent ? " worker" : "");
         }
         var elements = System.Globalization.StringInfo.ParseCombiningCharacters(name);
-        return elements.Length <= 16 ? name : name[..elements[15]] + "…";
+        return elements.Length <= 14 ? name : name[..elements[14]] + "…";
     }
     private static bool PlanTitle(string value)
     {
