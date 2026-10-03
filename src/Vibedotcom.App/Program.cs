@@ -20,6 +20,7 @@ namespace Vibedotcom.App;
 
 internal sealed record Settings
 {
+    public string View { get; init; } = "flat";
     public string Mode { get; init; } = "normal";
     public string TagMode { get; init; } = "hover";
     public AmbientSettings Ambient { get; init; } = new();
@@ -46,7 +47,7 @@ internal sealed record Settings
         static double Number(double value, double fallback, double min, double max) => double.IsFinite(value) ? Math.Clamp(value, min, max) : fallback;
         var working = Number(WorkingSeconds, 120, 1, 86400);
         var waiting = Math.Max(Number(LeaveAfterWaitingMinutes, 30, 1, 10080), (working + 1) / 60);
-        return this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
+        return this with { View = View == "iso" ? "iso" : "flat", Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
             TagMode = NameTagHover.Normalize(TagMode),
             Ambient = (Ambient ?? new()).Normalize(), SeasonDecor = SeasonDecor == "auto" ? "auto" : "off",
             Pets = Pets == "off" ? "off" : "on",
@@ -88,6 +89,7 @@ internal static partial class Program
                 switch (args[i])
                 {
                     case "--demo": break;
+                    case "--view": initial = (initial ?? new()) with { View = ParseView(Value()) }; break;
                     case "--smoke-test": smoke = Value(); break;
                     case "--smoke-tags": smokeTags = true; break;
                     case "--smoke-ambient": smokeAmbient = true; break;
@@ -114,7 +116,7 @@ internal static partial class Program
                     case "--leave-after-waiting-minutes": initial = (initial ?? new()) with { LeaveAfterWaitingMinutes = Positive() }; break;
                     case "--gone-minutes": initial = (initial ?? new()) with { GoneMinutes = Positive() }; break;
                     case "--quit-after": quitAfter = Number(); break;
-                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated)] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
+                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--view iso|flat] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated)] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
                 }
             }
             using var storage = new AppStorage(demo || qa || profile != null || smoke != null || verifyOpacity != null);
@@ -128,6 +130,8 @@ internal static partial class Program
             if (stateSource != null && assetDirectory == null) assetDirectory = Path.GetDirectoryName(stateSource);
             var app = new Application();
             if (verifyOpacity != null) return OpacityVerification.Run(verifyOpacity);
+            if (initial?.View == "iso" || initial == null && !storage.Isolated && Settings.Read(storage.SettingsPath).View == "iso")
+                return IsoApplication.Run(app,demo,initial,quitAfter,qa,storage,home,assetDirectory,smoke,smokeTags,layoutFile,stateSource,profile);
             (AssetPack Assets, OfficeLayout Layout) LoadOffice()
             {
                 var assets = stateSource != null && assetDirectory != null ? AssetPack.LoadExported(assetDirectory)
@@ -157,6 +161,7 @@ internal static partial class Program
         }
     }
 
+    internal static string ParseView(string value) => value is "iso" or "flat" ? value : throw new ArgumentException("--view must be iso or flat.");
     internal static string ParseTags(string value) => value is "hover" or "icon" or "always" ? value : throw new ArgumentException("--tags must be hover, icon or always.");
     private static int TagRenders(string output,AssetPack assets,OfficeLayout layout)
     {
