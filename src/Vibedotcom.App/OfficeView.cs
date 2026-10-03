@@ -15,13 +15,14 @@ namespace Vibedotcom.App;
 
 internal sealed class OfficeView : FrameworkElement
 {
-    internal static readonly Color BackgroundColor = (Color)ColorConverter.ConvertFromString("#f4eddf");
+    internal static readonly Color BackgroundColor = (Color)ColorConverter.ConvertFromString("#302d2b");
     private OfficeLayout office = new OfficeAnimator().Layout;
     private IReadOnlyList<AgentView> agents = Array.Empty<AgentView>();
     private readonly Dictionary<string, AgentView> byId = new();
     private readonly AssetPack assets;
     private readonly Dictionary<string, BitmapSource> sheets = new();
     private readonly Dictionary<(string, int, int, int, int), BitmapSource> sprites = new();
+    private readonly Dictionary<(string, int, int, int, int), int> spriteTops = new();
     private readonly Dictionary<string, DrawingGroup> furnitureCache = new();
     private IReadOnlyList<FurnitureSprite> furnitureSprites = Array.Empty<FurnitureSprite>();
     private bool debugTooltip;
@@ -148,6 +149,23 @@ internal sealed class OfficeView : FrameworkElement
         return new(Math.Round((p.X+.5)*16-s.AnchorX*s.Scale+s.OffsetX),
             Math.Round((p.Y+1)*16-s.AnchorY*s.Scale+s.OffsetY),s.Width*s.Scale,s.Height*s.Scale);
     }
+    private double HeadY(Pose p)
+    {
+        var s=p.Sprite!; var key=(s.SheetId,s.X,s.Y,s.Width,s.Height);
+        if (!spriteTops.TryGetValue(key,out var top))
+        {
+            var bitmap=new FormatConvertedBitmap(Image(s),PixelFormats.Bgra32,null,0);
+            var pixels=new byte[s.Width*s.Height*4]; bitmap.CopyPixels(pixels,s.Width*4,0);
+            top=0;
+            for (var y=0;y<s.Height;y++)
+            {
+                if (!Enumerable.Range(0,s.Width).Any(x=>pixels[(y*s.Width+x)*4+3]>32)) continue;
+                top=y; break;
+            }
+            spriteTops[key]=top;
+        }
+        return SpriteBounds(p).Top+top*s.Scale;
+    }
     private void BuildRoom()
     {
         room = new DrawingGroup();
@@ -172,16 +190,20 @@ internal sealed class OfficeView : FrameworkElement
                     }
                 }
                 foreach (var z in office.Zones ?? Array.Empty<Zone>())
+                    if (!assets.Manifest.Furniture.Any(f => f.Id == "cozy-desk"))
                     if (z.Name is "workspace" or "pantry")
                     {
                         R(dc,"#eee5d2",z.X*16+24,24,Math.Min(72,z.Width*16-24),11);
                         Text(dc,z.Name.ToUpperInvariant(),z.X*16+26,25,7,"#59654c",true,maxWidth:z.Width*16-28);
                     }
             }
-            var door=office.Door;
-            R(dc,"#58675b",door.X*16-16,door.Y*16-18,15,46);
-            R(dc,"#88a38e",door.X*16-14,door.Y*16-16,11,42);
-            R(dc,"#f1d293",door.X*16-6,door.Y*16+8,2,2);
+            if (!office.Furniture.Any(f => f.Kind == "door"))
+            {
+                var door=office.Door;
+                R(dc,"#58675b",door.X*16-16,door.Y*16-18,15,46);
+                R(dc,"#88a38e",door.X*16-14,door.Y*16-16,11,42);
+                R(dc,"#f1d293",door.X*16-6,door.Y*16+8,2,2);
+            }
         }
         room.Freeze();
     }
@@ -255,7 +277,7 @@ internal sealed class OfficeView : FrameworkElement
     protected override void OnRender(DrawingContext dc)
     {
         // Also supplies the empty floor with a hit-test surface for panning.
-        dc.DrawRectangle(transparent ? Brushes.Transparent : Color("#f4eddf"),null,new(0,0,ActualWidth,ActualHeight));
+        dc.DrawRectangle(transparent ? Brushes.Transparent : Color("#302d2b"),null,new(0,0,ActualWidth,ActualHeight));
         var origin = Origin; dc.PushTransform(new TranslateTransform(origin.X,origin.Y)); dc.PushTransform(new ScaleTransform(zoom,zoom));
         if (room == null) BuildRoom(); dc.DrawDrawing(room!);
         var line = new Pen(Color("#9bab9e"),.7) { DashStyle = DashStyles.Dot }; line.Freeze();
@@ -277,9 +299,12 @@ internal sealed class OfficeView : FrameworkElement
             var x=desk.X*16; var y=desk.Y*16;
             R(dc,ProviderColor(owner.Agent.Provider),x,y+desk.Height*16-2,5,2);
             if (owner.Pose.ReportOnDesk) { R(dc,"#fff9e7",x+desk.Width*16-12,y+18,9,7); R(dc,"#a19a7e",x+desk.Width*16-11,y+20,6,1); }
-            Text(dc,owner.Agent.Name,x-2,(owner.Pose.Desk.Y+1)*16+5,7,maxWidth:desk.Width*16+14);
+            var labelY=(owner.Pose.Desk.Y+1)*16+5;
+            R(dc,"#f4e2bd",x-2,labelY,Math.Min(desk.Width*16+8,owner.Agent.Name.Length*4+8),10);
+            Text(dc,owner.Agent.Name,x+1,labelY,7,"#392b24",maxWidth:desk.Width*16+8);
         }
-        foreach (var agent in agents.Where(a=>a.Pose.Visible)) DrawBubble(dc,agent);
+        foreach (var agent in agents.Where(a=>a.Pose.Visible))
+        { DrawIdentity(dc,agent); DrawBubble(dc,agent); }
         if (agents.Count == 0)
         { Text(dc,"A quiet moment.",30,132,10,bold:true); Text(dc,"Your agents will walk in.",30,151,7,maxWidth:95); }
         dc.Pop(); dc.Pop();
@@ -302,6 +327,19 @@ internal sealed class OfficeView : FrameworkElement
     private void DrawBubble(DrawingContext dc, AgentView agent)
     {
         var p=agent.Pose;
+        if (sheets.ContainsKey("icons"))
+        {
+            var clip = p.Reaction != null ? "bubble-reaction" : p.Action switch
+            {
+                "napping" => "bubble-napping", "waiting" => "bubble-waiting", "thinking" => "bubble-thinking",
+                "reporting" => "bubble-done", "typing" => "bubble-working", _ => null
+            };
+            if (clip == null) return;
+            var f = assets.Frame("icons",clip,"any",0);
+            dc.PushOpacity(p.Opacity);
+            dc.DrawImage(Image(f),new(Math.Round((p.X+.5)*16+8),HeadY(p)-30,f.Width*f.Scale,f.Height*f.Scale));
+            dc.Pop(); return;
+        }
         int? bubble=p.Reaction != null ? 5 : p.Action switch
         {
             "napping"=>6,"chatting" when p.ChatPartnerId != null=>7,"coffee"=>ambient%4==0 ? 8 : null,"waiting"=>5,
@@ -311,6 +349,22 @@ internal sealed class OfficeView : FrameworkElement
         var s=new SpriteFrame("fallback",6,bubble.Value,bubble.Value*16,6*24,16,24,8,24,1);
         var rect=SpriteBounds(p);
         dc.PushOpacity(p.Opacity); dc.DrawImage(Image(s),new((p.X+.5)*16-8,rect.Top-17,16,24)); dc.Pop();
+    }
+    private void DrawIdentity(DrawingContext dc, AgentView agent)
+    {
+        var p=agent.Pose;
+        var x=Math.Round((p.X+.5)*16); var y=HeadY(p)-2;
+        dc.PushOpacity(p.Opacity);
+        // Provider accents travel with the character; the gold crown marks supervisors.
+        R(dc,"#392b24",x-7,y-5,14,7); R(dc,ProviderColor(agent.Agent.Provider),x-6,y-4,12,5);
+        if (!agent.Agent.IsSubagent)
+        {
+            R(dc,"#392b24",x-5,y-10,10,6);
+            R(dc,"#f4c764",x-4,y-7,8,3);
+            R(dc,"#f4c764",x-4,y-9,2,2); R(dc,"#f4c764",x-1,y-10,2,3); R(dc,"#f4c764",x+2,y-9,2,2);
+        }
+        else { R(dc,"#fff2d2",x-2,y-3,4,3); }
+        dc.Pop();
     }
     public Point AgentPoint(AgentView agent)
     {

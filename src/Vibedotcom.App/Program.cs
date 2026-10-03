@@ -65,7 +65,7 @@ internal static class Program
                 }
             }
             var app = new Application();
-            var assets = new AssetPack(assetDirectory ?? (demo || qa || profile != null ? null : AssetPack.DefaultDirectory));
+            var assets = AssetPack.LoadDefault(assetDirectory, useUserPack: !demo && !qa && profile == null);
             var layout = LayoutLoader.Load(assets,layoutFile ?? (demo || qa || profile != null ? null : Path.Combine(TrackerOptions.OutputDirectory,"layout.json")),assets.Warnings);
             if (profile != null) return ProfileIdle(profile,assets,layout);
             if (smoke != null) return Smoke(smoke,demo,assets,layout);
@@ -196,8 +196,8 @@ internal sealed class OfficeWindow : Window
     private readonly DateTimeOffset epoch = DateTimeOffset.UtcNow;
     private readonly OfficeView view;
     private readonly AssetPack assets;
-    private readonly TextBlock status = new() { Margin = new(16,7,16,7), Foreground = Brushes.DarkSlateGray, FontSize = 11 };
-    private readonly TextBlock counts = new() { VerticalAlignment = VerticalAlignment.Center, Foreground = Brushes.DarkSlateGray, FontSize = 11 };
+    private readonly TextBlock status = new() { Margin = new(16,7,16,7), Foreground = new SolidColorBrush(Color.FromRgb(231,209,172)), FontSize = 11 };
+    private readonly TextBlock counts = new() { VerticalAlignment = VerticalAlignment.Center, Foreground = new SolidColorBrush(Color.FromRgb(231,209,172)), FontSize = 11 };
     private readonly AgentTracker tracker;
     private readonly OfficeAnimator office;
     private readonly WindowModes modes;
@@ -239,7 +239,7 @@ internal sealed class OfficeWindow : Window
         var root = new DockPanel();
         var bar = new DockPanel { Margin = new(16,9,16,9), LastChildFill = true };
         DockPanel.SetDock(counts,Dock.Right); bar.Children.Add(counts);
-        bar.Children.Add(new TextBlock { Text = demo ? "Vibedotcom  ·  demo" : "Vibedotcom", FontSize = 17, FontWeight = FontWeights.SemiBold, Foreground = Brushes.DarkSlateGray });
+        bar.Children.Add(new TextBlock { Text = demo ? "Vibedotcom  ·  demo" : "Vibedotcom", FontSize = 17, FontWeight = FontWeights.SemiBold, Foreground = new SolidColorBrush(Color.FromRgb(244,226,189)) });
         DockPanel.SetDock(bar,Dock.Top); root.Children.Add(bar);
         DockPanel.SetDock(status,Dock.Bottom); root.Children.Add(status);
         root.Children.Add(view); Content = root;
