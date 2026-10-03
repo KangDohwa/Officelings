@@ -1,0 +1,835 @@
+{
+  "characterId": "afro-sweater",
+  "engine": "component-row",
+  "game_input": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/afro-sweater.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/afro-sweater.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "blink": {
+    "down": {
+      "file": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/source.facelock.json",
+    "inputSha256": "7fdfd24c76767095c0b17fb303ea5f597f0f458e1f4bfdebd8c54f88c2c223ad"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "transferred-locked-blink"
+      },
+      "right": {
+        "file": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "transferred-locked-blink"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 52,
+        "sourceNeckY": 41,
+        "translation": {
+          "x": 0,
+          "y": 0
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 52,
+        "sourceNeckY": 41,
+        "translation": {
+          "x": 0,
+          "y": 0
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 52,
+        "sourceNeckY": 41,
+        "translation": {
+          "x": 0,
+          "y": 0
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/roster/afro-sweater/locked/afro-sweater.manifest.json": "eeb114c739c3e89b1b91fd1ae90cf656a57bb875bccaea50f4850f60d8a6b184",
+      "assets/art/roster/afro-sweater/locked/.generations/89e75c020b810df1d6aac8b918451f4270c7ef38a5098428db6f63f6435461ad/afro-sweater.png": "dedab46dc703782049120eff46666fbad3531234195db0e056e605c32c292c3f",
+      "assets/art/roster/afro-sweater/locked/.generations/89e75c020b810df1d6aac8b918451f4270c7ef38a5098428db6f63f6435461ad/afro-sweater.facelock.json": "b83a99c0dbb09dc2278fb1d6242e4408995b97b612262cee584786bd012769c1",
+      "assets/art/roster/afro-sweater/cleanup/source/afro-sweater.manifest.json": "b082ee346da10ded803fbeefb63b3df39c309aefdee166d3ac288bb0d5f5ec69",
+      "assets/art/roster/afro-sweater/cleanup/source/afro-sweater.png": "d32327147f5fe4d4a7780c801525ac038ed4badc300261794be79aac84bbbb2c",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/idle-frame-0.png": "fe5c83f29a7f7c21963506e228506b557cfaac377143f66e0f663122b43d8220",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/idle-frame-1.png": "7d1b4bf3d3dcbbd95a81968d362a740e66dce0863926b4c6ac0ba989e1afcf29",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/idle-frame-2.png": "1ae6f713c5793f756a560cce4ace8b72f67d18bccf3ba69c52cd88ef5aa3d298",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/idle-frame-3.png": "d082e74ef513f4251876588d5d550c147f9a2124a7eb97e3bec7c4844e27153e",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_down-frame-0.png": "19c7a4eae63413b75a6f52d7817e7ea23a773ffcd8d7596dc159bbd1d8463c3c",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_down-frame-1.png": "0f73f3c2adc2e167dc095c2e0ff21038b5149951919cbacf91de51298326551c",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_down-frame-2.png": "68df8b158b69b2789b9ed02fa2611f8cae07fdce23078a11ba481bf3e2dc1ca1",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_down-frame-3.png": "bd8801c09bc25fc7161b0e63ab4c6924b28846e1aa7c61a6a276523c4b6c0e78",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_left-frame-0.png": "b00cba728f9ea13cb782ba4be0db741d3425e1f055493d3fc4e7f36cb2d3324a",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_left-frame-1.png": "817bfc4f6ad566da657c9166d99dcfceeb5d5601637096f8540cecfcc567b684",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_left-frame-2.png": "4f2a6ca1fa2d521ac721b3dcfe5fbbf92205b8e0ca64f610f212dd056fab87a1",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_left-frame-3.png": "289b2756b1e9181afe26c9904790cdfe5e36ee06f81fb0c57139b17abd5b8671",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_right-frame-0.png": "d3a1912cd2384bcbb13cd8674866b0a6e4d9826ff61157148c40212463163a12",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_right-frame-1.png": "74d7e981dd5fc07bb64e0f4a7d21b81905fe7aeec3a2305849c3cffb9ddb360c",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_right-frame-2.png": "d86a629c6009702c0e8295a7ff6c53e1a8af85739d6212fe8b967ce22ce413b6",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_right-frame-3.png": "988b13841e7be4600e5f9f311ed70ae9917d92c6e3d8d929e87cfbc0eb6347b9",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_up-frame-0.png": "86e6058bfc3bd924798ff1819e671083882988cf036634bccaec4453d097286b",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_up-frame-1.png": "a9c15d11fe2810f1a90b305089913cc4dc70152fa6e8ea3ddd1823fc990c94c7",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_up-frame-2.png": "5d8f43726e54593df0051ba4eef909465f8a633ee9d5405bdf2d610719913aa5",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/walk_up-frame-3.png": "a46b174b1fb58467544d95f573b9c635a82e90bb03ff09305fb0b8a1151c67c8",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/typing_back-frame-0.png": "aa15416f89ab4f0a0ba5b0b956bc044d3b9bca70632991cbe7f430188d2c4171",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/typing_back-frame-1.png": "90820f91a0cd048af422dbb66dee05c00f4a320fe9bec370b78812948e9d0dd2",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/typing_back-frame-2.png": "e195b9fde67266dfa5e3c609c620b3b386352693519e35b31e71fea4cf199111",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/typing_side-frame-0.png": "d9a4134434b0f89bae2b50c96ee3c29ecff5fd577a05691d0b48f169ae0e7139",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/typing_side-frame-1.png": "339cf24307676c9b32281887c4799c114648a6155cc6e7b56820de8dd2bdca48",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/typing_side-frame-2.png": "17c800af9ed82e5a49edf54ff1067695fe1b5df6d9caa5a26c732398ea5b5d0a",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/report-frame-0.png": "55a12e483c8bb466898930f74864fcf1c8477d6e0be8dbc29286bf17c6c38038",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/report-frame-1.png": "7caabe3ed3f79f626aa89a20fe6d20333eb14d64a6ee1a3314252ece20b6f7f3",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/report-frame-2.png": "451d46c03788e6316b734d17c6222d3f5f8401288434f2d8322aa24a24d6bfa8",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/sleep-frame-0.png": "220fe7dcbe8bf3486a3349b0e081af1c65885d03dc71a3f13ac4f5745ba1a173",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/sleep-frame-1.png": "eab891e0cb217e652abb148e7530da8cc9d8e15779ba55b238770990e5b658c0",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/coffee-frame-0.png": "253c907aa3dc5063fdd89a2c4d11cc6466d4cac5e8649ea83da6da82a1016710",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/coffee-frame-1.png": "534443662b567d86a46bd925a69b9cbbbaeb4a89c9cbefd8170faaea3efbf1fb",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/coffee-frame-2.png": "58804acfd492a45c9c0e189ac953deed2f81ede94c4f4965a3c41e2acd81a570",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/phone-frame-0.png": "d1e78842bc9931f555ee6a789b4b32f067040dcd9fdda059931059993de08f75",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/phone-frame-1.png": "cb7276cc75c2812f9bb812b7e20c18744bcd4961ce9fb4d55a0aff07b18c8318",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/phone-frame-2.png": "d1b014fb6a9650b9698107047117bb291081f50ad90a1ee6c1bb86d65bf3efde",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/talk-frame-0.png": "5aa635afe1acf048fad5d6848ec7c369c2fc784166d7b78c2efc11dfe63a1671",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/talk-frame-1.png": "c2ab1110eed9a4dcc43b9cd0f98a958f77b4625365b7d6a47db20f0b4c427453",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/talk-frame-2.png": "328fc0e345af9ff8f08fc349ffaed9790a237ec582b85c135240323c343d29ba",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/surprised-frame-0.png": "094bd99d9b926074ed7f5e1bf06f337a107a5586cd832b8366e737d1d099376b",
+      "assets/art/roster/afro-sweater/cleanup/source/curated/surprised-frame-1.png": "13afe7993c480d441268c6b5f3aa7a598e7b770e819e9102d53b4253560c0031",
+      "assets/art/roster/afro-sweater/locked/.generations/89e75c020b810df1d6aac8b918451f4270c7ef38a5098428db6f63f6435461ad/blink-down.png": "6ae477f40bae8760e78ca3ab09f9a56a5cb050d9b4239db6d134850a9ae33143",
+      "assets/art/roster/afro-sweater/locked/.generations/89e75c020b810df1d6aac8b918451f4270c7ef38a5098428db6f63f6435461ad/blink-left.png": "2837f4341bde3ff8dbd0e346c658d6e529a501b93e53f11a9bccd1053f365a73",
+      "assets/art/roster/afro-sweater/locked/.generations/89e75c020b810df1d6aac8b918451f4270c7ef38a5098428db6f63f6435461ad/blink-right.png": "1a605db19132e2da9d2014cfebe2c344493c72d3b72504c2894ea94be20bf31f"
+    },
+    "blinkSheet": {
+      "file": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989/seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  },
+  "publication": {
+    "generation": ".generations/e210d111b9cb5676d3f93d404744c3b2b0e47ddf36b4c0bd88544dc7149c7989"
+  }
+}

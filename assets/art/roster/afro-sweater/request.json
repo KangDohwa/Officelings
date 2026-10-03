@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "afro-sweater",
+    "description": "",
+    "base_image": "base.png"
+  },
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 0,
+      "loop": false,
+      "action": "Four STATIC orientation anchors: frame 0 faces DOWN toward viewer; frame 1 faces LEFT; frame 2 faces RIGHT; frame 3 faces UP away, back of head visible. Same full-body idle stance in every direction. Do not animate between these views."
+    },
+    "walk_down": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place facing DOWN toward viewer, top of head visible. Four DISTINCT gait phases: left foot forward/right back; feet pass under body; right foot forward/left back; opposite passing. Short readable steps, opposite arm swing, constant head size, no horizontal travel."
+    },
+    "walk_left": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "FOUR DISTINCT full-body walking-in-place phases facing LEFT, top-down 3/4 SIDE. Frame 0: lighter COPPER viewer-NEAR leg and shoe forward toward LEFT, much DARKER far leg and shoe backward toward RIGHT. Frame 1: legs pass, NEAR knee bent with shoe lifted, FAR foot planted. Frame 2: reverse leg depth clearly: LIGHTER COPPER NEAR leg slopes BACKWARD toward RIGHT, its light-brown foreground loafer at RIGHT of hip; much DARKER FAR leg slopes FORWARD toward LEFT, darker far loafer at LEFT of hip. Frame 3: other passing: NEAR shoe planted, FAR knee bent and lifted. Leave visible separation between both legs and shoes; near and far trouser planes must have different value. Opposite arm swings. Frames 0 and 2 MUST NOT repeat near-leg-forward. Short readable steps, consistent anatomy and head/face/clothing. NO horizontal travel. Keep glasses and white eye highlights readable."
+    },
+    "walk_right": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "FOUR DISTINCT full-body walking-in-place phases facing RIGHT, top-down 3/4 SIDE. Frame 0: lighter COPPER viewer-NEAR leg and shoe forward toward RIGHT, much DARKER far leg and shoe backward toward LEFT. Frame 1: legs pass, NEAR knee bent with shoe lifted, FAR foot planted. Frame 2: reverse leg depth clearly: LIGHTER COPPER NEAR leg slopes BACKWARD toward LEFT, its light-brown foreground loafer at LEFT of hip; much DARKER FAR leg slopes FORWARD toward RIGHT, darker far loafer at RIGHT of hip. Frame 3: other passing: NEAR shoe planted, FAR knee bent and lifted. Leave visible separation between both legs and shoes; near and far trouser planes must have different value. Opposite arm swings. Frames 0 and 2 MUST NOT repeat near-leg-forward. Short readable steps, consistent anatomy and head/face/clothing. NO horizontal travel. Keep glasses and white eye highlights readable."
+    },
+    "walk_up": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place UP away from viewer, back of head visible, face hidden. Four DISTINCT gait phases: opposite foot contacts and passes, alternating shoes visible beneath trousers. Arms counter-swing. No travel across slots."
+    },
+    "typing_back": {
+      "frames": 3,
+      "fps": 5,
+      "loop": true,
+      "action": "Seated worker typing, viewed from BACK facing UP. Show ONLY worker in a seated pose, knees bent, hands extended at keyboard height: left hand presses, both hands hover, right hand presses. No desk, monitor, chair or keyboard; furniture is a separate game layer. Back silhouette and the SAME outfit from the accepted reference clear."
+    },
+    "typing_side": {
+      "frames": 3,
+      "fps": 5,
+      "loop": true,
+      "action": "Seated worker typing, 3/4 SIDE facing RIGHT. Show ONLY worker, bent knees, forearms extended horizontally at waist: left fingers down, both hands poised, right fingers down. No desk, monitor, keyboard or chair; separate furniture layer."
+    },
+    "report": {
+      "frames": 3,
+      "fps": 5,
+      "loop": false,
+      "action": "Facing RIGHT, hand over a small cream paper report: frame 0 paper held close to chest, frame 1 forearm extends paper forward, frame 2 open hand offered outward with paper at fingertip. Paper always touches hand. Feet planted. Keep paper within sprite cell. No other person."
+    },
+    "sleep": {
+      "frames": 2,
+      "fps": 2,
+      "loop": true,
+      "action": "Napping seated upright facing DOWN, knees bent, head slumped gently toward shoulder, eyes shut; two subtly different breathing poses. No bed, sofa, furniture, pillow, zzz or floating marks."
+    },
+    "coffee": {
+      "frames": 3,
+      "fps": 3,
+      "loop": true,
+      "action": "Facing DOWN-right, drinking coffee from one small cream mug: hold mug at chest, lift mug to mouth, lower mug. Mug must touch hand. No steam, no detached pixels. Feet planted."
+    },
+    "phone": {
+      "frames": 3,
+      "fps": 3,
+      "loop": true,
+      "action": "Facing DOWN-right, scrolling dark navy phone held in both hands near chest, head tilted down: thumb at top, thumb lower, thumb taps. Phone screen a few pale blue pixels, touches hands. Feet planted."
+    },
+    "talk": {
+      "frames": 3,
+      "fps": 4,
+      "loop": true,
+      "action": "Facing DOWN-right, friendly talking gesture: relaxed mouth, one hand palm open at chest, hand lowers with tiny open mouth. Feet planted. No speech bubbles, text or other person."
+    },
+    "surprised": {
+      "frames": 2,
+      "fps": 5,
+      "loop": false,
+      "action": "Facing DOWN, surprised expression: frame 0 large wide highlighted eyes and small O mouth, shoulders lift; frame 1 hands raised beside cheeks, slightly leaning back. No punctuation or floating exclamation; exclamation bubble is separate overlay."
+    }
+  },
+  "style": "Match attached NEW accepted character reference exactly. 2D PIXEL CHIBI: big orange afro with a clean hairline ABOVE eyebrows and a continuous visible forehead strip. Dark russet/burnt-orange hair shadows contrast with lighter golden-brown skin. Large expressive eyes with WHITE sclera AND bright white sparkle highlights, behind clearly visible near-black ROUND glasses rims and bridge. No dot eyes; do not let hair cover forehead or glasses. Same forest-green sweater vest, ivory collared rolled-sleeve shirt, copper trousers, brown loafers. Broad face and short compact body. Head about half full-body height. Dark selective outline, 3-4 flat tones per material, chunky square pixels, no dithering or gradients. Designed for 26x46 logical pixel silhouette in 32x64 cell. Keep head size and pitch stable within each row.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": false,
+    "palette_size": 32,
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true,
+    "resample": "kcentroid"
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
