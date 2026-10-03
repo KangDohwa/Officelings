@@ -172,12 +172,17 @@ public static class LayoutLoader
                 auto.Y + slot / columns * auto.SpacingY, variant.FootprintW, variant.FootprintH,
                 Id: id, AssetId: definition.Id, DeskId: id);
             furniture.Add(desk);
-            var chairId = auto.AssetId == "cozy-desk" ? "cozy-chair-front" : "chair";
-            var chair = assets.Manifest.Furniture.FirstOrDefault(f => f.Id == chairId)?.Variants
-                .FirstOrDefault(v => v.Rotation == 0 && v.State == "default");
-            if (chair != null)
-                furniture.Add(new("chair", desk.X, desk.Y, chair.FootprintW, chair.FootprintH,
-                    Id: id + "-chair", AssetId: chairId));
+            var frontId = variant.ChairFrontId ?? (auto.AssetId == "cozy-desk" ? "cozy-chair-front" : "chair");
+            var offset = variant.ChairOffset ?? new PixelPoint(0, 0);
+            if (offset.X % 16 != 0 || offset.Y % 16 != 0) throw new InvalidDataException("Legacy desk chair offset must align to tiles.");
+            foreach (var (chairId, suffix) in new[] { (variant.ChairBackId, "-chair-back"), (frontId, "-chair") })
+            {
+                var chair = assets.Manifest.Furniture.FirstOrDefault(f => f.Id == chairId)?.Variants
+                    .FirstOrDefault(v => v.Rotation == 0 && v.State == "default");
+                if (chair != null)
+                    furniture.Add(new("chair", desk.X + (int)(offset.X / 16), desk.Y + (int)(offset.Y / 16), chair.FootprintW, chair.FootprintH,
+                        Id: id + suffix, AssetId: chairId, DeskId: id));
+            }
         }
         return source with { WidthTiles = width, HeightTiles = height,
             Door = new(source.Door.X >= edge ? source.Door.X + shift : source.Door.X, source.Door.Y + doorShift),

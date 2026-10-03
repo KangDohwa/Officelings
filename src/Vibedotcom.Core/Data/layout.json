@@ -287,13 +287,24 @@
       "height": 2
     },
     {
+      "id": "desk-01-chair-back",
+      "deskId": "desk-01",
+      "kind": "chair",
+      "assetId": "cozy-chair-back",
+      "x": 3,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
       "id": "desk-01-chair",
       "kind": "chair",
       "assetId": "cozy-chair-front",
       "x": 3,
       "y": 6,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "deskId": "desk-01"
     },
     {
       "id": "desk-02",
@@ -306,13 +317,24 @@
       "height": 2
     },
     {
+      "id": "desk-02-chair-back",
+      "deskId": "desk-02",
+      "kind": "chair",
+      "assetId": "cozy-chair-back",
+      "x": 8,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
       "id": "desk-02-chair",
       "kind": "chair",
       "assetId": "cozy-chair-front",
       "x": 8,
       "y": 6,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "deskId": "desk-02"
     },
     {
       "id": "desk-03",
@@ -325,13 +347,24 @@
       "height": 2
     },
     {
+      "id": "desk-03-chair-back",
+      "deskId": "desk-03",
+      "kind": "chair",
+      "assetId": "cozy-chair-back",
+      "x": 13,
+      "y": 6,
+      "width": 3,
+      "height": 2
+    },
+    {
       "id": "desk-03-chair",
       "kind": "chair",
       "assetId": "cozy-chair-front",
       "x": 13,
       "y": 6,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "deskId": "desk-03"
     },
     {
       "id": "desk-04",
@@ -344,89 +377,156 @@
       "height": 2
     },
     {
-      "id": "desk-04-chair",
+      "id": "desk-04-chair-back",
+      "deskId": "desk-04",
       "kind": "chair",
-      "assetId": "cozy-chair-front",
+      "assetId": "cozy-chair-back",
       "x": 18,
       "y": 6,
       "width": 3,
       "height": 2
     },
     {
+      "id": "desk-04-chair",
+      "kind": "chair",
+      "assetId": "cozy-chair-front",
+      "x": 18,
+      "y": 6,
+      "width": 3,
+      "height": 2,
+      "deskId": "desk-04"
+    },
+    {
       "id": "desk-05",
       "deskId": "desk-05",
       "kind": "desk",
-      "assetId": "cozy-desk",
-      "x": 3,
+      "assetId": "cozy-desk-side-wood",
+      "x": 10,
       "y": 10,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "rotation": 90
     },
     {
-      "id": "desk-05-chair",
+      "id": "desk-05-chair-back",
+      "deskId": "desk-05",
       "kind": "chair",
-      "assetId": "cozy-chair-front",
-      "x": 3,
+      "assetId": "cozy-chair-side-back",
+      "x": 10,
       "y": 10,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "rotation": 90
+    },
+    {
+      "id": "desk-05-chair-front",
+      "deskId": "desk-05",
+      "kind": "chair",
+      "assetId": "cozy-chair-side-front",
+      "x": 10,
+      "y": 10,
+      "width": 3,
+      "height": 2,
+      "rotation": 90
     },
     {
       "id": "desk-06",
       "deskId": "desk-06",
       "kind": "desk",
-      "assetId": "cozy-desk",
-      "x": 8,
+      "assetId": "cozy-desk-side-white",
+      "x": 13,
       "y": 10,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "rotation": 270
     },
     {
-      "id": "desk-06-chair",
+      "id": "desk-06-chair-back",
+      "deskId": "desk-06",
       "kind": "chair",
-      "assetId": "cozy-chair-front",
-      "x": 8,
+      "assetId": "cozy-chair-side-back",
+      "x": 13,
       "y": 10,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "rotation": 270
+    },
+    {
+      "id": "desk-06-chair-front",
+      "deskId": "desk-06",
+      "kind": "chair",
+      "assetId": "cozy-chair-side-front",
+      "x": 13,
+      "y": 10,
+      "width": 3,
+      "height": 2,
+      "rotation": 270
     },
     {
       "id": "desk-07",
       "deskId": "desk-07",
       "kind": "desk",
-      "assetId": "cozy-desk",
-      "x": 13,
-      "y": 10,
+      "assetId": "cozy-desk-side-double-wood",
+      "x": 10,
+      "y": 12,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "rotation": 90
     },
     {
-      "id": "desk-07-chair",
+      "id": "desk-07-chair-back",
+      "deskId": "desk-07",
       "kind": "chair",
-      "assetId": "cozy-chair-front",
-      "x": 13,
-      "y": 10,
+      "assetId": "cozy-chair-side-back",
+      "x": 10,
+      "y": 12,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "rotation": 90
+    },
+    {
+      "id": "desk-07-chair-front",
+      "deskId": "desk-07",
+      "kind": "chair",
+      "assetId": "cozy-chair-side-front",
+      "x": 10,
+      "y": 12,
+      "width": 3,
+      "height": 2,
+      "rotation": 90
     },
     {
       "id": "desk-08",
       "deskId": "desk-08",
       "kind": "desk",
-      "assetId": "cozy-desk",
-      "x": 18,
-      "y": 10,
+      "assetId": "cozy-desk-side-double-white",
+      "x": 13,
+      "y": 12,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "rotation": 270
     },
     {
-      "id": "desk-08-chair",
+      "id": "desk-08-chair-back",
+      "deskId": "desk-08",
       "kind": "chair",
-      "assetId": "cozy-chair-front",
-      "x": 18,
-      "y": 10,
+      "assetId": "cozy-chair-side-back",
+      "x": 13,
+      "y": 12,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "rotation": 270
+    },
+    {
+      "id": "desk-08-chair-front",
+      "deskId": "desk-08",
+      "kind": "chair",
+      "assetId": "cozy-chair-side-front",
+      "x": 13,
+      "y": 12,
+      "width": 3,
+      "height": 2,
+      "rotation": 270
     },
     {
       "id": "desk-09",
@@ -439,13 +539,24 @@
       "height": 2
     },
     {
+      "id": "desk-09-chair-back",
+      "deskId": "desk-09",
+      "kind": "chair",
+      "assetId": "cozy-chair-back",
+      "x": 3,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
       "id": "desk-09-chair",
       "kind": "chair",
       "assetId": "cozy-chair-front",
       "x": 3,
       "y": 14,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "deskId": "desk-09"
     },
     {
       "id": "desk-10",
@@ -458,13 +569,24 @@
       "height": 2
     },
     {
+      "id": "desk-10-chair-back",
+      "deskId": "desk-10",
+      "kind": "chair",
+      "assetId": "cozy-chair-back",
+      "x": 8,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
       "id": "desk-10-chair",
       "kind": "chair",
       "assetId": "cozy-chair-front",
       "x": 8,
       "y": 14,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "deskId": "desk-10"
     },
     {
       "id": "desk-11",
@@ -477,13 +599,24 @@
       "height": 2
     },
     {
+      "id": "desk-11-chair-back",
+      "deskId": "desk-11",
+      "kind": "chair",
+      "assetId": "cozy-chair-back",
+      "x": 13,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
       "id": "desk-11-chair",
       "kind": "chair",
       "assetId": "cozy-chair-front",
       "x": 13,
       "y": 14,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "deskId": "desk-11"
     },
     {
       "id": "desk-12",
@@ -496,13 +629,56 @@
       "height": 2
     },
     {
+      "id": "desk-12-chair-back",
+      "deskId": "desk-12",
+      "kind": "chair",
+      "assetId": "cozy-chair-back",
+      "x": 18,
+      "y": 14,
+      "width": 3,
+      "height": 2
+    },
+    {
       "id": "desk-12-chair",
       "kind": "chair",
       "assetId": "cozy-chair-front",
       "x": 18,
       "y": 14,
       "width": 3,
-      "height": 2
+      "height": 2,
+      "deskId": "desk-12"
+    },
+    {
+      "id": "laptop-table",
+      "kind": "table",
+      "assetId": "cozy-laptop-table-side",
+      "x": 18,
+      "y": 10,
+      "width": 3,
+      "height": 2,
+      "rotation": 90
+    },
+    {
+      "id": "laptop-table-chair-back",
+      "deskId": "laptop-table",
+      "kind": "chair",
+      "assetId": "cozy-chair-side-back",
+      "x": 18,
+      "y": 10,
+      "width": 3,
+      "height": 2,
+      "rotation": 90
+    },
+    {
+      "id": "laptop-table-chair-front",
+      "deskId": "laptop-table",
+      "kind": "chair",
+      "assetId": "cozy-chair-side-front",
+      "x": 18,
+      "y": 10,
+      "width": 3,
+      "height": 2,
+      "rotation": 90
     },
     {
       "id": "pantry-stool-1",
@@ -572,6 +748,13 @@
       "y": 17,
       "facing": "up",
       "furnitureId": "pantry-stool-2"
+    },
+    {
+      "id": "workspace-laptop-1",
+      "x": 17,
+      "y": 11,
+      "facing": "right",
+      "furnitureId": "laptop-table"
     }
   ],
   "tiles": [
