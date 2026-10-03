@@ -1,22 +1,41 @@
-{
-  "version":1,"widthTiles":17,"heightTiles":21,"tileSize":16,"door":{"x":1,"y":18},
-  "autoDesks":{"assetId":"desk","x":2,"y":5,"spacingX":5,"spacingY":4,"maxColumns":4,"adaptiveColumns":true,"expand":true},
-  "zones":[
-    {"name":"workspace","x":1,"y":3,"width":6,"height":17},
-    {"name":"pantry","x":8,"y":3,"width":8,"height":7},
-    {"name":"lounge","x":8,"y":10,"width":8,"height":10,"points":[
-      {"id":"phone-1","x":6,"y":3,"action":"phone","facing":"down"},
-      {"id":"phone-2","x":0,"y":5,"action":"phone","facing":"down"},
-      {"id":"phone-3","x":6,"y":8,"action":"phone","facing":"down"}]},
-    {"name":"door","x":1,"y":18,"width":1,"height":1}
+﻿{
+  "version": 1, "widthTiles": 31, "heightTiles": 24, "tileSize": 16,
+  "door": {"x": 2, "y": 21},
+  "autoDesks": {"assetId": "cozy-desk", "x": 3, "y": 7, "spacingX": 6, "spacingY": 5, "maxColumns": 4, "minColumns": 2, "adaptiveColumns": true, "expand": true},
+  "zones": [
+    {"name": "workspace", "x": 1, "y": 3, "width": 17, "height": 20},
+    {"name": "pantry", "x": 19, "y": 3, "width": 11, "height": 7},
+    {"name": "lounge", "x": 19, "y": 10, "width": 11, "height": 13, "points": [
+      {"id": "phone-1", "x": 8, "y": 2, "action": "phone", "facing": "down"},
+      {"id": "phone-2", "x": 9, "y": 12, "action": "phone", "facing": "left"}
+    ]},
+    {"name": "partition", "x": 18, "y": 3, "width": 1, "height": 20},
+    {"name": "passage", "x": 18, "y": 11, "width": 1, "height": 3},
+    {"name": "door", "x": 2, "y": 21, "width": 1, "height": 1}
   ],
-  "furniture":[
-    {"id":"pantry","kind":"pantry","x":8,"y":5,"width":6,"height":2},
-    {"id":"water","kind":"water","x":14,"y":7,"width":1,"height":2},
-    {"id":"tv","kind":"tv","x":8,"y":10,"width":4,"height":1},
-    {"id":"sofa","kind":"sofa","x":11,"y":15,"width":4,"height":1},
-    {"id":"table","kind":"table","x":10,"y":17,"width":3,"height":1},
-    {"id":"plant-lounge","kind":"plant","x":14,"y":4,"width":1,"height":1},
-    {"id":"plant-work","kind":"plant","x":1,"y":3,"width":1,"height":1}
+  "furniture": [
+    {"id": "window-work-1", "kind": "window", "assetId": "cozy-window", "x": 4, "y": 2, "width": 3, "height": 1},
+    {"id": "window-work-2", "kind": "window", "assetId": "cozy-window", "x": 12, "y": 2, "width": 3, "height": 1},
+    {"id": "window-pantry", "kind": "window", "assetId": "cozy-window", "x": 25, "y": 2, "width": 3, "height": 1},
+    {"id": "clock", "kind": "clock", "assetId": "cozy-clock", "x": 9, "y": 2, "width": 1, "height": 1},
+    {"id": "picture", "kind": "picture", "assetId": "cozy-picture", "x": 21, "y": 2, "width": 2, "height": 1},
+    {"id": "bookshelf", "kind": "bookshelf", "assetId": "cozy-bookshelf", "x": 2, "y": 3, "width": 3, "height": 2},
+    {"id": "bookshelf-work", "kind": "bookshelf", "assetId": "cozy-bookshelf", "x": 14, "y": 4, "width": 3, "height": 2},
+    {"id": "cabinet", "kind": "cabinet", "assetId": "cozy-cabinet", "x": 7, "y": 3, "width": 2, "height": 2},
+    {"id": "whiteboard", "kind": "whiteboard", "assetId": "cozy-whiteboard", "x": 10, "y": 4, "width": 3, "height": 1},
+    {"id": "plant-work", "kind": "plant", "assetId": "cozy-plant", "x": 1, "y": 11, "width": 1, "height": 1},
+    {"id": "plant-work-bottom", "kind": "plant", "assetId": "cozy-plant", "x": 15, "y": 21, "width": 1, "height": 1},
+    {"id": "server", "kind": "server", "assetId": "cozy-server", "x": 1, "y": 15, "width": 2, "height": 3},
+    {"id": "coffee", "kind": "pantry", "assetId": "cozy-pantry", "x": 20, "y": 4, "width": 3, "height": 2},
+    {"id": "water", "kind": "water", "assetId": "cozy-water", "x": 27, "y": 4, "width": 1, "height": 2},
+    {"id": "cabinet-pantry", "kind": "cabinet", "assetId": "cozy-cabinet", "x": 24, "y": 4, "width": 2, "height": 2},
+    {"id": "plant-pantry", "kind": "plant", "assetId": "cozy-plant", "x": 29, "y": 8, "width": 1, "height": 1},
+    {"id": "rug", "kind": "rug", "assetId": "cozy-rug", "x": 22, "y": 15, "width": 4, "height": 3},
+    {"id": "tv", "kind": "tv", "assetId": "cozy-tv", "x": 20, "y": 11, "width": 3, "height": 2},
+    {"id": "sofa", "kind": "sofa", "assetId": "cozy-sofa", "x": 24, "y": 15, "width": 3, "height": 2},
+    {"id": "table", "kind": "table", "assetId": "cozy-table", "x": 21, "y": 19, "width": 3, "height": 2},
+    {"id": "armchair", "kind": "armchair", "assetId": "cozy-armchair", "x": 27, "y": 19, "width": 2, "height": 2},
+    {"id": "plant-lounge", "kind": "plant", "assetId": "cozy-plant", "x": 20, "y": 17, "width": 1, "height": 1},
+    {"id": "entrance", "kind": "door", "assetId": "cozy-door", "x": 1, "y": 21, "width": 2, "height": 1}
   ]
 }
