@@ -1,0 +1,835 @@
+{
+  "characterId": "gardener-botanist",
+  "engine": "component-row",
+  "game_input": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/gardener-botanist.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/gardener-botanist.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "blink": {
+    "down": {
+      "file": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/source.facelock.json",
+    "inputSha256": "9f7b34edb82c95b764336e0e18efeb6810aed2de6854cd336a0c367b5b4dcf12"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "transferred-locked-blink"
+      },
+      "right": {
+        "file": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "transferred-locked-blink"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 49,
+        "sourceNeckY": 34,
+        "translation": {
+          "x": 0,
+          "y": 3
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 49,
+        "sourceNeckY": 34,
+        "translation": {
+          "x": 0,
+          "y": 3
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 49,
+        "sourceNeckY": 34,
+        "translation": {
+          "x": 0,
+          "y": 3
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/roster/gardener-botanist/locked/gardener-botanist.manifest.json": "b7f83477bea69aff3fb22d6e2ec97bfc3f59fa5f4889bd90f91daec9807bca93",
+      "assets/art/roster/gardener-botanist/locked/.generations/095beb5c963e5c850b62d2f8e4804f40bbb35e391c0c990824e0f09359e6d2db/gardener-botanist.png": "1227a66d81657a35166966b2b3ac358c2f794147ed434e96b467af97b051e1c8",
+      "assets/art/roster/gardener-botanist/locked/.generations/095beb5c963e5c850b62d2f8e4804f40bbb35e391c0c990824e0f09359e6d2db/gardener-botanist.facelock.json": "fe0d1ea10a4d4e6e9b8346952f17835f9c11def471aba96ccd9e41074000ab01",
+      "assets/art/roster/gardener-botanist/cleanup/source/gardener-botanist.manifest.json": "6dea3f9f44392bccfa07beda1f063f73aa6eba5bc1f72667405ea7a67672dd4c",
+      "assets/art/roster/gardener-botanist/cleanup/source/gardener-botanist.png": "b0469413481e8a008bdb41215bdfffef47f4e2360e71331575c71c871327de69",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/idle-frame-0.png": "0d4f468e192e7760826e270f89b1f539b7c4a243417cce3f10da0eddc97be27c",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/idle-frame-1.png": "2925361395f8724f5a75b0655f2902211d5c566c8de7dcda1e75c70164981bff",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/idle-frame-2.png": "c1f73b44f4138262912b99d74953f577ed01c26d54e5388c75fd166f96b800d4",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/idle-frame-3.png": "98d8c36f02e8f38aa97c3870b3df5e77a37228488e280bc07ff1c11735baa41e",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_down-frame-0.png": "7a489c3527bf1315b1b08b2f26237ff9d8b48f8514b578611dc075a5e8b6efcd",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_down-frame-1.png": "8743fba82cb8be81e9981a32a9b0d886a3336550a9698af9ef729cdbdeb97b70",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_down-frame-2.png": "04aea89dfcf8cf7569b6bdfaf0364ecda115adafd5af47d4fff4ec2b9d5896da",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_down-frame-3.png": "c6fd23010634ef6e183aa90489e1e5c80ed3d35d842f1b8801abec9dbf65cf7d",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_left-frame-0.png": "09d42531f9ad0f3d5c7bd80eed51b04950d4860ea9d795b6537e96a90b222f76",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_left-frame-1.png": "bdfb2d9f213b4d2c0baf621fb2298d023f1e94c7d050a87bb67e88eecf0f4801",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_left-frame-2.png": "7b26fc65b94ed4207ee888b471126f5f535c282ffa7dc2bba9113cc97be6ca5b",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_left-frame-3.png": "975336fdef24973cd8c125139ed31e31cf0ece88eb0e807b2d4198fbf9c0fc32",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_right-frame-0.png": "e6b044f893d58d900f10fb2fba21e45a3e9d160f80eac049f1ede4ccd060cd24",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_right-frame-1.png": "331db0b88cc982f2419f95e1ce3757c5fc6395a7e735bd416400ab277882c224",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_right-frame-2.png": "b4bc005271eaf5568595a8dd4a8432909ea21e80d27fb7f659ba7767db43669e",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_right-frame-3.png": "631c439b2a62dd1b2fbd62d2695c19aa6aeef49500a9d8f00d031f9947623f8c",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_up-frame-0.png": "abbf86e006bd1906ea57f8e031c0e1e6df98c403d4662d0d4e432d52cac3f4ea",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_up-frame-1.png": "717b7dd0e2a2666cb3f8cffad5e5b3d65fdbb21c66fe0a4bb5724a810134ff62",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_up-frame-2.png": "d9a6202aced4354ea41ae01ab798ae7fed8bd9949fb43ac4c5610833a2715320",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/walk_up-frame-3.png": "8db802d37dead28e2c00e23d333c203faced5c2ab042b09946ad56f777ef3c90",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/typing_back-frame-0.png": "ebe1101ba65a90181a46e30b04ac0a8fcc84d54658673acba42dc8f0c14509b8",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/typing_back-frame-1.png": "8d144c83e9f0df3ea91fb23fc05a36d973f9122b46c9d95a4839e8c2c9be6af9",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/typing_back-frame-2.png": "a889c29f5b033c10f2cb77d1edbaab1a472deeebb40e6d73efcc4dfc6b82c7c9",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/typing_side-frame-0.png": "61f0013b347420ccf578be0c95eab67eabd6d4aedd49088a9ab8d8263ef28c7a",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/typing_side-frame-1.png": "6b9ef8f3b2f111a04b09279cf352294f87188eaefdfe0328b9eb8b94d70f1717",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/typing_side-frame-2.png": "bdb3db7d6f7e0b7781a6e847e7ab9a3482163c7b9c73b9faafed2c77a37914b8",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/report-frame-0.png": "440b6a426d6ba7de445c05fd190a29ed6cf56aa4389536f452af47a68da5907a",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/report-frame-1.png": "4e63e1bcecb5727851be8b76a60e33c05195b50ad265d8aa5d220d0c0a42ee99",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/report-frame-2.png": "b86f96537c2b009f75925de81409a9cc31e17883de97fca29ab720e9818bbe33",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/sleep-frame-0.png": "59c32f67b48110613a125f721bdf7256cd90e2e4eb2d7eb637e84f846bcd955c",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/sleep-frame-1.png": "d09d378e475b22dc81d55efd795e77fd7893d0f5c5150285f87b78cdfa8e373e",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/coffee-frame-0.png": "e7d831c3ced25738a6f13b5b205b0e44986e81b730b4ae7519d769963f29277e",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/coffee-frame-1.png": "b823294e81d926f80dfd277b9571e44f0af437ca7e29cc433c13b41bc39e595d",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/coffee-frame-2.png": "0a7a9b788c6ec1f686b495cb9bde7e7e66174c6b627fc953cdfe64b24df9260d",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/phone-frame-0.png": "29d02dff76ee521cc300660b532b100da35218c3ab283412bd1a399ec6d15035",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/phone-frame-1.png": "b54890902c2199fd85925644bb05cf933d5aea643e14f03d9acd1d09ab78bc09",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/phone-frame-2.png": "877030a8f104be3716ab702b7927fd0840ee576c58110899ec81482581a230e2",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/talk-frame-0.png": "ccabf0aa98b4bee9e0c32c997c0971af944c854f56966b45b1490c492b7eac0e",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/talk-frame-1.png": "b726d270e7cb3ced39f4ea637068f5a5d82a5c41722cee64e9d0c102a9da1e61",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/talk-frame-2.png": "4fd5ad25beab580d94c11e4c2593f5822b88986ab82f65bcca5504ad4436f6f1",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/surprised-frame-0.png": "923b933584ea6aca5fd60b714ea8626944ec562f5a05f67e51cb1f5728a5f495",
+      "assets/art/roster/gardener-botanist/cleanup/source/curated/surprised-frame-1.png": "6e7a087108d99a905c8ef86a8edb6a57286ea78d90c3dae071472af225490da1",
+      "assets/art/roster/gardener-botanist/locked/.generations/095beb5c963e5c850b62d2f8e4804f40bbb35e391c0c990824e0f09359e6d2db/blink-down.png": "ffb5c7fab11f7e50a76ae2afe2b5089ad98a14b366f0fc9d8ad3042ce2dbf404",
+      "assets/art/roster/gardener-botanist/locked/.generations/095beb5c963e5c850b62d2f8e4804f40bbb35e391c0c990824e0f09359e6d2db/blink-left.png": "58bb4eaa8371885710d4a1219cb8bebc2a197cd96fa3568a0a365550a19e3d6d",
+      "assets/art/roster/gardener-botanist/locked/.generations/095beb5c963e5c850b62d2f8e4804f40bbb35e391c0c990824e0f09359e6d2db/blink-right.png": "cf1b0a09a0f34cad6000b9c48d0f72bcfb2d606fb37e638e91e948320f3d6125"
+    },
+    "blinkSheet": {
+      "file": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec/seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  },
+  "publication": {
+    "generation": ".generations/e94b806941b4850ac8a719bacaf2a511389e0d8502841ac3cb33dd9647d636ec"
+  }
+}
