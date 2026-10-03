@@ -56,14 +56,15 @@ public sealed class ReviewFixTests : IDisposable
                 System.Globalization.CultureInfo.CurrentCulture = new(culture);
                 for (var i = 0; i < 80; i++)
                 {
-                    var field = new[] { "opacity", "zoom", "width", "height", "left", "top", "workingSeconds", "goneMinutes" }[random.Next(8)];
+                    var field = new[] { "opacity", "zoom", "width", "height", "left", "top", "workingSeconds", "goneMinutes", "leaveAfterIdleMinutes", "leaveAfterWaitingMinutes" }[random.Next(10)];
                     var path = Path.Combine(home, "settings.json");
                     File.WriteAllText(path, "{\"" + field + "\":" + values[random.Next(values.Length)] + "}");
                     var settings = Settings.Read(path);
                     var bytes = JsonSerializer.SerializeToUtf8Bytes(settings, StateJson.Options);
                     Assert.Equal(settings, JsonSerializer.Deserialize<Settings>(bytes, StateJson.Options));
                     Assert.InRange(settings.Opacity, .25, 1); Assert.True(settings.GoneMinutes * 60 > settings.WorkingSeconds);
-                    new TrackerOptions { Home = home, WorkingWindow = TimeSpan.FromSeconds(settings.WorkingSeconds), GoneAfter = TimeSpan.FromMinutes(settings.GoneMinutes) }.Validate();
+                    new TrackerOptions { Home = home, WorkingWindow = TimeSpan.FromSeconds(settings.WorkingSeconds),
+                        LeaveAfterIdle = TimeSpan.FromMinutes(settings.LeaveAfterIdleMinutes), LeaveAfterWaiting = TimeSpan.FromMinutes(settings.LeaveAfterWaitingMinutes) }.Validate();
                 }
             }
             finally { System.Globalization.CultureInfo.CurrentCulture = original; }

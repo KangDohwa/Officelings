@@ -47,14 +47,14 @@ public sealed class CoreTests : IDisposable
     }
 
     [Fact]
-    public void ProviderFinalAnswersWaitForUserAndIgnoreOlderEvents()
+    public void ProviderFinalAnswersBecomeIdleAndIgnoreOlderEvents()
     {
         var a = new TrackedAgent("codex:parent", Provider.Codex);
-        Apply(a, Fixture("codex")[6]); Assert.Equal(AgentState.Waiting, a.EventState);
-        Apply(a, Fixture("codex")[3]); Assert.Equal(AgentState.Waiting, a.EventState);
+        Apply(a, Fixture("codex")[6]); Assert.Equal(AgentState.Idle, a.EventState);
+        Apply(a, Fixture("codex")[3]); Assert.Equal(AgentState.Idle, a.EventState);
         var c = new TrackedAgent("claude:parent", Provider.Claude);
         Apply(c, """{"timestamp":"2026-10-03T12:00:08Z","type":"assistant","sessionId":"parent","message":{"stop_reason":"end_turn","content":[{"type":"text","text":"Done."}]}}""");
-        Assert.Equal(AgentState.Waiting, c.EventState); Assert.False(c.IsSubagent);
+        Assert.Equal(AgentState.Idle, c.EventState); Assert.False(c.IsSubagent);
     }
 
     [Fact]
@@ -64,7 +64,7 @@ public sealed class CoreTests : IDisposable
         var lines = Fixture("antigravity"); Apply(a, lines[0]); Apply(a, lines[1]);
         Assert.Equal(AgentState.Working, a.EventState); Assert.Equal("search", a.ToolKind);
         Apply(a, lines[2]); Assert.Equal(AgentState.Thinking, a.EventState);
-        Apply(a, lines[3]); Assert.Equal(AgentState.Waiting, a.EventState);
+        Apply(a, lines[3]); Assert.Equal(AgentState.Idle, a.EventState);
         a.LastSeen = Now; Assert.True(a.Snapshot(Now, new()).BestEffort);
     }
 
@@ -114,8 +114,13 @@ public sealed class CoreTests : IDisposable
     {
         var dir = Path.Combine(root, ".codex", "sessions", "2026", "10", "03"); Directory.CreateDirectory(dir);
         var path = Path.Combine(dir, "rollout-example.jsonl");
-        File.WriteAllLines(path, Fixture("codex").Take(4)); File.SetLastWriteTimeUtc(path, Now.UtcDateTime);
-        var options = new TrackerOptions { Home = root, ScanInterval = TimeSpan.FromMilliseconds(1), WorkingWindow = TimeSpan.FromSeconds(2), GoneAfter = TimeSpan.FromSeconds(10), GoneRetention = TimeSpan.FromSeconds(2) };
+        File.WriteAllLines(path, Fixture("codex").Take(4).Select(line =>
+        {
+            var record = System.Text.Json.Nodes.JsonNode.Parse(line)!;
+            record["timestamp"] = Now.ToString("O"); return record.ToJsonString();
+        })); File.SetLastWriteTimeUtc(path, Now.UtcDateTime);
+        var options = new TrackerOptions { Home = root, ScanInterval = TimeSpan.FromMilliseconds(1), WorkingWindow = TimeSpan.FromSeconds(2),
+            LeaveAfterIdle = TimeSpan.FromSeconds(10), GoneAfter = TimeSpan.FromSeconds(10), GoneRetention = TimeSpan.FromSeconds(2) };
         var tracker = new AgentTracker(options);
         Assert.Equal(AgentState.Working, Assert.Single(tracker.Poll(Now)).State);
         var bytes = tracker.BytesRead; tracker.Poll(Now.AddSeconds(1)); Assert.Equal(bytes, tracker.BytesRead);
@@ -137,7 +142,7 @@ public sealed class CoreTests : IDisposable
         var before = tracker.BytesRead;
         var append = """{"type":"assistant","sessionId":"parent-1","message":{"content":[],"stop_reason":"end_turn"}}""" + "\n";
         File.AppendAllText(path, append); File.SetLastWriteTimeUtc(path, Now.AddSeconds(1).UtcDateTime);
-        Assert.Equal(AgentState.Waiting, Assert.Single(tracker.Poll(Now.AddSeconds(1))).State);
+        Assert.Equal(AgentState.Idle, Assert.Single(tracker.Poll(Now.AddSeconds(1))).State);
         Assert.Equal(Encoding.UTF8.GetByteCount(append), tracker.BytesRead - before);
     }
 

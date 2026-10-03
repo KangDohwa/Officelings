@@ -26,7 +26,7 @@ public sealed class TrackerFixTests : IDisposable
         JsonSerializer.Serialize(new { timestamp = (time ?? Now).ToString("O"), type, payload }) + "\n";
     private static void Apply(TrackedAgent a, string text, DateTimeOffset? time = null)
     { using var doc = JsonDocument.Parse(text); LogParser.Apply(a, doc.RootElement, "example.jsonl", time ?? Now); }
-    private TrackerOptions Options => new() { Home = root, WorkingWindow = TimeSpan.FromSeconds(2), GoneAfter = TimeSpan.FromSeconds(10),
+    private TrackerOptions Options => new() { Home = root, WorkingWindow = TimeSpan.FromSeconds(2), LeaveAfterIdle = TimeSpan.FromSeconds(10), GoneAfter = TimeSpan.FromSeconds(10),
         GoneRetention = TimeSpan.FromSeconds(2), ScanInterval = TimeSpan.FromMilliseconds(1) };
 
     [Theory]
@@ -123,7 +123,7 @@ public sealed class TrackerFixTests : IDisposable
         using var tracker = new AgentTracker(Options); var agents = tracker.Poll(Now);
         Assert.Equal(3, agents.Count);
         var parent = agents.Single(a => a.Id == "claude:parent"); Assert.False(parent.IsSubagent); Assert.Null(parent.ParentId);
-        Assert.Equal(AgentState.Waiting, parent.State);
+        Assert.Equal(AgentState.Idle, parent.State);
         Assert.All(agents.Where(a => a.IsSubagent), a => { Assert.Equal("claude:parent", a.ParentId); Assert.NotEqual(a.Id, a.ParentId); });
     }
 
@@ -177,7 +177,7 @@ public sealed class TrackerFixTests : IDisposable
         var a = new TrackedAgent("codex:parent", Provider.Codex);
         Apply(a, Codex("event_msg", new { type = "task_started" }, Now.AddSeconds(futureSeconds)));
         Apply(a, Codex("event_msg", new { type = "task_complete" }));
-        Assert.Equal(AgentState.Waiting, a.EventState); Assert.Equal(Now, a.LastEvent);
+        Assert.Equal(AgentState.Idle, a.EventState); Assert.Equal(Now, a.LastEvent);
     }
 
     [Theory]
@@ -220,10 +220,10 @@ public sealed class TrackerFixTests : IDisposable
         using (var writer = new FileStream(path, FileMode.Append, FileAccess.Write, FileShare.Write))
         {
             writer.Write(Encoding.UTF8.GetBytes(append)); writer.Flush(); File.SetLastWriteTimeUtc(path, Now.AddSeconds(11).UtcDateTime);
-            var a = Assert.Single(tracker.Poll(Now.AddSeconds(11))); Assert.NotEqual(AgentState.Gone, a.State); Assert.Equal(Now.AddSeconds(11), a.LastSeen);
+            var a = Assert.Single(tracker.Poll(Now.AddSeconds(11))); Assert.Equal(AgentState.Gone, a.State); Assert.Equal(Now.AddSeconds(11), a.LastSeen);
             Assert.Equal(before, tracker.BytesRead); Assert.Contains(tracker.Warnings, w => w.Contains("IOException"));
         }
-        Assert.Equal(AgentState.Waiting, Assert.Single(tracker.Poll(Now.AddSeconds(12))).State);
+        Assert.Equal(AgentState.Idle, Assert.Single(tracker.Poll(Now.AddSeconds(12))).State);
         Assert.Equal(Encoding.UTF8.GetByteCount(append), tracker.BytesRead - before);
         before = tracker.BytesRead; tracker.Poll(Now.AddSeconds(13)); Assert.Equal(before, tracker.BytesRead);
     }
@@ -325,7 +325,7 @@ public sealed class TrackerFixTests : IDisposable
         var transcript = PathFor(".gemini", "antigravity", "brain", "example", ".system_generated", "logs", "transcript.jsonl");
         Write(transcript, """{"type":"PLANNER_RESPONSE","status":"DONE","created_at":"2026-10-03T12:00:10Z","content":"Complete"}""" + "\n");
         File.SetLastWriteTimeUtc(path, Now.AddSeconds(1).UtcDateTime);
-        using var tracker = new AgentTracker(Options); Assert.Equal(AgentState.Waiting, Assert.Single(tracker.Poll(Now.AddSeconds(1))).State);
+        using var tracker = new AgentTracker(Options); Assert.Equal(AgentState.Idle, Assert.Single(tracker.Poll(Now.AddSeconds(1))).State);
     }
 
     [Fact]
