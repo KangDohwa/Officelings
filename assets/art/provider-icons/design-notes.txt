@@ -1,0 +1,11 @@
+Original provider icon design notes
+
+Codex: a teal terminal and >_ prompt communicate code and command-line work. The silhouette is a wide rounded rectangle, with no interlocking knot or floral loops.
+Claude: an amber speech bubble with a small ink dot and a diagonal pen stroke communicates conversation and writing. Its left tail is not radial or asterisk-shaped; the yellow-amber fill is paired with blue-green ink, not an orange-on-tan brand treatment.
+Antigravity: a violet balloon, loose tether and quiet ground line communicate lift. Its tall rounded silhouette is neither a four-point sparkle nor a gradient star. All shading uses discrete flat pixel colors.
+Other agent: a slate robot head with ears and an antenna is a friendly generic fallback.
+Supervisor: a small gold crown marks responsibility. Sub-agent: a navy lanyard with a paper ID marks a supporting agent. Both transparent badges share the provider canvas and can be overlaid at (0,0).
+
+Every 10/12/16/24/32px image has its own authored pixel map. Only @2x/@3x exports repeat pixels. Small versions simplify detail intentionally.
+Limits: the pen is only a two-pixel ink gesture at 10px; the balloon tether and ground line are one pixel wide. Badges partly cover the upper/lower right of icons. Prefer unbadged 10px or 12px icons for the cleanest provider silhouette. Color-vision matrices are approximate visual checks, not accessibility certification.
+No official artwork or source images were used. These generic object metaphors avoid the forbidden logo motifs. Runtime integration is outside this asset-only task.

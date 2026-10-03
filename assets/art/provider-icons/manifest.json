@@ -1,0 +1,1637 @@
+{
+  "version": 1,
+  "kind": "original-provider-icons",
+  "sizes": [
+    10,
+    12,
+    16,
+    24,
+    32
+  ],
+  "sampling": "nearest-neighbor",
+  "alpha": "straight",
+  "pixelFormat": "RGBA8",
+  "anchor": {
+    "x": 0,
+    "y": 0
+  },
+  "anchorMeaning": "top-left of full square canvas",
+  "densityMeaning": "@2x and @3x are exact integer repeats of each independently designed native size; anchors/padding multiply by density",
+  "suggestedPlateColors": {
+    "dark": "#14252b",
+    "light": "#f2ebd3"
+  },
+  "suggestedPlatePadding": {
+    "10": {
+      "left": 3,
+      "top": 3,
+      "right": 3,
+      "bottom": 3,
+      "labelGap": 4
+    },
+    "12": {
+      "left": 3,
+      "top": 3,
+      "right": 3,
+      "bottom": 3,
+      "labelGap": 4
+    },
+    "16": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 4,
+      "labelGap": 6
+    },
+    "24": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 4,
+      "labelGap": 6
+    },
+    "32": {
+      "left": 4,
+      "top": 4,
+      "right": 4,
+      "bottom": 4,
+      "labelGap": 6
+    }
+  },
+  "palette": {
+    "codex": {
+      "#": "#10282c",
+      "p": "#f2e7c0",
+      "i": "#10282c",
+      "w": "#1d3a39",
+      "s": "#235e5c",
+      "m": "#4eb5a9",
+      "h": "#a2dfc8"
+    },
+    "claude": {
+      "#": "#10282c",
+      "p": "#f2e7c0",
+      "i": "#10282c",
+      "w": "#1d3a39",
+      "s": "#9a5c3a",
+      "m": "#e0a64e",
+      "h": "#f6cf78"
+    },
+    "antigravity": {
+      "#": "#10282c",
+      "p": "#f2e7c0",
+      "i": "#10282c",
+      "w": "#1d3a39",
+      "s": "#423f7e",
+      "m": "#827dcc",
+      "h": "#bfc6ed"
+    },
+    "other-agent": {
+      "#": "#10282c",
+      "p": "#f2e7c0",
+      "i": "#10282c",
+      "w": "#1d3a39",
+      "s": "#325571",
+      "m": "#6492a3",
+      "h": "#bdd5cc"
+    },
+    "supervisor": {
+      "#": "#10282c",
+      "p": "#f2e7c0",
+      "i": "#10282c",
+      "w": "#1d3a39",
+      "s": "#966334",
+      "m": "#f0ba39",
+      "h": "#faecc9"
+    },
+    "sub-agent": {
+      "#": "#10282c",
+      "p": "#f2e7c0",
+      "i": "#10282c",
+      "w": "#1d3a39",
+      "s": "#325571",
+      "m": "#48728f",
+      "h": "#6492a3"
+    }
+  },
+  "icons": [
+    {
+      "id": "codex",
+      "label": "Codex",
+      "sizes": [
+        10,
+        12,
+        16,
+        24,
+        32
+      ],
+      "accentColors": {
+        "shadow": "#235e5c",
+        "body": "#4eb5a9",
+        "highlight": "#a2dfc8"
+      },
+      "type": "provider",
+      "metaphor": "terminal with >_ prompt"
+    },
+    {
+      "id": "claude",
+      "label": "Claude",
+      "sizes": [
+        10,
+        12,
+        16,
+        24,
+        32
+      ],
+      "accentColors": {
+        "shadow": "#9a5c3a",
+        "body": "#e0a64e",
+        "highlight": "#f6cf78"
+      },
+      "type": "provider",
+      "metaphor": "speech bubble, ink dot and pen stroke"
+    },
+    {
+      "id": "antigravity",
+      "label": "Antigravity",
+      "sizes": [
+        10,
+        12,
+        16,
+        24,
+        32
+      ],
+      "accentColors": {
+        "shadow": "#423f7e",
+        "body": "#827dcc",
+        "highlight": "#bfc6ed"
+      },
+      "type": "provider",
+      "metaphor": "rising balloon, loose tether and ground line"
+    },
+    {
+      "id": "other-agent",
+      "label": "Other agent",
+      "sizes": [
+        10,
+        12,
+        16,
+        24,
+        32
+      ],
+      "accentColors": {
+        "shadow": "#325571",
+        "body": "#6492a3",
+        "highlight": "#bdd5cc"
+      },
+      "type": "provider",
+      "metaphor": "robot head, antenna and side ears"
+    },
+    {
+      "id": "supervisor",
+      "label": "Supervisor",
+      "sizes": [
+        10,
+        12,
+        16,
+        24,
+        32
+      ],
+      "accentColors": {
+        "shadow": "#966334",
+        "body": "#f0ba39",
+        "highlight": "#faecc9"
+      },
+      "type": "overlay",
+      "metaphor": "three-tip gold crown"
+    },
+    {
+      "id": "sub-agent",
+      "label": "Sub-agent",
+      "sizes": [
+        10,
+        12,
+        16,
+        24,
+        32
+      ],
+      "accentColors": {
+        "shadow": "#325571",
+        "body": "#48728f",
+        "highlight": "#6492a3"
+      },
+      "type": "overlay",
+      "metaphor": "navy lanyard and paper ID"
+    }
+  ],
+  "overlays": [
+    {
+      "id": "supervisor",
+      "appliesTo": [
+        "codex",
+        "claude",
+        "antigravity",
+        "other-agent"
+      ],
+      "placement": "top-right",
+      "compositeOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "drawOrder": "provider first, then same-size transparent overlay",
+      "worker": "use the base provider icon without a badge",
+      "precomposedIdPattern": "{provider}-supervisor"
+    },
+    {
+      "id": "sub-agent",
+      "appliesTo": [
+        "codex",
+        "claude",
+        "antigravity",
+        "other-agent"
+      ],
+      "placement": "bottom-right",
+      "compositeOffset": {
+        "x": 0,
+        "y": 0
+      },
+      "drawOrder": "provider first, then same-size transparent overlay",
+      "worker": "use the base provider icon without a badge",
+      "precomposedIdPattern": "{provider}-sub-agent"
+    }
+  ],
+  "assets": [
+    {
+      "id": "codex",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        9,
+        9
+      ],
+      "files": {
+        "1": "10/codex.png",
+        "2": "10/codex@2x.png",
+        "3": "10/codex@3x.png"
+      }
+    },
+    {
+      "id": "codex",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        2,
+        11,
+        11
+      ],
+      "files": {
+        "1": "12/codex.png",
+        "2": "12/codex@2x.png",
+        "3": "12/codex@3x.png"
+      }
+    },
+    {
+      "id": "codex",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        3,
+        15,
+        14
+      ],
+      "files": {
+        "1": "16/codex.png",
+        "2": "16/codex@2x.png",
+        "3": "16/codex@3x.png"
+      }
+    },
+    {
+      "id": "codex",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        5,
+        22,
+        21
+      ],
+      "files": {
+        "1": "24/codex.png",
+        "2": "24/codex@2x.png",
+        "3": "24/codex@3x.png"
+      }
+    },
+    {
+      "id": "codex",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        6,
+        30,
+        26
+      ],
+      "files": {
+        "1": "32/codex.png",
+        "2": "32/codex@2x.png",
+        "3": "32/codex@3x.png"
+      }
+    },
+    {
+      "id": "claude",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        9,
+        9
+      ],
+      "files": {
+        "1": "10/claude.png",
+        "2": "10/claude@2x.png",
+        "3": "10/claude@3x.png"
+      }
+    },
+    {
+      "id": "claude",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        11,
+        11
+      ],
+      "files": {
+        "1": "12/claude.png",
+        "2": "12/claude@2x.png",
+        "3": "12/claude@3x.png"
+      }
+    },
+    {
+      "id": "claude",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        15,
+        15
+      ],
+      "files": {
+        "1": "16/claude.png",
+        "2": "16/claude@2x.png",
+        "3": "16/claude@3x.png"
+      }
+    },
+    {
+      "id": "claude",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        2,
+        22,
+        22
+      ],
+      "files": {
+        "1": "24/claude.png",
+        "2": "24/claude@2x.png",
+        "3": "24/claude@3x.png"
+      }
+    },
+    {
+      "id": "claude",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        2,
+        30,
+        28
+      ],
+      "files": {
+        "1": "32/claude.png",
+        "2": "32/claude@2x.png",
+        "3": "32/claude@3x.png"
+      }
+    },
+    {
+      "id": "antigravity",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        8,
+        10
+      ],
+      "files": {
+        "1": "10/antigravity.png",
+        "2": "10/antigravity@2x.png",
+        "3": "10/antigravity@3x.png"
+      }
+    },
+    {
+      "id": "antigravity",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        10,
+        12
+      ],
+      "files": {
+        "1": "12/antigravity.png",
+        "2": "12/antigravity@2x.png",
+        "3": "12/antigravity@3x.png"
+      }
+    },
+    {
+      "id": "antigravity",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        1,
+        13,
+        16
+      ],
+      "files": {
+        "1": "16/antigravity.png",
+        "2": "16/antigravity@2x.png",
+        "3": "16/antigravity@3x.png"
+      }
+    },
+    {
+      "id": "antigravity",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        4,
+        1,
+        20,
+        24
+      ],
+      "files": {
+        "1": "24/antigravity.png",
+        "2": "24/antigravity@2x.png",
+        "3": "24/antigravity@3x.png"
+      }
+    },
+    {
+      "id": "antigravity",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        5,
+        1,
+        26,
+        31
+      ],
+      "files": {
+        "1": "32/antigravity.png",
+        "2": "32/antigravity@2x.png",
+        "3": "32/antigravity@3x.png"
+      }
+    },
+    {
+      "id": "other-agent",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        0,
+        1,
+        10,
+        9
+      ],
+      "files": {
+        "1": "10/other-agent.png",
+        "2": "10/other-agent@2x.png",
+        "3": "10/other-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        0,
+        1,
+        12,
+        11
+      ],
+      "files": {
+        "1": "12/other-agent.png",
+        "2": "12/other-agent@2x.png",
+        "3": "12/other-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        15,
+        15
+      ],
+      "files": {
+        "1": "16/other-agent.png",
+        "2": "16/other-agent@2x.png",
+        "3": "16/other-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        2,
+        23,
+        22
+      ],
+      "files": {
+        "1": "24/other-agent.png",
+        "2": "24/other-agent@2x.png",
+        "3": "24/other-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        2,
+        31,
+        28
+      ],
+      "files": {
+        "1": "32/other-agent.png",
+        "2": "32/other-agent@2x.png",
+        "3": "32/other-agent@3x.png"
+      }
+    },
+    {
+      "id": "supervisor",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        5,
+        0,
+        10,
+        4
+      ],
+      "files": {
+        "1": "10/supervisor.png",
+        "2": "10/supervisor@2x.png",
+        "3": "10/supervisor@3x.png"
+      }
+    },
+    {
+      "id": "supervisor",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        6,
+        0,
+        12,
+        5
+      ],
+      "files": {
+        "1": "12/supervisor.png",
+        "2": "12/supervisor@2x.png",
+        "3": "12/supervisor@3x.png"
+      }
+    },
+    {
+      "id": "supervisor",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        9,
+        0,
+        16,
+        6
+      ],
+      "files": {
+        "1": "16/supervisor.png",
+        "2": "16/supervisor@2x.png",
+        "3": "16/supervisor@3x.png"
+      }
+    },
+    {
+      "id": "supervisor",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        14,
+        0,
+        24,
+        8
+      ],
+      "files": {
+        "1": "24/supervisor.png",
+        "2": "24/supervisor@2x.png",
+        "3": "24/supervisor@3x.png"
+      }
+    },
+    {
+      "id": "supervisor",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        19,
+        0,
+        32,
+        10
+      ],
+      "files": {
+        "1": "32/supervisor.png",
+        "2": "32/supervisor@2x.png",
+        "3": "32/supervisor@3x.png"
+      }
+    },
+    {
+      "id": "sub-agent",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        6,
+        5,
+        10,
+        10
+      ],
+      "files": {
+        "1": "10/sub-agent.png",
+        "2": "10/sub-agent@2x.png",
+        "3": "10/sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "sub-agent",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        7,
+        6,
+        12,
+        12
+      ],
+      "files": {
+        "1": "12/sub-agent.png",
+        "2": "12/sub-agent@2x.png",
+        "3": "12/sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "sub-agent",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        10,
+        8,
+        16,
+        16
+      ],
+      "files": {
+        "1": "16/sub-agent.png",
+        "2": "16/sub-agent@2x.png",
+        "3": "16/sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "sub-agent",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        16,
+        12,
+        24,
+        24
+      ],
+      "files": {
+        "1": "24/sub-agent.png",
+        "2": "24/sub-agent@2x.png",
+        "3": "24/sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "sub-agent",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        22,
+        16,
+        32,
+        32
+      ],
+      "files": {
+        "1": "32/sub-agent.png",
+        "2": "32/sub-agent@2x.png",
+        "3": "32/sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "codex-supervisor",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        10,
+        9
+      ],
+      "files": {
+        "1": "10/codex-supervisor.png",
+        "2": "10/codex-supervisor@2x.png",
+        "3": "10/codex-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "codex-supervisor",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        12,
+        11
+      ],
+      "files": {
+        "1": "12/codex-supervisor.png",
+        "2": "12/codex-supervisor@2x.png",
+        "3": "12/codex-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "codex-supervisor",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        16,
+        14
+      ],
+      "files": {
+        "1": "16/codex-supervisor.png",
+        "2": "16/codex-supervisor@2x.png",
+        "3": "16/codex-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "codex-supervisor",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        0,
+        24,
+        21
+      ],
+      "files": {
+        "1": "24/codex-supervisor.png",
+        "2": "24/codex-supervisor@2x.png",
+        "3": "24/codex-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "codex-supervisor",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        0,
+        32,
+        26
+      ],
+      "files": {
+        "1": "32/codex-supervisor.png",
+        "2": "32/codex-supervisor@2x.png",
+        "3": "32/codex-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "codex-sub-agent",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        10,
+        10
+      ],
+      "files": {
+        "1": "10/codex-sub-agent.png",
+        "2": "10/codex-sub-agent@2x.png",
+        "3": "10/codex-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "codex-sub-agent",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        2,
+        12,
+        12
+      ],
+      "files": {
+        "1": "12/codex-sub-agent.png",
+        "2": "12/codex-sub-agent@2x.png",
+        "3": "12/codex-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "codex-sub-agent",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        3,
+        16,
+        16
+      ],
+      "files": {
+        "1": "16/codex-sub-agent.png",
+        "2": "16/codex-sub-agent@2x.png",
+        "3": "16/codex-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "codex-sub-agent",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        5,
+        24,
+        24
+      ],
+      "files": {
+        "1": "24/codex-sub-agent.png",
+        "2": "24/codex-sub-agent@2x.png",
+        "3": "24/codex-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "codex-sub-agent",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        6,
+        32,
+        32
+      ],
+      "files": {
+        "1": "32/codex-sub-agent.png",
+        "2": "32/codex-sub-agent@2x.png",
+        "3": "32/codex-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "claude-supervisor",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        10,
+        9
+      ],
+      "files": {
+        "1": "10/claude-supervisor.png",
+        "2": "10/claude-supervisor@2x.png",
+        "3": "10/claude-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "claude-supervisor",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        12,
+        11
+      ],
+      "files": {
+        "1": "12/claude-supervisor.png",
+        "2": "12/claude-supervisor@2x.png",
+        "3": "12/claude-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "claude-supervisor",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        16,
+        15
+      ],
+      "files": {
+        "1": "16/claude-supervisor.png",
+        "2": "16/claude-supervisor@2x.png",
+        "3": "16/claude-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "claude-supervisor",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        0,
+        24,
+        22
+      ],
+      "files": {
+        "1": "24/claude-supervisor.png",
+        "2": "24/claude-supervisor@2x.png",
+        "3": "24/claude-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "claude-supervisor",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        0,
+        32,
+        28
+      ],
+      "files": {
+        "1": "32/claude-supervisor.png",
+        "2": "32/claude-supervisor@2x.png",
+        "3": "32/claude-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "claude-sub-agent",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        10,
+        10
+      ],
+      "files": {
+        "1": "10/claude-sub-agent.png",
+        "2": "10/claude-sub-agent@2x.png",
+        "3": "10/claude-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "claude-sub-agent",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        12,
+        12
+      ],
+      "files": {
+        "1": "12/claude-sub-agent.png",
+        "2": "12/claude-sub-agent@2x.png",
+        "3": "12/claude-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "claude-sub-agent",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        16,
+        16
+      ],
+      "files": {
+        "1": "16/claude-sub-agent.png",
+        "2": "16/claude-sub-agent@2x.png",
+        "3": "16/claude-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "claude-sub-agent",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        2,
+        24,
+        24
+      ],
+      "files": {
+        "1": "24/claude-sub-agent.png",
+        "2": "24/claude-sub-agent@2x.png",
+        "3": "24/claude-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "claude-sub-agent",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        2,
+        32,
+        32
+      ],
+      "files": {
+        "1": "32/claude-sub-agent.png",
+        "2": "32/claude-sub-agent@2x.png",
+        "3": "32/claude-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-supervisor",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        10,
+        10
+      ],
+      "files": {
+        "1": "10/antigravity-supervisor.png",
+        "2": "10/antigravity-supervisor@2x.png",
+        "3": "10/antigravity-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-supervisor",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        12,
+        12
+      ],
+      "files": {
+        "1": "12/antigravity-supervisor.png",
+        "2": "12/antigravity-supervisor@2x.png",
+        "3": "12/antigravity-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-supervisor",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        0,
+        16,
+        16
+      ],
+      "files": {
+        "1": "16/antigravity-supervisor.png",
+        "2": "16/antigravity-supervisor@2x.png",
+        "3": "16/antigravity-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-supervisor",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        4,
+        0,
+        24,
+        24
+      ],
+      "files": {
+        "1": "24/antigravity-supervisor.png",
+        "2": "24/antigravity-supervisor@2x.png",
+        "3": "24/antigravity-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-supervisor",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        5,
+        0,
+        32,
+        31
+      ],
+      "files": {
+        "1": "32/antigravity-supervisor.png",
+        "2": "32/antigravity-supervisor@2x.png",
+        "3": "32/antigravity-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-sub-agent",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        10,
+        10
+      ],
+      "files": {
+        "1": "10/antigravity-sub-agent.png",
+        "2": "10/antigravity-sub-agent@2x.png",
+        "3": "10/antigravity-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-sub-agent",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        12,
+        12
+      ],
+      "files": {
+        "1": "12/antigravity-sub-agent.png",
+        "2": "12/antigravity-sub-agent@2x.png",
+        "3": "12/antigravity-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-sub-agent",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        2,
+        1,
+        16,
+        16
+      ],
+      "files": {
+        "1": "16/antigravity-sub-agent.png",
+        "2": "16/antigravity-sub-agent@2x.png",
+        "3": "16/antigravity-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-sub-agent",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        4,
+        1,
+        24,
+        24
+      ],
+      "files": {
+        "1": "24/antigravity-sub-agent.png",
+        "2": "24/antigravity-sub-agent@2x.png",
+        "3": "24/antigravity-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "antigravity-sub-agent",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        5,
+        1,
+        32,
+        32
+      ],
+      "files": {
+        "1": "32/antigravity-sub-agent.png",
+        "2": "32/antigravity-sub-agent@2x.png",
+        "3": "32/antigravity-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-supervisor",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        0,
+        0,
+        10,
+        9
+      ],
+      "files": {
+        "1": "10/other-agent-supervisor.png",
+        "2": "10/other-agent-supervisor@2x.png",
+        "3": "10/other-agent-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-supervisor",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        0,
+        0,
+        12,
+        11
+      ],
+      "files": {
+        "1": "12/other-agent-supervisor.png",
+        "2": "12/other-agent-supervisor@2x.png",
+        "3": "12/other-agent-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-supervisor",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        16,
+        15
+      ],
+      "files": {
+        "1": "16/other-agent-supervisor.png",
+        "2": "16/other-agent-supervisor@2x.png",
+        "3": "16/other-agent-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-supervisor",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        24,
+        22
+      ],
+      "files": {
+        "1": "24/other-agent-supervisor.png",
+        "2": "24/other-agent-supervisor@2x.png",
+        "3": "24/other-agent-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-supervisor",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        0,
+        32,
+        28
+      ],
+      "files": {
+        "1": "32/other-agent-supervisor.png",
+        "2": "32/other-agent-supervisor@2x.png",
+        "3": "32/other-agent-supervisor@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-sub-agent",
+      "size": 10,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        0,
+        1,
+        10,
+        10
+      ],
+      "files": {
+        "1": "10/other-agent-sub-agent.png",
+        "2": "10/other-agent-sub-agent@2x.png",
+        "3": "10/other-agent-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-sub-agent",
+      "size": 12,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        0,
+        1,
+        12,
+        12
+      ],
+      "files": {
+        "1": "12/other-agent-sub-agent.png",
+        "2": "12/other-agent-sub-agent@2x.png",
+        "3": "12/other-agent-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-sub-agent",
+      "size": 16,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        1,
+        16,
+        16
+      ],
+      "files": {
+        "1": "16/other-agent-sub-agent.png",
+        "2": "16/other-agent-sub-agent@2x.png",
+        "3": "16/other-agent-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-sub-agent",
+      "size": 24,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        2,
+        24,
+        24
+      ],
+      "files": {
+        "1": "24/other-agent-sub-agent.png",
+        "2": "24/other-agent-sub-agent@2x.png",
+        "3": "24/other-agent-sub-agent@3x.png"
+      }
+    },
+    {
+      "id": "other-agent-sub-agent",
+      "size": 32,
+      "anchor": {
+        "x": 0,
+        "y": 0
+      },
+      "contentBounds": [
+        1,
+        2,
+        32,
+        32
+      ],
+      "files": {
+        "1": "32/other-agent-sub-agent.png",
+        "2": "32/other-agent-sub-agent@2x.png",
+        "3": "32/other-agent-sub-agent@3x.png"
+      }
+    }
+  ],
+  "preview": "preview-provider-icons.png",
+  "colorVisionPreview": {
+    "matrices": {
+      "protanopia": [
+        [
+          0.152286,
+          1.052583,
+          -0.204868
+        ],
+        [
+          0.114503,
+          0.786281,
+          0.099216
+        ],
+        [
+          -0.003882,
+          -0.048116,
+          1.051998
+        ]
+      ],
+      "deuteranopia": [
+        [
+          0.367322,
+          0.860646,
+          -0.227968
+        ],
+        [
+          0.280085,
+          0.672501,
+          0.047413
+        ],
+        [
+          -0.01182,
+          0.04294,
+          0.968881
+        ]
+      ]
+    },
+    "colorSpace": "linear sRGB",
+    "scope": "approximate full protanopia/deuteranopia, not clinical validation"
+  },
+  "integration": "art deliverable only; tools/build_pack.py and the runtime pack are unchanged"
+}
