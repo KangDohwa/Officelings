@@ -1,0 +1,96 @@
+{
+  "cell": {
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "style": "Match nurse-nightowl base identity exactly. True 2D PIXEL CHIBI, overhead 3/4 cozy game angle; hard-edged square pixels; warm readable limited palette with 3-4 discrete tones; strong dark selective outline, no smoothing, gradients or dithering. Head AT LEAST one third of body height. Big eyes with WHITE catchlights clearly visible at native size, never black dot eyes or closed eyes except sleep and back views. Target about 26x46 logical pixels in each 32x64 cell. Pure solid magenta #FF00FF outside figure, no magenta in character, no detached marks, text, shadows or furniture. IDENTITY: Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions.",
+  "fit": {
+    "pixel_unfake": true,
+    "palette_size": 32,
+    "align_x": "foot-centroid",
+    "align_y": "bottom",
+    "ground_frames": true
+  },
+  "states": {
+    "idle": {
+      "frames": 4,
+      "fps": 0,
+      "loop": false,
+      "action": "Four STATIC orientation anchors: frame 0 faces DOWN toward viewer; frame 1 faces LEFT; frame 2 faces RIGHT; frame 3 faces UP away, back of head visible. Same full-body idle stance in every direction. Do not animate between these views. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "walk_down": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place facing DOWN toward viewer, top of head visible. Four DISTINCT gait phases: left foot forward/right back; feet pass under body; right foot forward/left back; opposite passing. Short readable steps, opposite arm swing, constant head size, no horizontal travel. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "walk_left": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place toward LEFT in top-down 3/4 side view. Four DISTINCT gait phases: left-leg contact, passing, right-leg contact, passing. Clearly alternate forward legs and arms. No travel across slots. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "walk_right": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place toward RIGHT in top-down 3/4 side view. Four DISTINCT gait phases: left-leg contact, passing, right-leg contact, passing. Clearly alternate forward legs and arms. No travel across slots. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "walk_up": {
+      "frames": 4,
+      "fps": 7,
+      "loop": true,
+      "action": "Walking in place UP away from viewer, back of head visible, face hidden. Four DISTINCT gait phases: opposite foot contacts and passes, alternating shoes visible beneath trousers. Arms counter-swing. No travel across slots. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "typing_back": {
+      "frames": 3,
+      "fps": 5,
+      "loop": true,
+      "action": "Seated nurse typing, viewed from BACK facing UP. Show ONLY nurse in a seated pose, knees bent, hands extended at keyboard height: left hand presses, both hands hover, right hand presses. No desk, monitor, chair or keyboard; furniture is a separate game layer. Back of hair and teal scrub top clear. Forearms stay LOW at waist/hip height; shoulders relaxed, not raised beside head. Hands extend forward toward invisible keyboard, never raised fists. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "typing_side": {
+      "frames": 3,
+      "fps": 5,
+      "loop": true,
+      "action": "Seated nurse typing, 3/4 SIDE facing RIGHT. Show ONLY nurse, bent knees, forearms extended horizontally at waist: left fingers down, both hands poised, right fingers down. No desk, monitor, keyboard or chair; separate furniture layer. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "report": {
+      "frames": 3,
+      "fps": 5,
+      "loop": false,
+      "action": "Facing RIGHT, hand over a small cream paper report: frame 0 paper held close to chest, frame 1 forearm extends paper forward, frame 2 open hand offered outward with paper at fingertip. Paper always touches hand. Feet planted. Keep paper within sprite cell. No other person. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "sleep": {
+      "frames": 2,
+      "fps": 2,
+      "loop": true,
+      "action": "Napping seated upright facing DOWN, knees bent, head slumped gently toward shoulder, eyes shut; two subtly different breathing poses. No bed, sofa, furniture, pillow, zzz or floating marks. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "coffee": {
+      "frames": 3,
+      "fps": 3,
+      "loop": true,
+      "action": "Facing DOWN-right, drinking coffee from one BIG cream-and-amber mug, about 7 logical pixels wide, clearly larger than a small cup: hold mug at chest, lift mug to mouth, lower mug. Mug must touch hand. No steam, no detached pixels. Feet planted. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "phone": {
+      "frames": 3,
+      "fps": 3,
+      "loop": true,
+      "action": "Facing DOWN-right, scrolling dark navy phone held in both hands near chest, head tilted down: thumb at top, thumb lower, thumb taps. Phone screen a few pale blue pixels, touches hands. Feet planted. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "talk": {
+      "frames": 3,
+      "fps": 4,
+      "loop": true,
+      "action": "Facing DOWN-right, friendly talking gesture: relaxed mouth, one hand palm open at chest, hand lowers with tiny open mouth. Feet planted. No speech bubbles, text or other person. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    },
+    "surprised": {
+      "frames": 2,
+      "fps": 5,
+      "loop": false,
+      "action": "Facing DOWN, surprised expression: frame 0 wide expressive highlighted eyes and small O mouth, shoulders lift; frame 1 hands raised beside cheeks, slightly leaning back. No punctuation or floating exclamation; exclamation bubble is separate overlay. Preserve fixed outfit, head size, dark-blue messy ponytail and socks/slippers. Every visible open eye has a BRIGHT WHITE catchlight. Short softly pear-shaped tired-but-cheerful adult nurse. Very large round head about 43 percent of standing body height. Warm peach/tan face, big OPEN warm-brown eyes with dark navy pupils and one clear BRIGHT WHITE square catchlight in EACH visible eye, faint tired lower-eye shading, cheerful small mouth. Broad visible forehead and hairline. Dark-blue messy high ponytail with amber tie and curved chunky tail behind the head, side-swept fringe never hides eyes, two stray tufts. Teal V-neck short-sleeve scrubs with cream pocket and small amber badge; matching teal cropped-cuff loose trousers. Charcoal neck stethoscope with pale silver chest disc. Cream socks and broad coral/ochre slippers with dark soles. No lab coat, hat, bun, glasses or scarf. The large cream-and-amber mug appears only in coffee, no mug in other actions."
+    }
+  }
+}
