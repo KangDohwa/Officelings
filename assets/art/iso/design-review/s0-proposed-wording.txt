@@ -1,0 +1,59 @@
+S0 integrator 검토용 제안 문구 — 실제 docs/iso-slice-s0.md는 수정하지 않았음
+
+적용 전제: 가구 수정안의 실제 export/empty reconstruction/보행자 깊이 검수 후 승인.
+현재 design-review의 수치는 상부 축소와 표면 경계의 합성 근사이며 최종 export의 보증이 아니다.
+
+1. Frozen geometry table: change only the chair back height in the row below.
+
+| `deskHeight`, `seatHeight` | Desktop 18, cushion 12. Monitor top 36; chair back top 21 (previously 28). |
+
+No change to projection P, tile 64x32, character cell 32x64, foot (16,60),
+standing height 40 / allowance 38–42, seated pelvis (16,44), desk/monitor/cushion
+heights, front-only seat profile, A/C/H, hand contacts/tolerance, phaseContacts,
+timings, palette or ordinary ground-depth sorting.
+
+2. Replace/extend the seated occlusion paragraph near the current "At a seat" rule:
+
+At a seat, chair rear is −20, actor 0, desk front 10, chair front 20.
+For SE/SW desks with NW/NE seated workers, split the keyboard-bearing seat
+strip into the horizontal desktop/keyboard surface and the physical front
+fascia. The horizontal surface belongs to a seat-group rear part at −20;
+the front fascia stays at 10. Do not put the whole keyboard-bearing strip
+at 10 or move its whole fascia behind the actor. Preserve the exact source
+anchors and frozen C/H contacts. Use disjoint physical surface/edge masks,
+with ground-cell parts and ordinary depthAnchor values for passing walkers;
+the occupied seat-group override applies only to the attached assembly.
+
+The backrest covering a back-facing torso remains a front occluding part
+at 20. Shorten its physical backrest to the revised top height 21 while
+keeping the cushion at 12 and the pelvis at the same contact. The backrest
+is rear for SE/SW sitters and front for NE/NW sitters in the corresponding
+chair exports. Do not solve head readability by putting the entire backrest
+behind a back-facing torso or by globally raising the actor/head depth.
+
+Parts reconstruct each complete empty object without duplicated opaque
+pixels. Check all four orientations with the three pilot rigs. Walkers keep
+their own ground depth; never replace their depth with the seat depth.
+
+3. Add an A3/C2 visual gate (proposed threshold, requires integrator approval):
+
+For all four phases of seated-typing-front, measure head visibility using
+the pilot's canonical head alpha at its documented clip offset and the
+actual furniture part queue. At desk SE/SW (worker NW/NE), require at least
+85% visible head pixels per phase for each pilot. At desk NE/NW (worker
+SW/SE), retain at least 90%. Publish visible/total head, a precisely defined
+torso region, and hand-contact skin region counts for every orientation.
+Define masks before evaluating furniture variants and preserve denominators.
+Do not count missing head pixels as increased visibility. A checker pass
+alone does not meet this visual gate. Review C/H, empty reconstruction,
+passing walkers, transitions and WPF ordering separately.
+
+Scope of this review's evidence:
+- desk-surface-rear + chair-down7 gives rear head 85.8–91.2% and rear hand
+  contact-region visibility 100% on these source exports.
+- The cutoffs are empty-object geometric proxies, not approved final masks.
+- SE/SW worker hands remain fully occluded in the baseline and were not
+  corrected by this rear-worker-only simulation. Review their keyboard
+  surface ordering before claiming four-direction hand visibility.
+- Furniture-only regeneration/export is recommended. Character head/pelvis
+  anchors are unchanged. No WPF or runtime depth test was performed.

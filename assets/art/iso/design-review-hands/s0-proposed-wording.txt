@@ -1,0 +1,72 @@
+docs/iso-slice-s0.md 제안 문구 — 미적용
+
+권고안은 가구 제작 전의 정적 후보다. 기존 frozen C/H, source cell, 높이,
+허용오차와 후면 head gate를 유지한다. 아래 문구는 CRT 중심의 3/4만 9/8로
+바꾸며, 새 손 100% gate를 기존 기준인 것처럼 추가하지 않는다.
+
+[Exact contact reference의 CRT 배치 문장 교체]
+
+CRT ground center is A+9/8 f; its projected base is P(A+9/8 f,18),
+with an 18px screen height and monitor top 36. Keyboard hand contacts
+remain at H=P(A+3/8 f,18), including the frozen paired source pixels.
+This changes the CRT center from A+3/4 f; it does not change chair A,
+pelvis C, hand H, desk height 18, cushion height 12, chair back top 21,
+32x64 character cells, seatAnchor (16,44), or the <=1px contact tolerance.
+Reproject all four orientations from the same physical model.
+
+Relative to the previous CRT position, apply ground-grid deltas:
+desk SE (-3/8,0), SW (0,-3/8), NE (0,+3/8), NW (+3/8,0).
+Their projected pixel deltas are (-12,-6), (+12,-6), (-12,+6), (+12,+6).
+Update monitor/screen ordinary depthAnchor values by those grid deltas;
+retain their physical ground sorting and existing isoZOrder values.
+Rebuild previously hidden desktop pixels, CRT base/housing, screen/LED
+holes and masks, all desk states, empty references and affected shadows.
+Do not ship the design-review PNG translation as finished furniture.
+
+When adopting this change in the exact contact fixture as well, synchronize
+tools/iso_check.py reference generation (both .75 coefficients in the CRT
+project call become 1.125) and regenerate assets/art/iso/ref/iso-contact-v1.png.
+Those are future integration changes; this review modifies neither file.
+
+[Naming and manifest conventions의 seat ordering 뒤 추가]
+
+For NE/NW desks with SE/SW seated workers, split the keyboard-bearing
+seat strip into horizontal desktop/keyboard and physical fascia/trim.
+Assign the horizontal seat surface to rear isoZOrder -20 at the attached
+worker's seat-ground depth; retain fascia at 10. Preserve source anchors,
+frozen C/H contacts, ordinary per-edge depthAnchor values and exact empty
+reconstruction through disjoint physical masks. The existing SE/SW desk
+surface split for NW/NE seated workers remains in force.
+
+Keep CRT housing/base in the ordinary physical furniture queue. Do not
+raise the entire actor, or redraw hands/forearms over the CRT to force
+visibility. If actor parts are later introduced, publish their physical
+depth rules and transition behavior before relying on them.
+
+[A3 / C2 접점 시각 검수 문구 추가]
+
+For every pilot, facing and all four seated-typing-front phases, publish
+visible/total counts for the documented contact-skin ROI and forearm/sleeve
+ROI using the actual current furniture parts and queue. Define ROIs before
+observing furniture overlap and preserve denominators across proposals.
+Contact texels alone do not establish readable hands or a readable keyboard.
+Review at native 1x and exact nearest-neighbor 3x: sleeves/forearms should
+lead continuously toward the keyboard or into a physically valid occluder.
+
+A static design-review proxy for the relocated CRT exposed 100% of the
+contact-skin ROI and 86-96% of the forearm/sleeve ROI for SE/SW workers.
+These figures are candidate effects, not final raster or runtime acceptance.
+After physical furniture reconstruction, remeasure all four facings, retain
+the existing >=85% NW/NE and >=90% SE/SW head gates, and review empty/state
+reconstruction, props, walkers, sit/stand transitions, WPF depth and picking.
+The hero is a composition reference and does not supply a numerical hand gate.
+
+[CRT 배치를 유지하는 대안 — 위 9/8 변경을 채택하지 않을 때만]
+
+With the retained CRT center A+3/4 f, SE/SW contact skin may be fully
+occluded by the CRT housing in a correct 2:1 projection. Report that 0%
+visibility explicitly. Do not describe it as successful visible-hand
+typing, or as hands necessarily lying below the desktop. Judge typing
+readability from continuous visible sleeves/forearms entering the occluder.
+The actual hero shows light wrist/palm-like masses near a keyboard, without
+an unambiguous pair of articulated hands; it cannot justify a 100% hand gate.

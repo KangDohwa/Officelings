@@ -1,0 +1,575 @@
+{
+  "aggregate": [
+    {
+      "character": "dev-hoodie-v2",
+      "worker": "se",
+      "hands": {
+        "visible": 0,
+        "total": 66
+      },
+      "forearmSleeve": {
+        "visible": 148,
+        "total": 293
+      }
+    },
+    {
+      "character": "dev-hoodie-v2",
+      "worker": "sw",
+      "hands": {
+        "visible": 0,
+        "total": 66
+      },
+      "forearmSleeve": {
+        "visible": 204,
+        "total": 293
+      }
+    },
+    {
+      "character": "dev-hoodie-v2",
+      "worker": "ne",
+      "hands": {
+        "visible": 69,
+        "total": 69
+      },
+      "forearmSleeve": {
+        "visible": 246,
+        "total": 246
+      }
+    },
+    {
+      "character": "dev-hoodie-v2",
+      "worker": "nw",
+      "hands": {
+        "visible": 69,
+        "total": 69
+      },
+      "forearmSleeve": {
+        "visible": 246,
+        "total": 246
+      }
+    },
+    {
+      "character": "punk-girl",
+      "worker": "se",
+      "hands": {
+        "visible": 0,
+        "total": 66
+      },
+      "forearmSleeve": {
+        "visible": 116,
+        "total": 277
+      }
+    },
+    {
+      "character": "punk-girl",
+      "worker": "sw",
+      "hands": {
+        "visible": 0,
+        "total": 58
+      },
+      "forearmSleeve": {
+        "visible": 180,
+        "total": 297
+      }
+    },
+    {
+      "character": "punk-girl",
+      "worker": "ne",
+      "hands": {
+        "visible": 84,
+        "total": 84
+      },
+      "forearmSleeve": {
+        "visible": 247,
+        "total": 247
+      }
+    },
+    {
+      "character": "punk-girl",
+      "worker": "nw",
+      "hands": {
+        "visible": 86,
+        "total": 86
+      },
+      "forearmSleeve": {
+        "visible": 208,
+        "total": 208
+      }
+    },
+    {
+      "character": "professor",
+      "worker": "se",
+      "hands": {
+        "visible": 0,
+        "total": 51
+      },
+      "forearmSleeve": {
+        "visible": 176,
+        "total": 332
+      }
+    },
+    {
+      "character": "professor",
+      "worker": "sw",
+      "hands": {
+        "visible": 0,
+        "total": 51
+      },
+      "forearmSleeve": {
+        "visible": 240,
+        "total": 332
+      }
+    },
+    {
+      "character": "professor",
+      "worker": "ne",
+      "hands": {
+        "visible": 67,
+        "total": 67
+      },
+      "forearmSleeve": {
+        "visible": 240,
+        "total": 252
+      }
+    },
+    {
+      "character": "professor",
+      "worker": "nw",
+      "hands": {
+        "visible": 68,
+        "total": 68
+      },
+      "forearmSleeve": {
+        "visible": 228,
+        "total": 256
+      }
+    }
+  ],
+  "proposals": [
+    {
+      "scenario": "baseline",
+      "hands": {
+        "visible": 0,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1064,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          0.0,
+          0.0
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          72.28915662650603
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "keyboard-rear",
+      "hands": {
+        "visible": 46,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1064,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          9.090909090909092,
+          16.666666666666664
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          72.28915662650603
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "surface-rear",
+      "hands": {
+        "visible": 46,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1064,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          9.090909090909092,
+          16.666666666666664
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          72.28915662650603
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "monitor-base-rear",
+      "hands": {
+        "visible": 0,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1064,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          0.0,
+          0.0
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          72.28915662650603
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "hands-up1",
+      "hands": {
+        "visible": 0,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1064,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          0.0,
+          0.0
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          72.28915662650603
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "arms-hands-up1",
+      "hands": {
+        "visible": 0,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1080,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          0.0,
+          0.0
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          73.49397590361446
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "keyboard-down1",
+      "hands": {
+        "visible": 45,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1064,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          5.555555555555555,
+          18.181818181818183
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          72.28915662650603
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "keyboard-camera8",
+      "hands": {
+        "visible": 26,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1064,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          0.0,
+          27.77777777777778
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          72.28915662650603
+        ]
+      },
+      "frozenHDistanceRange": [
+        3,
+        3
+      ]
+    },
+    {
+      "scenario": "monitor-side8",
+      "hands": {
+        "visible": 260,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1676,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          50.0,
+          90.9090909090909
+        ],
+        "forearmSleeve": [
+          85.5072463768116,
+          95.94594594594594
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "surface-rear+monitor-side8",
+      "hands": {
+        "visible": 294,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1676,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          54.54545454545454,
+          100.0
+        ],
+        "forearmSleeve": [
+          85.5072463768116,
+          95.94594594594594
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "surface-rear+monitor-side12",
+      "hands": {
+        "visible": 358,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1680,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          100.0,
+          100.0
+        ],
+        "forearmSleeve": [
+          86.48648648648648,
+          95.94594594594594
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "monitor-inward8",
+      "hands": {
+        "visible": 260,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1676,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          50.0,
+          90.9090909090909
+        ],
+        "forearmSleeve": [
+          85.5072463768116,
+          95.94594594594594
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "surface-rear+monitor-inward8",
+      "hands": {
+        "visible": 294,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1676,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          54.54545454545454,
+          100.0
+        ],
+        "forearmSleeve": [
+          85.5072463768116,
+          95.94594594594594
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "surface-rear+monitor-inward12",
+      "hands": {
+        "visible": 358,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1680,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          100.0,
+          100.0
+        ],
+        "forearmSleeve": [
+          86.48648648648648,
+          95.94594594594594
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "arms-over-strip",
+      "hands": {
+        "visible": 46,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1064,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          9.090909090909092,
+          16.666666666666664
+        ],
+        "forearmSleeve": [
+          41.42857142857143,
+          72.28915662650603
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "arms-over-all",
+      "hands": {
+        "visible": 358,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1824,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          100.0,
+          100.0
+        ],
+        "forearmSleeve": [
+          100.0,
+          100.0
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    },
+    {
+      "scenario": "monitor-absent",
+      "hands": {
+        "visible": 312,
+        "total": 358
+      },
+      "forearmSleeve": {
+        "visible": 1680,
+        "total": 1824
+      },
+      "rangesPct": {
+        "hands": [
+          83.33333333333334,
+          90.9090909090909
+        ],
+        "forearmSleeve": [
+          86.48648648648648,
+          95.94594594594594
+        ]
+      },
+      "frozenHDistanceRange": [
+        0,
+        1
+      ]
+    }
+  ]
+}
