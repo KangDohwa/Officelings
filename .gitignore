@@ -35,3 +35,5 @@ __pycache__/
 *.pyc
 assets/art/env3/runs/
 assets/art/env3/qa/
+assets/art/seated/*/source-contact-*.png
+assets/art/seated/*/qa.json
