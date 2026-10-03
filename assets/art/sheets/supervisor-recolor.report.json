@@ -1,0 +1,2315 @@
+{
+  "ok": true,
+  "kind": "sprite-gen-recolor-report",
+  "base": "normalized.png",
+  "match": "exact",
+  "tolerance": 0,
+  "alpha_threshold": 8,
+  "variant_count": 12,
+  "variants": [
+    {
+      "name": "codex-supervisor-01",
+      "sheet": "codex-supervisor-01.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#1d3a39",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#235e5c",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#235e5c",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#348884",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#348884",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#348884",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#348884",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#5db1a5",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#5db1a5",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#784128",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#784128",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#784128",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#784128",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#ad633d",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#ad633d",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#ce894f",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#eca662",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#eca662",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#eca662",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#eca662",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#eca662",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#eca662",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#eca662",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "codex-supervisor-01.manifest.json"
+    },
+    {
+      "name": "codex-supervisor-02",
+      "sheet": "codex-supervisor-02.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#1d3a39",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#235e5c",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#235e5c",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#348884",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#348884",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#348884",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#348884",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#5db1a5",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#5db1a5",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#bb8f4c",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#bb8f4c",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#bb8f4c",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#bb8f4c",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#e3c273",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#e3c273",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#d29878",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#f1c29a",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#f1c29a",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#f1c29a",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#f1c29a",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#f1c29a",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#f1c29a",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#f1c29a",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "codex-supervisor-02.manifest.json"
+    },
+    {
+      "name": "codex-supervisor-03",
+      "sheet": "codex-supervisor-03.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#1d3a39",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#235e5c",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#235e5c",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#348884",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#348884",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#348884",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#348884",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#5db1a5",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#5db1a5",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#34313b",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#34313b",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#34313b",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#34313b",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#4d464a",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#4d464a",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#573029",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#824d39",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#824d39",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#824d39",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#824d39",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#824d39",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#824d39",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#824d39",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "codex-supervisor-03.manifest.json"
+    },
+    {
+      "name": "codex-supervisor-04",
+      "sheet": "codex-supervisor-04.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#1d3a39",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#235e5c",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#235e5c",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#348884",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#348884",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#348884",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#348884",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#5db1a5",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#5db1a5",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#843526",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#843526",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#843526",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#843526",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#b45232",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#b45232",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#8e5f42",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#bb8c60",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#bb8c60",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#bb8c60",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#bb8c60",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#bb8c60",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#bb8c60",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#bb8c60",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "codex-supervisor-04.manifest.json"
+    },
+    {
+      "name": "claude-supervisor-01",
+      "sheet": "claude-supervisor-01.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#4c2a23",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#82442c",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#82442c",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#b96537",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#b96537",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#b96537",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#b96537",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#e5975d",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#e5975d",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#784128",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#784128",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#784128",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#784128",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#ad633d",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#ad633d",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#ce894f",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#eca662",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#eca662",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#eca662",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#eca662",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#eca662",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#eca662",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#eca662",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "claude-supervisor-01.manifest.json"
+    },
+    {
+      "name": "claude-supervisor-02",
+      "sheet": "claude-supervisor-02.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#4c2a23",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#82442c",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#82442c",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#b96537",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#b96537",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#b96537",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#b96537",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#e5975d",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#e5975d",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#bb8f4c",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#bb8f4c",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#bb8f4c",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#bb8f4c",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#e3c273",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#e3c273",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#d29878",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#f1c29a",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#f1c29a",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#f1c29a",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#f1c29a",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#f1c29a",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#f1c29a",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#f1c29a",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "claude-supervisor-02.manifest.json"
+    },
+    {
+      "name": "claude-supervisor-03",
+      "sheet": "claude-supervisor-03.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#4c2a23",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#82442c",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#82442c",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#b96537",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#b96537",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#b96537",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#b96537",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#e5975d",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#e5975d",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#34313b",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#34313b",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#34313b",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#34313b",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#4d464a",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#4d464a",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#573029",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#824d39",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#824d39",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#824d39",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#824d39",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#824d39",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#824d39",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#824d39",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "claude-supervisor-03.manifest.json"
+    },
+    {
+      "name": "claude-supervisor-04",
+      "sheet": "claude-supervisor-04.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#4c2a23",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#82442c",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#82442c",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#b96537",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#b96537",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#b96537",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#b96537",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#e5975d",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#e5975d",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#843526",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#843526",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#843526",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#843526",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#b45232",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#b45232",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#8e5f42",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#bb8c60",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#bb8c60",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#bb8c60",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#bb8c60",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#bb8c60",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#bb8c60",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#bb8c60",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "claude-supervisor-04.manifest.json"
+    },
+    {
+      "name": "antigravity-supervisor-01",
+      "sheet": "antigravity-supervisor-01.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#27284d",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#423f7e",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#423f7e",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#6464b8",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#6464b8",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#6464b8",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#6464b8",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#9ca3dd",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#9ca3dd",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#784128",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#784128",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#784128",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#784128",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#ad633d",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#ad633d",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#ce894f",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#eca662",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#eca662",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#eca662",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#eca662",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#eca662",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#eca662",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#eca662",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "antigravity-supervisor-01.manifest.json"
+    },
+    {
+      "name": "antigravity-supervisor-02",
+      "sheet": "antigravity-supervisor-02.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#27284d",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#423f7e",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#423f7e",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#6464b8",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#6464b8",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#6464b8",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#6464b8",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#9ca3dd",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#9ca3dd",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#bb8f4c",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#bb8f4c",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#bb8f4c",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#bb8f4c",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#e3c273",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#e3c273",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#d29878",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#f1c29a",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#f1c29a",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#f1c29a",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#f1c29a",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#f1c29a",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#f1c29a",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#f1c29a",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "antigravity-supervisor-02.manifest.json"
+    },
+    {
+      "name": "antigravity-supervisor-03",
+      "sheet": "antigravity-supervisor-03.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#27284d",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#423f7e",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#423f7e",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#6464b8",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#6464b8",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#6464b8",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#6464b8",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#9ca3dd",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#9ca3dd",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#34313b",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#34313b",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#34313b",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#34313b",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#4d464a",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#4d464a",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#573029",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#824d39",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#824d39",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#824d39",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#824d39",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#824d39",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#824d39",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#824d39",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "antigravity-supervisor-03.manifest.json"
+    },
+    {
+      "name": "antigravity-supervisor-04",
+      "sheet": "antigravity-supervisor-04.png",
+      "substituted_pixels": 27794,
+      "substitutions": [
+        {
+          "from": "#201100",
+          "to": "#201100",
+          "pixels": 840
+        },
+        {
+          "from": "#203333",
+          "to": "#27284d",
+          "pixels": 1067
+        },
+        {
+          "from": "#25120e",
+          "to": "#25120e",
+          "pixels": 5909
+        },
+        {
+          "from": "#2a1613",
+          "to": "#2a1613",
+          "pixels": 1615
+        },
+        {
+          "from": "#334a48",
+          "to": "#423f7e",
+          "pixels": 387
+        },
+        {
+          "from": "#3b4444",
+          "to": "#3b4444",
+          "pixels": 308
+        },
+        {
+          "from": "#3e403f",
+          "to": "#3e403f",
+          "pixels": 936
+        },
+        {
+          "from": "#3f1f18",
+          "to": "#3f1f18",
+          "pixels": 926
+        },
+        {
+          "from": "#3f2e29",
+          "to": "#3f2e29",
+          "pixels": 1113
+        },
+        {
+          "from": "#405d5c",
+          "to": "#423f7e",
+          "pixels": 245
+        },
+        {
+          "from": "#547572",
+          "to": "#6464b8",
+          "pixels": 124
+        },
+        {
+          "from": "#562d00",
+          "to": "#562d00",
+          "pixels": 588
+        },
+        {
+          "from": "#567673",
+          "to": "#6464b8",
+          "pixels": 4
+        },
+        {
+          "from": "#567774",
+          "to": "#6464b8",
+          "pixels": 109
+        },
+        {
+          "from": "#5a7c79",
+          "to": "#6464b8",
+          "pixels": 698
+        },
+        {
+          "from": "#608280",
+          "to": "#9ca3dd",
+          "pixels": 1048
+        },
+        {
+          "from": "#6c918e",
+          "to": "#9ca3dd",
+          "pixels": 312
+        },
+        {
+          "from": "#6d3b29",
+          "to": "#843526",
+          "pixels": 1255
+        },
+        {
+          "from": "#7c4630",
+          "to": "#843526",
+          "pixels": 2312
+        },
+        {
+          "from": "#854c32",
+          "to": "#843526",
+          "pixels": 2834
+        },
+        {
+          "from": "#8f5235",
+          "to": "#843526",
+          "pixels": 312
+        },
+        {
+          "from": "#995736",
+          "to": "#b45232",
+          "pixels": 167
+        },
+        {
+          "from": "#a96644",
+          "to": "#b45232",
+          "pixels": 460
+        },
+        {
+          "from": "#b67e01",
+          "to": "#b67e01",
+          "pixels": 168
+        },
+        {
+          "from": "#c9723f",
+          "to": "#8e5f42",
+          "pixels": 304
+        },
+        {
+          "from": "#d0b999",
+          "to": "#d0b999",
+          "pixels": 51
+        },
+        {
+          "from": "#dbc5a3",
+          "to": "#dbc5a3",
+          "pixels": 58
+        },
+        {
+          "from": "#e59f5f",
+          "to": "#bb8c60",
+          "pixels": 57
+        },
+        {
+          "from": "#e79b52",
+          "to": "#bb8c60",
+          "pixels": 139
+        },
+        {
+          "from": "#eda661",
+          "to": "#bb8c60",
+          "pixels": 36
+        },
+        {
+          "from": "#f0aa60",
+          "to": "#bb8c60",
+          "pixels": 370
+        },
+        {
+          "from": "#f1a355",
+          "to": "#bb8c60",
+          "pixels": 132
+        },
+        {
+          "from": "#f2a75a",
+          "to": "#bb8c60",
+          "pixels": 214
+        },
+        {
+          "from": "#f4ab5d",
+          "to": "#bb8c60",
+          "pixels": 1450
+        },
+        {
+          "from": "#faecc9",
+          "to": "#faecc9",
+          "pixels": 574
+        },
+        {
+          "from": "#fbd61d",
+          "to": "#fbd61d",
+          "pixels": 672
+        }
+      ],
+      "unused_sources": [],
+      "passthrough_pixels": 0,
+      "passthrough_color_count": 0,
+      "passthrough_colors": [],
+      "manifest": "antigravity-supervisor-04.manifest.json"
+    }
+  ]
+}

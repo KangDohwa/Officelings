@@ -1,0 +1,141 @@
+{
+  "characterId": "icons",
+  "engine": "component-row",
+  "game_input": "icons.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "icons.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": "base-source.png",
+  "cell": {
+    "shape": "square",
+    "width": 32,
+    "height": 32,
+    "safe_margin_x": 2,
+    "safe_margin_y": 2,
+    "size": 32,
+    "safe_margin": 2
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "columns": 6,
+    "rows": {
+      "report_item": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "bubbles": {
+        "row": 1,
+        "frames": 6,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000,
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "role_badges": {
+        "row": 2,
+        "frames": 2,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 192,
+    "sheetHeight": 96,
+    "cellWidth": 32,
+    "cellHeight": 32,
+    "rows": {
+      "report_item": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "bubbles": [
+        {
+          "x": 0,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 64,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 96,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 128,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 160,
+          "y": 32,
+          "w": 32,
+          "h": 32
+        }
+      ],
+      "role_badges": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 32
+        }
+      ]
+    }
+  }
+}

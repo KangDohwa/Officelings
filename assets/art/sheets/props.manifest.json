@@ -1,0 +1,286 @@
+{
+  "characterId": "props",
+  "engine": "component-row",
+  "game_input": "props.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "props.png",
+  "sprite_sheet_alpha_report": "sprite-sheet-alpha.report.json",
+  "base_image": "base-source.png",
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 3,
+    "rows": {
+      "desk": {
+        "row": 0,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "chair": {
+        "row": 1,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "coffee_machine": {
+        "row": 2,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "water_cooler": {
+        "row": 3,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sofa": {
+        "row": 4,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "tv": {
+        "row": 5,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "plants": {
+        "row": 6,
+        "frames": 3,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "window": {
+        "row": 7,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "door": {
+        "row": 8,
+        "frames": 2,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "clock": {
+        "row": 9,
+        "frames": 3,
+        "fps": 1,
+        "durations_ms": [
+          1000,
+          1000,
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 192,
+    "sheetHeight": 640,
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "rows": {
+      "desk": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "chair": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "coffee_machine": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "water_cooler": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "sofa": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "tv": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 320,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "plants": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 384,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "window": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "door": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 512,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "clock": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 576,
+          "w": 64,
+          "h": 64
+        }
+      ]
+    }
+  }
+}
