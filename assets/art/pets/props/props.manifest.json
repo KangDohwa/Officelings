@@ -1,0 +1,340 @@
+{
+  "characterId": "props",
+  "engine": "component-row",
+  "game_input": "props.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "props.png",
+  "sprite_sheet_alpha_report": "../qa/validation.json",
+  "base_image": "../runs/props/sprite-sheet-alpha.png",
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "anchor": {
+    "x": 32,
+    "y": 61
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 1,
+    "rows": {
+      "dog_bed": {
+        "row": 0,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "cat_tree": {
+        "row": 1,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "water_bowl": {
+        "row": 2,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "food_bowl": {
+        "row": 3,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "ball": {
+        "row": 4,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "yarn": {
+        "row": 5,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "scratching_post": {
+        "row": 6,
+        "frames": 1,
+        "fps": 1,
+        "durations_ms": [
+          1000
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 64,
+    "sheetHeight": 448,
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "rows": {
+      "dog_bed": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "cat_tree": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "water_bowl": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "food_bowl": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "ball": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "yarn": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "scratching_post": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 64,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "interactions": {
+    "coordinates": "Source pixels local to the selected 64x64 prop cell; not tiles or sheet coordinates.",
+    "placement": "propTopLeft=propAnchorWorld-(32,61)*scale. petTopLeft=propTopLeft+target*scale-petContact*scale. For approaching on floor, align pet anchor (16,29) to petAnchor instead. Contacts can lie outside the prop cell.",
+    "points": {
+      "dog_bed": [
+        {
+          "action": "sleep",
+          "target": {
+            "x": 32,
+            "y": 50
+          },
+          "petAnchor": {
+            "x": 32,
+            "y": 66
+          },
+          "facing": "right",
+          "alignPetField": "pet.sleepContact",
+          "pets": [
+            "shiba",
+            "tuxedo-cat",
+            "orange-tabby",
+            "corgi",
+            "capybara"
+          ]
+        }
+      ],
+      "cat_tree": [
+        {
+          "action": "sit",
+          "target": {
+            "x": 32,
+            "y": 20
+          },
+          "petAnchor": {
+            "x": 32,
+            "y": 67
+          },
+          "facing": "down",
+          "alignPetField": "anchor",
+          "pets": [
+            "tuxedo-cat",
+            "orange-tabby"
+          ]
+        },
+        {
+          "action": "sleep",
+          "target": {
+            "x": 28,
+            "y": 39
+          },
+          "petAnchor": {
+            "x": 32,
+            "y": 67
+          },
+          "facing": "right",
+          "alignPetField": "pet.sleepContact",
+          "pets": [
+            "tuxedo-cat",
+            "orange-tabby"
+          ]
+        }
+      ],
+      "water_bowl": [
+        {
+          "action": "eat_drink",
+          "target": {
+            "x": 32,
+            "y": 56
+          },
+          "petAnchor": {
+            "x": 22,
+            "y": 65
+          },
+          "facing": "right",
+          "alignPetField": "pet.muzzleContact",
+          "pets": [
+            "shiba",
+            "tuxedo-cat",
+            "orange-tabby",
+            "corgi",
+            "capybara"
+          ]
+        }
+      ],
+      "food_bowl": [
+        {
+          "action": "eat_drink",
+          "target": {
+            "x": 32,
+            "y": 56
+          },
+          "petAnchor": {
+            "x": 22,
+            "y": 65
+          },
+          "facing": "right",
+          "alignPetField": "pet.muzzleContact",
+          "pets": [
+            "shiba",
+            "tuxedo-cat",
+            "orange-tabby",
+            "corgi",
+            "capybara"
+          ]
+        }
+      ],
+      "ball": [
+        {
+          "action": "play",
+          "target": {
+            "x": 32,
+            "y": 57
+          },
+          "petAnchor": {
+            "x": 20,
+            "y": 64
+          },
+          "facing": "right",
+          "alignPetField": "anchor",
+          "pets": [
+            "shiba",
+            "corgi",
+            "tuxedo-cat",
+            "orange-tabby"
+          ]
+        }
+      ],
+      "yarn": [
+        {
+          "action": "play",
+          "target": {
+            "x": 32,
+            "y": 56
+          },
+          "petAnchor": {
+            "x": 20,
+            "y": 64
+          },
+          "facing": "right",
+          "alignPetField": "anchor",
+          "pets": [
+            "tuxedo-cat",
+            "orange-tabby"
+          ]
+        }
+      ],
+      "scratching_post": [
+        {
+          "action": "play",
+          "target": {
+            "x": 32,
+            "y": 44
+          },
+          "petAnchor": {
+            "x": 22,
+            "y": 61
+          },
+          "facing": "right",
+          "alignPetField": "anchor",
+          "pets": [
+            "tuxedo-cat",
+            "orange-tabby"
+          ]
+        }
+      ]
+    }
+  }
+}
