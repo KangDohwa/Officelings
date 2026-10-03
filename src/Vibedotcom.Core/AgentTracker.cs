@@ -1,40 +1,77 @@
+using System.Collections.Concurrent;
 using System.Text.Json;
+using Vibedotcom.Core.Providers;
 
 namespace Vibedotcom.Core;
 
-public sealed class AgentTracker
+public sealed class AgentTracker : IDisposable
 {
     private sealed class Source(Provider provider)
     {
         public readonly JsonlTail Tail = new();
         public readonly Provider Provider = provider;
+        public readonly Dictionary<string, TrackedAgent> Cached = new(StringComparer.Ordinal);
         public string? AgentId;
         public DateTime Modified;
-        public long Length;
     }
     private readonly TrackerOptions options;
     private readonly Dictionary<string, Source> sources = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, TrackedAgent> agents = new(StringComparer.Ordinal);
     private readonly HashSet<string> warnings = [];
-    private DateTimeOffset nextScan;
+    private readonly Dictionary<string, FileSystemWatcher> watchers = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, byte> dirty = new(StringComparer.OrdinalIgnoreCase);
+    private readonly AntigravityProvider antigravity;
+    private DateTimeOffset nextScan, nextDiscovery, lastPoll;
+    private int overflow;
     public long BytesRead => sources.Values.Sum(s => s.Tail.BytesRead);
     public IReadOnlyList<string> Warnings => warnings.Order().ToArray();
+    internal long DiscoveryFilesVisited { get; private set; }
 
     public AgentTracker(TrackerOptions? options = null)
     {
         this.options = options ?? new();
         this.options.Validate();
+        antigravity = new(this.options);
     }
 
     public IReadOnlyList<AgentInfo> Poll(DateTimeOffset now)
     {
+        if (now < lastPoll) nextScan = nextDiscovery = now;
+        lastPoll = now;
         if (now >= nextScan)
         {
             nextScan = now + options.ScanInterval;
             warnings.Clear();
-            Scan(Provider.Codex, Path.Combine(options.Home, ".codex", "sessions"), "rollout-*.jsonl", now);
-            Scan(Provider.Claude, Path.Combine(options.Home, ".claude", "projects"), "*.jsonl", now);
-            ScanAntigravity(now);
+            var discover = now >= nextDiscovery || Interlocked.Exchange(ref overflow, 0) != 0;
+            foreach (var (provider, root, pattern) in new[]
+            {
+                (Provider.Codex, Path.Combine(options.Home, ".codex", "sessions"), "rollout-*.jsonl"),
+                (Provider.Claude, Path.Combine(options.Home, ".claude", "projects"), "*.jsonl")
+            })
+            {
+                if (Watch(root)) discover = true;
+                var candidates = sources.Where(s => s.Value.Provider == provider).Select(s => s.Key).ToHashSet(StringComparer.OrdinalIgnoreCase);
+                foreach (var path in dirty.Keys)
+                    if (path.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) && dirty.TryRemove(path, out _))
+                        candidates.Add(path);
+                if (discover)
+                    foreach (var file in Files(root, pattern, true))
+                    {
+                        DiscoveryFilesVisited++;
+                        if (Recent(file.LastWriteTimeUtc, now) || sources.ContainsKey(file.FullName)) candidates.Add(file.FullName);
+                    }
+                foreach (var path in candidates)
+                {
+                    if (provider == Provider.Claude && path.Contains(Path.DirectorySeparatorChar + "tool-results" + Path.DirectorySeparatorChar)) continue;
+                    var file = new FileInfo(path);
+                    if (file.Exists && (Recent(file.LastWriteTimeUtc, now) || sources.ContainsKey(path))) Read(provider, file);
+                }
+            }
+            if (Watch(Path.Combine(options.Home, ".gemini"))) discover = true;
+            var changed = dirty.Keys.Where(p => p.StartsWith(Path.Combine(options.Home, ".gemini") + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)).ToArray();
+            foreach (var path in changed) dirty.TryRemove(path, out _);
+            antigravity.Poll(now, discover, changed, agents, warnings, Read);
+            if (discover) nextDiscovery = now + TimeSpan.FromMinutes(1);
         }
         var snapshots = agents.Values.Select(a => a.Snapshot(now, options)).ToArray();
         foreach (var old in snapshots.Where(a => a.State == AgentState.Gone && now - a.StateSince >= options.GoneRetention))
@@ -44,86 +81,122 @@ public sealed class AgentTracker
         return snapshots.Where(a => agents.ContainsKey(a.Id)).OrderBy(a => a.Id, StringComparer.Ordinal).ToArray();
     }
 
-    private IEnumerable<FileInfo> Files(string root, string pattern, bool recursive)
+    private bool Recent(DateTime time, DateTimeOffset now) => now - new DateTimeOffset(time, TimeSpan.Zero) < options.GoneAfter;
+
+    private bool Watch(string root)
     {
-        if (!Directory.Exists(root)) return [];
+        if (watchers.ContainsKey(root) || !Directory.Exists(root)) return false;
         try
         {
-            return new DirectoryInfo(root).EnumerateFiles(pattern, new EnumerationOptions
-            { RecurseSubdirectories = recursive, IgnoreInaccessible = true, AttributesToSkip = FileAttributes.ReparsePoint }).ToArray();
+            var watcher = new FileSystemWatcher(root)
+            {
+                IncludeSubdirectories = true,
+                NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.Size | NotifyFilters.FileName | NotifyFilters.DirectoryName
+            };
+            void Changed(object sender, FileSystemEventArgs e)
+            {
+                if (e.FullPath.EndsWith(".jsonl", StringComparison.OrdinalIgnoreCase) || e.FullPath.EndsWith(".db", StringComparison.OrdinalIgnoreCase) ||
+                    e.FullPath.EndsWith("-wal", StringComparison.OrdinalIgnoreCase) || e.FullPath.EndsWith("-journal", StringComparison.OrdinalIgnoreCase))
+                    dirty[e.FullPath] = 0;
+                else if (e.ChangeType is WatcherChangeTypes.Created or WatcherChangeTypes.Renamed && Directory.Exists(e.FullPath))
+                    Interlocked.Exchange(ref overflow, 1);
+            }
+            watcher.Changed += Changed; watcher.Created += Changed; watcher.Deleted += Changed;
+            watcher.Renamed += (sender, e) => { Changed(sender, e); dirty[e.OldFullPath] = 0; };
+            watcher.Error += (_, _) => Interlocked.Exchange(ref overflow, 1);
+            watcher.EnableRaisingEvents = true;
+            watchers[root] = watcher;
+            return true;
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
-        { warnings.Add($"Cannot enumerate {root}: {e.GetType().Name}"); return []; }
+        { warnings.Add($"Cannot watch provider files: {e.GetType().Name}"); return false; }
     }
 
-    private void Scan(Provider provider, string root, string pattern, DateTimeOffset now)
+    private IEnumerable<FileInfo> Files(string root, string pattern, bool recursive)
     {
-        foreach (var file in Files(root, pattern, true))
+        if (!Directory.Exists(root)) yield break;
+        IEnumerator<FileInfo>? iterator = null;
+        try
         {
-            if (provider == Provider.Claude && file.FullName.Contains(Path.DirectorySeparatorChar + "tool-results" + Path.DirectorySeparatorChar)) continue;
-            if (now - new DateTimeOffset(file.LastWriteTimeUtc, TimeSpan.Zero) < options.GoneAfter || sources.ContainsKey(file.FullName))
-                Read(provider, file);
+            iterator = new DirectoryInfo(root).EnumerateFiles(pattern, new EnumerationOptions
+            { RecurseSubdirectories = recursive, IgnoreInaccessible = true, AttributesToSkip = FileAttributes.ReparsePoint }).GetEnumerator();
         }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        { warnings.Add($"Cannot enumerate provider files: {e.GetType().Name}"); }
+        if (iterator == null) yield break;
+        using (iterator)
+            while (true)
+            {
+                FileInfo file;
+                try { if (!iterator.MoveNext()) break; file = iterator.Current; }
+                catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+                { warnings.Add($"Cannot enumerate provider files: {e.GetType().Name}"); break; }
+                yield return file;
+            }
     }
 
     private void Read(Provider provider, FileInfo file)
     {
+        if (!sources.TryGetValue(file.FullName, out var source)) sources[file.FullName] = source = new(provider);
+        void Liveness()
+        {
+            var seen = new DateTimeOffset(file.LastWriteTimeUtc, TimeSpan.Zero);
+            source.Modified = file.LastWriteTimeUtc;
+            foreach (var a in source.Cached.Values)
+                if (seen > a.LastSeen) a.LastSeen = seen;
+        }
         try
         {
-            var exists = sources.TryGetValue(file.FullName, out var source);
-            if (!exists) sources[file.FullName] = source = new(provider);
-            if (exists && source!.Modified == file.LastWriteTimeUtc && source.Length == file.Length && source.Tail.Offset >= file.Length) return;
-            var lines = source!.Tail.Read(file.FullName);
-            if (source.Tail.WasReset && source.AgentId != null) { agents.Remove(source.AgentId); source.AgentId = null; }
+            Liveness();
+            var lines = source.Tail.Read(file.FullName); // Always check handle identity and bounded content probes.
+            file.Refresh();
+            if (!file.Exists) return;
+            if (source.Tail.WasReset)
+            {
+                foreach (var id in source.Cached.Keys)
+                    if (!sources.Values.Any(s => s != source && s.Cached.ContainsKey(id))) agents.Remove(id);
+                source.Cached.Clear(); source.AgentId = null;
+            }
             source.Modified = file.LastWriteTimeUtc;
-            source.Length = file.Length;
             foreach (var line in lines)
             {
                 try
                 {
                     using var doc = JsonDocument.Parse(line);
-                    if (doc.RootElement.ValueKind != JsonValueKind.Object) continue;
-                    var id = source.AgentId ??= LogParser.Identity(provider, file.FullName, doc.RootElement);
-                    if (!agents.TryGetValue(id, out var agent)) agents[id] = agent = new(id, provider);
-                    LogParser.Apply(agent, doc.RootElement, file.FullName, new(file.LastWriteTimeUtc, TimeSpan.Zero));
+                    var root = doc.RootElement;
+                    if (root.ValueKind != JsonValueKind.Object) continue;
+                    var type = LogParser.String(root, "type");
+                    if (type == null) continue;
+                    if (provider == Provider.Claude)
+                    {
+                        // Unidentified inline sidechains must never mutate the supervisor.
+                        if (root.TryGetProperty("isSidechain", out var side) && side.ValueKind == JsonValueKind.True &&
+                            LogParser.String(root, "agentId") == null && !file.Name.StartsWith("agent-", StringComparison.Ordinal)) continue;
+                        if (LogParser.String(root, "type") is "summary" or "file-history-snapshot" or "progress" or "queue-operation") continue;
+                    }
+                    var id = provider == Provider.Claude || provider == Provider.Codex && type == "session_meta" ? LogParser.Identity(provider, file.FullName, root)
+                        : source.AgentId ??= LogParser.Identity(provider, file.FullName, root);
+                    if (provider == Provider.Codex && type == "session_meta") source.AgentId = id;
+                    if (!agents.TryGetValue(id, out var a))
+                    {
+                        if (!source.Cached.TryGetValue(id, out a)) a = new(id, provider);
+                        agents[id] = a;
+                    }
+                    source.Cached[id] = a;
+                    LogParser.Apply(a, root, file.FullName, new(file.LastWriteTimeUtc, TimeSpan.Zero));
                 }
                 catch (JsonException) { warnings.Add($"Malformed JSONL skipped ({provider})."); }
             }
-            if (source.AgentId != null && agents.TryGetValue(source.AgentId, out var current))
-                current.LastSeen = new(file.LastWriteTimeUtc, TimeSpan.Zero);
+            Liveness();
             if (source.Tail.DroppedLines > 0) warnings.Add($"Oversize JSONL records skipped ({provider}; >2 MiB).");
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException)
         { warnings.Add($"Cannot read {provider} log: {e.GetType().Name}"); }
     }
 
-    private void ScanAntigravity(DateTimeOffset now)
+    public void Dispose()
     {
-        var root = Path.Combine(options.Home, ".gemini", "antigravity");
-        var databases = Files(Path.Combine(root, "conversations"), "*.db", false);
-        foreach (var file in databases)
-        {
-            var wal = new FileInfo(file.FullName + "-wal");
-            var modified = file.LastWriteTimeUtc;
-            if (wal.Exists && wal.Length > 0 && wal.LastWriteTimeUtc > modified) modified = wal.LastWriteTimeUtc;
-            var id = LogParser.Key(Provider.Antigravity, Path.GetFileNameWithoutExtension(file.Name));
-            if (now - new DateTimeOffset(modified, TimeSpan.Zero) >= options.GoneAfter && !agents.ContainsKey(id)) continue;
-            var transcript = Path.Combine(root, "brain", Path.GetFileNameWithoutExtension(file.Name), ".system_generated", "logs", "transcript_full.jsonl");
-            if (!File.Exists(transcript)) transcript = Path.Combine(Path.GetDirectoryName(transcript)!, "transcript.jsonl");
-            if (File.Exists(transcript)) Read(Provider.Antigravity, new(transcript));
-            if (!agents.TryGetValue(id, out var a)) agents[id] = a = new(id, Provider.Antigravity);
-            var time = new DateTimeOffset(modified, TimeSpan.Zero);
-            if (time > a.LastSeen) a.LastSeen = time;
-            // DB/WAL writes newer than the transcript are activity only, not parsed tool events.
-            if (time > a.LastEvent.AddSeconds(3) && time > a.LastEvent) a.State(AgentState.Working, time);
-        }
-        // Some versions retain brain transcripts even without a conversation DB.
-        foreach (var file in Files(Path.Combine(root, "brain"), "transcript*.jsonl", true))
-        {
-            if (file.Name is not ("transcript_full.jsonl" or "transcript.jsonl")) continue;
-            if (file.Directory?.Name != "logs") continue;
-            if (file.Name == "transcript.jsonl" && File.Exists(Path.Combine(file.DirectoryName!, "transcript_full.jsonl"))) continue;
-            if (now - new DateTimeOffset(file.LastWriteTimeUtc, TimeSpan.Zero) < options.GoneAfter || sources.ContainsKey(file.FullName)) Read(Provider.Antigravity, file);
-        }
+        foreach (var watcher in watchers.Values) watcher.Dispose();
+        antigravity.Dispose();
     }
 }

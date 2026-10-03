@@ -1,10 +1,18 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace Vibedotcom.Core;
 
 internal static class LogParser
 {
+    private sealed class Context
+    {
+        public DateTimeOffset MetadataTime, ContextTime;
+        public readonly HashSet<string> Questions = [];
+    }
+    private static readonly ConditionalWeakTable<TrackedAgent, Context> contexts = new();
     internal static string? String(JsonElement value, string key) =>
         value.ValueKind == JsonValueKind.Object && value.TryGetProperty(key, out var item) && item.ValueKind == JsonValueKind.String
             ? item.GetString() : null;
@@ -13,7 +21,7 @@ internal static class LogParser
     private static IEnumerable<JsonElement> Items(JsonElement value) =>
         value.ValueKind == JsonValueKind.Array ? value.EnumerateArray() : [];
     internal static string Key(Provider provider, string id) => provider.ToString().ToLowerInvariant() + ":" + id;
-    private static string Clip(string? text) => Regex.Replace(text ?? "", @"\s+", " ").Trim() is var clean
+    internal static string Clip(string? text) => Regex.Replace(text ?? "", @"\s+", " ").Trim() is var clean
         ? clean[..Math.Min(clean.Length, 240)] : "";
     private static string Text(JsonElement content) => content.ValueKind == JsonValueKind.String ? content.GetString()! :
         string.Join(" ", Items(content).Where(b => String(b, "type") is "text" or "input_text" or "output_text")
@@ -38,7 +46,11 @@ internal static class LogParser
         {
             var id = Path.GetFileNameWithoutExtension(path);
             if (id.StartsWith("transcript", StringComparison.Ordinal))
-                id = new DirectoryInfo(Path.GetDirectoryName(path)!).Parent!.Parent!.Name;
+            {
+                var directory = new DirectoryInfo(Path.GetDirectoryName(path)!);
+                while (directory.Parent != null && directory.Parent.Name != "brain") directory = directory.Parent;
+                id = directory.Name;
+            }
             return Key(provider, id);
         }
         // Codex rollout filename ends in a UUID; metadata normally replaces this fallback.
@@ -55,8 +67,8 @@ internal static class LogParser
     internal static void Apply(TrackedAgent agent, JsonElement root, string path, DateTimeOffset fileTime)
     {
         var timestamp = String(root, "timestamp") ?? String(root, "created_at");
-        var time = DateTimeOffset.TryParse(timestamp, out var parsed) ? parsed : fileTime;
-        if (time > fileTime.AddMinutes(5)) time = fileTime;
+        var time = ParseTime(timestamp) ?? fileTime;
+        if (time > fileTime) time = fileTime;
         var type = String(root, "type");
         switch (agent.Provider)
         {
@@ -66,6 +78,27 @@ internal static class LogParser
         }
     }
 
+    // Offset-free provider timestamps are treated as UTC, independent of OS culture/timezone.
+    internal static DateTimeOffset? ParseTime(string? value) =>
+        DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var parsed)
+            && parsed.Year > 1 ? parsed : null;
+
+    internal static void SetState(TrackedAgent a, AgentState state, DateTimeOffset time)
+    {
+        if (time < a.LastEvent) return;
+        if (a.DisplayState != state) a.StateSince = time;
+        a.State(state, time);
+    }
+
+    private static void ContextFields(TrackedAgent a, string? model, string? cwd, DateTimeOffset time)
+    {
+        var context = contexts.GetOrCreateValue(a);
+        var latest = time >= context.ContextTime && time >= a.LastEvent;
+        if (model != null && (latest || a.Model == null)) a.Model = model;
+        if (cwd != null && (latest || a.Cwd == null)) a.Cwd = cwd;
+        if (latest && (model != null || cwd != null)) context.ContextTime = time;
+    }
+
     private static void Codex(TrackedAgent a, JsonElement root, string? type, DateTimeOffset time)
     {
         var p = Get(root, "payload");
@@ -73,39 +106,46 @@ internal static class LogParser
         {
             var spawn = Get(Get(Get(p, "source"), "subagent"), "thread_spawn");
             var parent = String(p, "parent_thread_id") ?? String(spawn, "parent_thread_id");
-            a.ParentId = parent == null ? null : Key(Provider.Codex, parent);
-            a.IsSubagent = parent != null || Get(Get(p, "source"), "subagent").ValueKind == JsonValueKind.Object;
-            a.Name = String(p, "agent_nickname") ?? String(spawn, "agent_nickname") ?? (a.IsSubagent ? "Codex worker" : "Codex");
-            a.Role = String(p, "agent_role") ?? String(spawn, "agent_role");
-            a.Cwd = String(p, "cwd");
-            a.Model = String(p, "model");
+            var context = contexts.GetOrCreateValue(a);
+            var latest = time >= context.MetadataTime;
+            if (parent != null && Key(Provider.Codex, parent) != a.Id && (latest || a.ParentId == null))
+                a.ParentId = Key(Provider.Codex, parent);
+            a.IsSubagent |= parent != null || Get(Get(p, "source"), "subagent").ValueKind is JsonValueKind.Object or JsonValueKind.String;
+            var name = String(p, "agent_nickname") ?? String(spawn, "agent_nickname");
+            var role = String(p, "agent_role") ?? String(p, "agent_type") ?? String(spawn, "agent_role") ?? String(spawn, "agent_type");
+            if (name != null && (latest || a.Name is "Codex" or "Codex worker")) a.Name = name;
+            else if (a.IsSubagent && a.Name == "Codex") a.Name = "Codex worker";
+            if (role != null && (latest || a.Role == null)) a.Role = role;
+            if (latest) context.MetadataTime = time;
+            ContextFields(a, String(p, "model"), String(p, "cwd"), time);
             return;
         }
-        if (type == "turn_context") { a.Model = String(p, "model") ?? a.Model; a.Cwd = String(p, "cwd") ?? a.Cwd; return; }
+        if (type == "turn_context") { ContextFields(a, String(p, "model"), String(p, "cwd"), time); return; }
+        if (time < a.LastEvent) return;
         var kind = String(p, "type");
         if (type == "event_msg")
         {
             switch (kind)
             {
-                case "user_message": a.Task = Clip(String(p, "message")); a.State(AgentState.Thinking, time); break;
-                case "task_started": a.State(AgentState.Thinking, time); break;
-                case "agent_reasoning": a.State(AgentState.Thinking, time); break;
+                case "user_message": a.Task = Clip(String(p, "message")); SetState(a, AgentState.Thinking, time); break;
+                case "task_started": SetState(a, AgentState.Thinking, time); break;
+                case "agent_reasoning": SetState(a, AgentState.Thinking, time); break;
                 case "task_complete": case "task_completed":
-                    a.State(a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time); break;
-                case "turn_aborted": a.State(AgentState.Waiting, time); break;
-                case "session_end": case "session_closed": a.State(AgentState.Gone, time); break;
-                case "approval_request": case "request_user_input": a.State(AgentState.Waiting, time); break;
+                    SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time); break;
+                case "turn_aborted": SetState(a, AgentState.Waiting, time); break;
+                case "session_end": case "session_closed": SetState(a, AgentState.Gone, time); break;
+                case "approval_request": case "request_user_input": SetState(a, AgentState.Waiting, time); break;
                 case "item_completed":
                     var item = Get(p, "item");
                     if (String(item, "type") == "agent_message" && String(item, "phase") == "final_answer")
-                        a.State(a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
+                        SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
                     break;
             }
         }
         if (type != "response_item") return;
         switch (kind)
         {
-            case "reasoning": a.State(AgentState.Thinking, time); break;
+            case "reasoning": SetState(a, AgentState.Thinking, time); break;
             case "function_call": case "custom_tool_call":
                 var name = String(p, "name") ?? "tool";
                 if (name == "exec")
@@ -115,11 +155,11 @@ internal static class LogParser
                 }
                 Tool(a, name, time);
                 break;
-            case "function_call_output": case "custom_tool_call_output": a.State(AgentState.Thinking, time); break;
+            case "function_call_output": case "custom_tool_call_output": SetState(a, AgentState.Thinking, time); break;
             case "message":
-                if (String(p, "role") == "user") { a.Task = Clip(Text(Get(p, "content"))); a.State(AgentState.Thinking, time); }
+                if (String(p, "role") == "user") { a.Task = Clip(Text(Get(p, "content"))); SetState(a, AgentState.Thinking, time); }
                 if (String(p, "role") == "assistant")
-                    a.State(String(p, "phase") == "final_answer" || String(p, "channel") == "final"
+                    SetState(a, String(p, "phase") == "final_answer" || String(p, "channel") == "final"
                         ? a.IsSubagent ? AgentState.Reporting : AgentState.Waiting : AgentState.Thinking, time);
                 break;
         }
@@ -128,53 +168,60 @@ internal static class LogParser
     private static void Claude(TrackedAgent a, JsonElement root, string? type, string path, DateTimeOffset time)
     {
         var agentId = String(root, "agentId");
-        var sidechain = Get(root, "isSidechain").ValueKind == JsonValueKind.True;
         var parent = ParentFromClaudePath(path);
-        a.IsSubagent |= sidechain || agentId != null || parent != null;
+        a.IsSubagent |= agentId != null || parent != null || Path.GetFileName(path).StartsWith("agent-", StringComparison.Ordinal);
         if (a.IsSubagent)
         {
             var session = parent ?? String(root, "sessionId");
-            if (session != null) a.ParentId = Key(Provider.Claude, session);
-            a.Name = agentId == null ? "Claude worker" : "Claude " + agentId;
+            if (session != null && Key(Provider.Claude, session) != a.Id) a.ParentId ??= Key(Provider.Claude, session);
+            if (a.Name == "Claude" || agentId != null) a.Name = agentId == null ? "Claude worker" : "Claude " + agentId;
         }
-        a.Cwd = String(root, "cwd") ?? a.Cwd;
-        if (type == "last-prompt") { a.Task = Clip(String(root, "lastPrompt")); return; }
+        var message = Get(root, "message");
+        ContextFields(a, String(message, "model"), String(root, "cwd"), time);
+        if (time < a.LastEvent) return;
+        if (type == "last-prompt") { a.Task = Clip(String(root, "lastPrompt")); SetState(a, a.EventState, time); return; }
         if (type is "summary" or "file-history-snapshot" or "progress" or "queue-operation") return;
         if (type == "system")
         {
-            if (String(root, "subtype") == "turn_duration") a.State(a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
+            if (String(root, "subtype") == "turn_duration") SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
             return;
         }
-        var message = Get(root, "message");
-        a.Model = String(message, "model") ?? a.Model;
         var content = Get(message, "content");
+        var questions = contexts.GetOrCreateValue(a).Questions;
         if (type == "user")
         {
-            if (Items(content).Any(b => String(b, "type") == "tool_result")) a.State(AgentState.Thinking, time);
-            else { a.Task = Clip(Text(content)); a.State(AgentState.Thinking, time); }
+            var results = Items(content).Where(b => String(b, "type") == "tool_result").ToArray();
+            foreach (var result in results) if (String(result, "tool_use_id") is { } id) questions.Remove(id);
+            if (results.Length > 0) SetState(a, questions.Count > 0 ? AgentState.Waiting : AgentState.Thinking, time);
+            else { a.Task = Clip(Text(content)); SetState(a, AgentState.Thinking, time); }
         }
         if (type != "assistant") return;
         var tools = Items(content).Where(b => String(b, "type") == "tool_use").ToArray();
-        if (tools.Length > 0) Tool(a, String(tools[^1], "name") ?? "tool", time);
-        else if (String(message, "stop_reason") == "end_turn") a.State(a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
-        else a.State(AgentState.Thinking, time);
+        foreach (var tool in tools)
+            if ((String(tool, "name") ?? "").Contains("AskUserQuestion", StringComparison.OrdinalIgnoreCase))
+                questions.Add(String(tool, "id") ?? "unknown-question");
+        if (questions.Count > 0) SetState(a, AgentState.Waiting, time);
+        else if (tools.Length > 0) Tool(a, String(tools[^1], "name") ?? "tool", time);
+        else if (String(message, "stop_reason") == "end_turn") SetState(a, a.IsSubagent ? AgentState.Reporting : AgentState.Waiting, time);
+        else SetState(a, AgentState.Thinking, time);
     }
 
     private static void Antigravity(TrackedAgent a, JsonElement root, string? type, DateTimeOffset time)
     {
+        if (time < a.LastEvent) return;
         var status = String(root, "status");
-        if (status is "WAITING_FOR_USER" or "WAITING_FOR_APPROVAL") { a.State(AgentState.Waiting, time); return; }
+        if (status is "WAITING_FOR_USER" or "WAITING_FOR_APPROVAL") { SetState(a, AgentState.Waiting, time); return; }
         switch (type)
         {
-            case "USER_INPUT": a.Task = Clip(String(root, "content")); a.State(AgentState.Thinking, time); break;
+            case "USER_INPUT": a.Task = Clip(String(root, "content")); SetState(a, AgentState.Thinking, time); break;
             case "PLANNER_RESPONSE":
                 var tools = Items(Get(root, "tool_calls")).ToArray();
                 if (tools.Length > 0) Tool(a, String(tools[^1], "name") ?? "tool", time);
-                else a.State(String(root, "content") != null && status == "DONE" ? AgentState.Waiting : AgentState.Thinking, time);
+                else SetState(a, String(root, "content") != null && status == "DONE" ? AgentState.Waiting : AgentState.Thinking, time);
                 break;
-            case "GENERIC": a.State(AgentState.Thinking, time); break;
+            case "GENERIC": SetState(a, AgentState.Thinking, time); break;
             default:
-                if (status is "RUNNING" or "IN_PROGRESS") a.State(AgentState.Working, time);
+                if (status is "RUNNING" or "IN_PROGRESS") SetState(a, AgentState.Working, time);
                 break;
         }
     }
@@ -183,7 +230,7 @@ internal static class LogParser
     {
         if (time < a.LastEvent) return;
         var lower = name.ToLowerInvariant();
-        a.State(lower.Contains("request_user_input") || lower.Contains("askuserquestion") ? AgentState.Waiting : AgentState.Working, time);
+        SetState(a, lower.Contains("request_user_input") || lower.Contains("askuserquestion") ? AgentState.Waiting : AgentState.Working, time);
         if (a.EventState != AgentState.Working) return;
         a.Tool = name;
         a.ToolKind = lower.Contains("exec") || lower.Contains("bash") || lower.Contains("shell") || lower.Contains("command") ? "shell" :
