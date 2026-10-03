@@ -1,0 +1,238 @@
+{
+  "characterId": "window-views",
+  "engine": "component-row",
+  "game_input": "window-views.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "window-views.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/window-views.png",
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "day": {
+        "row": 0,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "sunset": {
+        "row": 1,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "night": {
+        "row": 2,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "rain": {
+        "row": 3,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "snow": {
+        "row": 4,
+        "frames": 4,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500,
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 256,
+    "sheetHeight": 320,
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "rows": {
+      "day": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 192,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "sunset": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 192,
+          "y": 64,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "night": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 128,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 192,
+          "y": 128,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "rain": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 192,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 192,
+          "y": 192,
+          "w": 64,
+          "h": 64
+        }
+      ],
+      "snow": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 128,
+          "y": 256,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 192,
+          "y": 256,
+          "w": 64,
+          "h": 64
+        }
+      ]
+    }
+  }
+}

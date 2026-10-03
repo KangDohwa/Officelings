@@ -1,0 +1,68 @@
+{
+  "characterId": "ping-pong",
+  "engine": "component-row",
+  "game_input": "ping-pong.png",
+  "degraded_static_fallback": false,
+  "curation_applied": false,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": "ping-pong.png",
+  "sprite_sheet_alpha_report": "../qa/export-report.json",
+  "base_image": "../bodies/ping-pong.png",
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "columns": 2,
+    "rows": {
+      "ball": {
+        "row": 0,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 64,
+    "cellWidth": 64,
+    "cellHeight": 64,
+    "rows": {
+      "ball": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 64,
+          "h": 64
+        }
+      ]
+    }
+  }
+}
