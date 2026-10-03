@@ -31,7 +31,7 @@ internal sealed class OfficeView : FrameworkElement
     private readonly Dictionary<string, FormattedText> textCache = new();
     private DrawingGroup? room;
     private int ambient = -1;
-    private int zoom = 1;
+    private double zoom = 1;
     private Vector pan;
     private Point? drag;
     private bool autoFit = true, transparent;
@@ -40,8 +40,11 @@ internal sealed class OfficeView : FrameworkElement
     private readonly TextBlock tipBody = new() { FontSize = 12, Foreground = new SolidColorBrush(System.Windows.Media.Color.FromRgb(233,230,215)), TextWrapping = TextWrapping.Wrap, MaxWidth = 310, Margin = new(0,7,0,0) };
     private string? hovered, tipText;
     private DateTimeOffset hoverSince, tipUpdated;
-    public int PreferredZoom => autoFit ? 0 : zoom;
-    public int Zoom => zoom;
+    public int PreferredZoom => autoFit ? 0 : (int)zoom;
+    public double Zoom => zoom;
+    public bool EditorMode { get; set; }
+    public string? EditSelection { get; set; }
+    public Tile? EditPreview { get; set; }
     public bool TransparentBackground
     {
         get => transparent;
@@ -49,6 +52,8 @@ internal sealed class OfficeView : FrameworkElement
     }
     public IReadOnlyList<AgentView> Agents => agents;
     public OfficeLayout Layout => office;
+    public int RenderedAgentTags { get; private set; }
+    public int RenderedReservedTags { get; private set; }
 
     public OfficeView(AssetPack? assets = null)
     {
@@ -61,12 +66,14 @@ internal sealed class OfficeView : FrameworkElement
         }
         RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
         RenderOptions.SetEdgeMode(this, EdgeMode.Aliased); SnapsToDevicePixels = true; ClipToBounds = true;
+        TextOptions.SetTextFormattingMode(this, TextFormattingMode.Display);
+        TextOptions.SetTextRenderingMode(this, TextRenderingMode.Aliased);
         var stack = new StackPanel(); stack.Children.Add(tipTitle); stack.Children.Add(tipBody);
         tooltip.Child = new Border { Background = Color("#303d40"), CornerRadius = new(8), Padding = new(15,12,15,12), Child = stack };
         tooltip.PlacementTarget = this;
         tooltip.Opened += (_, _) => WindowModes.MakePopupPassive(tooltip.Child);
         SizeChanged += (_, _) => { if (autoFit) Fit(); else InvalidateVisual(); };
-        MouseLeftButtonDown += (_, e) => { drag = e.GetPosition(this); CaptureMouse(); HideTooltip(); };
+        MouseLeftButtonDown += (_, e) => { if (EditorMode) return; drag = e.GetPosition(this); CaptureMouse(); HideTooltip(); };
         MouseMove += (_, e) =>
         {
             if (drag is not { } previous) return;
@@ -83,11 +90,12 @@ internal sealed class OfficeView : FrameworkElement
         if (autoFit) Fit(); else { zoom = Math.Clamp(requested,1,6); InvalidateVisual(); }
         HideTooltip();
     }
-    public void ChangeZoom(int direction) => SetZoom(zoom + direction);
+    public void ChangeZoom(int direction) => SetZoom(Math.Max(1,(int)Math.Floor(zoom)) + direction);
     public void PanBy(Vector offset) { pan += offset; ClampPan(); HideTooltip(); InvalidateVisual(); }
     private void Fit()
     {
-        zoom = Math.Clamp((int)Math.Floor(Math.Min(Math.Max(1,ActualWidth - 20) / (office.WidthTiles * 16), Math.Max(1,ActualHeight - 16) / (office.HeightTiles * 16))),1,6);
+        var fit = Math.Min(Math.Max(1,ActualWidth - 20) / (office.WidthTiles * 16), Math.Max(1,ActualHeight - 40) / (office.HeightTiles * 16));
+        zoom = fit >= 1 ? Math.Min(6,Math.Floor(fit)) : Math.Max(.01,fit);
         pan = new(); InvalidateVisual();
     }
     private Vector Origin => new(Math.Round((ActualWidth - office.WidthTiles * 16 * zoom) / 2 + pan.X), Math.Round((ActualHeight - office.HeightTiles * 16 * zoom) / 2 + pan.Y));
@@ -119,7 +127,7 @@ internal sealed class OfficeView : FrameworkElement
     }
     private static string ProviderColor(Provider provider) => provider switch { Provider.Codex => "#329b91", Provider.Claude => "#d57e4e", _ => "#827ed1" };
     private void R(DrawingContext dc, string color, double x, double y, double w, double h) => dc.DrawRectangle(Color(color),null,new(x,y,w,h));
-    private void Text(DrawingContext dc, string text, double x, double y, double size, string color = "#394940", bool bold = false, double maxWidth = 500)
+    private FormattedText FormatText(string text, double size, string color, bool bold = false, double maxWidth = 500)
     {
         var key = $"{text}|{size}|{color}|{bold}|{maxWidth}";
         if (!textCache.TryGetValue(key,out var formatted))
@@ -130,8 +138,10 @@ internal sealed class OfficeView : FrameworkElement
                 size,Color(color),VisualTreeHelper.GetDpi(this).PixelsPerDip) { MaxTextWidth = Math.Max(1,maxWidth), MaxLineCount = 1, Trimming = TextTrimming.CharacterEllipsis };
             textCache[key] = formatted;
         }
-        dc.DrawText(formatted,new(x,y));
+        return formatted;
     }
+    private void Text(DrawingContext dc, string text, double x, double y, double size, string color = "#394940", bool bold = false, double maxWidth = 500)
+        => dc.DrawText(FormatText(text,size,color,bold,maxWidth),new(x,y));
 
     private BitmapSource Image(SpriteFrame f)
     {
@@ -247,7 +257,8 @@ internal sealed class OfficeView : FrameworkElement
                 case "desk":
                     R(dc,"#cbb898",x+2,y+27,w,7); R(dc,"#806b55",x+3,y+25,3,9); R(dc,"#806b55",x+w-6,y+25,3,9);
                     R(dc,"#ba8e65",x,y+15,w,13); R(dc,"#e2b784",x,y+13,w,11); R(dc,"#f5d5a6",x,y+13,w,2);
-                    R(dc,"#414e51",x+11,y+1,25,15); R(dc,"#82b9a6",x+13,y+3,21,11);
+                    R(dc,"#414e51",x+11,y+1,25,15); R(dc,(f.MonitorState ?? f.State)=="working" ? "#82b9a6" : "#263d40",x+13,y+3,21,11);
+                    if((f.MonitorState ?? f.State)=="working") { R(dc,"#eaf4c7",x+15,y+6,10,1);R(dc,"#eaf4c7",x+15,y+9,14,1); }
                     R(dc,"#414e51",x+22,y+16,3,3); R(dc,"#f8f0d9",x+13,y+20,19,3);
                     R(dc,"#bca47e",x+14,y+21,1,1); R(dc,"#bca47e",x+18,y+21,1,1); R(dc,"#bca47e",x+22,y+21,1,1);
                     R(dc,"#f7ecd5",x+3,y+17,5,5); R(dc,"#ae784e",x+4,y+17,3,1);
@@ -314,6 +325,8 @@ internal sealed class OfficeView : FrameworkElement
             if (drawable.F is {} furniture) DrawFurniture(dc,furniture);
             else if (drawable.A is {} agent) DrawAgent(dc,agent);
         }
+        foreach(var agent in agents.Where(a=>a.Pose.Visible && a.Pose.WorkLocation=="overflow" && a.Pose.Action is "typing" or "thinking" or "waiting"))
+            DrawLaptop(dc,agent.Pose);
         foreach (var desk in office.Furniture.Where(f=>f.AgentId != null))
         {
             if (!byId.TryGetValue(desk.AgentId!,out var owner)) continue;
@@ -321,9 +334,28 @@ internal sealed class OfficeView : FrameworkElement
             R(dc,ProviderColor(owner.Agent.Provider),x,y+desk.Height*16-2,5,2);
             if (owner.Pose.ReportOnDesk) { R(dc,"#fff9e7",x+desk.Width*16-12,y+18,9,7); R(dc,"#a19a7e",x+desk.Width*16-11,y+20,6,1); }
         }
+        if (EditorMode) DrawEditorGrid(dc);
         var plates = new List<Rect>();
-        foreach (var agent in agents.Where(a=>a.Pose.Visible))
-        { DrawBubble(dc,agent); DrawName(dc,agent,plates); }
+        plates.AddRange(agents.Where(a=>a.Pose.Visible && a.Pose.WorkLocation=="overflow" && a.Pose.Action is "typing" or "thinking" or "waiting")
+            .Select(a=>LaptopBounds(a.Pose)));
+        var queuePlates = new List<Rect>();
+        RenderedAgentTags=RenderedReservedTags=0;
+        foreach (var agent in agents.Where(a=>a.Pose.Visible)) DrawBubble(dc,agent);
+        foreach (var agent in agents.Where(a=>a.Pose.Visible).OrderBy(a=>HeadY(a.Pose)).ThenBy(a=>a.Agent.Id,StringComparer.Ordinal))
+        { var plate=DrawName(dc,agent,plates);if(agent.Pose.Queued) queuePlates.Add(plate);RenderedAgentTags++; }
+        foreach (var desk in office.Furniture.Where(f=>f.AgentId != null))
+        {
+            if (!byId.TryGetValue(desk.AgentId!,out var owner)) continue;
+            var near = Math.Abs(owner.Pose.X-owner.Pose.Desk.X)+Math.Abs(owner.Pose.Y-owner.Pose.Desk.Y) <= 1.5;
+            if (near && owner.Agent.State is AgentState.Working or AgentState.Thinking or AgentState.Waiting) continue;
+            DrawTag(dc,owner,new(desk.X*16+desk.Width*8,desk.Y*16+desk.Height*16-13),plates,true);
+            RenderedReservedTags++;
+        }
+        foreach(var plate in queuePlates)
+        {
+            var x=plate.Right+3;var y=plate.Y+2;
+            R(dc,"#738b84",x-1,y-1,17,12);R(dc,"#172b30",x,y,15,10);Text(dc,"...",x+2,y-2,8,"#f5edce");
+        }
         if (agents.Count == 0)
         { Text(dc,"A quiet moment.",30,132,10,bold:true); Text(dc,"Your agents will walk in.",30,151,7,maxWidth:95); }
         dc.Pop(); dc.Pop();
@@ -343,29 +375,64 @@ internal sealed class OfficeView : FrameworkElement
         { var x=(p.X+.5)*16; var y=(p.Y+1)*16-12; R(dc,"#fff9e7",x+(p.Facing=="left" ? -10 : 4),y,6,8); }
         dc.Pop();
     }
-    private void DrawName(DrawingContext dc, AgentView agent, List<Rect> plates)
+    private void DrawLaptop(DrawingContext dc, Pose p)
     {
-        var p=agent.Pose; var x=Math.Round((p.X+.5)*16); var foot=Math.Round((p.Y+1)*16);
-        var width=Math.Clamp(agent.Agent.Name.Length*4+10,24,58);
-        var candidates=new[] { new Rect(x-width/2,foot+2,width,9), new Rect(x-width/2,HeadY(p)-12,width,9),
-            new Rect(x+12,foot-7,width,10), new Rect(x-width-12,foot-7,width,10) };
-        static bool Overlaps(Rect a, Rect b) => a.Left<b.Right && a.Right>b.Left && a.Top<b.Bottom && a.Bottom>b.Top;
-        bool Clear(Rect rect) => rect.Left>=16 && rect.Right<office.WidthTiles*16-16 && rect.Top>=0 && rect.Bottom<office.HeightTiles*16-16 &&
-            !plates.Any(r=>Overlaps(r,rect)) &&
-            !office.Furniture.Where(f=>assets.Variant(f).Layer==1 && (assets.Variant(f).BlockedCells?.Count ?? 1)>0).Any(f=>Overlaps(FurnitureBounds(f),rect)) &&
-            !agents.Where(a=>a.Pose.Visible && a.Agent.Id!=agent.Agent.Id).Any(a=>Overlaps(ContentBounds(a.Pose),rect));
-        var plate=candidates.FirstOrDefault(Clear);
-        if (plate.IsEmpty || plate.Width==0) return;
-        plates.Add(plate); dc.PushOpacity(p.Opacity);
-        R(dc,agent.Agent.IsSubagent ? "#252b48" : "#bc8b42",plate.X-1,plate.Y-1,plate.Width+2,plate.Height+2);
-        R(dc,"#f4e2bd",plate.X,plate.Y,plate.Width,plate.Height);
-        R(dc,ProviderColor(agent.Agent.Provider),plate.X+2,plate.Y+3,3,3);
-        Text(dc,agent.Agent.Name,plate.X+7,plate.Y,7,"#392b24",maxWidth:plate.Width-8);
+        var bounds=LaptopBounds(p);var lx=bounds.X-2;var ly=bounds.Y+2;
+        dc.PushOpacity(p.Opacity);
+        if (sheets.ContainsKey("office-extras"))
+            dc.DrawImage(Image(assets.Frame("office-extras","laptop","any",0)),bounds);
+        else { R(dc,"#19292d",lx,ly,19,11); R(dc,"#8fd7c4",lx+2,ly+2,15,6); R(dc,"#bec9be",lx-1,ly+10,21,3); }
         dc.Pop();
+    }
+    private Rect LaptopBounds(Pose p)
+    {
+        var body=ContentBounds(p);
+        return new(Math.Round(body.X+body.Width/2-8),Math.Round(body.Bottom-12),16,16);
+    }
+    private Rect DrawName(DrawingContext dc, AgentView agent, List<Rect> plates)
+    {
+        var seated=agent.Pose.WorkLocation=="desk" && agent.Pose.Action is "typing" or "thinking" or "waiting";
+        return DrawTag(dc,agent,new(Math.Round((agent.Pose.X+.5)*16),HeadY(agent.Pose)-(seated ? 34 : 17)),plates,true);
+    }
+    private Rect DrawTag(DrawingContext dc, AgentView agent, Point anchor, List<Rect> plates, bool stack)
+    {
+        var name = agent.Pose.DisplayName ?? agent.Agent.Name;
+        var elements = StringInfo.ParseCombiningCharacters(name);
+        if (elements.Length > 16) name = name[..elements[15]]+"…";
+        var width = Math.Clamp(Math.Ceiling(FormatText(name,7,"#f5edce").WidthIncludingTrailingWhitespace)+18,32,132);
+        var plate = new Rect(Math.Clamp(anchor.X-width/2,2,Math.Max(2,office.WidthTiles*16-width-2)),anchor.Y,width,15);
+        var visibleTop = -Origin.Y/zoom+1;
+        plate.Y = Math.Max(visibleTop,plate.Y);
+        if (stack)
+            for (var attempt=0;attempt<8 && plates.Any(p=>p.IntersectsWith(plate)) && plate.Y-16>=visibleTop;attempt++) plate.Y-=16;
+        // A name is never omitted. Crowded tags move vertically above their owner.
+        plates.Add(plate);
+        R(dc,agent.Agent.IsSubagent ? "#738b84" : "#c99a52",plate.X-1,plate.Y-1,plate.Width+2,plate.Height+2);
+        R(dc,"#172b30",plate.X,plate.Y,plate.Width,plate.Height);
+        if (sheets.ContainsKey("provider-icons"))
+            dc.DrawImage(Image(assets.Frame("provider-icons",agent.Agent.Provider.ToString().ToLowerInvariant(),"any",0)),new(plate.X+1,plate.Y+1,12,12));
+        else DrawProviderIcon(dc,agent.Agent.Provider,plate.X+1,plate.Y+1);
+        Text(dc,name,plate.X+15,plate.Y+3,7,"#f5edce",maxWidth:plate.Width-16);
+        return plate;
+    }
+    private void DrawProviderIcon(DrawingContext dc, Provider provider, double x, double y)
+    {
+        // Small original pixel silhouettes also cover custom packs without the icon sheet.
+        var rows=provider switch
+        {
+            Provider.Codex => new[] { "000001110000","000110011000","001100001100","011001100110","010011110010","110110011011","110110011011","010011110010","011001100110","001100001100","000110011000","000001110000" },
+            Provider.Claude => new[] { "000001000000","010001001000","001001010010","100101010100","011111111000","000111111111","111111110000","000111111110","001010101001","010010100100","000010001010","000010000000" },
+            _ => new[] { "000001000000","000001100000","000001100000","000011110000","000111111000","111111111111","011111111110","000111111000","000011110000","000001100000","000001100000","000001000000" }
+        };
+        for(var py=0;py<12;py++) for(var px=0;px<12;px++)
+            if(rows[py][px]=='1') R(dc,"#101c24",x+px-1,y+py-1,3,3);
+        for(var py=0;py<12;py++) for(var px=0;px<12;px++)
+            if(rows[py][px]=='1') R(dc,ProviderColor(provider),x+px,y+py,1,1);
     }
     private void DrawBubble(DrawingContext dc, AgentView agent)
     {
         var p=agent.Pose;
+        if (p.Queued) return;
         if (sheets.ContainsKey("icons"))
         {
             var clip = p.Reaction != null ? "bubble-reaction" : p.Action switch
@@ -376,7 +443,8 @@ internal sealed class OfficeView : FrameworkElement
             if (clip == null) return;
             var f = assets.Frame("icons",clip,"any",0);
             dc.PushOpacity(p.Opacity);
-            dc.DrawImage(Image(f),new(Math.Round((p.X+.5)*16+8),HeadY(p)-24,24,24));
+            var seated=p.WorkLocation=="desk" && p.Action is "typing" or "thinking" or "waiting";
+            dc.DrawImage(Image(f),new(Math.Round((p.X+.5)*16+15),HeadY(p)-(seated ? 16 : 42),24,24));
             dc.Pop(); return;
         }
         int? bubble=p.Reaction != null ? 5 : p.Action switch
@@ -387,7 +455,7 @@ internal sealed class OfficeView : FrameworkElement
         if (bubble == null) return;
         var s=new SpriteFrame("fallback",6,bubble.Value,bubble.Value*16,6*24,16,24,8,24,1);
         var rect=SpriteBounds(p);
-        dc.PushOpacity(p.Opacity); dc.DrawImage(Image(s),new((p.X+.5)*16-8,rect.Top-17,16,24)); dc.Pop();
+        dc.PushOpacity(p.Opacity); dc.DrawImage(Image(s),new((p.X+.5)*16+15,rect.Top-41,16,24)); dc.Pop();
     }
     public Point AgentPoint(AgentView agent)
     {
@@ -398,6 +466,50 @@ internal sealed class OfficeView : FrameworkElement
     {
         var o=Origin; var world=new Point((point.X-o.X)/zoom,(point.Y-o.Y)/zoom);
         return agents.Where(a=>a.Pose.Visible).OrderByDescending(a=>a.Pose.Y).FirstOrDefault(a=>ContentBounds(a.Pose).Contains(world));
+    }
+    public Tile WorldTile(Point point)
+    {
+        var o=Origin;
+        return new((int)Math.Floor((point.X-o.X)/zoom/16),(int)Math.Floor((point.Y-o.Y)/zoom/16));
+    }
+    public BitmapSource FurnitureThumbnail(FurnitureAsset asset)
+    {
+        var v=asset.Variants.FirstOrDefault(v=>v.State=="default") ?? asset.Variants[0];
+        if (v.SheetId != null && v.Animation != null) return Image(assets.Frame(v.SheetId,v.Animation,"any",0));
+        var drawing=new DrawingVisual();
+        using(var dc=drawing.RenderOpen()) DrawFallbackFurniture(dc,new(asset.Kind,0,1,v.FootprintW,v.FootprintH,Id:"thumbnail",AssetId:asset.Id));
+        var bitmap=new RenderTargetBitmap(80,80,96,96,PixelFormats.Pbgra32); bitmap.Render(drawing); bitmap.Freeze(); return bitmap;
+    }
+    public BitmapSource TileThumbnail(TileType tile)
+    {
+        if(tile.SheetId != null && tile.Animation != null) return Image(assets.Frame(tile.SheetId,tile.Animation,"any",0));
+        var drawing=new DrawingVisual(); using(var dc=drawing.RenderOpen()) dc.DrawRectangle(Color(tile.Color),null,new(0,0,16,16));
+        var bitmap=new RenderTargetBitmap(16,16,96,96,PixelFormats.Pbgra32);bitmap.Render(drawing);bitmap.Freeze();return bitmap;
+    }
+    private void DrawEditorGrid(DrawingContext dc)
+    {
+        var grid=new Pen(Color("#35bfe9da"),.5);
+        for(var x=0;x<=office.WidthTiles;x++) dc.DrawLine(grid,new(x*16,0),new(x*16,office.HeightTiles*16));
+        for(var y=0;y<=office.HeightTiles;y++) dc.DrawLine(grid,new(0,y*16),new(office.WidthTiles*16,y*16));
+        foreach(var zone in office.Zones ?? Array.Empty<Zone>())
+        {
+            if(zone.Name is not ("workspace" or "pantry" or "lounge")) continue;
+            dc.DrawRectangle(null,new Pen(Color("#998fe1ce"),1),new(zone.X*16,zone.Y*16,zone.Width*16,zone.Height*16));
+            R(dc,"#172b30",zone.X*16,zone.Y*16,zone.Name.Length*5+4,11);
+            Text(dc,zone.Name,zone.X*16+2,zone.Y*16+1,7,"#bcf0df");
+        }
+        void Marker(Tile tile,string color)
+        { dc.DrawRectangle(null,new Pen(Color(color),1),new(tile.X*16+3,tile.Y*16+3,10,10)); }
+        Marker(office.Door,"#f9d774");
+        foreach(var seat in office.OverflowSeats ?? Array.Empty<OverflowSeat>()) Marker(new(seat.X,seat.Y),"#9fc8ff");
+        foreach(var desk in office.Furniture)
+            foreach(var seat in assets.Variant(desk).Points.Where(p=>p.Action=="typing")) Marker(new(desk.X+seat.X,desk.Y+seat.Y),"#8ee6b0");
+        var selected=office.Furniture.FirstOrDefault(f=>f.Id==EditSelection);
+        if(selected != null)
+        {
+            var tile=EditPreview ?? new Tile(selected.X,selected.Y);
+            dc.DrawRectangle(Color("#308ee6b0"),new Pen(Color("#baf4cb"),1),new(tile.X*16,tile.Y*16,selected.Width*16,selected.Height*16));
+        }
     }
     public void SimulateHover(Point? point, DateTimeOffset now)
     {
@@ -414,7 +526,7 @@ internal sealed class OfficeView : FrameworkElement
 
     public void PollHover(Point? cursor, DateTimeOffset now)
     {
-        if (cursor == null || drag != null) { HideTooltip(); return; }
+        if (EditorMode || cursor == null || drag != null) { HideTooltip(); return; }
         var point = cursor.Value;
         if (point.X < 0 || point.Y < 0 || point.X >= ActualWidth || point.Y >= ActualHeight) { HideTooltip(); return; }
         var agent = HitAgent(point);

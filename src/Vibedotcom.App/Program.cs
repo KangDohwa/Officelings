@@ -41,7 +41,7 @@ internal static class Program
         try
         {
             var demo = args.Contains("--demo"); Settings? initial = null;
-            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null; double quitAfter = 0; var qa = false;
+            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null; double quitAfter = 0; var qa = false;
             for (var i = 0; i < args.Length; i++)
             {
                 string Value() => ++i < args.Length ? args[i] : throw new ArgumentException("Missing option value.");
@@ -54,6 +54,7 @@ internal static class Program
                     case "--layout": layoutFile = Value(); break;
                     case "--qa": qa = true; break;
                     case "--profile-idle": profile = Value(); break;
+                    case "--verify-opacity": verifyOpacity = Value(); break;
                     case "--zoom": initial = (initial ?? new()) with { Zoom = Number() }; break;
                     case "--mode": initial = (initial ?? new()) with { Mode = Value() }; break;
                     case "--click-through": initial = (initial ?? new()) with { ClickThrough = true }; break;
@@ -61,10 +62,11 @@ internal static class Program
                     case "--transparent": initial = (initial ?? new()) with { TransparentBackground = true }; break;
                     case "--opacity": initial = (initial ?? new()) with { Opacity = Number() }; break;
                     case "--quit-after": quitAfter = Number(); break;
-                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
+                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
                 }
             }
             var app = new Application();
+            if (verifyOpacity != null) return OpacityVerification.Run(verifyOpacity);
             var assets = AssetPack.LoadDefault(assetDirectory, useUserPack: !demo && !qa && profile == null);
             var layout = LayoutLoader.Load(assets,layoutFile ?? (demo || qa || profile != null ? null : Path.Combine(TrackerOptions.OutputDirectory,"layout.json")),assets.Warnings);
             if (profile != null) return ProfileIdle(profile,assets,layout);
@@ -122,14 +124,46 @@ internal static class Program
         StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(office.Layout,StateJson.Options));
         StateJson.WriteAtomic(Path.Combine(output,"state.json"),new StateSnapshot(StateJson.SchemaVersion,now.AddSeconds(55),1,SpriteAtlas.Info,office.Layout,views,tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,office.FurnitureSprites));
         File.WriteAllText(Path.Combine(output,"smoke.txt"),$"Offscreen WPF render OK; demo={demo}; agents={sources.Count}; zooms=1,2,3; hover={hover != null}; logBytesRead={tracker.BytesRead}\n"+string.Join("\n",assets.Warnings));
+        if(demo) ReviewRenders(output,assets,layout);
         return 0;
     }
-    private static void Render(OfficeView view,int width,int height,string file)
+    internal static void Render(FrameworkElement view,int width,int height,string file)
     {
         view.Width=width; view.Height=height; view.Measure(new(width,height)); view.Arrange(new(0,0,width,height)); view.UpdateLayout();
         var bitmap=new RenderTargetBitmap(width,height,96,96,PixelFormats.Pbgra32); bitmap.Render(view);
         var png=new PngBitmapEncoder(); png.Frames.Add(BitmapFrame.Create(bitmap));
         using var stream=File.Create(file); png.Save(stream);
+    }
+    private static void ReviewRenders(string output,AssetPack assets,OfficeLayout layout)
+    {
+        var epoch=DateTimeOffset.Parse("2026-10-04T00:00:00Z");
+        var deskCount=layout.Furniture.Count(f=>assets.Variant(f).Points.Any(p=>p.Action=="typing"));
+        AgentInfo[] Scenario(int count,bool rest) => Enumerable.Range(0,count).Select(i=>new AgentInfo(
+            $"review:{i:00}",(Provider)(i%3),i>=3 ? $"review:{i%3:00}" : null,i>=3,
+            i==0 ? "Codex worker" : i==1 ? "Claude" : i==2 ? "Antigravity" : i==6 ? "A very long nickname" : $"Worker {i+1}",
+            i<3 ? "Lead" : "Worker","demo-model","C:/Demo/Office","Fabricated review session","edit_file","file",
+            rest && i%3==0 ? AgentState.Idle : AgentState.Working,epoch,epoch,false)).ToArray();
+        foreach(var scenario in new[] { (Name:"normal",Count:7,TakeBreak:false),(Name:"reserved-tags",Count:7,TakeBreak:true),
+            (Name:"overflow",Count:deskCount+(layout.OverflowSeats?.Count ?? 0)+3,TakeBreak:false) })
+        {
+            var office=new OfficeAnimator(42,assets,layout);var agents=Scenario(scenario.Count,scenario.TakeBreak);IReadOnlyList<AgentView> poses=Array.Empty<AgentView>();
+            for(var frame=0;frame<1400;frame++) poses=office.Update(agents,epoch.AddSeconds(frame*.1),.1);
+            var view=new OfficeView(assets);view.SetZoom(2);view.Update(office.Layout,poses,epoch.AddSeconds(140),office.FurnitureSprites);
+            Render(view,office.Layout.WidthTiles*32+32,office.Layout.HeightTiles*32+32,Path.Combine(output,scenario.Name+".png"));
+            if(view.RenderedAgentTags!=poses.Count(a=>a.Pose.Visible)) throw new InvalidOperationException("A visible character lost its overhead tag.");
+            if(scenario.Name=="reserved-tags" && view.RenderedReservedTags==0) throw new InvalidOperationException("Away owners need reserved desk tags.");
+            if(scenario.Name=="normal" && view.RenderedReservedTags!=0) throw new InvalidOperationException("Working owners must not have duplicated desk tags.");
+            if(scenario.Name=="overflow" && (!poses.Any(a=>a.Pose.WorkLocation=="overflow") || !poses.Any(a=>a.Pose.Queued))) throw new InvalidOperationException("Overflow and door queue were not exercised.");
+            if(scenario.Name=="normal")
+            {
+                view.SetZoom(0);Render(view,400,300,Path.Combine(output,"auto-fit-small.png"));
+                view.Width=double.NaN;view.Height=double.NaN;
+                var panel=new OfficeEditorPanel(view,assets,office.SourceLayout);
+                var host=new DockPanel { Background=new SolidColorBrush(OfficeView.BackgroundColor) };DockPanel.SetDock(panel,Dock.Left);host.Children.Add(panel);host.Children.Add(view);
+                Render(host,1500,840,Path.Combine(output,"editor-ui.png"));panel.Detach();
+            }
+            StateJson.WriteAtomic(Path.Combine(output,scenario.Name+"-state.json"),new StateSnapshot(StateJson.SchemaVersion,epoch.AddSeconds(140),1,SpriteAtlas.Info,office.Layout,poses,Array.Empty<string>(),assets.Manifest,office.FurnitureSprites));
+        }
     }
     private static int ProfileIdle(string output,AssetPack assets,OfficeLayout layout)
     {
@@ -195,6 +229,9 @@ internal sealed class OfficeWindow : Window
     private readonly bool demo, qa;
     private readonly DateTimeOffset epoch = DateTimeOffset.UtcNow;
     private readonly OfficeView view;
+    private readonly DockPanel surface = new();
+    private OfficeEditorPanel? editor;
+    private OfficeEditor? pendingEditor;
     private readonly AssetPack assets;
     private readonly TextBlock status = new() { Margin = new(16,7,16,7), Foreground = new SolidColorBrush(Color.FromRgb(231,209,172)), FontSize = 11 };
     private readonly TextBlock counts = new() { VerticalAlignment = VerticalAlignment.Center, Foreground = new SolidColorBrush(Color.FromRgb(231,209,172)), FontSize = 11 };
@@ -208,10 +245,13 @@ internal sealed class OfficeWindow : Window
     private bool polling, closed;
     private string warning = "";
 
-    public OfficeWindow(bool demo = false, Settings? initial = null, double quitAfter = 0, AssetPack? assets = null, OfficeLayout? layout = null, bool qa = false)
+    public OfficeWindow(bool demo = false, Settings? initial = null, double quitAfter = 0, AssetPack? assets = null, OfficeLayout? layout = null, bool qa = false,
+        OfficeAnimator? liveOffice = null, IReadOnlyList<AgentInfo>? liveAgents = null, DateTimeOffset? demoEpoch = null)
     {
         this.demo = demo;
-        this.qa = qa; this.assets = assets ?? new(); view = new(this.assets); office = new(42,this.assets,layout);
+        this.qa = qa; this.epoch=demoEpoch ?? DateTimeOffset.UtcNow;
+        this.assets = assets ?? new(); view = new(this.assets); office = liveOffice ?? new(42,this.assets,layout);
+        agents=liveAgents ?? Array.Empty<AgentInfo>();
         settings = initial ?? (demo || qa ? new() : ReadSettings());
         if (qa) settings=settings with { Mode="normal",Borderless=true,Width=400,Height=300,Left=-30000,Top=-30000 };
         Title = demo ? "Vibedotcom — demo office" : "Vibedotcom — agent office";
@@ -219,7 +259,7 @@ internal sealed class OfficeWindow : Window
         MinWidth = 400; MinHeight = 300;
         AllowsTransparency = settings.Mode == "desktop" || settings.TransparentBackground;
         WindowStyle = AllowsTransparency || settings.Borderless ? WindowStyle.None : WindowStyle.SingleBorderWindow;
-        Background = settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor);
+        Background = AllowsTransparency ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor);
         ShowInTaskbar = !qa && settings.Mode != "desktop"; Topmost = !qa && settings.Mode == "topmost";
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         if (settings.Left is { } left && settings.Top is { } top && double.IsFinite(left) && double.IsFinite(top) &&
@@ -236,16 +276,18 @@ internal sealed class OfficeWindow : Window
         };
         if (options.GoneAfter <= options.WorkingWindow) options = new();
         tracker = new(options); modes = new(this,qa);
-        var root = new DockPanel();
+        var root = new DockPanel { Background=settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor) };
         var bar = new DockPanel { Margin = new(16,9,16,9), LastChildFill = true };
         DockPanel.SetDock(counts,Dock.Right); bar.Children.Add(counts);
         bar.Children.Add(new TextBlock { Text = demo ? "Vibedotcom  ·  demo" : "Vibedotcom", FontSize = 17, FontWeight = FontWeights.SemiBold, Foreground = new SolidColorBrush(Color.FromRgb(244,226,189)) });
         DockPanel.SetDock(bar,Dock.Top); root.Children.Add(bar);
         DockPanel.SetDock(status,Dock.Bottom); root.Children.Add(status);
-        root.Children.Add(view); Content = root;
-        PreviewMouseWheel += (_,e) => { Zoom(e.Delta>0 ? 1 : -1); e.Handled = true; };
+        surface.Children.Add(view);root.Children.Add(surface); Content = root;
+        PreviewMouseWheel += (_,e) => { if(editor != null && !view.IsMouseOver) return; Zoom(e.Delta>0 ? 1 : -1); e.Handled = true; };
         PreviewKeyDown += (_,e) =>
         {
+            if(editor?.HandleKey(e)==true) { e.Handled=true;return; }
+            if(Keyboard.FocusedElement is TextBox) return;
             if (e.Key is Key.Add or Key.OemPlus) { Zoom(1); e.Handled = true; }
             if (e.Key is Key.Subtract or Key.OemMinus) { Zoom(-1); e.Handled = true; }
         };
@@ -256,9 +298,10 @@ internal sealed class OfficeWindow : Window
         ContentRendered += (_,_) => ApplyModes();
         LocationChanged += (_,_) => saveAfter = DateTimeOffset.UtcNow.AddSeconds(1);
         SizeChanged += (_,_) => saveAfter = DateTimeOffset.UtcNow.AddSeconds(1);
-        if (demo)
+        if (demo && liveOffice == null)
             for (var frame = 0; frame < 180; frame++)
             { var t = -18+frame*.1; agents = DemoScenario.Agents(epoch,t); view.Update(office.Layout,office.Update(agents,epoch.AddSeconds(t),.1),epoch.AddSeconds(t),office.FurnitureSprites); }
+        else view.Update(office.Layout,office.Update(agents,DateTimeOffset.UtcNow,0),DateTimeOffset.UtcNow,office.FurnitureSprites);
         timer = new(TimeSpan.FromMilliseconds(1000d/30),DispatcherPriority.Background,(_,_) => Animate(),Dispatcher);
         if (double.IsFinite(quitAfter) && quitAfter>0)
         {
@@ -291,7 +334,7 @@ internal sealed class OfficeWindow : Window
     private void ApplyModes()
     {
         view.TransparentBackground = settings.TransparentBackground;
-        modes.Apply(settings.Mode,settings.ClickThrough,settings.Borderless,settings.TransparentBackground,Finite(settings.Opacity,1,.25,1));
+        modes.Apply(editor != null ? "normal" : settings.Mode,editor == null && settings.ClickThrough,settings.Borderless,settings.TransparentBackground,Finite(settings.Opacity,1,.25,1));
         view.HideTooltip();
     }
     private void Zoom(int amount) { view.ChangeZoom(amount); Save(); }
@@ -308,14 +351,17 @@ internal sealed class OfficeWindow : Window
     {
         settings = settings with { TransparentBackground = !settings.TransparentBackground };
         if (AllowsTransparency != (settings.Mode == "desktop" || settings.TransparentBackground)) Reopen();
-        else { Background = settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor); ApplyModes(); Save(); }
+        else { if(Content is Panel root) root.Background = settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor); ApplyModes(); Save(); }
     }
     private void Reopen()
     {
         var bounds = modes.ScreenBounds;
         settings = settings with { Width = bounds.Width, Height = bounds.Height, Left = bounds.Left, Top = bounds.Top, Zoom = view.PreferredZoom };
         // WPF fixes AllowsTransparency at HWND creation. Replace only when that native surface changes.
-        var replacement = new OfficeWindow(demo,settings,0,assets,office.SourceLayout,qa);
+        var wasEditing=editor != null;
+        var replacement = new OfficeWindow(demo,settings,0,assets,editor?.Editor.Layout ?? office.SourceLayout,qa,office,agents,epoch);
+        replacement.pendingEditor=editor?.Editor;
+        if(wasEditing) replacement.ToggleEditor();
         Application.Current.MainWindow=replacement; replacement.Show(); Close();
     }
     private void OpacityTo(double value) { settings = settings with { Opacity = value }; ApplyModes(); Save(); }
@@ -335,7 +381,10 @@ internal sealed class OfficeWindow : Window
         ("Transparent background",ToggleTransparent,()=>settings.TransparentBackground),
         ("Opacity 100%",()=>OpacityTo(1),()=>settings.Opacity==1),
         ("Opacity 85%",()=>OpacityTo(.85),()=>settings.Opacity==.85),
-        ("Opacity 65%",()=>OpacityTo(.65),()=>settings.Opacity==.65),
+        ("Opacity 70%",()=>OpacityTo(.70),()=>settings.Opacity==.70),
+        ("Opacity 50%",()=>OpacityTo(.50),()=>settings.Opacity==.50),
+        ("Opacity 30%",()=>OpacityTo(.30),()=>settings.Opacity==.30),
+        ("Edit office",ToggleEditor,()=>editor != null),
         ("Fit office to window",Fit,()=>view.PreferredZoom==0),
         ("Show normal, clickable office",Recover,null),
         ("Exit",Close,null)
@@ -370,11 +419,11 @@ internal sealed class OfficeWindow : Window
         if (WindowState != WindowState.Minimized)
         {
             var views = office.Update(agents,now,(now-previous).TotalSeconds);
-            view.Update(office.Layout,views,now,office.FurnitureSprites);
+            view.Update(editor?.Editor.Layout ?? office.Layout,views,now,office.FurnitureSprites);
             var animated = views.Any(a=>a.Pose.Visible && (a.Pose.Action is "walking" or "entering" or "exiting" ||
                 a.Pose.Sprite is {} s && assets.Manifest.Sheets.First(sheet=>sheet.Id==s.SheetId).Rows.Any(row=>row.Row==s.Row && row.Name.StartsWith("blink-",StringComparison.Ordinal))));
             timer.Interval=TimeSpan.FromMilliseconds(animated ? 1000d/30 : 125);
-            if (!qa && now>=nextHover) { view.PollHover(modes.Cursor(view),now); nextHover = now.AddMilliseconds(100); }
+            if (!qa && editor == null && now>=nextHover) { view.PollHover(modes.Cursor(view),now); nextHover = now.AddMilliseconds(100); }
         }
         previous = now;
         if (now>=nextHostCheck)
@@ -382,11 +431,25 @@ internal sealed class OfficeWindow : Window
             nextHostCheck = now.AddSeconds(2);
             if (modes.DesktopHostLost) ApplyModes();
             counts.Text = string.Join("  ·  ",Enum.GetValues<Provider>().Select(p=>$"{p} {agents.Count(a=>a.Provider==p&&a.State!=AgentState.Gone)}"));
-            var issue=string.Join("  ",assets.Warnings.Concat(warning.Length>0 ? new[] { warning } : Array.Empty<string>()));
-            status.Text = issue.Length>0 ? issue : settings.Mode=="desktop" && !modes.Embedded ? "Desktop host unavailable; bottom-level fallback. Recover from tray." : $"{agents.Count(a=>a.State!=AgentState.Gone)} agents  ·  {view.Zoom}×{(view.PreferredZoom==0 ? " auto" : "")}  ·  wheel / + / −  ·  drag to pan  ·  right-click for modes";
+            var issue=string.Join("  ",assets.Warnings.Concat(warning.Length>0 ? new[] { warning } : Array.Empty<string>()).Concat(modes.OpacityError != null ? new[] { "Opacity: "+modes.OpacityError } : Array.Empty<string>()));
+            status.Text = issue.Length>0 ? issue : editor != null ? "Editing office · live agents · click-through paused · Save applies layout" : settings.Mode=="desktop" && !modes.Embedded ? "Desktop host unavailable; bottom-level fallback. Recover from tray." : $"{agents.Count(a=>a.State!=AgentState.Gone)} agents  ·  {view.Zoom:0.##}×{(view.PreferredZoom==0 ? " auto" : "")}  ·  wheel / + / −  ·  drag to pan  ·  right-click for modes";
         }
         if (!demo && !polling && now>=nextPoll) { nextPoll = now.AddSeconds(1); _ = PollAsync(now); }
         if (saveAfter!=default && now>=saveAfter) { saveAfter = default; Save(); }
+    }
+    private void ToggleEditor()
+    {
+        if(editor != null)
+        { var old=editor;editor=null;old.Detach();surface.Children.Remove(old);ApplyModes();return; }
+        editor=new OfficeEditorPanel(view,assets,office.SourceLayout,pendingEditor);pendingEditor=null;
+        editor.LayoutChanged+=()=>
+        {
+            try { office.ReloadLayout(editor.Editor.Layout);warning=""; }
+            catch(Exception e) when(e is IOException or ArgumentException or InvalidOperationException) { warning="Preview: "+e.Message; }
+            view.Update(editor.Editor.Layout,view.Agents,DateTimeOffset.UtcNow,office.FurnitureSprites);
+        };
+        editor.ExitRequested+=ToggleEditor;
+        DockPanel.SetDock(editor,Dock.Left);surface.Children.Insert(0,editor);ApplyModes();
     }
     private async Task PollAsync(DateTimeOffset now)
     {
