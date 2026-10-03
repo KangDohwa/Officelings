@@ -64,16 +64,26 @@ internal sealed class TrackedAgent(string id, Provider provider)
 
 public readonly record struct Tile(int X, int Y);
 public readonly record struct Position(double X, double Y);
-public sealed record Furniture(string Kind, int X, int Y, int Width, int Height, string? AgentId = null);
-public sealed record OfficeLayout(int WidthTiles, int HeightTiles, int TileSize, Tile Door, IReadOnlyList<Furniture> Furniture);
-public sealed record Pose(double X, double Y, Tile Desk, string Action, string Facing, int SpriteRow, int SpriteColumn, bool Visible);
+public sealed record Furniture(string Kind, int X, int Y, int Width, int Height, string? AgentId = null,
+    string Id = "", string? AssetId = null, int Rotation = 0, string State = "default");
+public sealed record Zone(string Name, int X, int Y, int Width, int Height, IReadOnlyList<InteractionPoint>? Points = null);
+public sealed record AutoDesks(string AssetId = "desk", int X = 2, int Y = 5, int SpacingX = 5, int SpacingY = 4,
+    int MaxColumns = 4, bool AdaptiveColumns = true, bool Expand = true);
+public sealed record OfficeLayout(int WidthTiles, int HeightTiles, int TileSize, Tile Door, IReadOnlyList<Furniture> Furniture,
+    int Version = 1, IReadOnlyList<int>? Tiles = null, IReadOnlyList<Zone>? Zones = null, AutoDesks? AutoDesks = null);
+public sealed record Pose(double X, double Y, Tile Desk, string Action, string Facing, int SpriteRow, int SpriteColumn, bool Visible,
+    double Opacity = 1, bool CarryingPaper = false, bool ReportOnDesk = false, string? Reaction = null, string? ChatPartnerId = null,
+    string? CharacterId = null, SpriteFrame? Sprite = null);
 public sealed record AgentView(AgentInfo Agent, Pose Pose);
+public sealed record FurnitureSprite(string Id, SpriteFrame Sprite);
 public sealed record AtlasInfo(string File, int Width, int Height, int CellWidth, int CellHeight, int Columns, int Rows, int Version);
 public sealed record StateSnapshot(int SchemaVersion, DateTimeOffset GeneratedAt, long Sequence,
-    AtlasInfo Atlas, OfficeLayout Office, IReadOnlyList<AgentView> Agents, IReadOnlyList<string> Warnings);
+    AtlasInfo Atlas, OfficeLayout Office, IReadOnlyList<AgentView> Agents, IReadOnlyList<string> Warnings, AssetManifest? Assets = null,
+    IReadOnlyList<FurnitureSprite>? FurnitureSprites = null);
 
 public static class StateJson
 {
+    public const int SchemaVersion = 3;
     public static string OutputPath(string path, string? sourceHome = null)
     {
         var output = Path.GetFullPath(path);
