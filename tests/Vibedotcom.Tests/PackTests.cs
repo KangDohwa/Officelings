@@ -79,7 +79,71 @@ public sealed class PackTests
         Assert.Contains(1, office.Layout.Tiles!); Assert.Contains(2, office.Layout.Tiles!); Assert.Contains(3, office.Layout.Tiles!);
         var blocked = LayoutLoader.Blocked(office.Layout, pack);
         Assert.All(views, v => Assert.NotEmpty(OfficeAnimator.FindPath(office.Layout, office.Layout.Door, v.Pose.Desk, blocked)));
-        Assert.Equal(office.Layout.Door.Y, office.Layout.Furniture.Single(f => f.Kind == "door").Y);
+        Assert.Equal(office.Layout.Door.Y - 1, office.Layout.Furniture.Single(f => f.Kind == "door").Y);
+        Assert.Equal(count + 1, office.Layout.Furniture.Count(f => f.Kind == "desk"));
+        Assert.Equal(3, office.Layout.Door.Y);
+        Assert.All(views, v => Assert.Equal("up", pack.Variant(office.Layout.Furniture.Single(f => f.AgentId == v.Agent.Id)).Points.Single(p => p.Action == "typing").Facing));
+    }
+
+    [Fact]
+    public void StillCharactersBlinkBrieflyAtIndependentThreeToSixSecondIntervals()
+    {
+        var directory = Path.Combine(Path.GetTempPath(), "Vibedotcom-blink-test-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(directory);
+        try
+        {
+            var fallback = new AssetPack();
+            var desk = fallback.Manifest.Furniture.Single(f => f.Id == "desk");
+            desk = desk with { Variants = desk.Variants.Select(v => v with {
+                Points = v.Points.Select(p => p with { Facing = "down" }).ToArray() }).ToArray() };
+            var rows = new AnimationRow[] { new("idle","down",0,1,1,Loop:false), new("idle","up",0,1,1,Loop:false),
+                new("walk","any",0,2,4,Column:1), new("typing","down",0,1,1,Column:3,Loop:false),
+                new("blink-typing","down",0,1,1,Column:6,Loop:false) };
+            var manifest = new AssetManifest(1,[new("people","people.png",16,24,rows,new(8,24))],
+                [desk],[new("blink-person","people")],[]);
+            File.WriteAllBytes(Path.Combine(directory,"people.png"),SpriteAtlas.CreatePng());
+            File.WriteAllText(Path.Combine(directory,"assets.json"),JsonSerializer.Serialize(manifest,StateJson.Options));
+            var pack = new AssetPack(directory); Assert.Empty(pack.Warnings);
+            var agent = Agent("blink-timing"); var design = pack.Manifest.Characters[0];
+            Assert.Equal(pack.CharacterFrame(agent,design,"walking","down",200),pack.CharacterFrame(agent,design,"walking","down",200,blink:true));
+            Assert.Equal(pack.CharacterFrame(agent,design,"thinking","up",200),pack.CharacterFrame(agent,design,"thinking","up",200,blink:true));
+            var office = new OfficeAnimator(42,pack);
+            DateTimeOffset? closedSince = null, previousBlink = null;
+            var closures = 0;
+            for (var i=0;i<2000;i++)
+            {
+                var time=Now.AddMilliseconds(i*50);
+                var view=Assert.Single(office.Update([agent],time,.05));
+                var closed=view.Pose.Sprite!.Column==6;
+                if (view.Pose.Action is "walking" or "entering" or "exiting") Assert.False(closed);
+                if (closed && closedSince==null)
+                {
+                    closedSince=time; closures++;
+                    if (previousBlink!=null) Assert.InRange((time-previousBlink.Value).TotalSeconds,3,6.05);
+                    previousBlink=time;
+                }
+                else if (!closed && closedSince!=null)
+                {
+                    Assert.InRange((time-closedSince.Value).TotalMilliseconds,100,200);
+                    closedSince=null;
+                }
+            }
+            Assert.True(closures>=10);
+        }
+        finally { Directory.Delete(directory,true); }
+    }
+
+    [Fact]
+    public void SmallRosterShrinksTheRoomAndKeepsOneSpareDesk()
+    {
+        var pack=AssetPack.LoadDefault(useUserPack:false); var office=new OfficeAnimator(42,pack);
+        var agents=Enumerable.Range(0,24).Select(i=>Agent("shrink:"+i)).ToArray();
+        office.Update(agents,Now,0); var large=office.Layout;
+        office.Update([agents[0]],Now.AddSeconds(1),0);
+        Assert.True(office.Layout.WidthTiles<large.WidthTiles);
+        Assert.True(office.Layout.HeightTiles<large.HeightTiles);
+        Assert.Equal(2,office.Layout.Furniture.Count(f=>f.Kind=="desk"));
+        Assert.Equal(large.Door,office.Layout.Door);
     }
 
     [Fact]
