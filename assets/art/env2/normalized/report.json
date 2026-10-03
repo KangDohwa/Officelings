@@ -1,0 +1,1883 @@
+{
+  "version": 1,
+  "max_shift_search": 6,
+  "reference_frame": 0,
+  "bbox_convention": "cell-local [x0,y0,x1,y1], exclusive upper bounds",
+  "sheets": [
+    {
+      "prop": "armchair",
+      "rows": [
+        {
+          "prop": "armchair",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/armchair.manifest.json",
+      "source_png": "assets/art/env2/sheets/armchair.png",
+      "source_sha256": "66b9ef909e0b55383ca2486cd47a957deb56a231be0aedf5b9c22dcc468ee0ec",
+      "manifest_sha256": "78a769e351610a948180b459d4bca8bce3ca06017d00d552074acc9c7ea45c6c",
+      "output_png": "armchair.png",
+      "output_manifest": "armchair.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "bookshelf",
+      "rows": [
+        {
+          "prop": "bookshelf",
+          "state": "variants",
+          "frames": 2,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/bookshelf.manifest.json",
+      "source_png": "assets/art/env2/sheets/bookshelf.png",
+      "source_sha256": "fb44297e7a771e7a3ebe296d8bf23d7ab4010e63a474e0e3f4a0960610376508",
+      "manifest_sha256": "9e237542090baf803444b0ab63aa8a013db91f6abb7c38e2abfaa6f8a8e5968e",
+      "output_png": "bookshelf.png",
+      "output_manifest": "bookshelf.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "cat",
+      "rows": [
+        {
+          "prop": "cat",
+          "frames": 1,
+          "mode": "full-animation",
+          "mask_strategy": "full-animation",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "sleep",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "cat",
+          "frames": 2,
+          "mode": "full-animation",
+          "mask_strategy": "full-animation",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 91.5039,
+          "animated_region_bbox": [
+            19,
+            41,
+            45,
+            61
+          ],
+          "animated_region_pixels": 348,
+          "varying_pixels_before": 183,
+          "varying_pixels_after": 183,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "walk_right",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/cat.manifest.json",
+      "source_png": "assets/art/env2/sheets/cat.png",
+      "source_sha256": "25988ed4520d0577e3d84e0b6b1331b28d74de28553bb2ea40e33906a409b65f",
+      "manifest_sha256": "55781989eff63e051af11e7219e301d414b49560d24554f895f1b4878c8065a9",
+      "output_png": "cat.png",
+      "output_manifest": "cat.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "ceiling-light-glow",
+      "rows": [
+        {
+          "prop": "ceiling-light-glow",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/ceiling-light-glow.manifest.json",
+      "source_png": "assets/art/env2/sheets/ceiling-light-glow.png",
+      "source_sha256": "7ccd58ca05b3fbdddbba6d49ea9b3b68a981581e52f599c965e782b83bb9156d",
+      "manifest_sha256": "b2513ac358e2f3ff937f0708941a825ccc5da9838d236e6c306b7be639214794",
+      "output_png": "ceiling-light-glow.png",
+      "output_manifest": "ceiling-light-glow.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "coffee-table",
+      "rows": [
+        {
+          "prop": "coffee-table",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/coffee-table.manifest.json",
+      "source_png": "assets/art/env2/sheets/coffee-table.png",
+      "source_sha256": "68221301f7fa262d3c336491acac88c0c93b66745d518a7412cf51086dac6d8b",
+      "manifest_sha256": "78c425d31b6fa8d793b1d48d5be7e321bd6436cf6eba79eb09b22f17f4d73fdb",
+      "output_png": "coffee-table.png",
+      "output_manifest": "coffee-table.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desks",
+      "rows": [
+        {
+          "prop": "desks",
+          "state": "variants",
+          "frames": 2,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/desks.manifest.json",
+      "source_png": "assets/art/env2/sheets/desks.png",
+      "source_sha256": "659a620fa69d0d7110c358296c2867ae23d78bceb1d3a89ddcf5e29ae1be544b",
+      "manifest_sha256": "211a491ac3549a942db9d878e19ad11f4c141568dab6cc1f5e0c6b2c3c43d5d9",
+      "output_png": "desks.png",
+      "output_manifest": "desks.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "filing-cabinet",
+      "rows": [
+        {
+          "prop": "filing-cabinet",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/filing-cabinet.manifest.json",
+      "source_png": "assets/art/env2/sheets/filing-cabinet.png",
+      "source_sha256": "b81986f8a4d2da7115908ded774724a6820b74de457de5a352e99ad6115bc740",
+      "manifest_sha256": "3de4592cc60274b363871d42b542532f4ead6e435af4e39c52280935d6a9a7f5",
+      "output_png": "filing-cabinet.png",
+      "output_manifest": "filing-cabinet.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "framed-pictures",
+      "rows": [
+        {
+          "prop": "framed-pictures",
+          "state": "variants",
+          "frames": 4,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/framed-pictures.manifest.json",
+      "source_png": "assets/art/env2/sheets/framed-pictures.png",
+      "source_sha256": "24d78d2e09b7890b2fa34ca5d65330000959e64c6c9885566f405077f98c7b7b",
+      "manifest_sha256": "46dbfef49747c3d90837c69f7319ba7c458557579a3fc621156db3b2456dccfe",
+      "output_png": "framed-pictures.png",
+      "output_manifest": "framed-pictures.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "fridge",
+      "rows": [
+        {
+          "prop": "fridge",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/fridge.manifest.json",
+      "source_png": "assets/art/env2/sheets/fridge.png",
+      "source_sha256": "76c43345afaad48217f13d4f0e7be02a90b55f55992c05a25220715fbaeccf11",
+      "manifest_sha256": "e3e8e72c34b15954cbc09e3b9960c5eaa9712c9838ce0de24de5fb04a5360a4b",
+      "output_png": "fridge.png",
+      "output_manifest": "fridge.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "kitchen-counter-sink",
+      "rows": [
+        {
+          "prop": "kitchen-counter-sink",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/kitchen-counter-sink.manifest.json",
+      "source_png": "assets/art/env2/sheets/kitchen-counter-sink.png",
+      "source_sha256": "13cf32c63ed15addbc2c07768d1089969fb4433b0a2cfb845adf38e3fd9a367e",
+      "manifest_sha256": "ee301308e4c23ceab086e96d289f71405f8f33b02bf003af446f20cd031fb184",
+      "output_png": "kitchen-counter-sink.png",
+      "output_manifest": "kitchen-counter-sink.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "lamp",
+      "rows": [
+        {
+          "prop": "lamp",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/lamp.manifest.json",
+      "source_png": "assets/art/env2/sheets/lamp.png",
+      "source_sha256": "2d8adc3ae43a8b2d6c22c1a6c294e95103d53d404466cb150dc79598aa72f984",
+      "manifest_sha256": "d0736197c6b28beb3012bf3eb65575978b10dff54e4f77ce944a4ac16f134a74",
+      "output_png": "lamp.png",
+      "output_manifest": "lamp.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "meeting-table-chairs",
+      "rows": [
+        {
+          "prop": "meeting-table-chairs",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/meeting-table-chairs.manifest.json",
+      "source_png": "assets/art/env2/sheets/meeting-table-chairs.png",
+      "source_sha256": "fa603bf99d6e7702996634c8defbaf1e8b51d6139a2e64bd75fc76be5bd23df4",
+      "manifest_sha256": "1d30b9d8962510439688a7260f698eb42cc478273633af71fd73c3bf06e689f5",
+      "output_png": "meeting-table-chairs.png",
+      "output_manifest": "meeting-table-chairs.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "microwave",
+      "rows": [
+        {
+          "prop": "microwave",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/microwave.manifest.json",
+      "source_png": "assets/art/env2/sheets/microwave.png",
+      "source_sha256": "cca810260f9c8d38344907c8034337041bc35115a71a6403e890b15ab65d8ac9",
+      "manifest_sha256": "777d31a2ab4b148cfbf139483895ee3647b16c4ec5926f13f81075afa3ef30b7",
+      "output_png": "microwave.png",
+      "output_manifest": "microwave.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "monitors",
+      "rows": [
+        {
+          "prop": "monitors",
+          "state": "variants",
+          "frames": 3,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/monitors.manifest.json",
+      "source_png": "assets/art/env2/sheets/monitors.png",
+      "source_sha256": "d5eb0cbc5c7e82fd6742b87acc004f2f0fb9e1527f2fc767d71403b0e1c08ac9",
+      "manifest_sha256": "90278352d19d066598ffeb8ef99f77f673a74ff10e091db01a5ec61ffb86d6e5",
+      "output_png": "monitors.png",
+      "output_manifest": "monitors.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "mug",
+      "rows": [
+        {
+          "prop": "mug",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/mug.manifest.json",
+      "source_png": "assets/art/env2/sheets/mug.png",
+      "source_sha256": "b2af3754aa7842806458c29e1228d5cadd2cc0d906cfe5f3f7bca70d26e296db",
+      "manifest_sha256": "6ae2d5cb764188897ab6fb75ae8ec7beff3e8e04fc1b583a169665a7775b50aa",
+      "output_png": "mug.png",
+      "output_manifest": "mug.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "office-chairs",
+      "rows": [
+        {
+          "prop": "office-chairs",
+          "state": "variants",
+          "frames": 3,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/office-chairs.manifest.json",
+      "source_png": "assets/art/env2/sheets/office-chairs.png",
+      "source_sha256": "2974389ba5fa1ecd073e5567c1fc24b440c23df228846b827b2adc0f07ce4503",
+      "manifest_sha256": "c5db50b9b16dd0913bda273a15e2985d1854dfc6a9b8fd95522bff373d61a62a",
+      "output_png": "office-chairs.png",
+      "output_manifest": "office-chairs.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "plants",
+      "rows": [
+        {
+          "prop": "plants",
+          "state": "variants",
+          "frames": 5,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/plants.manifest.json",
+      "source_png": "assets/art/env2/sheets/plants.png",
+      "source_sha256": "a6e7f8f1ca28c307cb916a3ba6e98e56e754f449eadb812d3477246143b1ef89",
+      "manifest_sha256": "081a14d7fb3c19c387216d87ede773ef6aca6350116a038aabd4284d2c8d0414",
+      "output_png": "plants.png",
+      "output_manifest": "plants.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "printer",
+      "rows": [
+        {
+          "prop": "printer",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/printer.manifest.json",
+      "source_png": "assets/art/env2/sheets/printer.png",
+      "source_sha256": "e40fe591147c917daf1eefafbfb15fc9aeca25d212dfb70f508c67b8d4ea6fc0",
+      "manifest_sha256": "ef0f467dbf4527dfe6993656b9f8ae21716c4c6babc25597442675ae96fa082b",
+      "output_png": "printer.png",
+      "output_manifest": "printer.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "robot-vacuum",
+      "rows": [
+        {
+          "prop": "robot-vacuum",
+          "frames": 2,
+          "mode": "full-animation",
+          "mask_strategy": "full-animation",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 94.5068,
+          "animated_region_bbox": [
+            22,
+            45,
+            43,
+            61
+          ],
+          "animated_region_pixels": 225,
+          "varying_pixels_before": 10,
+          "varying_pixels_after": 10,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "clean",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/robot-vacuum.manifest.json",
+      "source_png": "assets/art/env2/sheets/robot-vacuum.png",
+      "source_sha256": "09c072dfd1e9a72a00278d1b2ceebc4280f1ca335404ee4b5f6d89a205dadf50",
+      "manifest_sha256": "b588b73c10058ddcd867634bcfd1213af205d07285dd744fb5547b35d98bf037",
+      "output_png": "robot-vacuum.png",
+      "output_manifest": "robot-vacuum.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "round-table",
+      "rows": [
+        {
+          "prop": "round-table",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/round-table.manifest.json",
+      "source_png": "assets/art/env2/sheets/round-table.png",
+      "source_sha256": "11ee7105ee99738e07aabdd8402274a4cd4603f189881a87670db99a02803a03",
+      "manifest_sha256": "c6e7ef90780bd49453522fb76a2b1bc470979eed885ce518381cb7813a0444e5",
+      "output_png": "round-table.png",
+      "output_manifest": "round-table.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "rugs",
+      "rows": [
+        {
+          "prop": "rugs",
+          "state": "variants",
+          "frames": 2,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/rugs.manifest.json",
+      "source_png": "assets/art/env2/sheets/rugs.png",
+      "source_sha256": "cd5c2278723171464f22d3aaeff978ed0d615bab1ba59e2ee8524c84065a1f01",
+      "manifest_sha256": "fb7d7bd442d0920585e99da3d98436fb8f33bdc595d7e4c8cecbde02af4d26d7",
+      "output_png": "rugs.png",
+      "output_manifest": "rugs.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "server-rack",
+      "rows": [
+        {
+          "prop": "server-rack",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "leds",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 98.0469,
+          "animated_region_bbox": [
+            35,
+            20,
+            39,
+            56
+          ],
+          "animated_region_pixels": 80,
+          "varying_pixels_before": 20,
+          "varying_pixels_after": 20,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "blink",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/server-rack.manifest.json",
+      "source_png": "assets/art/env2/sheets/server-rack.png",
+      "source_sha256": "e4fe298ae0b4b87559e44832a41597455ef3e12aeec61d6d9fc3142a2571d5ef",
+      "manifest_sha256": "0b77af8989e7ad13d6ef1f961082f73c684c0ac4308d92a1beb7e6f7f584f12d",
+      "output_png": "server-rack.png",
+      "output_manifest": "server-rack.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "sofa-red",
+      "rows": [
+        {
+          "prop": "sofa-red",
+          "state": "variants",
+          "frames": 2,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/sofa-red.manifest.json",
+      "source_png": "assets/art/env2/sheets/sofa-red.png",
+      "source_sha256": "053b745285107d5737f8b4edb14b38db17347d908ccb26ffc22bc9e382da5606",
+      "manifest_sha256": "e80b96a24ffb31e09b3967f0ec0edd027c88c63a24787984090c1dd189a92e83",
+      "output_png": "sofa-red.png",
+      "output_manifest": "sofa-red.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "trash-bin",
+      "rows": [
+        {
+          "prop": "trash-bin",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/trash-bin.manifest.json",
+      "source_png": "assets/art/env2/sheets/trash-bin.png",
+      "source_sha256": "53e9a7e800460fb3813469291e9f411a57b2facf059702dd75abffb8692d4dd9",
+      "manifest_sha256": "4aa30ffd87e4d1f13aae299cbab68afefbd4ba81dc9e4d090b07749622ce1a0f",
+      "output_png": "trash-bin.png",
+      "output_manifest": "trash-bin.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "vending-machine",
+      "rows": [
+        {
+          "prop": "vending-machine",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/vending-machine.manifest.json",
+      "source_png": "assets/art/env2/sheets/vending-machine.png",
+      "source_sha256": "512eeefd0a21322e32c7aaa35ea6c7e0251f4f34cfeb36888dec1cc3d105562a",
+      "manifest_sha256": "e192057727025031be2db1708095c5d16c6af10c463fce449862e2e063e45e45",
+      "output_png": "vending-machine.png",
+      "output_manifest": "vending-machine.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "wall-clock",
+      "rows": [
+        {
+          "prop": "wall-clock",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/wall-clock.manifest.json",
+      "source_png": "assets/art/env2/sheets/wall-clock.png",
+      "source_sha256": "fef79a85fc0ab00517d0e98ac86440a82d3ca25e3237eaa3039dce50a64f3a1a",
+      "manifest_sha256": "d8767ed99805610f6596124246e15d60ca8fe35d900ec7b3a6b35c3616bf650c",
+      "output_png": "wall-clock.png",
+      "output_manifest": "wall-clock.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "whiteboard",
+      "rows": [
+        {
+          "prop": "whiteboard",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env2/sheets/whiteboard.manifest.json",
+      "source_png": "assets/art/env2/sheets/whiteboard.png",
+      "source_sha256": "03790a9cb520b2a77d8a40debb7e475f6317250edfce2bd5c4139e3bcae95b65",
+      "manifest_sha256": "7152464c94b21c00cc1e6ec21a0910795da8b15423e4b09ba4eed247dbc9d145",
+      "output_png": "whiteboard.png",
+      "output_manifest": "whiteboard.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desk-side-double-white-left",
+      "rows": [
+        {
+          "prop": "desk-side-double-white-left",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "off",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-double-white-left",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "on",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-double-white-left",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 98.584,
+          "animated_region_bbox": [
+            23,
+            20,
+            32,
+            35
+          ],
+          "animated_region_pixels": 58,
+          "varying_pixels_before": 36,
+          "varying_pixels_after": 36,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "typing",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/desk-side-double-white-left.manifest.json",
+      "source_png": "assets/art/env3/sheets/desk-side-double-white-left.png",
+      "source_sha256": "ab0ac0cd75e985b33c101a238ed6f9faf8b166e1ad5729785024e4168b224b9e",
+      "manifest_sha256": "7db2dc4f37374e699fdfc605b40508ce8001b1b563b7bded63cc641eeb3136ef",
+      "output_png": "env3/desk-side-double-white-left.png",
+      "output_manifest": "env3/desk-side-double-white-left.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desk-side-double-white-right",
+      "rows": [
+        {
+          "prop": "desk-side-double-white-right",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "off",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-double-white-right",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "on",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-double-white-right",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 98.584,
+          "animated_region_bbox": [
+            32,
+            20,
+            41,
+            35
+          ],
+          "animated_region_pixels": 58,
+          "varying_pixels_before": 36,
+          "varying_pixels_after": 36,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "typing",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/desk-side-double-white-right.manifest.json",
+      "source_png": "assets/art/env3/sheets/desk-side-double-white-right.png",
+      "source_sha256": "4f1bce300fddc4067be681882fab1c13eed810f8dfaa1c5cd6c3400abdcfc895",
+      "manifest_sha256": "1ecd55c629ed3d3d43390b0d48d5bfe894900561d2d80c9c45c37100e1569611",
+      "output_png": "env3/desk-side-double-white-right.png",
+      "output_manifest": "env3/desk-side-double-white-right.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desk-side-double-wood-left",
+      "rows": [
+        {
+          "prop": "desk-side-double-wood-left",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "off",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-double-wood-left",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "on",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-double-wood-left",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 98.584,
+          "animated_region_bbox": [
+            23,
+            20,
+            32,
+            35
+          ],
+          "animated_region_pixels": 58,
+          "varying_pixels_before": 36,
+          "varying_pixels_after": 36,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "typing",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/desk-side-double-wood-left.manifest.json",
+      "source_png": "assets/art/env3/sheets/desk-side-double-wood-left.png",
+      "source_sha256": "816330d911e183159113b324329f8ea14484301e3973df582519f861184d0e5c",
+      "manifest_sha256": "e5f2aaf299b969b1097d02cc2df6f18b8f2f3792c0c9610261a05fe359200080",
+      "output_png": "env3/desk-side-double-wood-left.png",
+      "output_manifest": "env3/desk-side-double-wood-left.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desk-side-double-wood-right",
+      "rows": [
+        {
+          "prop": "desk-side-double-wood-right",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "off",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-double-wood-right",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "on",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-double-wood-right",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 98.584,
+          "animated_region_bbox": [
+            32,
+            20,
+            41,
+            35
+          ],
+          "animated_region_pixels": 58,
+          "varying_pixels_before": 36,
+          "varying_pixels_after": 36,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "typing",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/desk-side-double-wood-right.manifest.json",
+      "source_png": "assets/art/env3/sheets/desk-side-double-wood-right.png",
+      "source_sha256": "1419ca9e7a6b090b0e141e3cc915b7edd77f0033eb6b322c3c3b1683dd4bb028",
+      "manifest_sha256": "75fd8dbe4aa6ecef716545dc76d519e57280cbc3732ea69b0655cd63aa8ceba9",
+      "output_png": "env3/desk-side-double-wood-right.png",
+      "output_manifest": "env3/desk-side-double-wood-right.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desk-side-white-left",
+      "rows": [
+        {
+          "prop": "desk-side-white-left",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "off",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-white-left",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "on",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-white-left",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 99.3408,
+          "animated_region_bbox": [
+            23,
+            26,
+            26,
+            35
+          ],
+          "animated_region_pixels": 27,
+          "varying_pixels_before": 18,
+          "varying_pixels_after": 18,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "typing",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/desk-side-white-left.manifest.json",
+      "source_png": "assets/art/env3/sheets/desk-side-white-left.png",
+      "source_sha256": "e76731369ede6943c2676b4a3faeaa947930649998bc31b760099b9fb092849d",
+      "manifest_sha256": "968910c9851b66a08b4aa4257cbfd03955a3f056fd198692ed90f629d9c71e4a",
+      "output_png": "env3/desk-side-white-left.png",
+      "output_manifest": "env3/desk-side-white-left.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desk-side-white-right",
+      "rows": [
+        {
+          "prop": "desk-side-white-right",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "off",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-white-right",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "on",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-white-right",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 99.3408,
+          "animated_region_bbox": [
+            38,
+            26,
+            41,
+            35
+          ],
+          "animated_region_pixels": 27,
+          "varying_pixels_before": 18,
+          "varying_pixels_after": 18,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "typing",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/desk-side-white-right.manifest.json",
+      "source_png": "assets/art/env3/sheets/desk-side-white-right.png",
+      "source_sha256": "f32885caffe784c4f7d028a968e72fcc8f1fedc7c6d2da18d759995d404e1f5b",
+      "manifest_sha256": "76f15de923cbe67ef90bace530602a3ec029405be99de18238b90acc8fe7db6b",
+      "output_png": "env3/desk-side-white-right.png",
+      "output_manifest": "env3/desk-side-white-right.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desk-side-wood-left",
+      "rows": [
+        {
+          "prop": "desk-side-wood-left",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "off",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-wood-left",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "on",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-wood-left",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 99.3408,
+          "animated_region_bbox": [
+            23,
+            26,
+            26,
+            35
+          ],
+          "animated_region_pixels": 27,
+          "varying_pixels_before": 18,
+          "varying_pixels_after": 18,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "typing",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/desk-side-wood-left.manifest.json",
+      "source_png": "assets/art/env3/sheets/desk-side-wood-left.png",
+      "source_sha256": "f9644e2b19be8ece57501748876cf5a29fdd1bc408f4faae236a5e5d96747f2f",
+      "manifest_sha256": "d601712de018d957689c55fde7b4877fd0cc01e33ca973dfb021a53dfa454624",
+      "output_png": "env3/desk-side-wood-left.png",
+      "output_manifest": "env3/desk-side-wood-left.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "desk-side-wood-right",
+      "rows": [
+        {
+          "prop": "desk-side-wood-right",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "off",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-wood-right",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "on",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "desk-side-wood-right",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 99.3408,
+          "animated_region_bbox": [
+            38,
+            26,
+            41,
+            35
+          ],
+          "animated_region_pixels": 27,
+          "varying_pixels_before": 18,
+          "varying_pixels_after": 18,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "typing",
+          "status": "normalized"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/desk-side-wood-right.manifest.json",
+      "source_png": "assets/art/env3/sheets/desk-side-wood-right.png",
+      "source_sha256": "06be519a3bab61b266b63b56dd7c1fd1dc1f8a6a99f715ea90ab347ed737e577",
+      "manifest_sha256": "3151b9f4582d0784c57edae823d6b265baed6abd16b0dfa7635b125f8df2e81f",
+      "output_png": "env3/desk-side-wood-right.png",
+      "output_manifest": "env3/desk-side-wood-right.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "laptop-table-side-left",
+      "rows": [
+        {
+          "prop": "laptop-table-side-left",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/laptop-table-side-left.manifest.json",
+      "source_png": "assets/art/env3/sheets/laptop-table-side-left.png",
+      "source_sha256": "3b827ffa86da030dbbceb9ebcbca9b906c508951b03ff693350ff43c77178d2c",
+      "manifest_sha256": "7dc09b5b570d48e05cc2147b4d4cda42295b31746310f1b9e9d18bad17ea1cb4",
+      "output_png": "env3/laptop-table-side-left.png",
+      "output_manifest": "env3/laptop-table-side-left.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "laptop-table-side-right",
+      "rows": [
+        {
+          "prop": "laptop-table-side-right",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/laptop-table-side-right.manifest.json",
+      "source_png": "assets/art/env3/sheets/laptop-table-side-right.png",
+      "source_sha256": "a029d0d89b06724293909ccd061db23fcf43048a799bcc85e9bc26cdce9e2a47",
+      "manifest_sha256": "add16e14276e3d2cbead5add5decff97ab5167ad50afb79d9f16159b25d9d64f",
+      "output_png": "env3/laptop-table-side-right.png",
+      "output_manifest": "env3/laptop-table-side-right.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "office-chair-side-left-back",
+      "rows": [
+        {
+          "prop": "office-chair-side-left-back",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/office-chair-side-left-back.manifest.json",
+      "source_png": "assets/art/env3/sheets/office-chair-side-left-back.png",
+      "source_sha256": "e1f5b8ac1f2bf6a2a28b7dbe1e29f2b181435305e5bf96544994e82a3baac52b",
+      "manifest_sha256": "9e35c4619886f78be00d8897a4a2a86b1ff6124a7ed9f35280d994a8d8a99fc7",
+      "output_png": "env3/office-chair-side-left-back.png",
+      "output_manifest": "env3/office-chair-side-left-back.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "office-chair-side-left-front",
+      "rows": [
+        {
+          "prop": "office-chair-side-left-front",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/office-chair-side-left-front.manifest.json",
+      "source_png": "assets/art/env3/sheets/office-chair-side-left-front.png",
+      "source_sha256": "8764e3f1d6c4e344cd48bd68156e1e8d9a9ae1961d91629122535d1dd56b4e9b",
+      "manifest_sha256": "fd40a1da6de53a5e33be876a6b500c06358298738dbd7cf691b61e90b8459350",
+      "output_png": "env3/office-chair-side-left-front.png",
+      "output_manifest": "env3/office-chair-side-left-front.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "office-chair-side-left",
+      "rows": [
+        {
+          "prop": "office-chair-side-left",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/office-chair-side-left.manifest.json",
+      "source_png": "assets/art/env3/sheets/office-chair-side-left.png",
+      "source_sha256": "c6d27706e819a8631c830761890f998e7725c3c848988bb209063fd12f4b9be4",
+      "manifest_sha256": "6d664067650f8374b4f668ca71c3b84270377e988278a0011c5a00cd7d083c80",
+      "output_png": "env3/office-chair-side-left.png",
+      "output_manifest": "env3/office-chair-side-left.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "office-chair-side-right-back",
+      "rows": [
+        {
+          "prop": "office-chair-side-right-back",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/office-chair-side-right-back.manifest.json",
+      "source_png": "assets/art/env3/sheets/office-chair-side-right-back.png",
+      "source_sha256": "84d03d915a8a9baeae6d1488e04af0571b999375b3c56b63f41780f29aab317d",
+      "manifest_sha256": "0f621223dd7aef0a0f5116b4615ec5ceb0cecbd319f262d7ca5a0a3572cc3ea8",
+      "output_png": "env3/office-chair-side-right-back.png",
+      "output_manifest": "env3/office-chair-side-right-back.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "office-chair-side-right-front",
+      "rows": [
+        {
+          "prop": "office-chair-side-right-front",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/office-chair-side-right-front.manifest.json",
+      "source_png": "assets/art/env3/sheets/office-chair-side-right-front.png",
+      "source_sha256": "a80c8e5f1f336a5907244fe82e8f8ba8a726bc97719b9aa8c9654145ffd88fa3",
+      "manifest_sha256": "5129d02b46ce55447820ede8186f87930ddbb67384c9da8da7fa4152353305d3",
+      "output_png": "env3/office-chair-side-right-front.png",
+      "output_manifest": "env3/office-chair-side-right-front.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "office-chair-side-right",
+      "rows": [
+        {
+          "prop": "office-chair-side-right",
+          "state": "variants",
+          "frames": 1,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/env3/sheets/office-chair-side-right.manifest.json",
+      "source_png": "assets/art/env3/sheets/office-chair-side-right.png",
+      "source_sha256": "b8af16b6c9e6bf1261ea558df98eff8fb77af4c495726f7e684ba1f9067b7638",
+      "manifest_sha256": "e8a7421210f45d46050565f67a1e377f04e5cc99d09dee4d5d43654dcd465c1c",
+      "output_png": "env3/office-chair-side-right.png",
+      "output_manifest": "env3/office-chair-side-right.manifest.json",
+      "source_bytes_unchanged": true
+    },
+    {
+      "prop": "props",
+      "rows": [
+        {
+          "prop": "desk",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "screen",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 435,
+          "pixels_made_identical_pct": 5.3101,
+          "static_region_pct": 95.3613,
+          "animated_region_bbox": [
+            22,
+            27,
+            41,
+            37
+          ],
+          "animated_region_pixels": 190,
+          "varying_pixels_before": 508,
+          "varying_pixels_after": 190,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "desk",
+          "status": "normalized"
+        },
+        {
+          "prop": "chair",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "chair",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "coffee_machine",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "steam",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "coffee_machine",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "water_cooler",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "water",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "water_cooler",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "sofa",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "sofa",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "tv",
+          "frames": 3,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "screen",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 299,
+          "pixels_made_identical_pct": 3.6499,
+          "static_region_pct": 89.4531,
+          "animated_region_bbox": [
+            19,
+            26,
+            46,
+            42
+          ],
+          "animated_region_pixels": 432,
+          "varying_pixels_before": 588,
+          "varying_pixels_after": 322,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0,
+            0,
+            0
+          ],
+          "warnings": [],
+          "state": "tv",
+          "status": "normalized"
+        },
+        {
+          "prop": "plants",
+          "state": "plants",
+          "frames": 3,
+          "status": "static-choices-preserved"
+        },
+        {
+          "prop": "window",
+          "frames": 1,
+          "mode": "static-body-with-animated-mask",
+          "mask_strategy": "auto",
+          "shifts_applied": [
+            [
+              0,
+              0
+            ]
+          ],
+          "max_shift_fixed": 0,
+          "pixels_made_identical": 0,
+          "pixels_made_identical_pct": 0.0,
+          "static_region_pct": 100.0,
+          "animated_region_bbox": null,
+          "animated_region_pixels": 0,
+          "varying_pixels_before": 0,
+          "varying_pixels_after": 0,
+          "non_animated_pixels_identical": true,
+          "clipped_pixels": [
+            0
+          ],
+          "warnings": [],
+          "state": "window",
+          "status": "single-frame-preserved"
+        },
+        {
+          "prop": "door",
+          "state": "door",
+          "frames": 2,
+          "status": "static-choices-preserved"
+        },
+        {
+          "prop": "clock",
+          "state": "clock",
+          "frames": 3,
+          "status": "static-choices-preserved"
+        }
+      ],
+      "source_manifest": "assets/art/sheets/props.manifest.json",
+      "source_png": "assets/art/sheets/props.png",
+      "source_sha256": "24aeacc7af23cd3d78af2cf32967ef061f73a1c98f22c37ef1688e6af09b4eaf",
+      "manifest_sha256": "a7e90a9eb05f0c0dec8499f937a3270988878c755b1b392fb3846a334a1eef9c",
+      "output_png": "base/props.png",
+      "output_manifest": "base/props.manifest.json",
+      "source_bytes_unchanged": true
+    }
+  ],
+  "qa_images": {
+    "server-rack": "C:\\Users\\myori\\AppData\\Local\\Temp\\anim-qa\\server-rack-before-after-4x.png",
+    "coffee-machine": "C:\\Users\\myori\\AppData\\Local\\Temp\\anim-qa\\coffee-machine-before-after-4x.png",
+    "water-cooler": "C:\\Users\\myori\\AppData\\Local\\Temp\\anim-qa\\water-cooler-before-after-4x.png",
+    "tv": "C:\\Users\\myori\\AppData\\Local\\Temp\\anim-qa\\tv-before-after-4x.png"
+  },
+  "missing_qa_props": []
+}
