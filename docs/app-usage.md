@@ -30,9 +30,13 @@ Normal use writes `%LOCALAPPDATA%\Vibedotcom\settings.json` atomically. Close th
 | `transparentBackground` | `false`. |
 | `opacity` | `1`; applied range 0.25 through 1. |
 | `workingSeconds` | 120; applied range 1 through 86400 seconds. |
-| `goneMinutes` | 30; applied range 1 through 10080 minutes. It must exceed the working window. |
+| `leaveAfterIdleMinutes` | 5; applied range 1 through 10080 minutes. Time since real activity for finished/inactive agents. |
+| `leaveAfterWaitingMinutes` | 30; applied range 1 through 10080 minutes. Explicit input/approval waits use this window. |
+| `goneMinutes` | Deprecated alias for `leaveAfterWaitingMinutes`. Old files still load; the explicit new key wins in either JSON order. |
 
-Older settings are accepted. The current code normalizes invalid/nonfinite values before using or saving them, and raises the gone timeout when needed to exceed the working window. The [app review](review-app.md) records the earlier nonfinite-value save failure. These recent code changes were read for this guide, not rerun as a new verification.
+Older settings are accepted. Invalid/nonfinite values are normalized before use or saving. Both leave thresholds are raised when needed to exceed the working window. Saved settings include the new keys and retain `goneMinutes` with the same waiting value for compatibility.
+
+Working/Thinking becomes Idle after `workingSeconds`. Finished workers still deliver their report, then take breaks until the idle threshold. Parents stay while a tracked descendant is active. Departure begins wherever the character is, walks to the door and fades there. Later work re-enters through the door. [Closed-session signals](sources-and-inference.md#closed-sessions) can make agents leave sooner; undetectable closures use these time thresholds.
 
 ## Art packs and office editing
 
@@ -56,9 +60,11 @@ Demo/QA skip implicit personal pack and layout loading. Explicit `--asset-dir` a
 | `--demo` | Invented sessions and default settings, without saving personal settings. |
 | `--tags hover\|icon\|always` | Name tag startup override, including demo, editor, offscreen smoke and idle profiling. |
 | `--asset-dir DIR`, `--layout FILE` | Explicit runtime art/layout inputs. |
+| `--working-seconds N`, `--leave-after-idle-minutes N`, `--leave-after-waiting-minutes N` | Startup activity/leave windows; defaults 120 seconds, 5 minutes and 30 minutes. Positive finite values; applied limits and ordering match settings normalization. |
+| `--gone-minutes N` | Deprecated waiting-window alias. An explicit new waiting option wins, in either argument order. |
 | `--zoom 2`, `--mode desktop`, `--click-through`, `--borderless`, `--transparent`, `--opacity .85` | Startup overrides. Supplying a settings override starts from default settings rather than merging saved settings. |
 | `--quit-after 30` | Bounded exit after the given seconds. |
-| `--smoke-test OUTPUT_DIR` | Offscreen render and interchange exports. Add `--demo` to avoid real sources. |
+| `--smoke-test OUTPUT_DIR` | Offscreen render and interchange exports. Add `--demo` to avoid real sources. Demo also writes `leave-1-break.png` through `leave-4-return.png` and `leave-walk.json`, using an isolated synthetic tracker and its real five-minute threshold. |
 | `--smoke-tags` | With `--smoke-test`, render all three tag modes with 12 fabricated agents and programmatic hover, without reading logs or opening visible windows. Writes six PNGs, `tags.json` and `smoke.txt`. |
 | `--profile-idle OUTPUT_DIR` | Bounded 20-second process CPU sample: six fabricated idle agents, 8fps WPF updates in one nonactivating offscreen window and an empty tracker home. Saves one initial image; avoids per-frame bitmap copies. |
 | `--verify-opacity OUTPUT_DIR` | Owned-window opacity verification. See [limits](limits.md#verification). |
