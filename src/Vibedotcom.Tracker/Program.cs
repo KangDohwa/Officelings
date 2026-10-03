@@ -18,7 +18,7 @@ try
         switch (args[i])
         {
             case "--help":
-                Console.WriteLine("Vibedotcom.Tracker [--once | --seconds N] [--output DIR] [--home DIR] [--asset-dir DIR] [--layout FILE] [--working-seconds N] [--gone-minutes N] [--scan-seconds N] [--interval-seconds N]\nRead-only observation. Default output: " + output);
+                Console.WriteLine("Vibedotcom.Tracker [--once | --seconds N] [--output DIR] [--home DIR] [--asset-dir DIR] [--layout FILE] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated waiting alias)] [--scan-seconds N] [--interval-seconds N]\nRead-only observation. Default output: " + output);
                 return;
             case "--output": output = Value(); break;
             case "--home": options = options with { Home = Path.GetFullPath(Value()) }; break;
@@ -27,6 +27,8 @@ try
             case "--once": seconds = 0; break;
             case "--seconds": seconds = Number(); break;
             case "--working-seconds": options = options with { WorkingWindow = TimeSpan.FromSeconds(Number()) }; break;
+            case "--leave-after-idle-minutes": options = options with { LeaveAfterIdle = TimeSpan.FromMinutes(Number()) }; break;
+            case "--leave-after-waiting-minutes": options = options with { LeaveAfterWaiting = TimeSpan.FromMinutes(Number()) }; break;
             case "--gone-minutes": options = options with { GoneAfter = TimeSpan.FromMinutes(Number()) }; break;
             case "--scan-seconds": options = options with { ScanInterval = TimeSpan.FromSeconds(Number()) }; break;
             case "--interval-seconds": interval = Number(); break;
