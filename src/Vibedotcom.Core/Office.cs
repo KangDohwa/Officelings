@@ -23,6 +23,8 @@ public sealed class OfficeAnimator
         public Tile LeisureTarget;
         public string? ChatPartner;
         public DateTimeOffset PauseUntil, NextLeisure, FadeSince, PaperUntil, ReactUntil;
+        public Random BlinkRandom = new(0);
+        public DateTimeOffset NextBlink, BlinkUntil;
     }
 
     private readonly Dictionary<string, Character> characters = [];
@@ -56,7 +58,8 @@ public sealed class OfficeAnimator
             {
                 var occupied = characters.Values.Select(c => c.Slot).ToHashSet();
                 var slot = 0; while (occupied.Contains(slot)) slot++;
-                var c = new Character(slot) { Design = assets.Assign(agent, characters.Values.Select(c => c.Design.Id)) };
+                var c = new Character(slot) { Design = assets.Assign(agent, characters.Values.Select(c => c.Design.Id)),
+                    BlinkRandom = new(unchecked((int)SpriteAtlas.Hash(agent.Id))) };
                 characters[agent.Id] = c; newcomers.Add(c); layoutChanged = true;
             }
         if (layoutChanged)
@@ -161,6 +164,17 @@ public sealed class OfficeAnimator
             }
             if (!c.Visible) c.Action = "gone";
             if (c.Action != c.LastAction) { c.LastAction = c.Action; c.ActionSince = now; }
+            var still = arrived && c.Visible && c.Action is not ("entering" or "walking" or "exiting" or "gone" or "napping");
+            if (!still || c.NextBlink == default)
+            {
+                c.BlinkUntil = default;
+                c.NextBlink = now.AddSeconds(3 + c.BlinkRandom.NextDouble() * 3);
+            }
+            else if (now >= c.NextBlink)
+            {
+                c.BlinkUntil = now.AddMilliseconds(150);
+                c.NextBlink = now.AddSeconds(3 + c.BlinkRandom.NextDouble() * 3);
+            }
         }
         foreach (var (id, c) in characters)
             if (c.ChatPartner != null && (!characters.TryGetValue(c.ChatPartner, out var partner) || partner.ChatPartner != id))
@@ -170,7 +184,7 @@ public sealed class OfficeAnimator
         return agents.Select(a =>
         {
             var c = characters[a.Id];
-            var sprite = assets.CharacterFrame(a, c.Design, c.Action, c.Facing, (long)(now - c.ActionSince).TotalMilliseconds);
+            var sprite = assets.CharacterFrame(a, c.Design, c.Action, c.Facing, (long)(now - c.ActionSince).TotalMilliseconds, now < c.BlinkUntil);
             return new AgentView(a, new(c.Position.X, c.Position.Y, Desk(c.Slot), c.Action, c.Facing,
                 sprite.Row, sprite.Column, c.Visible,
                 c.FadeSince == default ? 1 : Math.Clamp(1 - (now - c.FadeSince).TotalSeconds / 1.2, 0, 1),
