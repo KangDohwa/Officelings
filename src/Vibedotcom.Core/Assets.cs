@@ -27,6 +27,16 @@ public sealed record SpriteFrame(string SheetId, int Row, int Column, int X, int
 // Geometry/animation selection is shared with the headless tracker. Only WPF decodes pixels.
 public sealed class AssetPack
 {
+    private readonly Dictionary<string, Sheet> sheets = new(StringComparer.Ordinal);
+    private readonly Dictionary<(string Id, int Rotation, string State, InteractionPoint? Seat), FurnitureVariant> variants = [];
+    private readonly Dictionary<(string Sheet, string Action, string Direction), AnimationRow> rows = [];
+    private readonly Dictionary<(string Sheet, string Action, string Direction), AnimationRow> exactRows = [];
+    private readonly Dictionary<(string Sheet, AnimationRow Row), SpriteFrame[]> frames = [];
+    private readonly Dictionary<(int Row, int Column, bool Napping), SpriteFrame> primitiveFrames = [];
+    private readonly Dictionary<(string Sheet, int Row, int Column), AnimationRow?> blinkRows = [];
+    private readonly Dictionary<(string Sheet, string Action, string Direction), AnimationRow?> closedRows = [];
+    private readonly Dictionary<(string Sheet, string Facing), string?> seatedVariants = [];
+    private static readonly int[] ThinkingColumns = [0, 1, 0, 3];
     public AssetManifest Manifest { get; private set; }
     public Dictionary<string, byte[]> Images { get; } = new(StringComparer.Ordinal);
     public List<string> Warnings { get; } = [];
@@ -36,10 +46,12 @@ public sealed class AssetPack
         directory != null ? new(directory) : useUserPack && ManifestFile(DefaultDirectory) != null
             ? new(DefaultDirectory) : new(null, bundled: true);
 
+    public static AssetPack LoadExported(string directory) => new(directory, exported: true);
+
     private static string? ManifestFile(string directory) => new[] { "assets.json", "manifest.json" }
         .Select(name => Path.Combine(directory, name)).FirstOrDefault(File.Exists);
 
-    public AssetPack(string? directory = null, bool bundled = false)
+    public AssetPack(string? directory = null, bool bundled = false, bool exported = false)
     {
         using var resource = typeof(AssetPack).Assembly.GetManifestResourceStream("Vibedotcom.Core.Data.assets.json")!;
         Manifest = JsonSerializer.Deserialize<AssetManifest>(resource, StateJson.Options)!;
@@ -56,7 +68,7 @@ public sealed class AssetPack
                     ?? throw new InvalidDataException("Bundled art pack missing; run tools/build_pack.py before building.") : null;
                 var custom = bundled ? JsonSerializer.Deserialize<AssetManifest>(input!, StateJson.Options)!
                     : Read<AssetManifest>(file!);
-                Validate(custom);
+                Validate(custom, exported);
                 var images = new Dictionary<string, byte[]>();
                 var sheets = new List<Sheet>();
                 foreach (var sheet in custom.Sheets)
@@ -70,15 +82,19 @@ public sealed class AssetPack
                     }
                     else bytes = File.ReadAllBytes(LocalFile(directory!, sheet.File));
                     var (width, height) = PngSize(bytes);
+                    var sha = Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
+                    if (exported && (width != sheet.Width || height != sheet.Height || !sha.Equals(sheet.Sha256,StringComparison.OrdinalIgnoreCase) ||
+                        sheet.Id == "fallback" && !bytes.AsSpan().SequenceEqual(Images["fallback"])))
+                        throw new InvalidDataException("Exported sheet dimensions/hash mismatch: " + sheet.Id);
                     if (width % sheet.CellW != 0 || height % sheet.CellH != 0 || sheet.Rows.Any(r =>
                         ((long)r.Row + 1) * sheet.CellH > height || ((long)r.Column + r.Frames) * sheet.CellW > width))
                         throw new InvalidDataException("Clip exceeds sheet: " + sheet.Id);
                     images.Add(sheet.Id, bytes);
-                    sheets.Add(sheet with { Width = width, Height = height, Sha256 = Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant() });
+                    sheets.Add(sheet with { Width = width, Height = height, Sha256 = sha });
                 }
                 foreach (var (id, bytes) in images) Images[id] = bytes;
                 // The reserved fallback remains available for missing animations and bubbles.
-                Manifest = custom with { Sheets = sheets.Concat(Manifest.Sheets).ToArray(),
+                Manifest = custom with { Sheets = sheets.Concat(Manifest.Sheets.Where(s => !sheets.Any(c => c.Id == s.Id))).ToArray(),
                     Furniture = custom.Furniture.Concat(Manifest.Furniture.Where(f => !custom.Furniture.Any(c => c.Id == f.Id))).ToArray(),
                     TileTypes = custom.TileTypes.Concat(Manifest.TileTypes.Where(t => !custom.TileTypes.Any(c => c.Id == t.Id))).ToArray() };
             }
@@ -87,12 +103,25 @@ public sealed class AssetPack
         }
         Manifest = Manifest with { Sheets = Manifest.Sheets.Select(s => s.Sha256 != null ? s : s with
             { Sha256 = Convert.ToHexString(SHA256.HashData(Images[s.Id])).ToLowerInvariant() }).ToArray() };
+        ResetCaches();
     }
 
     internal void UseSafeFallback()
     {
         var safe = new AssetPack(); Manifest = safe.Manifest;
         Images.Clear(); foreach (var (id, bytes) in safe.Images) Images[id] = bytes;
+        ResetCaches();
+    }
+
+    private void ResetCaches()
+    {
+        sheets.Clear(); variants.Clear(); rows.Clear(); exactRows.Clear(); frames.Clear(); primitiveFrames.Clear();
+        blinkRows.Clear(); closedRows.Clear(); seatedVariants.Clear();
+        foreach (var sheet in Manifest.Sheets)
+            if (sheets.TryAdd(sheet.Id, sheet))
+                foreach (var row in sheet.Rows) exactRows.TryAdd((sheet.Id, row.Name, row.Direction), row);
+        foreach (var asset in Manifest.Furniture)
+            foreach (var variant in asset.Variants) variants.TryAdd((asset.Id, variant.Rotation, variant.State, null), variant);
     }
 
     internal static T Read<T>(string file)
@@ -138,7 +167,7 @@ public sealed class AssetPack
         if (z.ReadByte() != -1) throw new InvalidDataException("PNG pixel data exceeds dimensions.");
         return (w, h);
     }
-    private static void Validate(AssetManifest m)
+    private static void Validate(AssetManifest m, bool exported = false)
     {
         if (m == null || m.Sheets == null || m.Characters == null || m.Furniture == null || m.TileTypes == null ||
             m.Version != 1 || m.Sheets.Count == 0 || m.Characters.Count == 0 || m.Sheets.Count > 128 || m.Characters.Count > 512 ||
@@ -150,7 +179,7 @@ public sealed class AssetPack
             m.Furniture.Select(f => f.Id).Distinct().Count() != m.Furniture.Count || m.TileTypes.Select(t => t.Id).Distinct().Count() != m.TileTypes.Count)
             throw new InvalidDataException("Duplicate asset ID.");
         foreach (var s in m.Sheets)
-            if (string.IsNullOrWhiteSpace(s.Id) || s.Id == "fallback" || s.CellW is < 1 or > 512 || s.CellH is < 1 or > 512 ||
+            if (string.IsNullOrWhiteSpace(s.Id) || s.Id == "fallback" && !exported || s.CellW is < 1 or > 512 || s.CellH is < 1 or > 512 ||
                 !double.IsFinite(s.Scale) || s.Scale is < .125 or > 4 || !double.IsFinite(s.Anchor.X) || !double.IsFinite(s.Anchor.Y) ||
                 s.Rows == null || s.Rows.Count is 0 or > 512 || s.Rows.Any(r => r == null) ||
                 s.Rows.Select(r => (r.Name, r.Direction)).Distinct().Count() != s.Rows.Count ||
@@ -181,14 +210,20 @@ public sealed class AssetPack
 
     public FurnitureVariant Variant(Furniture f)
     {
-        var variant = Manifest.Furniture.FirstOrDefault(a => a.Id == (f.AssetId ?? f.Kind))?.Variants
-            .FirstOrDefault(v => v.Rotation == f.Rotation && v.State == f.State)
-            ?? throw new InvalidDataException("Unknown furniture variant: " + (f.AssetId ?? f.Kind) + "/" + f.Rotation + "/" + f.State);
+        var id = f.AssetId ?? f.Kind;
+        if (variants.TryGetValue((id, f.Rotation, f.State, f.Seat), out var cached)) return cached;
+        if (!variants.TryGetValue((id, f.Rotation, f.State, null), out var variant))
+            throw new InvalidDataException("Unknown furniture variant: " + id + "/" + f.Rotation + "/" + f.State);
         if (f.Seat == null) return variant;
+        return CacheSeatVariant(f, id, variant);
+    }
+
+    private FurnitureVariant CacheSeatVariant(Furniture f, string id, FurnitureVariant variant)
+    {
         var authored = variant.Points.FirstOrDefault(p => p.Action == "typing");
-        var dx = (f.Seat.X - (authored?.X ?? f.Seat.X)) * 16;
+        var dx = (f.Seat!.X - (authored?.X ?? f.Seat.X)) * 16;
         var dy = (f.Seat.Y - (authored?.Y ?? f.Seat.Y)) * 16;
-        return variant with { Points = variant.Points.Where(p => p.Action != "typing").Append(f.Seat).ToArray(),
+        return variants[(id, f.Rotation, f.State, f.Seat)] = variant with { Points = variant.Points.Where(p => p.Action != "typing").Append(f.Seat).ToArray(),
             ChairSeatAnchor = variant.ChairSeatAnchor is {} seat ? new(seat.X + dx, seat.Y + dy) : null,
             ChairOffset = variant.ChairOffset is {} offset ? new(offset.X + dx, offset.Y + dy) : null };
     }
@@ -207,15 +242,60 @@ public sealed class AssetPack
     }
     public SpriteFrame Frame(string sheetId, string action, string direction, long milliseconds, uint phase = 0)
     {
-        var sheet = Manifest.Sheets.First(s => s.Id == sheetId);
-        var row = sheet.Rows.FirstOrDefault(r => r.Name == action && r.Direction == direction) ??
+        var sheet = sheets[sheetId];
+        var row = Row(sheetId, action, direction);
+        var tick = (long)Math.Floor(milliseconds / 1000d * row.Fps) + (row.Loop ? phase : 0);
+        var column = (int)(row.Loop ? (tick % row.Frames + row.Frames) % row.Frames : Math.Clamp(tick, 0, row.Frames - 1));
+        if (!frames.TryGetValue((sheetId, row), out var clip))
+        {
+            clip = new SpriteFrame[row.Frames];
+            for (var i = 0; i < clip.Length; i++)
+            {
+                var cell = row.Column + i;
+                clip[i] = new(sheet.Id, row.Row, cell, cell * sheet.CellW, row.Row * sheet.CellH, sheet.CellW, sheet.CellH,
+                    sheet.Anchor.X, sheet.Anchor.Y, sheet.Scale, row.FootOffset?.X ?? 0, row.FootOffset?.Y ?? 0);
+            }
+            frames[(sheetId, row)] = clip;
+        }
+        return clip[column];
+    }
+
+    private AnimationRow Row(string sheetId, string action, string direction)
+    {
+        if (rows.TryGetValue((sheetId, action, direction), out var row)) return row;
+        return rows[(sheetId, action, direction)] = SelectRow(sheetId, action, direction);
+    }
+
+    private AnimationRow SelectRow(string sheetId, string action, string direction)
+    {
+        var sheet = sheets[sheetId];
+        return sheet.Rows.FirstOrDefault(r => r.Name == action && r.Direction == direction) ??
             sheet.Rows.FirstOrDefault(r => r.Name == action && r.Direction == "any") ??
             sheet.Rows.FirstOrDefault(r => r.Name == "idle" && r.Direction == direction) ??
             sheet.Rows.FirstOrDefault(r => r.Name == "idle") ?? sheet.Rows[0];
-        var tick = (long)Math.Floor(milliseconds / 1000d * row.Fps) + (row.Loop ? phase : 0);
-        var column = row.Column + (int)(row.Loop ? (tick % row.Frames + row.Frames) % row.Frames : Math.Clamp(tick, 0, row.Frames - 1));
-        return new(sheet.Id, row.Row, column, column * sheet.CellW, row.Row * sheet.CellH, sheet.CellW, sheet.CellH,
-            sheet.Anchor.X, sheet.Anchor.Y, sheet.Scale, row.FootOffset?.X ?? 0, row.FootOffset?.Y ?? 0);
+    }
+
+    private AnimationRow? BlinkRow(SpriteFrame frame)
+    {
+        var key = (frame.SheetId, frame.Row, frame.Column);
+        if (blinkRows.TryGetValue(key, out var closed)) return closed;
+        var sheet = sheets[frame.SheetId];
+        var normal = sheet.Rows.First(r => r.Row == frame.Row && frame.Column >= r.Column && frame.Column < r.Column + r.Frames);
+        return blinkRows[key] = ClosedRow(sheet.Id, normal.Name, normal.Direction);
+    }
+
+    private AnimationRow? ClosedRow(string sheetId, string action, string direction)
+    {
+        var key = (sheetId, action, direction);
+        if (closedRows.TryGetValue(key, out var row)) return row;
+        exactRows.TryGetValue((sheetId, "blink-" + action, direction), out row);
+        return closedRows[key] = row;
+    }
+
+    internal double AnimationFps(string sheetId, string action, string direction, long milliseconds)
+    {
+        var row = Row(sheetId, action, direction);
+        return row.Frames > 1 && (row.Loop || Math.Floor(milliseconds / 1000d * row.Fps) < row.Frames - 1) ? row.Fps : 0;
     }
     public SpriteFrame CharacterFrame(AgentInfo a, CharacterDesign design, string action, string facing, long elapsedMilliseconds, bool blink = false)
     {
@@ -226,37 +306,68 @@ public sealed class AssetPack
             var phase = SpriteAtlas.Hash(a.Id) % 4;
             var frame = Frame(design.SheetId, animation, facing, elapsedMilliseconds, phase);
             if (!blink || animation == "walk") return frame;
-            var rows = Manifest.Sheets.First(s => s.Id == design.SheetId).Rows;
-            var normal = rows.First(r => r.Row == frame.Row && frame.Column >= r.Column && frame.Column < r.Column + r.Frames);
-            var closed = rows.FirstOrDefault(r => r.Name == "blink-" + normal.Name && r.Direction == normal.Direction);
+            var closed = BlinkRow(frame);
             return closed == null ? frame : Frame(design.SheetId, closed.Name, closed.Direction, elapsedMilliseconds, phase);
         }
         var identity = int.TryParse(design.Id.AsSpan("fallback-".Length), out var value) ? value : SpriteAtlas.Variant(a.Id);
         var row = SpriteAtlas.Row(a.Provider, a.IsSubagent, a.Id, identity); var col = SpriteAtlas.Frame(action, facing, elapsedMilliseconds, identity);
-        return new("fallback", row, col, col * 16, row * 24, 16, 24, 8, 24, 1, 0, action == "napping" ? -10 : 0);
+        // The primitive atlas also has immutable frames, independent of the caller's identity.
+        var key = (row, col, action == "napping");
+        if (!primitiveFrames.TryGetValue(key, out var primitive))
+            primitiveFrames[key] = primitive = new("fallback", row, col, col * 16, row * 24, 16, 24, 8, 24, 1, 0, action == "napping" ? -10 : 0);
+        return primitive;
     }
 
     public string? SeatedVariant(CharacterDesign design, string facing)
     {
+        if (seatedVariants.TryGetValue((design.SheetId, facing), out var cached)) return cached;
+        return seatedVariants[(design.SheetId, facing)] = SelectSeatedVariant(design.SheetId, facing);
+    }
+
+    private string? SelectSeatedVariant(string sheetId, string facing)
+    {
         var name = facing == "up" ? "seated_back" : "seated_" + facing;
-        return Manifest.Sheets.First(s => s.Id == design.SheetId).Rows.Any(r => r.Name == name && r.Direction == facing && r.SeatAnchor != null) ? name : null;
+        return sheets[sheetId].Rows.Any(r => r.Name == name && r.Direction == facing && r.SeatAnchor != null) ? name : null;
     }
 
     public (SpriteFrame Frame, PixelPoint Anchor) SeatedFrame(AgentInfo agent, CharacterDesign design,
         string variant, string facing, long elapsed, bool blink)
     {
-        var sheet = Manifest.Sheets.First(s => s.Id == design.SheetId);
-        var row = sheet.Rows.First(r => r.Name == variant && r.Direction == facing);
+        var sheet = sheets[design.SheetId];
+        var row = exactRows[(sheet.Id, variant, facing)];
         var phase = agent.State == AgentState.Working ? SpriteAtlas.Hash(agent.Id) % (uint)row.Frames : 0;
         if (agent.State == AgentState.Waiting) elapsed = 0;
         else if (agent.State == AgentState.Thinking)
         {
             var cycle = elapsed % 8000;
-            var column = cycle is >= 6000 and < 6600 ? 2 : new[] { 0, 1, 0, 3 }[(cycle / 1000) % 4];
+            var column = cycle is >= 6000 and < 6600 ? 2 : ThinkingColumns[(cycle / 1000) % 4];
             elapsed = (long)Math.Ceiling(column * 1000 / row.Fps);
         }
-        var closed = blink ? sheet.Rows.FirstOrDefault(r => r.Name == "blink-" + variant && r.Direction == facing) : null;
+        var closed = blink ? ClosedRow(sheet.Id, variant, facing) : null;
         return (Frame(sheet.Id, closed?.Name ?? variant, facing, elapsed, phase), row.SeatAnchor!);
+    }
+
+    internal double CharacterAnimationFps(AgentInfo agent, CharacterDesign design, string action, string facing, long elapsed, bool blink)
+    {
+        if (design.SheetId == "fallback") return action switch
+        {
+            "entering" or "walking" or "exiting" or "typing" or "pickup" or "reporting" => 6.25,
+            "coffee" or "water" => 1.5625, "tv" => 1.25, "phone" or "chatting" => 6.25 / 3, "napping" => 6.25 / 6, _ => 0
+        };
+        var animation = action is "walking" or "entering" or "exiting" ? "walk" : action;
+        if (facing == "up" && action is "thinking" or "waiting") animation = "idle";
+        var direction = facing;
+        if (blink && animation != "walk" && BlinkRow(Frame(design.SheetId, animation, facing, elapsed, SpriteAtlas.Hash(agent.Id) % 4)) is {} closed)
+        { animation = closed.Name; direction = closed.Direction; }
+        return AnimationFps(design.SheetId, animation, direction, elapsed);
+    }
+
+    internal double SeatedAnimationFps(AgentInfo agent, CharacterDesign design, string variant, string facing, long elapsed, bool blink)
+    {
+        if (agent.State == AgentState.Waiting) return 0;
+        if (agent.State == AgentState.Thinking) return exactRows[(design.SheetId, variant, facing)].Frames > 1 ? 1 : 0;
+        var animation = blink ? ClosedRow(design.SheetId, variant, facing)?.Name ?? variant : variant;
+        return AnimationFps(design.SheetId, animation, facing, elapsed);
     }
     // Hashed sheet names keep old snapshots valid while another tracker publishes a new pack.
     public AssetManifest Export(string output)

@@ -241,7 +241,10 @@ public sealed class TrackerFixTests : IDisposable
     [Fact]
     public void SteadyScanAvoidsArchiveAndWatcherFindsResumedOldFolder()
     {
-        for (var i = 0; i < 1000; i++) Write(PathFor(".codex", "sessions", "old", $"rollout-{i}.jsonl"), "{}\n", Now.AddDays(-1));
+        var archive=Path.GetDirectoryName(PathFor(".codex","sessions","old","rollout-0.jsonl"))!;
+        var record=Encoding.UTF8.GetBytes("{}\n");
+        for (var i = 0; i < 1000; i++)
+        { var file=Path.Combine(archive,$"rollout-{i}.jsonl"); File.WriteAllBytes(file,record); File.SetLastWriteTimeUtc(file,Now.AddDays(-1).UtcDateTime); }
         using var tracker = new AgentTracker(Options); Assert.Empty(tracker.Poll(Now)); var visited = tracker.DiscoveryFilesVisited;
         tracker.Poll(Now.AddSeconds(1)); Assert.Equal(visited, tracker.DiscoveryFilesVisited);
         var path = PathFor(".codex", "sessions", "old", "rollout-1.jsonl");

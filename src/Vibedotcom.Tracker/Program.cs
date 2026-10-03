@@ -1,3 +1,4 @@
+using System.Buffers;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -53,32 +54,64 @@ try
     using var tracker = new AgentTracker(options);
     var office = new OfficeAnimator(null,assets,layout);
     var started = DateTimeOffset.UtcNow;
+    var stopAt = seconds < (DateTimeOffset.MaxValue - started).TotalSeconds ? started.AddSeconds(seconds) : DateTimeOffset.MaxValue;
     var previous = started;
     long sequence = 0;
     string lastCounts = "";
     OfficeLayout? previousLayout = null;
+    var snapshots = new TrackerSnapshotCache(manifest);
+    IReadOnlyList<AgentInfo> previousAgents = [];
+    IReadOnlyList<AgentView> views = [];
+    var nextAnimation = started;
+    var lastPublished = DateTimeOffset.MinValue;
+    var heartbeat = TimeSpan.FromSeconds(3);
     do
     {
         var now = DateTimeOffset.UtcNow;
         var agents = tracker.Poll(now);
-        var views = office.Update(agents, now, (now - previous).TotalSeconds);
-        previous = now;
-        await StateJson.PublishWithRetryAsync(() =>
+        var hasLiveAgents = agents.Any(a => a.State != AgentState.Gone);
+        var agentsChanged = !previousAgents.SequenceEqual(agents);
+        if (sequence == 0 || agentsChanged || now < previous || now >= nextAnimation || now >= office.NextUpdateAt)
         {
-            if (!ReferenceEquals(previousLayout,office.Layout))
+            views = office.Update(agents, now, (now - previous).TotalSeconds);
+            previous = now;
+            previousAgents = agents;
+            nextAnimation = office.HasMovingCharacters ? now.AddSeconds(interval)
+                : office.AnimationInterval > TimeSpan.Zero
+                    ? now.AddSeconds(Math.Max(interval, hasLiveAgents ? Math.Clamp(office.AnimationInterval.TotalSeconds, .5, 1) : 1))
+                    : DateTimeOffset.MaxValue;
+        }
+        var changed = snapshots.Update(office.Layout, views, tracker.Warnings.Concat(assets.Warnings).ToArray(), office.FurnitureSprites);
+        if (changed || now < lastPublished || now - lastPublished >= heartbeat)
+        {
+            await StateJson.PublishWithRetryAsync(() =>
             {
-                // Preserve the editable source; retry any locked publication together.
-                StateJson.WriteAtomic(Path.Combine(output,"runtime-layout.json"),JsonSerializer.SerializeToUtf8Bytes(office.Layout,StateJson.Options));
-                previousLayout=office.Layout;
-            }
-            StateJson.WriteAtomic(Path.Combine(output, "state.json"), new StateSnapshot(StateJson.SchemaVersion, now, sequence + 1, SpriteAtlas.Info, office.Layout, views, tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,office.FurnitureSprites));
-        }, LogPublication, cancellation.Token);
-        sequence++;
-        var counts = string.Join(", ", Enum.GetValues<Provider>().Select(p => $"{p}={agents.Count(a => a.Provider == p && a.State != AgentState.Gone)}"));
-        if (counts != lastCounts || sequence == 1)
-        { Console.WriteLine($"{now:O} alive: {counts}; total={agents.Count}; bytesRead={tracker.BytesRead}"); lastCounts = counts; }
-        if (seconds == 0 || (now - started).TotalSeconds >= seconds) break;
-        try { await Task.Delay(TimeSpan.FromSeconds(interval), cancellation.Token); } catch (OperationCanceledException) { break; }
+                if (!ReferenceEquals(previousLayout, office.Layout))
+                {
+                    // Preserve the editable source; reuse the snapshot's resolved layout bytes.
+                    StateJson.WriteAtomic(Path.Combine(output, "runtime-layout.json"), snapshots.LayoutBytes);
+                    previousLayout = office.Layout;
+                }
+                var generatedAt = DateTimeOffset.UtcNow;
+                StateJson.WriteAtomic(Path.Combine(output, "state.json"), snapshots.Serialize(generatedAt, sequence + 1).Span);
+                lastPublished = generatedAt;
+            }, LogPublication, cancellation.Token);
+            sequence++;
+        }
+        if (agentsChanged || sequence == 1 && lastCounts.Length == 0)
+        {
+            var counts = string.Join(", ", Enum.GetValues<Provider>().Select(p => $"{p}={agents.Count(a => a.Provider == p && a.State != AgentState.Gone)}"));
+            if (counts != lastCounts || lastCounts.Length == 0)
+            { Console.WriteLine($"{now:O} alive: {counts}; total={agents.Count}; bytesRead={tracker.BytesRead}"); lastCounts = counts; }
+        }
+        if (seconds == 0 || now >= stopAt) break;
+        var wakeAt = now.AddSeconds(office.HasMovingCharacters ? interval : Math.Max(interval, hasLiveAgents ? .5 : 1));
+        if (nextAnimation > now && nextAnimation < wakeAt) wakeAt = nextAnimation;
+        if (lastPublished + heartbeat < wakeAt) wakeAt = lastPublished + heartbeat;
+        if (stopAt < wakeAt) wakeAt = stopAt;
+        var delay = wakeAt - DateTimeOffset.UtcNow;
+        if (delay > TimeSpan.Zero)
+            try { await Task.Delay(delay, cancellation.Token); } catch (OperationCanceledException) { break; }
     } while (!cancellation.IsCancellationRequested);
     foreach (var warning in tracker.Warnings) Console.Error.WriteLine(warning);
     foreach (var warning in assets.Warnings) Console.Error.WriteLine(warning);
@@ -87,3 +120,59 @@ try
 catch (OperationCanceledException) { }
 catch (Exception e) when (e is ArgumentException or IOException or UnauthorizedAccessException)
 { Console.Error.WriteLine(e.Message); Environment.ExitCode = 1; }
+
+// Cache only serialized content. Publication still uses StateJson's atomic replace and retry.
+internal sealed class TrackerSnapshotCache(AssetManifest? manifest)
+{
+    private static readonly JsonSerializerOptions ContentOptions = new(StateJson.Options) { WriteIndented = false };
+    private readonly byte[] atlasBytes = JsonSerializer.SerializeToUtf8Bytes(SpriteAtlas.Info, ContentOptions);
+    private readonly byte[] assetBytes = JsonSerializer.SerializeToUtf8Bytes(manifest, ContentOptions);
+    private readonly ArrayBufferWriter<byte> buffer = new();
+    private OfficeLayout? layout;
+    private AgentView[] agents = [];
+    private string[] warnings = [];
+    private FurnitureSprite[] furniture = [];
+    private byte[] agentBytes = "[]"u8.ToArray(), warningBytes = "[]"u8.ToArray(), furnitureBytes = "[]"u8.ToArray();
+    public byte[] LayoutBytes { get; private set; } = [];
+
+    public bool Update(OfficeLayout office, IReadOnlyList<AgentView> views, IReadOnlyList<string> diagnostics, IReadOnlyList<FurnitureSprite> sprites)
+    {
+        var changed = false;
+        if (!ReferenceEquals(layout, office))
+        {
+            LayoutBytes = JsonSerializer.SerializeToUtf8Bytes(office, ContentOptions);
+            layout = office; changed = true;
+        }
+        if (!agents.SequenceEqual(views))
+        {
+            agents = views.ToArray(); agentBytes = JsonSerializer.SerializeToUtf8Bytes(agents, ContentOptions); changed = true;
+        }
+        if (!warnings.SequenceEqual(diagnostics))
+        {
+            warnings = diagnostics.ToArray(); warningBytes = JsonSerializer.SerializeToUtf8Bytes(warnings, ContentOptions); changed = true;
+        }
+        if (!furniture.SequenceEqual(sprites))
+        {
+            furniture = sprites.ToArray(); furnitureBytes = JsonSerializer.SerializeToUtf8Bytes(furniture, ContentOptions); changed = true;
+        }
+        return changed;
+    }
+
+    public ReadOnlyMemory<byte> Serialize(DateTimeOffset generatedAt, long sequence)
+    {
+        buffer.Clear();
+        using (var json = new Utf8JsonWriter(buffer, new JsonWriterOptions { Indented = StateJson.Options.WriteIndented }))
+        {
+            json.WriteStartObject();
+            json.WriteNumber("schemaVersion", StateJson.SchemaVersion);
+            json.WriteString("generatedAt", generatedAt);
+            json.WriteNumber("sequence", sequence);
+            void Raw(string name, byte[] bytes) { json.WritePropertyName(name); json.WriteRawValue(bytes, skipInputValidation: true); }
+            Raw("atlas", atlasBytes); Raw("office", LayoutBytes); Raw("agents", agentBytes);
+            Raw("warnings", warningBytes); Raw("assets", assetBytes); Raw("furnitureSprites", furnitureBytes);
+            json.WriteEndObject();
+        }
+        // The caller finishes its synchronous atomic write before the next serialization.
+        return buffer.WrittenMemory;
+    }
+}

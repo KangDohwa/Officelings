@@ -127,7 +127,9 @@ public static class StateJson
         Converters = { new JsonStringEnumConverter(JsonNamingPolicy.CamelCase) }
     };
 
-    public static void WriteAtomic(string path, byte[] bytes)
+    public static void WriteAtomic(string path, byte[] bytes) => WriteAtomic(path, bytes.AsSpan());
+
+    public static void WriteAtomic(string path, ReadOnlySpan<byte> bytes)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path))!);
         var temporary = path + "." + Guid.NewGuid().ToString("N") + ".tmp";

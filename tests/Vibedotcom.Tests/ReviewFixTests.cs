@@ -221,7 +221,9 @@ public sealed class ReviewFixTests : IDisposable
             using (var consumer = new FileStream(state, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 using var json = JsonDocument.Parse(consumer); sequence = json.RootElement.GetProperty("sequence").GetInt64();
-                await Task.Delay(750, deadline.Token); Assert.False(process.HasExited);
+                // Content is quiet now: publication happens at the three-second
+                // heartbeat, so keep this consumer open across that actual write.
+                await Task.Delay(3250, deadline.Token); Assert.False(process.HasExited);
             }
             await process.WaitForExitAsync(deadline.Token);
             Assert.Equal(0, process.ExitCode);

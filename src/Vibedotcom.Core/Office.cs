@@ -35,10 +35,24 @@ public sealed class OfficeAnimator
         public PixelPoint? SeatAnchor;
         public DateTimeOffset SeatPhaseSince;
         public int SeatPhaseFrame;
+        public string DisplayName = "", ProviderIcon = "";
+        public AgentInfo? NamedAgent;
+        public AgentView? View;
     }
 
     private readonly Dictionary<string, Character> characters = [];
     private readonly Dictionary<string, (string Desk, DateTimeOffset LastSeen)> deskHistory = new(StringComparer.Ordinal);
+    private readonly HashSet<string> ids = new(StringComparer.Ordinal);
+    private readonly List<string> removedIds = [];
+    private readonly List<AgentInfo> newcomers = [];
+    private readonly Dictionary<string, Character> furnitureOwners = new(StringComparer.Ordinal);
+    private readonly Dictionary<(Furniture Furniture, string State), bool> monitorSupport = [];
+    private readonly Dictionary<(Tile Start, Tile Target), IReadOnlyList<Tile>> paths = [];
+    private (Furniture Furniture, InteractionPoint Point)[] desks = [];
+    private HashSet<Tile> workReservations = [];
+    private bool workplacesDirty = true;
+    private IReadOnlyList<AgentView> views = [];
+    private double furnitureFps;
     private readonly Random random;
     private HashSet<Tile> obstacles = [];
     private HashSet<Tile> reachable = [];
@@ -50,13 +64,16 @@ public sealed class OfficeAnimator
     public OfficeLayout Layout { get; private set; }
     public OfficeLayout SourceLayout => source;
     public IReadOnlyList<FurnitureSprite> FurnitureSprites { get; private set; } = [];
+    public bool HasMovingCharacters { get; private set; }
+    public TimeSpan AnimationInterval { get; private set; }
+    public DateTimeOffset NextUpdateAt { get; private set; } = DateTimeOffset.MaxValue;
     public OfficeAnimator(int? seed = null, AssetPack? assets = null, OfficeLayout? layout = null)
     {
         random = seed.HasValue ? new(seed.Value) : new();
         this.assets = assets ?? new();
         source = LayoutLoader.Prepare(layout ?? LayoutLoader.Load(this.assets, null), this.assets);
         Layout = source;
-        RefreshNavigation(); RefreshFurniture(default);
+        RefreshNavigation(); RefreshFurniture(default); RefreshCadence(default);
     }
 
     // Preview permits temporary collision/reachability errors; save calls Validate separately.
@@ -74,31 +91,41 @@ public sealed class OfficeAnimator
             if (!reachable.Contains(tile)) { tile = NearestFree(tile); c.Position = new(tile.X, tile.Y); }
         }
         RefreshFurniture(lastUpdated);
+        RefreshCadence(lastUpdated);
     }
 
     public IReadOnlyList<AgentView> Update(IReadOnlyList<AgentInfo> agents, DateTimeOffset now, double deltaSeconds)
     {
         if (started == default) started = now;
         lastUpdated = now;
-        var ids = agents.Select(a => a.Id).ToHashSet();
-        foreach (var id in characters.Keys.Where(k => !ids.Contains(k)).ToArray())
-            characters.Remove(id);
-        var newcomers = new List<Character>();
-        foreach (var agent in agents.OrderBy(a => a.Id, StringComparer.Ordinal))
-            if (!characters.ContainsKey(agent.Id))
-            {
-                var c = new Character(nextOrder++, agent) { Design = assets.Assign(agent, characters.Values.Select(c => c.Design.Id)),
-                    BlinkRandom = new(unchecked((int)SpriteAtlas.Hash(agent.Id))) };
-                characters[agent.Id] = c; newcomers.Add(c);
-            }
-        foreach (var agent in agents) characters[agent.Id].Agent = agent;
+        ids.Clear(); newcomers.Clear(); removedIds.Clear();
+        foreach (var agent in agents)
+            if (ids.Add(agent.Id) && !characters.ContainsKey(agent.Id)) newcomers.Add(agent);
+        foreach (var id in characters.Keys)
+            if (!ids.Contains(id)) removedIds.Add(id);
+        foreach (var id in removedIds) { characters.Remove(id); workplacesDirty = true; }
+        newcomers.Sort((a, b) => StringComparer.Ordinal.Compare(a.Id, b.Id));
+        foreach (var agent in newcomers)
+        {
+            var c = new Character(nextOrder++, agent) { Design = assets.Assign(agent, characters.Values.Select(c => c.Design.Id)),
+                BlinkRandom = new(unchecked((int)SpriteAtlas.Hash(agent.Id))) };
+            characters[agent.Id] = c; workplacesDirty = true;
+        }
+        foreach (var agent in agents)
+        {
+            var c = characters[agent.Id];
+            if (c.Agent.ParentId != agent.ParentId || (c.Agent.State == AgentState.Gone) != (agent.State == AgentState.Gone)) workplacesDirty = true;
+            c.Agent = agent;
+        }
         AssignWorkplaces();
         foreach (var id in ids)
             if (deskHistory.TryGetValue(id, out var history)) deskHistory[id] = (history.Desk, now);
-        var departed = deskHistory.Keys.Where(id => !ids.Contains(id)).OrderBy(id => deskHistory[id].LastSeen).ToArray();
-        foreach (var id in departed.Take(Math.Max(0, departed.Length - 1024)))
-            deskHistory.Remove(id);
-        foreach (var c in newcomers) c.Position = new(Layout.Door.X, Layout.Door.Y);
+        if (deskHistory.Count > 1024)
+        {
+            var departed = deskHistory.Keys.Where(id => !ids.Contains(id)).OrderBy(id => deskHistory[id].LastSeen).ToArray();
+            foreach (var id in departed.Take(Math.Max(0, departed.Length - 1024))) deskHistory.Remove(id);
+        }
+        foreach (var agent in newcomers) characters[agent.Id].Position = new(Layout.Door.X, Layout.Door.Y);
 
         foreach (var agent in agents)
         {
@@ -153,8 +180,10 @@ public sealed class OfficeAnimator
                 var start = NearestFree(new((int)Math.Round(c.Position.X), (int)Math.Round(c.Position.Y)));
                 // Finish the fraction of this tile edge before following the new route.
                 // Keeping the exact position matters when a break/exit interrupts a walk.
-                var path = FindPath(Layout, start, target, obstacles);
-                c.Path = new(c.Position == new Position(start.X, start.Y) ? path : new[] { start }.Concat(path));
+                var path = PathFrom(start, target);
+                c.Path.Clear();
+                if (c.Position != new Position(start.X, start.Y)) c.Path.Enqueue(start);
+                foreach (var step in path) c.Path.Enqueue(step);
             }
             var budget = standingUp ? 0 : Math.Clamp(deltaSeconds, 0, 1) * 3.5;
             while (budget > 0 && c.Path.TryPeek(out var next))
@@ -241,9 +270,16 @@ public sealed class OfficeAnimator
             if (c.ChatPartner != null && (!characters.TryGetValue(c.ChatPartner, out var partner) || partner.ChatPartner != id))
             { c.ChatPartner = null; c.NextLeisure = default; if (c.Action == "chatting") c.Action = "phone"; }
         RefreshFurniture(now);
-        return agents.Select(a =>
+        RefreshCadence(now);
+        AgentView[]? nextViews = views.Count == agents.Count ? null : new AgentView[agents.Count];
+        for (var i = 0; i < agents.Count; i++)
         {
+            var a = agents[i];
             var c = characters[a.Id];
+            if (c.NamedAgent == null || c.NamedAgent.Name != a.Name || c.NamedAgent.Role != a.Role || c.NamedAgent.Model != a.Model ||
+                c.NamedAgent.Provider != a.Provider || c.NamedAgent.IsSubagent != a.IsSubagent)
+            { c.DisplayName = DisplayName(a); c.ProviderIcon = a.Provider.ToString().ToLowerInvariant(); }
+            c.NamedAgent = a;
             var sprite = assets.CharacterFrame(a, c.Design, c.Action, c.Facing, (long)(now - c.ActionSince).TotalMilliseconds, now < c.BlinkUntil);
             if (c.SeatedVariant != null && c.SeatAnchor is {} seat)
             {
@@ -260,13 +296,22 @@ public sealed class OfficeAnimator
                         OffsetY = seat.Y - (c.Position.Y + 1) * 16 + (sprite.AnchorY - seated.Anchor.Y) * sprite.Scale + rise };
                 }
             }
-            return new AgentView(a, new(c.Position.X, c.Position.Y, c.WorkTile, c.Action, c.Facing,
+            var pose = new Pose(c.Position.X, c.Position.Y, c.WorkTile, c.Action, c.Facing,
                 sprite.Row, sprite.Column, c.Visible && !c.Suppressed,
                 c.FadeSince == default ? 1 : Math.Clamp(1 - (now - c.FadeSince).TotalSeconds / 1.2, 0, 1),
                 c.ReportStage is 3 or 4, c.DeskId != null && now < c.PaperUntil, Queued(c) ? "…" : now < c.ReactUntil ? "!" : null,
-                c.ChatPartner, c.Design.Id, sprite, c.DeskId, c.OverflowSeatId, WorkLocation(c), Queued(c), DisplayName(a),
-                a.Provider.ToString().ToLowerInvariant(), c.SeatedVariant, c.SeatAnchor, c.ChairBackId, c.ChairFrontId, c.SeatPhase, c.SeatPhaseFrame));
-        }).ToArray();
+                c.ChatPartner, c.Design.Id, sprite, c.DeskId, c.OverflowSeatId, WorkLocation(c), Queued(c), c.DisplayName,
+                c.ProviderIcon, c.SeatedVariant, c.SeatAnchor, c.ChairBackId, c.ChairFrontId, c.SeatPhase, c.SeatPhaseFrame);
+            if (c.View == null || !ReferenceEquals(c.View.Agent, a) || c.View.Pose != pose) c.View = new(a, pose);
+            if (nextViews == null && !ReferenceEquals(views[i], c.View))
+            {
+                nextViews = new AgentView[agents.Count];
+                for (var j = 0; j < i; j++) nextViews[j] = views[j];
+            }
+            if (nextViews != null) nextViews[i] = c.View;
+        }
+        if (nextViews != null) views = nextViews;
+        return views;
     }
 
     private void ChooseLeisure(AgentInfo agent, IReadOnlyList<AgentInfo> agents, DateTimeOffset now)
@@ -313,8 +358,17 @@ public sealed class OfficeAnimator
 
     private void AssignWorkplaces()
     {
-        var desks = source.Furniture.Where(f => assets.Variant(f).Points.Any(p => p.Action == "typing"))
-            .Select(f => (Furniture: f, Point: assets.Variant(f).Points.First(p => p.Action == "typing"))).ToArray();
+        if (workplacesDirty)
+        {
+            if (characters.Count == 0) workReservations.Clear();
+            else RebuildWorkplaces();
+            workplacesDirty = false;
+        }
+        CheckLeisureReservations();
+    }
+
+    private void RebuildWorkplaces()
+    {
         var overflow = source.OverflowSeats ?? [];
         var usedDesks = new HashSet<string>(StringComparer.Ordinal);
         var usedOverflow = new HashSet<string>(StringComparer.Ordinal);
@@ -365,20 +419,29 @@ public sealed class OfficeAnimator
                 usedOverflow.Add(extra.Id); usedTiles.Add(new(extra.X, extra.Y)); SetWorkplace(c, null, extra.Id, new(extra.X, extra.Y), extra.Facing);
             }
         }
-        var seats = desks.Select(d => DeskTile(d.Furniture, d.Point)).Concat(overflow.Select(s => new Tile(s.X, s.Y))).ToHashSet();
-        var queueTiles = reachable.Where(t => t != Layout.Door && !usedTiles.Contains(t) && !seats.Contains(t))
-            .OrderBy(t => Distance(t, Layout.Door)).ThenBy(t => t.Y).ThenBy(t => t.X).ToArray();
-        var usedQueue = new HashSet<Tile>();
-        foreach (var c in characters.Values.Where(Queued).OrderBy(c => c.Order))
+        if (characters.Values.Any(Queued))
         {
-            var tile = queueTiles.Contains(c.WorkTile) && !usedQueue.Contains(c.WorkTile) ? c.WorkTile :
-                queueTiles.Where(t => !usedQueue.Contains(t)).Select(t => (Tile?)t).FirstOrDefault();
-            if (tile is {} free) { usedQueue.Add(free); SetWorkplace(c, null, null, free, "down"); }
-            else { c.Suppressed = true; SetWorkplace(c, null, null, new(-1, -1), "down"); }
+            var seats = desks.Select(d => DeskTile(d.Furniture, d.Point)).Concat(overflow.Select(s => new Tile(s.X, s.Y))).ToHashSet();
+            var queueTiles = reachable.Where(t => t != Layout.Door && !usedTiles.Contains(t) && !seats.Contains(t))
+                .OrderBy(t => Distance(t, Layout.Door)).ThenBy(t => t.Y).ThenBy(t => t.X).ToArray();
+            var usedQueue = new HashSet<Tile>();
+            foreach (var c in characters.Values.Where(Queued).OrderBy(c => c.Order))
+            {
+                var tile = queueTiles.Contains(c.WorkTile) && !usedQueue.Contains(c.WorkTile) ? c.WorkTile :
+                    queueTiles.Where(t => !usedQueue.Contains(t)).Select(t => (Tile?)t).FirstOrDefault();
+                if (tile is {} free) { usedQueue.Add(free); SetWorkplace(c, null, null, free, "down"); }
+                else { c.Suppressed = true; SetWorkplace(c, null, null, new(-1, -1), "down"); }
+            }
         }
-        var reserved = WorkReservations();
+        workReservations.Clear();
         foreach (var c in characters.Values)
-            if ((c.Agent.State == AgentState.Idle || c.Agent.State == AgentState.Reporting && c.ReportStage == 5) && reserved.Contains(c.LeisureTarget))
+            if (c.Agent.State != AgentState.Gone && !c.Suppressed) workReservations.Add(c.WorkTile);
+    }
+
+    private void CheckLeisureReservations()
+    {
+        foreach (var c in characters.Values)
+            if ((c.Agent.State == AgentState.Idle || c.Agent.State == AgentState.Reporting && c.ReportStage == 5) && workReservations.Contains(c.LeisureTarget))
             { c.NextLeisure = default; c.Target = null; c.LeisureArrived = false; }
     }
 
@@ -416,6 +479,9 @@ public sealed class OfficeAnimator
     }
     private void RefreshNavigation()
     {
+        workplacesDirty = true; paths.Clear(); monitorSupport.Clear();
+        desks = source.Furniture.Where(f => assets.Variant(f).Points.Any(p => p.Action == "typing"))
+            .Select(f => (Furniture: f, Point: assets.Variant(f).Points.First(p => p.Action == "typing"))).ToArray();
         obstacles = LayoutLoader.Blocked(Layout, assets); reachable = [];
         var door = Layout.Door;
         if (!LayoutLoader.Walkable(Layout, door, obstacles))
@@ -427,29 +493,137 @@ public sealed class OfficeAnimator
     private Tile NearestFree(Tile tile, HashSet<Tile>? excluded = null) => reachable.Contains(tile) && excluded?.Contains(tile) != true ? tile :
         reachable.Where(t => excluded?.Contains(t) != true).OrderBy(t => Distance(t, tile)).ThenBy(t => t.Y).ThenBy(t => t.X).FirstOrDefault(Layout.Door);
 
+    private IReadOnlyList<Tile> PathFrom(Tile start, Tile target)
+    {
+        if (paths.TryGetValue((start, target), out var path)) return path;
+        path = FindPath(Layout, start, target, obstacles);
+        // Empty results can also mean the search hit its time budget; retry those normally.
+        if (path.Count != 0 || start == target)
+        {
+            if (paths.Count >= 1024) paths.Clear();
+            paths[(start, target)] = path;
+        }
+        return path;
+    }
+
     private void RefreshFurniture(DateTimeOffset now)
     {
-        var owners = characters.Values.Where(c => c.Agent.State != AgentState.Gone && c.DeskId != null).ToDictionary(c => c.DeskId!, StringComparer.Ordinal);
-        var furniture = source.Furniture.Select(f =>
+        furnitureOwners.Clear();
+        foreach (var c in characters.Values)
+            if (c.Agent.State != AgentState.Gone && c.DeskId != null) furnitureOwners.Add(c.DeskId, c);
+        Furniture[]? furniture = null;
+        for (var i = 0; i < source.Furniture.Count; i++)
         {
+            var f = source.Furniture[i];
             var v = assets.Variant(f);
-            if (!v.Points.Any(p => p.Action == "typing")) return f with { AgentId = null, MonitorState = null };
-            owners.TryGetValue(f.DeskId!, out var owner);
-            var typingHere = owner != null && owner.Agent.State == AgentState.Working && owner.Action == "typing" &&
-                owner.Position == new Position(owner.WorkTile.X, owner.WorkTile.Y);
-            var monitor = owner == null ? "off" : typingHere ? "working" : "screensaver";
-            var state = assets.Manifest.Furniture.First(a => a.Id == (f.AssetId ?? f.Kind)).Variants
-                .FirstOrDefault(s => s.Rotation == f.Rotation && s.State == monitor);
-            // Screen variants are visual changes; never let them alter authored collision geometry.
-            var supported = state != null && state.FootprintW == f.Width && state.FootprintH == f.Height &&
-                LayoutLoader.Cells(f, v).ToHashSet().SetEquals(LayoutLoader.Cells(f, state)) &&
-                assets.Variant(f with { State = monitor }).Points.SequenceEqual(v.Points);
-            return f with { AgentId = owner?.Agent.Id, State = supported ? monitor : f.State, MonitorState = monitor };
-        }).ToArray();
-        if (!Layout.Furniture.SequenceEqual(furniture)) Layout = source with { Furniture = furniture };
+            string? ownerId = null, monitor = null;
+            var state = f.State;
+            for (var p = 0; p < v.Points.Count; p++)
+                if (v.Points[p].Action == "typing")
+                {
+                    furnitureOwners.TryGetValue(f.DeskId!, out var owner);
+                    ownerId = owner?.Agent.Id;
+                    var typingHere = owner != null && owner.Agent.State == AgentState.Working && owner.Action == "typing" &&
+                        owner.Position == new Position(owner.WorkTile.X, owner.WorkTile.Y);
+                    monitor = owner == null ? "off" : typingHere ? "working" : "screensaver";
+                    if (SupportedMonitor(f, v, monitor)) state = monitor;
+                    break;
+                }
+            var previous = Layout.Furniture[i];
+            if (previous.AgentId == ownerId && previous.MonitorState == monitor && previous.State == state) continue;
+            furniture ??= Layout.Furniture.ToArray();
+            furniture[i] = f with { AgentId = ownerId, State = state, MonitorState = monitor };
+        }
+        if (furniture != null) Layout = source with { Furniture = furniture };
         var elapsed = started == default ? 0 : (long)(now - started).TotalMilliseconds;
-        FurnitureSprites = Layout.Furniture.Select(f => (f, v: assets.Variant(f))).Where(p => p.v.SheetId != null && p.v.Animation != null)
-            .Select(p => new FurnitureSprite(p.f.Id, assets.Frame(p.v.SheetId!, p.v.Animation!, "any", elapsed, SpriteAtlas.Hash(p.f.Id) % 4), p.f.MonitorState)).ToArray();
+        var count = 0;
+        List<FurnitureSprite>? sprites = null;
+        furnitureFps = 0;
+        for (var i = 0; i < Layout.Furniture.Count; i++)
+        {
+            var f = Layout.Furniture[i]; var v = assets.Variant(f);
+            if (v.SheetId == null || v.Animation == null) continue;
+            var frame = assets.Frame(v.SheetId, v.Animation, "any", elapsed, SpriteAtlas.Hash(f.Id) % 4);
+            furnitureFps = Math.Max(furnitureFps, assets.AnimationFps(v.SheetId, v.Animation, "any", elapsed));
+            var previous = count < FurnitureSprites.Count ? FurnitureSprites[count] : null;
+            var same = previous != null && previous.Id == f.Id && previous.Sprite == frame && previous.MonitorState == f.MonitorState;
+            if (!same && sprites == null)
+            {
+                sprites = new(Layout.Furniture.Count);
+                for (var j = 0; j < count; j++) sprites.Add(FurnitureSprites[j]);
+            }
+            if (sprites != null) sprites.Add(same ? previous! : new(f.Id, frame, f.MonitorState));
+            count++;
+        }
+        if (sprites != null) FurnitureSprites = sprites.ToArray();
+        else if (count != FurnitureSprites.Count) FurnitureSprites = FurnitureSprites.Take(count).ToArray();
+    }
+
+    private bool SupportedMonitor(Furniture f, FurnitureVariant v, string monitor)
+    {
+        if (monitorSupport.TryGetValue((f, monitor), out var supported)) return supported;
+        return monitorSupport[(f, monitor)] = ValidateMonitor(f, v, monitor);
+    }
+
+    private bool ValidateMonitor(Furniture f, FurnitureVariant v, string monitor)
+    {
+        var state = assets.Manifest.Furniture.First(a => a.Id == (f.AssetId ?? f.Kind)).Variants
+            .FirstOrDefault(s => s.Rotation == f.Rotation && s.State == monitor);
+        // Screen variants are visual changes; never let them alter authored collision geometry.
+        return state != null && state.FootprintW == f.Width && state.FootprintH == f.Height &&
+            LayoutLoader.Cells(f, v).ToHashSet().SetEquals(LayoutLoader.Cells(f, state)) &&
+            assets.Variant(f with { State = monitor }).Points.SequenceEqual(v.Points);
+    }
+
+    private void NextDue(DateTimeOffset time, DateTimeOffset now)
+    {
+        if (time == default || time == DateTimeOffset.MaxValue) return;
+        if (time < now) time = now;
+        if (time < NextUpdateAt) NextUpdateAt = time;
+    }
+
+    private void RefreshCadence(DateTimeOffset now)
+    {
+        var fps = Math.Min(furnitureFps, 8);
+        HasMovingCharacters = false;
+        NextUpdateAt = DateTimeOffset.MaxValue;
+        foreach (var c in characters.Values)
+        {
+            if (!c.Visible || c.Suppressed) continue;
+            var elapsed = (long)(now - c.ActionSince).TotalMilliseconds;
+            var moving = c.Path.Count > 0 && c.SeatPhase != "raise";
+            HasMovingCharacters |= moving;
+            if (moving) fps = 30;
+            else if (c.SeatPhase is "turn" or "lower" or "raise")
+            {
+                var seatElapsed = (now - c.SeatPhaseSince).TotalMilliseconds;
+                var next = c.SeatPhase == "raise" ? seatElapsed < 120 ? 120 : 240 :
+                    seatElapsed < 120 ? 120 : seatElapsed < 240 ? 240 : 360;
+                NextDue(c.SeatPhaseSince.AddMilliseconds(next), now);
+            }
+            else
+            {
+                var animation = c.SeatedVariant != null ? assets.SeatedAnimationFps(c.Agent, c.Design, c.SeatedVariant,
+                    c.SeatedFacing, elapsed, now < c.BlinkUntil) :
+                    assets.CharacterAnimationFps(c.Agent, c.Design, c.Action, c.Facing, elapsed, now < c.BlinkUntil);
+                if (animation > 0) fps = Math.Max(fps, Math.Clamp(animation, 4, 8));
+            }
+            if (c.FadeSince != default)
+            { fps = Math.Max(fps, 8); NextDue(c.FadeSince.AddSeconds(1.2), now); }
+            if (c.Target == null && c.SeatPhase is not ("turn" or "lower" or "raise")) NextUpdateAt = now;
+            if (c.ReportStage is 2 or 4) NextDue(c.PauseUntil, now);
+            if ((c.Agent.State == AgentState.Idle || c.Agent.State == AgentState.Reporting && c.ReportStage == 5) && !c.Entering && !Queued(c) &&
+                c.SeatPhase is not ("turn" or "lower" or "raise"))
+            {
+                if (c.NextLeisure == default) NextUpdateAt = now;
+                else NextDue(c.NextLeisure, now);
+            }
+            if (c.Action is not ("entering" or "walking" or "exiting" or "gone" or "napping") && c.Design.SheetId != "fallback")
+            { NextDue(c.NextBlink, now); if (now < c.BlinkUntil) NextDue(c.BlinkUntil, now); }
+            if (now < c.PaperUntil) NextDue(c.PaperUntil, now);
+            if (now < c.ReactUntil) NextDue(c.ReactUntil, now);
+        }
+        AnimationInterval = fps > 0 ? TimeSpan.FromSeconds(1 / fps) : TimeSpan.Zero;
     }
 
     private static string DisplayName(AgentInfo agent)

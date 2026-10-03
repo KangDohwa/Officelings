@@ -217,6 +217,29 @@ internal sealed class WindowModes(Window window, bool qa = false, nint? desktopP
     }
 
     public bool DesktopHostLost { get { Attach(); return Mode == "desktop" && !Embedded; } }
+    internal bool AnimationSuppressed
+    {
+        get
+        {
+            // QA deliberately uses offscreen owned windows to measure live rendering.
+            if (qa) return false;
+            Attach();
+            if (hwnd==0 || !IsWindowVisible(hwnd) || window.WindowState==WindowState.Minimized) return true;
+            if (DwmGetWindowAttribute(hwnd,14,out var cloaked,sizeof(int))>=0 && cloaked!=0) return true;
+            if (!GetWindowRect(hwnd,out var target)) return false;
+            var root=GetAncestor(hwnd,2);
+            // Conservative occlusion: a single opaque higher window must cover the
+            // entire office. Partial/multiple-window and per-pixel coverage is unknown.
+            var candidate=GetTopWindow(0);
+            for (var n=0;candidate!=0 && candidate!=root && n<512;n++,candidate=GetWindow(candidate,2))
+            {
+                if (!IsWindowVisible(candidate) || IsIconic(candidate) || (GetWindowLong(candidate,ExStyle)&(Layered|Transparent))!=0) continue;
+                if (DwmGetWindowAttribute(candidate,14,out var hidden,sizeof(int))>=0 && hidden!=0) continue;
+                if (GetWindowRect(candidate,out var cover) && cover.Left<=target.Left && cover.Top<=target.Top && cover.Right>=target.Right && cover.Bottom>=target.Bottom) return true;
+            }
+            return false;
+        }
+    }
     public Point? Cursor(FrameworkElement element)
     {
         Attach();
@@ -299,6 +322,10 @@ internal sealed class WindowModes(Window window, bool qa = false, nint? desktopP
     [DllImport("user32.dll")] private static extern bool IsWindowVisible(nint hwnd);
     [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(nint hwnd,out uint process);
     [DllImport("user32.dll")] private static extern nint GetWindow(nint hwnd,uint command);
+    [DllImport("user32.dll")] private static extern nint GetAncestor(nint hwnd,uint flags);
+    [DllImport("user32.dll")] private static extern nint GetTopWindow(nint hwnd);
+    [DllImport("user32.dll")] private static extern bool IsIconic(nint hwnd);
+    [DllImport("dwmapi.dll")] private static extern int DwmGetWindowAttribute(nint hwnd,int attribute,out int value,int size);
     [DllImport("user32.dll",CharSet=CharSet.Unicode)] private static extern int GetClassName(nint hwnd,System.Text.StringBuilder text,int count);
     [DllImport("user32.dll")] private static extern int GetWindowLong(nint hwnd,int index);
     [DllImport("user32.dll",SetLastError=true)] private static extern int SetWindowLong(nint hwnd,int index,int value);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -13,24 +14,59 @@ using Vibedotcom.Core;
 
 namespace Vibedotcom.App;
 
-internal sealed class OfficeView : FrameworkElement
+internal sealed partial class OfficeView : FrameworkElement
 {
     internal static readonly Color BackgroundColor = (Color)ColorConverter.ConvertFromString("#10282b");
-    private OfficeLayout office = new OfficeAnimator().Layout;
+    private OfficeLayout office = new(1, 1, 16, new(0, 0), [], Tiles: [0]);
     private IReadOnlyList<AgentView> agents = Array.Empty<AgentView>();
     private readonly Dictionary<string, AgentView> byId = new();
     private readonly AssetPack assets;
     private readonly BrandIcons brandIcons;
-    private readonly Dictionary<string, BitmapSource> sheets = new();
+    private static readonly ConditionalWeakTable<AssetPack, Dictionary<string, BitmapSource>> SharedSheets = new();
+    private readonly Dictionary<string, BitmapSource> sheets;
     private readonly Dictionary<(string, int, int, int, int), BitmapSource> sprites = new();
     private readonly Dictionary<(string, int, int, int, int), Rect> spriteContent = new();
     private readonly Dictionary<string, DrawingGroup> furnitureCache = new();
+    private readonly Dictionary<string, (double Depth, bool Lounge)> furnitureDepths = new();
     private IReadOnlyList<FurnitureSprite> furnitureSprites = Array.Empty<FurnitureSprite>();
     private bool debugTooltip;
     public string? DebugTooltipText { get; private set; }
     private readonly Dictionary<string, SolidColorBrush> brushes = new();
-    private readonly Dictionary<string, FormattedText> textCache = new();
+    private readonly Dictionary<(string, double, string, bool, double), FormattedText> textCache = new();
+    private readonly Dictionary<string, (string Text, double Width)> names = new();
     private DrawingGroup? room;
+    private BitmapSource? roomBitmap;
+    private double roomScale;
+    private Vector roomOrigin;
+    private readonly ContainerVisual sceneVisual = new();
+    private readonly DrawingVisual roomVisual = new(), linksVisual = new();
+    private readonly ContainerVisual overlayVisual = new();
+    private readonly Dictionary<string, RetainedItem> retained = new();
+    private readonly List<RetainedItem> drawOrder = new();
+    private readonly Dictionary<string, RetainedItem> overlays = new();
+    private readonly List<RetainedItem> overlayOrder = new();
+    private readonly List<Visual> overlayVisualOrder = new();
+    private readonly DrawingVisual editorVisual = new(), quietVisual = new();
+    private bool quietDrawn, quietVisible;
+    private readonly List<Rect> tagPlates = new();
+    private readonly List<string> expiredKeys = new();
+    private bool sceneDirty = true;
+    private int linksHash, editorHash;
+    private bool layersDrawn;
+    private sealed class RetainedItem(string key)
+    {
+        public readonly string Key = key;
+        public readonly string Id = key[2..];
+        public readonly DrawingVisual Visual = new();
+        public Furniture? Furniture;
+        public AgentView? Agent;
+        public PetView? Pet;
+        public long AnimationStamp;
+        public SpriteFrame? Frame;
+        public int Layer;
+        public double Depth;
+        public bool Used;
+    }
     private readonly DrawingVisual tagsVisual = new();
     private readonly NameTagHover tagHover = new();
     private readonly Dictionary<string, Rect> tagRects = new(), iconRects = new();
@@ -39,7 +75,12 @@ internal sealed class OfficeView : FrameworkElement
     private Rect tooltipRect = Rect.Empty;
     internal int SceneRenderCount { get; private set; }
     internal int RoomBuildCount { get; private set; }
+    internal int DynamicRenderCount { get; private set; }
+    // Sum of changed visual bounds in viewport pixels, not a GPU/compositor counter.
+    internal double RedrawPixelArea { get; private set; }
     internal bool TagsAnimating => tagHover.Animating;
+    internal bool HasHoverTarget => tagHover.Target != null;
+    internal bool TooltipPending => tagHover.Target != null && !tooltip.IsOpen && !debugTooltip;
     internal Rect TooltipRect => tooltipRect;
     internal Rect AgentTagRect(string id) => ScreenRect(tagRects.GetValueOrDefault("agent:" + id, Rect.Empty));
     internal Rect DeskTagRect(string id) => ScreenRect(tagRects.GetValueOrDefault("desk:" + id, Rect.Empty));
@@ -50,8 +91,9 @@ internal sealed class OfficeView : FrameworkElement
         get => tagMode;
         set { var mode = NameTagHover.Normalize(value); if (mode == tagMode) return; tagMode = mode; tagOffsets.Clear(); HideTooltip(); }
     }
-    protected override int VisualChildrenCount => 1;
-    protected override Visual GetVisualChild(int index) => index == 0 ? tagsVisual : throw new ArgumentOutOfRangeException(nameof(index));
+    protected override int VisualChildrenCount => 5;
+    protected override Visual GetVisualChild(int index) => index switch
+    { 0 => roomVisual, 1 => linksVisual, 2 => sceneVisual, 3 => overlayVisual, 4 => tagsVisual, _ => throw new ArgumentOutOfRangeException(nameof(index)) };
     private int ambient = -1;
     private double zoom = 1;
     private Vector pan;
@@ -89,12 +131,17 @@ internal sealed class OfficeView : FrameworkElement
         }
         return result;
     }
-    public OfficeView(AssetPack? assets = null, string? brandDirectory = null, IReadOnlyDictionary<string, BitmapSource>? decodedSheets = null)
+    public OfficeView(AssetPack? assets = null, string? brandDirectory = null, IReadOnlyDictionary<string, BitmapSource>? decodedSheets = null,
+        Func<DateTimeOffset>? localClock = null)
     {
         this.assets = assets ?? new();
-        AddVisualChild(tagsVisual);
+        pets = new(this.assets);
+        environment = new(localClock);
+        this.localClock = localClock;
+        sheets = SharedSheets.GetOrCreateValue(this.assets);
+        AddVisualChild(roomVisual); AddVisualChild(linksVisual); AddVisualChild(sceneVisual); AddVisualChild(overlayVisual); AddVisualChild(tagsVisual);
         brandIcons = new(brandDirectory);
-        foreach (var (id, image) in decodedSheets ?? DecodeSheets(this.assets)) sheets[id] = image;
+        if (decodedSheets != null) lock (sheets) foreach (var (id, image) in decodedSheets) sheets[id] = image;
         RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
         RenderOptions.SetEdgeMode(this, EdgeMode.Aliased); SnapsToDevicePixels = true; ClipToBounds = true;
         TextOptions.SetTextFormattingMode(this, TextFormattingMode.Display);
@@ -137,18 +184,42 @@ internal sealed class OfficeView : FrameworkElement
     }
     public void Update(OfficeLayout layout, IReadOnlyList<AgentView> views, DateTimeOffset now, IReadOnlyList<FurnitureSprite>? furnitureFrames = null)
     {
-        var changed = !ReferenceEquals(layout,office);
-        if (changed) { office = layout; room = null; furnitureCache.Clear(); textCache.Clear(); if (autoFit) Fit(); }
+        var layoutChanged = !ReferenceEquals(layout,office);
+        var changed = layoutChanged;
+        if (layoutChanged)
+        {
+            var geometryChanged = layout.WidthTiles != office.WidthTiles || layout.HeightTiles != office.HeightTiles ||
+                !ReferenceEquals(layout.Tiles, office.Tiles) || !ReferenceEquals(layout.Zones, office.Zones) || layout.Door != office.Door ||
+                layout.Furniture.Any(f=>f.Kind=="door") != office.Furniture.Any(f=>f.Kind=="door");
+            office = layout;
+            if (geometryChanged) { room = null; roomBitmap = null; if (autoFit) Fit(); }
+            furnitureCache.Clear();
+            furnitureDepths.Clear();
+        }
         furnitureFrames ??= Array.Empty<FurnitureSprite>();
+        furnitureFrames = AmbientFrames(layout, views, now, furnitureFrames);
         changed |= !furnitureSprites.SequenceEqual(furnitureFrames); furnitureSprites=furnitureFrames;
+        var nextPets = pets.Update(layout, views, now);
+        changed |= !petViews.SequenceEqual(nextPets); petViews = nextPets;
+        var stamp = now.ToUnixTimeMilliseconds() / 125;
+        changed |= stamp != activityStamp && views.Any(a => a.Pose.Action is "darts" or "pingpong");
+        changed |= ambientState?.LocalTime != previousLocalTime;
+        previousLocalTime = ambientState?.LocalTime; activityStamp = stamp;
         var phase = (int)(now.ToUnixTimeMilliseconds() / 500 % 120);
-        changed |= phase != ambient || agents.Count != views.Count;
+        changed |= agents.Count != views.Count;
+        // Only the primitive coffee bubble depends on this clock.
+        if (!assets.Images.ContainsKey("icons") && phase != ambient)
+            changed |= views.Any(a => a.Pose.Visible && a.Pose.Action == "coffee");
         if (!changed)
             for (var i = 0; i < views.Count; i++)
-                if (views[i].Pose != agents[i].Pose || views[i].Agent.Name != agents[i].Agent.Name) { changed = true; break; }
+                if (views[i] != agents[i]) { changed = true; break; }
         ambient = phase; agents = views;
         byId.Clear(); foreach (var agent in agents) byId[agent.Agent.Id] = agent;
-        if (changed) InvalidateVisual();
+        if (changed)
+        {
+            sceneDirty = true;
+            if (ActualWidth > 0 && ActualHeight > 0) RenderScene();
+        }
     }
 
     private SolidColorBrush Color(string color)
@@ -160,7 +231,7 @@ internal sealed class OfficeView : FrameworkElement
     private void R(DrawingContext dc, string color, double x, double y, double w, double h) => dc.DrawRectangle(Color(color),null,new(x,y,w,h));
     private FormattedText FormatText(string text, double size, string color, bool bold = false, double maxWidth = 500)
     {
-        var key = $"{text}|{size}|{color}|{bold}|{maxWidth}";
+        var key = (text,size,color,bold,maxWidth);
         if (!textCache.TryGetValue(key,out var formatted))
         {
             if (textCache.Count >= 256) textCache.Clear();
@@ -179,7 +250,13 @@ internal sealed class OfficeView : FrameworkElement
         var key = (f.SheetId, f.X, f.Y, f.Width, f.Height);
         if (!sprites.TryGetValue(key, out var image))
         {
-            image = new CroppedBitmap(sheets[f.SheetId], new(f.X, f.Y, f.Width, f.Height));
+            if (!sheets.TryGetValue(f.SheetId, out var sheet))
+            {
+                using var stream = new MemoryStream(assets.Images[f.SheetId], writable: false);
+                var decoded = new BitmapImage(); decoded.BeginInit(); decoded.CacheOption = BitmapCacheOption.OnLoad;
+                decoded.StreamSource = stream; decoded.EndInit(); decoded.Freeze(); sheets[f.SheetId] = sheet = decoded;
+            }
+            image = new CroppedBitmap(sheet, new(f.X, f.Y, f.Width, f.Height));
             image.Freeze(); sprites[key] = image;
         }
         return image;
@@ -229,6 +306,7 @@ internal sealed class OfficeView : FrameworkElement
     {
         RoomBuildCount++;
         room = new DrawingGroup();
+        RenderOptions.SetBitmapScalingMode(room,BitmapScalingMode.NearestNeighbor);
         using (var dc = room.Open())
         {
             for (var y=0; y<office.HeightTiles; y++) for (var x=0; x<office.WidthTiles; x++)
@@ -339,8 +417,103 @@ internal sealed class OfficeView : FrameworkElement
         SceneRenderCount++;
         // Also supplies the empty floor with a hit-test surface for panning.
         dc.DrawRectangle(transparent ? Brushes.Transparent : Color("#10282b"),null,new(0,0,ActualWidth,ActualHeight));
-        var origin = Origin; dc.PushTransform(new TranslateTransform(origin.X,origin.Y)); dc.PushTransform(new ScaleTransform(zoom,zoom));
-        if (room == null) BuildRoom(); dc.DrawDrawing(room!);
+        var origin = Origin;
+        var transform = new TransformGroup(); transform.Children.Add(new ScaleTransform(zoom,zoom)); transform.Children.Add(new TranslateTransform(origin.X,origin.Y)); transform.Freeze();
+        linksVisual.Transform = sceneVisual.Transform = overlayVisual.Transform = transform;
+        if (room == null) BuildRoom();
+        // Rasterize static tiles once at the actual camera density. Furniture keeps its
+        // original depth ordering in separate retained visuals; WPF tracks their damage.
+        var density=zoom*VisualTreeHelper.GetDpi(this).DpiScaleX;
+        var dpi=VisualTreeHelper.GetDpi(this).DpiScaleX;
+        var pixelWidth=Math.Max(1,(int)Math.Ceiling(ActualWidth*dpi)); var pixelHeight=Math.Max(1,(int)Math.Ceiling(ActualHeight*dpi));
+        if (roomBitmap == null || roomScale != density || roomOrigin!=origin || roomBitmap.PixelWidth!=pixelWidth || roomBitmap.PixelHeight!=pixelHeight)
+        {
+            roomScale = density; roomOrigin=origin;
+            var visual = new DrawingVisual(); RenderOptions.SetEdgeMode(visual,EdgeMode.Aliased);
+            RenderOptions.SetBitmapScalingMode(visual,BitmapScalingMode.NearestNeighbor);
+            TextOptions.SetTextRenderingMode(visual,TextRenderingMode.Aliased);
+            // Include the viewport origin in rasterization: at 3x, removing and
+            // reapplying it changes WPF's nearest-neighbour rounding at tile edges.
+            using (var draw = visual.RenderOpen())
+            { draw.PushTransform(new ScaleTransform(dpi,dpi)); draw.PushTransform(new TranslateTransform(origin.X,origin.Y)); draw.PushTransform(new ScaleTransform(zoom,zoom)); draw.DrawDrawing(room!); }
+            var bitmap = new RenderTargetBitmap(pixelWidth,pixelHeight,96,96,PixelFormats.Pbgra32);
+            bitmap.Render(visual); bitmap.Freeze(); roomBitmap = bitmap;
+        }
+        using (var draw = roomVisual.RenderOpen()) draw.DrawImage(roomBitmap,new(0,0,roomBitmap.PixelWidth/dpi,roomBitmap.PixelHeight/dpi));
+        sceneDirty = true; RenderScene();
+    }
+    private void Damage(DrawingVisual visual, Action<DrawingContext> draw)
+    {
+        var bounds = visual.ContentBounds;
+        using (var dc = visual.RenderOpen()) draw(dc);
+        bounds.Union(visual.ContentBounds);
+        if (!bounds.IsEmpty) RedrawPixelArea += bounds.Width*bounds.Height*zoom*zoom;
+        DynamicRenderCount++;
+    }
+    private void RenderScene()
+    {
+        if (!sceneDirty) return;
+        sceneDirty = false;
+        // Relationship lines can span several bodies and have their own damage layer.
+        var linkKey = new HashCode();
+        foreach (var agent in agents)
+        {
+            var p=agent.Pose;
+            if (agent.Agent.ParentId != null)
+            { linkKey.Add(agent.Agent.Id); linkKey.Add(agent.Agent.ParentId); linkKey.Add(agent.Agent.State); }
+            linkKey.Add(p.X); linkKey.Add(p.Y); linkKey.Add(p.Visible);
+        }
+        var lh=linkKey.ToHashCode();
+        if (!layersDrawn || linksHash != lh) { Damage(linksVisual,DrawLinks); linksHash=lh; }
+        foreach (var item in retained.Values) item.Used = false;
+        drawOrder.Clear();
+        foreach (var furniture in office.Furniture)
+        {
+            var key = "f:"+furniture.Id;
+            if (!retained.TryGetValue(key,out var item)) retained[key] = item = new(key);
+            var frame = furnitureSprites.FirstOrDefault(f=>f.Id==furniture.Id)?.Sprite;
+            var stamp = furniture.Kind == "clock" ? ambientState?.LocalTime.ToUnixTimeSeconds() ?? 0 : 0;
+            if (item.Furniture != furniture || item.Frame != frame || item.AnimationStamp != stamp)
+            {
+                item.AnimationStamp = stamp;
+                item.Furniture = furniture; item.Frame = frame;
+                Damage(item.Visual, draw => DrawFurniture(draw,furniture));
+            }
+            item.Layer = assets.Variant(furniture).Layer; item.Depth = FurnitureDepth(furniture); item.Used = true; drawOrder.Add(item);
+        }
+        foreach (var agent in agents)
+        {
+            if (!agent.Pose.Visible) continue;
+            var key = "a:"+agent.Agent.Id;
+            if (!retained.TryGetValue(key,out var item)) retained[key] = item = new(key);
+            var stamp = agent.Pose.Action is "darts" or "pingpong" ? activityStamp : 0;
+            if (item.Agent?.Pose != agent.Pose || item.AnimationStamp != stamp)
+            { item.Agent = agent; item.AnimationStamp = stamp; Damage(item.Visual, draw => DrawAgent(draw,agent)); }
+            item.Layer = 1; item.Depth = AgentDepth(agent.Pose); item.Used = true; drawOrder.Add(item);
+        }
+        foreach (var pet in petViews)
+        {
+            var key = "p:" + pet.Id;
+            if (!retained.TryGetValue(key, out var item)) retained[key] = item = new(key);
+            if (item.Pet != pet) { item.Pet = pet; Damage(item.Visual, dc => DrawPet(dc, pet)); }
+            item.Layer = 1; item.Depth = (pet.Y + 1) * 16; item.Used = true; drawOrder.Add(item);
+        }
+        expiredKeys.Clear();
+        foreach (var (key,item) in retained) if (!item.Used) { sceneVisual.Children.Remove(item.Visual); expiredKeys.Add(key); }
+        foreach (var key in expiredKeys) retained.Remove(key);
+        drawOrder.Sort(static (a,b) => { var c = a.Layer.CompareTo(b.Layer); if (c==0) c=a.Depth.CompareTo(b.Depth); return c!=0 ? c : StringComparer.Ordinal.Compare(a.Id,b.Id); });
+        for (var i=0;i<drawOrder.Count;i++)
+        {
+            var visual=drawOrder[i].Visual;
+            if (i < sceneVisual.Children.Count && ReferenceEquals(sceneVisual.Children[i],visual)) continue;
+            sceneVisual.Children.Remove(visual); sceneVisual.Children.Insert(i,visual);
+        }
+        RenderOverlays();
+        layersDrawn = true;
+        if (tagMode != "hover" || tagHover.Target != null || tagHover.Animating || debugTooltip) RenderTags();
+    }
+    private void DrawLinks(DrawingContext dc)
+    {
         var line = new Pen(Color("#405cbbb5"),.6) { DashStyle = DashStyles.Dot }; line.Freeze();
         foreach (var child in agents)
             if (child.Pose.Visible && child.Agent.ParentId != null && byId.TryGetValue(child.Agent.ParentId,out var parent) && parent.Pose.Visible &&
@@ -352,7 +525,10 @@ internal sealed class OfficeView : FrameworkElement
                 if (distance > 64 || distance < 12) continue;
                 dc.DrawLine(line,start,start+(end-start)*Math.Min(1,40/distance));
             }
-        double FurnitureDepth(Furniture f)
+    }
+    private double FurnitureDepth(Furniture f)
+    {
+        if (!furnitureDepths.TryGetValue(f.Id,out var cached))
         {
             var v = assets.Variant(f);
             var host = office.Furniture.FirstOrDefault(h => h.Id != f.Id && assets.Variant(h).ChairSeatAnchor != null &&
@@ -360,41 +536,73 @@ internal sealed class OfficeView : FrameworkElement
             if (host != null)
             {
                 var chair = assets.Variant(host);
-                return host.Y * 16 + chair.ChairSeatAnchor!.Y + 12 + (f.AssetId == chair.ChairBackId ? -.2 : .2);
+                cached = (host.Y * 16 + chair.ChairSeatAnchor!.Y + 12 + (f.AssetId == chair.ChairBackId ? -.2 : .2),false);
             }
-            if (v.ChairSeatAnchor != null && (v.Points.Any(p => p.Facing is "left" or "right") || f.Kind == "table"))
-                return f.Y * 16 + v.ChairSeatAnchor.Y + 12 + .1;
-            // Unsplit lounge seats have no linked front asset. Their visible backrest,
-            // arms and seat edge still cover a worker sitting with their back to us.
-            var seated = agents.Where(a => a.Pose.Visible && a.Pose.SeatAnchor != null && a.Pose.SeatPhase != "turn" &&
+            else if (v.ChairSeatAnchor != null && (v.Points.Any(p => p.Facing is "left" or "right") || f.Kind == "table"))
+                cached = (f.Y * 16 + v.ChairSeatAnchor.Y + 12 + .1,false);
+            else cached = ((f.Y + f.Height) * 16 + v.ZOrder,true);
+            furnitureDepths[f.Id]=cached;
+        }
+        if (!cached.Lounge || agents.Count==0) return cached.Depth;
+        // Unsplit lounge seats can change depth when somebody sits down. Keep
+        // that small live dependency while retaining geometry/host calculations.
+        var seatedDepth=double.NegativeInfinity;
+        foreach (var a in agents)
+            if (a.Pose.Visible && a.Pose.SeatAnchor != null && a.Pose.SeatPhase != "turn" &&
                 a.Pose.ChairFrontId == null && a.Pose.OverflowSeatId != null &&
-                office.OverflowSeats?.Any(s => s.Id == a.Pose.OverflowSeatId && s.FurnitureId == f.Id) == true).ToArray();
-            if (seated.Length != 0) return seated.Max(a => AgentDepth(a.Pose)) + .2;
-            return (f.Y + f.Height) * 16 + v.ZOrder;
-        }
-        var scene = office.Furniture.Select(f=>(Layer:assets.Variant(f).Layer,Y:FurnitureDepth(f),Id:f.Id,F:(Furniture?)f,A:(AgentView?)null))
-            .Concat(agents.Where(a=>a.Pose.Visible).Select(a=>(Layer:1,Y:AgentDepth(a.Pose),Id:a.Agent.Id,F:(Furniture?)null,A:(AgentView?)a)))
-            .OrderBy(d=>d.Layer).ThenBy(d=>d.Y).ThenBy(d=>d.Id,StringComparer.Ordinal);
-        foreach (var drawable in scene)
+                office.OverflowSeats?.Any(s => s.Id == a.Pose.OverflowSeatId && s.FurnitureId == f.Id) == true)
+                seatedDepth=Math.Max(seatedDepth,AgentDepth(a.Pose));
+        return double.IsNegativeInfinity(seatedDepth) ? cached.Depth : seatedDepth+.2;
+    }
+    private void RenderOverlays()
+    {
+        foreach (var item in overlays.Values) item.Used=false;
+        overlayOrder.Clear();
+        void Add(string key,AgentView agent,Furniture? furniture,Action<DrawingContext> draw)
         {
-            if (drawable.F is {} furniture) DrawFurniture(dc,furniture);
-            else if (drawable.A is {} agent) DrawAgent(dc,agent);
+            if (!overlays.TryGetValue(key,out var item)) overlays[key]=item=new(key);
+            var clockChanged=key[0]=='b' && agent.Pose.Action=="coffee" && !assets.Images.ContainsKey("icons") && item.Depth!=ambient;
+            if (item.Agent != agent || item.Furniture != furniture || clockChanged)
+            { item.Agent=agent; item.Furniture=furniture; Damage(item.Visual,draw); }
+            item.Depth=ambient;
+            item.Used=true; overlayOrder.Add(item);
         }
-        foreach(var agent in agents.Where(a=>a.Pose.Visible && a.Pose.WorkLocation=="overflow" && a.Pose.ChairFrontId == null && a.Pose.Action is "typing" or "thinking" or "waiting"))
-            DrawLaptop(dc,agent.Pose);
-        foreach (var desk in office.Furniture.Where(f=>f.AgentId != null))
+        foreach(var agent in agents)
+            if (agent.Pose.Visible && agent.Pose.WorkLocation=="overflow" && agent.Pose.ChairFrontId == null && agent.Pose.Action is "typing" or "thinking" or "waiting")
+                Add("l:"+agent.Agent.Id,agent,null,dc=>DrawLaptop(dc,agent.Pose));
+        foreach (var desk in office.Furniture)
         {
+            if (desk.AgentId==null) continue;
             if (!byId.TryGetValue(desk.AgentId!,out var owner)) continue;
-            var x=desk.X*16; var y=desk.Y*16;
-            R(dc,ProviderColor(owner.Agent.Provider),x,y+desk.Height*16-2,5,2);
-            if (owner.Pose.ReportOnDesk) { R(dc,"#fff9e7",x+desk.Width*16-12,y+18,9,7); R(dc,"#a19a7e",x+desk.Width*16-11,y+20,6,1); }
+            Add("d:"+desk.Id,owner,desk,dc=>
+            {
+                var x=desk.X*16; var y=desk.Y*16;
+                R(dc,ProviderColor(owner.Agent.Provider),x,y+desk.Height*16-2,5,2);
+                if (owner.Pose.ReportOnDesk) { R(dc,"#fff9e7",x+desk.Width*16-12,y+18,9,7); R(dc,"#a19a7e",x+desk.Width*16-11,y+20,6,1); }
+            });
         }
-        if (EditorMode) DrawEditorGrid(dc);
-        foreach (var agent in agents.Where(a=>a.Pose.Visible)) DrawBubble(dc,agent);
-        if (agents.Count == 0)
-        { Text(dc,"A quiet moment.",30,132,10,bold:true); Text(dc,"Your agents will walk in.",30,151,7,maxWidth:95); }
-        dc.Pop(); dc.Pop();
-        RenderTags();
+        var editKey=HashCode.Combine(EditorMode,EditSelection,EditPreview,office);
+        if (!layersDrawn || editorHash!=editKey)
+        { Damage(editorVisual,dc=> { if (EditorMode) DrawEditorGrid(dc); }); editorHash=editKey; }
+        // The editor grid lies between desk indicators and bubbles.
+        var bubbleStart=overlayOrder.Count;
+        foreach (var agent in agents) if (agent.Pose.Visible)
+            Add("b:"+agent.Agent.Id,agent,null,dc=>DrawBubble(dc,agent));
+        expiredKeys.Clear();
+        foreach (var (key,item) in overlays) if (!item.Used) { overlayVisual.Children.Remove(item.Visual); expiredKeys.Add(key); }
+        foreach (var key in expiredKeys) overlays.Remove(key);
+        if (!quietDrawn || quietVisible!=(agents.Count==0))
+        { Damage(quietVisual,dc=> { if (agents.Count==0) { Text(dc,"A quiet moment.",30,132,10,bold:true); Text(dc,"Your agents will walk in.",30,151,7,maxWidth:95); } }); quietDrawn=true; quietVisible=agents.Count==0; }
+        var visualOrder=overlayVisualOrder; visualOrder.Clear();
+        for (var i=0;i<overlayOrder.Count;i++) { if (i==bubbleStart) visualOrder.Add(editorVisual); visualOrder.Add(overlayOrder[i].Visual); }
+        if (bubbleStart==overlayOrder.Count) visualOrder.Add(editorVisual);
+        visualOrder.Add(quietVisual);
+        for (var i=0;i<visualOrder.Count;i++)
+        {
+            var visual=visualOrder[i];
+            if (i<overlayVisual.Children.Count && ReferenceEquals(overlayVisual.Children[i],visual)) continue;
+            overlayVisual.Children.Remove(visual); overlayVisual.Children.Insert(i,visual);
+        }
     }
     private bool OwnerAway(AgentView owner)
     {
@@ -406,7 +614,7 @@ internal sealed class OfficeView : FrameworkElement
     {
         using var dc = tagsVisual.RenderOpen();
         var origin = Origin; dc.PushTransform(new TranslateTransform(origin.X,origin.Y)); dc.PushTransform(new ScaleTransform(zoom,zoom));
-        var plates = new List<Rect>();
+        var plates = tagPlates; plates.Clear();
         tagRects.Clear(); iconRects.Clear(); RenderedAgentTags=RenderedReservedTags=0;
         // Idle relationship hints belong to this layer so hover never rebuilds the scene.
         foreach (var child in agents.Where(a=>a.Pose.Visible && a.Agent.State is not (AgentState.Working or AgentState.Reporting)))
@@ -467,6 +675,7 @@ internal sealed class OfficeView : FrameworkElement
         if (cropLegs) dc.PushClip(new RectangleGeometry(new(bounds.X,bounds.Y,bounds.Width,Math.Max(0,p.SeatAnchor!.Y+1-bounds.Y))));
         dc.DrawImage(Image(p.Sprite!),bounds);
         if (cropLegs) dc.Pop();
+        DrawActivity(dc, agent);
         if (p.CarryingPaper && p.Action is "walking" or "entering")
         { var x=(p.X+.5)*16; var y=(p.Y+1)*16-12; R(dc,"#fff9e7",x+(p.Facing=="left" ? -10 : 4),y,6,8); }
         dc.Pop();
@@ -475,7 +684,7 @@ internal sealed class OfficeView : FrameworkElement
     {
         var bounds=LaptopBounds(p);var lx=bounds.X-2;var ly=bounds.Y+2;
         dc.PushOpacity(p.Opacity);
-        if (sheets.ContainsKey("office-extras"))
+        if (assets.Images.ContainsKey("office-extras"))
             dc.DrawImage(Image(assets.Frame("office-extras","laptop","any",0)),bounds);
         else { R(dc,"#19292d",lx,ly,19,11); R(dc,"#8fd7c4",lx+2,ly+2,15,6); R(dc,"#bec9be",lx-1,ly+10,21,3); }
         dc.Pop();
@@ -487,10 +696,16 @@ internal sealed class OfficeView : FrameworkElement
     }
     private Rect DrawTag(DrawingContext dc, AgentView agent, Point anchor, List<Rect> plates, bool stack,string key)
     {
-        var name = agent.Pose.DisplayName ?? agent.Agent.Name;
-        var elements = StringInfo.ParseCombiningCharacters(name);
-        if (elements.Length > 14) name = name[..elements[14]]+"…";
-        var width = Math.Clamp(Math.Ceiling(FormatText(name,6,"#f5edce").WidthIncludingTrailingWhitespace)+16,27,99);
+        var sourceName = agent.Pose.DisplayName ?? agent.Agent.Name;
+        if (!names.TryGetValue(sourceName,out var measured))
+        {
+            var elements = StringInfo.ParseCombiningCharacters(sourceName);
+            var text = elements.Length > 14 ? sourceName[..elements[14]]+"…" : sourceName;
+            measured = (text,Math.Clamp(Math.Ceiling(FormatText(text,6,"#f5edce").WidthIncludingTrailingWhitespace)+16,27,99));
+            if (names.Count >= 256) names.Clear();
+            names[sourceName] = measured;
+        }
+        var name=measured.Text; var width=measured.Width;
         var plate = new Rect(Math.Round(Math.Clamp(anchor.X-width/2,2,Math.Max(2,office.WidthTiles*16-width-2))),Math.Round(anchor.Y)-5,width,14);
         var baseY=plate.Y;
         if (tagMode!="always") plate.Y-=tagOffsets.GetValueOrDefault(key);
@@ -511,7 +726,7 @@ internal sealed class OfficeView : FrameworkElement
     private void DrawProviderIcon(DrawingContext dc,Provider provider,double x,double y)
     {
         var icon = brandIcons.Get(provider, (int)Math.Ceiling(zoom));
-        if (icon == null && sheets.ContainsKey("provider-icons"))
+        if (icon == null && assets.Images.ContainsKey("provider-icons"))
             icon = Image(assets.Frame("provider-icons",provider.ToString().ToLowerInvariant(),"any",0));
         if (icon != null) dc.DrawImage(icon,new(x,y,12,12));
         else DrawNeutralIcon(dc,provider,x,y);
@@ -539,7 +754,7 @@ internal sealed class OfficeView : FrameworkElement
             R(dc,"#738b84",body.Right+2,body.Top,9,10); R(dc,"#172b30",body.Right+3,body.Top+1,7,8);
             Text(dc,"?",body.Right+4,body.Top+1,6,"#f5edce"); dc.Pop(); return;
         }
-        if (sheets.ContainsKey("icons"))
+        if (assets.Images.ContainsKey("icons"))
         {
             var clip = p.Reaction != null ? "bubble-reaction" : p.Action switch
             {

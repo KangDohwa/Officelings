@@ -75,12 +75,13 @@ public sealed class RenderingTests
         // antialiasing has its own alpha). Their expected alpha comes from the
         // transparency contract, independently of the scene's sort order.
         var tiles = Render(View(pack, layout with { Furniture = [] }, []), width, height);
+        var tilePixels = Pixels(tiles);
         foreach (var tile in Enumerable.Range(0, layout.WidthTiles * layout.HeightTiles))
         {
             var type = pack.Manifest.TileTypes.Single(t => t.Id == layout.Tiles![tile]);
             if (type.Kind == "void") continue;
-            Assert.Equal(255, Pixel(tiles, 16 + tile % layout.WidthTiles * 16 + 8,
-                16 + tile / layout.WidthTiles * 16 + 8)[3]);
+            var x=16+tile%layout.WidthTiles*16+8; var y=16+tile/layout.WidthTiles*16+8;
+            Assert.Equal(255,tilePixels[(y*width+x)*4+3]);
         }
         var person = poses.First(a => a.Pose.Visible && a.Pose.SeatPhase == "seated");
         var point = view.AgentPoint(person);
@@ -94,14 +95,15 @@ public sealed class RenderingTests
         for (var y = 16; y < height - 16; y++) for (var x = 16; x < width - 16; x++)
         {
             var i = (y * width + x) * 4;
-            if (inside[i + 3] == 255) Assert.Equal(normal.AsSpan(i, 4).ToArray(), inside.AsSpan(i, 4).ToArray());
+            if (inside[i + 3] == 255 && !normal.AsSpan(i,4).SequenceEqual(inside.AsSpan(i,4)))
+                Assert.Fail($"Opaque pixel changed at {x},{y} when toggling the backdrop.");
         }
         view.TransparentBackground = true; view.Opacity = .5;
         var faded = Render(view, width, height, "transparent-opacity50.png");
         Assert.Equal(0, Pixel(faded, 0, 0)[3]);
         var half = Pixels(faded);
         for (var i = 3; i < half.Length; i += 4)
-            if (inside[i] == 255) Assert.InRange(half[i], (byte)127, (byte)128);
+            if (inside[i] == 255 && half[i] is not (127 or 128)) Assert.Fail($"Unexpected half opacity at pixel {i/4}: {half[i]}.");
     });
 
     [Fact]
@@ -257,7 +259,8 @@ public sealed class RenderingTests
                 }).ToArray();
                 Assert.True(overlap.Length > 0, $"No foreground/body overlap exercised: {id}/{rotation}/{chairState}/{foreground.Id}");
                 foreach (var pixel in overlap)
-                    Assert.True(final.AsSpan(pixel * 4, 4).SequenceEqual(front.AsSpan(pixel * 4, 4)), $"Foreground overwritten at {pixel % width},{pixel / width}: {id}/{rotation}/{chairState}/{foreground.Id}");
+                    if (!final.AsSpan(pixel*4,4).SequenceEqual(front.AsSpan(pixel*4,4)))
+                        Assert.Fail($"Foreground overwritten at {pixel % width},{pixel / width}: {id}/{rotation}/{chairState}/{foreground.Id}");
                 points.Add(new { id, rotation, chairState, foreground = foreground.Id, x = overlap[0] % width, y = overlap[0] / width, pixels = overlap.Length });
             }
             Save(scene, $"chair-{id}-{rotation}-{chairState}.png");

@@ -39,9 +39,15 @@ public sealed class NameTagTests
     private static Point Center(Rect rect) => new(rect.X+rect.Width/2,rect.Y+rect.Height/2);
     private static bool RegionDiffers(BitmapSource a,BitmapSource b,Rect rect)
     {
-        for(var y=(int)rect.Top;y<rect.Bottom;y++) for(var x=(int)rect.Left;x<rect.Right;x++)
-            if(!Pixel(a,x,y).SequenceEqual(Pixel(b,x,y))) return true;
-        return false;
+        if(rect.IsEmpty) return false;
+        var x=(int)rect.Left; var y=(int)rect.Top;
+        var width=(int)Math.Ceiling(rect.Right)-x; var height=(int)Math.Ceiling(rect.Bottom)-y;
+        if(width<=0 || height<=0) return false;
+        var region=new Int32Rect(x,y,width,height); var stride=width*4;
+        var left=new byte[stride*height]; var right=new byte[left.Length];
+        new FormatConvertedBitmap(a,PixelFormats.Bgra32,null,0).CopyPixels(region,left,stride,0);
+        new FormatConvertedBitmap(b,PixelFormats.Bgra32,null,0).CopyPixels(region,right,stride,0);
+        return !left.AsSpan().SequenceEqual(right);
     }
 
     [Theory]
@@ -119,8 +125,8 @@ public sealed class NameTagTests
         view.AdvanceHover(At(120)); var plate=view.AgentTagRect("parent"); Assert.False(plate.IsEmpty);
         view.SimulateHover(new(point.X,plate.Bottom+3),At(140)); Assert.False(view.AgentTagRect("parent").IsEmpty);
         view.SimulateHover(Center(plate),At(200)); Assert.Null(view.DebugTooltipText);
-        view.SimulateHover(Center(plate),At(419)); Assert.Null(view.DebugTooltipText);
-        view.SimulateHover(Center(plate),At(420)); Assert.NotNull(view.DebugTooltipText);
+        view.SimulateHover(Center(plate),At(419)); Assert.Null(view.DebugTooltipText); Assert.True(view.TooltipPending);
+        view.SimulateHover(Center(plate),At(420)); Assert.NotNull(view.DebugTooltipText); Assert.False(view.TooltipPending);
         Assert.False(view.TooltipRect.IntersectsWith(view.AgentTagRect("parent")));
         Assert.Equal(scene,view.SceneRenderCount); Assert.Equal(room,view.RoomBuildCount);
         view.SimulateHover(null,At(430)); Assert.Null(view.DebugTooltipText);
