@@ -1,0 +1,7 @@
+{
+  "start": "2026-10-04T06:55:31.044+09:00",
+  "end": "2026-10-03T22:13:29.000Z",
+  "measuredSeconds": 1077.956,
+  "measuredLaneHours": 0.2994322222222222,
+  "scope": "One lane wall-clock occupancy from first recorded clock through completed edits/checks/reviews/report. Initial instruction reading before first timestamp was not measured. Generation calls/waits: 0. Viewed images: 14."
+}

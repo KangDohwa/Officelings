@@ -1,0 +1,23 @@
+{
+  "chair-empty-ne.png": "a7c9ac426ab83ef0393b6fdfb26efb197aca8abc3302d8852fd71cf057664e36",
+  "chair-empty-nw.png": "3137f44ed336b0f05d19299141f7b3747e3b3c46ff6484607dd25876be648f79",
+  "chair-empty-se.png": "1198626a9af815df448562a0b2bef29e24a3064dccc83e5cbebbbcbc3215092c",
+  "chair-empty-sw.png": "88d06aa61ae81411a06e91f69639b064317aa4899ab37709934f555f7840df8f",
+  "chair-parts.png": "98eb8097df99beb4077162bcce1af23f0dadc588274f13b0a807a60eeea856c5",
+  "chair-shadow.iso.json": "3ed6f52bd130a9a5e10fad9962d78f4628f35ae67c17161917bdbc84094054a6",
+  "chair-shadow.png": "ef512796c49cba9b8b24949be2af7125f59229a0f70c5c1b2237cc82ef027f31",
+  "chair.iso.json": "bd83c19e325e53664f58e982622f9403f411d34ad375d1086f02d851932359a3",
+  "desk-empty-ne.png": "d9b4161236fe48fe980e14361a7cfa8638c4dbcb654b37ecafde188cc62ad9ac",
+  "desk-empty-nw.png": "7c239193f9b6e6b58c0b99b1e473424be2b96ffe0f42def052b6546b221d1722",
+  "desk-empty-se.png": "1f394c6a4cde29728f16dc2ad7844a02219445ffd3fbbe950ee039c1d0a372b7",
+  "desk-empty-sw.png": "89130e8e24487746d72eefa4b277a91c54688c4a0b52c64e567e48ed8ff01783",
+  "desk-parts.png": "f38bb7fb32e6101001e274f47eb7e64c4460fd3b7479f31783a742b8e0c76ebc",
+  "desk-screen-mask-ne.png": "84c348900a44577e43178c82e15f013fc319232c4d410eb720aadc1246c138cf",
+  "desk-screen-mask-nw.png": "e184117bfc7cb0a964ef6065df93783f22b01a386391404af849d0a6624f44e5",
+  "desk-screen-mask-se.png": "4e93b8fbc5f67d3b15c808255aabb6a7bd01cf2a7070129bb8aedf96e697e86a",
+  "desk-screen-mask-sw.png": "eeb10f71eab129b2ace3bb0650e3de67e1789f9ad2f025c3d8a2a7e61c42eed7",
+  "desk-screen.png": "3652259e753eb6c06070168e455b9cc5303e800bdb87cfd0b72d9fc9153b99ae",
+  "desk-shadow.iso.json": "0841bc8c87df5dc9022d36ed84d81338d4efed0d4040b5a5decaad3db8f1ab31",
+  "desk-shadow.png": "4903f3f747ccb7c393cc4d9afc29e53e9db582dbb4b6470c87a96fa4a1f5d733",
+  "desk.iso.json": "978ea3808766a72ea9ec87a98d020d96751e2eaa5123155747c8d23df7fc4613"
+}

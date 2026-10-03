@@ -301,7 +301,8 @@
             "i": 0,
             "j": 0
           },
-          "seatFacing": "se"
+          "seatFacing": "se",
+          "backHeight": 21
         },
         {
           "rotation": 90,
@@ -353,7 +354,8 @@
             "i": 0,
             "j": 0
           },
-          "seatFacing": "sw"
+          "seatFacing": "sw",
+          "backHeight": 21
         },
         {
           "rotation": 270,
@@ -405,7 +407,8 @@
             "i": 0,
             "j": 0
           },
-          "seatFacing": "ne"
+          "seatFacing": "ne",
+          "backHeight": 21
         },
         {
           "rotation": 180,
@@ -457,7 +460,8 @@
             "i": 0,
             "j": 0
           },
-          "seatFacing": "nw"
+          "seatFacing": "nw",
+          "backHeight": 21
         }
       ]
     }
@@ -465,6 +469,7 @@
   "provenance": {
     "designReference": "sprite-gen codex; six masters in runs/furniture-v2",
     "derivation": "generated native master pixels reprojected through fixed geometry; hidden faces recomposed; upper-left shades repaired; opposite rug pairs identical",
-    "limitations": "Desk, chair and sofa have separately generated NE rear masters; other faces are baked mirrors or panel/component recompositions with fixed-light repaint. Contacts and all v1 part IDs/anchors/depth keys remain unchanged. Final-character/runtime occlusion acceptance is outside this lane."
+    "limitations": "Desk, chair and sofa have separately generated NE rear masters; other faces are baked mirrors or panel/component recompositions with fixed-light repaint. Contacts and all v1 part IDs/anchors/depth keys remain unchanged. Final-character/runtime occlusion acceptance is outside this lane.",
+    "A3rev1": "Backrest reauthored as rounded projected z12..21 panels; compact low arm caps/supports reauthored z12..13 / z10..12; fixed light, original cushion/base pixels outside physical masks retained. No upper-band shift."
   }
 }

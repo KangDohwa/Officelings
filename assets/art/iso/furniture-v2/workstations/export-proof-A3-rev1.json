@@ -1,0 +1,77 @@
+{
+  "surfaceSplit": [
+    {
+      "facing": "se",
+      "front": "desk__front__se__00",
+      "surface": "desk__rear__se__14",
+      "surfacePixels": 578,
+      "fasciaPixels": 190,
+      "disjoint": true,
+      "exactRGBAUnion": true
+    },
+    {
+      "facing": "sw",
+      "front": "desk__front__sw__02",
+      "surface": "desk__rear__sw__14",
+      "surfacePixels": 560,
+      "fasciaPixels": 180,
+      "disjoint": true,
+      "exactRGBAUnion": true
+    }
+  ],
+  "checks": [
+    {
+      "check": "untouched screen/masks/desk-empty/shadows byte-identical",
+      "files": [
+        "chair-shadow.iso.json",
+        "chair-shadow.png",
+        "desk-empty-ne.png",
+        "desk-empty-nw.png",
+        "desk-empty-se.png",
+        "desk-empty-sw.png",
+        "desk-screen-mask-ne.png",
+        "desk-screen-mask-nw.png",
+        "desk-screen-mask-se.png",
+        "desk-screen-mask-sw.png",
+        "desk-screen.png",
+        "desk-shadow.iso.json",
+        "desk-shadow.png"
+      ]
+    },
+    {
+      "check": "desk original part names/anchors/depth keys/ranks preserved"
+    },
+    {
+      "check": "desk disjoint parts and exact empty reconstruction all orientations/states"
+    },
+    {
+      "check": "chair original part names/anchors/depth keys/ranks preserved"
+    },
+    {
+      "check": "chair disjoint parts and exact empty reconstruction all orientations/states"
+    }
+  ],
+  "monitorRGBAHashes": {
+    "desk__monitor__se__00": "250b89ee58a383c2ec047d3de5a76d342861beb3b804e5bf29c0a7f55bafb30b",
+    "desk__monitor__se__01": "9dec9f994ba85a39602e9b9b9e45e4f4e37004129e8acd0c25331404b12bd8fc",
+    "desk__monitor__se__02": "107d2b3a1f2d5722ae3f756ad80720f6478cf5314aa40ea89b854cb92fd3540d",
+    "desk__monitor__se__03": "b2e5721696a8b413c54ec57be217ebc3448b8fe1bdef5b1a628a34a19055ec2a",
+    "desk__monitor__sw__00": "acb85f555f71d973d1ca334c764deb16d877d0574837c38fceeabfc1d354f077",
+    "desk__monitor__sw__01": "1e92797eb618c0291c772c0ef757284a33f33f10aacf60345d02bbb62eb55925",
+    "desk__monitor__sw__02": "6e812cf76496b0ab9f87ac1c9a3e4b06ae7372e64eea52f0266fc8ec07f4a9ec",
+    "desk__monitor__sw__03": "7434aa7720b4095e511e102eb201328c75503005b9fa18c5d194f7e1b55ececb",
+    "desk__monitor__ne__00": "bc0733b3810409decd64503bf8f2abf461c564f82f82ba32009a38a151d4dc44",
+    "desk__monitor__ne__01": "136270fce17590547aa3389b296f493dd3d6acbfa8268a5900104de5f757eb42",
+    "desk__monitor__ne__02": "3a79e24ba8c247eda60f05d65c8f541cc2263e8372ac00f03882c5762686b8db",
+    "desk__monitor__nw__00": "1456a79da28b5d5e804541f19091d51cd472c7841409df3a359503c18cdbd9a2",
+    "desk__monitor__nw__01": "a5108b5bb9899bc6c3da580cb6293f7fe37c33f53e40d946964e3547b25bfb0f",
+    "desk__monitor__nw__02": "20083d0db05ae0cf139fc4131935ea2432246343da5b21acc6e789e339dea35a"
+  },
+  "proposedVisualGate": {
+    "backMinimumPercent": 88.05970149253731,
+    "frontMinimumPercent": 98.23943661971832,
+    "backPhaseChecks": 24,
+    "frontPhaseChecks": 24,
+    "result": "PASS on fixed actor snapshots; not human/runtime acceptance"
+  }
+}

@@ -255,12 +255,12 @@
           "isoZOrder": 10,
           "anchorChecks": [
             {
-              "x": 109,
-              "y": 57,
+              "x": 104,
+              "y": 62,
               "radius": 0
             }
           ],
-          "contactKind": "assembly-surface",
+          "contactKind": "physical-front-fascia",
           "seatGroupId": "seat"
         },
         {
@@ -931,12 +931,12 @@
           "isoZOrder": 10,
           "anchorChecks": [
             {
-              "x": 82,
-              "y": 87,
+              "x": 71,
+              "y": 86,
               "radius": 0
             }
           ],
-          "contactKind": "assembly-surface",
+          "contactKind": "physical-front-fascia",
           "seatGroupId": "seat"
         },
         {
@@ -2587,6 +2587,62 @@
             }
           ],
           "contactKind": "assembly-surface"
+        },
+        {
+          "name": "rear-14",
+          "direction": "se",
+          "row": 24,
+          "column": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "desk__rear__se__14",
+          "anchor": {
+            "x": 76,
+            "y": 72
+          },
+          "depthAnchor": {
+            "i": 1,
+            "j": 0
+          },
+          "isoZOrder": -20,
+          "anchorChecks": [
+            {
+              "x": 95,
+              "y": 64,
+              "radius": 0
+            }
+          ],
+          "contactKind": "horizontal-desktop-keyboard",
+          "seatGroupId": "seat"
+        },
+        {
+          "name": "rear-14",
+          "direction": "sw",
+          "row": 24,
+          "column": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "partId": "desk__rear__sw__14",
+          "anchor": {
+            "x": 52,
+            "y": 72
+          },
+          "depthAnchor": {
+            "i": 1,
+            "j": 1
+          },
+          "isoZOrder": -20,
+          "anchorChecks": [
+            {
+              "x": 63,
+              "y": 80,
+              "radius": 0
+            }
+          ],
+          "contactKind": "horizontal-desktop-keyboard",
+          "seatGroupId": "seat"
         }
       ]
     },
@@ -3031,6 +3087,18 @@
             },
             {
               "sheetId": "iso-desk-parts",
+              "animation": "rear-14",
+              "direction": "se",
+              "partId": "desk__rear__se__14",
+              "depthAnchor": {
+                "i": 1,
+                "j": 0
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
+            },
+            {
+              "sheetId": "iso-desk-parts",
               "animation": "front-00",
               "direction": "se",
               "partId": "desk__front__se__00",
@@ -3379,6 +3447,18 @@
                 "j": 1.43
               },
               "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-desk-parts",
+              "animation": "rear-14",
+              "direction": "se",
+              "partId": "desk__rear__se__14",
+              "depthAnchor": {
+                "i": 1,
+                "j": 0
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
             },
             {
               "sheetId": "iso-desk-parts",
@@ -3733,6 +3813,18 @@
             },
             {
               "sheetId": "iso-desk-parts",
+              "animation": "rear-14",
+              "direction": "se",
+              "partId": "desk__rear__se__14",
+              "depthAnchor": {
+                "i": 1,
+                "j": 0
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
+            },
+            {
+              "sheetId": "iso-desk-parts",
               "animation": "front-00",
               "direction": "se",
               "partId": "desk__front__se__00",
@@ -4081,6 +4173,18 @@
                 "j": 1.43
               },
               "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-desk-parts",
+              "animation": "rear-14",
+              "direction": "se",
+              "partId": "desk__rear__se__14",
+              "depthAnchor": {
+                "i": 1,
+                "j": 0
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
             },
             {
               "sheetId": "iso-desk-parts",
@@ -4457,6 +4561,18 @@
             },
             {
               "sheetId": "iso-desk-parts",
+              "animation": "rear-14",
+              "direction": "sw",
+              "partId": "desk__rear__sw__14",
+              "depthAnchor": {
+                "i": 1,
+                "j": 1
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
+            },
+            {
+              "sheetId": "iso-desk-parts",
               "animation": "front-02",
               "direction": "sw",
               "partId": "desk__front__sw__02",
@@ -4805,6 +4921,18 @@
                 "j": 0.5
               },
               "isoZOrder": 10
+            },
+            {
+              "sheetId": "iso-desk-parts",
+              "animation": "rear-14",
+              "direction": "sw",
+              "partId": "desk__rear__sw__14",
+              "depthAnchor": {
+                "i": 1,
+                "j": 1
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
             },
             {
               "sheetId": "iso-desk-parts",
@@ -5159,6 +5287,18 @@
             },
             {
               "sheetId": "iso-desk-parts",
+              "animation": "rear-14",
+              "direction": "sw",
+              "partId": "desk__rear__sw__14",
+              "depthAnchor": {
+                "i": 1,
+                "j": 1
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
+            },
+            {
+              "sheetId": "iso-desk-parts",
               "animation": "front-02",
               "direction": "sw",
               "partId": "desk__front__sw__02",
@@ -5507,6 +5647,18 @@
                 "j": 0.5
               },
               "isoZOrder": 10
+            },
+            {
+              "sheetId": "iso-desk-parts",
+              "animation": "rear-14",
+              "direction": "sw",
+              "partId": "desk__rear__sw__14",
+              "depthAnchor": {
+                "i": 1,
+                "j": 1
+              },
+              "isoZOrder": -20,
+              "seatGroupId": "seat"
             },
             {
               "sheetId": "iso-desk-parts",
@@ -8677,6 +8829,7 @@
   "provenance": {
     "designReference": "sprite-gen codex; six masters in runs/furniture-v2",
     "derivation": "generated native master pixels reprojected through fixed geometry; hidden faces recomposed; upper-left shades repaired; opposite rug pairs identical",
-    "limitations": "Desk, chair and sofa have separately generated NE rear masters; other faces are baked mirrors or panel/component recompositions with fixed-light repaint. Contacts and all v1 part IDs/anchors/depth keys remain unchanged. Final-character/runtime occlusion acceptance is outside this lane."
+    "limitations": "Desk, chair and sofa have separately generated NE rear masters; other faces are baked mirrors or panel/component recompositions with fixed-light repaint. Contacts and all v1 part IDs/anchors/depth keys remain unchanged. Final-character/runtime occlusion acceptance is outside this lane.",
+    "A3rev1": "Two physical seat surfaces split at the fixed empty-object edge/keyboard boundary; anchors and ordinary ground depth preserved; seat rear -20 / fascia 10."
   }
 }

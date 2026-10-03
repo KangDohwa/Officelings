@@ -1,0 +1,5605 @@
+{
+  "scope": "16 occupied-seat static near/far end probes; walker uses own ground key. Pillow simulation only; no WPF/runtime/motion assertion.",
+  "records": [
+    {
+      "desk": "se",
+      "walkerGrid": [
+        -1,
+        0
+      ],
+      "walkerDepth": -1,
+      "seatDepth": 1,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__se__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "walker",
+            "0"
+          ],
+          "destination": [
+            48,
+            12
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.25,
+            0,
+            "desk",
+            "desk__monitor__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.37,
+            0,
+            "desk",
+            "desk__monitor__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.42,
+            0,
+            "desk",
+            "desk__monitor__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.55,
+            0,
+            "desk",
+            "desk__monitor__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            -20,
+            "chair",
+            "chair__rear__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "key": [
+            1,
+            -20,
+            "desk",
+            "desk__rear__se__14"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            112,
+            48
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__se__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            10,
+            "desk",
+            "desk__front__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            20,
+            "chair",
+            "chair__front__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__se__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__se__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "se",
+      "walkerGrid": [
+        -1,
+        1
+      ],
+      "walkerDepth": 0,
+      "seatDepth": 1,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__se__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            0,
+            "walker",
+            "1"
+          ],
+          "destination": [
+            16,
+            28
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.25,
+            0,
+            "desk",
+            "desk__monitor__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.37,
+            0,
+            "desk",
+            "desk__monitor__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.42,
+            0,
+            "desk",
+            "desk__monitor__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.55,
+            0,
+            "desk",
+            "desk__monitor__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            -20,
+            "chair",
+            "chair__rear__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "key": [
+            1,
+            -20,
+            "desk",
+            "desk__rear__se__14"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            112,
+            48
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__se__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            10,
+            "desk",
+            "desk__front__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            20,
+            "chair",
+            "chair__front__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__se__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__se__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "se",
+      "walkerGrid": [
+        1,
+        0
+      ],
+      "walkerDepth": 1,
+      "seatDepth": 1,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__se__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.25,
+            0,
+            "desk",
+            "desk__monitor__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.37,
+            0,
+            "desk",
+            "desk__monitor__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.42,
+            0,
+            "desk",
+            "desk__monitor__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.55,
+            0,
+            "desk",
+            "desk__monitor__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            -20,
+            "chair",
+            "chair__rear__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "key": [
+            1,
+            -20,
+            "desk",
+            "desk__rear__se__14"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            112,
+            48
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__se__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            0,
+            "walker",
+            "2"
+          ],
+          "destination": [
+            112,
+            44
+          ]
+        },
+        {
+          "key": [
+            1,
+            10,
+            "desk",
+            "desk__front__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            20,
+            "chair",
+            "chair__front__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__se__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__se__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "se",
+      "walkerGrid": [
+        1,
+        1
+      ],
+      "walkerDepth": 2,
+      "seatDepth": 1,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__se__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.25,
+            0,
+            "desk",
+            "desk__monitor__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.37,
+            0,
+            "desk",
+            "desk__monitor__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.42,
+            0,
+            "desk",
+            "desk__monitor__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.55,
+            0,
+            "desk",
+            "desk__monitor__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            -20,
+            "chair",
+            "chair__rear__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "key": [
+            1,
+            -20,
+            "desk",
+            "desk__rear__se__14"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            112,
+            48
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__se__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            10,
+            "desk",
+            "desk__front__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            20,
+            "chair",
+            "chair__front__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "walker",
+            "3"
+          ],
+          "destination": [
+            80,
+            60
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__se__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__se__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "sw",
+      "walkerGrid": [
+        -1,
+        0
+      ],
+      "walkerDepth": -1,
+      "seatDepth": 2,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__sw__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "walker",
+            "0"
+          ],
+          "destination": [
+            48,
+            12
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__sw__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.25,
+            0,
+            "desk",
+            "desk__monitor__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.37,
+            0,
+            "desk",
+            "desk__monitor__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.42,
+            0,
+            "desk",
+            "desk__monitor__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.55,
+            0,
+            "desk",
+            "desk__monitor__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            -20,
+            "chair",
+            "chair__rear__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "key": [
+            2,
+            -20,
+            "desk",
+            "desk__rear__sw__14"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            80,
+            64
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__sw__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            10,
+            "desk",
+            "desk__front__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            20,
+            "chair",
+            "chair__front__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__sw__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "sw",
+      "walkerGrid": [
+        -1,
+        0
+      ],
+      "walkerDepth": -1,
+      "seatDepth": 2,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__sw__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "walker",
+            "1"
+          ],
+          "destination": [
+            48,
+            12
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__sw__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.25,
+            0,
+            "desk",
+            "desk__monitor__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.37,
+            0,
+            "desk",
+            "desk__monitor__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.42,
+            0,
+            "desk",
+            "desk__monitor__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.55,
+            0,
+            "desk",
+            "desk__monitor__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            -20,
+            "chair",
+            "chair__rear__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "key": [
+            2,
+            -20,
+            "desk",
+            "desk__rear__sw__14"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            80,
+            64
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__sw__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            10,
+            "desk",
+            "desk__front__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            20,
+            "chair",
+            "chair__front__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__sw__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "sw",
+      "walkerGrid": [
+        2,
+        0
+      ],
+      "walkerDepth": 2,
+      "seatDepth": 2,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__sw__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__sw__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.25,
+            0,
+            "desk",
+            "desk__monitor__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.37,
+            0,
+            "desk",
+            "desk__monitor__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.42,
+            0,
+            "desk",
+            "desk__monitor__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.55,
+            0,
+            "desk",
+            "desk__monitor__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            -20,
+            "chair",
+            "chair__rear__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "key": [
+            2,
+            -20,
+            "desk",
+            "desk__rear__sw__14"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            80,
+            64
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__sw__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "walker",
+            "2"
+          ],
+          "destination": [
+            144,
+            60
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            10,
+            "desk",
+            "desk__front__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            20,
+            "chair",
+            "chair__front__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__sw__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "sw",
+      "walkerGrid": [
+        2,
+        0
+      ],
+      "walkerDepth": 2,
+      "seatDepth": 2,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__sw__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__sw__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.25,
+            0,
+            "desk",
+            "desk__monitor__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.37,
+            0,
+            "desk",
+            "desk__monitor__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.42,
+            0,
+            "desk",
+            "desk__monitor__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.55,
+            0,
+            "desk",
+            "desk__monitor__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            -20,
+            "chair",
+            "chair__rear__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "key": [
+            2,
+            -20,
+            "desk",
+            "desk__rear__sw__14"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            80,
+            64
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__sw__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "walker",
+            "3"
+          ],
+          "destination": [
+            144,
+            60
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            10,
+            "desk",
+            "desk__front__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            20,
+            "chair",
+            "chair__front__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__sw__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "ne",
+      "walkerGrid": [
+        -1,
+        0
+      ],
+      "walkerDepth": -1,
+      "seatDepth": -1,
+      "queue": [
+        {
+          "key": [
+            -1,
+            -20,
+            "chair",
+            "chair__rear__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            112,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "walker",
+            "0"
+          ],
+          "destination": [
+            48,
+            12
+          ]
+        },
+        {
+          "key": [
+            -1,
+            10,
+            "desk",
+            "desk__front__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            20,
+            "chair",
+            "chair__front__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "key": [
+            -0.25,
+            0,
+            "desk",
+            "desk__monitor__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -0.08,
+            0,
+            "desk",
+            "desk__monitor__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__ne__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.04999999999999999,
+            0,
+            "desk",
+            "desk__monitor__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__ne__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__ne__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "ne",
+      "walkerGrid": [
+        -1,
+        0
+      ],
+      "walkerDepth": -1,
+      "seatDepth": -1,
+      "queue": [
+        {
+          "key": [
+            -1,
+            -20,
+            "chair",
+            "chair__rear__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            112,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "walker",
+            "1"
+          ],
+          "destination": [
+            48,
+            12
+          ]
+        },
+        {
+          "key": [
+            -1,
+            10,
+            "desk",
+            "desk__front__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            20,
+            "chair",
+            "chair__front__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "key": [
+            -0.25,
+            0,
+            "desk",
+            "desk__monitor__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -0.08,
+            0,
+            "desk",
+            "desk__monitor__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__ne__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.04999999999999999,
+            0,
+            "desk",
+            "desk__monitor__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__ne__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__ne__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "ne",
+      "walkerGrid": [
+        2,
+        0
+      ],
+      "walkerDepth": 2,
+      "seatDepth": -1,
+      "queue": [
+        {
+          "key": [
+            -1,
+            -20,
+            "chair",
+            "chair__rear__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            112,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            10,
+            "desk",
+            "desk__front__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            20,
+            "chair",
+            "chair__front__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "key": [
+            -0.25,
+            0,
+            "desk",
+            "desk__monitor__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -0.08,
+            0,
+            "desk",
+            "desk__monitor__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__ne__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.04999999999999999,
+            0,
+            "desk",
+            "desk__monitor__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__ne__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "walker",
+            "2"
+          ],
+          "destination": [
+            144,
+            60
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__ne__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "ne",
+      "walkerGrid": [
+        2,
+        0
+      ],
+      "walkerDepth": 2,
+      "seatDepth": -1,
+      "queue": [
+        {
+          "key": [
+            -1,
+            -20,
+            "chair",
+            "chair__rear__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            112,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            10,
+            "desk",
+            "desk__front__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            20,
+            "chair",
+            "chair__front__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "key": [
+            -0.25,
+            0,
+            "desk",
+            "desk__monitor__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            -0.08,
+            0,
+            "desk",
+            "desk__monitor__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__ne__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.04999999999999999,
+            0,
+            "desk",
+            "desk__monitor__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__ne__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "walker",
+            "3"
+          ],
+          "destination": [
+            144,
+            60
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__ne__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "nw",
+      "walkerGrid": [
+        -1,
+        0
+      ],
+      "walkerDepth": -1,
+      "seatDepth": 0,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__nw__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            -1,
+            0,
+            "walker",
+            "0"
+          ],
+          "destination": [
+            48,
+            12
+          ]
+        },
+        {
+          "key": [
+            0,
+            -20,
+            "chair",
+            "chair__rear__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "key": [
+            0,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            16,
+            32
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__nw__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            10,
+            "desk",
+            "desk__front__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            20,
+            "chair",
+            "chair__front__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.75,
+            0,
+            "desk",
+            "desk__monitor__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.92,
+            0,
+            "desk",
+            "desk__monitor__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.05,
+            0,
+            "desk",
+            "desk__monitor__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__nw__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__nw__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "nw",
+      "walkerGrid": [
+        -1,
+        1
+      ],
+      "walkerDepth": 0,
+      "seatDepth": 0,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__nw__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            -20,
+            "chair",
+            "chair__rear__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "key": [
+            0,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            16,
+            32
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__nw__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            0,
+            "walker",
+            "1"
+          ],
+          "destination": [
+            16,
+            28
+          ]
+        },
+        {
+          "key": [
+            0,
+            10,
+            "desk",
+            "desk__front__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            20,
+            "chair",
+            "chair__front__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.75,
+            0,
+            "desk",
+            "desk__monitor__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.92,
+            0,
+            "desk",
+            "desk__monitor__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.05,
+            0,
+            "desk",
+            "desk__monitor__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__nw__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__nw__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "nw",
+      "walkerGrid": [
+        1,
+        0
+      ],
+      "walkerDepth": 1,
+      "seatDepth": 0,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__nw__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            -20,
+            "chair",
+            "chair__rear__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "key": [
+            0,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            16,
+            32
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__nw__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            10,
+            "desk",
+            "desk__front__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            20,
+            "chair",
+            "chair__front__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.75,
+            0,
+            "desk",
+            "desk__monitor__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.92,
+            0,
+            "desk",
+            "desk__monitor__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1,
+            0,
+            "walker",
+            "2"
+          ],
+          "destination": [
+            112,
+            44
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.05,
+            0,
+            "desk",
+            "desk__monitor__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__nw__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__nw__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "nw",
+      "walkerGrid": [
+        1,
+        1
+      ],
+      "walkerDepth": 2,
+      "seatDepth": 0,
+      "queue": [
+        {
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__nw__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            -20,
+            "chair",
+            "chair__rear__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "key": [
+            0,
+            0,
+            "actor",
+            "seated"
+          ],
+          "destination": [
+            16,
+            32
+          ]
+        },
+        {
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__nw__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            10,
+            "desk",
+            "desk__front__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0,
+            20,
+            "chair",
+            "chair__front__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.75,
+            0,
+            "desk",
+            "desk__monitor__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            0.92,
+            0,
+            "desk",
+            "desk__monitor__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.05,
+            0,
+            "desk",
+            "desk__monitor__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__nw__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            2,
+            0,
+            "walker",
+            "3"
+          ],
+          "destination": [
+            80,
+            60
+          ]
+        },
+        {
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__nw__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -18,7 +18,7 @@ All coordinates are zero-based native pixels before integer physical-device zoom
 | Wall endpoints in source geometry | Left `(32,48)→(0,64)`; right `(0,48)→(32,64)`; tops are 48px above those endpoints. Corner joins both arms. Top/base trim is 2px inside that height. |
 | `characterCell`, `footAnchor`, sheet `anchor` | 32×64, `(16,60)`, `(16,60)`; `scale:1`. Standing reference height 40, allowed 38–42. |
 | Clip `seatAnchor` | Stable seated pelvis `(16,44)`. This is the seated pivot; source foot is retained as the sheet reference. |
-| `deskHeight`, `seatHeight` | Desktop 18, cushion 12. Monitor top 36; chair back top 28. |
+| `deskHeight`, `seatHeight` | Desktop 18, cushion 12. Monitor top 36; chair back top 21. |
 | `deskOrientation`, `seatProfile`, variant `seatProfiles` | Four named orientations; only `front`; variants declare only the front profile. Keep the collection/field hook for a later end profile. Reject end before playback. |
 | Furniture cells | 128×128, except the 2×3 rug uses 192×128: its ground envelope is 160×80. A 1×3 sofa's envelope is 128×64. |
 | Prop cells / source grip anchor | 32×32 / `(16,16)`; attach that grip to the actor's hand contact. |
@@ -175,7 +175,13 @@ Runtime packaging resolves aliases into ordinary clips with explicit frame count
 
 Blink clips have names `blink-<normal-name>`, the matching direction/fps/loop, four phases, and rows 0..23 in the normalRows order. All non-eye RGBA bytes must match the corresponding normal phase exactly; each marked eye region is at most 32 texels, within 12×4 pixels, and lies on the opaque head. Keep the head silhouette/landmarks stable, allowing only documented integer translation of at most 1px per phase; masks follow that translation. The checker proves mask presence and normal/blink equality outside it. Human review still proves identity and cross-phase face stability.
 
-At a seat, chair rear is −20, actor 0, desk front 10, chair front 20. The backrest covering a back-facing torso belongs to the front occluding part, regardless of its physical name. Split long front faces into per-edge strips as needed. Parts reconstruct the complete empty object without duplicated opaque pixels; seat-specific anchors/ranks affect only the attached assembly. Walkers use their own ground depth. Furniture definitions use the existing `parts` hook; runtime IDs and group ownership are supplied by packaging/Core.
+At a seat, chair rear is −20, actor 0, desk front 10, chair front 20. For SE/SW desks with NW/NE seated workers, split the keyboard-bearing seat strip into the horizontal desktop/keyboard surface and the physical front fascia. The horizontal surface belongs to a seat-group rear part at −20; the fascia stays at 10. Preserve the exact source anchors, ordinary ground-cell depthAnchor values and frozen C/H contacts. Use disjoint physical masks whose RGBA union equals the complete source strip.
+
+The backrest covering a back-facing torso belongs to the front occluding part, regardless of its physical name. Rebuild the physical backrest in all four orientations at top height 21, retaining cushion height 12 and the frozen pelvis/hand contacts. For SE/SW sitters the backrest is rear; for NE/NW sitters it is front. Do not move the entire backrest behind a back-facing torso or globally raise actor/head depth.
+
+Split long front faces into per-edge strips as needed. Parts reconstruct the complete empty object without duplicated opaque pixels; seat-specific anchors/ranks affect only the attached assembly. Walkers use their own ground depth. Furniture definitions use the existing `parts` hook; runtime IDs and group ownership are supplied by packaging/Core.
+
+For each of the four phases of seated-typing-front and each pilot, use the documented canonical head alpha at its clip offset and the actual furniture queue. Require at least 85% head visibility for workers NW/NE and at least 90% for workers SE/SW. Preserve head denominators, and publish visible/total head, precisely defined torso ROI and hand-contact skin ROI for all four directions. A checker pass alone is not visual acceptance. Review empty reconstruction, C/H, walkers, transitions and WPF ordering separately. Known gap (2026-10-04): the SE/SW hand-contact ROI is 0% visible behind the desk in the current pilots; it has no gate yet.
 
 ## Exclusive output ownership
 
