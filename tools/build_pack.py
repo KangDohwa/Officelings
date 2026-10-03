@@ -47,6 +47,7 @@ ACTIONS = (
 class ProductionSheet:
     def __init__(self, image_path: Path, manifest_path: Path):
         self.data = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
+        self.directory = manifest_path.parent
         with Image.open(image_path) as source:
             if source.format != "PNG":
                 raise ValueError("final sheet is not a PNG")
@@ -103,18 +104,89 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
     if len(rectangles) != 42:
         raise ValueError("character must have 42 distinct valid frames")
 
-    image = Image.new("RGBA", (128, 832))
+    # One scale per design, measured from the front idle silhouette. Bake the
+    # nearest-neighbour reduction into integer pixels; keep feet at (16, 60).
+    box = frames_by_action["idle"][0].getchannel("A").getbbox()
+    factor = 30 / (box[3] - box[1])
+    size = (round(32 * factor), round(64 * factor))
+
+    def normalized(frame):
+        bottom = frame.getchannel("A").getbbox()[3]
+        result = Image.new("RGBA", (32, 64))
+        resized = frame.resize(size, Image.Resampling.NEAREST)
+        result.paste(resized, (16 - size[0] // 2, 60 - round(bottom * size[1] / 64)))
+        return result
+
+    # Optional locked blink pixels are transferred to the existing pose using
+    # its published eye boxes/offsets, never substituting a walking body.
+    blink_rows = []
+    lock = source.data.get("facelock", {})
+    report_path = source.directory / lock.get("report", "missing")
+    try:
+        report = json.loads(report_path.read_text(encoding="utf-8-sig"))
+        blink = source.data.get("blink", {})
+        for name, _, action, direction in ACTIONS:
+            if name.startswith("walk") or name in ("sleep", "report"):
+                continue
+            for column, frame in enumerate(frames_by_action[name]):
+                facing = ("down", "left", "right", "up")[column] if name == "idle" else direction
+                if facing == "up":
+                    continue
+                row_key = f"idle_{facing}" if name == "idle" else name
+                target = report["rows"].get(row_key)
+                if not target or not target.get("eyeBoxes"):
+                    continue
+                visible = facing if facing in blink else "down"
+                entry = blink.get(visible)
+                if not entry:
+                    continue
+                with Image.open(source.directory / entry["file"]) as image:
+                    closed = image.convert("RGBA")
+                origin = report["rows"][entry["source"]["state"]]
+                opened = source.frames(entry["source"]["state"], (32, 64))[entry["source"]["frame"]]
+                result = frame.copy()
+                dx, dy = target["offsets"][0 if name == "idle" else column]
+                for index, eye in enumerate(target["eyeBoxes"]):
+                    reference = origin["eyeBoxes"][min(index, len(origin["eyeBoxes"]) - 1)]
+                    patch = closed.crop(reference)
+                    normal = opened.crop(reference)
+                    mask = Image.new("L", patch.size)
+                    mask.putdata([255 if a != b else 0 for a, b in zip(patch.get_flattened_data(), normal.get_flattened_data())])
+                    eye_size = (eye[2] - eye[0], eye[3] - eye[1])
+                    patch = patch.resize(eye_size, Image.Resampling.NEAREST)
+                    mask = mask.resize(eye_size, Image.Resampling.NEAREST)
+                    # Preserve alpha/silhouette even on unusual authored eyes.
+                    for py in range(eye_size[1]):
+                        for px in range(eye_size[0]):
+                            x, y = eye[0] + dx + px, eye[1] + dy + py
+                            if 0 <= x < 32 and 0 <= y < 64 and mask.getpixel((px, py)) and result.getpixel((x, y))[3] == 255:
+                                result.putpixel((x, y), (*patch.getpixel((px, py))[:3], 255))
+                blink_rows.append((action, facing, column, result))
+    except (OSError, ValueError, KeyError, TypeError):
+        blink_rows = []
+
+    image = Image.new("RGBA", (128, 13 * 64))
     clips = []
     for row, (name, _, action, direction) in enumerate(ACTIONS):
         frames = frames_by_action[name]
         for column, frame in enumerate(frames):
-            image.paste(frame, (column * 32, row * 64))
+            image.paste(normalized(frame), (column * 32, row * 64))
         if name == "idle":
             for column, facing in enumerate(("down", "left", "right", "up")):
                 clips.append(clip("idle", row, 1, 1, False, facing, column))
         else:
             fps, loop = source.playback(name)
             clips.append(clip(action, row, len(frames), fps, loop, direction))
+    # Group blink copies so their frame index and playback match the normal clip.
+    for action, facing in dict.fromkeys((a, f) for a, f, _, _ in blink_rows):
+        group = [item for item in blink_rows if item[:2] == (action, facing)]
+        row = image.height // 64
+        extended = Image.new("RGBA", (128, image.height + 64))
+        extended.paste(image, (0, 0)); image = extended
+        for column, (_, _, _, frame) in enumerate(group):
+            image.paste(normalized(frame), (column * 32, row * 64))
+        base = next(c for c in clips if c["name"] == action and c["direction"] == facing)
+        clips.append(clip("blink-" + action, row, len(group), base["fps"], base["loop"], facing))
     return image, clips
 
 
@@ -190,7 +262,22 @@ def build_pack(art_dir: Path, output: Path) -> dict:
                                       cellH=cell[1], anchor=anchor, scale=1, rows=rows))
 
     def add_character(character_id, path, metadata=None):
-        image, rows = character_sheet(production(path, metadata))
+        metadata = metadata or path.with_suffix(".manifest.json")
+        image, rows = None, None
+        locked = path.parent / "locked" / f"{character_id}.png"
+        if not locked.is_file():
+            locked = art_dir / "roster" / character_id / "locked" / f"{character_id}.png"
+        locked_metadata = locked.with_suffix(".manifest.json")
+        try:
+            data = json.loads(locked_metadata.read_text(encoding="utf-8-sig"))
+            report = json.loads((locked.parent / data["facelock"]["report"]).read_text(encoding="utf-8-sig"))
+            if all(hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
+                   for name, digest in report["sourceHashes"].items()):
+                image, rows = character_sheet(production(locked, locked_metadata))
+        except (OSError, ValueError, KeyError, TypeError):
+            pass
+        if image is None:
+            image, rows = character_sheet(production(path, metadata))
         sheet_id = f"char-{character_id}"
         add_sheet(sheet_id, image, (32, 64), {"x": 16, "y": 60}, rows)
         manifest["characters"].append({"id": character_id, "sheetId": sheet_id})
@@ -261,18 +348,26 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     desk_parts = [env_frames(name) for name in ("desks", "monitors", "office-chairs")]
     if all(desk_parts):
         desk = Image.new("RGBA", (64, 64))
-        # Keep the monitor at the right of the seat and fit the authored components
-        # to source bbox (12,25)..(52,60): world bbox (4,-3)..(44,32).
-        for part, size, position in ((desk_parts[2][0][0], (18, 22), (12, 38)),
-                                     (desk_parts[0][0][0], (31, 16), (21, 44)),
-                                     (desk_parts[1][0][0], (18, 19), (31, 25))):
+        # Back-facing seat below the tabletop, screen above it. All authored
+        # components and the agent share the same centreline (world x=24).
+        for part, size, position in ((desk_parts[2][0][0], (18, 24), (23, 34)),
+                                     (desk_parts[0][0][0], (48, 24), (8, 16)),
+                                     (desk_parts[1][0][0], (24, 21), (20, 4))):
             cropped = part.crop(part.getchannel("A").getbbox())
             desk.alpha_composite(cropped.resize(size, Image.Resampling.NEAREST), position)
     else:
         fallbacks.append("desk-composite")
         desk = p5_prop("desk", 1)
     furniture("cozy-desk", "desk", (3, 2), [desk],
-              points=[point("seat", 1, 2, "typing", "right")], anchor={"x": 8, "y": 28})
+              points=[point("seat", 1, 2, "typing", "up")], anchor={"x": 8, "y": 8})
+    if all(desk_parts):
+        chair = Image.new("RGBA", (64, 64))
+        part = desk_parts[2][0][0]
+        chair.alpha_composite(part.crop(part.getchannel("A").getbbox()).resize((18, 24), Image.Resampling.NEAREST), (23, 34))
+        front = Image.new("RGBA", (64, 64))
+        front.paste(chair.crop((0, 49, 64, 64)), (0, 49))
+        furniture("cozy-chair-front", "chair", (3, 2), [front], anchor={"x": 8, "y": 8})
+        manifest["furniture"][-1]["variants"][0].update(blockedCells=[], zOrder=18)
     furniture("cozy-pantry", "pantry", (3, 2), [p5_prop("coffee_machine")],
               points=[point("coffee", 1, 2, "coffee", "up")])
     furniture("cozy-water", "water", (1, 2), [p5_prop("water_cooler")],
@@ -313,9 +408,20 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     )
     for asset_id, kind, footprint, source_name, fallback, layer in aliases:
         animated = asset_id == "server"
-        frames = preferred(source_name, fallback, row="blink" if animated else "variants",
-                           animated=animated)
+        if asset_id in ("door", "window"):
+            wall_part = env_frames("wall-navy", "door_frame" if asset_id == "door" else "window_wall", (32, 32))
+            frames = ([wall_part[0][0]], 1, False) if wall_part else fallback
+        else:
+            frames = preferred(source_name, fallback, row="blink" if animated else "variants",
+                               animated=animated)
         furniture(f"cozy-{asset_id}", kind, footprint, *frames, layer=layer)
+
+    for asset_id, kind, footprint, source_name in (("lamp", "lamp", (1, 1), "lamp"),
+            ("fridge", "cabinet", (2, 3), "fridge"), ("trash", "plant", (1, 1), "trash-bin"),
+            ("coffee-table", "table", (3, 2), "coffee-table")):
+        final = env_frames(source_name)
+        if final:
+            furniture(f"cozy-{asset_id}", kind, footprint, [final[0][0]])
 
     icon_frames = [icons.frames("bubbles", (32, 32))[i] for i in range(6)]
     icon_frames.extend(icons.frames("role_badges", (32, 32))[:2])
@@ -353,9 +459,11 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     wall = tiles.frames("wall_office", (32, 32))[0]
     # The p5 wall's first 22 rows are plaster; its dado/baseboard is only
     # appropriate for the bottom wall strip, never each upper wall tile.
-    plaster = wall.crop((0, 0, 32, 22)).resize((32, 32), Image.Resampling.NEAREST)
-    baseboard = wall.copy()
-    baseboard.paste(wall.crop((0, 30, 32, 31)), (0, 31))
+    navy = tile("wall-navy", wall, "panel")
+    wood = tile("wall-wood", wall, "panel")
+    plaster = navy.crop((0, 0, 32, 26)).resize((32, 32), Image.Resampling.NEAREST)
+    baseboard = navy.copy()
+    baseboard.paste(navy.crop((0, 30, 32, 31)), (0, 31))
     tile_frames = [
         plaster,
         tile("floor-wood-oak", tiles.frames("floor_pantry", (32, 32))[0]),
@@ -392,7 +500,11 @@ def build_pack(art_dir: Path, output: Path) -> dict:
                                              color="#{:02X}{:02X}{:02X}".format(*color[:3]),
                                              sheetId="floor-tiles", animation=animation))
     add_sheet("floor-tiles", atlas(floor_frames), (16, 16), {"x": 0, "y": 0}, floor_clips)
-    manifest["tileTypes"].append(dict(id=5, kind="wall", color="#674638"))
+    add_sheet("room-walls", atlas([plaster, wood, wood]), (32, 32), {"x": 0, "y": 0},
+              [clip("partition", 0), clip("wood-wall", 0, column=1), clip("wood-baseboard", 0, column=2)])
+    for tile_id, animation in ((5, "partition"), (7, "wood-wall"), (8, "wood-baseboard")):
+        manifest["tileTypes"].append(dict(id=tile_id, kind="wall", color="#252b48",
+                                         sheetId="room-walls", animation=animation))
     manifest["tileTypes"].sort(key=lambda entry: entry["id"])
 
     if len(manifest["sheets"]) > 128:
@@ -409,6 +521,8 @@ def build_pack(art_dir: Path, output: Path) -> dict:
             path.unlink()
             stale += 1
     return dict(manifest=str(output / "assets.json"), characters=len(manifest["characters"]),
+                blinkCharacters=sum(any(row["name"].startswith("blink-") for row in sheet["rows"])
+                                    for sheet in manifest["sheets"]),
                 sheets=len(manifest["sheets"]), pngs=len(pngs), furniture=len(manifest["furniture"]),
                 tileTypes=len(manifest["tileTypes"]), skipped=skipped,
                 p5Fallbacks=sorted(set(fallbacks)), removedStale=stale)
