@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "env4-static-bodies",
+    "description": "Different office objects; reference supplies palette, logical pixel scale and front/top perspective ONLY, not identity.",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 2,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "leisure_a": {
+      "frames": 5,
+      "fps": 1,
+      "loop": false,
+      "action": "Five DIFFERENT static objects, left to right: 0 a round wall DARTBOARD, 26x26 logical pixels, ivory/dark segmented rings, red/teal bullseye, three tiny darts ATTACHED to its face. 1 compact PING-PONG TABLE, 58x34 pixels, muted teal top, straight horizontal front edge, thin cream court markings, joined net across center and four walnut/charcoal legs; no ball (added later). 2 soft brick-red BEAN BAG, 32x24 pixels, pear-shaped sagging cushion with simple seam, no floor. 3 navy/walnut ARCADE CABINET, 30x48 pixels, upright full front, sloped console with tiny red joystick and cream buttons, large EMPTY rectangular dark teal screen inset in upper front, cream marquee, no letters. 4 READING NOOK as one connected prop, 44x36 pixels: low walnut bookshelf holding cream/teal/red books, floor cushion in muted dusty blue directly against its lower front edge and one open cream book ON the cushion. Everything connected, no people or floor."
+    },
+    "leisure_b": {
+      "frames": 4,
+      "fps": 1,
+      "loop": false,
+      "action": "Four DIFFERENT static objects, left to right: 0 STANDING DESK 48x44 logical pixels, honey walnut top, tall ivory adjustable legs, small navy flat monitor and keyboard on top, no chair or person. 1 FISH TANK 44x34 pixels, horizontal rectangle viewed from front/slightly above, walnut stand and charcoal top rim, EMPTY clear muted teal glass interior, few gravel pixels and a tiny plant only along bottom; no fish (added later), no scenery behind it. 2 LAVA LAMP 16x34 pixels, tall clear tapered glass between cream cap and charcoal/cream pedestal, amber empty glass, no moving blobs (added later). 3 DESK FAN 26x30 pixels, round ivory/charcoal wire grille facing front, teal internal blades, walnut/charcoal neck and oval base, full silhouette, no table. Objects separated by huge magenta gaps."
+    }
+  },
+  "style": "Match the attached env2 pixel office art: orthographic 3/4 top-down FRONT view, horizontal edges, NEVER isometric. Chunky true logical pixels, crisp selective 1px dark outlines, warm honey/walnut, ivory, muted teal, dusty blue and brick red. Two or three flat shades per material. No gradients, antialiasing, dithering, text, people, floor patches, ground shadows, motion trails or grid lines. This row is STATIC VARIANT CHOICES, NOT poses of one object. Each specified object appears exactly once as a complete connected silhouette. Huge solid magenta gaps, solid #FF00FF background.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": false,
+    "resample": "kcentroid",
+    "palette_size": 32,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
