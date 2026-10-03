@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "env3-side-workstations",
+    "description": "Original static side-profile props. Facing is the worker's viewing direction. No people.",
+    "base_image": "base-source.png"
+  },
+  "cell": {"shape": "square", "width": 64, "height": 64, "safe_margin_x": 2, "safe_margin_y": 3},
+  "chroma_key": {"name": "magenta", "hex": "#FF00FF", "rgb": [255, 0, 255], "selection": "manual"},
+  "states": {
+    "static_props": {
+      "frames": 3,
+      "fps": 1,
+      "loop": false,
+      "action": "Exactly THREE separate static props in one horizontal row. Match the attached original reference's pixel scale, palette and outline. Frame 0: wooden SIDE-PROFILE desk, worker sits LEFT facing RIGHT (do not draw worker); cream CRT at RIGHT, narrow dark vertical screen sliver faces LEFT, tapered deep rear case extends RIGHT; keyboard LEFT on tabletop, tiny ivory mug BACK on tabletop, honey top/walnut legs/small drawer, 42x44 native pixels total. NO chair. Frame 1: teal office chair in TRUE SIDE PROFILE, backrest LEFT, open seat RIGHT, slim armrest, wheeled base, 28x34 pixels. NO person or desk. Frame 2: honey/walnut overflow table, open laptop from SIDE, narrow dark screen faces LEFT, keyboard base extends LEFT, matching table height, 36x36 pixels. NO chair or person. Every prop is a complete connected silhouette. No floor, shadows, labels, framing boxes, cables, animation or front-facing screens. The worker will face RIGHT in all three assemblies. Only a narrow screen plane should be visible from the side. Huge empty magenta gaps between props."
+    }
+  },
+  "style": "Match the attached original reference EXACTLY: warm cozy small-office pixel art, orthographic side elevation with a little tabletop visible from above, horizontal front edges, NEVER isometric. Chunky logical native pixels, crisp selective 1px charcoal outlines, walnut/honey wood, warm ivory, muted teal. Two or three flat shades per material. No gradients, antialiasing, noise, dithering, words, people or ground shadows. TRUE 64x64 furniture cell grid. The guide is spacing geometry only; do not draw its boxes. Style rules do not change between props.",
+  "layout": "taxonomy/v1",
+  "fit": {"pixel_unfake": false, "resample": "kcentroid", "palette_size": 32, "align_x": "bbox-center", "align_y": "bottom", "ground_frames": true},
+  "chroma": {"mode": "rgb", "unmix_reach": 4, "spill_max_fraction": 0.005}
+}
