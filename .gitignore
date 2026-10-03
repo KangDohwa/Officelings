@@ -43,3 +43,6 @@ assets/brand/originals/
 assets/brand-overlay/
 windhawk/poc/*.exe
 windhawk/poc/*.dll
+assets/art/env4/runs/
+assets/art/env4/qa/
+assets/art/env4/references/
