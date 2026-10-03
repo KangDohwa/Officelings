@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "kind": "sprite-gen-request",
+  "engine": "component-row",
+  "character": {
+    "id": "pet-props",
+    "description": "Each row owns a different pet identity. Reference is ONLY style/palette and size context; do not copy existing cat or vacuum identity.",
+    "base_image": "base-source.png"
+  },
+  "cell": {
+    "shape": "square",
+    "width": 64,
+    "height": 64,
+    "safe_margin_x": 3,
+    "safe_margin_y": 3
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "states": {
+    "props": {
+      "frames": 7,
+      "fps": 1,
+      "loop": false,
+      "action": "SEVEN DIFFERENT standalone connected objects in ONE horizontal strip, left to right exactly: 0 oval terracotta DOG BED with raised rim and ivory cushion, 44x24 logical pixels; 1 compact CAT TREE, walnut base, two sisal columns, ivory lower platform and terracotta round upper cushion, 38x48 pixels; 2 small teal WATER BOWL with blue water inside, 16x9 pixels; 3 small terracotta FOOD BOWL with three brown kibble dots, 16x9 pixels; 4 small round teal-and-ivory BALL, 9x9 pixels; 5 round brick-red YARN ball with short connected loose thread, 12x10 pixels; 6 a vertical sisal SCRATCHING POST with honey rope hatch, walnut base and top cap, 17x30 pixels. No pets, no floor or shadows. Objects are complete, separated by huge magenta gaps. Static props, not poses of one object. Match warm office reference."
+    }
+  },
+  "style": "2D PIXEL ART chibi office pets. Orthographic 3/4 top-down game sprites, never isometric, crisp logical pixels with selective single-pixel dark charcoal outlines, warm muted tan/ivory/walnut/teal palette with moss green for parrot. Exactly two or three flat shades per coat, tiny 1-pixel eyes, compact cute quadruped animal silhouettes. No smooth digital painting, gradients, antialiasing, dithering, text, labels, ground patches, cast shadows, motion blur or guide lines. A uniform solid #FF00FF background. Render logical pixels visibly as square blocks enlarged 8x or more. Reference character is size/context ONLY; do NOT include a human. Pet rows contain independent facing choices, not generated animation. Each slot contains exactly ONE complete connected subject.",
+  "layout": "taxonomy/v1",
+  "fit": {
+    "pixel_unfake": false,
+    "resample": "kcentroid",
+    "palette_size": 24,
+    "align_x": "bbox-center",
+    "align_y": "bottom",
+    "ground_frames": true
+  },
+  "chroma": {
+    "mode": "rgb",
+    "unmix_reach": 4,
+    "spill_max_fraction": 0.005
+  }
+}
