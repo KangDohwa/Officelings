@@ -486,5 +486,36 @@
     "palette_size": 32,
     "maximum_content_height": 56,
     "report_normalized_height": 46
+  },
+  "blink": {
+    "down": {
+      "file": "locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": "locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": "locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": "locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/granny-knit.facelock.json",
+    "inputSha256": "aae2d4277da071827efc3420ac6751e0a2db96815797a26b479ec455829c5cf4"
   }
 }

@@ -1,5 +1,8 @@
 # granny-knit — roster wave 2
 
+**Current cleanup (2026-10-04): PASS** for facelock/blink/seated pixel checks and cyclic 3?0 frame review. Flat delivery remains `granny-knit.png` + `granny-knit.manifest.json` (32?64 cells, 42 frames). New seated delivery is `seated/granny-knit.manifest.json` (12 added normal + eight side-blink frames). Latest evidence: `cleanup/validation.json`, `cleanup/facelock-qa/`, `cleanup/final-cells.png`, `cleanup/seated-review.png`, `cleanup/walk-seams.png` and four walk GIFs. Real-time playback is unverified because no browser was available. See the current section of `qa-notes.md` for changes, reproduction and remaining weak details. Original source notes below are historical; their deferred/no-facelock statements predate this cleanup.
+
+
 Kind elderly woman: silver-gray bun pierced by a golden pencil, thin round glasses on a gold chain, dusty lilac knit shawl, cream floral dress, and comfortable brown shoes. Large highlighted eyes and a round head above a broad shawl/flared-skirt silhouette distinguish her from the original roster. This is an original character, not a worker recolor.
 
 Load `granny-knit.png` with `granny-knit.manifest.json`. Canonical pipeline files are `run/sprite-sheet-alpha.png` and `run/manifest.json`. Cell **32×64**, grid **4×13**, sheet **128×832**, **42 frames**. RGBA straight alpha; unused trailing cells are transparent. Use nearest-neighbor sampling. Bottom anchor **(16,60)**, with the same four-pixel bottom margin as beanie-scarf. Raw strips use **magenta #FF00FF**, removed by canonical sprite-gen component extraction.

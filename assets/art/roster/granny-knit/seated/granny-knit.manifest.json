@@ -1,0 +1,845 @@
+{
+  "characterId": "granny-knit",
+  "engine": "component-row",
+  "game_input": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/granny-knit.png",
+  "degraded_static_fallback": false,
+  "curation_applied": true,
+  "frame_variant": "pixel",
+  "sprite_sheet_alpha": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/granny-knit.png",
+  "cell": {
+    "shape": "rect",
+    "width": 32,
+    "height": 64,
+    "safe_margin_x": 1,
+    "safe_margin_y": 4
+  },
+  "chroma_key": {
+    "name": "magenta",
+    "hex": "#FF00FF",
+    "rgb": [
+      255,
+      0,
+      255
+    ],
+    "selection": "manual"
+  },
+  "animation": {
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "columns": 4,
+    "rows": {
+      "idle": {
+        "row": 0,
+        "frames": 4,
+        "fps": 0,
+        "durations_ms": [
+          167,
+          167,
+          167,
+          167
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "walk_down": {
+        "row": 1,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_left": {
+        "row": 2,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_right": {
+        "row": 3,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "walk_up": {
+        "row": 4,
+        "frames": 4,
+        "fps": 7,
+        "durations_ms": [
+          143,
+          143,
+          143,
+          143
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_back": {
+        "row": 5,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "typing_side": {
+        "row": 6,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "report": {
+        "row": 7,
+        "frames": 3,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "sleep": {
+        "row": 8,
+        "frames": 2,
+        "fps": 2,
+        "durations_ms": [
+          500,
+          500
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "coffee": {
+        "row": 9,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "phone": {
+        "row": 10,
+        "frames": 3,
+        "fps": 3,
+        "durations_ms": [
+          333,
+          333,
+          333
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "talk": {
+        "row": 11,
+        "frames": 3,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250
+        ],
+        "loop": true,
+        "frame_variant": "pixel"
+      },
+      "surprised": {
+        "row": 12,
+        "frames": 2,
+        "fps": 5,
+        "durations_ms": [
+          200,
+          200
+        ],
+        "loop": false,
+        "frame_variant": "pixel"
+      },
+      "seated_back": {
+        "row": 13,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_left": {
+        "row": 14,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      },
+      "seated_right": {
+        "row": 15,
+        "frames": 4,
+        "fps": 4,
+        "durations_ms": [
+          250,
+          250,
+          250,
+          250
+        ],
+        "loop": true
+      }
+    }
+  },
+  "frame_layout": {
+    "sheetWidth": 128,
+    "sheetHeight": 1024,
+    "cellWidth": 32,
+    "cellHeight": 64,
+    "rows": {
+      "idle": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 0,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_down": [
+        {
+          "x": 0,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 64,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_left": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 128,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_right": [
+        {
+          "x": 0,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 192,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "walk_up": [
+        {
+          "x": 0,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 256,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_back": [
+        {
+          "x": 0,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 320,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "typing_side": [
+        {
+          "x": 0,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 384,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "report": [
+        {
+          "x": 0,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 448,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "sleep": [
+        {
+          "x": 0,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 512,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "coffee": [
+        {
+          "x": 0,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 576,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "phone": [
+        {
+          "x": 0,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 640,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "talk": [
+        {
+          "x": 0,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 704,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "surprised": [
+        {
+          "x": 0,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 768,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_back": [
+        {
+          "x": 0,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 832,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_left": [
+        {
+          "x": 0,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 896,
+          "w": 32,
+          "h": 64
+        }
+      ],
+      "seated_right": [
+        {
+          "x": 0,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 32,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 64,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        },
+        {
+          "x": 96,
+          "y": 960,
+          "w": 32,
+          "h": 64
+        }
+      ]
+    }
+  },
+  "palette_size": 32,
+  "postprocess": {
+    "source": "canonical component extraction with fit.resample=kcentroid",
+    "recipe": "qa/final-fit.json",
+    "alpha_threshold": 128,
+    "transform_sampling": "nearest",
+    "palette_size": 32,
+    "maximum_content_height": 56,
+    "report_normalized_height": 46
+  },
+  "blink": {
+    "down": {
+      "file": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/blink-down.png",
+      "source": {
+        "state": "walk_down",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "left": {
+      "file": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/blink-left.png",
+      "source": {
+        "state": "walk_left",
+        "frame": 0
+      },
+      "durationMs": 100
+    },
+    "right": {
+      "file": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/blink-right.png",
+      "source": {
+        "state": "walk_right",
+        "frame": 0
+      },
+      "durationMs": 100
+    }
+  },
+  "facelock": {
+    "version": 1,
+    "report": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/source.facelock.json",
+    "inputSha256": "aae2d4277da071827efc3420ac6751e0a2db96815797a26b479ec455829c5cf4"
+  },
+  "anchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 52
+  },
+  "seated": {
+    "version": 1,
+    "method": "locked-pixel-crop-and-repose",
+    "blink": {
+      "left": {
+        "file": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/blink-seated_left.png",
+        "source": {
+          "state": "seated_left",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 0,
+        "method": "transferred-locked-blink"
+      },
+      "right": {
+        "file": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/blink-seated_right.png",
+        "source": {
+          "state": "seated_right",
+          "frame": 0
+        },
+        "durationMs": 100,
+        "sheetRow": 1,
+        "method": "transferred-locked-blink"
+      }
+    },
+    "rows": {
+      "seated_back": {
+        "source": {
+          "state": "idle",
+          "frame": 3
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 47,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 5
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 16,
+          "y": 43
+        }
+      },
+      "seated_left": {
+        "source": {
+          "state": "idle",
+          "frame": 1
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 47,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 5
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 4,
+          "y": 43
+        }
+      },
+      "seated_right": {
+        "source": {
+          "state": "idle",
+          "frame": 2
+        },
+        "seatAnchor": {
+          "x": 16,
+          "y": 52
+        },
+        "sourceHipY": 47,
+        "sourceNeckY": 33,
+        "translation": {
+          "x": 0,
+          "y": 5
+        },
+        "headOffsets": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "keyboardAnchor": {
+          "x": 28,
+          "y": 43
+        }
+      }
+    },
+    "sourceHashes": {
+      "assets/art/roster/granny-knit/locked/granny-knit.manifest.json": "dfed03c156f97e15abf8c1639fefa79bf1fe74caf4cf1066c13583a7e585ebbc",
+      "assets/art/roster/granny-knit/locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/granny-knit.png": "e653579a0c11647720a489b1a40bf6384f566afd50fe8058f455c6ba4e319acb",
+      "assets/art/roster/granny-knit/locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/granny-knit.facelock.json": "b06e54b596b4404f24c0a313882e1788880a28aa3fc7459287625ebd603b5802",
+      "assets/art/roster/granny-knit/cleanup/source/granny-knit.manifest.json": "0055b3fe6aa23df0e273beda89a431fc5b312918c6212530d63c9c1e6c9a9257",
+      "assets/art/roster/granny-knit/cleanup/source/granny-knit.png": "326e7c22ece25d53ffc4af5189630614a1b1368eb7af8391dd3e4d7e4e4caa54",
+      "assets/art/roster/granny-knit/cleanup/source/curated/idle-frame-0.png": "9c05b179d4169c71ba6aeec8a312e0a2b5b674114280443b0979480d92897886",
+      "assets/art/roster/granny-knit/cleanup/source/curated/idle-frame-1.png": "81ade50d8a8914ac5abf1a4e8fbd446d81f77c6d4c8d599d198b2449c2bf4d9c",
+      "assets/art/roster/granny-knit/cleanup/source/curated/idle-frame-2.png": "10bd83a571e7b89efe10e0f4ac793db3a75efe814231b22c91b37d158329e563",
+      "assets/art/roster/granny-knit/cleanup/source/curated/idle-frame-3.png": "b48c43306047f5281aa74fc4cae57a39e2e1bc96f840444ef60f4fb4797e8574",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_down-frame-0.png": "bdbf265b162b7054a8ad92d4d696d5af61146a6b2f15f99a3f88b4bd9bc2fd82",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_down-frame-1.png": "b0cbca46ab4d6f4a7b94f3d03a207f94aae5ac8e527f0495cbbffdac652acb36",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_down-frame-2.png": "de0b92162fcf8a6f7206fafe4d14a592e42ce86d56fb159fe2e6280f743aa0a1",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_down-frame-3.png": "4ad0fdda45f88a289402329c6135c57ef762bcc72ae0b5a1f9e2d9e90f857fd6",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_left-frame-0.png": "c8d71da40c5e47b8006fcdc88d248fb4450cb0215687ebb3c1b1396c55842c3d",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_left-frame-1.png": "23082cd635e8a9c36a06d5f3c536bf4cfb523991eaedfcdfeba7eddb8c0f5409",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_left-frame-2.png": "9b932ea07e55a4cf5709daee0067ad909eae9ceec270285ced13b289c032aa6a",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_left-frame-3.png": "1821d83a2ae4a664b59c998ff52f95aa74e864a4e07dd0ae8bfee6532b524f51",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_right-frame-0.png": "25d3418f59c88c26046b0c88a67ae606c77343ac71f9a40bdd1d6cf883a20f53",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_right-frame-1.png": "350b1a3ed2c8adb7388e7bfb243a069316f1049802a86a93c36c6fe0cac92aad",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_right-frame-2.png": "489abb1d86e0552a7735744592713cac6a5c7749121bcc57ea904dc432930e2b",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_right-frame-3.png": "958707c610a1fbc0ad7d05f0319c686884e8afc62aa39dfe5318a900259a48f7",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_up-frame-0.png": "44d5e73ccd02be9d0cc4ce89da7febd9e276684dd1ce05c4c588f94c300f1fce",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_up-frame-1.png": "89c80da76c3647128031e918d1d33c76cb5a86a8cde2b1bbf5472048f1221d0a",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_up-frame-2.png": "7c35da060e1214052f505e5347ff519c6eddf6bad876b05160b3245adae3398d",
+      "assets/art/roster/granny-knit/cleanup/source/curated/walk_up-frame-3.png": "703dc17941855f78ab5ce5ab857042ab7f846876c0231ae12ab2d76eb12e98c7",
+      "assets/art/roster/granny-knit/cleanup/source/curated/typing_back-frame-0.png": "d44bc4e968ccc027622a0acbf427a5c8368ee4d2d527259379bdd06a5d1bab70",
+      "assets/art/roster/granny-knit/cleanup/source/curated/typing_back-frame-1.png": "00e0a2fe0b3156ba506ea9191085fbfb71c7ab314027c4cc034299fd7a7d6123",
+      "assets/art/roster/granny-knit/cleanup/source/curated/typing_back-frame-2.png": "4eb805f8ead16bd6d0661bef48b5af8b46f1d491133df62d35a0fe530ce9b0c8",
+      "assets/art/roster/granny-knit/cleanup/source/curated/typing_side-frame-0.png": "1136d2c757d2643b838b05476a2bb90256131d4f2cff241a9f1d3134f08f9105",
+      "assets/art/roster/granny-knit/cleanup/source/curated/typing_side-frame-1.png": "505c83c22710613372cbe82548eac13206d890b73b60b00c1d047c3fae7da244",
+      "assets/art/roster/granny-knit/cleanup/source/curated/typing_side-frame-2.png": "733a9f4112ac71b9b6e47c6621015a4f33f329d31c390f0d66580e7cc796096e",
+      "assets/art/roster/granny-knit/cleanup/source/curated/report-frame-0.png": "34020a36ad720782e1f8d81430944216e3a1685d4dc938f373b6c1c5c9ad322f",
+      "assets/art/roster/granny-knit/cleanup/source/curated/report-frame-1.png": "69184f7a7d78115d112a82fccd7163852b42010a6d1aeded0e17e821bb91094e",
+      "assets/art/roster/granny-knit/cleanup/source/curated/report-frame-2.png": "d0f8fc75bf1e0b26fc5c82ac40d11343afcc8e1c910c9c8852cfe399c5435bcc",
+      "assets/art/roster/granny-knit/cleanup/source/curated/sleep-frame-0.png": "6a5c6389ef5368ccf4d74fa5607642029658089a8cea75bb2e65f8269449b238",
+      "assets/art/roster/granny-knit/cleanup/source/curated/sleep-frame-1.png": "2e806beb0fdf40a5d90d5025850acc637e8f58c65710aaf643e2df4b083ea3df",
+      "assets/art/roster/granny-knit/cleanup/source/curated/coffee-frame-0.png": "481c66c32463247149577294c09054db82630011aa37f61ebf3f0fcb0d008cd1",
+      "assets/art/roster/granny-knit/cleanup/source/curated/coffee-frame-1.png": "e083181ad8c77cbe1774b8740ae226dd8cbf7e5db2435527301bc967a251b315",
+      "assets/art/roster/granny-knit/cleanup/source/curated/coffee-frame-2.png": "f250c1e8cb0e8f76e0325fd9fc7194adc611e7a28f606d0bb61a7fcdc15e9b93",
+      "assets/art/roster/granny-knit/cleanup/source/curated/phone-frame-0.png": "b5e6da93976c070a3975254eeeefd4e2573501805eff5fb64feda40165da3914",
+      "assets/art/roster/granny-knit/cleanup/source/curated/phone-frame-1.png": "1c256af850f8937117761f412169f5329b3af205e57c8b3f181cb4a48dfbbeb7",
+      "assets/art/roster/granny-knit/cleanup/source/curated/phone-frame-2.png": "05265332c5dd9e15beeab45d9af3e22ca41769c5680a2921ee94d0e1af4dbd63",
+      "assets/art/roster/granny-knit/cleanup/source/curated/talk-frame-0.png": "983cc8bf5e313fdc28f33e31a3d495b73ad05296a61844c79bbd4116aab876a7",
+      "assets/art/roster/granny-knit/cleanup/source/curated/talk-frame-1.png": "3da6b7a9a61913f7379aaf4ea27f0e6df677ae2ffdadacd79833c123aab73ff8",
+      "assets/art/roster/granny-knit/cleanup/source/curated/talk-frame-2.png": "9008aa853a37f402cdd4d39484497dbc0ec28642269372de226367ef495b8e66",
+      "assets/art/roster/granny-knit/cleanup/source/curated/surprised-frame-0.png": "2446d3c185bd21d6c4f18dbd86f2d80d8d12ce54db5ba41a82ad4c8fef7ac9fa",
+      "assets/art/roster/granny-knit/cleanup/source/curated/surprised-frame-1.png": "072a99b3224b0e52077d899dd05138c2cd28b488ab6308e004192ac5e49df80f",
+      "assets/art/roster/granny-knit/locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/blink-down.png": "7a10f8b0eec6bdd4bb2e0c478faf9a6fa42f6a658f7098d5087a8de7d9e9d94c",
+      "assets/art/roster/granny-knit/locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/blink-left.png": "d07e7642838b5dc8e1b68a0f02f6788d465229046744e41ea078fe53c9396229",
+      "assets/art/roster/granny-knit/locked/.generations/c6c0fe23a7c1f22a81c4733ee500131bf78c3f2065d4f39cb6b35efe6988996e/blink-right.png": "64aa220eaef50dbdc7e75e0dfcb473a3aa12fa745f1b56b3027606e24503aa0d"
+    },
+    "blinkSheet": {
+      "file": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f/seated-blink.png",
+      "cellW": 32,
+      "cellH": 64,
+      "frames": 4,
+      "fps": 4
+    }
+  },
+  "publication": {
+    "generation": ".generations/f3f3a34ff6b32cd4569f293d987df34a36607edd924f4803889690e025a9b56f"
+  }
+}

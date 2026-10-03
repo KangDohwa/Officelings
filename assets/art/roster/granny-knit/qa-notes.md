@@ -1,3 +1,27 @@
+## Current cleanup delivery ? 2026-10-04
+
+**PASS: facelock, blink, seated pixel checks, and cyclic frame/seam review.** This does not certify real-time playback or polished anatomy in every cell.
+
+Corrected automatic masks that selected hair instead of the right-facing eye and coffee eyes. Reviewed native eye boxes and tight blink interiors now include actual warm cheek/lens-adjacent skin; left and right closure extents remove the full iris and retain a single lid. This fixes blink has no nearby skin without changing skin detection or QA thresholds. Added a seated calibration and cream cloth sampling for the folded skirt instead of the orange flower accent.
+
+Load `granny-knit.png` + `granny-knit.manifest.json` for the flat 13-row delivery. The root PNG equals the currently committed locked PNG. Follow `locked/granny-knit.manifest.json` for generation paths; older root files in `locked/` are historical. The immutable corrected source is `cleanup/source/`, its local reviewed calibration is `cleanup/profile.json`, and the pre-cleanup delivery is `cleanup/before.*`. The original `run/` is preserved.
+
+New seated frames are committed through **`seated/granny-knit.manifest.json`** inside this character folder: 12 normal frames in three appended rows, plus eight phase-matched side blink frames. Follow that manifest to its `.generations/` sheet and blink files. The top 42 cells are byte-identical to the current locked sheet; this local output has not been copied to shared `assets/art/seated/` or adopted by the pack.
+
+QA: `cleanup/facelock-qa/report.json` has 13 groups, after=0, failures=0. `cleanup/validation.json` records independent reload checks: 42 nonempty flat cells, 12 seated cells, 32 opaque colors, binary alpha, unchanged silhouette/layout/timing, zero transparent RGB, empty trailing cells, safe margins, baseline y=60, source freshness and eye-only blink changes. Seated heads are preserved through the recorded one-pixel nod and lower bodies are identical across phases. Shared facelock/QA/seated code and QA thresholds were not edited.
+
+Walks: all four full cycles and the explicit **2?3?0?1** seam strips were viewed in `cleanup/walk-seams.png`. No extra wrap jump or baseline reset was identified; native changed-pixel counts at 3?0 are down: 387, left: 758, right: 757, up: 477. These counts supplement visual inspection and do not score gait quality. `cleanup/walk-metrics.json` binds the results to frame hashes, while the four `cleanup/walk_*.gif` files preserve order and timing. **Real-time/browser/runtime playback remains UNVERIFIED:** browser inventory returned apps=[], browsers=[], and the in-app browser was unavailable. A self-contained replay page for all 16 loops is retained at `../chef-sous/cleanup/loops.html`.
+
+Remaining weak: Glasses rims/chain and native highlights remain less clear than the raw art. Skirt patterns flicker between authored phases and conceal leg identity. Seated skirt folds lose the floral pattern and use angular bent-leg geometry. Native eye pixels being consistent does not certify the full original face-quality bar in every pose.
+
+Reproduce with the existing sprite-gen Python environment and the character-local driver `assets/art/roster/chef-sous/cleanup/cleanup.py granny-knit <stage>`; stages are `source`, `lock`, `qa`, `seated`, `review`, `deliver`. It invokes the existing tools' processing/check functions with local calibrations in memory and redirects seated publication here. QA invokes `facelock_qa.check` for this committed report because the stock CLI scanned an unrelated locked report before filtering and hit PermissionError; the original checker and its assertions are unchanged. Corruption-detecting self-check also passed.
+
+No build_pack, pack mutation, runtime change, commit or push. Image generation was serial (chef face, then gardener face); generated references and prompts are local to those two cleanup folders.
+
+---
+
+**Historical generation/extraction notes below describe the pre-cleanup snapshot and are superseded for current face-lock, blink, seated and seam status.**
+
 # Visual QA — granny-knit
 
 One character only, roster wave 2. Reviewed A-contact and B-contact at low resolution, the four existing C character contacts, and the pixel-agents character reference. The gray bun with pencil, round glasses/chain, broad lilac shawl and flared floral dress distinguish this character from the 12 original silhouettes. The accepted source has a large head and expressive brown eyes with ivory highlights.
