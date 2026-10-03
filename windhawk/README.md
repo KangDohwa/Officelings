@@ -1,8 +1,8 @@
 # Vibedotcom — Windhawk Variant B
 
-`vibedotcom.wh.cpp` hosts a passive pixel office inside the **shell instance of explorer.exe**. It reads the headless tracker's [v3 contract](../docs/state-schema.md): resolved tiles, furniture, positions, selected PNG rectangles, opacity, paper, reactions and agent metadata. Core remains responsible for animation selection, pathfinding, desks and activities. No `src/` changes or additional contract fields are required.
+`vibedotcom.wh.cpp` hosts a passive pixel office in the **shell instance of explorer.exe**. It consumes the [v4 state contract](../docs/state-schema.md), PNG [asset contract](../docs/asset-format.md), and the resolved fixed office. Core supplies seats, stable desk IDs, overflow/queue destinations, monitor frames, animation and collision geometry. The renderer never creates desks or grows the office as membership changes.
 
-Concurrent Core changes observed during this work raised the writer to **v4**. The mod accepts **both v3 and v4**: v4's optional `pose.displayName`, `workLocation`, `queued`, and `providerIcon` are read; nameplates/provider icons, queued bubbles, overflow laptop overlays and the newer short relationship lines follow the updated WPF renderer. Monitor state still arrives through authoritative furniture frames. This is compatibility with existing concurrent changes, not a request for new fields. Source editors and seat allocation remain in Core/WPF. Integer zoom 1–6 remains intentional even if the newer WPF auto-fit supports fractional downscaling.
+Version 3 remains readable. Additive v4+ snapshots use the v4 rendering rules and unknown fields are ignored; existing required field types, asset/layout format 1 and fallback atlas format 2 are still validated. Visible characters always have a `[provider icon] displayName` tag above their actual alpha silhouette. A reserved desk tag is hidden when its owner is within 1.5 Manhattan tiles of the work point and Working/Thinking/Waiting. Supplied frames, authored rotation/state variants, anchors and offsets remain authoritative; seated poses and future furniture need no renderer-specific roster rules.
 
 ## Install the tracker
 
@@ -68,21 +68,31 @@ The mod has no function hooks. A folder-only Explorer process is rejected. If th
 | Pack path | **Exported PNG root**, blank = state directory. The embedded manifest remains authoritative. This is normally blank: source `assets/pack/` belongs to the tracker's `--asset-dir`, because exported sheet filenames differ. |
 | FPS cap | 1–60, default 30. It is a maximum, not a constant paint timer. Live frames are sampled from the tracker's nominal 200ms snapshots. |
 | Show tooltip | Read-only cursor polling, 220ms hover delay. Provider, name/role, model, project, task, tool, state, elapsed and visual action. Popup cannot take focus or input. |
-| Transparent background | Skip floor/walls; keep furniture and characters. The native window uses a magenta color key and global opacity. Partial-alpha edges over this key can differ from WPF's per-pixel alpha. |
+| Transparent background | Skip floor/walls; keep furniture and characters. Uses premultiplied per-pixel alpha plus global opacity; see the native presentation policy below. |
 
 Wheel/keyboard zoom and native geometry changes are session-local and reset to configured values after a settings reload or host recreation. There are no global input hooks, task controls or tray UI.
 
 ## Desktop hosting and failure handling
 
-Classic desktop: a child of the wallpaper WorkerW **following the icon host**, never an arbitrary first WorkerW. Windows 11 24H2+ raised/raw desktop: a layered child of Progman, a sibling of its WorkerW, inserted below `SHELLDLL_DefView`. As in the [PoC notes](../docs/windhawk-notes.md), desktop mode makes the bounded undocumented `0x052C` requests once per Progman HWND. The mod does not hide, destroy or restyle any shell window.
+Classic desktop: a child of the wallpaper WorkerW **following the icon host**, never an arbitrary first WorkerW. Windows 11 24H2+ raised/raw desktop: a layered child of Progman, a sibling of its WorkerW, inserted below `SHELLDLL_DefView`. As in the [PoC notes](../docs/windhawk-notes.md), desktop mode makes the bounded undocumented `0x052C` requests when the selected host is missing, with bounded retry backoff. The mod does not hide, destroy or restyle any shell window.
 
-Missing/unsupported host: a separate `HWND_BOTTOM` window, logged explicitly. A hidden top-level helper receives shell/display/theme broadcasts, and a two-second probe repairs host identity/order. A destroyed parent invalidates the tracked HWND and causes recreation. DPI awareness is **thread-local**; embedded windows match their parent's context. Explorer's process DPI policy is untouched.
+Missing/unsupported host: a separate `HWND_BOTTOM` window. Failed layer requests and lost WorkerW hosts retry with bounded backoff, even if Progman is unchanged. Layer creation requests run on the independent scene worker, with scalar parameters and checked `SendMessageTimeout` results. The embedded UI thread sends no pointer-bearing shell/control messages. Hover is deliberately suppressed over the desktop list-view area because a safe icon hit-test cannot be inferred without contacting that control.
 
-The original small JSON parser checks syntax, UTF-8/surrogates, exact signed int64 sequences, duplicate keys, nesting/count/size limits, major versions, tile references, frame bounds and finite geometry. Unknown additive fields are accepted. Exact bytes of previously validated `assets`/`office` objects are reused. PNGs are bounded, decoded using GDI+, SHA256-checked, and committed only after the new pack is complete. Paths must stay within a local export root; URLs, UNC paths, traversal and alternate streams are rejected.
+The scene worker has no HWND or parent/input attachment. It owns state reads, JSON parsing, SHA256, PNG decoding, all GDI+ objects, rendering and cached alpha hit rectangles. The UI thread receives immutable premultiplied pixel packets and cached tooltip metadata, then presents them with GDI. Shared locks cover pointer swaps only. Overlapped reads observe the stop event, cancel on stop/timeout, and drain completion before releasing their buffer/OVERLAPPED; shutdown repeats `CancelSynchronousIo` while joining the worker, including calls that began after the initial cancellation. Native move/size/menu loops have a stop timer and shutdown messages cancel their mode/capture. Both threads are joined before unload, after child windows are destroyed.
 
-State reads share read/write/delete access and check length/mtime across the read. Failures retry after 40ms, 100ms, then 200ms and retain the last valid snapshot and decoded images. State older than ten seconds, missing initial state, or a timestamp more than ten seconds in the future displays **tracker offline**. After disconnection, the last positions and layout remain; characters use their manifest's idle clip plus a one-pixel breathing motion at 1Hz. Live simulation is never extrapolated. Old work bubbles are hidden until a fresh snapshot arrives.
+Cached PNG dimensions are checked against each candidate manifest, including cache hits. New packs commit only after every referenced sheet validates; failed frame/hit/tooltip work preserves the last complete packet and retries. GDI+ wrappers use throwing global allocation with its matching global deleter, avoiding null-returning `GdiplusBase::operator new` and unsafe wrapper `Clone`/generic-string-format factories. Constructor/API statuses and pixel pointers/strides are checked. Each native graphics call has a destructor-free SEH leaf; a trapped fault becomes an ordinary C++ exception outside that leaf so temporary owners unwind. Guarded placement construction also avoids unsafe wrapper allocators; guarded cleanup never throws. A fault within a partially completed native constructor/API can still leave library-owned internals unrecoverable. WndProcs and thread entries have C++ `catch(...)` boundaries and local clang x64 SEH envelopes; error paths log fixed strings without further allocation. These measures contain the tested failures; they do not establish an absolute guarantee against arbitrary native-library, driver, heap-corruption or process failures.
 
-The UI thread owns windows, tooltip, renderer, buffers and GDI+ lifetime. Unload signals its event, joins the thread, destroys the windows/classes and releases graphics before `GdiplusShutdown`. No graphics objects have global destructors. Painting is driven by visual changes, resize and expose events; unchanged semantic/timestamp updates do not repaint.
+State reads share read/write/delete access and preserve the last valid scene after malformed/missing files. Snapshots older than ten seconds or more than ten seconds in the future show **tracker offline**. Last positions and layout remain while manifest idle frames and one-pixel breathing continue; work bubbles are hidden. Exact signed int64 sequences, Unicode, JSON limits, finite geometry and safe local relative sheet paths are validated without assuming a `C:` drive exists.
+
+A hidden helper handles broadcasts. Display changes remap child placement and recover only wholly offscreen geometry, preserving valid negative monitor positions. Actual HWND client dimensions, pixels and hit extents stay within the same limits, including maximize and DPI changes. The thread uses target-HWND DPI contexts for coordinate conversion; tooltips rebuild font/padding/measurement at cursor-monitor DPI. Hidden, cloaked, or noncurrent virtual-desktop offices suppress hover and new presentation; cloaked occluders are skipped.
+
+Failed cloak/current-desktop queries suppress activity. If the virtual-desktop service is unavailable, top-level hover is disabled. These decisions avoid treating an unknown visibility result as permission to show a tooltip.
+
+### Native opacity and embedding
+
+Desktop children and frameless transparent windows use a top-down premultiplied BGRA DIB and `UpdateLayeredWindow(ULW_ALPHA)`, with `AC_SRC_ALPHA` and `SourceConstantAlpha` for the 10-100% setting. Windows supports `WS_EX_LAYERED` children from Windows 8 ([Microsoft API contract](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-updatelayeredwindow)); compatibility policy of the host executable and undocumented shell parenting can still reject a child. The mod does not change Explorer's process DPI policy or compatibility manifest. If child creation/presentation fails, it destroys only its own child and creates a bottom-level top-level per-pixel window. Its Show Desktop/virtual-desktop behavior is not identical to an embedded child.
+
+Framed normal/topmost windows use an opaque worker-composited buffer, `WM_PAINT`/`BitBlt` and `SetLayeredWindowAttributes(LWA_ALPHA)` for uniform opacity. Transparent normal/topmost windows use a frameless per-pixel HWND. A per-pixel HWND never receives `SetLayeredWindowAttributes`; switching policies requires a newly created HWND. No magenta color key is used. See [Microsoft's layered-window contract](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-updatelayeredwindow) and [LWA/ULW interaction](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setlayeredwindowattributes).
 
 A normal user-mode mod cannot render on the secure Winlogon lock screen. Desktop embedding is an undocumented shell feature; the fallback remains available through settings.
 
@@ -94,9 +104,11 @@ Build only:
 powershell -NoProfile -ExecutionPolicy Bypass -File windhawk/compile.ps1 -Tests
 ```
 
-`windhawk/compile.ps1` reuses `poc/compile.ps1`, its **installed Windhawk clang**, C++23, `-O2`, `x86_64-w64-mingw32`, Windows macros, forced `windhawk_api.h`, the 1.7.3 x64 import library and exported callbacks. Added libraries are bcrypt and ole32. Output stays in ignored `windhawk/artifacts/`. Running the PoC compiler without arguments retains its original build target.
+`windhawk/compile.ps1` reuses `poc/compile.ps1`, its **installed Windhawk clang**, C++23, `-O2`, `x86_64-w64-mingw32`, Windows macros, forced `windhawk_api.h`, the 1.7.3 x64 import library and exported callbacks. Added libraries are bcrypt, ole32, dwmapi and dwrite; `-fms-extensions` enables the local SEH envelopes. Output stays in ignored `windhawk/artifacts/`. Running the PoC compiler without arguments retains its original build target.
 
 The standalone harness `tests/windhawk/renderer_tests.cpp` **includes the actual mod source**. `VIBEDOTCOM_TEST` excludes all Windhawk callbacks, settings and HWND hosting; there is no DLL loading or UI. Delimited JSON/contract/geometry and GDI+ renderer sections are shared verbatim.
+
+`tests/windhawk/host_tests.cpp` includes the actual host under a separate test define. It creates only its own hidden windows, with an embedded test-only Windows 8+ compatibility manifest. It exercises cached worker packets, modal-stop notifications, client bounds, tooltip font scaling, list-view suppression, layered-child API admission, and the shutdown cancellation race using an owned local pipe. It does not load the mod DLL or interact with Explorer or existing application windows. Hidden-child API success does not verify visible DWM composition in Explorer.
 
 Run compilation, existing WPF **offscreen demo**, unit/render checks, script syntax checks and CPU sampling:
 
@@ -109,15 +121,20 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/windhawk_verify.ps1 -P
 
 Artifacts:
 
-- `artifacts/vibedotcom.dll`, `vibedotcom.log`, `renderer_tests.exe`, `tests.log`.
+- `artifacts/vibedotcom.dll`, `vibedotcom.log`, `renderer_tests.exe`, `tests.log`, `host_tests.exe`, `host-tests.log`.
 - `artifacts/demo/state.json`, matching hashed PNGs, and WPF `office-2x.png`, `office.png`, `transparent.png`.
 - `artifacts/render/windhawk-2x.png`, `windhawk-auto.png`, `windhawk-transparent.png`, `windhawk-offline.png`.
 
-The verified **existing v3 WPF build** exports a fabricated demo with nine agents and an expanded 37×24 map. The WPF and mod renders use **the same final snapshot and exported PNGs**. The 1216×800 2× comparison was opened and visually inspected: tiles, furniture, agent placement, identity accents, bubbles and depth order match. 99.71% of RGBA pixels match exactly (auto-fit 99.76%); text/relationship-line rasterization differs, so this is not a pixel-identical claim. The v4 fields/renderer branches are additionally tested with fabricated snapshots (`windhawk-v4-additions.png`). The concurrently edited v4 WPF sources were not rebuilt here; a v4 WPF comparison is still pending its author's build.
+The parity harness [tools/windhawk_parity.py](../tools/windhawk_parity.py) uses the existing app's **offscreen** `--demo --smoke-test` output. It verifies exported PNG hashes, renders the same state/poses/frames with the actual C++ renderer, and compares all four decoded straight RGBA channels exactly (including RGB under zero alpha), without resizing or tolerance. Auxiliary WPF snapshots refer to original source filenames; only their sheet paths are relocated to the identical SHA256-verified exported PNG bytes. `--render-only` avoids repeating the entire regression suite for each comparison scenario.
 
-The standalone CPU profile measures process CPU seconds / elapsed seconds, as a percentage of **one logical core**. It includes 5Hz local JSON reads/validation and cached pack handling with an unchanged live visual scene, then separately measures 1Hz offscreen disconnected idle drawing. This is a bounded harness measurement, not measured Explorer CPU or a guarantee for arbitrary map/agent counts. Native paints, tooltip/host polling and busy animation still require the manual checks below.
+```powershell
+# Python 3.9+ standard library only; use your installed Python executable.
+python tools/windhawk_parity.py --run-wpf --run-native --diff
+```
 
-Recorded verification (2026-10-04): both x64 targets compiled without warnings; **55 checks passed**, including v4 parsing, authoritative frames, queue/laptop drawing and unassigned desk sentinel tests. The final v3 harness profile measured **0.19% of one core** for unchanged live state (zero repeated paints), and **1.89%** for disconnected idle rendering. The task scripts passed PowerShell syntax parsing. Explorer injection, scheduled-task installation and full v4 WPF comparison remain unverified.
+`--wpf-dir` accepts an existing smoke output; `--app` selects an audited existing build. Comparison images and a JSON report are written below `windhawk/artifacts/parity`. Opening images is optional. The 2x room draws source tiles at the final camera scale so authored 32px tile details are preserved instead of first disappearing into a 16px intermediate raster. Provider tag widths use DirectWrite ideal advances, matching WPF measurement and collision placement. Differences in GDI+/WPF glyph and line rasterization are reported rather than presented as pixel identity.
+
+Current verification results and F1-F11 evidence are recorded in [windhawk-notes.md](../docs/windhawk-notes.md). Offscreen checks do not verify native Explorer parenting, Win+D, actual virtual-desktop switching, mixed-DPI monitor movement, device-removal geometry, or long-term Explorer CPU/GDI behavior. No DLL injection, input/foreground changes, installer execution or git commit is part of this verification.
 
 ## Manual test checklist — user performs later
 
@@ -136,4 +153,4 @@ Recorded verification (2026-10-04): both x64 targets compiled without warnings; 
 - [ ] Measure Explorer CPU for at least a minute while idle, hovering, minimized/occluded and actively animated; target under 2% idle. Check memory/GDI objects while toggling settings and disabling/re-enabling the mod. Confirm clean unload removes every office/tooltip and the worker thread.
 - [ ] Register the task yourself, log out/in, confirm hidden tracker and fresh state; stop/restart it and verify its child exits. Remove the task if unwanted.
 
-**No Explorer injection, live window/input manipulation, task registration, installer execution or git commit was performed during development.**
+**This review-fix verification performs no Explorer injection, existing-window/input manipulation, task registration, installer execution or git commit. Native host tests use only owned hidden windows.**

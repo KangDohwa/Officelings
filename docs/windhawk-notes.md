@@ -219,3 +219,56 @@ Windows 잠금 화면을 모두 같은 desktop이라고 설명하는 것은 부�
 **제품 결론: 잠금 화면 viewer는 지원하지 않는다.** 일반 user-mode Explorer mod가 LogonUI secure desktop에 표시할 수 있다고 약속할 수 없다. LockApp이 user session에 있다는 사실도 Explorer overlay가 잠금 UI 위에 안정적으로 표시된다는 supported contract를 뜻하지 않는다. SYSTEM 권한이나 secure-desktop 전용 구현이라면 조건이 달라지지만 이 viewer 범위 밖이다. `LogonUI.exe`/`winlogon.exe` 주입·security 변경·desktop 전환은 시도하지 않았다.
 
 선택적으로 session lock/unlock 알림을 받아 비표시 기간 animation을 멈출 수 있다. unlock 후 snapshot을 갱신하고 다시 그린다. 이 동작을 잠금 화면 표시와 혼동하지 않는다.
+
+## 7. F1-F11 수정 및 v4 offscreen 검증 (2026-10-04)
+
+이번 작업에서는 mod DLL을 Explorer에 로드하지 않았다. 기존 앱과 Core 소스는 읽기 전용으로 확인했으며, 테스트는 독립 실행 파일의 offscreen 렌더와 자체 소유한 숨겨진 HWND만 사용했다. 키/마우스 입력, 기존 창의 최소화·foreground 변경, 설치·배포·커밋은 수행하지 않았다. 위의 과거 PoC 조사 기록과 이번 검증 범위를 구분한다.
+
+| 항목 | 상태 | 변경 및 확인 근거 |
+| --- | --- | --- |
+| F1 | fixed | pointer-bearing `LVM_HITTEST` 제거. list-view 및 자식 영역에서는 hover를 억제한다. 실제 숨겨진 list-view의 message observer로 hit-test/pointer 메시지가 없음을 확인했다. |
+| F2 | fixed | GDI+ wrapper의 null-returning allocator/Clone 사용 제거, global/placement allocation과 일치하는 cleanup, 모든 graphics status/null/stride 검사. native 호출은 별도 noinline thunk와 SEH leaf를 거친 뒤 C++ Error로 변환한다. 실제 GdipAlloc null 주입, 17개 cold allocation 실패 지점과 warm 복구, RaiseException 및 PAGE_NOACCESS 실제 AV에서 RAII/COM cleanup과 이후 렌더 복구를 확인했다. |
+| F3 | mitigated | HWND 없는 scene worker로 IO/parse/hash/decode/GDI+ 렌더와 alpha hit/tooltip 계산을 옮겼다. UI는 완성된 immutable pixel packet을 표시한다. shell 요청은 worker의 scalar-only SendMessageTimeout이며 결과를 확인한다. 자체 worker packet의 pixel/hit depth/cache를 검사했다. child parenting의 입력 큐 결합 자체와 native presentation/COM 지연 가능성은 남으므로 완전한 shell hang 방지를 주장하지 않는다. |
+| F4 | fixed | move/size/menu 진입 때 50ms stop timer, stop 시 자체 창에 WM_CANCELMODE 및 capture 정리, 창 파괴 후 join. 실제 WndProc에 modal-entry/timer 메시지를 전달해 종료를 확인했다. 사용자 modal 조작은 실행하지 않았다. |
+| F5 | fixed | 같은 manifest/ID/path/SHA의 warm hit도 bitmap 치수를 후보 sheet와 비교한다. 잘못된 width/height를 cold/warm 모두 거부하고 기존 픽셀이 유지되는 회귀 검사 통과. |
+| F6 | fixed | state, desk/overflow ID, owner/monitor/state/frame 등 표시 의미를 repaint key에 포함한다. semantic state 변경의 key와 실제 pixel 변화, reserved desk tag 상태/거리 규칙을 검사했다. |
+| F7 | fixed | host 소실/실패 뒤 같은 Progman에서도 재요청, 1초부터 최대 30초 backoff, invalid HWND 복구. 실제 공용 retry 정책 검사는 통과했으며 WorkerW 재생성은 실 Explorer 미검증. |
+| F8 | fixed | ancestor visibility/cloak와 current virtual desktop을 검사한다. query 실패는 보수적으로 억제하고 서비스 부재 시 top-level hover를 비활성화한다. cloaked occluder 처리와 hover 정책 검사 통과. 실제 desktop 전환은 미검증. |
+| F9 | fixed | WM_DISPLAYCHANGE 및 DPI/parent 변경 시 placement 갱신, 완전히 offscreen인 창만 복구. 실제 popup/framed HWND의 client와 pixel extent를 4096×2048 이하로 일치시킨다. 자체 창의 실제 resize 및 음수/부분/offscreen geometry 검사 통과. |
+| F10 | fixed | target-HWND DPI context에서 physical/client 좌표 변환. tooltip font/padding/measurement를 cursor monitor DPI로 갱신. 자체 font의 96/144/192 DPI와 반올림 검사 통과. 실제 mixed-DPI 이동은 미검증. |
+| F11 | fixed | relative sheet grammar를 실제 root 접근과 분리해 가상의 C: drive 의존성을 제거했다. 절대/UNC/traversal/ADS/NUL/UTF 오류와 정상 Unicode 경로 검사 통과. |
+
+독립 정적 검토에서 추가로 발견한 종료 경쟁도 수정했다. join 대기 중 CancelSynchronousIo를 반복하므로 첫 취소 이후 시작된 동기 IO도 취소된다. 자체 pipe/barrier 회귀에서 첫 실제 취소는 ERROR_NOT_FOUND(1168), 이후 read는 ERROR_OPERATION_ABORTED(995), 취소 호출은 2회, watchdog 강제 해제는 0회였다. 이 API는 pending IO 취소 요청이며 driver별 완료를 보장하는 deadline은 아니다. [Microsoft 계약](https://learn.microsoft.com/en-us/windows/win32/api/ioapiset/nf-ioapiset-cancelsynchronousio).
+
+추가로 ULW/DIB 표시 실패 시 새 packet 없이도 재시도를 예약하고, UnlockBits 호출 전에 ownership flag를 해제해 native fault 이후 중복 unlock을 피했다. 기다림 화면의 Font도 별도 소유한 FontFamily overload를 사용한다. Clang의 같은-frame SEH 한계를 피하는 noinline thunk는 설치된 Windhawk clang의 최적화 빌드에서 실제 AV로 확인했다. [Clang SEH 제한](https://clang.llvm.org/docs/MSVCCompatibility.html#abi-features). callback body의 직접 fault 주입, unlock/font 내부 API별 fault 주입, presentation 실패 재시도의 runtime 주입 검사는 수행하지 않았다.
+
+v4 렌더는 고정된 office/layout, supplied frames/manifest rotation·variants·state names를 사용한다. 캐릭터 머리 위 provider icon/name tag, 자리를 비운 owner의 reserved desk tag, assigned monitor 상태, overflow laptop 및 queued 표시를 반영했다. additive v4+의 미지 필드는 무시하며 새 seated pose/env3 side desk 통합은 이 작업에 포함하지 않았다.
+
+### Alpha와 embedding의 확인 범위
+
+Desktop child와 transparent frameless 창은 premultiplied BGRA + UpdateLayeredWindow(ULW_ALPHA), AC_SRC_ALPHA, SourceConstantAlpha를 사용한다. framed normal/topmost는 worker의 opaque buffer + BitBlt + LWA_ALPHA를 사용하며 두 정책을 같은 HWND에서 혼용하지 않는다. Windows 8부터 layered child가 지원된다. [Microsoft ULW 계약](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-updatelayeredwindow), [LWA/ULW 상호작용](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setlayeredwindowattributes).
+
+이 환경의 test EXE에서는 sidecar activation만으로 layered child 생성이 거부됐고, Windows 8+ compatibility manifest를 EXE에 포함한 뒤 자체 숨겨진 WS_CHILD가 ULW_ALPHA와 50%/100% constant alpha를 허용했다. compile.ps1은 별도 resource compiler 없이 표준 .res를 만들어 test EXE에 링크한다. [resource format](https://learn.microsoft.com/en-us/windows/win32/menurc/resource-file-formats). 이 검사는 visible DWM 결과나 Explorer manifest 정책을 증명하지 않는다. 실제 child 생성/표시 실패 시 mod는 자체 child만 제거하고 bottom-level top-level per-pixel 창으로 fallback한다. shell 부모의 style/manifest/DPI 정책을 변경하지 않는다.
+
+### 최종 검증 및 parity
+
+`windhawk/compile.ps1 -Tests`: DLL 및 두 test EXE 컴파일 성공. renderer **238 checks**, hidden host **48 checks** 전부 통과. host include에서 사용하지 않는 production entry/helper 4개에 대한 unused-function 경고가 있으며 mod/renderer compile 실패는 없다. 관련 PowerShell 4개 syntax 검사 및 git diff whitespace 검사도 통과했다.
+
+기존 Release app의 `--demo --smoke-test` 결과와 동일한 state를 actual C++ renderer에 전달했다. build/source/PNG hash와 snapshot identity는 parity harness에 기록했다. 보조 snapshot에서는 sheet filename만 동일 SHA256의 exported PNG 경로로 바꾸며 나머지 내용은 보존한다. 네 RGBA 채널 모두 정확히 같은 pixel만 일치로 계산하고 tolerance/resizing은 사용하지 않는다.
+
+| 비교 장면 | 정확한 RGBA pixel 일치율 |
+| --- | ---: |
+| 기본 2x | 99.631851% |
+| 기본 auto | 99.716964% |
+| transparent | 99.716964% |
+| normal | 99.490534% |
+| reserved tags | 99.386161% |
+| overflow | 98.513972% |
+| 작은 auto-fit (400×300) | 99.226667% |
+| 7개 장면 pixel 수 가중 합계 | **99.334461%** (3,862,696 / 3,888,576) |
+
+타일을 16px intermediate room으로 축소하던 문제를 제거해 authored detail을 최종 scale에서 보존했다. DirectWrite ideal advance로 tag 폭/collision을 맞추고 GDI+의 조기 이름 생략을 제거했다. 남은 차이는 주로 WPF/GDI+ glyph와 얇은 선 rasterization이며 pixel identity를 주장하지 않는다. 이번 수정 과정에서 comparison image를 **총 6개** 확인했다.
+
+결과: [parity report](../windhawk/artifacts/parity/report.json), [최종 기본 비교](../windhawk/artifacts/parity/office-2x-comparison.png), [최종 overflow 비교](../windhawk/artifacts/parity/overflow-comparison.png), [renderer log](../windhawk/artifacts/tests.log), [host log](../windhawk/artifacts/host-tests.log). artifacts는 git에 포함되지 않는다.
+
+남은 실기 검증은 Explorer parenting/WorkerW loss/reload, 실제 modal 중 unload, Win+D 및 virtual desktop 전환, mixed-DPI/monitor removal, visible embedded alpha, CPU/GDI/memory soak다. offscreen/hidden 검사로 이를 대신하지 않는다. native driver/library 내부의 부분 완료나 heap corruption 등 모든 Explorer crash를 절대적으로 차단한다는 보장은 할 수 없다.
