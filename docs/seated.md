@@ -5,9 +5,9 @@
 ## Run and outputs
 
 ```powershell
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe -B tools/seated.py
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe -B tools/seated.py
 # Optional native-pixel hip/seat height; default 52, accepted range 48..54.
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe -B tools/seated.py --seat-y 52 --character professor
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe -B tools/seated.py --seat-y 52 --character professor
 ```
 
 Use the existing Pillow/NumPy environment. The script calls the read-only `blink_frame` helper in `tools/facelock.py`. Inputs need all 13 states, 42 nonempty 32×64 frames and a current face-lock provenance report. Missing, incomplete or stale sources are skipped; source bytes are checked again before publication. New silhouettes need a reviewed calibration in `PROFILES`/`ARMS`. They are not treated as p5 recolors. Identical output leaves timestamps unchanged.

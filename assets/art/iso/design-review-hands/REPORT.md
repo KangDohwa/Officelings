@@ -61,4 +61,4 @@ hero의 얼굴이 읽히는 BVT·MINT 카메라 쪽 크롭에는 키보드로 �
 
 따라서 **최종 승인 전에는 가구의 물리 형상으로 다시 제작한 뒤 같은 측정, 빈 책상 재구성·모든 screen 상태·소품/보행자/전환을 확인**해야 한다. 캐릭터 재생성은 권고안에 필요하지 않는다. 현재 CRT 배치를 유지하기로 결정하면 손 0%를 허용하고 전완/소매의 타이핑 읽힘을 평가하는 문구를 S0에 명시하는 것이 정직하다.
 
-실행: `& 'C:/Users/myori/.codex/skills/sprite-gen/.venv/Scripts/python.exe' -B assets/art/iso/design-review-hands/measure.py`. 48 기본 프레임·17안=816개 기록, C/H 정확 일치, 기본 피부 접점≤1px, 두 ROI 분모 보존, 표면 원본 재구성, 레이어 소유권 교차 확인, 입력 33개 SHA-256 불변 검사가 통과했다. PNG 21쌍의 3×가 정확한 NEAREST 확대인지 확인하고 합성과 hero 크롭을 열람했다. **WPF 실행·runtime depth·DPI/picking·연속 동작·모든 가구 상태 검증은 하지 않았다.** docs·원본 에셋·기존 design-review는 수정하지 않았고 모든 쓰기는 이 폴더에 한정했다. 이미지 생성과 git 쓰기는 하지 않았다.
+실행: `& 'C:/Users/<user>/.codex/skills/sprite-gen/.venv/Scripts/python.exe' -B assets/art/iso/design-review-hands/measure.py`. 48 기본 프레임·17안=816개 기록, C/H 정확 일치, 기본 피부 접점≤1px, 두 ROI 분모 보존, 표면 원본 재구성, 레이어 소유권 교차 확인, 입력 33개 SHA-256 불변 검사가 통과했다. PNG 21쌍의 3×가 정확한 NEAREST 확대인지 확인하고 합성과 hero 크롭을 열람했다. **WPF 실행·runtime depth·DPI/picking·연속 동작·모든 가구 상태 검증은 하지 않았다.** docs·원본 에셋·기존 design-review는 수정하지 않았고 모든 쓰기는 이 폴더에 한정했다. 이미지 생성과 git 쓰기는 하지 않았다.

@@ -1874,10 +1874,10 @@
     }
   ],
   "qa_images": {
-    "server-rack": "C:\\Users\\myori\\AppData\\Local\\Temp\\anim-qa\\server-rack-before-after-4x.png",
-    "coffee-machine": "C:\\Users\\myori\\AppData\\Local\\Temp\\anim-qa\\coffee-machine-before-after-4x.png",
-    "water-cooler": "C:\\Users\\myori\\AppData\\Local\\Temp\\anim-qa\\water-cooler-before-after-4x.png",
-    "tv": "C:\\Users\\myori\\AppData\\Local\\Temp\\anim-qa\\tv-before-after-4x.png"
+    "server-rack": "C:\\Users\\<user>\\AppData\\Local\\Temp\\anim-qa\\server-rack-before-after-4x.png",
+    "coffee-machine": "C:\\Users\\<user>\\AppData\\Local\\Temp\\anim-qa\\coffee-machine-before-after-4x.png",
+    "water-cooler": "C:\\Users\\<user>\\AppData\\Local\\Temp\\anim-qa\\water-cooler-before-after-4x.png",
+    "tv": "C:\\Users\\<user>\\AppData\\Local\\Temp\\anim-qa\\tv-before-after-4x.png"
   },
   "missing_qa_props": []
 }

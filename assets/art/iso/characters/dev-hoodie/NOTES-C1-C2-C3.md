@@ -15,7 +15,7 @@ Made: `dev-hoodie-iso.png` (128×2432, 152 normal cells); `dev-hoodie-iso-blink.
 5. Four distinct walk and typing phases use fixed foot/keyboard contacts. Seated waiting holds thinking phase 0. Sit/stand use the exact S0 contact schedule; raising is the validated reversed lowering sequence. Sit endpoint equals seated rest; stand endpoint equals idle. Source head translation is (0,0) throughout; only `surprised` changes open-eye bytes. Blink closes the same 12 eye texels per facing in every eligible phase.
 6. `review_contacts.py` reads A3's `furniture-part-convention.md` and published workstation split parts, places the actor by C−(16,44), and composes the published depth/tie ordering. A3 arrived before seated review; no substitute furniture was used. Its input hashes and all four C/H proofs are retained in `runs/pilot/contact-proof.json`.
 
-Rebuild from the saved references, from the workspace root, with `C:/Users/myori/.codex/skills/sprite-gen/.venv/Scripts/python.exe`:
+Rebuild from the saved references, from the workspace root, with `C:/Users/<user>/.codex/skills/sprite-gen/.venv/Scripts/python.exe`:
 
 ```text
 assets/art/iso/characters/dev-hoodie/runs/pilot/normalize.py

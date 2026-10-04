@@ -24,8 +24,7 @@ ROOT = Path(__file__).resolve().parent
 ART = ROOT.parent
 REPO = ART.parents[1]
 ENV2 = ART / "env2"
-SKILL = Path(os.environ.get("SPRITE_GEN_ROOT", r"C:\Users\myori\.codex\skills\sprite-gen"))
-CLI = SKILL / ".venv/Scripts/sprite-gen.exe"
+CLI = Path(os.environ["SPRITE_GEN_ROOT"]) / ".venv/Scripts/sprite-gen.exe" if os.environ.get("SPRITE_GEN_ROOT") else "sprite-gen"
 sys.path.insert(0, str(REPO))
 from tools.anim_normalize import normalize_frames
 

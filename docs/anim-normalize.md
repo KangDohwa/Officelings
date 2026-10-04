@@ -3,8 +3,8 @@
 `tools/anim_normalize.py` aligns frames to frame zero and copies that frame's RGBA bytes into every non-animated pixel. It corrects whole-frame integer shifts and regenerated body/cabinet details without resampling. Use the existing sprite-gen environment with Pillow and NumPy.
 
 ```powershell
-& 'C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe' -B tools/anim_normalize.py
-& 'C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe' -B tools/test_anim_normalize.py
+& 'C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe' -B tools/anim_normalize.py
+& 'C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe' -B tools/test_anim_normalize.py
 ```
 
 The CLI reads 64×64 props in `assets/art/env2/sheets`, optional `assets/art/env3/sheets`, and recognized prop manifests in `assets/art/sheets/locked`. Locked human-character sheets and 32×32 environment tiles/walls are excluded. It also reads `assets/art/sheets/props.png` with its manifest. The TV, coffee machine and water cooler in this source set live there.
