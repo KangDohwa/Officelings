@@ -6,9 +6,27 @@ The art was generated with an AI image model. Project art/assets are [CC BY 4.0]
 
 ## Flat and iso packs
 
-The steps below describe the flat pack in `assets/pack/`. The app also embeds a separate assembled iso pack in `assets/art/iso/pack/`, with `projection:"iso2to1"`, hash-named sheets and its own layout. Current iso uses three designs (dev-hoodie-v2, punk-girl, professor), four facings, desk seating, carried report art and a cat in a twelve-seat room. Source furniture-v3 revisions and the embedded runtime pack are separate: a source-art commit alone does not prove that a given app build includes it.
+The steps below describe the flat pack in `assets/pack/`. The app also embeds a separate assembled iso pack in `assets/art/iso/pack/`, with `projection:"iso2to1"`, hash-named sheets and its own layout. Pack v4 uses six designs (dev-hoodie-v2, punk-girl, professor, glasses-bun, hanbok-modern, red-braid), four facings, desk seating, carried report art, wall/decor v3 and a cat in a twelve-seat room. Source revisions and the embedded runtime pack are separate: rebuild and inspect the app after integrating art.
 
 Iso floor cells are 64×32, character cells 32×64, cat/prop cells 32×32; furniture generally uses 128×128 cells (rug differs). Geometry, split depth layers, contacts, blink and alias rules are in [S0](iso-slice-s0.md) and [iso integration](iso-integration-contract.md). S0's v6/native export plan is not the current Tracker output. Do not run the flat pack builder as if it produced the iso pack. See [current captures and regeneration](img/README.md) for both views; inspect the rendered pack after changing source art.
+
+### Rebuild the iso pack
+
+Read each source folder's NOTES/CHANGES before selection. `build_iso_pack.py` runs the final checker with RGB tolerance 0 before publishing and records selected paths/hashes. It includes complete furniture-v3 families, all six current character rigs, env-v3 walls/decor and the cat; later cap-teen/labcoat-tall and pets-v2 exports are candidates only when present. At base commit `beb346a`, these later folders are absent. A present failing source stops publication.
+
+```powershell
+python -B tools/build_iso_pack.py
+python -B tools/iso_check.py assets/art/iso/pack/assets.json --tolerance 0
+python -B -m unittest discover -s tools -p test_build_iso_pack.py
+dotnet test Vibedotcom.sln
+Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--view iso --demo --tags always --smoke-tags --smoke-test artifacts/iso-pack-v4' -Wait
+```
+
+Use a disposable Python environment with the existing `tools/requirements-build.txt` dependencies. Do not read live agent profiles for captures. The 10×10 layout has ten wall attachment edges; the two-cell day window inherits right hosts 04/05, and left door 04 stays clear. Nameplate art belongs to closed leaves only. Night/blinds exports remain available without automatic switching. Multi-pet runtime selection is capped at two and seeded; only the cat has production art in this checkout.
+
+The builder preserves source PNG bytes, adds the missing glasses-bun design entry and bakes chair masks for all six rigs. Runtime JSON uses compact encoding because the complete chair bindings would exceed the 4 MiB limit with indentation. The current referenced bundle is 3,697,262 bytes (3.53 MiB): 62 PNGs / 827,894 bytes, manifest 2,844,964 bytes and layout 24,404 bytes. Builders retain older immutable PNGs; before committing a rebuilt embedded pack, remove only sheets absent from the new manifest's `files` index while no reader needs the old pack. Core embeds the entire sheets directory.
+
+Compare the empty, three-agent, twelve-agent, arrival, departure and 24-second demo PNGs at each zoom against the hero and previous captures. Checker passes establish geometry/palette contracts, not visual approval. The [integration contract](iso-integration-contract.md#pack-v4-additions) records source/pack check counts, render paths and remaining limits.
 
 ## Steps
 
