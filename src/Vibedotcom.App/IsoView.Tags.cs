@@ -69,10 +69,16 @@ internal sealed partial class IsoView
                 var name=elements.Length>14 ? label.Text[..elements[14]]+"…" : label.Text;
                 var text=NameText(name);
                 var width=Math.Clamp(Math.Ceiling(text.WidthIncludingTrailingWhitespace)+17,27,112);
-                var rect=new Rect(Math.Clamp(label.X-width/2,1,Math.Max(1,scene.Width-width-1)),label.Y-15,width,14);
+                var rect=new Rect(Math.Clamp(label.X-width/2,1,Math.Max(1,scene.Width-width-1)),Math.Clamp(label.Y-15,1,Math.Max(1,scene.Height-15)),width,14);
                 rect=new(Snap(rect.X),Snap(rect.Y),rect.Width,rect.Height);
                 var outline=rect; outline.Inflate(1,1);
-                for (var attempt=0;attempt<100 && plates.Any(p=>p.IntersectsWith(outline));attempt++) { rect.Y-=2; outline.Y-=2; }
+                var desiredY=rect.Y;
+                while(rect.Y>=3 && plates.Any(p=>p.IntersectsWith(outline))) { rect.Y-=2; outline.Y-=2; }
+                if (plates.Any(p=>p.IntersectsWith(outline)))
+                {
+                    rect.Y=desiredY; outline.Y=desiredY-1;
+                    while(rect.Bottom+2<=scene.Height-1 && plates.Any(p=>p.IntersectsWith(outline))) { rect.Y+=2; outline.Y+=2; }
+                }
                 plates.Add(outline); tagRects[label.AgentId]=rect;
                 dc.PushOpacity(opacity);
                 dc.DrawRectangle(agent?.IsSubagent==true ? childEdge : leadEdge,null,outline);

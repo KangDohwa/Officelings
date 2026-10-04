@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using Vibedotcom.Core.Iso;
 
 namespace Vibedotcom.App;
 
@@ -19,6 +20,13 @@ internal sealed class PackIsoSheetSource : IIsoSheetSource
     private readonly Dictionary<(string,int,int,int,int),BitmapSource> crops=new();
     private readonly Dictionary<(string,string,int),IsoSheetCell> cells=new();
     private readonly Func<string,Stream> openSheet;
+    private readonly IsoPack? pack;
+    internal IsoPack? RuntimePack => pack;
+    internal PackIsoSheetSource(IsoPack pack)
+    {
+        this.pack=pack;
+        openSheet=_=>throw new InvalidOperationException("Runtime sheets come from IsoPack.Images.");
+    }
     private PackIsoSheetSource(Stream manifest,Func<string,Stream> openSheet)
     {
         this.openSheet=openSheet;
@@ -70,6 +78,25 @@ internal sealed class PackIsoSheetSource : IIsoSheetSource
     public IsoSheetCell GetCell(string sheetId,string key,int frame)
     {
         if(cells.TryGetValue((sheetId,key,frame),out var cached)) return cached;
+        if (pack!=null)
+        {
+            var runtimeClip=pack.Clip(sheetId,key); var resolved=pack.Frame(sheetId,key,frame);
+            if (frame<0 || frame>=runtimeClip.Frames) throw new InvalidDataException("ISO frame outside declared clip: "+key);
+            if (!images.TryGetValue(sheetId,out var sheet))
+            {
+                using var stream=new MemoryStream(pack.Images[sheetId],false);
+                var bitmap=new BitmapImage(); bitmap.BeginInit(); bitmap.CacheOption=BitmapCacheOption.OnLoad;
+                bitmap.StreamSource=stream; bitmap.EndInit(); bitmap.Freeze(); images[sheetId]=sheet=bitmap;
+            }
+            var cropKey=(sheetId,resolved.Row,resolved.Column,resolved.Width,resolved.Height);
+            if (!crops.TryGetValue(cropKey,out var crop))
+            {
+                crop=new CroppedBitmap(sheet,new Int32Rect(resolved.X,resolved.Y,resolved.Width,resolved.Height));
+                crop.Freeze(); crops[cropKey]=crop;
+            }
+            var runtimeCell=new IsoSheetCell(crop,resolved.Width,resolved.Height,(int)resolved.AnchorX,(int)resolved.AnchorY,runtimeClip.Frames);
+            cells[(sheetId,key,frame)]=runtimeCell; return runtimeCell;
+        }
         if(!clips.TryGetValue((sheetId,key),out var clip))
         {
             var canonical=key.Length>3 ? key[..^2]+key[^2..].ToLowerInvariant() : key;

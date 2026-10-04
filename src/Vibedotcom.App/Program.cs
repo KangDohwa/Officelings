@@ -137,7 +137,7 @@ internal static partial class Program
             var app = new Application();
             if (verifyOpacity != null) return OpacityVerification.Run(verifyOpacity);
             if (initial?.View == "iso" || initial == null && !storage.Isolated && Settings.Read(storage.SettingsPath).View == "iso")
-                return IsoApplication.Run(app,demo,initial,quitAfter,qa,storage,home,assetDirectory,smoke,smokeTags,layoutFile,stateSource,profile);
+                return IsoApplication.Run(app,demo,initial,quitAfter,qa,storage,home,args.Contains("--asset-dir") ? assetDirectory : null,smoke,smokeTags,layoutFile,stateSource,profile);
             (AssetPack Assets, OfficeLayout Layout) LoadOffice()
             {
                 var assets = stateSource != null && assetDirectory != null ? AssetPack.LoadExported(assetDirectory)
@@ -497,6 +497,7 @@ internal sealed partial class OfficeWindow : Window
     private readonly TextBlock status = new() { Margin = new(16,7,16,7), Foreground = new SolidColorBrush(Color.FromRgb(231,209,172)), FontSize = 11 };
     private readonly TextBlock counts = new() { VerticalAlignment = VerticalAlignment.Center, Foreground = new SolidColorBrush(Color.FromRgb(231,209,172)), FontSize = 11 };
     private readonly AgentTracker tracker;
+    private readonly string? trackerHome;
     private readonly OfficeAnimator office;
     private readonly WindowModes modes;
     private Forms.NotifyIcon? tray;
@@ -517,6 +518,7 @@ internal sealed partial class OfficeWindow : Window
         IReadOnlyDictionary<string, BitmapSource>? decodedSheets = null, string? trackerHome = null)
     {
         this.demo = demo;
+        this.trackerHome = trackerHome;
         this.storage = storage ?? new AppStorage(demo || qa);
         this.qa = qa; this.epoch=demoEpoch ?? DateTimeOffset.UtcNow;
         this.assets = assets ?? new(); view = new(this.assets, Path.Combine(this.storage.Home,"brand"), decodedSheets); office = liveOffice ?? new(42,this.assets,layout,ActivityCatalog.Load(this.storage.Home,this.assets.Warnings));
@@ -665,6 +667,7 @@ internal sealed partial class OfficeWindow : Window
     private void Place(Rect bounds) { Width = bounds.Width; Height = bounds.Height; Left = bounds.Left; Top = bounds.Top; }
     private (string Title,Action Action,Func<bool>? Check)[] MenuItems() =>
     [
+        ("Isometric view",SwitchIso,()=>false),
         ("Normal",()=>SetMode("normal"),()=>settings.Mode=="normal"),
         ("Always on top",()=>SetMode("topmost"),()=>settings.Mode=="topmost"),
         ("Desktop level",()=>SetMode("desktop"),()=>settings.Mode=="desktop"),

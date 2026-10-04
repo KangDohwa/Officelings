@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace Vibedotcom.Core.Iso;
 
@@ -24,7 +25,24 @@ public static class IsoLayoutLoader
         if (!root.TryGetProperty("view", out var view) || view.GetString() != "iso" ||
             !root.TryGetProperty("projection", out var projection) || projection.GetString() != "iso2to1")
             throw new InvalidDataException("An iso layout must explicitly declare view/projection; missing view means flat.");
-        return Validate(root.Deserialize<IsoLayout>(StateJson.Options) ?? throw new InvalidDataException("Empty iso layout."), pack);
+        // The compiled I1 layout uses explicit checker IDs and wall endpoints;
+        // the engine stores checker parity and each wall's first endpoint.
+        var normalized=JsonNode.Parse(root.GetRawText())!.AsObject();
+        if (root.TryGetProperty("cutaway",out var cutaway) && cutaway.ValueKind==JsonValueKind.Object)
+        {
+            if (cutaway.GetProperty("front").GetString()!="hidden" || cutaway.GetProperty("rear").GetString()!="visible")
+                throw new InvalidDataException("Unsupported iso cutaway.");
+            normalized["cutaway"]="rear-two-walls";
+        }
+        if (normalized["tiles"] is JsonArray tiles)
+            for (var k=0;k<tiles.Count;k++) if (tiles[k]?.GetValue<int>()==3) tiles[k]=2;
+        if (normalized["wallSegments"] is JsonArray walls)
+            foreach (var wall in walls)
+            {
+                if (wall?["moduleId"] is {} module && wall["assetId"]==null) wall["assetId"]=module.DeepClone();
+                if (wall?["start"] is {} start && wall["edge"]==null) wall["edge"]=start.DeepClone();
+            }
+        return Validate(normalized.Deserialize<IsoLayout>(StateJson.Options) ?? throw new InvalidDataException("Empty iso layout."), pack);
     }
     public static IsoLayout Default(IsoPack pack)
     {

@@ -3,7 +3,7 @@ namespace Vibedotcom.Core.Iso;
 /// Desk-only seating simulation for AgentInfo inputs. Flat OfficeAnimator remains untouched.
 public sealed class IsoOffice : IIsoOffice
 {
-    private enum Phase { WalkToSeat, Turn, Lower, Seated, Raise, Exit, Fade, Stand, Pickup, Carry, Handover, Hidden }
+    private enum Phase { Enter, WalkToSeat, Turn, Lower, Seated, Raise, Exit, Fade, Stand, Pickup, Carry, Handover, Hidden }
     private sealed class Actor(AgentInfo info, CharacterDesign design, Position position)
     {
         public AgentInfo Info = info;
@@ -15,7 +15,7 @@ public sealed class IsoOffice : IIsoOffice
         public Queue<Tile> Path = new();
         public Tile? PathTarget;
         public Phase Phase = Phase.WalkToSeat;
-        public double PhaseTime, ActionTime, NextBlink = 3, BlinkUntil;
+        public double PhaseTime, ActionTime, NextBlink = 3, BlinkUntil, EntryRemaining;
         public bool Gone, ReportDone;
         public AgentState LastState = info.State;
         public readonly Random BlinkRandom = new(unchecked((int)SpriteAtlas.Hash(info.Id)));
@@ -43,6 +43,13 @@ public sealed class IsoOffice : IIsoOffice
     private readonly Cat cat;
     private IsoScene scene;
     private double time, simulatedTime, nextDue;
+    private double nextEntrance;
+    private bool petsEnabled=true,petVisibilityChanged;
+    public bool PetsEnabled
+    {
+        get=>petsEnabled;
+        set { if(petsEnabled==value) return; petsEnabled=value; petVisibilityChanged=true; }
+    }
     public IsoLayout Layout { get; }
     public double NextChangeSeconds { get; private set; }
     public IsoOffice(IsoPack pack, int seed) : this(pack, seed, IsoTwelveSeatFixture.OfficeLayout(pack)) { }
@@ -66,18 +73,20 @@ public sealed class IsoOffice : IIsoOffice
     {
         if (!double.IsFinite(deltaSeconds) || deltaSeconds < 0) throw new ArgumentOutOfRangeException(nameof(deltaSeconds));
         time += deltaSeconds;
-        var external = Synchronize(agents);
+        var external = Synchronize(agents) || petVisibilityChanged;
+        petVisibilityChanged=false;
         if (!external && time + 1e-9 < nextDue)
         { NextChangeSeconds = Math.Max(0, nextDue - time); return scene; }
         var elapsed = time - simulatedTime; simulatedTime = time;
         AssignSeats();
         foreach (var actor in ordered) Advance(actor, elapsed);
         AssignSeats();
-        AdvanceCat(elapsed);
+        if(petsEnabled) AdvanceCat(elapsed);
         poses.Clear(); var next = double.PositiveInfinity;
         foreach (var a in ordered)
         {
-            if (a.Phase == Phase.Hidden) continue;
+            if (a.Phase is Phase.Hidden or Phase.Enter)
+            { next=Math.Min(next,NextActorChange(a)); continue; }
             var seated = a.Phase is Phase.Turn or Phase.Lower or Phase.Seated or Phase.Raise;
             var phase = a.Phase switch { Phase.Turn => "turn", Phase.Lower => "lower", Phase.Raise => "raise", Phase.Seated => "seated", _ => null };
             var phaseFrame = a.Phase is Phase.Lower or Phase.Raise ? Math.Clamp((int)Math.Floor(a.PhaseTime * 10 + 1e-9), 0, 3) : 0;
@@ -87,8 +96,9 @@ public sealed class IsoOffice : IIsoOffice
                 a.DeskId, phase, phaseFrame, blink, a.Phase is Phase.Carry or Phase.Handover, alpha));
             next = Math.Min(next, NextActorChange(a));
         }
-        scene = builder.Build(poses, new(cat.Position, cat.Facing, cat.Action, cat.ActionTime), time);
-        next = Math.Min(next, Math.Min(builder.NextChangeSeconds, cat.Action == "walk" ? 1d / 30 : cat.Remaining));
+        scene = builder.Build(poses, petsEnabled ? new(cat.Position, cat.Facing, cat.Action, cat.ActionTime) : null, time);
+        next = Math.Min(next, builder.NextChangeSeconds);
+        if(petsEnabled) next = Math.Min(next,cat.Action == "walk" ? 1d / 30 : cat.Remaining);
         NextChangeSeconds = Math.Max(0, next); nextDue = time + NextChangeSeconds;
         return scene;
     }
@@ -118,6 +128,11 @@ public sealed class IsoOffice : IIsoOffice
             {
                 var design = pack.Assign(info, ordered.Where(a => a.Phase != Phase.Hidden).Select(a => a.Design.Id));
                 var a = new Actor(info, design, new(Layout.Door.X, Layout.Door.Y));
+                // A poll can discover a dozen sessions at once. Admit them
+                // through the one-tile door at walking-distance intervals.
+                a.EntryRemaining=Math.Max(0,nextEntrance-time);
+                if (a.EntryRemaining>0) a.Phase=Phase.Enter;
+                nextEntrance=Math.Max(time,nextEntrance)+.4;
                 a.NextBlink = time + 3 + a.BlinkRandom.NextDouble() * 3;
                 actors.Add(info.Id, a); ordered.Add(a);
             }
@@ -133,7 +148,7 @@ public sealed class IsoOffice : IIsoOffice
         var usedQueue = ordered.Where(a => a.DeskId == null && a.Phase != Phase.Hidden).Select(a => a.Destination).ToHashSet();
         foreach (var a in ordered)
         {
-            if (a.Gone || a.DeskId != null) continue;
+            if (a.Gone || a.DeskId != null || a.Phase==Phase.Enter) continue;
             var seat = seatOrder.FirstOrDefault(s => !reserved.Contains(s));
             if (seat != null)
             {
@@ -152,6 +167,13 @@ public sealed class IsoOffice : IIsoOffice
     private void Advance(Actor a, double dt)
     {
         if (a.Phase == Phase.Hidden && a.Gone) return;
+        if (a.Phase==Phase.Enter)
+        {
+            if (a.Gone) { SetPhase(a,Phase.Hidden); return; }
+            var consumed=Math.Min(dt,a.EntryRemaining); a.EntryRemaining-=consumed; dt-=consumed;
+            if (a.EntryRemaining>1e-9) return;
+            SetPhase(a,Phase.WalkToSeat); AssignSeats();
+        }
         var remaining = dt; var transitions = 0;
         while (++transitions <= 32)
         {
@@ -246,6 +268,7 @@ public sealed class IsoOffice : IIsoOffice
     {
         var next = a.Phase switch
         {
+            Phase.Enter=>Math.Max(0,a.EntryRemaining),
             Phase.WalkToSeat or Phase.Carry or Phase.Exit or Phase.Fade => 1d / 30,
             Phase.Turn => Math.Max(0, .12 - a.PhaseTime),
             Phase.Lower or Phase.Raise => Math.Max(0, (Math.Floor(a.PhaseTime * 10 + 1e-9) + 1) / 10 - a.PhaseTime),

@@ -6,8 +6,8 @@ public static class IsoTwelveSeatFixture
     internal static IsoLayout OfficeLayout(IsoPack pack)
     {
         var original = IsoLayoutLoader.Default(pack);
-        var expected = original.Furniture.Select(f => (f.Id, f.AssetId, f.X, f.Y, f.Rotation));
-        var actual = pack.Layout.Furniture.Select(f => (f.Id, f.AssetId, f.X, f.Y, f.Rotation));
+        var expected = original.Furniture.Select(f => (f.AssetId, f.X, f.Y, f.Rotation));
+        var actual = pack.Layout.Furniture.Select(f => (f.AssetId, f.X, f.Y, f.Rotation));
         return expected.ToHashSet().SetEquals(actual) ? Create(pack) : pack.Layout;
     }
     public static IsoLayout Create(IsoPack pack)
