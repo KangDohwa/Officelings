@@ -14,6 +14,7 @@ internal static partial class Program
     {
         PayloadChecks();
         await TransportChecks();
+        UiChecks();
         Console.WriteLine($"Sharing checks: {passed} passed, {failed} failed. Synthetic data; no network.");
         return failed == 0 ? 0 : 1;
     }
