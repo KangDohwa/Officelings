@@ -8,7 +8,9 @@ internal static class Program
     {
         Action[] checks = [IsoV3RegressionChecks.SeatedContactsAndOcclusion,
             IsoV3RegressionChecks.TvScreenGlowStates, IsoV3RegressionChecks.NavigationAndTwelveAgents,
-            IsoV3RegressionChecks.WalkersAndTransitions, IsoV3RegressionChecks.WpfPixelsAndBounds];
+            IsoV3RegressionChecks.WalkersAndTransitions, IsoV3RegressionChecks.WpfPixelsAndBounds,
+            IsoSeatedOcclusionChecks.TypingLowerBody, IsoSeatedOcclusionChecks.SeatTransitions,
+            IsoSeatedOcclusionChecks.ChairUnionAndVisibility];
         if (args.Length > 0) checks = checks.Where(c => args.Contains(c.Method.Name)).ToArray();
         if (checks.Length == 0) throw new ArgumentException("Unknown ISO check.");
         var failed = 0;
