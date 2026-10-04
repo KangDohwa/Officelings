@@ -97,15 +97,15 @@ def chair(facing):
     for i,j in ((6,0),(0,6),(-6,0),(0,-6),(4,4)):
         mesh += limb((0,0,2),(i,j,2),.6,1) + box(i-.8,j-.8,i+.8,j+.8,0,2,1)
     mesh += box(-.8,-.8,.8,.8,2,10,1)
-    # 2px cushion; stepped rounded front corners, retaining z12 contact.
-    poly=[(-3,-3.5),(2.5,-3.5),(2.5,-3),(3.5,-3),(3.5,-2),(4,-2),(4,2),
-          (3.5,2),(3.5,3),(2.5,3),(2.5,3.5),(-3,3.5)]
-    mesh += prism(poly,10,12,2)
+    # 40% smaller in both horizontal axes; bevels retain a compact z12 top.
+    poly=[(-2.1,0),(0,-2.1),(2.1,0),(0,2.1)]
+    mesh += prism(poly,10.5,12,2)
     # Separate thin back slab: top remains z21, lower joint at cushion height.
-    mesh += box(-4,-4,-3.5,4,12,21,3)
-    for j in (-4.5,4.5):
-        mesh += box(-2,j-.35,2,j+.35,12,13,4)
-        mesh += box(-1.5,j-.3,-1,j+.3,8,12,4)
+    mesh += box(-4,-2.75,-3.5,2.75,12,21,3)
+    mesh += box(-3.75,-.4,-.8,.4,10,12,1)
+    for j in (-2.9,2.9):
+        mesh += box(-1.5,j-.3,1.5,j+.3,12,13,4)
+        mesh += box(-1.25,j-.25,-.75,j+.25,8,12,4)
     d,label,shade=raster(mesh,facing)
     art=np.zeros((128,128,4),np.uint8)
     for m in range(1,5):
@@ -126,10 +126,12 @@ def chair(facing):
 def actor_mesh(facing, pose, frame, height):
     pelvis=height
     standing=pose=="turn" or height>=19
-    knee=(1.5 if standing else 5,8 if not standing else 9)
-    mesh=ellipsoid((0,0,pelvis+1),(1.6,2,2))
+    knee=(1.5,9) if standing else (5,pelvis+1.2)
+    mesh=ellipsoid((0,0,pelvis+(1 if standing else 2)),(1.6,2,2) if standing else (2.4,2.5,2))
     for side in (-1,1):
-        hip=(0,side*1.5,pelvis); k=(knee[0],side*1.5,knee[1]); foot=(knee[0]+1,side*1.5,1)
+        # The thigh underside rests on z12 instead of descending through the
+        # cushion to the old z8 knee. Contact/phase metadata and art stay fixed.
+        hip=(0,side*1.5,pelvis if standing else pelvis+1.2); k=(knee[0],side*1.5,knee[1]); foot=(knee[0]+1,side*1.5,1)
         mesh += limb(hip,k,1.1)+limb(k,foot,.85)+box(foot[0]-.5,foot[1]-.8,foot[0]+1.6,foot[1]+.8,0,2)
     lean=1.1 if pose=="resting" else .3
     mesh += ellipsoid((lean,0,pelvis+7),(1.9,2.2,6.5))
@@ -165,8 +167,8 @@ def actor_depth(facing,pose,height):
     return raster(actor_mesh(facing,pose,0,height),facing)[0]
 
 
-def oracle(facing,pose,frame,clip,pixels):
-    art,cd,labels=chair(facing); dx,dy,height=contact(clip,frame)
+def calibrated_actor_depth(facing,pose,height,dx,dy,pixels):
+    """Map authored alpha to proxy depth; expose diagnostics without masking art."""
     ad=actor_depth(facing,pose,height)
     actor=pixels[:,:,3]>0
     # Calibration: map every real sprite sample to the closest projected proxy
@@ -177,6 +179,14 @@ def oracle(facing,pose,frame,clip,pixels):
     nearest=distances.argmin(axis=1)
     values=ad[sy[nearest],sx[nearest]]
     aligned=np.full((128,128),-np.inf); aligned[worldy,worldx]=values
+    return aligned, float(np.sqrt(distances.min(axis=1)).max())
+
+
+def oracle(facing,pose,frame,clip,pixels):
+    art,cd,labels=chair(facing); dx,dy,height=contact(clip,frame)
+    aligned,distance=calibrated_actor_depth(facing,pose,height,dx,dy,pixels)
+    actor=pixels[:,:,3]>0; ay,ax=np.where(actor); worldx=ax+dx; worldy=ay+dy
+    values=aligned[worldy,worldx]
     overlaps=np.zeros_like(actor)
     overlaps[ay,ax]=art[worldy,worldx,3]>0
     hidden=np.zeros_like(actor); hidden[ay,ax]=overlaps[ay,ax] & (cd[worldy,worldx]>values+1e-7)
@@ -187,7 +197,7 @@ def oracle(facing,pose,frame,clip,pixels):
     parts[0][~front]=art[~front]
     parts[1][front&(labels==2)]=art[front&(labels==2)]
     parts[2][front&(labels!=2)]=art[front&(labels!=2)]
-    return parts,hidden,overlaps,float(np.sqrt(distances.min(axis=1)).max())
+    return parts,hidden,overlaps,distance
 
 
 def bits(mask): return base64.b64encode(np.packbits(mask.ravel(),bitorder="little")).decode("ascii")
@@ -215,8 +225,8 @@ def write_chair(directory):
                          depthAnchor=r["depthAnchor"],isoZOrder=r["isoZOrder"],seatGroupId="seat") for r in rows]
         Image.fromarray(art).save(directory/f"chair-empty-{f}.png")
     atlas.save(directory/sheet["file"])
-    manifest["provenance"]["chairV3"]="Deterministic native 3D raster: rounded-front 2px cushion z10..12, mesh back slab z12..21, z13 arm pads, metal lift and five caster contacts; frozen anchors/palette."
-    manifest["provenance"]["seatedOcclusion"]="tools/iso_seated_geometry.py native 3D z-buffer; 2px cushion z10..12, back z12..21; three disjoint parts. Pack bakes per-source-frame sandwich masks."
+    manifest["provenance"]["chairV3"]="Deterministic native 3D raster: beveled 4.2x4.2 cushion z10.5..12 (40% narrower in both axes), 5.5-wide mesh back slab z12..21, compact z13 arm pads, metal lift and five caster contacts; frozen anchors/palette."
+    manifest["provenance"]["seatedOcclusion"]="tools/iso_seated_geometry.py native 3D z-buffer; thigh underside z12.1 and pelvis underside z12 rest above the cushion; three disjoint parts. Pack bakes per-source-frame sandwich masks."
     manifest["provenance"]["limitations"]="Actor art is 2D: nearest projected proxy surface extrapolates clothing/hair. No physical claim for arbitrary independent walkers."
     path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
 

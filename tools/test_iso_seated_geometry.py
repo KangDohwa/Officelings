@@ -14,6 +14,8 @@ from PIL import Image
 
 import build_iso_pack as pack
 import iso_seated_geometry as geometry
+import check_iso_chair_fit as fit
+import iso_check
 
 PILOTS=(*pack.CHARACTERS,"glasses-bun","hanbok-modern")
 OUTPUT=pack.ROOT/"artifacts/seatfix/five-pilots"
@@ -110,6 +112,23 @@ class SeatedGeometryTests(unittest.TestCase):
         np.testing.assert_array_equal(a,b)
         self.assertGreater(int((label==2).sum()),0)
         self.assertGreater(int((label==3).sum()),0)
+
+    def test_seated_cushion_fit_against_authored_silhouette(self):
+        # This gate is independent of the baked ownership oracle: authored lap
+        # rows must sit above the top and the visible seat must fit narrow hips.
+        fit.report(fit.measure(OUTPUT, OUTPUT / "fit"), enforce=True)
+
+    def test_empty_assembly_parts_require_exact_union(self):
+        arrays={s["id"]:(np.array(self.images[s["id"]]),s) for s in self.manifest["sheets"]}
+        empty=set()
+        iso_check.seated_assemblies(self.manifest,arrays,empty)
+        self.assertTrue(empty,"Slender cushion should exercise fully hidden front cells")
+        # A missing source sample must fail, even though empty parts are legal.
+        pixels,sheet=arrays["iso-chair-parts"]
+        pixels=pixels.copy(); y,x=np.argwhere(pixels[:,:,3]>0)[0]; pixels[y,x]=0
+        arrays["iso-chair-parts"]=(pixels,sheet)
+        with self.assertRaisesRegex(AssertionError,"union"):
+            iso_check.seated_assemblies(self.manifest,arrays,set())
 
 
 if __name__=="__main__":unittest.main()
