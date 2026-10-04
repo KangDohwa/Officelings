@@ -1,4 +1,5 @@
 using System.Buffers.Binary;
+using System.Diagnostics;
 
 namespace Vibedotcom.Core.Providers;
 
@@ -7,25 +8,30 @@ namespace Vibedotcom.Core.Providers;
 // Format: https://www.sqlite.org/fileformat2.html#wal_file_format
 internal static class SqliteMemoryImage
 {
-    private const int Limit = 256 * 1024 * 1024;
+    private const int Limit = (int)SqliteSnapshot.MaximumCopyBytes;
     internal static byte[] Read(string source)
     {
         Span<byte> journalHeader = stackalloc byte[8];
+        var deadline = Stopwatch.GetTimestamp() + Stopwatch.Frequency * 2;
         for (var attempt = 0; attempt < 3; attempt++)
         {
             var stamp = SqliteSnapshot.Stamp(source);
-            var image = Bytes(source);
-            var wal = File.Exists(source + "-wal") ? Bytes(source + "-wal") : [];
+            long total = 0;
+            var image = Bytes(source, ref total, deadline);
+            byte[] wal = [];
             try
             {
-                if (File.Exists(source + "-journal"))
+                wal = FileBoundary.Exists(source + "-wal") ? Bytes(source + "-wal", ref total, deadline) : [];
+                if (FileBoundary.Exists(source + "-journal"))
                 {
+                    using var ancestors = FileBoundary.LockAncestors(source + "-journal");
                     using var journal = Open(source + "-journal");
+                    Budget(journal.Length, ref total, deadline);
                     if (journal.Read(journalHeader) == 8 && journalHeader.SequenceEqual(new byte[] { 0xd9,0xd5,0x05,0xf9,0x20,0xa1,0x63,0xd7 }))
                         throw new IOException("Antigravity rollback journal is active; using cached state.");
                 }
                 if (stamp != SqliteSnapshot.Stamp(source)) { Array.Clear(image); continue; }
-                var merged = Merge(image,wal);
+                var merged = Merge(image,wal,deadline);
                 if (!ReferenceEquals(merged,image)) Array.Clear(image);
                 return merged;
             }
@@ -35,12 +41,37 @@ internal static class SqliteMemoryImage
         throw new IOException("Antigravity snapshot remained unstable.");
     }
 
-    private static FileStream Open(string path) => new(path,FileMode.Open,FileAccess.Read,FileShare.ReadWrite | FileShare.Delete);
-    private static byte[] Bytes(string path)
+    private static FileStream Open(string path) => FileBoundary.OpenRead(FileBoundary.Check(path), FileShare.ReadWrite | FileShare.Delete);
+    private static void CheckDeadline(long deadline)
     {
+        if (Stopwatch.GetTimestamp() >= deadline) throw new IOException("Antigravity memory snapshot deadline exceeded.");
+    }
+    private static void Budget(long length, ref long total, long deadline)
+    {
+        CheckDeadline(deadline);
+        total += length;
+        if (total > Limit) throw new IOException("Antigravity memory snapshot exceeds 64 MiB read budget.");
+    }
+    private static byte[] Bytes(string path, ref long total, long deadline)
+    {
+        using var ancestors = FileBoundary.LockAncestors(path);
         using var stream = Open(path);
-        if (stream.Length > Limit) throw new IOException("Antigravity memory snapshot exceeds 256 MiB.");
-        var result = new byte[(int)stream.Length]; stream.ReadExactly(result); return result;
+        var length = stream.Length;
+        Budget(length, ref total, deadline);
+        var result = new byte[(int)length];
+        try
+        {
+            for (var offset = 0; offset < result.Length;)
+            {
+                CheckDeadline(deadline);
+                var read = stream.Read(result, offset, Math.Min(64 * 1024, result.Length - offset));
+                if (read == 0) throw new IOException("Antigravity snapshot changed while reading.");
+                offset += read;
+            }
+            CheckDeadline(deadline);
+            return result;
+        }
+        catch { Array.Clear(result); throw; }
     }
     private static uint Big(ReadOnlySpan<byte> bytes) => BinaryPrimitives.ReadUInt32BigEndian(bytes);
     private static void Checksum(ReadOnlySpan<byte> bytes, bool bigEndian, ref uint first, ref uint second)
@@ -54,8 +85,10 @@ internal static class SqliteMemoryImage
             }
         }
     }
-    internal static byte[] Merge(byte[] database, byte[] wal)
+    internal static byte[] Merge(byte[] database, byte[] wal, long deadline = long.MaxValue)
     {
+        CheckDeadline(deadline);
+        if ((long)database.Length + wal.Length > Limit) throw new IOException("Antigravity memory snapshot exceeds 64 MiB read budget.");
         if (database.Length < 100 || !database.AsSpan(0,16).SequenceEqual("SQLite format 3\0"u8))
             throw new IOException("Antigravity database header is invalid.");
         var pageSize = (int)BinaryPrimitives.ReadUInt16BigEndian(database.AsSpan(16));
@@ -73,6 +106,7 @@ internal static class SqliteMemoryImage
             var committedEnd = 32; uint pages=0;
             for (var offset=32; offset <= wal.Length-pageSize-24; offset+=pageSize+24)
             {
+                CheckDeadline(deadline);
                 var frame=wal.AsSpan(offset,24);
                 if (!frame[8..16].SequenceEqual(wal.AsSpan(16,8)) || Big(frame) == 0) break;
                 Checksum(frame[..8],bigEndian,ref first,ref second);
@@ -82,13 +116,18 @@ internal static class SqliteMemoryImage
             }
             if (pages != 0)
             {
-                if ((long)pages * pageSize > Limit) throw new IOException("Antigravity memory snapshot exceeds 256 MiB.");
+                if ((long)pages * pageSize > Limit) throw new IOException("Antigravity memory snapshot exceeds 64 MiB image budget.");
                 image=new byte[(int)pages*pageSize]; database.AsSpan(0,Math.Min(image.Length,database.Length)).CopyTo(image);
-                for (var offset=32; offset<committedEnd; offset+=pageSize+24)
+                try
                 {
-                    var page=Big(wal.AsSpan(offset));
-                    if (page <= pages) wal.AsSpan(offset+24,pageSize).CopyTo(image.AsSpan(((int)page-1)*pageSize,pageSize));
+                    for (var offset=32; offset<committedEnd; offset+=pageSize+24)
+                    {
+                        CheckDeadline(deadline);
+                        var page=Big(wal.AsSpan(offset));
+                        if (page <= pages) wal.AsSpan(offset+24,pageSize).CopyTo(image.AsSpan(((int)page-1)*pageSize,pageSize));
+                    }
                 }
+                catch { Array.Clear(image); throw; }
                 BinaryPrimitives.WriteUInt32BigEndian(image.AsSpan(28),pages);
             }
         }

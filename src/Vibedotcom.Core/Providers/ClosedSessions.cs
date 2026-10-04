@@ -39,7 +39,7 @@ internal sealed class ClosedSessions(string home, Func<int, long?, bool?>? proce
         ReadCodex(warnings);
         var moved = new HashSet<string>(StringComparer.Ordinal);
         foreach (var (path, ids) in codexPaths)
-            if (!File.Exists(path) && File.Exists(Path.Combine(home, ".codex", "archived_sessions", Path.GetFileName(path))))
+            if (!FileBoundary.Exists(path) && FileBoundary.Exists(Path.Combine(home, ".codex", "archived_sessions", Path.GetFileName(path))))
                 moved.UnionWith(ids);
         foreach (var a in agents.Values)
         {
@@ -56,15 +56,16 @@ internal sealed class ClosedSessions(string home, Func<int, long?, bool?>? proce
     private void ReadClaude(HashSet<string> warnings)
     {
         var root = Path.Combine(home, ".claude", "sessions");
-        if (!Directory.Exists(root)) return;
         try
         {
-            foreach (var path in Directory.EnumerateFiles(root, "*.json", new EnumerationOptions { IgnoreInaccessible = true }))
+            FileBoundary.Check(root);
+            if (!FileBoundary.Exists(root, directory: true)) return;
+            using var ancestors = FileBoundary.LockAncestors(Path.Combine(root, ".boundary"));
+            foreach (var path in Directory.EnumerateFiles(root, "*.json", new EnumerationOptions { IgnoreInaccessible = true, AttributesToSkip = FileAttributes.ReparsePoint }).Take(InputLimits.Sources))
             {
                 try
                 {
-                    if (new FileInfo(path).Length > 65536) continue;
-                    using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+                    using var file = new MemoryStream(FileBoundary.ReadBytes(path, 65536));
                     using var doc = JsonDocument.Parse(file);
                     var r = doc.RootElement;
                     if (!string.Equals(LogParser.String(r, "pidDomain"), "win32:" + Environment.MachineName, StringComparison.OrdinalIgnoreCase) ||
@@ -72,23 +73,23 @@ internal sealed class ClosedSessions(string home, Func<int, long?, bool?>? proce
                         !r.TryGetProperty("pid", out var pid) || !pid.TryGetInt32(out var number) || number <= 0) continue;
                     long? start = long.TryParse(LogParser.String(r, "procStart"), NumberStyles.Integer, CultureInfo.InvariantCulture, out var ticks) && ticks > 0 ? ticks : null;
                     // Keep an observed mapping if the registry file is cleaned up on exit.
-                    claude[path] = new(LogParser.Key(Provider.Claude, id), number, start);
+                    if (claude.Count < InputLimits.Sources || claude.ContainsKey(path)) claude[path] = new(LogParser.Key(Provider.Claude, id), number, start);
                     // Peer tokens are not read: probing or messaging Claude is unnecessary.
                 }
-                catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException or InvalidOperationException)
+                catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or InvalidOperationException)
                 { warnings.Add("Claude session registration unavailable; using activity timeout."); }
             }
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
         { warnings.Add("Claude session registry unavailable; using activity timeout."); }
     }
 
     private void ReadCodex(HashSet<string> warnings)
     {
         var path = Path.Combine(home, ".codex", "state_5.sqlite");
-        if (!File.Exists(path)) { archived.Clear(); codexStamp = null; return; }
         try
         {
+            if (!FileBoundary.Exists(path)) { archived.Clear(); codexStamp = null; return; }
             var stamp = SqliteSnapshot.Stamp(path);
             if (stamp == codexStamp) return;
             using var db = new SqliteSnapshot(path);
@@ -98,7 +99,7 @@ internal sealed class ClosedSessions(string home, Func<int, long?, bool?>? proce
                 .Select(r => LogParser.Key(Provider.Codex, r[0]!)).ToArray();
             archived.Clear(); archived.UnionWith(ids); codexStamp = stamp;
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or DllNotFoundException)
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or DllNotFoundException)
         { warnings.Add("Codex archive state unavailable; using cached state/activity timeout."); }
     }
 

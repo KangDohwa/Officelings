@@ -2,6 +2,7 @@
 
 from contextlib import redirect_stderr, redirect_stdout
 from io import BytesIO, StringIO
+from email.message import Message
 import os
 from pathlib import Path
 import sys
@@ -54,7 +55,11 @@ class BrandFetchTests(unittest.TestCase):
         }
 
     def response(self, request, **kwargs):
-        return BytesIO(self.payloads[request.full_url])
+        response = BytesIO(self.payloads[request.full_url])
+        response.headers = Message()
+        response.headers["Content-Type"] = "image/x-icon" if request.full_url.endswith(".ico") else "image/png"
+        response.geturl = lambda: request.full_url
+        return response
 
     def fetch(self, recolor=False, output=None):
         with (patch.object(brand, "urlopen", side_effect=self.response) as network,
@@ -70,8 +75,11 @@ class BrandFetchTests(unittest.TestCase):
         files, network = self.fetch()
         expected = {f"{provider}{suffix}.png" for provider in brand.SOURCES for _, suffix in brand.SIZES}
         self.assertEqual({path.name for path in files}, expected)
-        self.assertEqual(network.call_count, 4)
+        self.assertEqual(network.call_count, 3)
         for url, payload in self.payloads.items():
+            if url.endswith(".svg"):
+                self.assertFalse((self.originals / Path(urlsplit(url).path).name).exists())
+                continue
             self.assertEqual((self.originals / Path(urlsplit(url).path).name).read_bytes(), payload)
         for path in files:
             size = 36 if "@3x" in path.stem else 24 if "@2x" in path.stem else 12
@@ -163,7 +171,7 @@ class BrandFetchTests(unittest.TestCase):
         path.write_bytes(self.payloads[brand.SOURCES["codex"][0]])
         self.assertEqual(brand.load_raster(path).size, (64, 64))
 
-    def test_installed_svg_renderer_is_preferred_and_supersampled(self):
+    def test_installed_svg_renderer_is_never_used_for_downloads(self):
         vector = self.gemini.resize((brand.VECTOR_SIZE, brand.VECTOR_SIZE))
         renderer = Mock(return_value=image_bytes(vector))
         with (patch.object(brand, "urlopen", side_effect=self.response) as network,
@@ -172,8 +180,8 @@ class BrandFetchTests(unittest.TestCase):
             files = brand.fetch_icons(self.originals, self.output)
         self.assertEqual(len(files), 9)
         self.assertEqual(network.call_count, 3)
-        renderer.assert_called_once_with(bytestring=self.svg, output_width=288, output_height=288)
-        self.assertFalse((self.originals / Path(urlsplit(brand.SOURCES["antigravity"][1]).path).name).exists())
+        renderer.assert_not_called()
+        self.assertTrue((self.originals / Path(urlsplit(brand.SOURCES["antigravity"][1]).path).name).exists())
 
     def test_svg_network_failure_uses_official_png(self):
         def response(request, **kwargs):

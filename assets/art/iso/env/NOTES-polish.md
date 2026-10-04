@@ -92,7 +92,7 @@ the world slot point in the table. Hanging height changes pixels, not host depth
 pixels programmatically; do not rerun the historical generator to reproduce polish.
 
 ```powershell
-$env:SPRITE_GEN_ROOT = 'C:/Users/myori/.codex/skills/sprite-gen'
+$env:SPRITE_GEN_ROOT = 'C:/Users/<user>/.codex/skills/sprite-gen'
 $env:PYTHONIOENCODING = 'utf-8'
 & "$env:SPRITE_GEN_ROOT/.venv/Scripts/python.exe" assets/art/iso/env/polish_env.py
 & "$env:SPRITE_GEN_ROOT/.venv/Scripts/python.exe" tools/iso_check.py assets/art/iso/env |

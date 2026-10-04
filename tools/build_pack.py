@@ -19,6 +19,8 @@ from PIL import Image, ImageDraw
 
 from anim_normalize import normalize_frames, normalize_sheet
 from publication import writer_lock
+from safe_files import safe_path, relative_file, read_bytes, read_json, open_png, write_boundary, bounded_glob, make_directory
+from safe_files import atomic_write as write_file
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,17 +54,20 @@ SEATED_ACTIONS = (("seated_back", "up"), ("seated_left", "left"), ("seated_right
 
 class ProductionSheet:
     def __init__(self, image_path: Path, manifest_path: Path):
-        self.data = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
+        manifest_path = safe_path(manifest_path)
+        self.data = read_json(manifest_path)
         self.directory = manifest_path.parent
         if "publication" in self.data:
-            image_path = self.directory / self.data["sprite_sheet_alpha"]
-        with Image.open(image_path) as source:
+            image_path = relative_file(self.directory, self.data["sprite_sheet_alpha"])
+        with open_png(image_path) as source:
             if source.format != "PNG":
                 raise ValueError("final sheet is not a PNG")
             self.image = source.convert("RGBA")
         self.layout = self.data["frame_layout"]
         self.rows = self.layout["rows"]
         self.animation = self.data["animation"]["rows"]
+        if len(self.rows) > 128 or any(len(row) > 128 for row in self.rows.values()):
+            raise ValueError("sheet row/frame count exceeds budget")
         if self.image.size != (self.layout["sheetWidth"], self.layout["sheetHeight"]):
             raise ValueError("sheet dimensions disagree with frame_layout")
 
@@ -123,13 +128,13 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
     seated_position = (16 - size[0] // 2, 60 - round(60 * size[1] / 64))
 
     def seated_normalized(frame):
-        result = Image.new("RGBA", (32, 64))
+        result = new_image((32, 64))
         result.paste(frame.resize(size, Image.Resampling.NEAREST), seated_position)
         return result
 
     def normalized(frame):
         bottom = frame.getchannel("A").getbbox()[3]
-        result = Image.new("RGBA", (32, 64))
+        result = new_image((32, 64))
         resized = frame.resize(size, Image.Resampling.NEAREST)
         result.paste(resized, (16 - size[0] // 2, 60 - round(bottom * size[1] / 64)))
         return result
@@ -138,9 +143,9 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
     # its published eye boxes/offsets, never substituting a walking body.
     blink_rows = []
     lock = source.data.get("facelock", {})
-    report_path = source.directory / lock.get("report", "missing")
+    report_path = relative_file(source.directory, lock.get("report", "missing"))
     try:
-        report = json.loads(report_path.read_text(encoding="utf-8-sig"))
+        report = read_json(report_path)
         blink = source.data.get("blink", {})
         for name, _, action, direction in ACTIONS:
             if name.startswith("walk") or name in ("sleep", "report"):
@@ -157,7 +162,7 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
                 entry = blink.get(visible)
                 if not entry:
                     continue
-                with Image.open(source.directory / entry["file"]) as image:
+                with open_png(relative_file(source.directory, entry["file"])) as image:
                     closed = image.convert("RGBA")
                 origin = report["rows"][entry["source"]["state"]]
                 opened = source.frames(entry["source"]["state"], (32, 64))[entry["source"]["frame"]]
@@ -182,7 +187,7 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
     except (OSError, ValueError, KeyError, TypeError):
         blink_rows = []
 
-    image = Image.new("RGBA", (128, 13 * 64))
+    image = new_image((128, 13 * 64))
     clips = []
     for row, (name, _, action, direction) in enumerate(ACTIONS):
         frames = frames_by_action[name]
@@ -198,7 +203,7 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
     for action, facing in dict.fromkeys((a, f) for a, f, _, _ in blink_rows):
         group = [item for item in blink_rows if item[:2] == (action, facing)]
         row = image.height // 64
-        extended = Image.new("RGBA", (128, image.height + 64))
+        extended = new_image((128, image.height + 64))
         extended.paste(image, (0, 0)); image = extended
         for column, (_, _, _, frame) in enumerate(group):
             image.paste(normalized(frame), (column * 32, row * 64))
@@ -212,7 +217,7 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
         blink = seated["blinkSheet"]
         if (blink["cellW"], blink["cellH"], blink["frames"]) != (32, 64, 4):
             raise ValueError("seated blink cells/count must match the four normal phases")
-        with Image.open(source.directory / blink["file"]) as opened:
+        with open_png(relative_file(source.directory, blink["file"])) as opened:
             if opened.format != "PNG" or opened.size != (128, 128):
                 raise ValueError("seated blink sheet must be a 128x128 PNG")
             blink_image = opened.convert("RGBA")
@@ -256,7 +261,7 @@ def character_sheet(source: ProductionSheet) -> tuple[Image.Image, list[dict]]:
                 groups.append(("blink-" + name, closed))
             for runtime_name, group in groups:
                 row = image.height // 64
-                extended = Image.new("RGBA", (128, image.height + 64))
+                extended = new_image((128, image.height + 64))
                 extended.paste(image, (0, 0))
                 image = extended
                 for column, frame in enumerate(group):
@@ -270,9 +275,17 @@ def clip(name, row, frames=1, fps=1, loop=False, direction="any", column=0):
                 frames=frames, fps=fps, loop=loop)
 
 
+def new_image(size, color=0):
+    width, height = size
+    if max(size) > 8192 or min(size) <= 0 or width * height > 16_777_216:
+        raise ValueError("generated PNG dimension/pixel budget exceeded")
+    return Image.new("RGBA", size, color)
+
 def atlas(frames: list[Image.Image]) -> Image.Image:
     width, height = frames[0].size
-    image = Image.new("RGBA", (width * len(frames), height))
+    if len(frames) > 128 or width * len(frames) > 8192 or height > 8192 or width * height * len(frames) > 16_777_216:
+        raise ValueError("atlas dimensions/frame count exceed budget")
+    image = new_image((width * len(frames), height))
     for column, frame in enumerate(frames):
         if frame.size != (width, height):
             raise ValueError("atlas cell sizes differ")
@@ -285,19 +298,19 @@ def provider_icons(art_dir: Path, size: int) -> dict[str, Image.Image]:
     directory = art_dir / "provider-icons"
     if not (directory / "manifest.json").is_file():
         return {}
-    data = json.loads((directory / "manifest.json").read_text(encoding="utf-8-sig"))
+    data = read_json(directory / "manifest.json")
     overlays = {icon["id"] for icon in data["icons"] if icon["type"] == "overlay"}
     result = {}
     for asset in data["assets"]:
         if asset["size"] != size:
             continue
         name = asset["id"]
-        path = directory / asset["files"]["1"]
+        path = relative_file(directory, asset["files"]["1"])
         if name in overlays and not path.is_file():
             continue
         if name in result or asset["anchor"] != {"x": 0, "y": 0}:
             raise ValueError(f"{name}: invalid provider icon metadata")
-        with Image.open(path) as image:
+        with open_png(path) as image:
             if image.format != "PNG" or image.size != (size, size):
                 raise ValueError(f"{name}: provider icon must be a native {size}x{size} PNG")
             result[name] = image.convert("RGBA")
@@ -310,7 +323,7 @@ def provider_icons(art_dir: Path, size: int) -> dict[str, Image.Image]:
 
 def laptop_sprite() -> Image.Image:
     """A tiny original open laptop for a single walkable world tile."""
-    image = Image.new("RGBA", (16, 16))
+    image = new_image((16, 16))
     draw = ImageDraw.Draw(image)
     draw.rectangle((3, 3, 12, 9), fill="#20252b")
     draw.rectangle((4, 4, 11, 8), fill="#d7c9ab")
@@ -327,7 +340,7 @@ def laptop_sprite() -> Image.Image:
 
 def counter_stool_sprite() -> Image.Image:
     """Original backless pantry stool, with its feet on source y=30."""
-    image = Image.new("RGBA", (32, 32))
+    image = new_image((32, 32))
     draw = ImageDraw.Draw(image)
     outline = "#20252b"
     draw.polygon([(11, 12), (14, 12), (12, 29), (8, 29)], fill=outline)
@@ -383,7 +396,7 @@ def rotate_furniture(manifest: dict, images: dict[str, Image.Image]):
                 original = images[sheet_id]
                 originals[sheet_id] = (original.height // cell,
                                        {row["name"]: row.copy() for row in sheet["rows"]})
-                rotated = Image.new("RGBA", (original.width, original.height * 4))
+                rotated = new_image((original.width, original.height * 4))
                 rotated.paste(original, (0, 0))
                 for y in range(0, original.height, cell):
                     for x in range(0, original.width, cell):
@@ -437,25 +450,15 @@ def furniture_anchor(frames, footprint):
 
 
 def atomic_write(path: Path, data: bytes):
-    if path.is_file() and path.read_bytes() == data:
+    path = safe_path(path)
+    if path.is_file() and read_bytes(path) == data:
         return
-    path.parent.mkdir(parents=True, exist_ok=True)
-    temporary = None
-    try:
-        with tempfile.NamedTemporaryFile(dir=path.parent, prefix=".build-pack-",
-                                         suffix=".tmp", delete=False) as stream:
-            temporary = Path(stream.name)
-            stream.write(data)
-            stream.flush()
-            os.fsync(stream.fileno())
-        os.replace(temporary, path)
-    finally:
-        if temporary is not None:
-            temporary.unlink(missing_ok=True)
+    write_file(path, data)
 
 
 def build_pack(art_dir: Path, output: Path) -> dict:
-    art_dir, output = art_dir.resolve(), output.resolve()
+    art_dir, output = safe_path(art_dir), safe_path(output)
+    safe_path(output / "sheets")
     if output == art_dir or art_dir in output.parents:
         raise ValueError("output must be outside the production art directory")
     manifest = {"version": 1, "generatedBy": GENERATED_BY,
@@ -465,16 +468,31 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     skipped = []
     fallbacks = []
     cache = {}
+    source_pixels = 0
+    output_pixels = 0
 
     def production(path, metadata=None, prop=None):
+        nonlocal source_pixels
         key = (path, metadata, prop)
         if key not in cache:
-            cache[key] = ProductionSheet(path, metadata or path.with_suffix(".manifest.json"))
+            if len(cache) >= 256:
+                raise ValueError("source sheet count exceeds budget")
+            candidate = ProductionSheet(path, metadata or path.with_suffix(".manifest.json"))
+            pixels = candidate.image.width * candidate.image.height
+            if source_pixels + pixels > 32 * 1024 * 1024:
+                raise ValueError("source sheet pixel budget exceeded")
+            cache[key] = candidate
+            source_pixels += pixels
             if prop is not None:
                 cache[key].image, _ = normalize_sheet(cache[key].image, cache[key].data, prop=prop)
         return cache[key]
 
     def add_sheet(sheet_id, image, cell, anchor, rows):
+        nonlocal output_pixels
+        previous = images.get(sheet_id)
+        output_pixels += image.width * image.height - (previous.width * previous.height if previous is not None else 0)
+        if max(image.size) > 8192 or image.width * image.height > 16_777_216 or output_pixels > 32 * 1024 * 1024:
+            raise ValueError("output sheet pixel budget exceeded")
         images[sheet_id] = image
         entry = dict(id=sheet_id, file="", cellW=cell[0], cellH=cell[1],
                      anchor=anchor, scale=1, rows=rows)
@@ -493,9 +511,9 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         locked_metadata = locked.with_suffix(".manifest.json")
         if image is None:
             try:
-                data = json.loads(locked_metadata.read_text(encoding="utf-8-sig"))
-                report = json.loads((locked.parent / data["facelock"]["report"]).read_text(encoding="utf-8-sig"))
-                if all(hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
+                data = read_json(locked_metadata)
+                report = read_json(relative_file(locked.parent, data["facelock"]["report"]))
+                if all(hashlib.sha256(read_bytes(relative_file(ROOT, name.replace("\\", "/")))).hexdigest() == digest
                        for name, digest in report["sourceHashes"].items()):
                     image, rows = character_sheet(production(locked, locked_metadata))
             except (OSError, ValueError, KeyError, TypeError):
@@ -509,7 +527,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     # Published seated pairs are authoritative; art authors can have pending
     # directories. A broken published pair fails before roster's skip path.
     seated_characters = {}
-    for directory in sorted((art_dir / "seated").glob("*")):
+    for directory in bounded_glob(art_dir / "seated"):
         if not directory.is_dir() or directory.name.startswith("."):
             continue
         path = directory / f"{directory.name}.png"
@@ -517,7 +535,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
             continue
         if not path.is_file():
             try:
-                if "publication" not in json.loads(path.with_suffix(".manifest.json").read_bytes()):
+                if "publication" not in read_json(path.with_suffix(".manifest.json")):
                     continue  # Legacy pending directory, not a committed batch.
             except (OSError, ValueError):
                 continue
@@ -533,7 +551,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         add_character(character_id, art_dir / "sheets" / f"{character_id}.png")
     roster_dir = art_dir / "roster"
     if roster_dir.is_dir():
-        for directory in sorted(roster_dir.iterdir()):
+        for directory in bounded_glob(roster_dir):
             if not directory.is_dir() or directory.name.startswith("."):
                 continue
             try:
@@ -605,7 +623,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     desk_padding = 14 if all(desk_parts) else 0
     desk_anchor = {"x": 8, "y": 8 + desk_padding}
     if all(desk_parts):
-        desk = Image.new("RGBA", (desk_cell, desk_cell))
+        desk = new_image((desk_cell, desk_cell))
         # Back-facing seat below the tabletop, screen above it. All authored
         # components share world x=24. Raise only the monitor 14 world pixels:
         # its bottom at y=3 leaves the head-anchored outer nameplate clear.
@@ -648,7 +666,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         # All authored chair colours remain selectable, with the same contact.
         chairs = []
         for part in desk_parts[2][0]:
-            chair = Image.new("RGBA", (64, 64))
+            chair = new_image((64, 64))
             chair.alpha_composite(part.crop(part.getchannel("A").getbbox()).resize((18, 24), Image.Resampling.NEAREST), (23, 34))
             chairs.append(chair)
         for part_name, z_order in (("back", 0), ("front", 18)):
@@ -693,7 +711,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         furniture(f"cozy-plant-{name}", "plant", (1, 1), *variant)
 
     rug = tiles.frames("floor_office", (32, 32))[0].resize((64, 48), Image.Resampling.NEAREST)
-    rug_cell = Image.new("RGBA", (64, 64))
+    rug_cell = new_image((64, 64))
     rug_cell.paste(rug, (0, 16))
     aliases = (
         ("bookshelf", "bookshelf", (3, 2), "bookshelf", ([p5_prop("coffee_machine")], 1, False), 1),
@@ -787,7 +805,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
             continue
         source = production(path)
-        with Image.open(art_dir / "env4" / "qa" / "masks" / f"{name}.png") as opened:
+        with open_png(art_dir / "env4" / "qa" / "masks" / f"{name}.png") as opened:
             mask = opened.convert("L")
         if mask.size != (64, 64):
             raise ValueError(f"{name}: invalid ambient animation mask")
@@ -805,14 +823,14 @@ def build_pack(art_dir: Path, output: Path) -> dict:
             original = groups[0][0]
             dark = min((p for p in original.get_flattened_data() if p[3] == 255),
                        key=lambda p: sum(p[:3]))
-            unlit = Image.new("RGBA", (64, 64), dark)
+            unlit = new_image((64, 64), dark)
             unlit.putalpha(original.getchannel("A"))
             groups.append([Image.composite(unlit, original, mask)])
             rows.append(clip("off", len(groups) - 1))
         if name == "vending-machine":
             rows.extend((dict(rows[0], name="closed", frames=1, fps=1, loop=False),
                          dict(rows[0], name="open")))
-        image = Image.new("RGBA", (64 * max(map(len, groups)), 64 * len(groups)))
+        image = new_image((64 * max(map(len, groups)), 64 * len(groups)))
         for row, frames in enumerate(groups):
             image.paste(atlas(frames), (0, row * 64))
         asset_id = "cozy-" + suffix
@@ -851,7 +869,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
 
     bubble_dir = art_dir / "env4" / "bubbles"
     glyphs = {}
-    for metadata in sorted(bubble_dir.glob("*.manifest.json")):
+    for metadata in bounded_glob(bubble_dir, "*.manifest.json"):
         name = metadata.name.removesuffix(".manifest.json")
         if name == "icons" or not (bubble_dir / f"{name}.png").is_file():
             continue
@@ -867,7 +885,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     # native cells to leave room for every published human and optional pet.
     if shared_ambient:
         sheets = [s for s in manifest["sheets"] if s["id"] in shared_ambient]
-        image = Image.new("RGBA", (max(images[s["id"]].width for s in sheets),
+        image = new_image((max(images[s["id"]].width for s in sheets),
                                     sum(images[s["id"]].height for s in sheets)))
         rows, animations, y = [], {}, 0
         for sheet in sheets:
@@ -891,12 +909,12 @@ def build_pack(art_dir: Path, output: Path) -> dict:
     # Pets use the normalizer's existing full-body exception at fixed placement.
     # Their facing selectors are single-frame clips, never a four-facing loop.
     pet_paths = []
-    for directory in sorted((art_dir / "pets").glob("*")):
+    for directory in bounded_glob(art_dir / "pets"):
         if not directory.is_dir() or directory.name.startswith("."):
             continue
         pet_paths.append((directory.name, directory / f"{directory.name}.png"))
         pet_paths.extend((f"{directory.name}-{p.stem}", p)
-                         for p in sorted((directory / "variants").glob("*.png")))
+                         for p in bounded_glob(directory / "variants", "*.png"))
     for pet_id, path in pet_paths:
         if not path.is_file() or not path.with_suffix(".manifest.json").is_file():
             continue
@@ -924,7 +942,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
                     entry["seatAnchor"] = dict(source.data["pet"]["sleepContact"])
                 rows.append(entry)
             groups.append(frames)
-        image = Image.new("RGBA", (cell[0] * max(map(len, groups)), cell[1] * len(groups)))
+        image = new_image((cell[0] * max(map(len, groups)), cell[1] * len(groups)))
         for row, frames in enumerate(groups):
             image.paste(atlas(frames), (0, row * cell[1]))
         add_sheet("pet-" + pet_id, image, cell, source.data["anchor"], rows)
@@ -958,7 +976,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
             frames, rows, variants = [], [], []
             for direction, rotation, offset, _, _ in side_geometry:
                 source = side_source(f"office-chair-side-{direction}-{part}")
-                frame = Image.new("RGBA", (128, 64))
+                frame = new_image((128, 64))
                 frame.paste(source.frames("variants", (64, 64))[0], (32 + offset, 0))
                 name = f"{asset_id}-{direction}"
                 rows.append(clip(name, 0, column=len(frames)))
@@ -983,7 +1001,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
                     fps, loop = source.playback(state)
                     frames = []
                     for original in originals:
-                        frame = Image.new("RGBA", (128, 64))
+                        frame = new_image((128, 64))
                         frame.paste(original, (32, 0))
                         frames.append(frame)
                     animation = f"{asset_id}-{direction}-{state}"
@@ -999,7 +1017,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
                         chairBackId="cozy-chair-side-back", chairFrontId="cozy-chair-side-front",
                         chairOffset={"x": 0, "y": 0},
                         chairSeatAnchor={"x": 32 + offset + seat_x - side_anchor["x"], "y": 44 - side_anchor["y"]}))
-            image = Image.new("RGBA", (128 * max(map(len, groups)), 64 * len(groups)))
+            image = new_image((128 * max(map(len, groups)), 64 * len(groups)))
             for row, frames in enumerate(groups):
                 image.paste(atlas(frames), (0, row * 64))
             add_sheet(asset_id, image, (128, 64), side_anchor, rows)
@@ -1012,7 +1030,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         choices = [rgb for rgb in palette if (sum(rgb) / 3 >= 160 if bright else sum(rgb) / 3 < 90)]
         return max(choices or palette, key=lambda rgb: (palette[rgb], rgb))
     light, dark = shade(True), shade(False)
-    checker = Image.new("RGBA", (32, 32), (*light, 255))
+    checker = new_image((32, 32), (*light, 255))
     draw = ImageDraw.Draw(checker)
     for y in range(0, 32, 8):
         for x in range(0, 32, 8):
@@ -1026,7 +1044,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
             image = fallback
         else:
             image = final[0][0]
-        opaque = Image.new("RGBA", (32, 32), (*light, 255))
+        opaque = new_image((32, 32), (*light, 255))
         opaque.alpha_composite(image)
         return opaque
 
@@ -1043,7 +1061,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         tile("floor-wood-oak", tiles.frames("floor_pantry", (32, 32))[0]),
         tile("floor-checker-pantry", checker),
         tile("floor-carpet-blue", tiles.frames("floor_office", (32, 32))[0]),
-        Image.new("RGBA", (32, 32), (*dark, 255)),
+        new_image((32, 32), (*dark, 255)),
         baseboard,
     ]
     tile_names = ("wall", "wood", "checker", "carpet", "void", "wall-baseboard")
@@ -1083,6 +1101,7 @@ def build_pack(art_dir: Path, output: Path) -> dict:
 
     if len(manifest["sheets"]) > 127:
         raise ValueError("runtime pack exceeds 127 sheets plus the runtime fallback")
+    compressed_bytes = 0
     for sheet in manifest["sheets"]:
         image = images[sheet["id"]]
         if image.width > 8192 or image.height > 8192 or image.width * image.height > 16_777_216:
@@ -1090,32 +1109,38 @@ def build_pack(art_dir: Path, output: Path) -> dict:
         stream = BytesIO()
         image.save(stream, format="PNG", compress_level=9)
         png = stream.getvalue()
+        compressed_bytes += len(png)
+        if len(png) > 32 * 1024 * 1024 or compressed_bytes > 64 * 1024 * 1024:
+            raise ValueError("runtime PNG compressed byte budget exceeded")
         sheet["file"] = f"sheets/pack-{hashlib.sha256(png).hexdigest()}.png"
         pngs[sheet["file"]] = png
     # Content-addressed sheets leave the previously published manifest usable
     # until the final replacement succeeds. Never clean before publishing it.
     data = (json.dumps(manifest, ensure_ascii=False, indent=2) + "\n").encode("utf-8")
     stale = 0
-    output.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(dir=output, prefix=".build-pack-") as temporary:
+    make_directory(output)
+    with write_boundary(output / ".boundary"), tempfile.TemporaryDirectory(dir=output, prefix=".build-pack-") as temporary:
         stage = Path(temporary)
         for filename, png in sorted(pngs.items()):
             atomic_write(stage / filename, png)
         atomic_write(stage / "assets.json", data)
         with writer_lock(output):
             for filename in sorted(pngs):
-                destination = output / filename
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                if not destination.exists():
-                    os.replace(stage / filename, destination)
-            atomic_write(output / "assets.json", (stage / "assets.json").read_bytes())
+                destination = relative_file(output, filename)
+                make_directory(destination.parent)
+                with write_boundary(destination):
+                    if not destination.exists():
+                        os.replace(stage / filename, destination)
+            atomic_write(output / "assets.json", read_bytes(stage / "assets.json", 4 * 1024 * 1024))
             # Use the newly committed manifest; a grace period also protects
             # readers that still hold the previous manifest.
-            referenced = {s["file"] for s in json.loads((output / "assets.json").read_bytes())["sheets"]}
+            referenced = {s["file"] for s in read_json(output / "assets.json")["sheets"]}
             cutoff = time.time() - PNG_GRACE_SECONDS
             for path in sorted((output / "sheets").glob("pack-*.png")):
+                safe_path(path)
                 if OWNED_PNG.fullmatch(path.name) and f"sheets/{path.name}" not in referenced and path.stat().st_mtime < cutoff:
-                    path.unlink()
+                    with write_boundary(path):
+                        path.unlink()
                     stale += 1
     return dict(manifest=str(output / "assets.json"), characters=len(manifest["characters"]),
                 seatedCharacters=len(seated_characters),

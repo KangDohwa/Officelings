@@ -73,7 +73,7 @@ Use the pet's `anchor`, `pet.sleepContact` or `pet.muzzleContact` as named by th
 Provider **codex**, sprite-gen **2.20.0**, still-image component-row pipeline. Nine calls ran sequentially: eight rows of static pet facing choices and one seven-object prop row. Existing env2 cat/vacuum, office character/sofa and wood floor were read-only style/preview references. Canonical component extraction, atlas composition and seed previews are retained in `runs/`; no equal-width cutting of generated raw images was used. Final deterministic pixel assembly is in `build_pets.py`, and the per-pet PNGs are authoritative.
 
 ```powershell
-$env:SPRITE_GEN_ROOT='C:\Users\myori\.codex\skills\sprite-gen'
+$env:SPRITE_GEN_ROOT='C:\Users\<user>\.codex\skills\sprite-gen'
 $env:PYTHONDONTWRITEBYTECODE='1'
 & "$env:SPRITE_GEN_ROOT\.venv\Scripts\python.exe" -B assets/art/pets/build_pets.py check
 ```

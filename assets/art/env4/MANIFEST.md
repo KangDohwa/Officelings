@@ -118,7 +118,7 @@ Env2 vending machine, fridge, clock, mug, ceiling light and five plants are **re
 ## Verification and preview
 
 ```powershell
-$env:SPRITE_GEN_ROOT='C:\Users\myori\.codex\skills\sprite-gen'
+$env:SPRITE_GEN_ROOT='C:\Users\<user>\.codex\skills\sprite-gen'
 $env:PYTHONDONTWRITEBYTECODE='1'
 & "$env:SPRITE_GEN_ROOT\.venv\Scripts\python.exe" assets/art/env4/build_env4.py check
 ```

@@ -40,8 +40,8 @@ No build_pack, pack mutation, runtime change, commit or push. Image generation w
 `tools/facelock.py`에 전용 10개 얼굴 행 프로필을 추가했습니다. 눈·안경·눈썹과 선택적인 입 영역을 잠급니다. idle 세 방향은 걷기 기준 얼굴을 공유합니다. 오른쪽 idle은 보이는 렌즈 하나만 복사합니다. back 행과 up idle은 그대로이며, talk 입·coffee 입/컵·phone 입은 원본입니다.
 
 ```powershell
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/afro-sweater/run/manifest.json --sheet assets/art/roster/afro-sweater/run/sprite-sheet-alpha.png
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check --out assets/art/roster/afro-sweater/redo/facelock-qa-all
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/afro-sweater/run/manifest.json --sheet assets/art/roster/afro-sweater/run/sprite-sheet-alpha.png
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check --out assets/art/roster/afro-sweater/redo/facelock-qa-all
 ```
 
 보고서 재생성 후 다시 실행했습니다. **52개 캐릭터 / 실패 0개**, corruption-detecting self-check PASS. afro-sweater의 10개 얼굴 행 + 3개 idle/walk 그룹은 모두 after=0, 최대 before=224입니다. QA는 원본/출력의 공통 불투명 eye box를 다시 계산하고 알파, 패치 밖 픽셀, back 행, layout/timing, exports와 source hash를 검증했습니다.

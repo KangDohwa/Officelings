@@ -361,3 +361,28 @@ private report 제출 경로는 [GitHub의 공식 절차](https://docs.github.co
 - [ ] credential이 발견되면 **먼저 revoke/rotate**하고 이력에서 제거한다. ignore 규칙과 Git 삭제만으로 이미 노출된 credential이 안전해지지 않는다.
 - [ ] 승인된 rewrite/clean export 후 새 clone에서 전체 ref·unique blob을 재검색한다. 기존 clone, PR ref, release asset, CI artifact, mirror/cache에 금지 내용이 남을 수 있음을 별도로 점검한다.
 - [ ] 최종 release package guard, checksum, dependency/runtime inventory, state/settings 제외, private install ACL, SECURITY.md 지원 범위와 GitHub private reporting 활성화를 확인하고 공개한다.
+
+## Fix status
+
+| Finding | Status | Regression test / verification |
+|---|---|---|
+| S01 | fixed | `test_seated_rejects_manifest_traversal_before_image_decode`, `test_seated_publication_and_character_id_cannot_escape_output` |
+| S02 | fixed | Windhawk `HardeningInputTests`: ancestor junction, 열린 ancestor의 변경 차단 |
+| S03 | fixed | `PackSheetAndManifestJunctionsUseFallback`, `JunctionInputsAndOutputsAreRejectedBeforeAccess` |
+| S04 | fixed | `JunctionInputsAndOutputsAreRejectedBeforeAccess`, `ExcessivePathDepthIsRejectedBeforeDirectoryCreation` |
+| S05 | fixed | `IndividuallyValidSheetsCannotExceedAggregatePixelBudget`, Windhawk `HardeningInputTests`의 누적 compressed bytes, `test_builder_rejects_frame_fanout_and_pixel_work_before_allocation` |
+| S06 | fixed | `JsonlFanoutAndMetadataAreBoundedAcrossPolls` |
+| S07 | fixed | `SqliteOversizedCopiesAndLinksAreRejected`, `SqliteViewsTextAndRecursiveWorkAreRejected` |
+| S08 | fixed | `LoopbackMapRejectsPathIds`, `LoopbackMapCountIsBounded`, `LinkedProviderCatalogsDoNotEscapeOrCrashPoll`; 서버 소유권을 검증할 수 없어 저장 파일만 사용 |
+| S09 | fixed | Windhawk `HardeningInputTests`: 65,000자 이름의 default 표시 길이 제한 |
+| S10 | fixed | Windhawk `HardeningInputTests`: cell과 다른 frame 크기 거부; 기존 renderer/cache 검사 |
+| S11 | fixed | `test_builder_output_junction_never_writes_or_deletes_outside`, `test_builder_source_links_and_directory_fanout_are_rejected`, `test_publication_lock_rejects_hard_link_without_changing_marker`, `test_write_boundary_pins_empty_directory_and_cleans_guard` |
+| S12 | fixed | `test_download_rejects_http_host_redirect_mime_size_hash_without_publication`, `test_download_deadline_rejects_unpublished_body` |
+| S13 | fixed | `test_parity_rejects_png_bomb_trailing_stream_dimensions_and_chunk`, `test_parity_normal_png_roundtrip` |
+| S14 | fixed | `test_raster_rejects_eps_svg_and_oversized_header`; SVG를 비활성화하고 기존 PNG fallback 사용 |
+| S15 | fixed | final handle 경로의 ordinal 비교와 separator 경계; Windhawk `HardeningInputTests` 및 기존 경로 검사. 실제 case-sensitive 볼륨은 미검증 |
+| S16 | fixed | `test_audited_dlls_do_not_authorize_replaced_executable`, `test_render_only_marker_does_not_authorize_native_executable`; 별도 binary audit까지 EXE allowlist를 비워 자동 실행 거부 |
+| S17 | mitigated | 현재 tracked 문서·JSON 기록의 개인 계정 경로를 placeholder로 치환; JSON 재파싱·경로 패턴 검사. 이력/작성자 metadata는 유지 |
+| S18 | not fixed | task/cwd 평문 게시와 effective ACL 정책은 유지. 실제 개인 프로필/ACL은 조사하지 않음 |
+| S19 | mitigated | `global.json`, `tools/requirements-build.txt`, System32 native imports. 패키지 hash lock·설치 ACL·release runtime audit는 미구현 |
+| S20 | not fixed | 현재 tracked bytecode 검사; 과거 logo/bytecode blob의 purge 및 history rewrite는 하지 않음 |

@@ -9,7 +9,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/perf/benchmark.ps1 -Mo
 # Build and Run can be coordinated separately:
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/perf/benchmark.ps1 -Mode Build -AppBin $perfAppBin -Output "$PWD/tools/perf/results/my-after"
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/perf/benchmark.ps1 -Mode Run -Output "$PWD/tools/perf/results/my-after"
-$py = 'C:/Users/myori/.codex/skills/sprite-gen/.venv/Scripts/python.exe'
+$py = 'C:/Users/<user>/.codex/skills/sprite-gen/.venv/Scripts/python.exe'
 & $py -B tools/perf/summarize.py $perfBefore --output "$perfBefore/summary.json"
 & $py -B tools/perf/summarize.py tools/perf/results/my-after --output tools/perf/results/my-after/summary.json --baseline "$perfBefore/summary.json"
 & $py -B tools/perf/compare-pixels.py "$perfBefore/pixels" tools/perf/results/my-after/pixels --output tools/perf/results/my-after/pixel-comparison.json

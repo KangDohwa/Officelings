@@ -3,7 +3,7 @@
     "builtUtc":  "2026-10-03T17:51:02.7786066Z",
     "configuration":  "Release",
     "sdk":  "10.0.400",
-    "buildRoot":  "C:/Users/myori/AppData/Local/Temp/vd-tracker-build-3488aa9ba5ce4a479561e51a89d0de5f",
+    "buildRoot":  "C:/Users/<user>/AppData/Local/Temp/vd-tracker-build-3488aa9ba5ce4a479561e51a89d0de5f",
     "suppliedCoreSha256":  "A11673ABEF7B96C33C1F909CB9DA35830FC9B76EA6BDE9E8096B38CCD4EA833E",
     "copiedCoreSha256":  "A11673ABEF7B96C33C1F909CB9DA35830FC9B76EA6BDE9E8096B38CCD4EA833E",
     "warnings":  0,

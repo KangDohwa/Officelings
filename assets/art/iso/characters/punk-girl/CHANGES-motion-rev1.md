@@ -4,7 +4,7 @@ punk-girl motion-rev1 — 시각 승인 및 blink 통합 보류
 
 `motion-rev1-walk-before-after.png`는 네 방향 모든 단계의 전후 1×/3×와 hero crop을 나란히 보여 줍니다. `motion-rev1-typing-before-after.png`는 손 네 단계를, `motion-rev1-contact-before-after.png`는 v2 가구 접점을 보여 줍니다. 각 방향 `walk-{se,sw,ne,nw}-motion-rev1-3x.png`와 같은 이름의 GIF를 남겼습니다. GIF는 125ms/프레임, 8fps, 원래 순서 0→1→2→3→0입니다.
 
-sprite-gen 스킬·workflow를 읽고 실행했습니다. CLI 로그인 점검은 unavailable였으므로 명시적으로 요청된 내장 image_gen을 사용했습니다. SE/NE contact 마스터를 직렬로 각각 1회 생성했고, sprite-gen `cutout --key green`으로 정리했습니다. 마스터를 한 번만 네이티브 크기로 변환한 후 생성된 재킷/부츠 클러스터를 활용해 팔·다리 관절을 다시 그렸습니다. SW/NW는 몸만 x′=32−x로 파생하고 상좌 명암을 보정했습니다. 머리·가르마는 반전하지 않았습니다. 프로토콜의 gen-set/행 추출 전체 경로를 실행한 것으로 주장하지 않습니다. 원본, 프롬프트, 보정·검증 스크립트는 `runs/motion-rev1/`에 있습니다. 설정·인증 파일은 수정하거나 복사하지 않았습니다. 내장 도구가 원본 2장을 기본 `C:/Users/myori/.codex/generated_images/01a103c3-4e7d-7e72-a508-8a986660eb2f/`에 자동 캐시했으며, 프로젝트에 쓰는 사본은 이 lane 안에 있습니다.
+sprite-gen 스킬·workflow를 읽고 실행했습니다. CLI 로그인 점검은 unavailable였으므로 명시적으로 요청된 내장 image_gen을 사용했습니다. SE/NE contact 마스터를 직렬로 각각 1회 생성했고, sprite-gen `cutout --key green`으로 정리했습니다. 마스터를 한 번만 네이티브 크기로 변환한 후 생성된 재킷/부츠 클러스터를 활용해 팔·다리 관절을 다시 그렸습니다. SW/NW는 몸만 x′=32−x로 파생하고 상좌 명암을 보정했습니다. 머리·가르마는 반전하지 않았습니다. 프로토콜의 gen-set/행 추출 전체 경로를 실행한 것으로 주장하지 않습니다. 원본, 프롬프트, 보정·검증 스크립트는 `runs/motion-rev1/`에 있습니다. 설정·인증 파일은 수정하거나 복사하지 않았습니다. 내장 도구가 원본 2장을 기본 `C:/Users/<user>/.codex/generated_images/01a103c3-4e7d-7e72-a508-8a986660eb2f/`에 자동 캐시했으며, 프로젝트에 쓰는 사본은 이 lane 안에 있습니다.
 
 보행은 넓은 접촉 포즈, 굽힌 무릎/들린 뒤꿈치, 다리와 반대인 팔 스윙, 몸통 bob `[0,1,0,-1]`을 사용합니다. 머리는 bob하지 않습니다. 타이핑은 소매/손목/전완/납작한 두 손바닥/손가락을 구분하고 손가락 누름을 번갈아 배치했습니다. 접점 사이 어두운 틈은 두 손을 구분하기 위한 픽셀입니다.
 

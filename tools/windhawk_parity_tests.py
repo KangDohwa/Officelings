@@ -92,16 +92,32 @@ class ParityTests(unittest.TestCase):
 
     def test_reviewed_hash_pair_and_tag_mode(self):
         app = self.root / "Vibedotcom.App.exe"
+        app.write_bytes(b"synthetic-launcher")
         app.with_suffix(".dll").write_bytes(b"synthetic-app")
         (self.root / "Vibedotcom.Core.dll").write_bytes(b"synthetic-core")
         app_hash = hashlib.sha256(b"synthetic-app").hexdigest()
         core_hash = hashlib.sha256(b"synthetic-core").hexdigest()
+        launcher_hash = hashlib.sha256(b"synthetic-launcher").hexdigest()
         with patch.object(parity, "run_hidden") as run:
             with self.assertRaises(ValueError):
                 parity.run_wpf(app, self.root / "run", self.root / "run.log", "icon", app_hash, "0" * 64)
             run.assert_not_called()
-            parity.run_wpf(app, self.root / "run", self.root / "run.log", "icon", app_hash, core_hash)
+            with self.assertRaisesRegex(ValueError, "launcher"):
+                parity.run_wpf(app, self.root / "run", self.root / "run.log", "icon", app_hash, core_hash)
+            run.assert_not_called()
+            parity.run_wpf(app, self.root / "run", self.root / "run.log", "icon", app_hash, core_hash, launcher_hash)
             self.assertEqual(run.call_args.args[0][-2:], ["--tags", "icon"])
+
+    def test_reviewed_native_hash_and_v5_marker_required(self):
+        renderer = self.root / "renderer_tests.exe"
+        renderer.write_bytes(b"synthetic --render-only")
+        digest = parity.sha256(renderer)
+        with self.assertRaisesRegex(ValueError, "--tags"):
+            parity.audited_renderer(renderer, digest)
+        renderer.write_bytes(b"synthetic --render-only --tags")
+        with self.assertRaisesRegex(ValueError, "Unreviewed native"):
+            parity.audited_renderer(renderer, digest)
+        self.assertEqual(parity.audited_renderer(renderer, parity.sha256(renderer)), parity.sha256(renderer))
 
 
 if __name__ == "__main__":

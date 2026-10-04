@@ -6,6 +6,7 @@
 #include <iostream>
 #include <functional>
 #include <climits>
+#include <winioctl.h>
 
 namespace {
 bool failGdiWrapperAllocation=false;
@@ -25,6 +26,7 @@ std::string Replace(std::string s,const std::string& from,const std::string& to)
 std::string PoseField(std::string bytes,const std::string& name,const std::string& value){auto j=Parser(bytes).Parse();const auto& pose=j.At("agents").array.front().At("pose");auto it=pose.object.find(name);if(it==pose.object.end())bytes.insert(pose.begin+1,"\""+name+"\":"+value+",");else bytes.replace(it->second.begin,it->second.end-it->second.begin,value);return bytes;}
 std::string ObjectField(std::string bytes,const Json& object,const std::string& name,const std::string& value){auto it=object.object.find(name);if(it==object.object.end())bytes.insert(object.begin+1,"\""+name+"\":"+value+",");else bytes.replace(it->second.begin,it->second.end-it->second.begin,value);return bytes;}
 std::string RootField(std::string bytes,const std::string& name,const std::string& value){auto j=Parser(bytes).Parse();return ObjectField(std::move(bytes),j,name,value);}
+#include "../tests/windhawk/hardening_tests.inl"
 double CpuSeconds(){FILETIME a{},b{},k{},u{};GetProcessTimes(GetCurrentProcess(),&a,&b,&k,&u);ULARGE_INTEGER x{},y{};x.LowPart=k.dwLowDateTime;x.HighPart=k.dwHighDateTime;y.LowPart=u.dwLowDateTime;y.HighPart=u.dwHighDateTime;return (x.QuadPart+y.QuadPart)/1e7;}
 bool Different(Bitmap& a,Bitmap& b,Gdiplus::Rect r){
     Require(a.GetWidth()==b.GetWidth()&&a.GetHeight()==b.GetHeight(),"Compared render dimensions");BitmapData x{},y{};
@@ -342,6 +344,7 @@ int wmain(int argc,wchar_t** argv){
         Reject([&]{SheetPath(root,"../escape.png");});Reject([&]{SheetPath(root,"C:/escape.png");});Reject([&]{SheetPath(root,"//server/share.png");});Reject([&]{SheetPath(root,"sheets/file.png:stream");});
         Check(SheetPath(root,"sheets/ok.png").starts_with(root),"Relative sheet path");
         RelativePathGrammarTests();
+        HardeningInputTests(bytes,s);
         HostPolicyTests();
         auto schemaToken="\"schemaVersion\": "+std::to_string(s.schema);
         Reject([&]{ParseSnapshot(Replace(bytes,schemaToken,"\"schemaVersion\": 2"));});

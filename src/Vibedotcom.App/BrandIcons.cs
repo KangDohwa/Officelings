@@ -28,7 +28,7 @@ internal sealed class BrandIcons(string? directory = null)
                 {
                     using var input = embedded
                         ? typeof(BrandIcons).Assembly.GetManifestResourceStream("Vibedotcom.App.Brand." + file)
-                        : File.OpenRead(Path.Combine(directory, file));
+                        : new MemoryStream(FileBoundary.ReadBytes(FileBoundary.UnderRoot(directory, file), 1024 * 1024));
                     if (input == null) continue;
                     if (input.Length > 1024 * 1024) continue;
                     using var buffer = new MemoryStream(); input.CopyTo(buffer);

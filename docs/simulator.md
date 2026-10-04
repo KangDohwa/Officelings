@@ -5,7 +5,7 @@ The simulator gives the tracker a pretend home containing invented Codex, Claude
 Run these commands from the repository root. This Python environment is already available on the development machine; the scripts use only the standard library.
 
 ```powershell
-$py = 'C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe'
+$py = 'C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe'
 & $py tools/simulate/simulate.py --scenario quiet --seed 1
 # In another terminal:
 dotnet run --project src/Vibedotcom.Tracker -- --home "$env:TEMP\vibedotcom-sim-home" --output "$env:TEMP\vibedotcom-sim-output"

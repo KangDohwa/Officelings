@@ -148,7 +148,7 @@ Extraction uses canonical `kcentroid` fitting, not equal-width slicing of raw ro
 Six `qa/contact-*-2x.png` pages show **every declared frame**. The main preview shows material/family representatives; use those full pages and the catalog for all topology, color and orientation choices. Visual review used 12 image views total including the required ENV2 preview, reference and extraction composites, six full category contacts, example scenes, correction composite and final preview.
 
 ```powershell
-$env:SPRITE_GEN_ROOT='C:\Users\myori\.codex\skills\sprite-gen'
+$env:SPRITE_GEN_ROOT='C:\Users\<user>\.codex\skills\sprite-gen'
 $env:PYTHONDONTWRITEBYTECODE='1'
 $env:PYTHONIOENCODING='utf-8'
 & "$env:SPRITE_GEN_ROOT\.venv\Scripts\python.exe" assets/art/env5/build_env5.py check

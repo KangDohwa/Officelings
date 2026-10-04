@@ -20,6 +20,7 @@ from PIL import Image, ImageDraw
 sys.dont_write_bytecode = True
 from facelock import blink_frame
 from publication import atomic_write, publish_batch
+from safe_files import safe_path, relative_file, read_bytes, read_json, open_png, make_directory
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "assets/art"
@@ -76,8 +77,11 @@ def digest(data):
 
 
 def publish(path, data):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    if path.exists() and path.read_bytes() == data:
+    path = safe_path(path)
+    if safe_path(OUT) not in path.parents:
+        raise ValueError("seated output escapes allowed root")
+    make_directory(path.parent)
+    if path.exists() and read_bytes(path) == data:
         return
     atomic_write(path, data)
 
@@ -213,11 +217,13 @@ def make_pose(source, direction, profile, seat_y, blink_delta=None, skin_colors=
 
 
 def load(mp):
-    blobs = {mp: mp.read_bytes()}
-    m = json.loads(blobs[mp])
-    sp = mp.parent / m["sprite_sheet_alpha"]
-    blobs[sp] = sp.read_bytes()
-    im = Image.open(io.BytesIO(blobs[sp])).convert("RGBA")
+    mp = safe_path(mp)
+    blobs = {mp: read_bytes(mp, 4 * 1024 * 1024)}
+    m = read_json(mp)
+    sp = relative_file(mp.parent, m["sprite_sheet_alpha"])
+    blobs[sp] = read_bytes(sp)
+    with open_png(sp) as source:
+        im = source.convert("RGBA")
     rows = m["frame_layout"]["rows"]
     if im.size != (128, 832) or set(rows) != set(STATES):
         raise ValueError("incomplete 13-row sheet")
@@ -227,31 +233,45 @@ def load(mp):
                        or r["x"] + 32 > 128 or r["y"] + 64 > 832 for r in rows[s])
                 or any(not frame(im, m, s, f).getbbox() for f in range(count))):
             raise ValueError(f"incomplete {s}")
-    rp = mp.parent / m["facelock"]["report"]
-    blobs[rp] = rp.read_bytes()
-    r = json.loads(blobs[rp])
+    rp = relative_file(mp.parent, m["facelock"]["report"])
+    blobs[rp] = read_bytes(rp, 4 * 1024 * 1024)
+    r = read_json(rp)
+    if len(r["sourceHashes"]) > 32 or len(m.get("blink", {})) > 8:
+        raise ValueError("face-lock file count exceeds budget")
     for path, sha in r["sourceHashes"].items():
-        p = ROOT / path
-        blobs[p] = p.read_bytes()
+        # Older face-lock reports used Windows separators or absolute paths.
+        # Accept those only when their canonical identity remains inside ROOT.
+        name = path.replace("\\", "/")
+        if Path(name).is_absolute():
+            p = safe_path(Path(name))
+            if safe_path(ROOT) not in p.parents:
+                raise ValueError("face-lock source escapes allowed root")
+        else:
+            p = relative_file(ROOT, name)
+        blobs[p] = read_bytes(p)
         if digest(blobs[p]) != sha:
             raise ValueError(f"stale face lock: {path}")
     for b in m.get("blink", {}).values():
-        p = mp.parent / b["file"]
-        blobs[p] = p.read_bytes()
+        p = relative_file(mp.parent, b["file"])
+        blobs[p] = read_bytes(p)
     if not m.get("blink"):
         p = ROOT / "tools/facelock.py"
-        blobs[p] = p.read_bytes()
+        blobs[p] = read_bytes(p)
+    if sum(map(len, blobs.values())) > 64 * 1024 * 1024:
+        raise ValueError("face-lock byte budget exceeded")
     return m, im, r, blobs
 
 
 def process(cid, mp, seat_y):
+    mp = safe_path(mp)
+    destination = relative_file(OUT, cid)
     m, original, lock, blobs = load(mp)
     if cid not in PROFILES and not re.fullmatch(
             r"(?:codex|claude|antigravity)-(?:worker|supervisor|subagent)-0[1-4]|worker(?:-(?:subagent|supervisor))?", cid):
         raise ValueError("new silhouette needs a reviewed seated calibration")
     if cid in BLINK_EYES:
         p = ROOT / "tools/facelock.py"
-        blobs[p] = p.read_bytes()
+        blobs[p] = read_bytes(p)
     profile = PROFILES.get(cid, PROFILES["p5"])
     sheet = Image.new("RGBA", (128, 1024))
     sheet.paste(original)
@@ -279,7 +299,8 @@ def process(cid, mp, seat_y):
             b = m.get("blink", {}).get(direction)
             walk = np.array(frame(original, m, f"walk_{direction}", 0))
             if b:
-                closed = np.array(Image.open(io.BytesIO(blobs[mp.parent / b["file"]])).convert("RGBA"))
+                with open_png(relative_file(mp.parent, b["file"])) as opened:
+                    closed = np.array(opened.convert("RGBA"))
             else:
                 eye_boxes = lock["rows"][f"walk_{direction}"]["eyeBoxes"]
                 closed = blink_frame(walk, [(x0, min(y1 - 1, y0 + 2), x1, y1)
@@ -362,7 +383,10 @@ def process(cid, mp, seat_y):
     source_report = json.loads(blobs[report_path])
     for key in ("sourceManifest", "sourceSheet", "sourceFrames", "outputSheet", "outputManifest"):
         if source_report.get(key):
-            source_report[key] = str((report_path.parent / source_report[key]).resolve())
+            reference = safe_path(report_path.parent / source_report[key])
+            if safe_path(ROOT) not in reference.parents:
+                raise ValueError("face-lock report reference escapes allowed root")
+            source_report[key] = str(reference)
     files["source.facelock.json"] = (json.dumps(source_report, ensure_ascii=False, indent=2) + "\n").encode()
     files[f"{cid}.png"] = png(sheet)
     files["seated-blink.png"] = png(blink_sheet)
@@ -370,23 +394,26 @@ def process(cid, mp, seat_y):
     files["qa.json"] = (json.dumps({"character": cid, "checks": checks,
         "original13RowsUnchanged": True, "frameCount": 12,
         "sourceManifest": mp.relative_to(ROOT).as_posix()}, indent=2) + "\n").encode()
-    if any(p.read_bytes() != b for p, b in blobs.items()):
+    if any(read_bytes(p) != b for p, b in blobs.items()):
         raise ValueError("input changed during processing; rerun")
-    publish_batch(OUT / cid, files, f"{cid}.manifest.json")
+    safe_path(destination)
+    publish_batch(destination, files, f"{cid}.manifest.json")
     return all_poses
 
 
 def published_file(cid, name):
-    manifest = json.loads((OUT / cid / f"{cid}.manifest.json").read_bytes())
-    return OUT / cid / manifest.get("publication", {}).get("generation", "") / name
+    root = relative_file(OUT, cid)
+    manifest = read_json(relative_file(root, f"{cid}.manifest.json"))
+    generation = manifest.get("publication", {}).get("generation", "")
+    return relative_file(root, f"{generation}/{name}" if generation else name)
 
 
 def scene(pose, direction, seat_y):
     """Diagnostic composition using unchanged env2 props (not env3 side art)."""
     canvas = Image.new("RGBA", (104, 90), "#e7dfcd")
-    desk = Image.open(ART / "env2/sheets/desks.png").convert("RGBA").crop((0, 0, 64, 64))
-    chair = Image.open(ART / "env2/sheets/office-chairs.png").convert("RGBA").crop((0, 0, 64, 64))
-    monitor = Image.open(ART / "env2/sheets/monitors.png").convert("RGBA").crop((0, 0, 64, 64))
+    desk = open_png(ART / "env2/sheets/desks.png").convert("RGBA").crop((0, 0, 64, 64))
+    chair = open_png(ART / "env2/sheets/office-chairs.png").convert("RGBA").crop((0, 0, 64, 64))
+    monitor = open_png(ART / "env2/sheets/monitors.png").convert("RGBA").crop((0, 0, 64, 64))
     hip_x, hip_y = 52, 64
     canvas.alpha_composite(chair, (hip_x - 32, hip_y - 47))
     if direction == "back":
@@ -424,7 +451,7 @@ def preview(published, seat_y):
             draw.text((2, y), "red-braid corrected blink | left open/shut right open/shut", fill="white")
             for col, (direction, view, shut) in enumerate((("left", 1, False), ("left", 1, True),
                                                          ("right", 2, False), ("right", 2, True))):
-                p = Image.open(published_file("red-braid", f"blink-seated_{direction}.png")).convert("RGBA") if shut else published["red-braid"][view][0]
+                p = open_png(published_file("red-braid", f"blink-seated_{direction}.png")).convert("RGBA") if shut else published["red-braid"][view][0]
                 contact.alpha_composite(scene(p, direction, seat_y), (col * 104, y + 12))
         path = OUT / "preview-seated.png" if page == 0 else OUT / variants[0][0] / f"preview-variants-{page}.png"
         publish(path, png(contact.resize((contact.width * 5, contact.height * 5), Image.Resampling.NEAREST)))
@@ -442,7 +469,7 @@ def preview(published, seat_y):
         panels, names = [], []
         for cid in roster[start:start + 2]:
             names.append(cid)
-            closed = Image.open(published_file(cid, "blink-seated_left.png")).convert("RGBA")
+            closed = open_png(published_file(cid, "blink-seated_left.png")).convert("RGBA")
             panels.extend([scene(published[cid][1][0], "left", seat_y), scene(closed, "left", seat_y)])
         rows.append((" / ".join(names) + " | open / closed", panels))
     contact = Image.new("RGBA", (416, len(rows) * 102), "#35313e")
@@ -467,7 +494,7 @@ def preview(published, seat_y):
             panels.append((f"apron-baker seated {direction} | 0 1 2 3",
                            [scene(p, direction, seat_y) for p in published[cid][view]]))
         panels.append(("apron-baker blink | left open/shut right open/shut", [
-            scene(Image.open(published_file(cid, f"blink-seated_{direction}.png")).convert("RGBA") if shut else
+            scene(open_png(published_file(cid, f"blink-seated_{direction}.png")).convert("RGBA") if shut else
                   published[cid][view][0], direction, seat_y)
             for direction, view, shut in (("left", 1, False), ("left", 1, True),
                                          ("right", 2, False), ("right", 2, True))]))

@@ -57,7 +57,7 @@ Glow is confined to the screen plane; no animated light is painted onto the casi
 
 ```powershell
 $env:PYTHONDONTWRITEBYTECODE='1'
-& 'C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe' assets/art/env3/build_env3.py check
+& 'C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe' assets/art/env3/build_env3.py check
 ```
 
 The check uses Pillow and Python's standard library only: no generation tool, external QA command, network or model call. Replace `check` with `build` to deterministically rebuild sheets, contacts, report and preview from the retained extracted frames. The builder writes only within env3 and reads env2 as reference data.

@@ -161,7 +161,7 @@ class ReviewPublicationTests(unittest.TestCase):
             except Exception as e:
                 errors.append(e)
 
-        with patch.object(publication.os, "replace", side_effect=interleave):
+        with patch.object(publication.os, "replace", side_effect=interleave), patch.object(seated, "OUT", self.root):
             a = threading.Thread(target=writer, args=(b"a",), name="writer-a")
             a.start()
             try:
@@ -177,7 +177,8 @@ class ReviewPublicationTests(unittest.TestCase):
 
     def test_F16_seated_parallel_batches_and_failed_commit_keep_one_generation(self):
         name, mp, sp = self.source()
-        _, locked = facelock.process(name, mp, sp, make_blink=True)
+        with patch.object(facelock, "ROOT", self.root):
+            _, locked = facelock.process(name, mp, sp, make_blink=True)
         source = locked / f"{name}.manifest.json"
         output = self.root / "seated"
         script = "from pathlib import Path; import seated,sys; seated.ROOT=Path(sys.argv[1]); seated.OUT=Path(sys.argv[2]); seated.process(sys.argv[3],Path(sys.argv[4]),int(sys.argv[5]))"

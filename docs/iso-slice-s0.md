@@ -209,7 +209,7 @@ C1/C2/C3 are sequential stages for the same ID, not simultaneous writers in a ch
 On this Windows workspace, the existing Python environment is:
 
 ```powershell
-$isoPython = 'C:/Users/myori/.codex/skills/sprite-gen/.venv/Scripts/python.exe'
+$isoPython = 'C:/Users/<user>/.codex/skills/sprite-gen/.venv/Scripts/python.exe'
 & $isoPython tools/iso_check.py --check-reference
 & $isoPython tools/iso_check.py assets/art/iso/env/floors
 & $isoPython tools/iso_check.py assets/art/iso/characters/dev-hoodie --stage c1

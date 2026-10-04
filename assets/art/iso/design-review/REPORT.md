@@ -61,7 +61,7 @@ baseline의 worker SE/SW는 머리 93.8–98.6%지만 손 ROI가 모두 0%다. �
 ## 실행 및 검증
 
 ```powershell
-& 'C:/Users/myori/.codex/skills/sprite-gen/.venv/Scripts/python.exe' -B assets/art/iso/design-review/measure.py
+& 'C:/Users/<user>/.codex/skills/sprite-gen/.venv/Scripts/python.exe' -B assets/art/iso/design-review/measure.py
 ```
 
 816개 scenario/phase record를 생성했다. 48 baseline은 별도의 Pillow 레이어 소유권 래스터로도 머리 노출 수를 확인했다. punk/professor의 기존 접점 증거 8방향 수치 재현, C/H·실제 피부 접점, part/clip depth 일치, surface split 원본 재구성, 가림 수의 배타적 합계, 입력 SHA-256 유지 assertion이 통과했다. 1×/3× PNG와 hero 크롭을 열람했다.

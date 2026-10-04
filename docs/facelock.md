@@ -5,8 +5,8 @@
 Run these from the repository root after the art inputs are ready. Incomplete characters are skipped, so they can remain in the tree.
 
 ```powershell
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --all --blink
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --all --blink
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check
 ```
 
 The first command handles all character manifests directly under `assets/art/sheets/` and all roster directories. Non-character sheets are ignored. A roster publication needs all 13 states and 42 nonempty frames with declared 32×64 geometry. If final `run/curated` exports exist, every export must match the source sheet. Missing rows/frames, mismatched exports, or source bytes changing during processing cause a skip. Inputs are read into memory and checked again before publication. The original implementation replaced individual files atomically; the current shared publisher stages an immutable generation and replaces one root manifest under a writer lock. Identical reruns keep unchanged file timestamps. A team can publish after the source check; QA detects stale hashes and requests a rerun. The `.sg-rwlock` filename alone is not a completion marker. Finished runs also retain it.
@@ -16,7 +16,7 @@ The original output layout placed sheets at `assets/art/sheets/locked/<sheet>.pn
 For one sheet and its production manifest:
 
 ```powershell
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/sheets/codex-worker-01.manifest.json --sheet assets/art/sheets/codex-worker-01.png --blink
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/sheets/codex-worker-01.manifest.json --sheet assets/art/sheets/codex-worker-01.png --blink
 ```
 
 `--frames PATH` instead accepts a complete flat directory of final `<state>-frame-N.png` files plus `--manifest`. Do not pass raw extractions when curation changed the final geometry. `--profile PATH` supplies reviewed coordinates for an unusual character: JSON `{"rows": [[eyeBoxes, mouthBox], ...]}` in `walk_down`, `walk_left`, `walk_right`, `typing_side`, `report`, `sleep`, `coffee`, `phone`, `talk`, `surprised` order. An eye box is `[x0,y0,x1,y1]` in native cell pixels, with exclusive right/bottom edges; each row may have multiple boxes. `mouthBox` can be `null`. Profile files are read only.
@@ -64,9 +64,9 @@ Both characters now select built-in reviewed profiles by roster directory name. 
 Run only these two publications (manager-suit retains its existing blink exports):
 
 ```powershell
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/cat-hood/cat-hood.manifest.json --sheet assets/art/roster/cat-hood/cat-hood.png
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/manager-suit/manager-suit.manifest.json --sheet assets/art/roster/manager-suit/manager-suit.png --blink
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/cat-hood/cat-hood.manifest.json --sheet assets/art/roster/cat-hood/cat-hood.png
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/manager-suit/manager-suit.manifest.json --sheet assets/art/roster/manager-suit/manager-suit.png --blink
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check
 ```
 
 No external `--profile` file is needed for these named calibrations. An external profile replaces the eye/mouth rows and is labelled `custom`; named idle/sleep placement calibrations are not applied to that override.
@@ -89,8 +89,8 @@ Reviewed idle placements are down `[0,3]`, left `[-4,-3]`, right `[8,-3]`. The t
 Run against the stable unlocked production run, then check all available locked outputs while writing QA artifacts inside this character's boundary:
 
 ```powershell
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/afro-sweater/run/manifest.json --sheet assets/art/roster/afro-sweater/run/sprite-sheet-alpha.png
-& C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check --out assets/art/roster/afro-sweater/redo/facelock-qa-all
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock.py --manifest assets/art/roster/afro-sweater/run/manifest.json --sheet assets/art/roster/afro-sweater/run/sprite-sheet-alpha.png
+& C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe tools/facelock_qa.py --all --self-check --out assets/art/roster/afro-sweater/redo/facelock-qa-all
 ```
 
 The delivered `afro-sweater.png` copies the locked pixels; `run/` remains the unlocked source so hashes and before/after QA stay valid. The delivery manifest retains the exact original layout/timing and points its additive face-lock report to `locked/afro-sweater.facelock.json`. No pack or runtime adoption was performed.

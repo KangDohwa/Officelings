@@ -64,11 +64,10 @@ internal sealed partial record Settings
     {
         try
         {
-            if (new FileInfo(path).Length > 65536) return new Settings().Normalize();
-            using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            using var file = new MemoryStream(FileBoundary.ReadBytes(path, 65536));
             return (JsonSerializer.Deserialize<Settings>(file, StateJson.Options) ?? new()).Normalize();
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return new Settings().Normalize(); }
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException) { return new Settings().Normalize(); }
     }
     internal void Write(string path) => StateJson.WriteAtomic(path,JsonSerializer.SerializeToUtf8Bytes(Normalize(),StateJson.Options));
 }

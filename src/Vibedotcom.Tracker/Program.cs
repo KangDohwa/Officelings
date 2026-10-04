@@ -196,6 +196,7 @@ internal sealed class TrackerSnapshotCache(AssetManifest? manifest, PrivacyMode 
             json.WriteEndObject();
         }
         // The caller finishes its synchronous atomic write before the next serialization.
+        if (buffer.WrittenCount > 4 * 1024 * 1024) throw new InvalidDataException("State exceeds 4 MiB.");
         return buffer.WrittenMemory;
     }
 }
