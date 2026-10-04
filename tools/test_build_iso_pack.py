@@ -150,6 +150,50 @@ class RealPackTests(unittest.TestCase):
             self.assertEqual(len(data), info["bytes"])
             self.assertEqual(hashlib.sha256(data).hexdigest(), info["sha256"])
 
+    def test_v3_selection_keeps_intentional_v2_sources_and_fallback_is_atomic(self):
+        selected = {p.relative_to(pack.ART).as_posix() for p in pack.source_paths(pack.ART)}
+        for path in ("chair/chair", "workstations/desk", "lounge-tv/tv-cabinet", "utility-shelf/shelf",
+                     "utility-lounge/sofa", "utility-lounge/side-table", "utility-lounge/fridge",
+                     "utility-lounge/water-cooler", "utility-lounge/coffee-machine"):
+            self.assertIn(f"furniture-v3/{path}.iso.json", selected)
+        for path in ("utility/plant", "utility/floor-lamp", "lounge/rug"):
+            self.assertIn(f"furniture-v2/{path}.iso.json", selected)
+        with temporary_directory() as directory:
+            art = Path(directory)
+            for path in ("furniture-v2/workstations/chair.iso.json", "furniture-v2/workstations/chair-shadow.iso.json",
+                         "furniture-v3/chair/chair.iso.json"):
+                file = art / path
+                file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_text("{}", encoding="utf-8")
+            paths = pack.source_paths(art, characters=(), extras=False)[2:]
+            self.assertTrue(all("furniture-v2" in p.parts for p in paths))
+            (art / "furniture-v3/chair/chair-shadow.iso.json").write_text("{}", encoding="utf-8")
+            paths = pack.source_paths(art, characters=(), extras=False)[2:]
+            self.assertTrue(all("furniture-v3" in p.parts for p in paths))
+
+    def test_v3_heights_input_contacts_and_tv_screen_glow_states(self):
+        self.assertEqual((self.manifest["monitorTop"], self.manifest["tvTop"], self.manifest["chairBackTop"]), (40, 48, 21))
+        desk = next(f for f in self.manifest["furniture"] if f["id"] == "iso/desk")
+        for variant in desk["variants"]:
+            self.assertEqual(variant["monitorTop"], 40)
+            inputs = variant["inputDevices"]
+            self.assertEqual(inputs["keyboard"]["partId"], inputs["mouse"]["partId"])
+            part = next(p for p in variant["parts"] if p["partId"] == inputs["keyboard"]["partId"])
+            self.assertEqual(part["isoZOrder"], -20)
+        tv = next(f for f in self.manifest["furniture"] if f["id"] == "iso/tv-cabinet")
+        for facing in pack.FACINGS:
+            variants = {v["state"]: v for v in tv["variants"] if v["orientation"] == facing}
+            self.assertEqual(set(variants), {"default", "playing", "idle", "static", *(f"frame-{i:02}" for i in range(4))})
+            for state, variant in variants.items():
+                self.assertEqual(variant["tvTop"], 48)
+                self.assertEqual(variant["screen"]["animation"], "screen-" + state)
+                self.assertEqual(variant["glow"]["opacity"], .18)
+                self.assertEqual(variant["glow"]["isoZOrder"], 2)
+                if state.startswith("frame-"):
+                    self.assertEqual(variant["glow"]["frame"], int(state[-2:]))
+                elif state in ("idle", "static"):
+                    self.assertEqual(variant["glow"]["frame"], 0)
+
     def test_character_rows_and_resolved_waiting_blinks(self):
         self.assertEqual([c["id"] for c in self.manifest["characters"]], [f"iso/character/{c}" for c in pack.CHARACTERS])
         for character in self.manifest["characters"]:

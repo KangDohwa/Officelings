@@ -9,9 +9,11 @@ namespace Vibedotcom.Tests;
 public sealed class IsoIntegrationTests
 {
     [Fact]
-    public void EmptyEngineWithoutPetsHasInfiniteDeadlineAndReenablingInvalidatesScene()
+    public void EmptyEngineWithStaticTvWithoutPetsHasInfiniteDeadlineAndReenablingInvalidatesScene()
     {
-        var office=new IsoOffice(IsoPack.LoadDefault(),42) { PetsEnabled=false };
+        var pack=IsoPack.LoadDefault();
+        var layout=pack.Layout with { Furniture=pack.Layout.Furniture.Select(f=>f.AssetId=="iso/tv-cabinet" ? f with { State="static" } : f).ToArray() };
+        var office=new IsoOffice(pack,42,layout) { PetsEnabled=false };
         var now=DateTimeOffset.Parse("2026-10-04T00:00:00Z");
         var first=office.Update([],now,0);
         Assert.DoesNotContain(first.Items,i=>i.Layer==IsoLayer.Pet);

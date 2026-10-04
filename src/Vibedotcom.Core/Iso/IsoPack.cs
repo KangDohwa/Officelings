@@ -239,6 +239,7 @@ public sealed class IsoPack
             foreach (var p in v.Parts) ValidatePart(p);
             if (v.Shadow != null) ValidatePart(v.Shadow);
             if (v.Screen != null) ValidatePart(v.Screen);
+            if (v.Glow != null) ValidatePart(v.Glow);
             foreach (var s in v.SeatProfiles ?? [])
             {
                 if (!Integer(s.ContactOffset) || !double.IsFinite(s.SeatGround.I) || !double.IsFinite(s.SeatGround.J)) throw new InvalidDataException("Invalid seat contact.");
@@ -257,7 +258,8 @@ public sealed class IsoPack
     {
         var c = Clip(p.SheetId, p.Animation ?? p.Clip ?? throw new InvalidDataException("Missing part clip."), p.Direction);
         if (p.DepthAnchor is {} d && (!double.IsFinite(d.I) || !double.IsFinite(d.J)) || p.IsoZOrder is < -512 or > 511 ||
-            p.Anchor != null && !Integer(p.Anchor)) throw new InvalidDataException("Invalid part depth/anchor.");
+            p.Anchor != null && !Integer(p.Anchor) || !double.IsFinite(p.Opacity) || p.Opacity is < 0 or > 1 ||
+            p.Frame is {} frame && (frame < 0 || frame >= c.Frames)) throw new InvalidDataException("Invalid part depth/anchor/opacity/frame.");
         ValidateAnchorChecks(Sheet(p.SheetId), c, p.AnchorChecks);
     }
     private void ValidateAnchorChecks(IsoSheet s, IsoClip c, IReadOnlyList<IsoAnchorCheck>? checks)

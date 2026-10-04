@@ -16,6 +16,7 @@ public sealed class IsoSceneBuilder
     private readonly List<IsoLabel> labels = [];
     private readonly Dictionary<string, (IsoPlacement Placement, IsoSeatProfile Profile)> seats = new(StringComparer.Ordinal);
     private readonly List<(IsoPlacement Placement, IsoPart Part)> screens = [];
+    private readonly List<(IsoPlacement Placement, IsoPart Part, string Id)> animatedFurniture = [];
     private readonly Dictionary<string, string> hitKinds = new(StringComparer.Ordinal);
     private IsoScene? previous;
     private Entry[] hitItems = [];
@@ -102,7 +103,12 @@ public sealed class IsoSceneBuilder
             var v = pack.Variant(f.AssetId, f.Rotation, f.State);
             foreach (var p in v.Parts) AddFurniturePart(f, v, p);
             if (v.Shadow is {} shadow) AddFurniturePart(f, v, shadow, IsoLayer.Shadow, IsoPass.Shadows);
-            if (v.Screen is {} screen) { if (f.AssetId == "iso/desk") screens.Add((f, screen)); else AddFurniturePart(f, v, screen); }
+            if (v.Screen is {} screen)
+            {
+                if (f.AssetId == "iso/desk") screens.Add((f, screen));
+                else animatedFurniture.Add((f, screen, "screen"));
+            }
+            if (v.Glow is {} glow) animatedFurniture.Add((f, glow, "glow"));
         }
     }
     private void AddFurniturePart(IsoPlacement f, IsoFurnitureVariant v, IsoPart p, IsoLayer layer = IsoLayer.Furniture, IsoPass pass = IsoPass.Scene)
@@ -138,6 +144,16 @@ public sealed class IsoSceneBuilder
             var v = pack.Variant(f.AssetId, f.Rotation, state); var d = p.DepthAnchor ?? c.DepthAnchor ?? new IsoGridPoint(v.FootprintW - .5, v.FootprintH - .5);
             AddDynamic(f.Id, "screen", IsoLayer.Furniture, p.SheetId, c, IsoGeometry.Ground(f.X, f.Y), f.X + f.Y + d.I + d.J,
                 p.IsoZOrder != 0 ? p.IsoZOrder : c.IsoZOrder, elapsedSeconds, f.Id);
+        }
+        foreach (var (f, p, id) in animatedFurniture)
+        {
+            var c = pack.Clip(p.SheetId, p.Animation ?? p.Clip!, p.Direction);
+            var d = p.DepthAnchor ?? c.DepthAnchor ?? new IsoGridPoint(0, 0);
+            var ground = IsoGeometry.Ground(f.X, f.Y);
+            var anchor = p.Anchor ?? c.Anchor ?? pack.Sheet(p.SheetId).Anchor;
+            AddDynamic(f.Id, id, IsoLayer.Furniture, p.SheetId, c, ground, f.X + f.Y + d.I + d.J,
+                p.IsoZOrder != 0 ? p.IsoZOrder : c.IsoZOrder, elapsedSeconds, f.Id,
+                (byte)Math.Round(p.Opacity * 255), new(ground.X - (int)anchor.X, ground.Y - (int)anchor.Y), p.Frame);
         }
         foreach (var actor in actors) AddActor(actor);
         if (cat != null) AddCat(cat);

@@ -31,6 +31,20 @@ COLLECTIONS = ("characters", "furniture", "pets", "carriedProps", "wallModules")
 METADATA = ("actionBindings", "attachmentRule", "transitionRule", "materialPriority")
 MAX_JSON = 4 * 1024 * 1024
 MAX_PNG = 32 * 1024 * 1024
+# Select a complete family (including separate shadow manifests) from v3.
+# Missing v3 exports fall back to the unchanged v2 family. Plant/lamp/rug
+# deliberately remain v2; copied v3 plant/lamp exports are not pack inputs.
+FURNITURE_V3 = {
+    "workstations/desk": "workstations/desk",
+    "workstations/chair": "chair/chair",
+    "lounge/tv-cabinet": "lounge-tv/tv-cabinet",
+    "lounge/sofa": "utility-lounge/sofa",
+    "lounge/side-table": "utility-lounge/side-table",
+    "utility/shelf": "utility-shelf/shelf",
+    "utility/water-cooler": "utility-lounge/water-cooler",
+    "utility/fridge": "utility-lounge/fridge",
+    "utility/coffee-machine": "utility-lounge/coffee-machine",
+}
 
 
 def json_bytes(data):
@@ -221,9 +235,18 @@ def bind_character_actions(manifest):
 
 def source_paths(art_dir, characters=CHARACTERS, extras=True):
     paths = [art_dir / "env/floors/floors.iso.json", art_dir / "env/walls/walls.iso.json"]
-    paths.extend(sorted((art_dir / "furniture-v2").rglob("*.iso.json")))
-    if not any("furniture-v2" in p.parts for p in paths[2:]):
+    fallback = sorted((art_dir / "furniture-v2").rglob("*.iso.json"))
+    if not fallback:
         raise ValueError("approved furniture-v2 sources are missing")
+    replacements = {}
+    for old, new in FURNITURE_V3.items():
+        family = [p for p in fallback if p.relative_to(art_dir / "furniture-v2").as_posix()
+                  in (old + ".iso.json", old + "-shadow.iso.json")]
+        candidates = [art_dir / "furniture-v3" / (new + ("-shadow" if p.name.endswith("-shadow.iso.json") else "") + ".iso.json")
+                      for p in family]
+        if candidates and all(p.is_file() for p in candidates):
+            replacements.update(zip(family, candidates))
+    paths.extend(replacements.get(p, p) for p in fallback)
     for identity in characters:
         filename = "dev-hoodie" if identity == "dev-hoodie-v2" else identity
         paths.append(art_dir / f"characters/{identity}/{filename}.iso.json")
@@ -251,7 +274,7 @@ def assemble(paths):
                     carriedProps=[], wallModules=[], sourceManifests=[], unsupportedSeatProfiles=["end"],
                     tile=dict(width=64, height=32, anchor=dict(x=32, y=16)), wallRise=16, wallHeight=48,
                     characterCell=dict(width=32, height=64), footAnchor=dict(x=16, y=60), standingHeight=40,
-                    seatAnchor=dict(x=16, y=44), deskHeight=18, seatHeight=12, monitorTop=36, chairBackTop=21,
+                    seatAnchor=dict(x=16, y=44), deskHeight=18, seatHeight=12, chairBackTop=21,
                     light=dict(screenDirection="upper-left", shadowOffset=dict(x=8, y=4), furnitureShadowOffset=dict(x=6, y=3)))
     files, sheets = {}, {}
 
@@ -320,6 +343,21 @@ def assemble(paths):
                                **{key: c[key] for key in ("seatGroupId", "state") if key in c}) for c in s["rows"]]
     for family in manifest["furniture"]:
         family.setdefault("kind", FURNITURE_KINDS[family["id"].removeprefix("iso/")])
+        if family["id"] == "iso/tv-cabinet":
+            # Authored TV states select the existing screen/glow clips; no art
+            # or part IDs change. Explicit variants keep the runtime state API.
+            for original in list(family["variants"]):
+                for state, animation in original.get("screenStates", {}).items():
+                    if state == original["state"]:
+                        continue
+                    variant = deepcopy(original)
+                    variant["state"] = state
+                    variant["screen"]["animation"] = animation
+                    glow = variant.get("glow")
+                    selection = original.get("glowStates", {}).get(state)
+                    if glow and selection:
+                        glow.update(dict(animation=selection) if isinstance(selection, str) else selection)
+                    family["variants"].append(variant)
         for variant in family["variants"]:
             variant["heightPx"] = variant.get("height", 0)
             for part in variant["parts"]:
@@ -328,6 +366,10 @@ def assemble(paths):
                 part["anchor"] = deepcopy(clip.get("anchor", sheet["anchor"]))
                 part["anchorChecks"] = deepcopy(clip["anchorChecks"])
                 part.setdefault("hitTargetId", "owner")
+    for family_id, field, fallback in (("iso/desk", "monitorTop", 36), ("iso/tv-cabinet", "tvTop", 38)):
+        family = next((f for f in manifest["furniture"] if f["id"] == family_id), None)
+        if family:
+            manifest[field] = max(v.get(field, fallback) for v in family["variants"])
     if len(sheets) > 128 or len(manifest["furniture"]) > 512:
         raise ValueError("pack exceeds the 128-sheet/512-furniture limits")
     verify_references(manifest)
