@@ -59,7 +59,7 @@ internal sealed class IsoFurnitureOrder
         actors.Clear(); occupiedSeats.Clear();
         foreach (var pose in poses)
         {
-            var seated = pose.DeskId != null && pose.SeatPhase is "seated" or "lower" or "raise";
+            var seated = pose.DeskId != null && pose.SeatPhase != null;
             if (seated) occupiedSeats.Add(pose.DeskId!);
             actors[pose.AgentId] = seated ? (null, pose.DeskId) :
                 (new(pose.Position.X, pose.Position.Y, pose.Position.X, pose.Position.Y, 0, 40), null);
@@ -95,6 +95,12 @@ internal sealed class IsoFurnitureOrder
         {
             var a = entries[start + i]; var b = entries[start + j];
             var fa = owners[i]; var fb = owners[j]; var relation = 0;
+            var seatA = parts[i].Seat && fa != null ? fa.Placement.DeskId ?? fa.Placement.Id : moving[i].Seat;
+            var seatB = parts[j].Seat && fb != null ? fb.Placement.DeskId ?? fb.Placement.Id : moving[j].Seat;
+            // The complete attached assembly retains its input ground/rank/ID
+            // order, even for disjoint masks. External footprint constraints
+            // may move it globally but must not invert its sitter and parts.
+            if (seatA != null && seatA == seatB && occupiedSeats.Contains(seatA)) { Edge(i, j); continue; }
             // Linked desk/chair parts interlock physically. Their authored seat
             // queue is local to that assembly, not a rectangle separation.
             if (fa != null && fb != null && (fa.Placement.DeskId == fb.Placement.Id || fb.Placement.DeskId == fa.Placement.Id))
@@ -112,15 +118,11 @@ internal sealed class IsoFurnitureOrder
                 if (relation != 0) { if (relation < 0) Edge(i, j); else Edge(j, i); }
                 continue;
             }
-            // Preserve the authored local seat queue without changing seated actor code.
-            if (moving[i].Seat is {} seatA && fb != null && parts[j].Seat && (fb.Placement.Id == seatA || fb.Placement.DeskId == seatA) ||
-                moving[j].Seat is {} seatB && fa != null && parts[i].Seat && (fa.Placement.Id == seatB || fa.Placement.DeskId == seatB))
-            { if (pack.AlphaOverlaps(a.Item, b.Item)) Edge(i, j); continue; } // input is in legacy-key order
-            // Occupied seat strips extend to the approach contact outside the
+            // Attached seat strips extend to the approach contact outside the
             // furniture footprint. Walkers retain the existing S0 contact-plane
-            // rule for these strips; the body rectangle cannot replace it.
-            if (fa != null && parts[i].Seat && occupiedSeats.Contains(fa.Placement.DeskId ?? fa.Placement.Id) && moving[j].Volume != null ||
-                fb != null && parts[j].Seat && occupiedSeats.Contains(fb.Placement.DeskId ?? fb.Placement.Id) && moving[i].Volume != null)
+            // rule even for empty linked chairs; the body rectangle cannot replace it.
+            if (fa != null && parts[i].Seat && (fa.Placement.DeskId != null || occupiedSeats.Contains(fa.Placement.Id)) && moving[j].Volume != null ||
+                fb != null && parts[j].Seat && (fb.Placement.DeskId != null || occupiedSeats.Contains(fb.Placement.Id)) && moving[i].Volume != null)
             { if (pack.AlphaOverlaps(a.Item, b.Item)) Edge(i, j); continue; }
             var ba = bounds[i]; var bb = bounds[j];
             if (ba.Left >= bb.Right || bb.Left >= ba.Right || ba.Top >= bb.Bottom || bb.Top >= ba.Bottom) continue;

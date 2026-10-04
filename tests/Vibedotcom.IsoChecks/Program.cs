@@ -18,7 +18,7 @@ internal static class Program
             IsoSeatedOcclusionChecks.TypingLowerBody, IsoSeatedOcclusionChecks.SeatTransitions,
             IsoSeatedOcclusionChecks.ChairUnionAndVisibility,
             () => IsoSeatAssemblyChecks.AllPoseFrames(), IsoSeatAssemblyChecks.IdlePerformance,
-            IsoSeatAssemblyChecks.RejectInvertedOwnership, () => IsoSeatAssemblyChecks.Walkers()];
+            IsoSeatAssemblyChecks.RejectInvertedOwnership, () => IsoSeatAssemblyChecks.Walkers(), IsoSeatOrderChecks.OccupiedLayouts];
         if (args.Length > 0) checks = checks.Where(c => args.Contains(c.Method.Name)).ToArray();
         if (checks.Length == 0) throw new ArgumentException("Unknown ISO check.");
         var failed = 0;

@@ -99133,7 +99133,8 @@
             "j": 0
           },
           "seatFacing": "se",
-          "backHeight": 21
+          "backHeight": 21,
+          "heightPx": 21
         },
         {
           "rotation": 90,
@@ -99198,7 +99199,8 @@
             "j": 0
           },
           "seatFacing": "sw",
-          "backHeight": 21
+          "backHeight": 21,
+          "heightPx": 21
         },
         {
           "rotation": 270,
@@ -99263,7 +99265,8 @@
             "j": 0
           },
           "seatFacing": "ne",
-          "backHeight": 21
+          "backHeight": 21,
+          "heightPx": 21
         },
         {
           "rotation": 180,
@@ -99328,7 +99331,8 @@
             "j": 0
           },
           "seatFacing": "nw",
-          "backHeight": 21
+          "backHeight": 21,
+          "heightPx": 21
         }
       ]
     },
