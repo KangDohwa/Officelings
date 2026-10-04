@@ -2,76 +2,84 @@
 
 # Vibedotcom
 
-Vibedotcom turns recent local Codex, Claude Code and Antigravity sessions into a small pixel office on Windows. Characters work at desks, wait, deliver reports and take breaks. Hover over one to see its model, project and recent activity; dotted lines show known parent sessions. It observes sessions and does not assign tasks or control agents. This is an independent project, with no affiliation or endorsement from the tool owners.
+Vibedotcom shows recent local Codex, Claude Code and Antigravity sessions as a small pixel office on Windows. Characters work, wait, deliver reports and take breaks. Hover for session details; flat view draws lines to known parent sessions. It observes sessions and does not assign work or control agents. This is an independent project, with no affiliation or endorsement from the tool owners.
 
-## Status
+## Features and current state
 
-Current checkout, reviewed 2026-10-04. Test results below come from recorded reviews, not a new test run.
+Source and documentation reviewed on 2026-10-04.
 
-| Area | Current state |
-| --- | --- |
-| Tracker and simulation | Implemented; parser, activity and pathfinding tests exist. Antigravity now also reads database snapshots and a local API. |
-| WPF app and editor | Implemented, with offscreen checks. Live shell behavior and hands-on editor use remain to be checked. |
-| Art and layout | Fixed desks, seated poses, side desks, face lock and prop normalization are integrated. Roster art is still being revised. |
-| Windhawk | Compiles; renderer and owned-window tests are recorded. Explorer injection and the manual shell checklist remain open. |
-| Release | Local packaging and hash checks exist. Review findings and public-release checks remain open. |
+- **Flat and isometric WPF views.** Flat is the default. Select iso with `--view iso`, saved `view:"iso"`, or **Isometric view** in the office/tray menu. The iso engine and embedded pack render a 10×10 room with twelve seats, three character designs, seated work, reporting, arrivals/departures and a roaming/sleeping cat.
+- **Life in the flat office.** Twelve fixed desks, overflow seats, an office editor, darts, ping-pong, reading and other breaks, plus roaming pets. Windows, clock hands and lights follow local time. Optional rain, snow and December decoration work offline.
+- **Provider icons and privacy.** Original provider icons distinguish supervisors and sub-agents. Name tags support Hover, Icon and Always. `off|tasks|full` privacy levels redact local details in Core before state is stored.
+- **Optional presence sharing.** The flat app and interactive Tracker send only aliases, platforms, reduced states and hierarchy after an exact JSON preview and consent. Stored tokens use Windows DPAPI; **Stop sharing** cancels transmission. The intended hosted service is [vibe-com.rayd.cc](https://vibe-com.rayd.cc).
+- **Windhawk v5 synchronization.** The native flat renderer reads current seats, provider icons, leisure poses, ambient fields and supplied pets. The ordinary Tracker does not simulate pets. Explorer injection and its [manual shell checklist](windhawk/README.md#manual-test-checklist--user-performs-later) remain unverified.
+- **Bounded inputs.** Hardened file routes reject links, reparse points, unsafe relative paths, UNC paths and alternate data streams. JSON, PNG, discovery and parsing have size/work limits. This is not a completed security audit; see [privacy](docs/privacy.md) and [limits](docs/limits.md).
 
-See [limits](docs/limits.md), [app review](docs/review-app.md) and the [release checklist](docs/release-checklist.md).
+Iso currently has a smaller feature set: idle agents remain at their seats; flat leisure, atmosphere, editor and Sharing UI are not integrated there. `--layout` and `--profile-idle` require flat. The Tracker still exports **v5 flat state**; the planned v6 iso interchange/native renderer is not shipped. See [view differences](docs/app-usage.md#flat-and-isometric-views) and the [iso contract](docs/iso-integration-contract.md).
 
-## Two variants
+The public office web viewer is being built for the hosted server. Its source and deployed behavior were not available for verification in this checkout. Token issuance, public visibility and presence expiry depend on that server.
 
-Both share the .NET 10 tracking core and art pack.
+The sharing adapter currently reads `privacy` separately from the app's `privacyMode`. Do not rely on the local Privacy menu to anonymize chosen sharing aliases or stop uploads. Use generic aliases and **Stop sharing**; the payload allowlist still excludes prompts, paths, models and local session IDs. See [sharing limits](docs/privacy.md#optional-presence-sharing).
 
-- Standalone: the WPF app reads session sources itself. Windhawk is not required.
-- Windhawk: a C++ mod draws inside Explorer using `state.json` from the headless tracker.
+## Screenshots
 
-The shared file format is documented in the [state contract](docs/state-schema.md).
+Current offscreen smoke renders use only invented `--demo` sessions and bundled art. These show rendering, not Explorer embedding or a live web viewer. [Capture and optimization commands](docs/img/README.md).
+
+![Current flat office with fixed desks and break areas](docs/img/demo-office-2x.png)
+
+![Isometric office with twelve occupied seats and a cat](docs/img/demo-iso-2x.png)
+
+![Flat office at night with resting agents and pets](docs/img/demo-night-2x.png)
+
+![Original provider and role icons in flat name tags](docs/img/demo-provider-tags-2x.png)
 
 ## Quick start
 
-Use Windows 11 and the .NET 10 SDK. Framework-dependent builds need the .NET 10 Windows Desktop Runtime. The app and tracker have no extra NuGet runtime packages; tests restore into ignored `.packages/`.
+Use Windows 11 and the **.NET 10 SDK**. Run from the repository root:
 
 ```powershell
 dotnet build Vibedotcom.sln
 dotnet test Vibedotcom.sln --no-build
-dotnet run --project src/Vibedotcom.App --no-build
-# Invented sessions for a preview or screenshot:
+# Invented sessions; neither command reads your provider logs:
 dotnet run --project src/Vibedotcom.App --no-build -- --demo
-# Headless tracker for Windhawk; Ctrl+C stops it:
-dotnet run --project src/Vibedotcom.Tracker --no-build
+dotnet run --project src/Vibedotcom.App --no-build -- --view iso --demo
+# Observe your local sessions; privacy full hides names/models/projects:
+dotnet run --project src/Vibedotcom.App --no-build -- --privacy full
+# Separate flat state writer for Windhawk; Ctrl+C stops it:
+dotnet run --project src/Vibedotcom.Tracker --no-build -- --privacy full
+# Separate sharing checks: synthetic data and fake HTTP:
+dotnet run --project tests/Vibedotcom.SharingChecks
 ```
 
-To edit the office, right-click it and choose **Edit office**. See the [editor guide](docs/editor.md) and [app usage](docs/app-usage.md) for layouts, settings and publishing. The standalone app does not need the headless tracker. For the other variant, follow the [Windhawk setup and manual checks](windhawk/README.md).
+The standalone app reads session sources itself and needs neither Windhawk nor the headless Tracker. Windhawk needs the Tracker's exported PNGs and `state.json`; follow its [setup guide](windhawk/README.md). In flat view, right-click **Edit office** to change furniture; see the [editor](docs/editor.md).
 
-Session details can include private paths and prompt text. Choose **Privacy** in the office/tray menu or start either executable with `--privacy tasks` or `--privacy full` before a screen share. Core redacts the text before storing agent state; [privacy](docs/privacy.md) explains the levels and limits. Unsigned builds are covered in the [Windows security notice](docs/windows-security-notice.md).
+WPF and Windhawk are Windows-only. Core/Tracker target .NET 10, but provider discovery and native integrations here are validated on Windows; macOS/Linux viewers are not provided. Framework-dependent app builds need the **.NET 10 Windows Desktop Runtime**, and Tracker needs the .NET runtime. App/Tracker have no extra NuGet runtime packages; test packages restore into ignored `.packages/`. See [publishing](docs/app-usage.md#publish) and the [unsigned-binary notice](docs/windows-security-notice.md).
 
-## Controls
+## Controls and data
 
-- Mouse wheel, with or without Ctrl, or `+` / `-`: zoom from 1x to 6x. Drag to pan; hover for session details.
-- Right-click the office or tray: fit the office, choose normal/topmost/desktop mode, or change click-through, borders, background and opacity.
-- Double-click the tray icon, or choose **Show normal, clickable office**, to recover a clickable window. Closing the app exits and removes its tray icon.
+- Wheel (with or without Ctrl), `+` and `-`: zoom 1–6×. Drag to pan; hover for details.
+- Right-click office or tray: choose view, window mode, click-through, border, background, opacity, name tags, privacy and pets. Flat also has **Sharing** and **Edit office**.
+- Double-click the tray icon, or choose **Show normal, clickable office**, to recover. Closing exits and removes the icon.
 
-Windhawk has its own settings and no tray. Neither variant appears on the secure lock screen.
+Settings normally live in `%LOCALAPPDATA%\Vibedotcom\settings.json`. Demo/QA use disposable storage and disable sharing. Normal observation can read private prompt text and paths; choose privacy before screen sharing. Sharing starts off and requires fresh consent each run. Windhawk has separate settings and no tray. Desktop embedding uses undocumented shell behavior with a bottom-window fallback; neither viewer appears on the secure lock screen.
 
-## Screenshots
+All CLI flags, setting keys, source inference and privacy boundaries are in [app usage](docs/app-usage.md), [Tracker](docs/tracker.md), [sources](docs/sources-and-inference.md) and [privacy](docs/privacy.md).
 
-These earlier offscreen renders use only `--demo` data. They do not show every current art revision. Their source and capture command are in [app usage](docs/app-usage.md#screenshots).
+## Performance and remaining work
 
-![Earlier demo office at 2x](docs/img/demo-office-2x.png)
-![Demo hover details with invented text and paths](docs/img/demo-tooltip.png)
+The recorded short **flat** offscreen measurements averaged **5.049% of one core** for an empty normal window and **3.144%** for twelve working agents, across three runs each. CPU means process CPU seconds / wall seconds × 100; whole-machine percentages on the 18-thread measurement machine are different. The ≤1% idle target and a ten-minute leak verdict are not established. These are not iso or visible desktop measurements. See [conditions and full results](docs/perf-report.md#after-optimization).
 
-TODO in `docs/img/`: refresh the fixed-office/seated view, add an editor view, and capture desktop mode with `--demo` after the manual shell check.
+Remaining work includes broader iso behavior and roster conversion, v6/native iso interchange, the public web viewer, the privacy/sharing setting connection, manual Explorer/DPI/virtual-desktop checks, longer performance runs and the [release checklist](docs/release-checklist.md). Parser inference, art pose/contact quality and native hosting have limits; see [verification notes](docs/limits.md) and the dated review records.
 
 ## Documentation
 
-- Use: [App](docs/app-usage.md), [Tracker](docs/tracker.md), [Editor](docs/editor.md), [Privacy](docs/privacy.md), [Windows security](docs/windows-security-notice.md), [Limits and verification](docs/limits.md), [Synthetic-session QA](docs/simulator.md).
-- Formats: [State schema](docs/state-schema.md), [Assets and layouts](docs/asset-format.md), [Sources and inference](docs/sources-and-inference.md), [Project specification](SPEC.md).
-- Art: [Pipeline and credits](docs/art-pipeline.md), [Face lock](docs/facelock.md), [Seated poses](docs/seated.md), [Prop normalization](docs/anim-normalize.md). The pipeline indexes the production manifests and character notes.
-- Windhawk and releases: [Windhawk guide](windhawk/README.md), [Packaging](tools/release/README.md), [Release checklist](docs/release-checklist.md).
-- Contribute: [English](CONTRIBUTING.md), [한국어](CONTRIBUTING.ko.md). Legal references: [Trademarks](TRADEMARKS.md), [한국어 요약](TRADEMARKS.ko.md), [Third-party notices](THIRD_PARTY_NOTICES.md).
-- Research records: [Antigravity](docs/antigravity-notes.md), [Pixel Agents](docs/pixel-agents-notes.md), [Windhawk](docs/windhawk-notes.md). These describe the code and observations at their recorded dates.
-- Review records: [Core and tracker](docs/review-core.md), [App](docs/review-app.md), [Windhawk](docs/review-windhawk.md).
+- Use: [App](docs/app-usage.md), [Tracker](docs/tracker.md), [Editor](docs/editor.md), [Privacy](docs/privacy.md), [Limits](docs/limits.md), [Synthetic QA](docs/simulator.md).
+- Formats: [State v5](docs/state-schema.md), [Assets/layouts](docs/asset-format.md), [Iso integration](docs/iso-integration-contract.md), [S0 production reference](docs/iso-slice-s0.md), [Specification](SPEC.md).
+- Art: [Pipeline and credits](docs/art-pipeline.md), [Face lock](docs/facelock.md), [Seated poses](docs/seated.md), [Prop normalization](docs/anim-normalize.md), [Screenshots](docs/img/README.md).
+- Delivery: [Windhawk](windhawk/README.md), [Performance](docs/perf-report.md), [Packaging](tools/release/README.md), [Windows security](docs/windows-security-notice.md).
+- Contribute: [English](CONTRIBUTING.md), [한국어](CONTRIBUTING.ko.md). Reviews: [Core/Tracker](docs/review-core.md), [App](docs/review-app.md), [Windhawk](docs/review-windhawk.md). These are dated records, not release certification.
+- References: [Antigravity](docs/antigravity-notes.md), [Pixel Agents](docs/pixel-agents-notes.md), [Windhawk research](docs/windhawk-notes.md), [Trademarks](TRADEMARKS.md), [한국어](TRADEMARKS.ko.md), [Third-party notices](THIRD_PARTY_NOTICES.md).
 
 ## License
 
-Code is [MIT](LICENSE), copyright (c) 2026 KangDohwa. Project art and assets are [CC BY 4.0](assets/LICENSE.md). The art was generated with an AI image model. Third-party logos and brand icons are excluded; see [trademarks](TRADEMARKS.md) and the [local overlay guide](assets/brand/README.md).
+Code is [MIT](LICENSE), copyright (c) 2026 KangDohwa. Project art/assets are [CC BY 4.0](assets/LICENSE.md). The art was generated with an AI image model. Third-party logos and brand icons are excluded; see [trademarks](TRADEMARKS.md) and the [local overlay guide](assets/brand/README.md).

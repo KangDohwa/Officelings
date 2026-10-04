@@ -10,6 +10,12 @@ Departure timing belongs to Core: the defaults are 120 seconds before Working/Th
 
 V5 break rendering includes reclining beanbags, reading props, waiting/leisure bubbles, dispensing flaps and dart/ping-pong overlays. Supplied `ambient` fields control window views, clock hands, string lights and winter decoration. Without them, the mod uses its local clock and the weather/season settings below, including while offline. Supplied `pets` frames render without agent labels, hit targets or desk ownership. The ordinary tracker omits pets, so this mod does not create a second pet simulation.
 
+## Current scope
+
+The current sync is **flat v5**. WPF's `--view iso`/`view` setting does not select a native iso renderer or change Tracker export; schema 6 is still rejected. The ordinary Tracker supplies leisure poses but omits ambient/pets; native local weather and clock settings cover ambient, and pets require explicitly supplied snapshot frames. See [view differences](../docs/app-usage.md#flat-and-isometric-views) and [state scope](../docs/state-schema.md#scope-flat-state-iso-scenes-and-hosted-presence).
+
+The mod has no presence sender, consent dialog or web viewer. Optional hosted sharing belongs to the flat app/interactive Tracker and uses a separate small protocol. Redact local Tracker state with `--privacy tasks|full`; the mod displays supplied text rather than applying another privacy policy. See [privacy and sharing](../docs/privacy.md). Explorer injection and visible shell behavior remain unverified; compiling/offscreen rendering is not evidence of safe Explorer hosting.
+
 ## Install the tracker
 
 Run these commands yourself from the repository root. Use a stable local installation directory; the task stores absolute paths. A framework-dependent publish requires the .NET 10 runtime.

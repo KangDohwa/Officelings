@@ -4,6 +4,12 @@ Project runtime pixel art was generated for Vibedotcom in a 2D chibi style, then
 
 The art was generated with an AI image model. Project art/assets are [CC BY 4.0](../assets/LICENSE.md). Attribution: Vibedotcom art by KangDohwa (https://github.com/KangDohwa/Vibedotcom). Review the applicable model terms before redistribution. Official logos and brand icons are excluded and have a separate [local overlay guide](../assets/brand/README.md).
 
+## Flat and iso packs
+
+The steps below describe the flat pack in `assets/pack/`. The app also embeds a separate assembled iso pack in `assets/art/iso/pack/`, with `projection:"iso2to1"`, hash-named sheets and its own layout. Current iso uses three designs (dev-hoodie-v2, punk-girl, professor), four facings, desk seating, carried report art and a cat in a twelve-seat room. Source furniture-v3 revisions and the embedded runtime pack are separate: a source-art commit alone does not prove that a given app build includes it.
+
+Iso floor cells are 64×32, character cells 32×64, cat/prop cells 32×32; furniture generally uses 128×128 cells (rug differs). Geometry, split depth layers, contacts, blink and alias rules are in [S0](iso-slice-s0.md) and [iso integration](iso-integration-contract.md). S0's v6/native export plan is not the current Tracker output. Do not run the flat pack builder as if it produced the iso pack. See [current captures and regeneration](img/README.md) for both views; inspect the rendered pack after changing source art.
+
 ## Steps
 
 1. Generate character, prop and tile sheets with sprite-gen. Final character inputs live under `assets/art/sheets/` and `assets/art/roster/<id>/`; environment sets live under `assets/art/env2/` and later batches. Scratch runs are ignored. Review each production manifest and curated frames before proceeding.
