@@ -94,8 +94,8 @@
           "seatGroupId": "seat",
           "anchorChecks": [
             {
-              "x": 59,
-              "y": 73,
+              "x": 61,
+              "y": 71,
               "radius": 0
             }
           ]
@@ -175,8 +175,8 @@
           "seatGroupId": "seat",
           "anchorChecks": [
             {
-              "x": 68,
-              "y": 73,
+              "x": 67,
+              "y": 70,
               "radius": 0
             }
           ]
@@ -202,7 +202,7 @@
           "seatGroupId": "seat",
           "anchorChecks": [
             {
-              "x": 65,
+              "x": 64,
               "y": 67,
               "radius": 0
             }
@@ -229,7 +229,7 @@
           "seatGroupId": "seat",
           "anchorChecks": [
             {
-              "x": 65,
+              "x": 64,
               "y": 68,
               "radius": 0
             }
@@ -256,7 +256,7 @@
           "seatGroupId": "seat",
           "anchorChecks": [
             {
-              "x": 64,
+              "x": 62,
               "y": 68,
               "radius": 0
             }
@@ -283,7 +283,7 @@
           "seatGroupId": "seat",
           "anchorChecks": [
             {
-              "x": 62,
+              "x": 64,
               "y": 67,
               "radius": 0
             }
@@ -310,7 +310,7 @@
           "seatGroupId": "seat",
           "anchorChecks": [
             {
-              "x": 62,
+              "x": 64,
               "y": 68,
               "radius": 0
             }
@@ -337,7 +337,7 @@
           "seatGroupId": "seat",
           "anchorChecks": [
             {
-              "x": 64,
+              "x": 65,
               "y": 68,
               "radius": 0
             }
@@ -617,8 +617,8 @@
   "provenance": {
     "designReference": "Generic Korean ergonomic chair; built-in generated master-chair-v3-attempt1.png, no logo.",
     "derivation": "Generated appearance master followed by native-grid geometric reauthoring. Exact frozen teal ramp, binary alpha, upper-left highlights in every orientation. No runtime mirrors.",
-    "chairV3": "Deterministic native 3D raster: rounded-front 2px cushion z10..12, mesh back slab z12..21, z13 arm pads, metal lift and five caster contacts; frozen anchors/palette.",
+    "chairV3": "Deterministic native 3D raster: beveled 4.2x4.2 cushion z10.5..12 (40% narrower in both axes), 5.5-wide mesh back slab z12..21, compact z13 arm pads, metal lift and five caster contacts; frozen anchors/palette.",
     "limitations": "Actor art is 2D: nearest projected proxy surface extrapolates clothing/hair. No physical claim for arbitrary independent walkers.",
-    "seatedOcclusion": "tools/iso_seated_geometry.py native 3D z-buffer; 2px cushion z10..12, back z12..21; three disjoint parts. Pack bakes per-source-frame sandwich masks."
+    "seatedOcclusion": "tools/iso_seated_geometry.py native 3D z-buffer; thigh underside z12.1 and pelvis underside z12 rest above the cushion; three disjoint parts. Pack bakes per-source-frame sandwich masks."
   }
 }

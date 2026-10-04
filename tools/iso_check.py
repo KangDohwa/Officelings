@@ -161,13 +161,13 @@ def geometry(arr, sheet):
     return f'{arr.shape[1]}×{arr.shape[0]}, {w}×{h} cells'
 
 
-def transparency(arr, sheet):
+def transparency(arr, sheet, verified_empty=()):
     allowed = (0, 48, 96) if sheet['kind'] == 'shadow' else (0, 255)
     assert np.isin(arr[:, :, 3], allowed).all(), 'unapproved alpha / antialiasing'
     assert np.any(arr[:, :, 3] == 0) and np.any(arr[:, :, 3] > 0), 'missing transparent background or empty sheet'
     for clip in sheet['rows']:
         for cell in cells(arr, sheet, clip):
-            assert np.any(cell[:, :, 3] > 0), 'empty frame: ' + clip['name']
+            assert np.any(cell[:, :, 3] > 0) or (sheet['id'], clip['name'], clip['direction']) in verified_empty, 'empty frame: ' + clip['name']
             if sheet['kind'] in ('character', 'blink'):
                 assert not cell[:, 0, 3].any() and not cell[61:, :, 3].any(), 'character guard/padding clipped'
             if sheet['kind'] == 'floor':
@@ -191,7 +191,7 @@ def palette(arr, sheet, tolerance):
     return f'{len(used)} colors; RGB max-channel tolerance {tolerance}'
 
 
-def anchors(arr, sheet):
+def anchors(arr, sheet, verified_empty=()):
     kind = sheet['kind']
     for clip in sheet['rows']:
         frames = cells(arr, sheet, clip)
@@ -221,6 +221,9 @@ def anchors(arr, sheet):
             if not clip.get('transition', False):
                 assert all(present(cell, 32, 16, 0) for cell in frames), 'tile center absent'
         elif kind != 'blink':
+            if (sheet['id'], clip['name'], clip['direction']) in verified_empty:
+                assert not any(cell[:, :, 3].any() for cell in frames), 'verified empty part has opaque pixels'
+                continue
             checks = clip.get('anchorChecks', [])
             assert checks, 'declare physical anchorChecks (pivot may be transparent)'
             for check in checks:
@@ -393,6 +396,48 @@ def seams(arr, sheet, tolerance):
     return f'{len(patches)} 6×6 patches; checker parity contrast intentional'
 
 
+def seated_assemblies(manifest, arrays, verified_empty):
+    """Prove every generated sandwich reconstructs the static chair exactly.
+
+    A fully occluded cushion has a valid transparent front part. Only the
+    content-addressed generated assembly can claim it, after this union proof;
+    source art and unrelated empty cells still fail their existing gates.
+    """
+    arr, sheet = arrays['iso-chair-sandwich']
+    static_arr, static = arrays['iso-chair-parts']
+    clips = {c['name']+'/'+c['direction']: c for c in sheet['clips']}
+    expected = {}
+    for facing in FACINGS:
+        parts = [cells(static_arr, static, c)[0].astype(np.uint16) for c in static['rows'] if c['direction']==facing]
+        assert len(parts)==3, 'three static chair parts required'
+        expected[facing] = sum(parts)
+        assert (expected[facing][:,:,3] <= 255).all(), 'duplicate static chair pixels'
+    used = set(); seen = set(); empty = set(); frames = 0
+    for _, actor in arrays.values():
+        if actor['kind'] not in ('character', 'blink'):
+            continue
+        for clip in actor.get('clips', []):
+            for binding in clip.get('chairFrames', []):
+                facing = clip['direction']; keys = tuple(binding['clips']); frames += 1
+                assert len(keys)==3, 'three assembly chair parts required'
+                used.update(keys)
+                if (facing, keys) in seen:
+                    continue
+                seen.add((facing, keys)); union = np.zeros((128,128,4), np.uint16)
+                for key, role, number, rank in zip(keys, ('rear','front','front'), ('00','01','00'), (-20,20,20)):
+                    c = clips[key]
+                    assert c['direction']==facing and c['frames']==1, 'assembly part facing/frame mismatch'
+                    assert c['partId']==f'chair__{role}__{facing}__{number}' and c['isoZOrder']==rank, 'assembly part id/rank mismatch'
+                    pixels = cells(arr, sheet, c)[0]
+                    if not pixels[:,:,3].any():
+                        empty.add((sheet['id'], c['name'], facing))
+                    union += pixels.astype(np.uint16)
+                assert np.array_equal(union, expected[facing]), 'assembly union has gaps, duplicate pixels or changed colors'
+    assert frames and used==set(clips), 'unreferenced generated assembly cells'
+    verified_empty.update(empty)
+    return f'{frames} bindings / {len(seen)} exact unions / {len(empty)} proven transparent parts'
+
+
 def validate(path, checks, tolerance, seam_tolerance, stage):
     owner = path.name
     try:
@@ -406,11 +451,14 @@ def validate(path, checks, tolerance, seam_tolerance, stage):
     except (AssertionError, ValueError, KeyError, TypeError, OSError) as exc:
         checks.run(owner, 'manifest/images', lambda: (_ for _ in ()).throw(ValueError(str(exc))))
         return
+    verified_empty = set()
+    if 'iso-chair-sandwich' in arrays:
+        checks.run(owner, 'seated part unions', lambda: seated_assemblies(manifest, arrays, verified_empty))
     for ident, (arr, sheet) in arrays.items():
         label = owner + ':' + ident
         checks.run(label, 'cell sizes', lambda: geometry(arr, sheet))
-        checks.run(label, 'transparency', lambda: transparency(arr, sheet))
-        checks.run(label, 'anchor pixels', lambda: anchors(arr, sheet))
+        checks.run(label, 'transparency', lambda: transparency(arr, sheet, verified_empty))
+        checks.run(label, 'anchor pixels', lambda: anchors(arr, sheet, verified_empty))
         checks.run(label, 'palette', lambda: palette(arr, sheet, tolerance))
         checks.run(label, 'row contract', lambda: row_contract(arr, sheet, stage))
         if sheet['kind'] == 'floor':

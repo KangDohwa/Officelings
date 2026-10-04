@@ -1,6 +1,56 @@
 # ISO v3 착석 가림 수정 기록
 
-## 현재 구현: 기하 기반 좌석 조립 (lane/seatfix)
+## 의자 축소와 허벅지 깊이 수정 (lane/chairslim)
+
+기준은 `beb346a`다. 기존 프레임별 z-buffer 분할에서도 큰 방석이 몸 밖으로 튀어나왔고, 골반 z12에서 무릎 z8로 내려가는 허벅지 프록시가 방석 아래를 통과했다. 실제 캐릭터 픽셀을 바꾸지 않고 의자와 착석 하체 프록시를 함께 수정했다.
+
+방석의 i/j 범위는 각각 -2.1..2.1이다. 두 축의 길이가 7에서 4.2로 **40%** 줄었고, 네 모서리를 깊게 깎았다. 두께는 z10.5..12의 1.5px이다. 등판은 i=-4..-3.5, j=-2.75..2.75로 폭을 8에서 5.5로 줄였다. 등판을 몸 쪽으로 옮기면 NE/NW의 머리 경계가 새로 가려져 기존 앞뒤 위치를 유지하고 얇은 금속 연결대를 넣었다. 팔걸이 패드는 i=-1.5..1.5, j=±2.9±.3, 지지대는 i=-1.25..-.75, j=±2.9±.25다. z13 패드와 기존 5개 캐스터·베이스·그림자는 유지한다.
+
+착석 골반 타원체는 중심 (0,0,14), 반경 (2.4,2.5,2)이고, 허벅지 중심선은 hip→knee 모두 z13.2다. 허벅지 아래쪽은 z12.1, 골반 아래쪽은 z12에 닿는다. 서 있는 프록시는 종전 값이다. **S0 방석 12 / 등판 상단 21, (16,44) 골반 접점, phaseContacts, 손 앵커, 의자 (64,80), 1×1 footprint, 방향당 세 파트와 -20/20 rank는 그대로다.**
+
+### 측정 정의와 전후 수치
+
+`tools/check_iso_chair_fit.py`는 실제 알파 실루엣과 저장된 세 파트를 읽는다. lap/thigh ROI는 원본 골반 접점의 y-2..y+6(양끝 포함)이며 정강이·발을 제외한다. 이 행마다 몸의 최소/최대 x 밖에 있는 **보이는 방석** 픽셀의 수와 최대 좌우 돌출 길이를 측정한다. 방석은 front-01뿐 아니라 rear에 있는 동일한 물리 방석 표면도 포함한다. 별도로 front-01이 ROI의 몸 픽셀을 덮는 수를 센다. 전환 위상별 수치는 JSON에 보존하며 높이 z12인 typing/thinking/sleep에 합격 기준을 적용한다.
+
+| 방향 | 착석 프레임 | 좌우 최대 돌출 전→후 (1x px) | 몸 밖 방석 픽셀 전→후 | 앞 립이 덮는 lap/thigh 픽셀 전→후 |
+| --- | ---: | --- | ---: | ---: |
+| SE | 54 | (9,9) → (2,1) | 3,458 → 34 | 2,749 → 0 |
+| SW | 54 | (10,9) → (2,1) | 3,467 → 34 | 2,604 → 0 |
+| NE | 72 | (1,10) → (0,1) | 1,494 → 12 | 2,471 → 0 |
+| NW | 72 | (11,0) → (2,0) | 2,092 → 24 | 1,969 → 0 |
+
+6인 typing/thinking/sleep 252프레임의 앞 립 가림 합계는 **9,793→0px**다. 방석과 겹치는 lap/thigh 픽셀을 실제 화면 ray로 역투영한 z가 12 미만인 샘플은 **8,823→0개**다. 같은 ROI의 최대 프록시 외삽은 SE 2.2361→1px, SW 5→1px, NE/NW 4→2px다. 가구와 무관한 머리·옷까지 포함한 배포 팩 전체 최대 외삽 13.8924px는 그대로다. 머리 상위 18 source rows와 타이핑 손 앵커 ±1 ROI에서 새로 숨긴 픽셀은 **0개**다. 전후 ROI bit mask를 비교하므로 같은 개수의 다른 픽셀이 숨는 경우도 거부한다.
+
+캐릭터는 배포 팩의 dev-hoodie-v2(검은 곱슬머리·노란 상의), punk-girl, professor와 기존 소스 glasses-bun, hanbok-modern, red-braid를 사용했다. 별도 afro-sweater ISO 소스는 이 브랜치에 없다. 배포 캐릭터/블링크 PNG 바이트와 다른 가구·소파·TV·펫, layout은 보존한다. 추가 세 디자인은 작업 트리의 합성 fixture에만 들어간다.
+
+방석이 몸 뒤로 완전히 가려지면 front-01 셀은 투명하다. `iso_check`는 생성된 `iso-chair-sandwich`의 모든 참조에 대해 세 파트의 ID/rank와 원본 의자 RGBA 합집합을 먼저 검사한다. 정확한 재구성이 증명된 투명 파트만 빈 셀/물리 접점 검사의 예외다. 원본 아트의 빈 셀이나 합집합의 누락·중복·색 변경은 계속 실패한다.
+
+### 재생성 순서
+
+완성된 팩의 manifest와 그 manifest가 참조하는 모든 파일을 먼저 준비한다. 이 레인은 기준 배포 팩 전체를 `artifacts/chairslim/before/pack`에 복사했다. 캐릭터 변경을 원하지 않는 의자 수정에서는 기본 full builder를 배포 디렉터리에 실행하지 않는다.
+
+```powershell
+python -B tools/check_iso_chair_fit.py assets/art/iso/pack artifacts/chairslim/before/fit --fixture artifacts/chairslim/before/six-pilots
+python -B tools/iso_seated_geometry.py
+python -B tools/build_iso_pack.py --seated-only
+python -B tools/check_iso_chair_fit.py assets/art/iso/pack artifacts/chairslim/after/fit --fixture artifacts/chairslim/after/six-pilots --before artifacts/chairslim/before/fit/metrics.json --enforce --details
+```
+
+`--details`는 각 디자인/방향/자세/위상에 대해 left, right, overhangPixels, lipCoveredLap, cushionCoveredLap, lapProxyBelowTop, hiddenHead, hiddenHands 순서로 전후 수치를 출력한다. `build_iso_pack.py`는 수정하지 않았다. packv4를 병합할 때 그 레인의 완성 팩을 먼저 준비한 뒤 `--seated-only`를 다시 실행하면 새 캐릭터·장식·펫 픽셀을 보존한다. 이 레인의 옛 `pack/assets.json`을 그 위에 덮어쓰지 않는다.
+
+전후 PNG는 `artifacts/chairslim/<before|after>/smoke/iso-demo-24.0s-3x.png`, `fit/<facing>-six-designs-2x.png`, `wpf-six/`에 있다. 빈 의자 비교는 `artifacts/chairslim/empty-before-after-6x.png`다. 모두 작업 트리의 검수 자료이며 커밋하지 않는다. 아래 seatfix의 숫자와 기존 furniture-v3 제작 PNG는 이전 형상의 기록이다.
+
+최종 Python 전체 unittest는 **82/82**, 별도 simulator는 **9 PASS / 1 expected failure**다. 소스 ISO 검사 **509 PASS / 227 SKIP / 0 FAIL**, 배포 팩 검사 **356개 / 0 FAIL**, 오프라인 엔진 검사 **13/13**을 통과했다. 전체 솔루션 빌드는 경고·오류 0개이고 .NET 전체 테스트는 **556/556**이다. 테스트 임시 경로는 작업 트리 `artifacts/chairslim/test-temp`로 지정했다. 빈 의자의 검토된 새 RGBA 해시 네 개를 갱신했으며 파트 합집합과 머리·손 검사는 유지했다.
+
+6인 실제 엔진은 blink 포함 **792프레임 / 의자 교차 143,758px / 책상 교차 11,556px**를 검사했다. 머리 상위 18 source rows의 최소 노출은 뒤쪽 **90.83%**, 앞쪽 **100%**이고 타이핑 손은 **100%**다. 양쪽 보행 진입·이탈은 **768프레임 / 63,291 의자 교차 픽셀**에서 일반 지면 깊이 규약을 통과했다. 이 숫자는 별도 six-pilots fixture의 결과다.
+
+앱의 offscreen demo는 빈 방·3인·12인·24초 demo를 포함한 16시점에서 1x/2x/3x **48캡처**, 추가 보기 5개를 저장했다. 요청한 네 장면 × 세 배율의 소파·TV 영역(1x x20..184, y160..264)은 전후 RGBA가 정확히 같다. 의자 두 시트를 제외한 **42개 시트**의 PNG 바이트와 비좌석 메타데이터, 다른 가구 정의와 layout도 보존됐다. 네 방향 확대 시트와 전후 장면 PNG를 열어 확인했다.
+
+전후 실제 WPF 확대 렌더는 각각 **576크롭**이다. 최종 의자·인물 소유 픽셀을 전체 책상 큐의 가림 순서까지 반영해 비교한 결과, 기준 **212,396px**, 수정본 **153,488px**가 정확히 일치했다. thinking/sleep을 추가한 전체 가구 픽셀 비교는 기준/수정본 공통으로 `dev-hoodie-v2-ne-thinking-0-4x`의 책상 영역 1x (66,25)에서 불일치했다. 기대 RGBA (199,130,81,255), 실제 (25,30,30,255)이며 원인은 확인하지 않았다. `review_iso_seated_renders.py --seated-only`는 의자·인물이 최종 소유하는 픽셀을 검사하고 기존 전체 비교 모드는 유지한다. 이 결과를 전체 가구 픽셀 검사의 통과로 보고하지 않는다.
+
+남은 항목은 P2 기준/수정본 공통 책상 영역의 큐 비교 불일치, P3 작은 방석에 비해 넓게 보이는 기존 캐스터 베이스다. 의자 관련 합격 기준은 충족했다. 2D 옷의 실제 3D 두께, 임의의 연속 보행 위치에 대한 물리 z-buffer, live 사용자 세션, 다른 DPI, packv4 병합 후 전체 장면은 검증 범위 밖이다.
+
+## 이전 구현: 기하 기반 좌석 조립 (lane/seatfix)
 
 기준은 `39184c7`이다. 아래의 단일 front 마스크 수정 기록은 이전 구현이다. 새 구현은 의자의 각 픽셀과 인물의 대응 표면 깊이를 비교하고, 인물 프레임마다 rear / cushion / front 조합을 팩에 저장한다. 런타임에서는 레이아웃 생성 시 만든 항목 세 개를 선택한다. 프레임 중에 마스크를 만들거나 이미지 픽셀을 수정하지 않는다.
 
