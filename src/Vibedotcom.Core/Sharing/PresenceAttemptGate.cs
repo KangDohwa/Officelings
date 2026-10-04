@@ -23,8 +23,12 @@ public sealed class FilePresenceAttemptGate(string directory) : IPresenceAttempt
         var owned = false;
         try
         {
-            try { owned = mutex.WaitOne(0); } catch (AbandonedMutexException) { owned = true; }
-            if (!owned) return TimeSpan.FromSeconds(10);
+            try { owned = mutex.WaitOne(reserve ? 0 : 1000); } catch (AbandonedMutexException) { owned = true; }
+            if (!owned)
+            {
+                if (reserve) return TimeSpan.FromSeconds(10);
+                throw new SharingCredentialException(); // Never silently drop a Retry-After extension on contention.
+            }
             var path = Path.Combine(directory, key + ".cooldown");
             var uptime = Environment.TickCount64;
             var utc = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();

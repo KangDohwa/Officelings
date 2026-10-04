@@ -65,6 +65,8 @@ public sealed class PresenceSender : IAsyncDisposable
             catch (Exception) { Halt(SharingStatus.CredentialError); return; }
             if (wait > TimeSpan.Zero) { Schedule(wait); Status = SharingStatus.Backoff; return; }
             Schedule(TimeSpan.FromSeconds(10)); // Every attempted request, including failures, consumes a slot.
+            if (!Enabled || cancellation.IsCancellationRequested) return;
+            var attemptedAt = time.GetTimestamp();
             first = false; Status = SharingStatus.Sending;
             PresenceResponse response;
             try { response = await transport.SendAsync(preview.Endpoint, activeToken, payload, now, cancellation.Token).ConfigureAwait(false); }
@@ -79,17 +81,19 @@ public sealed class PresenceSender : IAsyncDisposable
             else if (response.StatusCode == 0 || response.StatusCode >= 500)
             { failures = Math.Min(failures + 1, 5); Status = SharingStatus.Backoff; delay = TimeSpan.FromSeconds(Math.Min(300, 10 * Math.Pow(2, failures) + jitter * 10)); }
             else { Halt(SharingStatus.Rejected); return; }
-            Schedule(delay);
-            try { attempts.Defer(activeToken, delay); }
+            // Successful heartbeat cadence is measured from the attempt, not from a slow response.
+            Schedule(delay, response.StatusCode == 202 ? attemptedAt : null);
+            try { attempts.Defer(activeToken, Remaining); }
             catch (Exception) { Halt(SharingStatus.CredentialError); }
         }
         finally { sending.Release(); }
     }
     private static TimeSpan Max(TimeSpan a, TimeSpan b) => a > b ? a : b;
-    private void Schedule(TimeSpan delay)
+    private void Schedule(TimeSpan delay, long? origin = null)
     {
-        var ticks = Math.Min(delay.TotalSeconds * time.TimestampFrequency, long.MaxValue - (double)time.GetTimestamp());
-        nextAttempt = Math.Max(nextAttempt, time.GetTimestamp() + (long)ticks);
+        var timestamp = origin ?? time.GetTimestamp();
+        var ticks = Math.Min(delay.TotalSeconds * time.TimestampFrequency, long.MaxValue - (double)timestamp);
+        nextAttempt = Math.Max(nextAttempt, timestamp + (long)ticks);
     }
     private void Halt(SharingStatus status) { Enabled = false; Status = status; token = null; }
     public void Stop() { Enabled = false; Status = SharingStatus.Off; cancellation.Cancel(); token = null; }

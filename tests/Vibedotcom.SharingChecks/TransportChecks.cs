@@ -2,6 +2,7 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using Vibedotcom.Core.Sharing;
 
@@ -107,6 +108,14 @@ internal static partial class Program
             await using var f = new Fixture(); f.Enable(); await Task.WhenAll(f.Sender.TrySendAsync(), f.Sender.TrySendAsync());
             Require(f.Handler.Requests.Count == 1);
         });
+        foreach (var jitter in new[] { 0d, 1d })
+            await CheckAsync("slow success still keeps attempt cadence within 10–30 seconds", async () =>
+            {
+                await using var f = new Fixture(jitter);
+                f.Handler.Reply = (_, _) => { f.Time.Advance(8); return Task.FromResult(new HttpResponseMessage(HttpStatusCode.Accepted)); };
+                f.Enable(); await f.Sender.TrySendAsync(); Require(f.Sender.Remaining.TotalSeconds == 2 + jitter * 20);
+                f.Time.Advance(2 + jitter * 20); await f.Sender.TrySendAsync(); Require(f.Handler.Requests.Count == 2);
+            });
         foreach (var date in new[] { false, true })
             await CheckAsync("429 respects Retry-After delta and date", async () =>
             {
@@ -196,6 +205,28 @@ internal static partial class Program
                 gate.Defer(Secret, TimeSpan.FromSeconds(60));
                 Require(new FilePresenceAttemptGate(directory).Reserve(Secret, TimeSpan.FromSeconds(10)) > TimeSpan.FromSeconds(58));
                 Require(Directory.GetFiles(directory).All(p => !p.Contains(Secret) && !File.ReadAllText(p).Contains(Secret)));
+            }
+            finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+        });
+        Check("concurrent gate read cannot discard Retry-After persistence", () =>
+        {
+            var directory = Path.Combine(Path.GetTempPath(), "vibedotcom-sharing-contention-" + Guid.NewGuid().ToString("N"));
+            try
+            {
+                var gate = new FilePresenceAttemptGate(directory); gate.Reserve(Secret, TimeSpan.FromSeconds(10));
+                var key = Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(Secret)));
+                using var mutex = new Mutex(false, "Local\\Vibedotcom.Sharing." + key);
+                using var started = new ManualResetEventSlim();
+                mutex.WaitOne();
+                Task defer;
+                try
+                {
+                    defer = Task.Run(() => { started.Set(); gate.Defer(Secret, TimeSpan.FromSeconds(60)); });
+                    started.Wait(); Thread.Sleep(50); Require(!defer.IsCompleted);
+                }
+                finally { mutex.ReleaseMutex(); }
+                defer.GetAwaiter().GetResult();
+                Require(gate.Reserve(Secret, TimeSpan.FromSeconds(10)) > TimeSpan.FromSeconds(58));
             }
             finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
         });
