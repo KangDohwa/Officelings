@@ -9,5 +9,7 @@
     <ProjectReference Include="../../src/Vibedotcom.App/Vibedotcom.App.csproj" />
     <Compile Include="../Vibedotcom.Tests/IsoV3RegressionChecks.cs" Link="IsoV3RegressionChecks.cs" />
     <Compile Include="../Vibedotcom.Tests/IsoSeatedOcclusionChecks.cs" Link="IsoSeatedOcclusionChecks.cs" />
+    <Compile Include="../Vibedotcom.Tests/IsoSeatAssemblyChecks.cs" Link="IsoSeatAssemblyChecks.cs" />
+    <Compile Include="../Vibedotcom.Tests/IsoSeatAssemblyRender.cs" Link="IsoSeatAssemblyRender.cs" />
   </ItemGroup>
 </Project>

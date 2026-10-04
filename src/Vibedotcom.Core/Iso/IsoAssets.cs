@@ -7,6 +7,7 @@ public sealed record IsoAlias(string Name, string Direction, IsoClipTarget Targe
     string? Effect = null, string? Prop = null, string? SeatProfile = null);
 public sealed record IsoBlink(string SheetId, IReadOnlyList<int> NormalRows, int DurationMs = 100);
 public sealed record IsoEyeMask(string EyeMask);
+public sealed record IsoChairFrame(IReadOnlyList<string> Clips, string Hidden, string Overlap);
 public sealed record IsoClip(string Name, string Direction, int Row, int Frames, double Fps,
     int Column = 0, bool Loop = true, PixelPoint? Anchor = null, PixelPoint? FootOffset = null,
     PixelPoint? SeatAnchor = null, IReadOnlyList<PixelPoint>? HandAnchors = null,
@@ -15,7 +16,8 @@ public sealed record IsoClip(string Name, string Direction, int Row, int Frames,
     IsoGridPoint? DepthAnchor = null, int IsoZOrder = 0, string? SeatGroupId = null,
     string? HitTargetId = null, IReadOnlyList<IsoAnchorCheck>? AnchorChecks = null,
     PixelPoint? EdgeAnchor = null, string? Effect = null, string? Prop = null, bool Transition = false,
-    string? Family = null, string? Axis = null, int? Phase = null)
+    string? Family = null, string? Axis = null, int? Phase = null,
+    IReadOnlyList<IsoChairFrame>? ChairFrames = null)
 {
     // The scene API has no direction member: Clip carries this unique name/direction key.
     public string Key => Name + "/" + Direction;

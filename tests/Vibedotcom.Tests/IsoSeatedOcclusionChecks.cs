@@ -31,13 +31,17 @@ internal static class IsoSeatedOcclusionChecks
         var chair = scene.Items.Where(i => i.InstanceId.StartsWith("chair/") && i.Layer == IsoLayer.Furniture).ToArray();
         var desk = scene.Items.Where(i => i.InstanceId.StartsWith("desk/") && i.Layer == IsoLayer.Furniture).ToArray();
         var overlaps = 0;
+        // Chair coverage is geometric and bidirectional; the previous blanket
+        // y>=64 assertion incorrectly hid every cushion/base overlap.
+        if (pack.Clip(body.SheetId, body.Clip).ChairFrames != null)
+            overlaps += IsoSeatAssemblyChecks.CheckPixels(pack, scene);
         for (var y = pelvisY - 1; y < 64; y++) for (var x = 0; x < 32; x++)
         {
             if (!pack.Opaque(body, x, y)) continue;
             var px = body.X + x; var py = body.Y + y;
             // The cushion begins at chair-cell y=64. The far arm above it is
             // rear and may sit behind a rising pelvis; front parts always occlude.
-            if (facing is "ne" or "nw" && chair.Any(i => (i.Depth > body.Depth || py - i.Y >= 64) &&
+            if (pack.Clip(body.SheetId, body.Clip).ChairFrames == null && facing is "ne" or "nw" && chair.Any(i => (i.Depth > body.Depth || py - i.Y >= 64) &&
                 pack.Opaque(i, px - i.X, py - i.Y)))
             {
                 overlaps++;
@@ -137,11 +141,11 @@ internal static class IsoSeatedOcclusionChecks
     {
         var pack = IsoPack.LoadDefault(); var cases = 0; var minimumBack = 1d; var minimumFront = 1d;
         string[] facings = ["se", "sw", "ne", "nw"];
-        // Original empty v3 RGBA, independent of PNG encoding and the split.
-        string[] emptyHashes = ["1BF2B941E9ED4828BA8B19E1783C79B7D7B1754A47ED18279CD72503D054C4DC",
-            "E3CCF0E2D54C4096319D09DC08C1CF62AEBD6BF43350317079DF0ADC8382A3F0",
-            "2EE719F2CEB7B902D372C639A341B6F5801E2B5D00D516633CD134A4449CC556",
-            "338D022834EA89500FB628E267DD8B6F5CAE301F431870021A69F4B5F20B457B"];
+        // Reviewed 2px cushion/z21 back redesign; hash is independent of PNG encoding.
+        string[] emptyHashes = ["F04C9C312DF0E48E82B4518A98A1FC04D95AB1A0D3FE90A044C339CCC3F0865F",
+            "699FCC7AC14278BD45E6A197361A582AA20403100535A7A1E2DE10C039DC7903",
+            "6C203F2496D2316969C24644E8736F2433DAF8D71DEAA6B7092B2F7D61F9AF1C",
+            "F09B2C87E149D8856D92C057DA283E1219316613B656C11B1CE6F0EF11E2E78E"];
         for (var f = 0; f < facings.Length; f++)
         {
             var parts = pack.Variant("iso/chair", IsoGeometry.Rotation(facings[f])).Parts;
@@ -190,7 +194,7 @@ internal static class IsoSeatedOcclusionChecks
                         if (head) { totalHead++; if (visible) visibleHead++; }
                         var rgb = bytes[index] * 65536 + bytes[index + 1] * 256 + bytes[index + 2];
                         if (!transition && !head && skin.Contains(rgb) && clip.HandAnchors!.Any(h => Math.Abs(h.X - x) <= 2 && Math.Abs(h.Y - y) <= 2))
-                        { Require(visible, $"{design.Id}/{seat.Facing}/{phase}: typing hand covered"); hands++; }
+                        { Require(visible, $"{design.Id}/{seat.Facing}/{phase}: typing hand ({x},{y}) covered by {Top(pack,scene,body.X+x,body.Y+y)?.InstanceId}"); hands++; }
                     }
                     Require(totalHead > 0 && visibleHead >= totalHead * (back ? .85 : .90), "Head visibility below contract");
                     if (!transition) Require(hands > 0, "No hand ROI tested");
