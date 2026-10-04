@@ -80,7 +80,7 @@ internal static partial class Program
         try
         {
             var demo = args.Contains("--demo"); Settings? initial = null;
-            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null, home = null, stateSource = null; double quitAfter = 0; var qa = false; var smokeTags=false; var smokeAmbient=false;
+            string? viewOverride = null, smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null, home = null, stateSource = null; double quitAfter = 0; var qa = false; var smokeTags=false; var smokeAmbient=false;
             for (var i = 0; i < args.Length; i++)
             {
                 string Value() => ++i < args.Length ? args[i] : throw new ArgumentException("Missing option value.");
@@ -89,7 +89,7 @@ internal static partial class Program
                 switch (args[i])
                 {
                     case "--demo": break;
-                    case "--view": initial = (initial ?? new()) with { View = ParseView(Value()) }; break;
+                    case "--view": viewOverride = ParseView(Value()); break;
                     case "--smoke-test": smoke = Value(); break;
                     case "--smoke-tags": smokeTags = true; break;
                     case "--smoke-ambient": smokeAmbient = true; break;
@@ -128,6 +128,8 @@ internal static partial class Program
             storage.CheckInput(layoutFile); storage.CheckInput(assetDirectory);
             storage.CheckInput(stateSource);
             if (stateSource != null && assetDirectory == null) assetDirectory = Path.GetDirectoryName(stateSource);
+            if (viewOverride != null) initial = (initial ?? (storage.Isolated ? new Settings() : Settings.Read(storage.SettingsPath))) with { View = viewOverride };
+            else if (initial != null && !storage.Isolated) initial = initial with { View = Settings.Read(storage.SettingsPath).View };
             var app = new Application();
             if (verifyOpacity != null) return OpacityVerification.Run(verifyOpacity);
             if (initial?.View == "iso" || initial == null && !storage.Isolated && Settings.Read(storage.SettingsPath).View == "iso")
@@ -320,6 +322,7 @@ internal static partial class Program
     }
     internal static BitmapSource RenderBitmap(FrameworkElement view,int width,int height)
     {
+        if (view is IsoView iso) return IsoOffscreenRenderer.RenderBitmap(iso,width,height);
         // A hidden, owned presentation source makes WPF process visual invalidation
         // even for repeated renders at the same size. It is never shown/activated.
         using var source=new HwndSource(new HwndSourceParameters("Vibedotcom offscreen render")

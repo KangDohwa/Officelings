@@ -56,6 +56,7 @@ internal sealed partial class IsoView : FrameworkElement
     internal int DynamicRenderCount { get; private set; }
     internal int AnimationTickCount { get; private set; }
     internal bool AnimationTimerEnabled => animation.IsEnabled;
+    internal Func<Point?>? Pointer { get; set; }
     internal int StaticBitmapCount => retained.Values.Count(s=>s.Bitmap!=null);
     internal Matrix Camera => camera;
     protected override int VisualChildrenCount => 1;
@@ -79,6 +80,7 @@ internal sealed partial class IsoView : FrameworkElement
             var now=DateTimeOffset.UtcNow;
             if (double.IsFinite(office.NextChangeSeconds)) Update(agents,now,Math.Max(0,(now-previous).TotalSeconds));
             else previous=now;
+            if (Pointer!=null && HasHoverTarget) PollHover(Pointer(),now);
             AdvanceHover(now); ScheduleAnimation(now);
         };
         SizeChanged+=(_,_)=> { UpdateCamera(); InvalidateVisual(); };
@@ -97,14 +99,16 @@ internal sealed partial class IsoView : FrameworkElement
 
     internal void Update(IReadOnlyList<AgentInfo> people, DateTimeOffset now, double deltaSeconds)
     {
-        agents=people; previous=now;
+        previous=now;
         Present(office.Update(people,now,deltaSeconds),people);
         ScheduleAnimation(now);
     }
 
     internal bool Present(IsoScene next, IReadOnlyList<AgentInfo>? people = null)
     {
-        if (next.Revision==scene.Revision) return false;
+        var metadataChanged=people!=null && !ReferenceEquals(agents,people);
+        if (metadataChanged) agents=people!;
+        if (next.Revision==scene.Revision) { if (metadataChanged) RebuildTags(); return false; }
         if (next.Width<=0 || next.Height<=0) throw new ArgumentException("Iso scene bounds must be positive.");
         var geometryChanged=next.Width!=scene.Width || next.Height!=scene.Height;
         scene=next;
@@ -194,7 +198,7 @@ internal sealed partial class IsoView : FrameworkElement
 
     public void SetZoom(int requested)
     {
-        preferredZoom=requested==0 ? 0 : Math.Clamp(requested,1,3); physicalPan=new();
+        preferredZoom=requested==0 ? 0 : Math.Clamp(requested,1,6); physicalPan=new();
         HideTooltip(); UpdateCamera(); InvalidateVisual();
     }
     public void ChangeZoom(int direction) => SetZoom(zoom+direction);
@@ -202,7 +206,7 @@ internal sealed partial class IsoView : FrameworkElement
     {
         var dpi=VisualTreeHelper.GetDpi(this);
         physicalPan+=new Vector(offset.X*dpi.DpiScaleX,offset.Y*dpi.DpiScaleY);
-        physicalPan=new(Snap(physicalPan.X),Snap(physicalPan.Y));
+        // Keep fractional input until the camera snaps the final device translation.
         HideTooltip(); UpdateCamera();
     }
     private static double Snap(double value) => Math.Floor(value+.5);
@@ -213,7 +217,7 @@ internal sealed partial class IsoView : FrameworkElement
     private void UpdateCamera()
     {
         var dpi=VisualTreeHelper.GetDpi(this);
-        var desired=preferredZoom==0 ? Math.Clamp((int)Math.Floor(Math.Min(ActualWidth*dpi.DpiScaleX/scene.Width,ActualHeight*dpi.DpiScaleY/scene.Height)),1,3) : preferredZoom;
+        var desired=preferredZoom==0 ? Math.Clamp((int)Math.Floor(Math.Min(ActualWidth*dpi.DpiScaleX/scene.Width,ActualHeight*dpi.DpiScaleY/scene.Height)),1,6) : preferredZoom;
         if (zoom!=desired) { zoom=desired; RebuildScene(); RebuildTags(); }
         var next=PhysicalCamera(scene.Width,scene.Height,ActualWidth,ActualHeight,dpi.DpiScaleX,dpi.DpiScaleY,zoom,physicalPan);
         if (next==camera) return;

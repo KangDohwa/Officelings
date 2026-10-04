@@ -122,7 +122,7 @@ internal sealed class IsoPreviewOffice : IIsoOffice
             var ci=location.I+cx/64d+cy/32d; var cj=location.J+cy/32d-cx/64d;
             Furniture($"chair:{index}","furniture-v2/workstations/chair.iso.json",ci,cj,facing,depth);
             if (index>=agents.Count) continue;
-            var agent=agents[index]; var rig=rigs[index%3];
+            var agent=agents[index]; var rig=rigs[SpriteAtlas.Hash(agent.Id)%3];
             var source=sheets.Clip(rig,"seated-typing-front/"+facing);
             var item=new IsoDrawItem("agent:"+agent.Id,IsoLayer.Character,rig,source.Key,phase%4,
                 projected.X+contact.GetProperty("x").GetInt32()-16,projected.Y+contact.GetProperty("y").GetInt32()-44,
@@ -139,11 +139,12 @@ internal sealed class IsoPreviewOffice : IIsoOffice
         Furniture("rug","furniture-v2/lounge/rug.iso.json",6,7,"sw");
         Furniture("table","furniture-v2/lounge/side-table.iso.json",3,8,"se");
         Furniture("lamp","furniture-v2/utility/floor-lamp.iso.json",4,8,"se");
-        (double I,double J)[] walkers=[(2,5),(3,3),(6,3),(7,4),(2,7),(4,7),(7,6),(8,7)];
+        (double I,double J)[] walkers=[(2,5),(3,3),(6,3),(7,4),(2,7),(4,7),(8,6),(8,7)];
         for (var index=4;index<Math.Min(12,agents.Count);index++)
         {
-            var point=walkers[index-4]; var agent=agents[index]; var rig=rigs[index%3];
+            var point=walkers[index-4]; var agent=agents[index]; var rig=rigs[SpriteAtlas.Hash(agent.Id)%3];
             var facing=new[] { "se","sw","ne","nw" }[(index-4)%4];
+            shadows.Add(Place("contact:"+agent.Id,IsoLayer.Shadow,IsoPreviewContactShadow.SheetId,"contact",0,point.I,point.J));
             var item=Place("agent:"+agent.Id,IsoLayer.Character,rig,"walk/"+facing,phase%4,point.I,point.J,(long)Math.Round((point.I+point.J)*1000),agent.Id);
             objects.Add((item,point.I+point.J,0)); labels.Add(new(agent.Id,agent.Name,item.X+16,item.Y+19));
         }

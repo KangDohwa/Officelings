@@ -27,7 +27,7 @@ internal sealed class SourceManifestIsoSheets : IIsoSheetSource
 
     internal SourceManifestIsoSheets(string directory)
     {
-        var root = Path.GetFullPath(directory);
+        var root = Path.TrimEndingDirectorySeparator(Path.GetFullPath(directory));
         var files = new List<string>
         {
             Path.Combine(root,"env","floors","floors.iso.json"),
@@ -69,6 +69,8 @@ internal sealed class SourceManifestIsoSheets : IIsoSheetSource
                 }
             }
         }
+        all.Add(IsoPreviewContactShadow.Clip);
+        clips.Add((IsoPreviewContactShadow.SheetId, IsoPreviewContactShadow.Clip.Key), IsoPreviewContactShadow.Clip);
         Clips = all;
     }
 
@@ -93,8 +95,10 @@ internal sealed class SourceManifestIsoSheets : IIsoSheetSource
 
     public IsoSheetCell GetCell(string sheetId, string key, int frame)
     {
+        if (sheetId == IsoPreviewContactShadow.SheetId && key == IsoPreviewContactShadow.Clip.Key)
+            return IsoPreviewContactShadow.Cell;
         var clip = Clip(sheetId,key);
-        frame = clip.Loop ? Math.Max(0,frame)%clip.Frames : Math.Clamp(frame,0,clip.Frames-1);
+        if (frame<0 || frame>=clip.Frames) throw new InvalidDataException("Iso frame outside declared clip: " + key);
         var column = clip.Column + frame;
         if (frames.TryGetValue((sheetId,clip.Row,column),out var cached)) return cached;
         if (!sheets.TryGetValue(sheetId,out var image))

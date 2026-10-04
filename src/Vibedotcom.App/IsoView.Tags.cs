@@ -12,6 +12,7 @@ internal sealed partial class IsoView
 {
     private readonly NameTagHover tagHover = new();
     private readonly BrandIcons brandIcons;
+    private readonly IsoProviderIcons bundledIcons=new();
     private readonly Dictionary<string,AgentInfo> byId = new(StringComparer.Ordinal);
     private readonly Dictionary<string,Rect> tagRects = new(StringComparer.Ordinal), iconRects = new(StringComparer.Ordinal);
     private readonly Dictionary<string,FormattedText> textCache = new(StringComparer.Ordinal);
@@ -50,6 +51,7 @@ internal sealed partial class IsoView
     private void RebuildTags()
     {
         byId.Clear(); foreach (var agent in agents) byId[agent.Id]=agent;
+        if (DebugTooltipText!=null) DebugTooltipText=tagHover.Target!=null && byId.TryGetValue(tagHover.Target,out var current) ? TooltipText(current,previous) : null;
         RenderTags();
     }
     private void RenderTags()
@@ -75,13 +77,13 @@ internal sealed partial class IsoView
                 dc.PushOpacity(opacity);
                 dc.DrawRectangle(agent?.IsSubagent==true ? childEdge : leadEdge,null,outline);
                 dc.DrawRectangle(plateFill,null,rect);
-                DrawProviderIcon(dc,agent?.Provider ?? Provider.Codex,new Rect(rect.X+1,rect.Y+1,12,12));
+                DrawProviderIcon(dc,agent,new Rect(rect.X+1,rect.Y+1,12,12));
                 dc.DrawText(text,new Point(rect.X+15,rect.Y+4)); dc.Pop(); RenderedAgentTags++;
             }
             if (tagMode=="icon" && opacity<1)
             {
                 var rect=new Rect(label.X-6,label.Y-14,12,12); iconRects[label.AgentId]=rect;
-                dc.PushOpacity(1-opacity); DrawProviderIcon(dc,agent?.Provider ?? Provider.Codex,rect); dc.Pop(); RenderedProviderIcons++;
+                dc.PushOpacity(1-opacity); DrawProviderIcon(dc,agent,rect); dc.Pop(); RenderedProviderIcons++;
             }
         }
         if (DebugTooltipText!=null && hoverPoint is {} point)
@@ -101,10 +103,11 @@ internal sealed partial class IsoView
         }
         else tooltipRect=Rect.Empty;
     }
-    private void DrawProviderIcon(DrawingContext dc,Provider provider,Rect rect)
+    private void DrawProviderIcon(DrawingContext dc,AgentInfo? agent,Rect rect)
     {
-        var icon=brandIcons.Get(provider,zoom);
-        if (icon!=null) { dc.DrawImage(icon,rect); return; }
+        var provider=agent?.Provider ?? Provider.Codex;
+        var icon=brandIcons.Get(provider,zoom) ?? bundledIcons.Get(provider,agent?.IsSubagent ?? false,zoom);
+        if (icon!=null) { dc.DrawImage(icon,icon.PixelWidth==10 ? new Rect(rect.X+1,rect.Y+1,10,10) : rect); return; }
         if (!neutralIcons.TryGetValue(provider,out var generic))
         {
             string[] rows=provider switch
@@ -123,6 +126,13 @@ internal sealed partial class IsoView
         }
         dc.DrawImage(generic,rect);
     }
+    private string TooltipText(AgentInfo agent,DateTimeOffset now)
+    {
+        var clip=scene.Items.FirstOrDefault(i=>i.Layer==Vibedotcom.Core.Iso.IsoLayer.Character && i.HitTargetId==agent.Id)?.Clip ?? "idle";
+        var action=clip.Contains("typing",StringComparison.OrdinalIgnoreCase) ? "typing" : clip.Contains("walk",StringComparison.OrdinalIgnoreCase) ? "walk"
+            : clip.Contains("thinking",StringComparison.OrdinalIgnoreCase) ? "thinking" : clip.Contains("sleep",StringComparison.OrdinalIgnoreCase) ? "sleep" : "idle";
+        return OfficeView.TooltipText(new(agent,new(0,0,new(0,0),action,"down",0,0,true)),now);
+    }
     internal void PollHover(Point? point,DateTimeOffset now)
     {
         var target=(string?)null;
@@ -134,6 +144,9 @@ internal sealed partial class IsoView
                 var bridge=rect; bridge.Height+=8;
                 if (bridge.Contains(native)) { target=id; break; }
             }
+            if (target==null)
+                foreach (var (id,rect) in iconRects)
+                    if (rect.Contains(native)) { target=id; break; }
             target ??= HitTestScene(screen)?.TargetId;
         }
         else hoverPoint=null;
@@ -143,8 +156,7 @@ internal sealed partial class IsoView
         if (target!=null && byId.TryGetValue(target,out var agent) && (now-tagHover.Entered).TotalMilliseconds>=NameTagHover.TooltipDelayMs)
         {
             // The supplied AgentInfo is already privacy-filtered by the tracker.
-            var view=new AgentView(agent,new(0,0,new(0,0),"iso","down",0,0,true));
-            var text=OfficeView.TooltipText(view,now);
+            var text=TooltipText(agent,now);
             changed|=text!=DebugTooltipText; DebugTooltipText=text;
         }
         if (changed) RenderTags();

@@ -45,6 +45,7 @@ internal sealed class IsoWindow : Window
         view=new(office,sheets,storage.Isolated ? Path.Combine(storage.Home,"brand") : null)
         { TagMode=settings.TagMode,TransparentBackground=settings.TransparentBackground };
         modes=new(this,qa);
+        view.Pointer=()=>qa || closed || suspended ? null : modes.Cursor(view);
         tracker=new(new() { Home=trackerHome ?? (storage.Isolated ? storage.Home : new TrackerOptions().Home),
             WorkingWindow=TimeSpan.FromSeconds(settings.WorkingSeconds),LeaveAfterIdle=TimeSpan.FromMinutes(settings.LeaveAfterIdleMinutes),
             LeaveAfterWaiting=TimeSpan.FromMinutes(settings.LeaveAfterWaitingMinutes) });
@@ -81,7 +82,7 @@ internal sealed class IsoWindow : Window
         maintenance=new(DispatcherPriority.Background,Dispatcher) { Interval=TimeSpan.FromSeconds(1) };
         maintenance.Tick+=(_,_)=>Maintain();
         Loaded+=(_,_)=> { maintenance.Start(); view.SetAnimationEnabled(true); Maintain(); };
-        StateChanged+=(_,_)=> { suspended=WindowState==WindowState.Minimized; view.SetAnimationEnabled(!suspended); };
+        StateChanged+=(_,_)=>SetSuspended(WindowState==WindowState.Minimized);
         MouseMove+=(_,_)=>RefreshHover(); MouseLeave+=(_,_)=>view.PollHover(null,DateTimeOffset.UtcNow);
         LocationChanged+=(_,_)=>saveAfter=DateTimeOffset.UtcNow.AddSeconds(1);
         SizeChanged+=(_,_)=>saveAfter=DateTimeOffset.UtcNow.AddSeconds(1);
@@ -184,6 +185,13 @@ internal sealed class IsoWindow : Window
         { var item=new Forms.ToolStripMenuItem(entry.Title); menu.Items.Add(item); item.Click+=(_,_)=>Dispatcher.Invoke(entry.Action); menu.Opening+=(_,_)=>item.Checked=entry.Check?.Invoke() ?? false; }
         tray.ContextMenuStrip=menu;
     }
+    private void SetSuspended(bool value)
+    {
+        if (suspended==value || closed) return;
+        suspended=value;
+        if (!value) { var now=DateTimeOffset.UtcNow; view.Update(agents,now,Math.Max(0,(now-previous).TotalSeconds)); previous=now; }
+        view.SetAnimationEnabled(!value);
+    }
     private void RefreshHover()
     {
         if (qa || closed || suspended) return;
@@ -194,7 +202,7 @@ internal sealed class IsoWindow : Window
         if (closed) return;
         var now=DateTimeOffset.UtcNow;
         var hidden=WindowState==WindowState.Minimized || modes.AnimationSuppressed;
-        if (hidden!=suspended) { suspended=hidden; view.SetAnimationEnabled(!suspended); }
+        SetSuspended(hidden);
         if (modes.DesktopHostLost) ApplyModes();
         if (!qa && (view.HasHoverTarget || modes.ClickThrough || modes.Mode=="desktop")) RefreshHover();
         var message=warning.Length>0 ? warning : preview ? "Handmade source-art preview · ISO simulation pending · wheel / + / − · drag to pan"
