@@ -10,6 +10,8 @@ The default window is 720x480 and fits the compact office at an integer zoom. Wh
 
 Right-click the office or tray to fit the office, switch between normal, always-on-top and desktop-level modes, or change click-through, borders, transparent background, opacity and **Name tags**. Double-click the tray icon or choose **Show normal, clickable office** to recover. Closing exits and removes the icon.
 
+Both menus also have **Privacy**: **Off**, **Hide tasks** (`tasks`) and **Hide all details** (`full`). Changes clear the tooltip and existing name drawings immediately and save for the next launch. `tasks` keeps agent/model names and only the project leaf; `full` uses stable generic agent labels and hides models and projects too. Antigravity prompt-derived titles are hidden at both enabled levels. Details and limits are in [privacy](privacy.md). Demo text is unchanged.
+
 Name tags default to **Hover**: only the character under the pointer shows its `[provider icon] name` plate. A reserved desk shows its owner's plate only while that desk is hovered and its owner is away. **Icon** keeps the original provider icon above each head and on away owners' desks; hover reveals the full plate. Native 10px icons are used at 1× and 12px icons from 2×, with integer pixel scaling. A crown marks a supervisor; a badge marks a sub-agent. Local brand overrides retain their existing 12px size and precedence. **Always** keeps full plates visible. Both menus apply the selection immediately and save it for the next launch.
 
 Hover plates fade in over 120ms. Leaving has a 60ms boundary grace, then a 200ms fade out. Moving between the character and its plate, including the gap, keeps the same hover. Detail tooltips appear after 420ms on the same target, remain passive and avoid all visible plates; a tooltip is suppressed if the window has no room. Click-through uses the existing passive cursor polling. Only the tag layer redraws during fades.
@@ -24,6 +26,7 @@ Normal use writes `%LOCALAPPDATA%\Vibedotcom\settings.json` atomically. Close th
 | --- | --- |
 | `mode` | `normal`; also `topmost`, `desktop`. |
 | `tagMode` | `hover`; also `icon`, `always`. Missing, null or unknown values fall back to `hover`. Renderer setting; never stored in tracker `state.json`. |
+| `privacyMode` | `off`; also `tasks`, `full`. Missing or invalid values use `VIBEDOTCOM_PRIVACY` when valid, then `off`. Core redacts text before storing agent state. |
 | `ambient.weather` | `off`; also `rain`, `snow`, `auto`. No network requests. `auto` shows snow in December and a clear view in other months. |
 | `seasonDecor` | `off`; `auto` adds a small winter window decoration in December. |
 | `pets` | `on`; `off` hides the roaming pets. Right-click **Pets** changes and saves this preference. Missing pet sheets simply leave the room without pets. |
@@ -85,6 +88,7 @@ Demo/QA skip implicit personal pack and layout loading. Explicit `--asset-dir` a
 | Flag | Meaning |
 | --- | --- |
 | `--demo` | Invented sessions and default settings, without saving personal settings. |
+| `--privacy off\|tasks\|full` | Startup privacy level. Takes precedence over the saved key and environment fallback. Normal app runs persist it; demo text is unaffected. |
 | `--tags hover\|icon\|always` | Name tag startup override, including demo, editor, offscreen smoke and idle profiling. |
 | `--ambient-weather off\|rain\|snow\|auto`, `--season-decor off\|auto`, `--pets on\|off` | Ambient startup overrides, including offscreen smoke and idle profiling. |
 | `--asset-dir DIR`, `--layout FILE` | Explicit runtime art/layout inputs. |
