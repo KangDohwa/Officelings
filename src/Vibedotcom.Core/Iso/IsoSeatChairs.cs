@@ -47,6 +47,7 @@ public sealed partial class IsoSceneBuilder
                                 source.IsoZOrder != replacement.IsoZOrder || source.SeatGroupId != replacement.SeatGroupId)
                                 throw new InvalidDataException("Desk partition changes identity/depth.");
                             var slot = staticItems.FindIndex(e => e.Item.InstanceId == chair.DeskId + "/" + source.PartId);
+                            if (slot < 0 && SuppressedComputerParts(layout.Furniture.Single(f => f.Id == chair.DeskId)).Contains(source.PartId!)) continue;
                             if (slot < 0) throw new InvalidDataException("Missing desk partition source.");
                             var original = staticItems[slot]; selectedSlots.Add(slot);
                             selectedEntries.Add(original with { Item = original.Item with
