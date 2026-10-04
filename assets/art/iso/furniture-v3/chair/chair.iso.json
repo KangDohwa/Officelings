@@ -151,12 +151,12 @@
           "isoZOrder": -20,
           "anchorChecks": [
             {
-              "x": 64,
-              "y": 68,
+              "x": 59,
+              "y": 62,
               "radius": 0
             }
           ],
-          "contactKind": "cushion-top-z12",
+          "contactKind": "far-arm-junction",
           "seatGroupId": "seat"
         },
         {
@@ -184,7 +184,7 @@
               "radius": 0
             }
           ],
-          "contactKind": "backrest-or-arm-junction",
+          "contactKind": "backrest-cushion-base",
           "seatGroupId": "seat"
         },
         {
@@ -207,12 +207,12 @@
           "isoZOrder": -20,
           "anchorChecks": [
             {
-              "x": 64,
-              "y": 68,
+              "x": 69,
+              "y": 62,
               "radius": 0
             }
           ],
-          "contactKind": "cushion-top-z12",
+          "contactKind": "far-arm-junction",
           "seatGroupId": "seat"
         },
         {
@@ -240,7 +240,7 @@
               "radius": 0
             }
           ],
-          "contactKind": "backrest-or-arm-junction",
+          "contactKind": "backrest-cushion-base",
           "seatGroupId": "seat"
         }
       ]
@@ -469,7 +469,8 @@
   "provenance": {
     "designReference": "Generic Korean ergonomic chair; built-in generated master-chair-v3-attempt1.png, no logo.",
     "derivation": "Generated appearance master followed by native-grid geometric reauthoring. Exact frozen teal ramp, binary alpha, upper-left highlights in every orientation. No runtime mirrors.",
-    "chairV3": "Rounded stepped contour, 5px cushion, whole cushion/lip behind actor; z21 mesh back with lumbar curve; z13 low arms, gas lift, five caster contacts. Original part IDs/cells/anchors/ground keys preserved.",
-    "limitations": "Low S0 back and arm height restrict ergonomic silhouette. Static snapshot compositing only; no runtime pack edits."
+    "chairV3": "Rounded stepped 5px cushion; z21 mesh back, z13 arms, gas lift and five caster contacts. NE/NW cushion/base occlude the seated lower body; SE/SW cushion/base remain rear. Original part IDs/cells/anchors/ground keys/ranks preserved.",
+    "limitations": "Low S0 back and arm height restrict ergonomic silhouette. Regeneration requires tools/split_iso_chair_occlusion.py before rebuilding the pack.",
+    "seatedOcclusion": "NE/NW: complete authored cushion and lift/caster base pixels move from rear-00 (-20) to front-00 (20). Far arm remains rear. Disjoint empty RGBA union is unchanged; no actor-shaped cuts."
   }
 }
