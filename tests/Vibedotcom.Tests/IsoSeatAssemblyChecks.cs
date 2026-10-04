@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
 using Vibedotcom.Core;
 using Vibedotcom.Core.Iso;
 
@@ -10,13 +11,43 @@ internal static class IsoSeatAssemblyChecks
     private static void Require(bool ok, string text)
     { if (!ok) throw new InvalidOperationException(text); }
     private static bool Bit(byte[] bytes, int n) => (bytes[n >> 3] & (1 << (n & 7))) != 0;
+    private static byte[] DeskMask(string value)
+    {
+        if(!value.StartsWith("z:",StringComparison.Ordinal))return Convert.FromBase64String(value);
+        using var input=new MemoryStream(Convert.FromBase64String(value[2..]));
+        using var compressed=new ZLibStream(input,CompressionMode.Decompress);
+        using var output=new MemoryStream();compressed.CopyTo(output);
+        var bytes=output.ToArray();Require(bytes.Length==256,"Invalid desk oracle mask size");return bytes;
+    }
+
+    private static int CheckDeskPixels(IsoPack pack,IsoScene scene)
+    {
+        var body=scene.Items.Single(i=>i.Layer==IsoLayer.Character);
+        var binding=pack.Clip(body.SheetId,body.Clip).ChairFrames?[body.Frame];
+        if(binding?.DeskHidden==null)return 0;
+        var hidden=DeskMask(binding.DeskHidden);var overlap=DeskMask(binding.DeskOverlap!);var count=0;
+        for(var y=0;y<64;y++)for(var x=0;x<32;x++)
+        {
+            if(!pack.Opaque(body,x,y))continue;
+            var px=body.X+x;var py=body.Y+y;
+            var desk=scene.Items.Where(i=>i.Layer==IsoLayer.Furniture && i.InstanceId.StartsWith("desk/") &&
+                !i.InstanceId.Contains("__monitor__") && !i.InstanceId.EndsWith("__15") && !i.InstanceId.EndsWith("__16") && !i.InstanceId.EndsWith("/screen") &&
+                pack.Opaque(i,px-i.X,py-i.Y)).ToArray();
+            Require(desk.Length<=1,$"{body.SheetId}/{body.Clip}/{body.Frame} ({x},{y}): duplicate desk pixels: {string.Join(',',desk.Select(i=>i.InstanceId))}");
+            Require((desk.Length!=0)==Bit(overlap,y*32+x),"Desk proxy/real art coverage differs");
+            if(!Bit(hidden,y*32+x))continue;
+            var top=scene.Items.Last(i=>i.Layer is not (IsoLayer.Floor or IsoLayer.Shadow) && pack.Opaque(i,px-i.X,py-i.Y));
+            Require(top!=body,$"{body.SheetId}/{body.Clip}/{body.Frame} ({x},{y}): body drawn above nearer desk");count++;
+        }
+        return count;
+    }
 
     internal static int CheckPixels(IsoPack pack, IsoScene scene)
     {
         var body = scene.Items.Single(i => i.Layer == IsoLayer.Character);
         var clip = pack.Clip(body.SheetId, body.Clip);
         var binding = clip.ChairFrames?[body.Frame] ?? throw new InvalidOperationException("Missing independent chair coverage mask");
-        var hidden = Convert.FromBase64String(binding.Hidden); var overlap = Convert.FromBase64String(binding.Overlap);
+        var hidden = DeskMask(binding.Hidden); var overlap = DeskMask(binding.Overlap);
         Require(hidden.Length == 256 && overlap.Length == 256, "Invalid oracle mask size");
         var assembly = scene.Items.Where(i => i.InstanceId.StartsWith("chair/") && i.Layer == IsoLayer.Furniture || i == body).ToArray();
         var count = 0;
@@ -54,6 +85,7 @@ internal static class IsoSeatAssemblyChecks
                     var scene = builder.Build([new("actor",design.Id,"Synthetic",new(seat.Approach.X,seat.Approach.Y),seat.Facing,
                         action,frame/clip.Fps,"desk",phase,frame,Blink:blink)]);
                     pixels += CheckPixels(pack,scene); frames++;
+                    deskPixels += CheckDeskPixels(pack,scene);
                     var body = scene.Items.Single(i => i.Layer == IsoLayer.Character);
                     Require(scene.Items.Count(i => i.InstanceId.StartsWith("chair/") && i.Layer == IsoLayer.Furniture)==3, "Draw-item budget exceeded");
                     // Ordinary or attached desk fronts must cover every overlapping actor sample.

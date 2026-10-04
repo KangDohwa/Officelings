@@ -141,13 +141,13 @@ internal static class IsoSeatedOcclusionChecks
     {
         var pack = IsoPack.LoadDefault(); var cases = 0; var minimumBack = 1d; var minimumFront = 1d;
         string[] facings = ["se", "sw", "ne", "nw"];
-        // Reviewed 40% slimmer z10.5..12 cushion/z21 back (lane/chairslim).
+        // Reviewed square 5.5-wide cushion and smaller caster base (chairfix2).
         // These source RGBA goldens are independent of PNG encoding and retain
         // the exact union gate; S0 heights and the three part ranks are unchanged.
-        string[] emptyHashes = ["F03780927795EE35DA094F5BB9ABD6BB8371F0E14E92B276F1D67399CE8D61A8",
-            "4D62DFC34FE61E538A802F7BA48D438FBC975B52005C9512AF1D7A115C756310",
-            "57459960C8E4C896DE447044703454496B02240C9379DC3B37C5CFB4069607E2",
-            "1CCBA50DC5F16A51047E37FCAEF942F7D0E9CDD06A9C61A215085590E2A69F05"];
+        string[] emptyHashes = ["CD4444BAAF58A41F333642E41DD09B46CE970F4F95BCE32C50A163415381E94D",
+            "5EF58ACBAFBC86C0D67483DE23D74D28ED30622F7F17B81C57CC7BA803C8ADCD",
+            "8558C2096877F45FFF5ACD94CCC1AEC455A1B40C387FBF29B8522EBAA16EF8C9",
+            "969F670A547A133B559F28FB57B4122C5FCBDA762B254262D1AD280C52792C2C"];
         for (var f = 0; f < facings.Length; f++)
         {
             var parts = pack.Variant("iso/chair", IsoGeometry.Rotation(facings[f])).Parts;

@@ -21,6 +21,23 @@ TEAL = ("10282C", "235E5C", "20746C", "3C9F96", "5DB1A5")
 METAL = ("191E1E", "262D38", "565958", "808985", "89918F")
 POSES = {"seated-typing-front": "typing", "seated-thinking": "waiting", "sleep": "resting",
          "sit-down": "sit-down", "stand-up": "stand-up", "idle": "turn"}
+CUSHION_SIDE = BACKREST_WIDTH = 5.5
+CUSHION_RADIUS = .5
+
+
+def cushion_outline():
+    h = CUSHION_SIDE / 2; r = CUSHION_RADIUS
+    return [(i + r*math.cos(t) + 1, j + r*math.sin(t))
+            for i,j,start in ((h-r,h-r,0),(-h+r,h-r,90),(-h+r,-h+r,180),(h-r,-h+r,270))
+            for t in np.deg2rad(np.linspace(start,start+90,4))]
+
+
+def cushion_mesh():
+    poly=cushion_outline();factor=(CUSHION_SIDE/2-.25)/(CUSHION_SIDE/2)
+    high=[(i,j,12) for i,j in poly]
+    low=[(1+(i-1)*factor,j*factor,10.5) for i,j in poly]
+    faces=[high,low[::-1]]+[[low[n],low[(n+1)%len(poly)],high[(n+1)%len(poly)],high[n]] for n in range(len(poly))]
+    return [(face,2) for face in faces]
 
 
 def rotate(p, facing):
@@ -65,9 +82,10 @@ def ellipsoid(center, radii):
     return [(face, 0) for face in faces]
 
 
-def raster(mesh, facing):
+def raster(mesh, facing, gradients=False):
     depth = np.full((128,128), -np.inf); labels = np.zeros((128,128), np.uint8)
     shades = np.zeros((128,128), np.uint8)
+    gx=np.zeros_like(depth);gy=np.zeros_like(depth)
     for face, material in mesh:
         world = np.array([rotate(p,facing) for p in face]); pp = project(world)
         normal = np.cross(world[1]-world[0],world[2]-world[0])
@@ -87,19 +105,21 @@ def raster(mesh, facing):
             hit=(wa>=-1e-9)&(wb>=-1e-9)&(wc>=-1e-9)&(d>depth[y0:y1,x0:x1]+1e-8)
             depth[y0:y1,x0:x1][hit]=d[hit]; labels[y0:y1,x0:x1][hit]=material
             shades[y0:y1,x0:x1][hit]=shade
-    return depth, labels, shades
+            if gradients:
+                gradient=np.linalg.solve(np.array([[b[0]-a[0],b[1]-a[1]],[c[0]-a[0],c[1]-a[1]]]),[b[2]-a[2],c[2]-a[2]])
+                gx[y0:y1,x0:x1][hit]=gradient[0];gy[y0:y1,x0:x1][hit]=gradient[1]
+    return (depth,labels,shades,gx,gy) if gradients else (depth,labels,shades)
 
 
 @lru_cache(maxsize=4)
 def chair(facing):
     mesh=[]
     # Four cardinal spokes and the fifth diagonal spoke; all five have ground casters.
-    for i,j in ((6,0),(0,6),(-6,0),(0,-6),(4,4)):
-        mesh += limb((0,0,2),(i,j,2),.6,1) + box(i-.8,j-.8,i+.8,j+.8,0,2,1)
-    mesh += box(-.8,-.8,.8,.8,2,10,1)
-    # 40% smaller in both horizontal axes; bevels retain a compact z12 top.
-    poly=[(-2.1,0),(0,-2.1),(2.1,0),(0,2.1)]
-    mesh += prism(poly,10.5,12,2)
+    for i,j in ((3.8,0),(0,3.8),(-3.8,0),(0,-3.8),(2.7,2.7)):
+        mesh += limb((0,0,1.5),(i,j,1.5),.32,1) + box(i-.5,j-.5,i+.5,j+.5,0,1.5,1)
+    mesh += box(-.45,-.45,.45,.45,1.5,10.5,1)
+    # Square footprint matching the back width; only the native corner is rounded.
+    mesh += cushion_mesh()
     # Separate thin back slab: top remains z21, lower joint at cushion height.
     mesh += box(-4,-2.75,-3.5,2.75,12,21,3)
     mesh += box(-3.75,-.4,-.8,.4,10,12,1)
@@ -128,6 +148,11 @@ def actor_mesh(facing, pose, frame, height):
     standing=pose=="turn" or height>=19
     knee=(1.5,9) if standing else (5,pelvis+1.2)
     mesh=ellipsoid((0,0,pelvis+(1 if standing else 2)),(1.6,2,2) if standing else (2.4,2.5,2))
+    if not standing:
+        # The clothing lap spans the seat, including rear-view skirt hems.
+        # The old narrow ellipsoid mapped these authored samples onto shins
+        # below the cushion. Its supported underside stays above the z12 seat.
+        mesh += box(-3.5,-3.5,3.5,3.5,pelvis+.1,pelvis+3,2)
     for side in (-1,1):
         # The thigh underside rests on z12 instead of descending through the
         # cushion to the old z8 knee. Contact/phase metadata and art stay fixed.
@@ -146,6 +171,8 @@ def actor_mesh(facing, pose, frame, height):
         # cylinder. Without a hand volume nearest-surface calibration snaps the
         # outer fingertips to the projected knee/cushion instead of z18.
         mesh += ellipsoid(hand,(1.6,1.6,1.8))
+        if pose=="typing":
+            mesh += box(hand[0]-2.5,hand[1]-2.5,hand[0]+2.5,hand[1]+2.5,18.1,20.4,4)
     return mesh
 
 
@@ -163,13 +190,23 @@ def contact(clip,frame):
 
 
 @lru_cache(maxsize=128)
+def actor_surface(facing,pose,height):
+    return raster(actor_mesh(facing,pose,0,height),facing,gradients=True)
+
+
 def actor_depth(facing,pose,height):
-    return raster(actor_mesh(facing,pose,0,height),facing)[0]
+    return actor_surface(facing,pose,height)[0]
+
+
+@lru_cache(maxsize=128)
+def head_actor_depth(facing,pose,height):
+    lean=1.1 if pose=="resting" else .3
+    return raster(ellipsoid((lean,0,height+18),(2.8,2.8,6.5)),facing)[0]
 
 
 def calibrated_actor_depth(facing,pose,height,dx,dy,pixels):
     """Map authored alpha to proxy depth; expose diagnostics without masking art."""
-    ad=actor_depth(facing,pose,height)
+    ad,materials,_,gx,gy=actor_surface(facing,pose,height)
     actor=pixels[:,:,3]>0
     # Calibration: map every real sprite sample to the closest projected proxy
     # surface. Coverage is actual authored alpha, never the primitive silhouette.
@@ -177,12 +214,25 @@ def calibrated_actor_depth(facing,pose,height,dx,dy,pixels):
     sy,sx=np.where(np.isfinite(ad))
     distances=(worldx[:,None]-sx)**2+(worldy[:,None]-sy)**2
     nearest=distances.argmin(axis=1)
-    values=ad[sy[nearest],sx[nearest]]
+    ny,nx=sy[nearest],sx[nearest]
+    supported=np.isin(materials[ny,nx],(2,4))
+    values=ad[ny,nx]+supported*(gx[ny,nx]*(worldx-nx)+gy[ny,nx]*(worldy-ny))
+    # Calibrate source head/hair against the head volume, independently of the
+    # wider lap and lower arms. A long braid must not snap to a low seat/desk
+    # surface simply because that surface is closer in the projected image.
+    upper=ay<ay.min()+18
+    if pose=="typing":
+        hx,hy={"se":(28,44),"sw":(4,44),"ne":(28,32),"nw":(4,32)}[facing]
+        upper &= ~((abs(ax-hx)<=3)&(abs(ay-hy)<=2))
+    if upper.any():
+        ud=head_actor_depth(facing,pose,height);uy,ux=np.where(np.isfinite(ud))
+        nearest_upper=((worldx[upper,None]-ux)**2+(worldy[upper,None]-uy)**2).argmin(axis=1)
+        values[upper]=ud[uy[nearest_upper],ux[nearest_upper]]
     aligned=np.full((128,128),-np.inf); aligned[worldy,worldx]=values
     return aligned, float(np.sqrt(distances.min(axis=1)).max())
 
 
-def oracle(facing,pose,frame,clip,pixels):
+def oracle(facing,pose,frame,clip,pixels,desk_depth=None):
     art,cd,labels=chair(facing); dx,dy,height=contact(clip,frame)
     aligned,distance=calibrated_actor_depth(facing,pose,height,dx,dy,pixels)
     actor=pixels[:,:,3]>0; ay,ax=np.where(actor); worldx=ax+dx; worldy=ay+dy
@@ -193,6 +243,11 @@ def oracle(facing,pose,frame,clip,pixels):
     # Empty regions use the pelvis plane; overlaps use the exact depth comparison.
     front=(art[:,:,3]>0)&(cd>height*2)
     front[worldy,worldx]=hidden[ay,ax] & (art[worldy,worldx,3]>0)
+    if desk_depth is not None:
+        # A nearer desktop hides chair surfaces too. Put those samples behind
+        # the sitter/desk instead of letting chair rank20 cover desk rank10.
+        front &= cd > desk_depth+1e-7
+        hidden[ay,ax] = front[worldy,worldx] & overlaps[ay,ax]
     parts=[np.zeros_like(art) for _ in range(3)]
     parts[0][~front]=art[~front]
     parts[1][front&(labels==2)]=art[front&(labels==2)]
@@ -200,7 +255,9 @@ def oracle(facing,pose,frame,clip,pixels):
     return parts,hidden,overlaps,distance
 
 
-def bits(mask): return base64.b64encode(np.packbits(mask.ravel(),bitorder="little")).decode("ascii")
+def bits(mask):
+    import zlib
+    return "z:"+base64.b64encode(zlib.compress(np.packbits(mask.ravel(),bitorder="little").tobytes(),9)).decode("ascii")
 
 
 def write_chair(directory):
@@ -225,7 +282,7 @@ def write_chair(directory):
                          depthAnchor=r["depthAnchor"],isoZOrder=r["isoZOrder"],seatGroupId="seat") for r in rows]
         Image.fromarray(art).save(directory/f"chair-empty-{f}.png")
     atlas.save(directory/sheet["file"])
-    manifest["provenance"]["chairV3"]="Deterministic native 3D raster: beveled 4.2x4.2 cushion z10.5..12 (40% narrower in both axes), 5.5-wide mesh back slab z12..21, compact z13 arm pads, metal lift and five caster contacts; frozen anchors/palette."
+    manifest["provenance"]["chairV3"]="Deterministic native 3D raster: rounded square 5.5x5.5 cushion, center (1,0), radius .5, z10.5..12, lower waterfall inset .25; 5.5-wide mesh back slab z12..21; spokes radius 3.8, thickness .64, casters 1x1x1.5, lift .9x.9; frozen anchors/palette."
     manifest["provenance"]["seatedOcclusion"]="tools/iso_seated_geometry.py native 3D z-buffer; thigh underside z12.1 and pelvis underside z12 rest above the cushion; three disjoint parts. Pack bakes per-source-frame sandwich masks."
     manifest["provenance"]["limitations"]="Actor art is 2D: nearest projected proxy surface extrapolates clothing/hair. No physical claim for arbitrary independent walkers."
     path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
@@ -235,6 +292,8 @@ def bake(manifest,files):
     """Append content-addressed chair cells and per-actor source frame bindings."""
     chair_sheet=next((s for s in manifest["sheets"] if s["id"]=="iso-chair-parts"),None)
     if chair_sheet is None or len(chair_sheet["rows"])!=12: return
+    from iso_workstation_geometry import DeskBake
+    desk=DeskBake(manifest,files)
     cells=[]; rows=[]; cache={}; max_distance=0.; count=0
     for sheet in manifest["sheets"]:
         if sheet["kind"]!="character": continue
@@ -248,7 +307,9 @@ def bake(manifest,files):
             facing=c["direction"]; bindings=[]
             for frame in range(c["frames"]):
                 sprite=source_cell(sheet,pixels,c,frame)
-                parts,hidden,overlaps,distance=oracle(facing,POSES[source],frame,c,sprite)
+                parts,hidden,overlaps,distance=oracle(facing,POSES[source],frame,c,sprite,desk.chair_depth(facing))
+                dx,dy,height=contact(c,frame)
+                aligned,_=calibrated_actor_depth(facing,POSES[source],height,dx,dy,sprite)
                 keys=[]
                 for k,part in enumerate(parts):
                     key=(facing,k,part.tobytes())
@@ -263,7 +324,8 @@ def bake(manifest,files):
                         r={**template,"name":name,"row":n//16,"column":n%16,"anchorChecks":checks}
                         rows.append(r); cells.append(Image.fromarray(part)); cache[key]=name+"/"+facing
                     keys.append(cache[key])
-                bindings.append(dict(clips=keys,hidden=bits(hidden),overlap=bits(overlaps)))
+                bindings.append(dict(clips=keys,hidden=bits(hidden),overlap=bits(overlaps),
+                                     **desk.frame(facing,aligned,dx,dy,sprite)))
                 count+=1; max_distance=max(max_distance,distance)
             c["chairFrames"]=bindings
     atlas=Image.new("RGBA",(2048,128*math.ceil(len(cells)/16)))
@@ -276,8 +338,9 @@ def bake(manifest,files):
          anchor=dict(x=64,y=80),scale=1,projection="iso2to1",rows=rows,clips=rows.copy(),
          width=atlas.width,height=atlas.height,sha256=sha))
     files[file]=data
-    manifest["seatedOracle"]=dict(version=1,projection="P=(2(i-j),i+j-z)",nearDepth="i+j+2z",
-         frames=count,cells=len(cells),maxExtrapolationPixels=round(max_distance,4),partsPerChair=3)
+    desk.finish(manifest,files)
+    manifest["seatedOracle"]=dict(version=2,projection="P=(2(i-j),i+j-z)",nearDepth="i+j+2z",maskEncoding="z:base64-zlib-little-bitset",
+         frames=count,cells=len(cells),deskCells=len(desk.cells),maxExtrapolationPixels=round(max_distance,4),partsPerChair=3)
 
 
 if __name__=="__main__":

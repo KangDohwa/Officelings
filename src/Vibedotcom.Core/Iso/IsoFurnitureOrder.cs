@@ -86,6 +86,10 @@ internal sealed class IsoFurnitureOrder
             bounds[i] = new(source.Left + entry.Item.X, source.Top + entry.Item.Y, source.Right + entry.Item.X, source.Bottom + entry.Item.Y);
             furniture.TryGetValue(entry.Key.InstanceId, out owners[i]);
             parts[i] = owners[i]?.Parts.GetValueOrDefault(entry.Key.PartId) ?? default;
+            // Frame-baked desk fronts are attached seat parts without changing
+            // the static furniture variant (empty seats keep the authored art).
+            if (pack.Clip(entry.Item.SheetId, entry.Item.Clip).SeatGroupId != null)
+                parts[i] = (parts[i].Support, true);
             moving[i] = actors.GetValueOrDefault(entry.Key.InstanceId);
         }
         var stride = emitted.Length;

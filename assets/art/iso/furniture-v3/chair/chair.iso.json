@@ -617,7 +617,7 @@
   "provenance": {
     "designReference": "Generic Korean ergonomic chair; built-in generated master-chair-v3-attempt1.png, no logo.",
     "derivation": "Generated appearance master followed by native-grid geometric reauthoring. Exact frozen teal ramp, binary alpha, upper-left highlights in every orientation. No runtime mirrors.",
-    "chairV3": "Deterministic native 3D raster: beveled 4.2x4.2 cushion z10.5..12 (40% narrower in both axes), 5.5-wide mesh back slab z12..21, compact z13 arm pads, metal lift and five caster contacts; frozen anchors/palette.",
+    "chairV3": "Deterministic native 3D raster: rounded square 5.5x5.5 cushion, center (1,0), radius .5, z10.5..12, lower waterfall inset .25; 5.5-wide mesh back slab z12..21; spokes radius 3.8, thickness .64, casters 1x1x1.5, lift .9x.9; frozen anchors/palette.",
     "limitations": "Actor art is 2D: nearest projected proxy surface extrapolates clothing/hair. No physical claim for arbitrary independent walkers.",
     "seatedOcclusion": "tools/iso_seated_geometry.py native 3D z-buffer; thigh underside z12.1 and pelvis underside z12 rest above the cushion; three disjoint parts. Pack bakes per-source-frame sandwich masks."
   }
