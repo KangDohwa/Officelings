@@ -1,7 +1,7 @@
 namespace Vibedotcom.Core.Iso;
 
 /// Desk-only seating simulation for AgentInfo inputs. Flat OfficeAnimator remains untouched.
-public sealed class IsoOffice : IIsoOffice
+public sealed partial class IsoOffice : IIsoOffice, Editing.IIsoEditorRuntime
 {
     private enum Phase { Enter, WalkToSeat, Turn, Lower, Seated, Raise, Exit, Fade, Stand, Pickup, Carry, Handover, Hidden }
     private sealed class Actor(AgentInfo info, CharacterDesign design, Position position)
@@ -29,11 +29,11 @@ public sealed class IsoOffice : IIsoOffice
         public string Facing = "sw", Action = "sleep";
         public double ActionTime, Remaining = 8;
     }
-    private readonly IsoPack pack;
-    private readonly IsoSceneBuilder builder;
-    private readonly IsoNavigation nav;
-    private readonly IsoNavigation catNavigation;
-    private readonly Tile[] catTargets;
+    private IsoPack pack;
+    private IsoSceneBuilder builder;
+    private IsoNavigation nav;
+    private IsoNavigation catNavigation;
+    private Tile[] catTargets;
     private readonly Dictionary<string, Actor> actors = new(StringComparer.Ordinal);
     private readonly List<Actor> ordered = [];
     private readonly HashSet<string> present = new(StringComparer.Ordinal);
@@ -52,14 +52,14 @@ public sealed class IsoOffice : IIsoOffice
         get=>petsEnabled;
         set { if(petsEnabled==value) return; petsEnabled=value; petVisibilityChanged=true; }
     }
-    public IsoLayout Layout { get; }
+    public IsoLayout Layout { get; private set; }
     public double NextChangeSeconds { get; private set; }
     public IsoOffice(IsoPack pack, int seed) : this(pack, seed, IsoTwelveSeatFixture.OfficeLayout(pack)) { }
     public IsoOffice(IsoPack pack, int seed, IsoLayout layout)
     {
         this.pack = pack; Layout = IsoLayoutLoader.Validate(layout, pack);
         nav = IsoLayoutLoader.Navigation(layout, pack); builder = new(pack, layout);
-        foreach (var f in layout.Furniture.Where(f => f.AssetId == "iso/desk").OrderBy(f => f.Id, StringComparer.Ordinal))
+        foreach (var f in ResolveEditorDesks(layout))
         { seats.Add(f.Id, IsoContacts.Desk(f.X, f.Y, f.Rotation, f.SeatProfile)); seatOrder.Add(f.Id); }
         var reserved = seats.Values.Select(s => s.Approach).ToHashSet();
         queueTiles.AddRange(nav.Reachable(layout.Door).Where(t => !reserved.Contains(t) && t != layout.Door)
@@ -67,6 +67,12 @@ public sealed class IsoOffice : IIsoOffice
         catNavigation = nav.WithBlocked(reserved);
         var catTile = queueTiles.FirstOrDefault(t => t.X >= 2 && t.Y >= 6 && catNavigation.Walkable(t), layout.Door);
         catTargets = catNavigation.Reachable(catTile).OrderBy(t => t.X).ThenBy(t => t.Y).ToArray();
+        if (layout.WorkSeats != null)
+        {
+            catNavigation = catNavigation.WithBlocked([layout.Door]);
+            catTargets = Editing.IsoEditorNavigation.PetComponent(nav, layout.Door, reserved);
+            catTile = catTargets.FirstOrDefault(t => t.X >= 2 && t.Y >= 6, catTargets.FirstOrDefault());
+        }
         var pool = (pack.Manifest.Pets ?? []).OrderBy(p => p.Id, StringComparer.Ordinal).ToList();
         var selection = new Random(seed);
         while (pool.Count > 0 && pets.Count < 2 && catTargets.Length > pets.Count)
@@ -82,15 +88,23 @@ public sealed class IsoOffice : IIsoOffice
     {
         if (!double.IsFinite(deltaSeconds) || deltaSeconds < 0) throw new ArgumentOutOfRangeException(nameof(deltaSeconds));
         time += deltaSeconds;
-        var external = Synchronize(agents) || petVisibilityChanged;
+        var external = Synchronize(agents) || petVisibilityChanged || pendingLayout != null;
         petVisibilityChanged=false;
         if (!external && time + 1e-9 < nextDue)
         { NextChangeSeconds = Math.Max(0, nextDue - time); return scene; }
         var elapsed = time - simulatedTime; simulatedTime = time;
         AssignSeats();
-        foreach (var actor in ordered) Advance(actor, elapsed);
+        if (pendingLayout == null) foreach (var actor in ordered) Advance(actor, elapsed);
+        else
+        {
+            if (!PrepareEditorRetreats()) CancelEditorSwap();
+            foreach (var actor in ordered) if (!AdvanceEditorActor(actor, elapsed)) Advance(actor, elapsed);
+        }
         AssignSeats();
-        if(petsEnabled) foreach (var pet in pets) AdvancePet(pet, elapsed);
+        if (pendingLayout == null) { if (petsEnabled) foreach (var pet in pets) AdvancePet(pet, elapsed); }
+        else foreach (var pet in pets) if (!AdvanceEditorPet(pet, elapsed) && petsEnabled) AdvancePet(pet, elapsed);
+        if (pendingLayout != null && !PrepareEditorRetreats()) CancelEditorSwap();
+        CompleteEditorSwap();
         poses.Clear(); var next = double.PositiveInfinity;
         foreach (var a in ordered)
         {
@@ -106,6 +120,7 @@ public sealed class IsoOffice : IIsoOffice
             next = Math.Min(next, NextActorChange(a));
         }
         RefreshPetPoses(); scene = builder.BuildWithPets(poses, petPoses, time);
+        if (editorSceneOffset != 0) scene = scene with { Revision = scene.Revision + editorSceneOffset };
         next = Math.Min(next, builder.NextChangeSeconds);
         if(petsEnabled) foreach (var pet in pets) next = Math.Min(next,pet.Action == "walk" ? 1d / 30 : pet.Remaining);
         NextChangeSeconds = Math.Max(0, next); nextDue = time + NextChangeSeconds;
@@ -248,7 +263,8 @@ public sealed class IsoOffice : IIsoOffice
         {
             var start = a.Path.TryPeek(out var oldNext) ? oldNext : new Tile(IsoGeometry.Snap(a.Position.X), IsoGeometry.Snap(a.Position.Y));
             a.Path.Clear(); if (a.Position != new Position(start.X, start.Y)) a.Path.Enqueue(start);
-            foreach (var step in nav.FindPath(start, target)) a.Path.Enqueue(step);
+            var routes = Layout.WorkSeats == null ? nav : nav.WithBlocked(seats.Values.Select(s => s.Approach).Where(t => t != target && t != start));
+            foreach (var step in routes.FindPath(start, target)) a.Path.Enqueue(step);
             a.PathTarget = target;
         }
         var consumed = 0d;

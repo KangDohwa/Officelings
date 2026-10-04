@@ -22,8 +22,16 @@ public static class IsoLayoutLoader
         return Read(input, pack);
     }
     internal static IsoLayout Read(Stream input, IsoPack pack)
+        => Validate(ReadDocument(input), pack);
+    internal static IsoLayout ReadDocument(Stream input)
     {
         using var doc = JsonDocument.Parse(input); var root = doc.RootElement;
+        var arrayNames = new[] { "furniture", "zones", "wallSegments", "workSeats" };
+        var names = StateJson.Options.PropertyNameCaseInsensitive ? StringComparer.OrdinalIgnoreCase : StringComparer.Ordinal;
+        foreach (var property in root.EnumerateObject())
+            if (arrayNames.Contains(property.Name, names) && property.Value.ValueKind == JsonValueKind.Array &&
+                property.Value.EnumerateArray().Any(row => row.ValueKind != JsonValueKind.Object))
+                throw new InvalidDataException("Unsupported iso editor schema or capability.");
         if (!root.TryGetProperty("view", out var view) || view.GetString() != "iso" ||
             !root.TryGetProperty("projection", out var projection) || projection.GetString() != "iso2to1")
             throw new InvalidDataException("An iso layout must explicitly declare view/projection; missing view means flat.");
@@ -44,7 +52,7 @@ public static class IsoLayoutLoader
                 if (wall?["moduleId"] is {} module && wall["assetId"]==null) wall["assetId"]=module.DeepClone();
                 if (wall?["start"] is {} start && wall["edge"]==null) wall["edge"]=start.DeepClone();
             }
-        return Validate(normalized.Deserialize<IsoLayout>(StateJson.Options) ?? throw new InvalidDataException("Empty iso layout."), pack);
+        return normalized.Deserialize<IsoLayout>(StateJson.Options) ?? throw new InvalidDataException("Empty iso layout.");
     }
     public static IsoLayout Default(IsoPack pack)
     {
@@ -80,6 +88,13 @@ public static class IsoLayoutLoader
     }
     public static IsoLayout Validate(IsoLayout layout, IsoPack pack)
     {
+        if (layout.EditorVersion != null || layout.WorkSeats != null || layout.RequiredCapabilities?.Contains("isoEditorV1") == true)
+        {
+            var issues = Editing.IsoEditorValidation.Validate(layout, pack, false);
+            if (issues.Any(i => i.Severity == Editing.IsoIssueSeverity.Error))
+                throw new InvalidDataException(string.Join("\n", issues.Select(i => i.RuleId + ": " + i.Message)));
+            return layout;
+        }
         if (layout.Version != 1 || layout.View != "iso" || layout.Projection != "iso2to1" || layout.TileSize != 16 ||
             layout.Tile is {} tile && (tile.Width != 64 || tile.Height != 32 || tile.Anchor != null && tile.Anchor != new PixelPoint(32, 16)) || layout.WallRise is not (null or 16) || layout.WallHeight is not (null or 48) || layout.WidthTiles is < 8 or > 128 || layout.HeightTiles is < 8 or > 128 || layout.Furniture == null || layout.Furniture.Count > 1024 ||
             layout.Tiles != null && (layout.Tiles.Count != layout.WidthTiles * layout.HeightTiles || layout.Tiles.Any(t => t is not (0 or 1 or 2 or 255))) ||

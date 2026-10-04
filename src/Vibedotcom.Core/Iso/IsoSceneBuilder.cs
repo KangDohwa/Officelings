@@ -27,8 +27,10 @@ public sealed partial class IsoSceneBuilder
     public double NextChangeSeconds { get; private set; } = double.PositiveInfinity;
     public IsoPixel Camera => camera;
     public IsoSceneBuilder(IsoPack pack, IsoLayout layout)
+        : this(pack, layout, true) { }
+    internal IsoSceneBuilder(IsoPack pack, IsoLayout layout, bool validate)
     {
-        this.pack = pack; this.layout = IsoLayoutLoader.Validate(layout, pack);
+        this.pack = pack; this.layout = validate ? IsoLayoutLoader.Validate(layout, pack) : layout;
         furnitureOrder = new(pack, layout);
         foreach (var f in layout.Furniture)
         {
@@ -106,14 +108,15 @@ public sealed partial class IsoSceneBuilder
         foreach (var f in layout.Furniture)
         {
             var v = pack.Variant(f.AssetId, f.Rotation, f.State);
-            foreach (var p in v.Parts) AddFurniturePart(f, v, p);
+            var suppressed = SuppressedComputerParts(f);
+            foreach (var p in v.Parts) if (!suppressed.Contains(PartIdentity(p))) AddFurniturePart(f, v, p);
             if (v.Shadow is {} shadow) AddFurniturePart(f, v, shadow, IsoLayer.Shadow, IsoPass.Shadows);
-            if (v.Screen is {} screen)
+            if (v.Screen is {} screen && !suppressed.Contains(PartIdentity(screen)))
             {
-                if (f.AssetId == "iso/desk") screens.Add((f, screen));
+                if (f.AssetId == "iso/desk" || f.AssetId == "iso/computer" && f.DeskId != null) screens.Add((f, screen));
                 else animatedFurniture.Add((f, screen, "screen"));
             }
-            if (v.Glow is {} glow) animatedFurniture.Add((f, glow, "glow"));
+            if (v.Glow is {} glow && !suppressed.Contains(PartIdentity(glow))) animatedFurniture.Add((f, glow, "glow"));
         }
     }
     private void AddFurniturePart(IsoPlacement f, IsoFurnitureVariant v, IsoPart p, IsoLayer layer = IsoLayer.Furniture, IsoPass pass = IsoPass.Scene)
@@ -144,13 +147,13 @@ public sealed partial class IsoSceneBuilder
         work.Clear(); work.AddRange(staticItems); labels.Clear(); NextChangeSeconds = double.PositiveInfinity;
         foreach (var (f, original) in screens)
         {
-            var owner = actors.FirstOrDefault(a => a.DeskId == f.Id);
+            var owner = actors.FirstOrDefault(a => a.DeskId == (f.DeskId ?? f.Id));
             var state = owner == null ? "off" : owner.Action is "typing" or "seated-typing-front" ? "working" : "screensaver";
             var p = pack.Variant(f.AssetId, f.Rotation, state).Screen ?? original;
             var c = pack.Clip(p.SheetId, p.Animation ?? p.Clip!, p.Direction);
             var v = pack.Variant(f.AssetId, f.Rotation, state); var d = p.DepthAnchor ?? c.DepthAnchor ?? new IsoGridPoint(v.FootprintW - .5, v.FootprintH - .5);
             AddDynamic(f.Id, "screen", IsoLayer.Furniture, p.SheetId, c, IsoGeometry.Ground(f.X, f.Y), f.X + f.Y + d.I + d.J,
-                p.IsoZOrder != 0 ? p.IsoZOrder : c.IsoZOrder, elapsedSeconds, f.Id);
+                p.IsoZOrder != 0 ? p.IsoZOrder : c.IsoZOrder, elapsedSeconds, f.DeskId ?? f.Id);
         }
         foreach (var (f, p, id) in animatedFurniture)
         {
@@ -209,7 +212,7 @@ public sealed partial class IsoSceneBuilder
         { sheetId = blink.SheetId; clip = pack.Clip(sheetId, clip.Key); }
         var ground = IsoGeometry.Ground(actor.Position.X, actor.Position.Y); var depth = actor.Position.X + actor.Position.Y;
         var dest = new IsoPixel(ground.X - 16, ground.Y - 60);
-        var hasSeat = actor.DeskId != null && seats.TryGetValue(actor.DeskId, out var seat);
+        var hasSeat = actor.DeskId != null && EnabledSeat(actor.DeskId) && seats.TryGetValue(actor.DeskId, out var seat);
         if (hasSeat && actor.SeatPhase != null)
         {
             var seatData = seats[actor.DeskId!]; var s = seatData.Profile; var placement = seatData.Placement;
