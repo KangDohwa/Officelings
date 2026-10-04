@@ -768,7 +768,7 @@
     {
       "id": "wall-l-00",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": -0.5
@@ -783,7 +783,7 @@
     {
       "id": "wall-l-01",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": 0.5
@@ -798,7 +798,7 @@
     {
       "id": "wall-l-02",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": 1.5
@@ -813,7 +813,7 @@
     {
       "id": "wall-l-03",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": 2.5
@@ -828,7 +828,7 @@
     {
       "id": "wall-l-04",
       "face": "left",
-      "moduleId": "iso/wall-open-door-l",
+      "moduleId": "iso/wall-open-door-l-v3",
       "start": {
         "i": -0.5,
         "j": 3.5
@@ -839,12 +839,12 @@
       },
       "heightPx": 48,
       "rise": 16,
-      "closedModuleId": "iso/wall-closed-door-l"
+      "closedModuleId": "iso/wall-closed-door-l-v3"
     },
     {
       "id": "wall-l-05",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": 4.5
@@ -859,7 +859,7 @@
     {
       "id": "wall-l-06",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": 5.5
@@ -874,7 +874,7 @@
     {
       "id": "wall-l-07",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": 6.5
@@ -889,7 +889,7 @@
     {
       "id": "wall-l-08",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": 7.5
@@ -904,7 +904,7 @@
     {
       "id": "wall-l-09",
       "face": "left",
-      "moduleId": "iso/wall-plain-l",
+      "moduleId": "iso/wall-plain-l-v3",
       "start": {
         "i": -0.5,
         "j": 8.5
@@ -919,7 +919,7 @@
     {
       "id": "wall-r-00",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": -0.5,
         "j": -0.5
@@ -934,7 +934,7 @@
     {
       "id": "wall-r-01",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 0.5,
         "j": -0.5
@@ -949,7 +949,7 @@
     {
       "id": "wall-r-02",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 1.5,
         "j": -0.5
@@ -964,7 +964,7 @@
     {
       "id": "wall-r-03",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 2.5,
         "j": -0.5
@@ -979,7 +979,7 @@
     {
       "id": "wall-r-04",
       "face": "right",
-      "moduleId": "iso/wall-window-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 3.5,
         "j": -0.5
@@ -994,7 +994,7 @@
     {
       "id": "wall-r-05",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 4.5,
         "j": -0.5
@@ -1009,7 +1009,7 @@
     {
       "id": "wall-r-06",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 5.5,
         "j": -0.5
@@ -1024,7 +1024,7 @@
     {
       "id": "wall-r-07",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 6.5,
         "j": -0.5
@@ -1039,7 +1039,7 @@
     {
       "id": "wall-r-08",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 7.5,
         "j": -0.5
@@ -1054,7 +1054,7 @@
     {
       "id": "wall-r-09",
       "face": "right",
-      "moduleId": "iso/wall-plain-r",
+      "moduleId": "iso/wall-plain-r-v3",
       "start": {
         "i": 8.5,
         "j": -0.5
@@ -1065,6 +1065,146 @@
       },
       "heightPx": 48,
       "rise": 16
+    },
+    {
+      "id": "decor-l-02-0",
+      "face": "left",
+      "hostId": "wall-l-02",
+      "moduleId": "iso/env-v3/whiteboard-l-edge-0",
+      "start": {
+        "i": -0.5,
+        "j": 1.5
+      },
+      "end": {
+        "i": -0.5,
+        "j": 2.5
+      }
+    },
+    {
+      "id": "decor-l-03-0",
+      "face": "left",
+      "hostId": "wall-l-03",
+      "moduleId": "iso/env-v3/clock-l-edge-0",
+      "start": {
+        "i": -0.5,
+        "j": 2.5
+      },
+      "end": {
+        "i": -0.5,
+        "j": 3.5
+      }
+    },
+    {
+      "id": "decor-l-06-0",
+      "face": "left",
+      "hostId": "wall-l-06",
+      "moduleId": "iso/env-v3/corkboard-l-edge-0",
+      "start": {
+        "i": -0.5,
+        "j": 5.5
+      },
+      "end": {
+        "i": -0.5,
+        "j": 6.5
+      }
+    },
+    {
+      "id": "decor-l-08-0",
+      "face": "left",
+      "hostId": "wall-l-08",
+      "moduleId": "iso/env-v3/city-picture-l-edge-0",
+      "start": {
+        "i": -0.5,
+        "j": 7.5
+      },
+      "end": {
+        "i": -0.5,
+        "j": 8.5
+      }
+    },
+    {
+      "id": "decor-r-01-0",
+      "face": "right",
+      "hostId": "wall-r-01",
+      "moduleId": "iso/env-v3/abstract-art-r-edge-0",
+      "start": {
+        "i": 0.5,
+        "j": -0.5
+      },
+      "end": {
+        "i": 1.5,
+        "j": -0.5
+      }
+    },
+    {
+      "id": "decor-r-03-0",
+      "face": "right",
+      "hostId": "wall-r-03",
+      "moduleId": "iso/env-v3/string-lights-r-edge-0",
+      "start": {
+        "i": 2.5,
+        "j": -0.5
+      },
+      "end": {
+        "i": 3.5,
+        "j": -0.5
+      }
+    },
+    {
+      "id": "decor-r-04-0",
+      "face": "right",
+      "hostId": "wall-r-04",
+      "moduleId": "iso/env-v3/large-window-day-r-edge-0",
+      "start": {
+        "i": 3.5,
+        "j": -0.5
+      },
+      "end": {
+        "i": 4.5,
+        "j": -0.5
+      }
+    },
+    {
+      "id": "decor-r-04-1",
+      "face": "right",
+      "hostId": "wall-r-05",
+      "moduleId": "iso/env-v3/large-window-day-r-edge-1",
+      "start": {
+        "i": 4.5,
+        "j": -0.5
+      },
+      "end": {
+        "i": 5.5,
+        "j": -0.5
+      }
+    },
+    {
+      "id": "decor-r-07-0",
+      "face": "right",
+      "hostId": "wall-r-07",
+      "moduleId": "iso/env-v3/plant-shelf-r-edge-0",
+      "start": {
+        "i": 6.5,
+        "j": -0.5
+      },
+      "end": {
+        "i": 7.5,
+        "j": -0.5
+      }
+    },
+    {
+      "id": "decor-r-09-0",
+      "face": "right",
+      "hostId": "wall-r-09",
+      "moduleId": "iso/env-v3/wall-lamp-r-edge-0",
+      "start": {
+        "i": 8.5,
+        "j": -0.5
+      },
+      "end": {
+        "i": 9.5,
+        "j": -0.5
+      }
     }
   ],
   "wallJoins": [
@@ -1159,7 +1299,7 @@
         "id": "iso-demo-worker",
         "provider": "antigravity",
         "role": "worker",
-        "characterId": "iso/character/dev-hoodie-v2",
+        "characterId": "iso/character/red-braid",
         "deskId": "desk-11",
         "action": "typing"
       }

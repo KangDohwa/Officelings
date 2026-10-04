@@ -54,7 +54,7 @@ internal sealed class IsoFurnitureOrder
         foreach (var a in furniture.Values) foreach (var b in furniture.Values)
             relations[(a.Placement.Id, b.Placement.Id)] = a.Volume.Compare(b.Volume);
     }
-    internal void Sort(List<IsoSceneBuilder.Entry> entries, IReadOnlyList<IsoActorPose> poses, IsoCatPose? cat)
+    internal void Sort(List<IsoSceneBuilder.Entry> entries, IReadOnlyList<IsoActorPose> poses, IReadOnlyList<IsoPetPose> pets)
     {
         actors.Clear(); occupiedSeats.Clear();
         foreach (var pose in poses)
@@ -64,7 +64,7 @@ internal sealed class IsoFurnitureOrder
             actors[pose.AgentId] = seated ? (null, pose.DeskId) :
                 (new(pose.Position.X, pose.Position.Y, pose.Position.X, pose.Position.Y, 0, 40), null);
         }
-        if (cat != null) actors[pack.Manifest.Pets!.Single().Id] =
+        foreach (var cat in pets.Take(2)) actors[cat.AssetId] =
             (new(cat.Position.X, cat.Position.Y, cat.Position.X, cat.Position.Y, 0, 18), null);
         var start = entries.FindIndex(e => e.Key.Pass == IsoPass.Scene);
         if (start < 0) return;

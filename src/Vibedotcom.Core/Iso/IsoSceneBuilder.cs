@@ -4,6 +4,7 @@ public sealed record IsoActorPose(string AgentId, string CharacterId, string Nam
     string Facing, string Action, double ElapsedSeconds, string? DeskId = null, string? SeatPhase = null,
     int SeatPhaseFrame = 0, bool Blink = false, bool CarryingPaper = false, byte Alpha = 255);
 public sealed record IsoCatPose(Position Position, string Facing, string Action, double ElapsedSeconds);
+public sealed record IsoPetPose(string AssetId, Position Position, string Facing, string Action, double ElapsedSeconds);
 
 /// Resolves pixels/contacts and orders the complete scene once. Consumers draw the returned list verbatim.
 public sealed partial class IsoSceneBuilder
@@ -90,9 +91,10 @@ public sealed partial class IsoSceneBuilder
                     sourceAnchor: c.Anchor ?? c.EdgeAnchor ?? module.EdgeAnchor);
             }
         }
-        var corner = pack.Manifest.Sheets.FirstOrDefault(s => s.Kind == "wall" && s.Rows!.Any(c => c.Name == "inner-rear-corner"));
+        var v3 = layout.WallSegments?.Any(w => w.AssetId == "iso/wall-plain-l-v3") == true;
+        var corner = pack.Manifest.Sheets.FirstOrDefault(s => s.Kind == "wall" && s.Id.EndsWith("-v3", StringComparison.Ordinal) == v3 && s.Rows!.Any(c => c.Name == "inner-rear-corner"));
         if (corner != null) AddStatic("rear-corner", IsoLayer.Wall, corner.Id, pack.Clip(corner.Id, "inner-rear-corner", "any"), -.5, -.5, IsoPass.RearWalls, 30, "join");
-        var wallSheet = pack.Manifest.Sheets.First(s => s.Kind == "wall" && s.Rows!.Any(c => c.Name == "plain-l"));
+        var wallSheet = pack.Manifest.Sheets.First(s => s.Kind == "wall" && s.Id.EndsWith("-v3", StringComparison.Ordinal) == v3 && s.Rows!.Any(c => c.Name == "plain-l"));
         // End-cap cells contain the far endpoint of a full wall span. Anchor
         // them at the last panel's start, as in the pack's wallJoins metadata.
         foreach (var (name, i, j) in new[] { ("end-cap-l", -.5, layout.HeightTiles - 1.5), ("end-cap-r", layout.WidthTiles - 1.5, -.5) })
@@ -135,7 +137,9 @@ public sealed partial class IsoSceneBuilder
         staticItems.Add(new(new(id + "/" + part, layer, sheet, clip.Key, 0, ground.X - (int)a.X + (int)(clip.FootOffset?.X ?? 0),
             ground.Y - (int)a.Y + (int)(clip.FootOffset?.Y ?? 0), key.Encoded, target), key, passthrough));
     }
-    public IsoScene Build(IReadOnlyList<IsoActorPose> actors, IsoCatPose? cat = null, double elapsedSeconds = 0)
+    public IsoScene Build(IReadOnlyList<IsoActorPose> actors, IsoCatPose? cat = null, double elapsedSeconds = 0) =>
+        BuildWithPets(actors, cat == null ? [] : [new("iso/cat", cat.Position, cat.Facing, cat.Action, cat.ElapsedSeconds)], elapsedSeconds);
+    public IsoScene BuildWithPets(IReadOnlyList<IsoActorPose> actors, IReadOnlyList<IsoPetPose> pets, double elapsedSeconds = 0)
     {
         work.Clear(); work.AddRange(staticItems); labels.Clear(); NextChangeSeconds = double.PositiveInfinity;
         foreach (var (f, original) in screens)
@@ -159,9 +163,9 @@ public sealed partial class IsoSceneBuilder
                 (byte)Math.Round(p.Opacity * 255), new(ground.X - (int)anchor.X, ground.Y - (int)anchor.Y), p.Frame);
         }
         foreach (var actor in actors) AddActor(actor);
-        if (cat != null) AddCat(cat);
+        foreach (var pet in pets.Take(2)) AddPet(pet);
         SortWithSeatChairs();
-        furnitureOrder.Sort(work, actors, cat);
+        furnitureOrder.Sort(work, actors, pets);
         var changed = previous == null || previous.Items.Count != work.Count || previous.Labels.Count != labels.Count;
         if (!changed)
         {
@@ -251,9 +255,9 @@ public sealed partial class IsoSceneBuilder
             }
         }
     }
-    private void AddCat(IsoCatPose cat)
+    private void AddPet(IsoPetPose cat)
     {
-        var pet = pack.Manifest.Pets!.Single(); var c = pack.Clip(pet.SheetId, cat.Action, cat.Facing);
+        var pet = pack.Manifest.Pets!.Single(p => p.Id == cat.AssetId); var c = pack.Clip(pet.SheetId, cat.Action, cat.Facing);
         var ground = IsoGeometry.Ground(cat.Position.X, cat.Position.Y); var d = cat.Position.X + cat.Position.Y;
         AddDynamic(pet.Id, "body", IsoLayer.Pet, pet.SheetId, c, ground, d, 0, cat.ElapsedSeconds, pet.Id);
         hitKinds[pet.Id] = "pet";

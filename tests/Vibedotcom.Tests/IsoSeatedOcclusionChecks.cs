@@ -173,10 +173,14 @@ internal static class IsoSeatedOcclusionChecks
                 var punk = design.Id.EndsWith("punk-girl"); var hoodie = design.Id.EndsWith("dev-hoodie-v2");
                 // Head bounds come from the idle source rig, before furniture
                 // overlap. Include the neck boundary for a conservative head ROI.
-                var headEnd = hoodie ? (back ? 39 : 41) : punk || !back ? 38 : 36;
+                var glasses = design.Id.EndsWith("glasses-bun"); var hanbok = design.Id.EndsWith("hanbok-modern");
+                var braid = design.Id.EndsWith("red-braid");
+                var headEnd = glasses || hanbok || braid ? 40 : hoodie ? (back ? 39 : 41) : punk || !back ? 38 : 36;
                 var idle = new IsoDrawItem("head", IsoLayer.Character, design.SheetId, "idle/" + seat.Facing, 0, 0, 0, 0);
                 var idlePixels = Pixels(pack, idle);
-                int[] skin = hoodie ? [0x6D3713, 0x8B4D15, 0xAC5F2D, 0xBA672C, 0xC97E32] :
+                int[] skin = glasses ? [0xDBAA72, 0xF4BC7B, 0xF7CD94, 0xFCEAC7] :
+                    hanbok ? [0xC9896A, 0xFBD3A8, 0xFBDDBC] : braid ? [0xF39E62, 0xF6DEB8, 0xFBC68D] :
+                    hoodie ? [0x6D3713, 0x8B4D15, 0xAC5F2D, 0xBA672C, 0xC97E32] :
                     punk ? [0xE36854, 0xF19B5B, 0xFBC186, 0xF7C4B7] : [0x744B31, 0xC49F7C, 0xEFA763, 0xF3B06B, 0xF6AD62];
                 foreach (var action in new[] { "typing", "sit-down", "stand-up" }) for (var phase = 0; phase < 4; phase++)
                 {
@@ -184,8 +188,9 @@ internal static class IsoSeatedOcclusionChecks
                     var scene = builder.Build([new("actor", design.Id, "Synthetic", new(seat.Approach.X, seat.Approach.Y), seat.Facing,
                         action, phase / 6d, "desk", transition ? (action == "sit-down" ? "lower" : "raise") : "seated", phase)]);
                     var body = scene.Items.Single(i => i.Layer == IsoLayer.Character); var bytes = Pixels(pack, body);
-                    var shift = transition ? (punk ? (action == "sit-down" ? (phase == 0 ? 0 : 1) : (phase == 3 ? 0 : 1)) :
+                    var shift = glasses || braid ? 0 : transition ? (punk || hanbok ? (action == "sit-down" ? (phase == 0 ? 0 : 1) : (phase == 3 ? 0 : 1)) :
                         action == "sit-down" ? phase : 3 - phase) : punk ? 1 : 3;
+                    if (!transition && hanbok) shift = 1;
                     var visibleHead = 0; var totalHead = 0; var hands = 0;
                     var clip = pack.Clip(body.SheetId, body.Clip);
                     for (var y = 0; y < 64; y++) for (var x = 0; x < 32; x++)

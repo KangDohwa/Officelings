@@ -134,10 +134,20 @@ public static class IsoLayoutLoader
             zones.Select(z => z.Name).Distinct().Count() != zones.Count || zones.Any(z => z.X < 0 || z.Y < 0 || z.Width <= 0 || z.Height <= 0 || z.X + z.Width > layout.WidthTiles || z.Y + z.Height > layout.HeightTiles))
             throw new InvalidDataException("Invalid/missing iso zones.");
         var wallIds = new HashSet<string>(StringComparer.Ordinal);
+        var decorated = new HashSet<string>(StringComparer.Ordinal);
         foreach (var w in layout.WallSegments ?? [])
         {
             if (!wallIds.Add(w.Id) || w.Face is not ("left" or "right") || !double.IsFinite(w.Edge.I) || !double.IsFinite(w.Edge.J) ||
                 !(pack.Manifest.WallModules ?? []).Any(m => m.Id == w.AssetId && m.Face == w.Face) || w.HostId != null && !(layout.WallSegments ?? []).Any(h => h.Id == w.HostId && h.HostId == null)) throw new InvalidDataException("Invalid iso wall.");
+            var module = pack.Manifest.WallModules!.Single(m => m.Id == w.AssetId);
+            if (module.Slot != null && w.HostId == null) throw new InvalidDataException("Wall decor requires a host.");
+            if (w.HostId != null)
+            {
+                var host = layout.WallSegments!.Single(h => h.Id == w.HostId);
+                if (host.Face != w.Face || host.Edge != w.Edge || !decorated.Add(host.Id) ||
+                    (module.HostModule != null ? module.HostModule != host.AssetId : !host.AssetId.Contains("wall-plain-", StringComparison.Ordinal)))
+                    throw new InvalidDataException("Decor overlaps a door/window or another wall slot.");
+            }
         }
         return layout;
     }

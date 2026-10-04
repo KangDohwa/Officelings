@@ -17,7 +17,7 @@ import iso_seated_geometry as geometry
 import check_iso_chair_fit as fit
 import iso_check
 
-PILOTS=(*pack.CHARACTERS,"glasses-bun","hanbok-modern")
+PILOTS=(*pack.CHARACTERS[:3],"glasses-bun","hanbok-modern")
 OUTPUT=pack.ROOT/"artifacts/seatfix/five-pilots"
 
 

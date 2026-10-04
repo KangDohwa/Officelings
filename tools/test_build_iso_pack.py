@@ -254,10 +254,54 @@ class RealPackTests(unittest.TestCase):
                 self.assertEqual(self.layout["tiles"][j * 10 + i], expected)
         self.assertEqual(pack.validate_layout(self.layout, self.manifest),
                          dict(blockedCells=37, reachableCells=63, reachableApproaches=16))
-        self.assertEqual(len(self.layout["wallSegments"]), 20)
+        self.assertEqual(len([w for w in self.layout["wallSegments"] if "hostId" not in w]), 20)
         door = next(w for w in self.layout["wallSegments"] if "door" in w["moduleId"])
-        window = next(w for w in self.layout["wallSegments"] if "window" in w["moduleId"])
+        window = next(w for w in self.layout["wallSegments"] if "large-window-day" in w["moduleId"])
         self.assertEqual((door["start"], window["start"]), (dict(i=-0.5, j=3.5), dict(i=3.5, j=-0.5)))
+
+    def test_v4_wall_slots_and_two_edge_window(self):
+        from copy import deepcopy
+        walls = {w["id"]: w for w in self.layout["wallSegments"]}
+        decor = [w for w in walls.values() if "hostId" in w]
+        self.assertEqual(len(decor), 10)
+        self.assertEqual(len({w["hostId"] for w in decor}), len(decor))
+        for wall in decor:
+            host = walls[wall["hostId"]]
+            self.assertIn("plain", host["moduleId"])
+            self.assertEqual((wall["start"], wall["end"]), (host["start"], host["end"]))
+        window = [w for w in decor if "large-window-day" in w["moduleId"]]
+        self.assertEqual([w["hostId"] for w in window], ["wall-r-04", "wall-r-05"])
+        for mutate in ("door", "anchor", "duplicate"):
+            layout = deepcopy(self.layout)
+            wall = next(w for w in layout["wallSegments"] if "hostId" in w)
+            if mutate == "door":
+                wall.update(hostId="wall-l-04", start=deepcopy(walls["wall-l-04"]["start"]))
+            elif mutate == "anchor":
+                wall["start"]["i"] += 1
+            else:
+                duplicate = deepcopy(wall); duplicate["id"] = "duplicate-slot"
+                layout["wallSegments"].append(duplicate)
+            with self.subTest(mutate=mutate), self.assertRaises(ValueError):
+                pack.validate_layout(layout, self.manifest)
+
+    def test_v4_nameplate_closed_leaf_and_pack_size(self):
+        closed = next(m for m in self.manifest["wallModules"] if m["id"] == "iso/wall-closed-door-l-v3")
+        opened = next(m for m in self.manifest["wallModules"] if m["id"] == "iso/wall-open-door-l-v3")
+        self.assertTrue(any(p.get("animation") == "door-nameplate-l" for p in closed["parts"]))
+        self.assertFalse(any(p.get("animation") == "door-nameplate-l" for p in opened["parts"]))
+        self.assertLess(self.summary["bytes"], 5 * 1024 * 1024)
+
+    def test_optional_later_characters_and_pets_are_selected_only_when_present(self):
+        with temporary_directory() as directory:
+            art = Path(directory)
+            names = ("furniture-v2/workstations/chair.iso.json", "pets-v2/dog.iso.json",
+                     "pets-v2/rabbit.iso.json", "characters/cap-teen/cap-teen.iso.json")
+            for name in names:
+                file = art / name; file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_text("{}", encoding="utf-8")
+            paths = {p.relative_to(art).as_posix() for p in pack.source_paths(art, characters=())}
+            self.assertTrue(set(names) <= paths)
+            self.assertNotIn("characters/labcoat-tall/labcoat-tall.iso.json", paths)
 
     def test_shadow_pet_props_and_explicit_optional_dart(self):
         shadow = self.sheets["iso-character-shadow"]
