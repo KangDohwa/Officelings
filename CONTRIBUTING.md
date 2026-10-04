@@ -6,7 +6,7 @@ Contributions are welcome, including bug reports, documentation fixes, code and 
 
 ## Bug reports
 
-Use the repository's [issues](https://github.com/KangDohwa/Vibedotcom/issues). Include the Windows version and OS build (`winver`), relevant tool versions (Codex, Claude Code, Antigravity or Windhawk), the .NET SDK/runtime version, and the commit or release you used. Describe how to reproduce the problem, what you expected and what happened. Mention window mode, click-through, zoom and any custom pack/layout if relevant.
+Use the repository's [issues](https://github.com/KangDohwa/Vibedotcom/issues). Include the Windows version and OS build (`winver`), relevant tool versions (Codex, Claude Code, Antigravity or Windhawk), the .NET SDK/runtime version, and the commit or release you used. Describe how to reproduce the problem, what you expected and what happened. Mention `view` (flat/iso), window mode, click-through, zoom and any custom pack/layout if relevant.
 
 Attach sanitized diagnostics only. Never paste real prompts or personal paths, raw session logs, credentials or your real `state.json`. Use invented text in reproductions and fixtures. For screenshots, use `--demo` and check tooltips as well as the room. See [privacy](docs/privacy.md). Use a private security-reporting route when one is configured; do not post an exploit with personal data in a public issue.
 
@@ -18,6 +18,9 @@ Use Windows 11 with the .NET 10 SDK. Run these from the repository root:
 dotnet build Vibedotcom.sln
 dotnet test Vibedotcom.sln --no-build
 dotnet run --project src/Vibedotcom.App --no-build -- --demo
+dotnet run --project src/Vibedotcom.App --no-build -- --view iso --demo
+# Separate synthetic sharing checks, not part of the solution test count:
+dotnet run --project tests/Vibedotcom.SharingChecks
 ```
 
 For Python art tools, use an existing environment with Pillow and NumPy. Run the checks affected by your change:
@@ -28,6 +31,8 @@ python -B tools/test_anim_normalize.py
 # Build the mod and native test executables with installed Windhawk clang:
 powershell -NoProfile -ExecutionPolicy Bypass -File windhawk/compile.ps1 -Tests
 ```
+
+Use [offscreen screenshot regeneration](docs/img/README.md) for flat/iso/ambient captures; use only synthetic homes and input state. Do not treat an image or a partially successful smoke command as a complete test pass.
 
 The normalization check is a standalone script, so unittest discovery alone does not run it. The Windhawk command compiles without injecting into Explorer. Native test execution and manual shell checks are in the [Windhawk guide](windhawk/README.md); rendering checks are in [limits](docs/limits.md#verification). Do not register a logon task or manipulate another application's windows as part of a routine test.
 
@@ -41,7 +46,7 @@ Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), for 
 
 Submit original work or work you have the rights to contribute under [CC BY 4.0](assets/LICENSE.md). Name the creator, source and license for externally licensed material. Do not include third-party logos or brand marks. AI-assisted art should identify the model/service and applicable terms so the maintainer can review them.
 
-Characters use 32x64 production cells and tiles use 32x32. Keep pixel edges and the declared frame/anchor geometry. Lock eyes per facing, preserve alpha and pixels outside the reviewed face patches, and retain provenance. Face lock does not approve anatomy or motion. Read [art pipeline](docs/art-pipeline.md), [face-lock rules](docs/facelock.md), [seated poses](docs/seated.md) and the [asset format](docs/asset-format.md) before replacing sheets. Include a contact sheet or demo render and report the checks you actually ran.
+Flat characters use 32x64 production cells and tiles use 32x32. Iso uses a separate pack: 64x32 floor diamonds, 32x64 character cells and four iso facings. Read [iso integration](docs/iso-integration-contract.md) and [S0 geometry](docs/iso-slice-s0.md) before changing it. Keep pixel edges and the declared frame/anchor geometry. Lock eyes per facing, preserve alpha and pixels outside the reviewed face patches, and retain provenance. Face lock does not approve anatomy or motion. Read [art pipeline](docs/art-pipeline.md), [face-lock rules](docs/facelock.md), [seated poses](docs/seated.md) and the [asset format](docs/asset-format.md) before replacing sheets. Include a contact sheet or demo render and report the checks you actually ran.
 
 ## Before opening a PR
 

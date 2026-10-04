@@ -6,7 +6,7 @@
 
 ## 버그 제보
 
-[이슈](https://github.com/KangDohwa/Vibedotcom/issues)에 Windows 버전과 OS 빌드(`winver`), 관련 도구 버전(Codex, Claude Code, Antigravity, Windhawk), .NET SDK·런타임 버전, 사용한 커밋이나 릴리스를 적는다. 재현 순서, 예상 동작, 실제 동작을 설명한다. 창 모드, 클릭 통과, 확대 비율, 별도 팩·배치를 썼다면 함께 적는다.
+[이슈](https://github.com/KangDohwa/Vibedotcom/issues)에 Windows 버전과 OS 빌드(`winver`), 관련 도구 버전(Codex, Claude Code, Antigravity, Windhawk), .NET SDK·런타임 버전, 사용한 커밋이나 릴리스를 적는다. 재현 순서, 예상 동작, 실제 동작을 설명한다. 화면 종류(`view`: flat/iso), 창 모드, 클릭 통과, 확대 비율, 별도 팩·배치를 썼다면 함께 적는다.
 
 진단 자료는 민감한 내용을 지운 뒤 첨부한다. 실제 프롬프트와 개인 경로, 원본 세션 로그, 인증 정보, 실제 `state.json`은 올리지 않는다. 재현 예시와 fixture에는 만들어 낸 문구만 쓴다. 스크린샷은 `--demo`로 만들고 툴팁도 확인한다. [개인정보 안내](docs/privacy.md)를 참고한다. 보안 제보 경로가 마련돼 있다면 그 경로를 사용하고, 개인 데이터가 포함된 공격 재현 자료를 공개 이슈에 올리지 않는다.
 
@@ -18,6 +18,9 @@ Windows 11과 .NET 10 SDK를 사용한다. 저장소 루트에서 실행한다.
 dotnet build Vibedotcom.sln
 dotnet test Vibedotcom.sln --no-build
 dotnet run --project src/Vibedotcom.App --no-build -- --demo
+dotnet run --project src/Vibedotcom.App --no-build -- --view iso --demo
+# 솔루션 테스트 수와 별도로 집계하는 가상 공유 검사
+dotnet run --project tests/Vibedotcom.SharingChecks
 ```
 
 Python 아트 도구는 Pillow와 NumPy가 있는 기존 환경에서 실행한다. 변경과 관련된 검사를 고른다.
@@ -28,6 +31,8 @@ python -B tools/test_anim_normalize.py
 # 설치된 Windhawk clang으로 모드와 네이티브 테스트 실행 파일을 빌드한다.
 powershell -NoProfile -ExecutionPolicy Bypass -File windhawk/compile.ps1 -Tests
 ```
+
+평면·아이소·분위기 캡처는 [오프스크린 이미지 생성 안내](docs/img/README.md)를 따른다. 가상 home과 상태만 사용하며, 이미지가 생겼거나 smoke 일부가 끝났다는 이유로 전체 검사 통과를 보고하지 않는다.
 
 정규화 검사는 독립 스크립트라 unittest 검색만으로 실행되지 않는다. Windhawk 명령은 컴파일만 하며 Explorer에 주입하지 않는다. 네이티브 테스트 실행과 수동 셸 점검은 [Windhawk 안내](windhawk/README.md), 렌더링 검사는 [제한과 검증](docs/limits.md#verification)에 있다. 일반 테스트 과정에서 로그온 작업을 등록하거나 다른 앱의 창을 조작하지 않는다.
 
@@ -41,7 +46,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File windhawk/compile.ps1 -Tests
 
 직접 만든 작업이나 [CC BY 4.0](assets/LICENSE.md)으로 기여할 권리가 있는 작업만 제출한다. 외부 자료라면 제작자, 출처, 라이선스를 적는다. 외부 로고와 브랜드 마크는 포함하지 않는다. AI를 활용한 아트는 모델·서비스와 적용 약관을 밝혀 관리자가 검토하도록 한다.
 
-캐릭터 제작 셀은 32x64, 타일은 32x32다. 픽셀 경계와 명시된 프레임·앵커 구조를 유지한다. 방향별 눈을 고정하고, 알파와 검토된 얼굴 패치 바깥 픽셀을 보존하며, 제작 이력을 남긴다. 얼굴 고정 검사만으로 해부학이나 움직임 품질이 검증되는 것은 아니다. 시트를 바꾸기 전에 [아트 파이프라인](docs/art-pipeline.md), [얼굴 고정 규칙](docs/facelock.md), [앉은 자세](docs/seated.md), [에셋 형식](docs/asset-format.md)을 읽는다. 모아 보기 이미지나 데모 렌더를 첨부하고 실제로 수행한 검사를 적는다.
+평면 캐릭터 제작 셀은 32x64, 타일은 32x32다. 아이소는 별도 팩이며 바닥은 64x32, 캐릭터는 32x64 셀과 아이소 네 방향을 쓴다. 수정 전에 [아이소 통합](docs/iso-integration-contract.md)과 [S0 접점·규격](docs/iso-slice-s0.md)을 읽는다. 픽셀 경계와 명시된 프레임·앵커 구조를 유지한다. 방향별 눈을 고정하고, 알파와 검토된 얼굴 패치 바깥 픽셀을 보존하며, 제작 이력을 남긴다. 얼굴 고정 검사만으로 해부학이나 움직임 품질이 검증되는 것은 아니다. 시트를 바꾸기 전에 [아트 파이프라인](docs/art-pipeline.md), [얼굴 고정 규칙](docs/facelock.md), [앉은 자세](docs/seated.md), [에셋 형식](docs/asset-format.md)을 읽는다. 모아 보기 이미지나 데모 렌더를 첨부하고 실제로 수행한 검사를 적는다.
 
 ## PR 전 확인
 

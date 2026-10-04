@@ -1,5 +1,7 @@
 # S0 integrator package — approved reduced iso slice
 
+**Current runtime note (2026-10-04):** this is a frozen production/planning reference. The app now has an embedded iso pack, a twelve-seat 10×10 engine, WPF rendering and the cat through `--view iso`; it does not implement every activity or interchange field below. Tracker still emits flat v5 and Windhawk accepts v3–v5 only. The v6/export/native passages are planned acceptance, not shipped capability. See [current integration](iso-integration-contract.md#current-implementation-note), [view limits](app-usage.md#flat-and-isometric-views) and [current smoke images](img/README.md).
+
 Frozen on 2026-10-04. Use this handoff with [iso-spec.md](iso-spec.md). It lets art, Core, WPF and tracker work start without sharing output files. It describes future production; the reference PNG is an alignment guide, not finished office art.
 
 The slice has three characters, one front desk seating profile, 38 normal rows and 24 blink rows per character. WPF and the tracker export test consume v6. Native parity and end-profile seating belong to the next phase. Full conversion plans for 25 characters, with 53 as the upper bound.
@@ -208,15 +210,14 @@ C1/C2/C3 are sequential stages for the same ID, not simultaneous writers in a ch
 
 [tools/iso_check.py](../tools/iso_check.py) uses Python 3.10+, Pillow and numpy only. It prints one pass/fail table and exits 1 on failure, including missing input. Directory input recursively discovers `.iso.json` only. The script writes nothing unless `--reference` is explicitly selected; that switch writes only `assets/art/iso/ref/iso-contact-v1.png`.
 
-On this Windows workspace, the existing Python environment is:
+Use an existing Python environment with Pillow and NumPy; do not assume a user-specific skill-runtime path:
 
 ```powershell
-$isoPython = 'C:/Users/<user>/.codex/skills/sprite-gen/.venv/Scripts/python.exe'
-& $isoPython tools/iso_check.py --check-reference
-& $isoPython tools/iso_check.py assets/art/iso/env/floors
-& $isoPython tools/iso_check.py assets/art/iso/characters/dev-hoodie --stage c1
-& $isoPython tools/iso_check.py assets/art/iso/characters/dev-hoodie --stage c2
-& $isoPython tools/iso_check.py assets/art/iso/characters/dev-hoodie
+python -B tools/iso_check.py --check-reference
+python -B tools/iso_check.py assets/art/iso/env/floors
+python -B tools/iso_check.py assets/art/iso/characters/dev-hoodie --stage c1
+python -B tools/iso_check.py assets/art/iso/characters/dev-hoodie --stage c2
+python -B tools/iso_check.py assets/art/iso/characters/dev-hoodie
 ```
 
 Each lane runs the checker on its own exports before finishing. C1 publishes only the 8-row idle/walk atlas, 128×512, plus its seated rig review; `--stage c1` checks that prefix and explicitly skips C2 aliases/C3 blink. C2 expands the normal atlas to 38 rows and runs `--stage c2`; blink is explicitly skipped until C3. C3 and I1 must use the default **final** stage. Environment/furniture/pet/prop checks are the same at all stages. A SKIP means a check is inapplicable or belongs to a later stage, never that it passed.

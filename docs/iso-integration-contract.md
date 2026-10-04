@@ -1,5 +1,11 @@
 # Iso integration contract (supervisor, 2026-10-04)
 
+## Current implementation note
+
+The text below records the integration handoff; acceptance targets are not measured guarantees. Current App uses the embedded `IsoPack`, `IsoOffice`, `IsoView` and a separate `IsoWindow`. Default layout is 10×10 with twelve seats in six desk pairs, three character designs and a cat. Only desk seating is simulated for idle agents; flat rest activities, time/weather/season decoration, editor and Sharing UI are not integrated in iso. Common window modes, tags, local privacy and pets toggle are implemented. `--layout` and `--profile-idle` require flat.
+
+Current interchange remains flat **v5**, not S0 v6; Windhawk has no iso renderer. `--view iso --demo --smoke-test OUTDIR` renders the actual engine/embedded pack with synthetic sessions, including empty/arrival/twelve-seat/departure/cat scenes at 1×/2×/3×. [Current images](img/README.md) and [app usage](app-usage.md#flat-and-isometric-views) describe verification and limitations. The ≤1% one-core CPU target below is not verified for iso.
+
 Three lanes build the iso mode in parallel against this contract: **isopack** (pack), **isoengine** (Core simulation + scene), **isorender** (WPF). The flat mode must keep working unchanged; iso is selected by setting `view` = `flat` (default) | `iso` and CLI `--view iso|flat`. Scope is the approved slice: a 10x10 iso office (placement from docs/iso-spec.md), up to 3 character designs (dev-hoodie-v2, punk-girl, professor) mapped from agent ids by the same stable hash rule as the flat roster, desk-sitting as the one seated activity, the cat, furniture families from assets/art/iso/furniture-v3 (chair, workstations, lounge-tv, utility-shelf, utility-lounge). The builder falls back to the matching unchanged furniture-v2 family if its v3 manifest set is incomplete, including separate shadow manifests. Rug, plant and floor-lamp intentionally use v2; all other sources remain current. Source paths/hashes are recorded in sourceManifests. Anything outside is an explicit documented fallback, not a silent skip.
 
 ## 1. Pack (isopack produces, isoengine and isorender read)

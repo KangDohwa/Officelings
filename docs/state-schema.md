@@ -1,6 +1,12 @@
 # Local state contract (version 5)
 
-The tracker and WPF engine share PNG sheets, an asset manifest, and an authored office. Writers emit **`schemaVersion:5`**, asset/layout format **1**, and legacy fallback **`atlas.version:2`**. Version 5 appends optional seated fields to v4; no v4 fields are removed, renamed or given new types. Strict older readers must explicitly accept v5. The separately developed Windhawk v4 consumer is not updated by this integration.
+The tracker and WPF engine share PNG sheets, an asset manifest, and an authored office. Writers emit **`schemaVersion:5`**, asset/layout format **1**, and legacy fallback **`atlas.version:2`**. Version 5 appends optional seated fields to v4; no v4 fields are removed, renamed or given new types. Strict older readers must explicitly accept v5. The current Windhawk consumer accepts v3, v4 and v5; unsupported versions are rejected with the last valid scene retained. See the [native guide](../windhawk/README.md).
+
+## Scope: flat state, iso scenes and hosted presence
+
+This file describes the local **flat** interchange. App `view:"iso"` uses the embedded iso pack and in-process `IIsoOffice`/`IsoScene`; current Tracker emits v5 only. S0's `schemaVersion:6`/`renderItems` contract is a future plan, not current exported state. Windhawk rejects schema 6. See [iso integration](iso-integration-contract.md), [S0 reference](iso-slice-s0.md) and [view differences](app-usage.md#flat-and-isometric-views).
+
+Hosted sharing is a separate allowlisted `v:1` presence body (`officeId`, reduced agents, `ts`), never this local snapshot, assets or layout. See [sharing](app-usage.md#presence-sharing). Its server/public viewer is developed separately.
 
 ## Version 5 additions
 
@@ -36,7 +42,7 @@ Ambient life adds optional fields to version 5 without removing or changing exis
 
 WPF offscreen exports may include `ambient:{windowView,weather,stringLightsOn,winterDecor,localTime}` and a renderer-only `pets` array. Each pet has `id,sheetId,x,y,action,facing,sprite,followingId?,furnitureId?`; coordinates and SpriteFrame use the existing tile/foot destination equation. A missing array means no supplied pets. The tracker omits `pets` entirely. Pets do not become agents, occupy desks or affect assignment. Ordinary tracker snapshots omit `ambient`; a consumer can sample its own local clock and settings.
 
-The later Windhawk integration must accept these optional fields/actions, select the five window views using local time and weather, replace the fixed wall-clock hands, switch evening lights and December decoration, render the supplied pet frames, and draw dart/ping-pong flight overlays above the furniture, reclining bean-bag poses, dispensing-flap overlays and reading props. It also needs the original 10/12px provider icons and crown/badge role clips, with nearest-neighbor integer scaling. This task does not update that consumer.
+The current Windhawk v5 renderer accepts these optional fields/actions, uses supplied ambient or local time/weather, renders clock hands/lights/December decoration, supplied pet frames, dart/ping-pong overlays, bean-bag poses, dispensing flaps and reading props. It also uses the original 10/12px provider and crown/badge clips. Ordinary Tracker output still omits ambient/pets; native pets are supplied frames, not a second simulation. These are renderer implementations and offscreen test paths, not verification of Explorer injection.
 
 Default output: `%LOCALAPPDATA%\Vibedotcom`. Editable source is `layout.json`; installed art is `assets/assets.json` or `assets/manifest.json`. Without an installed pack, both executables use the art embedded from `assets/pack/`. See [asset-format.md](asset-format.md) for asset loading/authoring. The v4 fixed-capacity rules below supersede that document's historical automatic expansion description.
 
@@ -121,11 +127,11 @@ Roster hash/probing is specified in asset-format.md. Character clips use action-
 
 Public editor API: `OfficeAnimator.ReloadLayout(OfficeLayout layout, bool validate = false)` preserves live characters, design IDs, positions where still walkable and desk history. Surviving seat IDs retain owners after reorder/moves; removed seats release owners for reassignment. Default preview permits temporary blocked overlaps and unreachable work points, clears paths and substitutes nearby reachable destinations. Structural errors (IDs, variants, dimensions, bounds) reject before changing the animator. Save calls `LayoutLoader.Validate(layout, assets)` or reload with validate:true for blocked-cell overlap, door and A* reachability checks. Core has no WPF dependency.
 
-WPF renders at up to 30fps during movement and 8fps otherwise, caches static furniture/floor and decoded crops, and polls logs off the UI thread. Demo metadata is fabricated. Smoke/QA modes and native desktop limitations retain their v3 behavior.
+Flat WPF uses retained scene layers, shared/lazy decoded sheets, cached room/crops and deadline-based animation scheduling, with a slower transparent walking cadence. Source polling runs off the UI thread; a static scene need not redraw continuously. Iso has its own scene revisions and change deadlines. Recorded CPU is percent of one core; see the [performance results](perf-report.md#after-optimization). Demo metadata is fabricated; offscreen rendering does not validate native shell hosting.
 
 ## Version history
 
-- v5: additive seated variants/contact anchors, chair-layer references and sit/stand phases; authored profile workstations, clipped seated legs, compact head-adjacent plates and normalized prop bodies. Asset/layout formats remain 1; fallback atlas remains 2. Windhawk v4 code is unchanged.
+- v5: additive seated variants/contact anchors, chair-layer references and sit/stand phases; authored profile workstations, clipped seated legs, compact head-adjacent plates and normalized prop bodies. Asset/layout formats remain 1; fallback atlas remains 2. The current Windhawk consumer supports v5.
 - v4: fixed authored capacity, stable desk/overflow/queue reservations and reloadable previews; additive seat IDs/overrides, compact names, provider icon IDs, queue ellipsis and monitor status. Existing v3 fields/types remain.
 - v3: PNG sheets, anchors/scale, format 1 assets/layout, tile collision, rotated interactions, roster assignment, A*, furniture frames.
 - v2: fixed 16×24 procedural atlas with direction/identity rows and paper/chat/fade fields.
