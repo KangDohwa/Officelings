@@ -77,8 +77,8 @@ internal static partial class Program
         Check("full privacy forces generic aliases", () =>
         {
             var aliases = new Dictionary<string, string> { ["codex:1"] = "Chosen Name" };
-            Require(PresenceProjection.FromLocal([Local()], aliases, "full")[0].Alias == "Agent 1");
-            Require(PresenceProjection.Invented(aliases, "full")[0].Alias == "Agent 1");
+            Require(PresenceProjection.FromLocal([Local()], aliases, "full")[0].Alias == "Codex");
+            Require(PresenceProjection.Invented(aliases, "full")[0].Alias == "Codex");
         });
         Check("gone excluded and reporting reduced to idle", () =>
         {

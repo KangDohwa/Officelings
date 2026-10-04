@@ -56,7 +56,7 @@ try
     if (!owns) throw new IOException("Another tracker already writes this output directory.");
     using var cancellation = new CancellationTokenSource();
     Console.CancelKeyPress += (_, e) => { e.Cancel = true; cancellation.Cancel(); };
-    await using var sharing = TrackerSharing.Start(sharingRequested, Path.Combine(output, "settings.json"), cancellation.Token);
+    await using var sharing = TrackerSharing.Start(sharingRequested, Path.Combine(output, "settings.json"), cancellation.Token, ReadPrivacy);
     var publicationLogged = false;
     void LogPublication(string message) { if (!publicationLogged) { Console.Error.WriteLine(message); publicationLogged = true; } }
     var personalSources = Path.GetFullPath(options.Home).Equals(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),StringComparison.OrdinalIgnoreCase);

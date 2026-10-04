@@ -53,7 +53,7 @@ internal static partial class Program
         Check("dialog requires preview and checked consent, sends exactly displayed JSON", () => Sta(() =>
         {
             SharingPreview? sent = null; string? supplied = null; var starts = 0;
-            var dialog = Dialog(new() { SharingServer = "https://presence.example", SharingOfficeId = Office, SharingAliases = new() { ["codex:1"] = "Nova" } },
+            var dialog = Dialog(new() { SharingServer = "https://presence.example", SharingOfficeId = Office, PrivacyMode = "off", SharingAliases = new() { ["codex:1"] = "Nova" } },
                 (preview, token, remember) => { starts++; sent = preview; supplied = token; Require(remember); return Task.CompletedTask; }, _ => Task.CompletedTask);
             var children = ((StackPanel)((ScrollViewer)dialog.Content).Content).Children.Cast<UIElement>().ToArray();
             var enable = children.OfType<Button>().Single(b => (string)b.Content == "Enable sharing");
@@ -90,12 +90,12 @@ internal static partial class Program
         }));
         Check("full privacy is visible and generic in dialog preview", () => Sta(() =>
         {
-            var dialog = Dialog(new() { SharingServer = "https://presence.example", SharingOfficeId = Office, Privacy = "full", SharingAliases = new() { ["codex:1"] = "Chosen" } },
+            var dialog = Dialog(new() { SharingServer = "https://presence.example", SharingOfficeId = Office, PrivacyMode = "full", SharingAliases = new() { ["codex:1"] = "Chosen" } },
                 (_, _, _) => Task.CompletedTask, _ => Task.CompletedTask);
             var children = ((StackPanel)((ScrollViewer)dialog.Content).Content).Children.Cast<UIElement>().ToArray();
             children.OfType<Button>().Single(b => (string)b.Content == "Preview exact JSON").RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             var json = children.OfType<TextBox>().Single(b => b.IsReadOnly).Text;
-            Require(json.Contains("Agent 1") && !json.Contains("Chosen")); dialog.Close();
+            Require(json.Contains("Codex") && !json.Contains("Chosen")); dialog.Close();
         }));
         Check("alias editor rejects duplicate or identity keys", () =>
         {

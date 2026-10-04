@@ -39,7 +39,7 @@ public sealed class PresencePayload
                 if (agent.ParentIndex is { } parent && (agent.Role != "sub" || parent < 0 || parent >= i || agents[parent].Role != "supervisor"))
                     throw new ArgumentException("Presence parents must be earlier supervisors.");
                 if (agent.Alias == null) throw new ArgumentException("Presence alias must be a string.");
-                var alias = SanitizeAlias(agent.Alias, i + 1);
+                var alias = PresenceProjection.IsGenericLabel(agent.Platform, agent.Alias) ? agent.Alias : SanitizeAlias(agent.Alias, i + 1);
                 json.WriteStartObject();
                 json.WriteString("platform", agent.Platform);
                 json.WriteString("alias", alias);

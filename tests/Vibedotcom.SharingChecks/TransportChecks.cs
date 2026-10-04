@@ -60,7 +60,7 @@ internal static partial class Program
                 SharingAliases = new() { ["codex:1"] = "Nova", ["claude:1"] = "Moon" } }, Time.GetUtcNow());
             Client = new(Handler);
             Sender = new(new PresenceTransport(Client), Store, Gate, (p, now) =>
-            { Snapshots++; return PresencePayload.Create(p.OfficeId, PresenceProjection.FromLocal([Local()], p.Aliases), now, now); }, Time, () => jitter);
+            { Snapshots++; return PresencePayload.Create(p.OfficeId, PresenceProjection.FromLocal([Local()], p.Aliases, p.PrivacyMode), now, now); }, Time, () => jitter);
         }
         public void Enable() => Require(Sender.Enable(Preview, true, Secret, false));
         public async ValueTask DisposeAsync() { await Sender.DisposeAsync(); Client.Dispose(); }

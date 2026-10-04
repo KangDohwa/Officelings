@@ -19,7 +19,24 @@ public static class PrivacyModes
         Parse(commandLine ?? (setting is "off" or "tasks" or "full" ? setting : null) ??
             (environment is "off" or "tasks" or "full" ? environment : "off"));
 
-    // Only read this one key; the tracker does not own the viewer's other preferences.
+    // Sharing fails closed even for a missing level. Local startup may still use its default.
+    public static string SharingValue(string? value) => value is "off" or "tasks" or "full" ? value : "full";
+
+    public static string? ReadSetting(JsonElement settings)
+    {
+        if (settings.ValueKind != JsonValueKind.Object) return "full";
+        string? level = null;
+        // Accept the legacy sharing key, choosing the stricter value regardless of JSON order.
+        foreach (var property in settings.EnumerateObject())
+        {
+            if (property.Name is not ("privacyMode" or "privacy")) continue;
+            var value = SharingValue(property.Value.ValueKind == JsonValueKind.String ? property.Value.GetString() : null);
+            if (level == null || Parse(value) > Parse(level)) level = value;
+        }
+        return level ?? "full";
+    }
+
+    // The tracker does not own the viewer's other preferences.
     public static string? ReadSetting(string path)
     {
         try
@@ -27,7 +44,7 @@ public static class PrivacyModes
             if (new FileInfo(path).Length > 65536) return null;
             using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
             using var json = JsonDocument.Parse(file);
-            return LogParser.String(json.RootElement, "privacyMode");
+            return ReadSetting(json.RootElement);
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return null; }
     }

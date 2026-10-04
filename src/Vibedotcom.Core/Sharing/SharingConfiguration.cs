@@ -9,7 +9,7 @@ public sealed record SharingConfiguration
     public string SharingOfficeId { get; init; } = "";
     public string SharingServer { get; init; } = "";
     public Dictionary<string, string> SharingAliases { get; init; } = [];
-    public string Privacy { get; init; } = "off";
+    public string PrivacyMode { get; init; } = "full";
 
     public static SharingConfiguration Read(string path)
     {
@@ -17,7 +17,9 @@ public sealed record SharingConfiguration
         {
             if (new FileInfo(path).Length > 65536) return new();
             using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
-            return JsonSerializer.Deserialize<SharingConfiguration>(file, StateJson.Options) ?? new();
+            using var json = JsonDocument.Parse(file);
+            return (JsonSerializer.Deserialize<SharingConfiguration>(json, StateJson.Options) ?? new()) with
+                { PrivacyMode = PrivacyModes.ReadSetting(json.RootElement) ?? "full" };
         }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException) { return new(); }
     }
@@ -62,7 +64,12 @@ public sealed class SharingPreview
         }
         if (aliases.Count > PresencePayload.MaxAgents) throw new ArgumentException("Sharing supports at most 64 aliases.");
         return new(SharingEndpoint.Parse(configuration.SharingServer), configuration.SharingOfficeId, aliases,
-            configuration.Privacy == "full" ? "full" : "off", now);
+            PrivacyModes.SharingValue(configuration.PrivacyMode), now);
+    }
+    public void RequirePrivacy(string? current)
+    {
+        if (PrivacyModes.SharingValue(current) != PrivacyMode)
+            throw new ArgumentException("Privacy mode changed. Review a fresh preview.");
     }
     public void RequireFresh(DateTimeOffset now)
     {
