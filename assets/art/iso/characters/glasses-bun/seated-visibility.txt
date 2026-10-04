@@ -1,0 +1,16 @@
+v3 desk + v3 chair: glasses-bun typing, 4 facings x 4 phases.
+Head: canonical head alpha y<40, offset as published.
+Torso: opaque actor x11..22,y<44, excluding head/hand skin.
+Hands: skin outside head within Chebyshev radius 2 of frozen H.
+All contacts use original source anchors and ordinary part depth queue.
+
+| Worker | Head visible/total | Head % | Torso visible/total | Torso % | Hands visible/total | Hands % |
+|---|---:|---:|---:|---:|---:|---:|
+| SE | 1220/1220 | 100.00 | 192/192 | 100.00 | 34/34 | 100.00 |
+| SW | 1232/1232 | 100.00 | 188/188 | 100.00 | 50/50 | 100.00 |
+| NE | 1192/1284 | 92.83 | 224/224 | 100.00 | 32/32 | 100.00 |
+| NW | 1140/1224 | 93.14 | 188/188 | 100.00 | 35/35 | 100.00 |
+
+Numbers aggregate four phases; per-phase raw denominators in seated-visibility.json.
+Minimum phase head equals the displayed head %; every hand/torso phase is 100%.
+Frozen H distance max 0 native pixels; live furniture drift []
