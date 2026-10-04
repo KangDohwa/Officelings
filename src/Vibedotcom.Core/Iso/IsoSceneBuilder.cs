@@ -35,7 +35,7 @@ public sealed class IsoSceneBuilder
         AddFloors(); AddWalls(); AddFurniture();
         var bounds = IsoGeometry.GroundBounds(layout.WidthTiles, layout.HeightTiles);
         // Standing heads and horizontal labels on every reachable edge fit a fixed camera extent.
-        bounds = bounds.Include(new(bounds.Left - 96, -96, bounds.Right + 96, bounds.Bottom + 64));
+        bounds = bounds.Include(new(bounds.Left - 32, -96, bounds.Right + 32, bounds.Bottom + 16));
         foreach (var e in staticItems)
         {
             var s = pack.Sheet(e.Item.SheetId);
@@ -89,7 +89,9 @@ public sealed class IsoSceneBuilder
         var corner = pack.Manifest.Sheets.FirstOrDefault(s => s.Kind == "wall" && s.Rows!.Any(c => c.Name == "inner-rear-corner"));
         if (corner != null) AddStatic("rear-corner", IsoLayer.Wall, corner.Id, pack.Clip(corner.Id, "inner-rear-corner", "any"), -.5, -.5, IsoPass.RearWalls, 30, "join");
         var wallSheet = pack.Manifest.Sheets.First(s => s.Kind == "wall" && s.Rows!.Any(c => c.Name == "plain-l"));
-        foreach (var (name, i, j) in new[] { ("end-cap-l", -.5, layout.HeightTiles - .5), ("end-cap-r", layout.WidthTiles - .5, -.5) })
+        // End-cap cells contain the far endpoint of a full wall span. Anchor
+        // them at the last panel's start, as in the pack's wallJoins metadata.
+        foreach (var (name, i, j) in new[] { ("end-cap-l", -.5, layout.HeightTiles - 1.5), ("end-cap-r", layout.WidthTiles - 1.5, -.5) })
             if (wallSheet.Rows!.FirstOrDefault(c => c.Name == name) is {} clip)
                 AddStatic(name, IsoLayer.Wall, wallSheet.Id, clip, i, j, IsoPass.RearWalls, 30, "end");
     }

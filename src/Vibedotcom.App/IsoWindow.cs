@@ -32,7 +32,7 @@ internal sealed partial class IsoWindow : Window
     private Settings settings;
     private IReadOnlyList<AgentInfo> agents=Array.Empty<AgentInfo>();
     private bool closed,polling,suspended;
-    private DateTimeOffset previous=DateTimeOffset.UtcNow,saveAfter;
+    private DateTimeOffset saveAfter,nextPoll;
     private readonly DateTimeOffset epoch;
     private string warning="";
     internal IsoView View => view;
@@ -44,6 +44,7 @@ internal sealed partial class IsoWindow : Window
         this.office=office; this.sheets=sheets; this.settings=settings.Normalize();
         this.demo=demo; this.qa=qa; this.storage=storage; this.trackerHome=trackerHome; this.preview=preview;
         epoch=demoEpoch ?? DateTimeOffset.UtcNow;
+        if(office is IsoOffice engine) engine.PetsEnabled=settings.Pets=="on";
         view=new(office,sheets,storage.Isolated ? Path.Combine(storage.Home,"brand") : null)
         { TagMode=settings.TagMode,TransparentBackground=settings.TransparentBackground };
         modes=new(this,qa);
@@ -116,12 +117,18 @@ internal sealed partial class IsoWindow : Window
         if (demo || qa) return;
         var bounds=WindowState==WindowState.Normal ? modes.ScreenBounds : RestoreBounds;
         if (bounds.IsEmpty) return;
-        settings=(settings with { View="iso",Left=bounds.Left,Top=bounds.Top,Width=bounds.Width,Height=bounds.Height,Zoom=view.PreferredZoom }).Normalize();
+        settings=(settings with { Left=bounds.Left,Top=bounds.Top,Width=bounds.Width,Height=bounds.Height,Zoom=view.PreferredZoom }).Normalize();
         try { settings.Write(storage.SettingsPath); }
-        catch(Exception e) when(e is IOException or UnauthorizedAccessException) { warning="Cannot save settings: "+e.Message; }
+        catch(Exception e) when(e is IOException or UnauthorizedAccessException) { warning="Cannot save settings: "+PrivacyModes.Diagnostic(e,tracker.PrivacyMode); }
     }
     private void Zoom(int direction) { view.ChangeZoom(direction); Save(); }
     private void SetTags(string mode) { settings=settings with { TagMode=mode }; view.TagMode=mode; Save(); }
+    private void TogglePets()
+    {
+        settings=settings with { Pets=settings.Pets=="on" ? "off" : "on" };
+        if(office is IsoOffice engine) engine.PetsEnabled=settings.Pets=="on";
+        view.AdvanceTo(agents,DateTimeOffset.UtcNow); Save();
+    }
     private void Fit() { view.SetZoom(0); Save(); }
     private void Change(Settings next)
     {
@@ -156,12 +163,14 @@ internal sealed partial class IsoWindow : Window
     private void Place(Rect bounds) { Left=bounds.Left; Top=bounds.Top; Width=bounds.Width; Height=bounds.Height; }
     private (string Title,Action Action,Func<bool>? Check)[] MenuItems() =>
     [
+        ("Isometric view",SwitchFlat,()=>true),
         ("Normal",()=>Change(settings with { Mode="normal" }),()=>settings.Mode=="normal"),
         ("Always on top",()=>Change(settings with { Mode="topmost" }),()=>settings.Mode=="topmost"),
         ("Desktop level",()=>Change(settings with { Mode="desktop" }),()=>settings.Mode=="desktop"),
         ("Click-through",()=>Change(settings with { ClickThrough=!settings.ClickThrough }),()=>settings.ClickThrough),
         ("Borderless",()=>Change(settings with { Borderless=!settings.Borderless }),()=>settings.Borderless),
         ("Transparent background",()=>Change(settings with { TransparentBackground=!settings.TransparentBackground }),()=>settings.TransparentBackground),
+        ("Pets",TogglePets,()=>settings.Pets=="on"),
         ("Opacity 100%",()=>Change(settings with { Opacity=1 }),()=>settings.Opacity==1),
         ("Opacity 85%",()=>Change(settings with { Opacity=.85 }),()=>settings.Opacity==.85),
         ("Opacity 70%",()=>Change(settings with { Opacity=.7 }),()=>settings.Opacity==.7),
@@ -174,6 +183,7 @@ internal sealed partial class IsoWindow : Window
     private ContextMenu BuildContextMenu()
     {
         var menu=new ContextMenu(); var tags=new MenuItem { Header="Name tags" }; menu.Items.Add(tags);
+        AddPrivacyMenu(menu);
         foreach(var mode in new[] {"hover","icon","always"})
         { var item=new MenuItem { Header=mode }; tags.Items.Add(item); item.Click+=(_,_)=>SetTags(mode); menu.Opened+=(_,_)=>item.IsChecked=settings.TagMode==mode; }
         foreach(var entry in MenuItems())
@@ -186,6 +196,7 @@ internal sealed partial class IsoWindow : Window
         tray=new() { Text="Vibedotcom — ISO office",Icon=System.Drawing.SystemIcons.Application,Visible=true };
         tray.DoubleClick+=(_,_)=>Dispatcher.Invoke(Recover);
         var menu=new Forms.ContextMenuStrip(); var tags=new Forms.ToolStripMenuItem("Name tags"); menu.Items.Add(tags);
+        AddPrivacyMenu(menu);
         foreach(var mode in new[] {"hover","icon","always"})
         { var item=new Forms.ToolStripMenuItem(mode); tags.DropDownItems.Add(item); item.Click+=(_,_)=>Dispatcher.Invoke(()=>SetTags(mode)); menu.Opening+=(_,_)=>item.Checked=settings.TagMode==mode; }
         foreach(var entry in MenuItems())
@@ -216,8 +227,13 @@ internal sealed partial class IsoWindow : Window
         var message=warning.Length>0 ? warning : preview ? "Handmade source-art preview · ISO simulation pending · wheel / + / − · drag to pan"
             : $"{agents.Count(a=>a.State!=AgentState.Gone)} agents · {view.Zoom}× · wheel / + / − · drag to pan · right-click for modes";
         if (status.Text!=message) status.Text=message;
-        if (!demo && !polling) _=PollAsync();
+        if (!demo && !polling && now>=nextPoll)
+        { nextPoll=now.AddSeconds(agents.Count==0 ? 3 : 1); _=PollAsync(); }
         if (saveAfter!=default && now>=saveAfter) { saveAfter=default; Save(); }
+        // A static scene needs only source discovery/host maintenance. Keep
+        // hover and demo input responsive while avoiding one-second idle wakes.
+        var interval=TimeSpan.FromSeconds(!demo && !double.IsFinite(office.NextChangeSeconds) && !view.HasHoverTarget && !view.TagsAnimating && !view.TooltipPending ? 3 : 1);
+        if (maintenance.Interval!=interval) maintenance.Interval=interval;
     }
     private async Task PollAsync()
     {
@@ -231,9 +247,9 @@ internal sealed partial class IsoWindow : Window
                 agents=current;
                 if (!suspended) view.AdvanceTo(agents,DateTimeOffset.UtcNow);
             }
-            warning=tracker.Warnings.Count>0 ? string.Join("  ",tracker.Warnings) : "";
+            warning=tracker.Warnings.Count>0 ? string.Join("  ",PrivacyModes.Diagnostics(tracker.Warnings,tracker.PrivacyMode)) : "";
         }
-        catch(Exception e) { warning="Reading logs failed: "+e.Message; }
+        catch(Exception e) { warning="Reading logs failed: "+PrivacyModes.Diagnostic(e,tracker.PrivacyMode); }
         finally { polling=false; if (closed) tracker.Dispose(); }
     }
 }

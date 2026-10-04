@@ -21,6 +21,7 @@ internal sealed class PackIsoSheetSource : IIsoSheetSource
     private readonly Dictionary<(string,string,int),IsoSheetCell> cells=new();
     private readonly Func<string,Stream> openSheet;
     private readonly IsoPack? pack;
+    internal IsoPack? RuntimePack => pack;
     internal PackIsoSheetSource(IsoPack pack)
     {
         this.pack=pack;
