@@ -1,8 +1,8 @@
 {
   "nonEyeCellsExact": 96,
   "eyeOnlyReplacement": true,
-  "normalSHA256": "8150767da46590e6a087f168b60bd567e5459df079c4b90b3720219ead7fe9fe",
-  "blinkSHA256": "d70b27d6606ffb59150dbb3157a7918fb40cbd3f5afd15a0a0a9507b4097be22",
+  "normalSHA256": "7c9337a2977a4333e22e216bd7cfc5ca9af9f59fcb5a7748aff37d168b94ce0c",
+  "blinkSHA256": "123c3a1bf6bbd5082edde01fd6713e1e60444e00fa4d465d463a22f6af170574",
   "eyeMaskSHA256": {
     "se": "b68861533399c1fe9503f2bb4c6f7cc467200dc809b0cf7cbf8cbd43bfc103a5",
     "sw": "a12001129c41a4843ba563047fd41984f16839771f4e44471cafd1256163d571"

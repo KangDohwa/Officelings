@@ -216,7 +216,7 @@ def anchors(arr, sheet):
                     assert present(cell, 16, sy) and cell[foot_y, 4:29, 3].any(), 'transition contact pixels'
             if name == 'idle':
                 yy, _ = np.where(frames[0][:, :, 3] > 0)
-                assert 38 <= yy.max()-yy.min()+1 <= 43, 'standing height outside 38–43'
+                assert 38 <= yy.max()-yy.min()+1 <= 42, 'standing height outside 38–42'
         elif kind == 'floor':
             if not clip.get('transition', False):
                 assert all(present(cell, 32, 16, 0) for cell in frames), 'tile center absent'

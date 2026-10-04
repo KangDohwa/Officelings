@@ -10,12 +10,12 @@
   "protectedFileSha256": {
     "dev-hoodie.iso.json": "10a2e1ac7158477aece9711a7606293463846e4aee73f6a0bdb30485e62147ee",
     "dev-hoodie-iso.manifest.json": "10a2e1ac7158477aece9711a7606293463846e4aee73f6a0bdb30485e62147ee",
-    "dev-hoodie-iso.png": "1c2fbc062a884bf595fe61e89c4edc62840e90d95936471536bd3b4f321308b4",
+    "dev-hoodie-iso.png": "a49b7c739d6d3bd703913a3b45a98451c462c5cd1bf89b3e77a57dc04a73fd2c",
     "dev-hoodie-eyes-se.png": "8544aa4e30cc412739f2fbaf4228eea5827d826d6874b6f7956a29d2e0a59852",
     "dev-hoodie-eyes-sw.png": "44e3ddfe50c2c8a33da9e422a9857243bd0334ed40177a109d260f9db4f7f15f"
   },
   "approvedBlinkSha256": "5284c2985e9ee60f612cb4e7e26fec60e8c964d50ccb19e3215889607bc05a08",
-  "resyncedBlinkSha256": "bf476b74525c17b54d83a474e1077e21c8c153f4b55997d12d2eb6f75f367336",
+  "resyncedBlinkSha256": "9f1c26b171321a85d3b43970c68c39bfeede2d43be94282b45b2cb27ad616b38",
   "changedCellsFromApprovedBlink": [
     {
       "blinkRow": 0,
