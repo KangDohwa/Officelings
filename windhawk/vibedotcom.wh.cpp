@@ -12,7 +12,7 @@
 
 // ==WindhawkModReadme==
 /*
-Run Vibedotcom.Tracker separately. This mod reads version 3 and additive v4+ state.json
+Run Vibedotcom.Tracker separately. This mod reads versions 3, 4 and 5 of state.json
 and content-addressed PNGs; it never opens agent logs or runs a second simulation.
 Default state: %LOCALAPPDATA%\Vibedotcom\state.json. Blank pack path means the
 state file's directory (the tracker's exported sheets, not its source assets).
@@ -52,6 +52,12 @@ See windhawk/README.md for installation, testing and the manual shell checklist.
   $name: Maximum render FPS (1-60)
 - showTooltip: true
   $name: Show passive hover tooltip
+- tagMode: hover
+  $name: Name tags
+  $options:
+  - hover: Hover
+  - icon: Icon
+  - always: Always
 - transparentBackground: false
   $name: Hide floor and walls
 */
@@ -303,16 +309,18 @@ struct Frame { std::string sheet;int row=0,col=0,x=0,y=0,w=0,h=0;double ax=0,ay=
 struct Clip { std::string name,direction;int row=0,col=0,frames=1;double fps=1,ox=0,oy=0;bool loop=true; };
 struct Sheet { std::string id,file,sha;int cw=0,ch=0,w=0,h=0;double ax=0,ay=0,scale=1;std::vector<Clip> clips; };
 struct TileType { int id=0;std::string kind,color,sheet,animation; };
-struct Variant { int rotation=0,layer=1,w=1,h=1;double z=0;std::string state,sheet,animation; };
+struct Variant { int rotation=0,layer=1,w=1,h=1;double z=0;std::string state,sheet,animation,chairBack,chairFront;bool seat=false,profile=false;double seatX=0,seatY=0; };
 struct Furniture { std::wstring ordinal;std::string id,kind,asset,state,owner,deskId,monitor;int x=0,y=0,w=0,h=0,rotation=0;Variant variant;Frame frame;bool hasFrame=false; };
 struct Agent { std::wstring ordinal;std::string id,parent,provider,name,role,model,project,task,tool,toolKind,state,action,facing,reaction,partner,character;
-    std::string displayName,workLocation="desk",providerIcon,deskId,overflowSeatId;bool queued=false;
+    std::string displayName,workLocation="desk",providerIcon,deskId,overflowSeatId,seatedVariant,seatPhase,chairBack,chairFront,activitySpot,activityPartner;bool queued=false,seat=false;
+    double seatX=0,seatY=0;int seatPhaseFrame=0;
     double x=0,y=0,opacity=1,since=0;int dx=0,dy=0;bool visible=false,sub=false,carrying=false,paper=false;Frame frame; };
 struct Zone {std::string name;int x=0,y=0,w=0,h=0;};
+struct OverflowSeat {std::string id,furniture;};
 struct Snapshot { int schema=3,w=0,h=0,doorX=0,doorY=0;int64_t sequence=0;double generated=0;uint64_t staticKey=0;
     std::string rawAssets,rawOffice;
     std::vector<int> tiles;std::map<std::string,Sheet> sheets;std::map<int,TileType> types;std::map<std::string,std::vector<Variant>> variants;
-    std::vector<Furniture> furniture;std::vector<Agent> agents;std::vector<Zone> zones;bool cozy=false; };
+    std::vector<Furniture> furniture;std::vector<Agent> agents;std::vector<Zone> zones;std::vector<OverflowSeat> overflow;bool cozy=false; };
 Frame SelectFrame(const Sheet& s,const std::string& action,const std::string& facing,double seconds) {
     auto find=[&](auto predicate)->const Clip* { for(const auto& c:s.clips) if(predicate(c)) return &c;return nullptr; };
     const Clip* c=find([&](const Clip& v){return v.name==action&&v.direction==facing;});
@@ -336,7 +344,7 @@ Snapshot ParseSnapshot(const std::string& bytes,const Snapshot* previous=nullptr
     bool reuse=previous&&j.At("assets").reused&&j.At("office").reused;
     if(previous&&!reuse)j=Parser(bytes).Parse();
     Snapshot s=reuse?*previous:Snapshot{};s.agents.clear();for(auto& f:s.furniture)f.hasFrame=false;
-    s.schema=static_cast<int>(j.At("schemaVersion").Int(3,INT32_MAX));s.sequence=j.At("sequence").Int(1,INT64_MAX);s.generated=Timestamp(j.At("generatedAt").Str());
+    s.schema=static_cast<int>(j.At("schemaVersion").Int(3,5));s.sequence=j.At("sequence").Int(1,INT64_MAX);s.generated=Timestamp(j.At("generatedAt").Str());
     const auto& atlas=j.At("atlas");atlas.At("version").Int(2,2);
     const auto& m=j.At("assets");const auto& o=j.At("office");
     if(!reuse){m.At("version").Int(1,1);
@@ -369,6 +377,9 @@ Snapshot ParseSnapshot(const std::string& bytes,const Snapshot* previous=nullptr
         for(const auto& a:v.At("variants").Items(256)) {
             Variant f;f.rotation=static_cast<int>(a.At("rotation").Int(0,270));f.state=a.At("state").Str();f.layer=static_cast<int>(a.Optional("layer").IntOr(1,0,2));f.z=a.Optional("zOrder").NumOr(0,-8192,8192);
             f.w=static_cast<int>(a.At("footprintW").Int(1,64));f.h=static_cast<int>(a.At("footprintH").Int(1,64));f.sheet=a.Optional("sheetId").StrOr();f.animation=a.Optional("animation").StrOr();
+            f.chairBack=a.Optional("chairBackId").StrOr();f.chairFront=a.Optional("chairFrontId").StrOr();
+            if(a.Optional("chairSeatAnchor").kind!=Json::Null){f.seat=true;f.seatX=a.At("chairSeatAnchor").At("x").Num(-8192,8192);f.seatY=a.At("chairSeatAnchor").At("y").Num(-8192,8192);}
+            if(a.Optional("points").kind!=Json::Null)for(const auto& p:a.At("points").Items(256)){auto facing=p.Optional("facing").StrOr();f.profile|=facing=="left"||facing=="right";}
             Require(f.rotation%90==0&&seen.emplace(f.rotation,f.state).second&&(f.sheet.empty()||s.sheets.contains(f.sheet)),"Invalid furniture variant");variants.push_back(f);
         }
         Require(!variants.empty()&&s.variants.emplace(id,std::move(variants)).second,"Empty/duplicate furniture asset");if(id=="cozy-desk")s.cozy=true;
@@ -385,6 +396,7 @@ Snapshot ParseSnapshot(const std::string& bytes,const Snapshot* previous=nullptr
         if(s.variants.contains(f.asset)) {const auto& vs=s.variants.at(f.asset);auto it=std::find_if(vs.begin(),vs.end(),[&](const Variant& a){return a.rotation==f.rotation&&a.state==f.state;});Require(it!=vs.end(),"Missing furniture variant");f.variant=*it;Require(f.w==it->w&&f.h==it->h,"Furniture footprint mismatch");}
         s.furniture.push_back(f);
     }
+    if(o.Optional("overflowSeats").kind!=Json::Null)for(const auto& v:o.At("overflowSeats").Items(4096))s.overflow.push_back({v.At("id").Str(),v.Optional("furnitureId").StrOr()});
     }
     const auto& fallback=s.sheets.at("fallback");
     Require(fallback.w==atlas.At("width").Int(1,8192)&&fallback.h==atlas.At("height").Int(1,8192)&&atlas.At("cellWidth").Int(16,16)==16&&atlas.At("cellHeight").Int(24,24)==24&&fallback.cw==16&&fallback.ch==24&&fallback.w>=144&&fallback.h>=168,"Fallback atlas mismatch");
@@ -405,11 +417,41 @@ Snapshot ParseSnapshot(const std::string& bytes,const Snapshot* previous=nullptr
         t.action=p.At("action").Str();t.facing=p.At("facing").Str();t.visible=p.At("visible").Bool();t.opacity=p.Optional("opacity").NumOr(1,0,1);t.carrying=p.Optional("carryingPaper").BoolOr(false);t.paper=p.Optional("reportOnDesk").BoolOr(false);t.reaction=p.Optional("reaction").StrOr();t.partner=p.Optional("chatPartnerId").StrOr();t.character=p.Optional("characterId").StrOr();
         t.displayName=p.Optional("displayName").StrOr(t.name);t.providerIcon=p.Optional("providerIcon").StrOr();t.workLocation=p.Optional("workLocation").StrOr("desk");t.queued=p.Optional("queued").BoolOr(false);
         t.deskId=p.Optional("deskId").StrOr();t.overflowSeatId=p.Optional("overflowSeatId").StrOr();
+        t.seatedVariant=p.Optional("seatedVariant").StrOr();t.seatPhase=p.Optional("seatPhase").StrOr();t.chairBack=p.Optional("chairBackId").StrOr();t.chairFront=p.Optional("chairFrontId").StrOr();
+        Require(t.seatPhase.empty()||t.seatPhase=="turn"||t.seatPhase=="lower"||t.seatPhase=="seated"||t.seatPhase=="raise","Unknown seat phase");
+        t.seatPhaseFrame=static_cast<int>(p.Optional("seatPhaseFrame").IntOr(0,0,1));
+        if(p.Optional("seatAnchor").kind!=Json::Null){t.seat=true;t.seatX=p.At("seatAnchor").At("x").Num(-8192,8192);t.seatY=p.At("seatAnchor").At("y").Num(-8192,8192);}
+        t.activitySpot=p.Optional("activitySpotId").StrOr();t.activityPartner=p.Optional("activityPartnerId").StrOr();
         t.frame=ParseFrame(p.At("sprite"),s);s.agents.push_back(t);
     }
     if(!reuse){s.rawAssets=bytes.substr(m.begin,m.end-m.begin);s.rawOffice=bytes.substr(o.begin,o.end-o.begin);s.staticKey=Hash(s.rawOffice+s.rawAssets);}return s;
 }
 struct Bounds {double x=0,y=0,w=0,h=0;bool Contains(double px,double py) const{return px>=x&&py>=y&&px<x+w&&py<y+h;}};
+enum class TagMode {Hover,Icon,Always};
+TagMode NormalizeTagMode(const std::wstring& mode){return mode==L"icon"?TagMode::Icon:mode==L"always"?TagMode::Always:TagMode::Hover;}
+uint64_t TagKey(const std::string& id,bool desk=false){auto key=Hash(id)&0x7fffffffffffffffULL;return (key?key:1)|(desk?0x8000000000000000ULL:0);}
+bool OwnerAway(const Agent& a){return a.visible&&a.opacity>0&&a.seatPhase.empty()&&!(std::abs(a.x-a.dx)+std::abs(a.y-a.dy)<=1.5&&(a.state=="working"||a.state=="thinking"||a.state=="waiting"));}
+bool Intersects(const Bounds& a,const Bounds& b){return a.x<=b.x+b.w&&a.x+a.w>=b.x&&a.y<=b.y+b.h&&a.y+a.h>=b.y;}
+Bounds UnionBounds(const Bounds& a,const Bounds& b){double x=std::min(a.x,b.x),y=std::min(a.y,b.y);return {x,y,std::max(a.x+a.w,b.x+b.w)-x,std::max(a.y+a.h,b.y+b.h)-y};}
+// Cursor polling publishes only a scalar key. The worker's fade storage is
+// fixed, including simultaneous entering/leaving plates and stacking offsets.
+struct TagHover {
+    struct Fade {uint64_t key=0;double opacity=0,changed=0,leaveAfter=0,offset=0;};
+    std::array<Fade,32> fades{};uint64_t target=0;
+    bool Advance(double now){bool changed=false;for(auto& f:fades)if(f.key){double before=f.opacity;if(f.key==target)f.opacity=std::min(1.0,before+std::max(0.0,now-f.changed)/120);else f.opacity=std::max(0.0,before-std::max(0.0,now-std::max(f.changed,f.leaveAfter))/200);f.changed=now;changed|=before!=f.opacity;if(f.key!=target&&f.opacity==0)f={};}return changed;}
+    bool Update(uint64_t key,double now){bool changed=Advance(now);if(key!=target){for(auto& f:fades)if(f.key==target&&target)f.leaveAfter=now+60;target=key;changed=true;if(key){auto it=std::find_if(fades.begin(),fades.end(),[&](const Fade& f){return f.key==key;});if(it==fades.end())it=std::find_if(fades.begin(),fades.end(),[](const Fade& f){return !f.key;});if(it==fades.end())it=std::min_element(fades.begin(),fades.end(),[](const Fade& a,const Fade& b){return a.changed<b.changed;});if(it->key!=key)*it={key,0,now,0,0};it->changed=now;it->leaveAfter=std::numeric_limits<double>::max();}}return changed;}
+    double Opacity(uint64_t key)const{for(const auto& f:fades)if(f.key==key)return f.opacity;return 0;}
+    bool Animating()const{for(const auto& f:fades)if(f.key&&(f.key!=target||f.opacity<1))return true;return false;}
+    double Offset(uint64_t key)const{for(const auto& f:fades)if(f.key==key)return f.offset;return 0;}
+    void Offset(uint64_t key,double value){for(auto& f:fades)if(f.key==key){f.offset=value;return;}}
+    void Clear(){fades={};target=0;}
+};
+// UTF-16 pairs, combining marks and emoji sequences stay with their base.
+std::wstring CompactName(std::wstring name){size_t elements=0,cut=name.size();bool joined=false;unsigned regional=0;
+    for(size_t i=0;i<name.size();){size_t start=i;unsigned c=name[i++];if(c>=0xD800&&c<=0xDBFF&&i<name.size())c=0x10000+((c-0xD800)<<10)+(name[i++]-0xDC00);WORD types[2]{};GetStringTypeW(CT_CTYPE3,name.data()+start,static_cast<int>(i-start),types);
+        bool mark=(types[0]&(C3_NONSPACING|C3_DIACRITIC|C3_VOWELMARK))||c==0xFE0F||c==0xFE0E||(c>=0x1F3FB&&c<=0x1F3FF)||(c>=0xE0100&&c<=0xE01EF);bool flag=c>=0x1F1E6&&c<=0x1F1FF;
+        if(!mark&&!joined&&c!=0x200D&&!(flag&&regional%2)){if(elements++==14){cut=start;break;}}joined=c==0x200D;regional=flag?regional+1:0;}
+    if(cut<name.size()){name.resize(cut);name+=L"…";}return name;}
 // Host policies are shared with the offscreen regression harness; no HWNDs.
 DWORD HostRetryDelay(unsigned failures) {return std::min<DWORD>(30000,1000u<<std::min(failures,5u));}
 SIZE ClampClientExtent(int width,int height) {return {std::clamp(width,1,4096),std::clamp(height,1,2048)};}
@@ -421,11 +463,17 @@ RECT RecoverOffscreenRect(RECT rect,RECT work,bool intersectsMonitor) {
     rect.left=work.left;rect.top=work.top;rect.right=rect.left+width;rect.bottom=rect.top+height;return rect;
 }
 Bounds AgentBounds(const Agent& a,const Frame& f) {return {std::nearbyint((a.x+.5)*16-f.ax*f.scale+f.ox),std::nearbyint((a.y+1)*16-f.ay*f.scale+f.oy),f.w*f.scale,f.h*f.scale};}
+double AgentDepth(const Agent& a){return a.seat&&a.seatPhase!="turn"?a.seatY+12:(a.y+1)*16;}
 struct DrawItem {int layer;double y;std::wstring id;bool agent;size_t index;};
 std::vector<DrawItem> Scene(const Snapshot& s) {
     std::vector<DrawItem> items;
-    for(size_t i=0;i<s.furniture.size();++i){const auto& f=s.furniture[i];items.push_back({f.variant.layer,(f.y+f.h)*16+f.variant.z,f.ordinal,false,i});}
-    for(size_t i=0;i<s.agents.size();++i){const auto& a=s.agents[i];if(a.visible)items.push_back({1,(a.y+1)*16,a.ordinal,true,i});}
+    for(size_t i=0;i<s.furniture.size();++i){const auto& f=s.furniture[i];double depth=(f.y+f.h)*16+f.variant.z;bool lounge=true;
+        auto host=std::find_if(s.furniture.begin(),s.furniture.end(),[&](const Furniture& h){return h.id!=f.id&&h.variant.seat&&((f.deskId!=f.id&&f.deskId==h.deskId)||f.id.starts_with(h.id+"-chair"));});
+        if(host!=s.furniture.end()){depth=host->y*16+host->variant.seatY+12+(f.asset==host->variant.chairBack?-.2:.2);lounge=false;}
+        else if(f.variant.seat&&(f.variant.profile||f.kind=="table")){depth=f.y*16+f.variant.seatY+12+.1;lounge=false;}
+        if(lounge)for(const auto& a:s.agents)if(a.visible&&a.seat&&a.seatPhase!="turn"&&a.chairFront.empty()&&!a.overflowSeatId.empty()&&std::any_of(s.overflow.begin(),s.overflow.end(),[&](const OverflowSeat& o){return o.id==a.overflowSeatId&&o.furniture==f.id;}))depth=std::max(depth,AgentDepth(a)+.2);
+        items.push_back({f.variant.layer,depth,f.ordinal,false,i});}
+    for(size_t i=0;i<s.agents.size();++i){const auto& a=s.agents[i];if(a.visible)items.push_back({1,AgentDepth(a),a.ordinal,true,i});}
     std::stable_sort(items.begin(),items.end(),[](const DrawItem& a,const DrawItem& b){return std::tie(a.layer,a.y,a.id)<std::tie(b.layer,b.y,b.id);});return items;
 }
 bool Offline(const Snapshot& s,double now) {return now-s.generated>10||s.generated-now>10;}
@@ -552,6 +600,11 @@ Camera ViewCamera(const Snapshot& s,int width,int height,int requested) {
     return {z,std::nearbyint((width-s.w*16*z)/2.0),std::nearbyint((height-s.h*16*z)/2.0)};
 }
 class Renderer {
+public:
+    struct TagHit {Bounds bounds;size_t index;uint64_t key;bool plate;};
+    TagMode tagMode=TagMode::Hover;TagHover hover;
+    std::vector<TagHit> tagHits;
+private:
     struct Image {std::wstring path;std::string sha;std::shared_ptr<Bitmap> pixels;};
     std::map<std::string,Image> images;
     using CropKey=std::tuple<std::string,int,int,int,int>;
@@ -572,7 +625,7 @@ class Renderer {
             auto status=Native([&]{return DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,__uuidof(IDWriteFactory),reinterpret_cast<IUnknown**>(&slot.value));});textFactory=slot.take();
             Require(SUCCEEDED(status)&&textFactory!=nullptr,"Text factory allocation");}
         if(!tagFormat){ThrowIfInjected();ComSlot<IDWriteTextFormat> slot;
-            auto status=Native([&]{return textFactory->CreateTextFormat(L"Segoe UI",nullptr,DWRITE_FONT_WEIGHT_NORMAL,DWRITE_FONT_STYLE_NORMAL,DWRITE_FONT_STRETCH_NORMAL,7,L"en-us",&slot.value);});tagFormat=slot.take();
+            auto status=Native([&]{return textFactory->CreateTextFormat(L"Segoe UI",nullptr,DWRITE_FONT_WEIGHT_NORMAL,DWRITE_FONT_STYLE_NORMAL,DWRITE_FONT_STRETCH_NORMAL,6,L"en-us",&slot.value);});tagFormat=slot.take();
             Require(SUCCEEDED(status)&&tagFormat!=nullptr,"Tag format allocation");}
         // WPF measures ideal glyph advances. GDI+ grid fitting inflates plate
         // widths and changes collision stacking, especially in overflow scenes.
@@ -588,9 +641,9 @@ class Renderer {
     void Rect(Graphics& g,const std::string& color,double x,double y,double w,double h,double opacity=1) {
         if(w<=0||h<=0)return;SafeGdi<SolidBrush> owner(HexColor(color,Alpha(opacity)));auto& b=owner.get();GdiCheck(g.FillRectangle(&b,static_cast<REAL>(x),static_cast<REAL>(y),static_cast<REAL>(w),static_cast<REAL>(h)));
     }
-    void Text(Graphics& g,const std::string& value,double x,double y,int size,const std::string& color="#394940",bool bold=false,double width=500,bool measured=false) {
+    void Text(Graphics& g,const std::string& value,double x,double y,int size,const std::string& color="#394940",bool bold=false,double width=500,bool measured=false,double opacity=1) {
         if(!family)family=MakeGdi<FontFamily>(L"Segoe UI");int key=size*2+(bold?1:0);if(!fonts.contains(key))fonts.emplace(key,MakeGdi<Font>(family.get(),static_cast<REAL>(size),bold?FontStyleBold:FontStyleRegular,UnitPixel));
-        SafeGdi<SolidBrush> brushOwner(HexColor(color));auto& brush=brushOwner.get();SafeGdi<StringFormat> formatOwner(StringFormatFlagsNoWrap|StringFormatFlagsNoFitBlackBox|StringFormatFlagsMeasureTrailingSpaces);auto& format=formatOwner.get();
+        SafeGdi<SolidBrush> brushOwner(HexColor(color,Alpha(opacity)));auto& brush=brushOwner.get();SafeGdi<StringFormat> formatOwner(StringFormatFlagsNoWrap|StringFormatFlagsNoFitBlackBox|StringFormatFlagsMeasureTrailingSpaces);auto& format=formatOwner.get();
         GdiCheck(format.GetLastStatus());auto text=Wide(value);
         if(measured) {
             // The plate already uses ideal advances. GDI+'s layout rectangle
@@ -625,7 +678,7 @@ class Renderer {
             auto& bitmap=Crop(f);PixelLock lock(bitmap,f.w,f.h);int top=0;
             bool found=false;for(int y=0;y<f.h&&!found;++y){auto* p=static_cast<BYTE*>(lock.data.Scan0)+ptrdiff_t(y)*lock.data.Stride;for(int x=0;x<f.w;++x)if(p[x*4+3]>32){top=y;found=true;break;}}
             lock.Close();it=tops.emplace(key,top).first;
-        }return AgentBounds(a,f).y+it->second*f.scale;
+        }return a.action=="beanbag"?ContentBounds(a,f).y:AgentBounds(a,f).y+it->second*f.scale;
     }
     Bounds ContentBounds(const Agent& a,const Frame& f) {
         CropKey key{f.sheet,f.x,f.y,f.w,f.h};auto it=content.find(key);
@@ -634,7 +687,11 @@ class Renderer {
             int l=f.w,t=f.h,r=0,b=0;for(int y=0;y<f.h;++y){auto* row=static_cast<BYTE*>(lock.data.Scan0)+ptrdiff_t(y)*lock.data.Stride;for(int x=0;x<f.w;++x)if(row[x*4+3]>32){l=std::min(l,x);t=std::min(t,y);r=std::max(r,x+1);b=std::max(b,y+1);}}
             lock.Close();Bounds bounds=r>l?Bounds{double(l),double(t),double(r-l),double(b-t)}:Bounds{0,0,double(f.w),double(f.h)};it=content.emplace(key,bounds).first;
         }
-        auto bounds=AgentBounds(a,f);return {bounds.x+it->second.x*f.scale,bounds.y+it->second.y*f.scale,it->second.w*f.scale,it->second.h*f.scale};
+        auto bounds=AgentBounds(a,f);double height=it->second.h*f.scale;
+        if(a.seat&&a.seatPhase!="turn")height=std::min(height,std::max(0.0,a.seatY+1-bounds.y-it->second.y*f.scale));
+        Bounds raw{bounds.x+it->second.x*f.scale,bounds.y+it->second.y*f.scale,it->second.w*f.scale,height};
+        if(a.action=="beanbag")return {std::nearbyint((a.x+.5)*16+f.ox-raw.h/2),std::nearbyint((a.y+1)*16+f.oy-4-raw.w/2),raw.h,raw.w};
+        return raw;
     }
     void Room(Graphics& g,const Snapshot& s,bool transparent) {
         CheckStop();
@@ -684,6 +741,11 @@ class Renderer {
     }
     void Bubble(Graphics& g,const Snapshot& s,const Agent& a,const Frame& f,int ambient) {
         if(s.schema>=4&&a.queued)return;
+        if(s.schema>=5){auto body=ContentBounds(a,f);double x=std::nearbyint(body.x+body.w+2),y=HeadY(a,f)-2;
+            const char* glyph=a.action=="beanbag"?"zzz":a.action=="aquarium"?"heart":a.action=="window"?"sparkles":a.action=="vending"||a.action=="fridge"?"coffee":a.action=="reading"?"light-bulb":nullptr;
+            if(glyph&&s.sheets.contains("bubble-icons")){auto b=SelectFrame(s.sheets.at("bubble-icons"),glyph,"any",0);Sprite(g,b,{x,y,12,12},a.opacity);return;}
+            if(a.action=="waiting"){Rect(g,"#738b84",body.x+body.w+2,body.y,9,10,a.opacity);Rect(g,"#172b30",body.x+body.w+3,body.y+1,7,8,a.opacity);Text(g,"?",body.x+body.w+4,body.y+1,6,"#f5edce");return;}
+            if(s.sheets.contains("icons")){const char* clip=!a.reaction.empty()?"bubble-reaction":a.action=="napping"?"bubble-napping":a.action=="thinking"?"bubble-thinking":a.action=="reporting"?"bubble-done":a.action=="typing"?"bubble-working":nullptr;if(clip){auto b=SelectFrame(s.sheets.at("icons"),clip,"any",0);Sprite(g,b,{x,y,12,12},a.opacity);}return;}}
         if(s.sheets.contains("icons")) {
             std::string clip=!a.reaction.empty()?"bubble-reaction":a.action=="napping"?"bubble-napping":a.action=="waiting"?"bubble-waiting":a.action=="thinking"?"bubble-thinking":a.action=="reporting"?"bubble-done":a.action=="typing"?"bubble-working":"";
             if(clip.empty())return;auto b=SelectFrame(s.sheets.at("icons"),clip,"any",0);bool seated=a.workLocation=="desk"&&(a.action=="typing"||a.action=="thinking"||a.action=="waiting");
@@ -692,24 +754,29 @@ class Renderer {
         int bubble=!a.reaction.empty()?5:a.action=="napping"?6:a.action=="chatting"&&!a.partner.empty()?7:a.action=="coffee"&&ambient%4==0?8:a.action=="waiting"?5:a.action=="typing"&&!a.toolKind.empty()?a.toolKind=="shell"?0:a.toolKind=="file"?1:a.toolKind=="search"?2:a.toolKind=="agent"?3:4:-1;
         if(bubble<0)return;Frame b{"fallback",6,bubble,bubble*16,144,16,24,8,24,1,0,0};Sprite(g,b,{(a.x+.5)*16+(s.schema>=4?15:-8),AgentBounds(a,f).y-(s.schema>=4?41:17),16,24},a.opacity);
     }
-    Bounds Tag(Graphics& g,const Snapshot& s,const Agent& a,double x,double y,std::vector<Bounds>& plates,double visibleTop) {
-        auto name=Wide(a.displayName.empty()?a.name:a.displayName);
-        // Core supplies Unicode text-element truncation. Preserve that label.
-        if(a.displayName.empty()&&name.size()>16){name.resize(15);if(name.back()>=0xD800&&name.back()<=0xDBFF)name.pop_back();name+=L"…";}
-        double width=std::clamp(std::ceil(NameWidth(name))+18,32.0,132.0);Bounds plate{std::clamp(x-width/2,2.0,std::max(2.0,s.w*16-width-2)),std::max(y,visibleTop),width,15};
-        auto overlaps=[&](const Bounds& p){return p.x<=plate.x+plate.w&&p.x+p.w>=plate.x&&p.y<=plate.y+plate.h&&p.y+p.h>=plate.y;};
-        for(int attempt=0;attempt<8&&plate.y-16>=visibleTop&&std::any_of(plates.begin(),plates.end(),overlaps);++attempt)plate.y-=16;plates.push_back(plate);
-        Rect(g,a.sub?"#738b84":"#c99a52",plate.x-1,plate.y-1,plate.w+2,plate.h+2);Rect(g,"#172b30",plate.x,plate.y,plate.w,plate.h);
-        if(s.sheets.contains("provider-icons")){auto f=SelectFrame(s.sheets.at("provider-icons"),a.providerIcon.empty()?a.provider:a.providerIcon,"any",0);Sprite(g,f,{plate.x+1,plate.y+1,12,12});}
+    int IconSize(const Snapshot& s,double zoom)const{return zoom<2&&s.sheets.contains("provider-icons-10")?10:12;}
+    void ProviderIcon(Graphics& g,const Snapshot& s,const Agent& a,double x,double y,double zoom,double opacity){
+        int size=IconSize(s,zoom);auto sheet=size==10?"provider-icons-10":"provider-icons";
+        if(s.sheets.contains(sheet)){const auto& sh=s.sheets.at(sheet);auto provider=a.providerIcon.empty()?a.provider:a.providerIcon;auto role=provider+(a.sub?"-sub-agent":"-supervisor");bool hasRole=std::any_of(sh.clips.begin(),sh.clips.end(),[&](const Clip& c){return c.name==role;});auto f=SelectFrame(sh,hasRole?role:provider,"any",0);Sprite(g,f,{std::nearbyint(x),std::nearbyint(y),double(size),double(size)},opacity);}
         else {
             static constexpr const char* codex[]{"000001110000","000110011000","001100001100","011001100110","010011110010","110110011011","110110011011","010011110010","011001100110","001100001100","000110011000","000001110000"};
             static constexpr const char* claude[]{"000001000000","010001001000","001001010010","100101010100","011111111000","000111111111","111111110000","000111111110","001010101001","010010100100","000010001010","000010000000"};
             static constexpr const char* anti[]{"000001000000","000001100000","000001100000","000011110000","000111111000","111111111111","011111111110","000111111000","000011110000","000001100000","000001100000","000001000000"};
             auto provider=a.providerIcon.empty()?a.provider:a.providerIcon;auto rows=provider=="codex"?codex:provider=="claude"?claude:anti;
-            for(int yy=0;yy<12;++yy)for(int xx=0;xx<12;++xx)if(rows[yy][xx]=='1')Rect(g,"#101c24",plate.x+xx,plate.y+yy,3,3);
-            for(int yy=0;yy<12;++yy)for(int xx=0;xx<12;++xx)if(rows[yy][xx]=='1')Rect(g,provider=="codex"?"#329b91":provider=="claude"?"#d57e4e":"#827ed1",plate.x+1+xx,plate.y+1+yy,1,1);
+            for(int yy=0;yy<12;++yy)for(int xx=0;xx<12;++xx)if(rows[yy][xx]=='1')Rect(g,provider=="codex"?"#329b91":provider=="claude"?"#d57e4e":"#827ed1",x+xx,y+yy,1,1,opacity);
         }
-        Text(g,Utf8Text(name),plate.x+15,plate.y+3,7,"#f5edce",false,plate.w-16,true);
+    }
+    Bounds Tag(Graphics& g,const Snapshot& s,const Agent& a,double x,double y,std::vector<Bounds>& plates,double zoom,uint64_t key,double opacity) {
+        auto name=CompactName(Wide(a.displayName.empty()?a.name:a.displayName));int size=IconSize(s,zoom);
+        double width=std::clamp(std::ceil(NameWidth(name))+16,27.0,99.0)+size-12;double baseY=std::nearbyint(y)-5;
+        Bounds plate{std::nearbyint(std::clamp(x-width/2,2.0,std::max(2.0,s.w*16-width-2))),baseY-(tagMode==TagMode::Always?0:hover.Offset(key)),width,14};
+        Bounds outline{plate.x-1,plate.y-1,plate.w+2,plate.h+2};
+        for(size_t attempt=0;attempt<20+plates.size()*8&&std::any_of(plates.begin(),plates.end(),[&](const Bounds& p){return Intersects(p,outline);});++attempt){plate.y-=2;outline.y-=2;}
+        if(tagMode!=TagMode::Always)hover.Offset(key,baseY-plate.y);plates.push_back(outline);
+        Rect(g,a.sub?"#738b84":"#c99a52",outline.x,outline.y,outline.w,outline.h,opacity);Rect(g,"#172b30",plate.x,plate.y,plate.w,plate.h,opacity);
+        ProviderIcon(g,s,a,plate.x+1,plate.y+(14-size)/2.0,zoom,opacity);
+        // Text opacity is applied to the complete plate by the same alpha layer.
+        Text(g,Utf8Text(name),plate.x+size+3,plate.y+4,6,"#f5edce",false,plate.w-size-4,true,opacity);
         return plate;
     }
     Bounds LaptopBounds(const Agent& a,const Frame& f) {auto body=ContentBounds(a,f);return {std::nearbyint(body.x+body.w/2-8),std::nearbyint(body.y+body.h-12),16,16};}
@@ -733,7 +800,7 @@ public:
         Require(width>=1&&height>=1&&width<=4096&&height<=4096&&int64_t(width)*height<=8388608,"Viewport bounds");
         auto output=MakeGdi<Bitmap>(width,height,PixelFormat32bppPARGB);
         SafeGdi<Graphics> owner(output.get());auto& g=owner.get();Configure(g);if(s.schema>=4)GdiCheck(g.SetTextRenderingHint(TextRenderingHintSingleBitPerPixelGridFit));GdiCheck(g.Clear(transparent?Color(0,0,0,0):HexColor(s.schema>=4?"#10282b":"#302d2b")));
-        const auto camera=ViewCamera(s,width,height,zoom);GdiCheck(g.TranslateTransform(static_cast<REAL>(camera.x),static_cast<REAL>(camera.y)));GdiCheck(g.ScaleTransform(static_cast<REAL>(camera.zoom),static_cast<REAL>(camera.zoom)));Room(g,s,transparent);
+        tagHits.clear();const auto camera=ViewCamera(s,width,height,zoom);GdiCheck(g.TranslateTransform(static_cast<REAL>(camera.x),static_cast<REAL>(camera.y)));GdiCheck(g.ScaleTransform(static_cast<REAL>(camera.zoom),static_cast<REAL>(camera.zoom)));Room(g,s,transparent);
         std::map<std::string,const Agent*> byId;for(const auto& a:s.agents)byId.emplace(a.id,&a);
         SafeGdi<Pen> lineOwner(s.schema>=4?HexColor("#5cbbb5",64):HexColor("#9bab9e"),s.schema>=4?.6f:.7f);auto& line=lineOwner.get();GdiCheck(line.SetDashStyle(DashStyleDot));
         if(!offline)for(const auto& a:s.agents)if(a.visible&&byId.contains(a.parent)) {
@@ -744,12 +811,17 @@ public:
         for(const auto& d:Scene(s)) {
             CheckStop();
             if(!d.agent){const auto& f=s.furniture[d.index];if(f.hasFrame)Sprite(g,f.frame,{f.x*16-f.frame.ax*f.frame.scale+f.frame.ox,f.y*16-f.frame.ay*f.frame.scale+f.frame.oy,f.frame.w*f.frame.scale,f.frame.h*f.frame.scale});else FallbackFurniture(g,f);}
-            else {const auto& a=s.agents[d.index];auto f=DisplayFrame(s,a,offline,time);auto bounds=AgentBounds(a,f);if(offline&&static_cast<int>(std::fmod(time,2)))bounds.y+=1;Sprite(g,f,bounds,a.opacity);
+            else {const auto& a=s.agents[d.index];auto f=DisplayFrame(s,a,offline,time);auto bounds=AgentBounds(a,f);if(offline&&static_cast<int>(std::fmod(time,2)))bounds.y+=1;
+                auto saved=Native([&]{return g.Save();});
+                GdiCheck(g.GetLastStatus());
+                if(a.seat&&a.seatPhase!="turn")GdiCheck(g.SetClip(RectF(static_cast<REAL>(bounds.x),static_cast<REAL>(bounds.y),static_cast<REAL>(bounds.w),static_cast<REAL>(std::max(0.0,a.seatY+1-bounds.y)))));
+                if(a.action=="beanbag"){auto standing=a;standing.action="idle";auto raw=ContentBounds(standing,f);double cx=raw.x+raw.w/2,cy=raw.y+raw.h/2,dx=std::nearbyint((a.x+.5)*16+f.ox-cx),dy=std::nearbyint((a.y+1)*16+f.oy-4-cy);GdiCheck(g.TranslateTransform(static_cast<REAL>(dx),static_cast<REAL>(dy)));GdiCheck(g.TranslateTransform(static_cast<REAL>(cx),static_cast<REAL>(cy)));GdiCheck(g.RotateTransform(90));GdiCheck(g.TranslateTransform(static_cast<REAL>(-cx),static_cast<REAL>(-cy)));}
+                Sprite(g,f,bounds,a.opacity);GdiCheck(g.Restore(saved));
 
                 if(!offline&&a.carrying&&(a.action=="walking"||a.action=="entering"))Rect(g,"#fff9e7",(a.x+.5)*16+(a.facing=="left"?-10:4),(a.y+1)*16-12,6,8,a.opacity);}
         }
         std::vector<Bounds> laptopPlates;
-        if(s.schema>=4&&!offline)for(const auto& a:s.agents)if(a.visible&&a.workLocation=="overflow"&&(a.action=="typing"||a.action=="thinking"||a.action=="waiting")) {
+        if(s.schema>=4&&!offline)for(const auto& a:s.agents)if(a.visible&&a.workLocation=="overflow"&&a.chairFront.empty()&&(a.action=="typing"||a.action=="thinking"||a.action=="waiting")) {
             auto bounds=LaptopBounds(a,a.frame);laptopPlates.push_back(bounds);
             if(s.sheets.contains("office-extras")){auto laptop=SelectFrame(s.sheets.at("office-extras"),"laptop","any",0);Sprite(g,laptop,bounds,a.opacity);}
             else {double x=bounds.x-2,y=bounds.y+2;Rect(g,"#19292d",x,y,19,11,a.opacity);Rect(g,"#8fd7c4",x+2,y+2,15,6,a.opacity);Rect(g,"#bec9be",x-1,y+10,21,3,a.opacity);}
@@ -757,21 +829,21 @@ public:
         for(const auto& desk:s.furniture)if(byId.contains(desk.owner)) {
             const auto& a=*byId.at(desk.owner);int x=desk.x*16,y=desk.y*16;SafeGdi<SolidBrush> owner(ProviderColor(a));auto& b=owner.get();GdiCheck(g.FillRectangle(&b,x,y+desk.h*16-2,5,2));
             if(a.paper&&(a.deskId.empty()||a.deskId==desk.deskId)){Rect(g,"#fff9e7",x+desk.w*16-12,y+18,9,7);Rect(g,"#a19a7e",x+desk.w*16-11,y+20,6,1);}
-            if(s.schema==3){double labelY=(a.dy+1)*16+5;Rect(g,"#f4e2bd",x-2,labelY,std::min(desk.w*16+8,static_cast<int>(Wide(a.name).size())*4+8),10);Text(g,a.name,x+1,labelY,7,"#392b24",false,desk.w*16+8);}
         }
-        for(const auto& a:s.agents)if(a.visible){auto f=DisplayFrame(s,a,offline,time);if(s.schema==3)Identity(g,a,f,offline,time);if(!offline)Bubble(g,s,a,f,static_cast<int>(std::fmod(time*2,120)));}
-        if(s.schema>=4){
+        for(const auto& a:s.agents)if(a.visible){auto f=DisplayFrame(s,a,offline,time);if(!offline)Bubble(g,s,a,f,static_cast<int>(std::fmod(time*2,120)));}
+        {
             std::vector<std::pair<double,const Agent*>> labels;
             for(const auto& a:s.agents)if(a.visible)labels.emplace_back(HeadY(a,DisplayFrame(s,a,offline,time)),&a);
             std::sort(labels.begin(),labels.end(),[](const auto& a,const auto& b){return a.first!=b.first?a.first<b.first:a.second->ordinal<b.second->ordinal;});
-            std::vector<Bounds> plates=laptopPlates,queuePlates;double visibleTop=-camera.y/camera.zoom+1;
-            for(const auto& [head,a]:labels){bool seated=a->workLocation=="desk"&&(a->action=="typing"||a->action=="thinking"||a->action=="waiting");
-                auto plate=Tag(g,s,*a,std::nearbyint((a->x+.5)*16),head-(seated?34:17)+(offline&&static_cast<int>(std::fmod(time,2))?1:0),plates,visibleTop);
-                if(a->queued&&!offline)queuePlates.push_back(plate);}
-            for(const auto& desk:s.furniture)if(byId.contains(desk.owner)){const auto& a=*byId.at(desk.owner);bool besideDesk=std::abs(a.x-a.dx)+std::abs(a.y-a.dy)<=1.5;
-                if(besideDesk&&(a.state=="working"||a.state=="thinking"||a.state=="waiting"))continue;
-                Tag(g,s,a,desk.x*16+desk.w*8,desk.y*16+desk.h*16-13,plates,visibleTop);}
-            for(const auto& plate:queuePlates){double x=plate.x+plate.w+3,y=plate.y+2;Rect(g,"#738b84",x-1,y-1,17,12);Rect(g,"#172b30",x,y,15,10);Text(g,"...",x+2,y-2,8,"#f5edce");}
+            std::vector<Bounds> plates;
+            auto hit=[&](Bounds b,size_t index,uint64_t key,bool plate=false){tagHits.push_back({{camera.x+b.x*camera.zoom,camera.y+b.y*camera.zoom,b.w*camera.zoom,b.h*camera.zoom},index,key,plate});};
+            auto modeTag=[&](const Agent& a,double x,double y,uint64_t key,bool desk,Bounds body){if(a.opacity<=0)return;size_t index=static_cast<size_t>(&a-s.agents.data());double opacity=tagMode==TagMode::Always?1:hover.Opacity(key);
+                if(tagMode==TagMode::Icon&&opacity<1){int size=IconSize(s,camera.zoom);Bounds icon{x-size/2.0,y-4,double(size),double(size)};ProviderIcon(g,s,a,icon.x,icon.y,camera.zoom,a.opacity*(1-opacity));hit(icon,index,key);}
+                if(desk)hit(body,index,key);
+                if(opacity>0){auto plate=Tag(g,s,a,x,y,plates,camera.zoom,key,a.opacity*opacity);hit(plate,index,key,true);if(hover.target==key)hit(UnionBounds(body,plate),index,key);
+                    if(!desk&&a.queued&&!offline){double qx=plate.x+plate.w+3,qy=plate.y+2;Rect(g,"#738b84",qx-1,qy-1,17,12,a.opacity*opacity);Rect(g,"#172b30",qx,qy,15,10,a.opacity*opacity);Text(g,"...",qx+2,qy-2,8,"#f5edce",false,500,false,a.opacity*opacity);}}};
+            for(const auto& [head,a]:labels){auto body=ContentBounds(*a,DisplayFrame(s,*a,offline,time));double breath=offline&&static_cast<int>(std::fmod(time,2))?1:0;body.y+=breath;modeTag(*a,std::nearbyint(body.x+body.w/2),head-12+breath,TagKey(a->id),false,body);}
+            for(const auto& desk:s.furniture)if(byId.contains(desk.owner)){const auto& a=*byId.at(desk.owner);if(OwnerAway(a))modeTag(a,desk.x*16+desk.w*8,desk.y*16+desk.h*16-13,TagKey(desk.id,true),true,{double(desk.x*16),double(desk.y*16),double(desk.w*16),double(desk.h*16)});}
         }
         if(s.agents.empty()){Text(g,"A quiet moment.",30,132,10,"#394940",true);Text(g,"Your agents will walk in.",30,151,7,"#394940",false,95);}
         GdiCheck(g.ResetTransform());if(offline){Rect(g,"#303d40",8,8,144,24);Rect(g,"#e6ad66",15,14,10,10);Rect(g,"#303d40",19,16,2,4);Rect(g,"#303d40",19,21,2,1);Text(g,"tracker offline",32,11,12,"#fff4df");}
@@ -805,7 +877,7 @@ uint64_t VisualKey(const Snapshot& s,bool offline,double time) {
     auto str=[&](const std::string& v){add(Hash(v));};
     auto frame=[&](const Frame& f){str(f.sheet);add(f.x);add(f.y);add(f.w);add(f.h);add(f.ax);add(f.ay);add(f.scale);add(f.ox);add(f.oy);};
     add(offline);add(s.schema);for(const auto& f:s.furniture){str(f.owner);str(f.monitor);str(f.state);str(f.deskId);add(f.hasFrame);if(f.hasFrame)frame(f.frame);}
-    for(const auto& a:s.agents){str(a.id);str(a.name);str(a.displayName);str(a.workLocation);str(a.providerIcon);str(a.deskId);str(a.overflowSeatId);str(a.state);add(a.queued);str(a.provider);str(a.parent);add(a.x);add(a.y);add(a.dx);add(a.dy);add(a.opacity);add(a.visible);add(a.sub);add(a.paper);add(a.carrying);str(a.action);str(a.toolKind);str(a.facing);str(a.reaction);str(a.partner);frame(DisplayFrame(s,a,offline,time));}
+    for(const auto& a:s.agents){str(a.id);str(a.name);str(a.displayName);str(a.workLocation);str(a.providerIcon);str(a.deskId);str(a.overflowSeatId);str(a.state);add(a.queued);str(a.provider);str(a.parent);add(a.x);add(a.y);add(a.dx);add(a.dy);add(a.opacity);add(a.visible);add(a.sub);add(a.paper);add(a.carrying);str(a.action);str(a.toolKind);str(a.facing);str(a.reaction);str(a.partner);add(a.seat);add(a.seatX);add(a.seatY);str(a.seatPhase);str(a.chairFront);str(a.activitySpot);str(a.activityPartner);frame(DisplayFrame(s,a,offline,time));}
     if(offline&&std::any_of(s.agents.begin(),s.agents.end(),[](const Agent& a){return a.visible;})){int tick=static_cast<int>(std::fmod(time,2));add(tick);}
     else if(!s.sheets.contains("icons")&&std::any_of(s.agents.begin(),s.agents.end(),[](const Agent& a){return a.visible&&a.action=="coffee";})){int tick=static_cast<int>(std::fmod(time*2,4));add(tick);}
     return key;
@@ -847,6 +919,7 @@ std::atomic<int> g_shellOutcome{0}; // 0 pending, 1 completed, -1 failed.
 
 struct Settings {
     std::wstring mode,state,pack;
+    TagMode tagMode=TagMode::Hover;
     int x=80,y=180,w=720,h=520,opacity=100,fps=30;
     double zoom=0;
     bool through=false,tooltip=true,transparent=false;
@@ -959,7 +1032,7 @@ struct Pixels {
     std::vector<BYTE> bgra; // Top-down, tightly packed, premultiplied BGRA.
     std::vector<BYTE> framed; // Worker-composited opaque background, if framed.
 };
-struct CachedHit { Bounds bounds;Agent agent;std::wstring tooltip; };
+struct CachedHit { Bounds bounds;Agent agent;std::wstring tooltip;uint64_t key=0;bool plate=false; };
 struct Packet {
     uint64_t requestSerial=0;
     double cameraZoom=1;
@@ -999,6 +1072,7 @@ const std::string& RequestedHover(const ViewRequest& request) noexcept {
         return request.hoverPacket->hits[request.hoverIndex].agent.id;
     return empty;
 }
+uint64_t RequestedTag(const ViewRequest& request) noexcept {return request.hoverPacket&&request.hoverIndex<request.hoverPacket->hits.size()?request.hoverPacket->hits[request.hoverIndex].key:0;}
 
 struct Host {
     HWND parent=nullptr,icons=nullptr,wallpaper=nullptr,iconHost=nullptr;
@@ -1109,6 +1183,7 @@ std::shared_ptr<Pixels> WaitingPixels(const ViewRequest& request,uint64_t serial
 }
 struct WorkerState {
     Renderer renderer;Snapshot snapshot;
+    WorkerState(){renderer.tagMode=g_settings.tagMode;}
     bool hasState=false,accepted=false,rendered=false;
     FILETIME acceptedTime{};DWORD acceptedSize=0;
     unsigned readFailures=0,frameFailures=0;
@@ -1167,8 +1242,9 @@ struct WorkerState {
                 if(Stopping())throw Error("Worker stopping");
                 Require(index<snapshot.agents.size(),"Hit agent index bounds");
                 const auto& agent=snapshot.agents[index];
-                packet->hits.push_back({bounds,agent,Wide(Tooltip(agent,now))});
+                packet->hits.push_back({bounds,agent,Wide(Tooltip(agent,now)),TagKey(agent.id)});
             }
+            for(const auto& hit:renderer.tagHits){Require(hit.index<snapshot.agents.size(),"Tag hit index bounds");const auto& agent=snapshot.agents[hit.index];packet->hits.push_back({hit.bounds,agent,Wide(Tooltip(agent,now)),hit.key,hit.plate});}
         }
         // Renderer/hit/tooltip failure cannot replace the last good packet.
         pixels=std::move(candidatePixels);visualKey=key;pixelZoom=request.zoom;rendered=true;
@@ -1195,7 +1271,7 @@ void SceneLoopBody(WorkerState* state) noexcept {
                 try {
                     const bool offline=!worker.hasState||Offline(worker.snapshot,now);
                     uint64_t key=worker.hasState?VisualKey(worker.snapshot,offline,now):0;
-                    if(worker.hasState&&worker.snapshot.schema>=4)key^=Hash(RequestedHover(request));
+                    if(worker.hasState){key^=Hash(RequestedHover(request));worker.renderer.hover.Update(RequestedTag(request),now*1000);if(worker.renderer.hover.Animating())key^=tick;else key^=RequestedTag(request);}
                     const auto second=static_cast<int64_t>(std::floor(now));
                     const bool update=lastRequest!=request.serial||lastState!=worker.stateSerial||lastKey!=key||
                         (g_settings.tooltip&&request.hoverPacket&&lastSecond!=second);
@@ -1649,17 +1725,22 @@ void PlaceTip(Ui& ui,POINT physical) {
       RECT measure{0,0,std::max(1,width-padX*2),0};
       DrawTextW(dc.dc,text.c_str(),static_cast<int>(text.size()),&measure,DT_CALCRECT|DT_WORDBREAK|DT_NOPREFIX);
       height=std::clamp<int>(measure.bottom+padY*2,1,maxHeight); }
-    const LONG x=std::clamp<LONG>(physical.x+DpiPixels(18,ui.tipDpi),monitor.rcWork.left,
-        std::max<LONG>(monitor.rcWork.left,monitor.rcWork.right-width));
-    const LONG y=std::clamp<LONG>(physical.y+DpiPixels(22,ui.tipDpi),monitor.rcWork.top,
-        std::max<LONG>(monitor.rcWork.top,monitor.rcWork.bottom-height));
+    auto screen=[&](const Bounds& bounds,RECT& rect){POINT corners[2]{{static_cast<LONG>(std::floor(bounds.x)),static_cast<LONG>(std::floor(bounds.y))},{static_cast<LONG>(std::ceil(bounds.x+bounds.w)),static_cast<LONG>(std::ceil(bounds.y+bounds.h))}};DpiScope office(ui.window.get());if(!office.previous)return false;for(auto& p:corners)if(!ClientToScreen(ui.window.get(),&p)||!LogicalToPhysicalPointForPerMonitorDPI(ui.window.get(),&p))return false;rect={corners[0].x,corners[0].y,corners[1].x,corners[1].y};return true;};
+    RECT anchor{physical.x,physical.y,physical.x+1,physical.y+1};const auto key=ui.tipPacket->hits[ui.tipIndex].key;
+    for(const auto& hit:ui.tipPacket->hits)if(hit.plate&&hit.key==key){if(!screen(hit.bounds,anchor)){HideTip(ui,false);return;}break;}
+    LONG gap=DpiPixels(12,ui.tipDpi),x=0,y=0;bool placed=false;
+    const POINT candidates[]{{anchor.right+gap,physical.y+gap},{anchor.left-width-gap,physical.y+gap},{physical.x+gap,anchor.bottom+gap},{physical.x+gap,anchor.top-height-gap}};
+    for(const auto& p:candidates){LONG cx=std::clamp<LONG>(p.x,monitor.rcWork.left,std::max<LONG>(monitor.rcWork.left,monitor.rcWork.right-width)),cy=std::clamp<LONG>(p.y,monitor.rcWork.top,std::max<LONG>(monitor.rcWork.top,monitor.rcWork.bottom-height));RECT proposed{cx,cy,cx+width,cy+height};bool clear=true;
+        for(const auto& hit:ui.tipPacket->hits)if(hit.plate){RECT plate{},intersection{};if(!screen(hit.bounds,plate)){clear=false;break;}InflateRect(&plate,DpiPixels(4,ui.tipDpi),DpiPixels(4,ui.tipDpi));if(IntersectRect(&intersection,&proposed,&plate)){clear=false;break;}}
+        if(clear){x=cx;y=cy;placed=true;break;}}
+    if(!placed){HideTip(ui,false);return;}
     if(!SetWindowPos(ui.tip.get(),HWND_TOPMOST,x,y,width,height,SWP_NOACTIVATE|SWP_SHOWWINDOW)) { HideTip(ui,false);return; }
     InvalidateRect(ui.tip.get(),nullptr,FALSE);ui.tipShown=true;
 }
 void Hover(Ui& ui,ULONGLONG tick) {
     const bool hadHover=ui.hoverPacket!=nullptr;
     auto clear=[&]() { HideTip(ui);if(hadHover)PublishRequest(ui); };
-    if(!g_settings.tooltip||ui.inMenu||ui.inSizeMove||!OfficeShown(ui,tick)||!ui.presented||!ui.presented->hasState||
+    if(ui.inMenu||ui.inSizeMove||!OfficeShown(ui,tick)||!ui.presented||!ui.presented->hasState||
        ui.presented->pixels->width!=ui.width||ui.presented->pixels->height!=ui.height) { clear();return; }
     POINT physical{};
     if(!GetPhysicalCursorPos(&physical)||!HoverVisible(ui,physical)) { clear();return; }
@@ -1672,11 +1753,10 @@ void Hover(Ui& ui,ULONGLONG tick) {
     for(size_t i=0;i<ui.presented->hits.size();++i)
         if(ui.presented->hits[i].bounds.Contains(local.x,local.y)) { hit=i;break; }
     if(hit==kNoHit) { clear();return; }
-    const auto& agent=ui.presented->hits[hit].agent;
-    if(!ui.hoverPacket||ui.hoverIndex>=ui.hoverPacket->hits.size()||ui.hoverPacket->hits[ui.hoverIndex].agent.id!=agent.id) {
+    if(!ui.hoverPacket||ui.hoverIndex>=ui.hoverPacket->hits.size()||ui.hoverPacket->hits[ui.hoverIndex].key!=ui.presented->hits[hit].key) {
         HideTip(ui);ui.hoverPacket=ui.presented;ui.hoverIndex=hit;ui.hoverSince=tick;PublishRequest(ui);
     }
-    if(tick-ui.hoverSince<220||(ui.tipShown&&tick-ui.lastTip<200))return;
+    if(!g_settings.tooltip||tick-ui.hoverSince<420||(ui.tipShown&&tick-ui.lastTip<200))return;
     if(!ui.tip.get()) {
         DpiScope context(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
         if(!context.previous)return;
@@ -1903,7 +1983,7 @@ void UiLoopBody(UiWork* work) noexcept {
                 if(ui.retryPresentation)PresentLatest(ui);
                 if(tick>=ui.nextHover) { ui.nextHover=tick+100;Hover(ui,tick); }
                 ULONGLONG due=std::min(ui.nextProbe,ui.nextVisibility);
-                if(g_settings.tooltip&&ui.window.get())due=std::min(due,ui.nextHover);
+                if(ui.window.get())due=std::min(due,ui.nextHover);
                 const auto after=GetTickCount64();
                 const DWORD delay=static_cast<DWORD>(due>after?std::min<ULONGLONG>(due-after,100):1);
                 const DWORD result=MsgWaitForMultipleObjectsEx(1,&g_stop,delay,QS_ALLINPUT,MWMO_INPUTAVAILABLE);
@@ -1995,6 +2075,7 @@ BOOL Wh_ModInit() {
         if(!GetModuleHandleExW(GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS|GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
             reinterpret_cast<LPCWSTR>(UiThread),&g_module))return FALSE;
         g_settings.mode=StringSetting(L"mode");
+        g_settings.tagMode=NormalizeTagMode(StringSetting(L"tagMode"));
         if(g_settings.mode!=L"normal"&&g_settings.mode!=L"topmost"&&g_settings.mode!=L"desktop-level")g_settings.mode=L"normal";
         g_settings.state=LocalPath(StringSetting(L"statePath"));
         auto pack=StringSetting(L"packPath");g_settings.pack=pack.empty()?L"":LocalPath(pack);
