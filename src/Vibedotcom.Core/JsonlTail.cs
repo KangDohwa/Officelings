@@ -19,6 +19,7 @@ public sealed class JsonlTail
     private byte[] prefix = [], checkpoint = [];
     private long checkpointPosition;
     private readonly MemoryStream pending = new();
+    private byte[]? readBuffer;
     internal int RetainedBytes => pending.Capacity;
 
     public IReadOnlyList<string> Read(string path, int maximumBytes = 4 * MaxLineBytes + BootstrapBytes)
@@ -53,9 +54,9 @@ public sealed class JsonlTail
         ReadUntil(file, Math.Min(end, Offset + Math.Max(0, maximumBytes - (BytesRead - startBytes))), lines);
         // Bounded probes detect overwrites and shrink/regrowth between polls. They cannot
         // detect arbitrary edits outside these windows; BytesRead counts tailed payload only.
-        prefix = Probe(file, 0, (int)Math.Min(Offset, 256));
+        prefix = Probe(file, 0, (int)Math.Min(Offset, 256), prefix);
         checkpointPosition = Math.Max(0, Offset - 256);
-        checkpoint = Probe(file, checkpointPosition, (int)(Offset - checkpointPosition));
+        checkpoint = Probe(file, checkpointPosition, (int)(Offset - checkpointPosition), checkpoint);
         return lines;
     }
 
@@ -65,10 +66,10 @@ public sealed class JsonlTail
         if (pending.Capacity > 64 * 1024) pending.Capacity = 64 * 1024;
     }
 
-    private static byte[] Probe(FileStream file, long position, int count)
+    private static byte[] Probe(FileStream file, long position, int count, byte[] previous)
     {
         file.Position = position;
-        var bytes = new byte[count];
+        var bytes = previous.Length == count ? previous : new byte[count];
         var read = 0;
         while (read < count)
         {
@@ -76,11 +77,21 @@ public sealed class JsonlTail
             if (n == 0) break;
             read += n;
         }
-        return bytes[..read];
+        return read == bytes.Length ? bytes : bytes[..read];
     }
 
-    private static bool Matches(FileStream file, long position, byte[] bytes) =>
-        Probe(file, position, bytes.Length).AsSpan().SequenceEqual(bytes);
+    private static bool Matches(FileStream file, long position, byte[] bytes)
+    {
+        Span<byte> probe = stackalloc byte[256];
+        var count = 0; file.Position = position;
+        while (count < bytes.Length)
+        {
+            var read = file.Read(probe.Slice(count, bytes.Length - count));
+            if (read == 0) return false;
+            count += read;
+        }
+        return probe[..count].SequenceEqual(bytes);
+    }
 
     private static (uint, ulong) FileIdentity(FileStream file)
     {
@@ -106,17 +117,24 @@ public sealed class JsonlTail
     private void ReadUntil(FileStream file, long end, List<string> lines)
     {
         if (file.Position >= end) return;
-        var buffer = new byte[16384];
+        var buffer = readBuffer ??= new byte[16384];
         while (file.Position < end)
         {
             var count = file.Read(buffer, 0, (int)Math.Min(buffer.Length, end - file.Position));
             if (count == 0) break;
             BytesRead += count;
             Offset += count;
-            for (var i = 0; i < count; i++)
+            var remaining = buffer.AsSpan(0, count);
+            while (!remaining.IsEmpty)
             {
-                var b = buffer[i];
-                if (b == '\n')
+                var newline = remaining.IndexOf((byte)'\n');
+                var segment = newline < 0 ? remaining : remaining[..newline];
+                if (!skipping)
+                {
+                    if (pending.Length + segment.Length > MaxLineBytes) { ClearPending(); skipping = true; DroppedLines++; }
+                    else pending.Write(segment);
+                }
+                if (newline >= 0)
                 {
                     if (!skipping && pending.Length > 0 && lines.Count < InputLimits.Records)
                         lines.Add(Encoding.UTF8.GetString(pending.GetBuffer(), 0, (int)pending.Length).TrimEnd('\r').TrimStart('\uFEFF'));
@@ -124,11 +142,7 @@ public sealed class JsonlTail
                     ClearPending();
                     skipping = false;
                 }
-                else if (!skipping)
-                {
-                    if (pending.Length >= MaxLineBytes) { ClearPending(); skipping = true; DroppedLines++; }
-                    else pending.WriteByte(b);
-                }
+                remaining = newline < 0 ? [] : remaining[(newline + 1)..];
             }
         }
     }

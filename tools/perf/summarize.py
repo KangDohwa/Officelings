@@ -76,13 +76,15 @@ def summary(root):
                 metrics["movingCpuMachinePercent"] = [row["cpuMachinePercent"] for row in moving]
         else:
             moving = []
-        key = "%s/%s" % (data["mode"], data["count"])
+        key = "%s/%s" % (data["mode"], data.get("target", {}).get("count", data["count"]))
         if data.get("fixture") == "native-idle-activities":
             key += "/mixed-activities"
         elif data.get("fixture") == "empty-home-real-polling":
             key += "/real-polling"
         elif data.get("fixture") == "observer-only-blank":
             key += "/observer-control"
+        elif data.get("fixture") == "demo-p36-fixed-inputs":
+            key += "/p36-fixed-inputs"
         if data.get("threadCpuEnabled"):
             key += "/thread-diagnostic"
         wall, cpu = sum(row["wallSeconds"] for row in rows), sum(row["cpuSeconds"] for row in rows)

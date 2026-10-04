@@ -754,9 +754,10 @@ internal sealed partial class OfficeWindow : Window
         if (settings.TransparentBackground && office.HasMovingCharacters && !view.TagsAnimating)
             interval=TimeSpan.FromSeconds(.1);
         if (demo && interval==TimeSpan.Zero) interval=TimeSpan.FromMilliseconds(125);
-        if (office.NextUpdateAt!=DateTimeOffset.MaxValue)
+        var nextUpdate = office.NextUpdateAt < view.NextUpdateAt ? office.NextUpdateAt : view.NextUpdateAt;
+        if (nextUpdate!=DateTimeOffset.MaxValue)
         {
-            var remaining=(office.NextUpdateAt-DateTimeOffset.UtcNow).TotalMilliseconds;
+            var remaining=(nextUpdate-DateTimeOffset.UtcNow).TotalMilliseconds;
             if (interval==TimeSpan.Zero) interval=TimeSpan.FromMilliseconds(Math.Max(16,remaining));
             else if (remaining>0)
             {

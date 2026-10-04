@@ -128,7 +128,11 @@ public sealed class PetTests
                 Assert.Equal(TimeSpan.FromMilliseconds(125), animator.AnimationInterval);
                 Assert.InRange(view.Sprite.Row, 1, 4);
             }
-            else Assert.Equal(TimeSpan.FromMilliseconds(500), animator.AnimationInterval);
+            else
+            {
+                Assert.Equal(TimeSpan.Zero, animator.AnimationInterval); // One-cell idle has no visual tick.
+                Assert.True(animator.NextUpdateAt > Epoch.AddMilliseconds(step * 125));
+            }
         }
         Assert.True(walking);
     }
@@ -213,7 +217,7 @@ public sealed class PetTests
         }
         Assert.Equal("napping", view.Action); Assert.Equal("nap-furniture", view.FurnitureId);
         Assert.Equal(new Position(6, 6), new Position(view.X, view.Y)); Assert.Equal("right", view.Facing);
-        Assert.Equal(6, view.Sprite.Row); Assert.Equal(TimeSpan.FromMilliseconds(500), animator.AnimationInterval);
+        Assert.Equal(6, view.Sprite.Row); Assert.Equal(TimeSpan.FromSeconds(1), animator.AnimationInterval); // Authored sleep is 1 FPS.
         var contactX = (view.X + .5) * 16 - view.Sprite.AnchorX * view.Sprite.Scale + view.Sprite.OffsetX + 8 * view.Sprite.Scale;
         var contactY = (view.Y + 1) * 16 - view.Sprite.AnchorY * view.Sprite.Scale + view.Sprite.OffsetY + 22 * view.Sprite.Scale;
         Assert.Equal(5 * 16 + 24, contactX); Assert.Equal(4 * 16 + cushionY, contactY);

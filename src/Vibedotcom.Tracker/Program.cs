@@ -42,8 +42,12 @@ try
         }
     }
     string? privacySetting = null;
+    var nextPrivacyRead = DateTimeOffset.MinValue;
     PrivacyMode ReadPrivacy()
     {
+        var now = DateTimeOffset.UtcNow;
+        if (now < nextPrivacyRead) return PrivacyModes.Resolve(privacyOption,privacySetting,Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY"));
+        nextPrivacyRead = now.AddSeconds(1);
         var value=PrivacyModes.ReadSetting(Path.Combine(output,"settings.json"));
         if (value is "off" or "tasks" or "full") privacySetting=value;
         return PrivacyModes.Resolve(privacyOption,privacySetting,Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY"));
@@ -80,6 +84,8 @@ try
     var nextAnimation = started;
     var lastPublished = DateTimeOffset.MinValue;
     var heartbeat = TimeSpan.FromSeconds(3);
+    var nextPoll = started;
+    IReadOnlyList<AgentInfo> currentAgents = [];
     do
     {
         var now = DateTimeOffset.UtcNow;
@@ -88,8 +94,14 @@ try
         {
             activePrivacy = privacy; tracker.SetPrivacy(privacy); office.ClearAgentCaches();
             previousAgents=[]; previousLayout=null; snapshots=new(manifest,privacy); nextAnimation=now;
+            nextPoll = now;
         }
-        var agents = tracker.Poll(now);
+        if (now >= nextPoll || now < previous)
+        {
+            currentAgents = tracker.Poll(now);
+            nextPoll = now.AddSeconds(currentAgents.Any(a => a.State != AgentState.Gone) ? .5 : 1);
+        }
+        var agents = currentAgents;
         sharing.Update(agents);
         var hasLiveAgents = agents.Any(a => a.State != AgentState.Gone);
         var agentsChanged = !previousAgents.SequenceEqual(agents);
@@ -133,7 +145,7 @@ try
         if (stopAt < wakeAt) wakeAt = stopAt;
         var delay = wakeAt - DateTimeOffset.UtcNow;
         if (delay > TimeSpan.Zero)
-            try { await Task.Delay(delay, cancellation.Token); } catch (OperationCanceledException) { break; }
+            try { await Task.Delay(TrackerCadence.Delay(delay), cancellation.Token); } catch (OperationCanceledException) { break; }
     } while (!cancellation.IsCancellationRequested);
     foreach (var warning in PrivacyModes.Diagnostics(tracker.Warnings.Concat(assets.Warnings).ToArray(),activePrivacy)) Console.Error.WriteLine(warning);
     Console.WriteLine($"Wrote {sequence} snapshots{(activePrivacy==PrivacyMode.Off ? " to "+output : "")}; log bytes read={tracker.BytesRead}.");

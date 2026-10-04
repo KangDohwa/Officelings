@@ -17,6 +17,25 @@ public sealed class TrackerPerfTests : IDisposable
     public TrackerPerfTests() => Directory.CreateDirectory(home);
     public void Dispose() => Directory.Delete(home, true);
 
+    [Fact]
+    public void TrackerDeadlinesDoNotSpinWhenNativeDelayTruncatesMilliseconds()
+    {
+        var cadence = Assembly.LoadFrom(TrackerBinary()).GetType("TrackerCadence", throwOnError: true)!;
+        var delay = cadence.GetMethod("Delay", BindingFlags.NonPublic | BindingFlags.Static)!
+            .CreateDelegate<Func<TimeSpan, TimeSpan>>();
+        var now = TimeSpan.FromTicks(7); var next = TimeSpan.FromSeconds(1);
+        var wakeups = 0;
+        while (now < TimeSpan.FromSeconds(30))
+        {
+            wakeups++;
+            // Model Task.Delay's whole-millisecond wait and a tiny amount of work.
+            now += TimeSpan.FromMilliseconds(Math.Floor(delay(next - now).TotalMilliseconds)) + TimeSpan.FromTicks(7);
+            if (now >= next) next += TimeSpan.FromSeconds(1);
+        }
+        Assert.Equal(30, wakeups);
+        Assert.Equal(TimeSpan.Zero, delay(TimeSpan.FromTicks(-1)));
+    }
+
     private static string TrackerBinary()
     {
         var folder = new DirectoryInfo(AppContext.BaseDirectory);

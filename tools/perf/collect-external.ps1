@@ -5,15 +5,22 @@ param(
     [int]$Count=0, [string]$WindowMode='normal', [int]$WarmupSeconds=10, [int]$SampleSeconds=15
 )
 $ErrorActionPreference='Stop'
-if (-not ('PerfThreadDescription' -as [type])) {
+if (-not ('PerfThreadDescriptionV2' -as [type])) {
     Add-Type -TypeDefinition @'
 using System;
 using System.Runtime.InteropServices;
-public static class PerfThreadDescription {
+public static class PerfThreadDescriptionV2 {
     [DllImport("kernel32.dll")] static extern IntPtr OpenThread(uint access, bool inherit, uint id);
     [DllImport("kernel32.dll")] static extern int GetThreadDescription(IntPtr thread, out IntPtr description);
     [DllImport("kernel32.dll")] static extern bool CloseHandle(IntPtr handle);
     [DllImport("kernel32.dll")] static extern IntPtr LocalFree(IntPtr handle);
+    [DllImport("ntdll.dll")] static extern int NtQueryInformationThread(IntPtr thread, int info, out IntPtr value, uint size, IntPtr length);
+    public static long StartAddress(int id) {
+        var handle=OpenThread(0x0040,false,(uint)id);
+        if(handle==IntPtr.Zero) return 0;
+        try { IntPtr value; return NtQueryInformationThread(handle,9,out value,(uint)IntPtr.Size,IntPtr.Zero)==0?value.ToInt64():0; }
+        finally { CloseHandle(handle); }
+    }
     public static string Read(int id) {
         var handle=OpenThread(0x0800,false,(uint)id);
         if(handle==IntPtr.Zero) return "";
@@ -35,6 +42,7 @@ $perfHandle=$perfProcess.Handle # Retain the native handle: Windows PowerShell o
 $perfDeadline=[DateTime]::UtcNow.AddSeconds($WarmupSeconds+$SampleSeconds+90)
 $perfSamples=[Collections.Generic.List[object]]::new()
 $perfThreadNames=@{}
+$perfThreadModules=@{}
 $perfClock=[Diagnostics.Stopwatch]::StartNew()
 try {
     $perfWarm=$null
@@ -48,8 +56,9 @@ try {
     $perfLastWall=$perfClock.Elapsed.TotalSeconds
     $perfProcess.Refresh()
     $perfLastCpu=$perfProcess.TotalProcessorTime.TotalSeconds
+    $perfModules=@($perfProcess.Modules | ForEach-Object { [pscustomobject]@{name=$_.ModuleName;start=$_.BaseAddress.ToInt64();end=$_.BaseAddress.ToInt64()+$_.ModuleMemorySize} })
     $perfLastThreads=@{}
-    foreach ($perfThread in $perfProcess.Threads) { try { $perfLastThreads[$perfThread.Id]=$perfThread.TotalProcessorTime.TotalSeconds; $perfThreadNames[$perfThread.Id]=[PerfThreadDescription]::Read($perfThread.Id) } catch { } }
+    foreach ($perfThread in $perfProcess.Threads) { try { $perfLastThreads[$perfThread.Id]=$perfThread.TotalProcessorTime.TotalSeconds; $perfThreadNames[$perfThread.Id]=[PerfThreadDescriptionV2]::Read($perfThread.Id) } catch { } }
     while (!(Test-Path -LiteralPath "$Output/external-target.json")) {
         Start-Sleep -Milliseconds 1000
         if ([DateTime]::UtcNow -gt $perfDeadline) { throw 'Target exceeded finite measurement deadline.' }
@@ -63,8 +72,13 @@ try {
             try {
                 $perfThreadCpu=$perfThread.TotalProcessorTime.TotalSeconds
                 $perfThreads[$perfThread.Id]=$perfThreadCpu
-                if (!$perfThreadNames.ContainsKey($perfThread.Id)) { $perfThreadNames[$perfThread.Id]=[PerfThreadDescription]::Read($perfThread.Id) }
-                if ($perfLastThreads.ContainsKey($perfThread.Id)) { $perfThreadRows += [pscustomobject]@{id=$perfThread.Id;description=$perfThreadNames[$perfThread.Id];isUi=($perfThread.Id -eq $perfWarm.uiThreadId);cpuSeconds=$perfThreadCpu-$perfLastThreads[$perfThread.Id]} }
+                if (!$perfThreadNames.ContainsKey($perfThread.Id)) { $perfThreadNames[$perfThread.Id]=[PerfThreadDescriptionV2]::Read($perfThread.Id) }
+                if (!$perfThreadModules.ContainsKey($perfThread.Id)) {
+                    $address=[PerfThreadDescriptionV2]::StartAddress($perfThread.Id)
+                    $module=$perfModules | Where-Object { $address -ge $_.start -and $address -lt $_.end } | Select-Object -First 1
+                    $perfThreadModules[$perfThread.Id]=if ($module) { $module.name } else { $null }
+                }
+                if ($perfLastThreads.ContainsKey($perfThread.Id)) { $perfThreadRows += [pscustomobject]@{id=$perfThread.Id;description=$perfThreadNames[$perfThread.Id];startModule=$perfThreadModules[$perfThread.Id];isUi=($perfThread.Id -eq $perfWarm.uiThreadId);cpuSeconds=$perfThreadCpu-$perfLastThreads[$perfThread.Id]} }
             } catch { }
         }
         $perfSamples.Add([pscustomobject]@{wallSeconds=$perfInterval;cpuSeconds=$perfCpu-$perfLastCpu;logicalProcessors=[Environment]::ProcessorCount;
@@ -76,7 +90,7 @@ try {
     if (!$perfProcess.WaitForExit(10000)) { throw 'Target did not exit after its finite end marker.' }
     if (!(Test-Path -LiteralPath "$Output/external-target.json") -or $null -eq $perfProcess.ExitCode -or $perfProcess.ExitCode -ne 0) { throw "Target did not complete (exit=$($perfProcess.ExitCode)); see process-error.log." }
     $perfTarget=Get-Content -LiteralPath "$Output/external-target.json" -Raw | ConvertFrom-Json
-    [pscustomobject]@{count=$Count;mode=$WindowMode;fixture=$perfTarget.fixture;warmupSeconds=$WarmupSeconds;sampleSeconds=$SampleSeconds;
+    [pscustomobject]@{count=$perfTarget.count;mode=$WindowMode;fixture=$perfTarget.fixture;warmupSeconds=$WarmupSeconds;sampleSeconds=$SampleSeconds;
         logicalProcessors=$perfTarget.logicalProcessors;externalCollector=$true;samples=$perfSamples;target=$perfTarget;warm=$perfWarm;
         note='One-second process memory/CPU/thread queries run in the collector, not the target. Native target boundary CPU/wall gives the aggregate. Periodic sample coverage excludes partial edge intervals; no fabricated allocation/counter samples and no observer subtraction. Unnamed non-UI threads are not identified as WPF render.'
     } | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath "$Output/live.json" -Encoding UTF8

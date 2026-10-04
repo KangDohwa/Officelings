@@ -369,6 +369,22 @@ int wmain(int argc,wchar_t** argv){
         Check(VisualKey(s,false,s.generated)==VisualKey(s,false,s.generated+.1),"No unnecessary idle timer repaint");
         Check(Tooltip(s.agents[0],s.generated).find("Project   ")!=std::string::npos,"Tooltip project metadata");
         Renderer renderer;renderer.Load(s,root);
+        {
+            Renderer reference;reference.Load(s,root);reference.cacheRoom=false;
+            auto local=s;local.hasAmbient=false;
+            auto first=renderer.Render(local,720,520,0,false,false,s.generated);
+            auto rooms=renderer.roomBuildCount;
+            for(int second:{1,2,17}){
+                auto retained=renderer.Render(local,720,520,0,false,false,s.generated+second);
+                auto fresh=reference.Render(local,720,520,0,false,false,s.generated+second);
+                Check(!Different(*retained,*fresh),"Cached room matches a fresh full room with local clock changes");
+            }
+            Check(renderer.roomBuildCount==rooms,"Local clock retains the room raster");
+            auto transparent=renderer.Render(local,720,520,0,true,false,s.generated);
+            auto fresh=reference.Render(local,720,520,0,true,false,s.generated);
+            Check(!Different(*transparent,*fresh),"Room cache invalidates for transparent mode");
+            Check(renderer.roomBuildCount==rooms+1,"Mode change rebuilds the room once");
+        }
         auto v4=Replace(bytes,schemaToken,"\"schemaVersion\": 4");v4=PoseField(v4,"displayName","\"Windhawk test\"");v4=PoseField(v4,"workLocation","\"overflow\"");v4=PoseField(v4,"queued","true");v4=PoseField(v4,"action","\"typing\"");
         auto added=ParseSnapshot(v4,&s);Check(added.schema==4&&added.agents.front().queued&&added.agents.front().workLocation=="overflow"&&added.agents.front().displayName=="Windhawk test","v4 optional visual metadata");
         Check(added.agents.front().frame.x==s.agents.front().frame.x&&added.agents.front().frame.sheet==s.agents.front().frame.sheet,"v4 supplied frame remains authoritative");
