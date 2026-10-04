@@ -6,7 +6,7 @@ namespace Vibedotcom.Core.Iso;
 
 /// The only boundary between production manifests and the compiled runtime pack.
 /// No user profile, installed flat pack, generator, or network access is used.
-public sealed class IsoPack
+public sealed partial class IsoPack
 {
     private readonly Dictionary<string, IsoSheet> sheets = new(StringComparer.Ordinal);
     private readonly Dictionary<(string Sheet, string Key), IsoClip> clips = [];
