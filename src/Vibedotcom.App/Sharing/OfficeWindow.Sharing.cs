@@ -68,7 +68,7 @@ internal sealed partial class OfficeWindow
         if (!sharingSender!.Enable(preview, confirmed: true, token, remember)) throw new ArgumentException("Stop sharing before enabling it again.");
         sharingPrivacy = settings.SharingConfiguration().Privacy;
         settings = settings with { Sharing = "on", SharingServer = preview.Endpoint.Origin.AbsoluteUri, SharingOfficeId = preview.OfficeId,
-            SharingAliases = new Dictionary<string, string>(preview.Aliases) };
+            SharingAliases = new AliasMap(preview.Aliases) };
         Save(); await sharingSender.TrySendAsync(); RefreshSharingIndicator();
         if (!sharingSender.Enabled) { settings = settings with { Sharing = "off" }; Save(); throw new ArgumentException("Sharing stopped. Check the server, office and token, then review again."); }
     }

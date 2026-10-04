@@ -1,6 +1,6 @@
 ﻿namespace Vibedotcom.Core;
 
-public sealed class OfficeAnimator
+public sealed partial class OfficeAnimator
 {
     private sealed record ActivitySpot(string Key, string Group, string? FurnitureId, Tile Tile, InteractionPoint Point, PixelPoint? Contact = null);
     private sealed class Character(int order, AgentInfo agent)

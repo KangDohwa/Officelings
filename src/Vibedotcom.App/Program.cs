@@ -48,6 +48,7 @@ internal sealed partial record Settings
         var waiting = Math.Max(Number(LeaveAfterWaitingMinutes, 30, 1, 10080), (working + 1) / 60);
         return (this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
             TagMode = NameTagHover.Normalize(TagMode),
+            PrivacyMode = PrivacyModes.Value(PrivacyModes.Resolve(null, PrivacyMode, Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY"))),
             Ambient = (Ambient ?? new()).Normalize(), SeasonDecor = SeasonDecor == "auto" ? "auto" : "off",
             Pets = Pets == "off" ? "off" : "on",
             Zoom = Number(Zoom, 0, 0, 6), Width = Number(Width, 720, 400, 3000), Height = Number(Height, 480, 300, 2000),
@@ -79,7 +80,7 @@ internal static partial class Program
         try
         {
             var demo = args.Contains("--demo"); Settings? initial = null;
-            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null, home = null, stateSource = null; double quitAfter = 0; var qa = false; var smokeTags=false; var smokeAmbient=false;
+            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null, home = null, stateSource = null, privacyOption = null; double quitAfter = 0; var qa = false; var smokeTags=false; var smokeAmbient=false;
             for (var i = 0; i < args.Length; i++)
             {
                 string Value() => ++i < args.Length ? args[i] : throw new ArgumentException("Missing option value.");
@@ -95,6 +96,7 @@ internal static partial class Program
                     case "--season-decor": initial = (initial ?? new()) with { SeasonDecor = ParseChoice(Value(), "--season-decor", "off", "auto") }; break;
                     case "--pets": initial = (initial ?? new()) with { Pets = ParseChoice(Value(), "--pets", "on", "off") }; break;
                     case "--tags": initial = (initial ?? new()) with { TagMode = ParseTags(Value()) }; break;
+                    case "--privacy": privacyOption = PrivacyModes.Value(PrivacyModes.Parse(Value())); break;
                     case "--asset-dir": assetDirectory = Value(); break;
                     case "--layout": layoutFile = Value(); break;
                     case "--qa": qa = true; break;
@@ -114,10 +116,13 @@ internal static partial class Program
                     case "--leave-after-waiting-minutes": initial = (initial ?? new()) with { LeaveAfterWaitingMinutes = Positive() }; break;
                     case "--gone-minutes": initial = (initial ?? new()) with { GoneMinutes = Positive() }; break;
                     case "--quit-after": quitAfter = Number(); break;
-                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated)] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
+                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--privacy off|tasks|full] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated)] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
                 }
             }
             using var storage = new AppStorage(demo || qa || profile != null || smoke != null || verifyOpacity != null);
+            if (initial != null || privacyOption != null)
+                initial = (initial ?? Settings.Read(storage.SettingsPath)) with { PrivacyMode = PrivacyModes.Value(PrivacyModes.Resolve(privacyOption,
+                    PrivacyModes.ReadSetting(storage.SettingsPath), Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY"))) };
             if (home != null && !qa && smoke == null) throw new ArgumentException("--home requires --qa or --smoke-test.");
             if (stateSource != null && smoke == null) throw new ArgumentException("--output/--state requires --smoke-test; pass a tracker output directory or state.json.");
             if (stateSource != null && Directory.Exists(stateSource)) stateSource = Path.Combine(stateSource,"state.json");
@@ -145,14 +150,15 @@ internal static partial class Program
                     var loaded = await LoadOfficeAsync(assetDirectory, layoutFile, storage);
                     new OfficeWindow(demo,initial,quitAfter,loaded.Assets,loaded.Layout,qa,liveOffice: loaded.Office,storage: storage,decodedSheets: loaded.Sheets,trackerHome: home).Show();
                 }
-                catch (Exception e) { Console.Error.WriteLine(e); app.Shutdown(1); }
+                catch (Exception e) { Console.Error.WriteLine(PrivacyModes.Diagnostic(e, PrivacyModes.Resolve(privacyOption, initial?.PrivacyMode ?? PrivacyModes.ReadSetting(storage.SettingsPath), Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY")))); app.Shutdown(1); }
             };
             return app.Run();
         }
         catch (Exception e)
         {
-            if (args.Length > 0) Console.Error.WriteLine(e);
-            else MessageBox.Show(e.Message,"Vibedotcom",MessageBoxButton.OK,MessageBoxImage.Error);
+            var message = PrivacyModes.Diagnostic(e, StartupPrivacy(args));
+            if (args.Length > 0) Console.Error.WriteLine(message);
+            else MessageBox.Show(message,"Vibedotcom",MessageBoxButton.OK,MessageBoxImage.Error);
             return 1;
         }
     }
@@ -189,17 +195,19 @@ internal static partial class Program
     private static int Smoke(string output, bool demo, AssetPack assets, OfficeLayout layout,Settings settings,string home,string? stateSource)
     {
         output = StateJson.OutputPath(output,home); Directory.CreateDirectory(output);
-        using var tracker = new AgentTracker(new() { Home=home }); var office = new OfficeAnimator(42,assets,layout,ActivityCatalog.Load(home,assets.Warnings));
+        var privacy = demo ? PrivacyMode.Off : PrivacyModes.Parse(settings.PrivacyMode ?? "off");
+        using var tracker = new AgentTracker(new() { Home=home, PrivacyMode=privacy }); var office = new OfficeAnimator(42,assets,layout,ActivityCatalog.Load(home,assets.Warnings));
         var now = demo ? DateTimeOffset.Parse("2026-10-03T12:00:00Z") : DateTimeOffset.UtcNow;
         IReadOnlyList<AgentInfo> sources = Array.Empty<AgentInfo>();
         IReadOnlyList<AgentView> views = Array.Empty<AgentView>();
         var tagMode=settings.TagMode;
-        var view = new OfficeView(assets,Path.Combine(home,"brand")) { TagMode=tagMode, AmbientSettings=settings.Ambient, SeasonDecor=settings.SeasonDecor, PetsEnabled=settings.Pets=="on" };
+        var view = new OfficeView(assets,Path.Combine(home,"brand")) { PrivacyMode=privacy, TagMode=tagMode, AmbientSettings=settings.Ambient, SeasonDecor=settings.SeasonDecor, PetsEnabled=settings.Pets=="on" };
         if (stateSource != null)
         {
             if (new FileInfo(stateSource).Length > 4*1024*1024) throw new InvalidDataException("State exceeds 4 MiB.");
             using var input = new FileStream(stateSource,FileMode.Open,FileAccess.Read,FileShare.ReadWrite|FileShare.Delete);
             var snapshot = JsonSerializer.Deserialize<StateSnapshot>(input,StateJson.Options) ?? throw new InvalidDataException("Empty state.");
+            snapshot = PrivateSnapshot(snapshot, privacy); view.PrivacyMode=snapshot.Privacy;
             layout = snapshot.Office; LayoutLoader.Validate(layout,assets);
             view.Update(layout,snapshot.Agents,snapshot.GeneratedAt,snapshot.FurnitureSprites);
             foreach (var zoom in new[] { 1,2,3 })
@@ -240,8 +248,8 @@ internal static partial class Program
         view.TransparentBackground=true; Render(view,700,480,Path.Combine(output,"transparent.png"));
         var manifest=assets.Export(output);
         StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(office.Layout,StateJson.Options));
-        StateJson.WriteAtomic(Path.Combine(output,"state.json"),new StateSnapshot(StateJson.SchemaVersion,now.AddSeconds(55),1,SpriteAtlas.Info,office.Layout,views,tracker.Warnings.Concat(assets.Warnings).ToArray(),manifest,view.ResolvedFurnitureSprites,view.AmbientState,view.Pets));
-        File.WriteAllText(Path.Combine(output,"smoke.txt"),$"Offscreen WPF render OK; demo={demo}; agents={sources.Count}; tagMode={tagMode}; zooms=1,2,3; hover={hover != null}; logBytesRead={tracker.BytesRead}\n"+string.Join("\n",assets.Warnings));
+        StateJson.WriteAtomic(Path.Combine(output,"state.json"),new StateSnapshot(StateJson.SchemaVersion,now.AddSeconds(55),1,SpriteAtlas.Info,office.Layout,views,PrivacyModes.Diagnostics(tracker.Warnings.Concat(assets.Warnings).ToArray(),privacy),manifest,view.ResolvedFurnitureSprites,view.AmbientState,view.Pets,privacy));
+        File.WriteAllText(Path.Combine(output,"smoke.txt"),$"Offscreen WPF render OK; demo={demo}; agents={sources.Count}; tagMode={tagMode}; privacy={PrivacyModes.Value(privacy)}; zooms=1,2,3; hover={hover != null}; logBytesRead={tracker.BytesRead}\n"+string.Join("\n",PrivacyModes.Diagnostics(assets.Warnings.ToArray(),privacy)));
         if(demo) { ReviewRenders(output,assets,layout,tagMode); DepartureRenders(output,assets,layout,tagMode); }
         return 0;
     }
@@ -504,9 +512,10 @@ internal sealed partial class OfficeWindow : Window
         this.demo = demo;
         this.storage = storage ?? new AppStorage(demo || qa);
         this.qa = qa; this.epoch=demoEpoch ?? DateTimeOffset.UtcNow;
-        this.assets = assets ?? new(); view = new(this.assets, this.storage.Isolated ? Path.Combine(this.storage.Home,"brand") : null, decodedSheets); office = liveOffice ?? new(42,this.assets,layout,ActivityCatalog.Load(this.storage.Home,this.assets.Warnings));
+        this.assets = assets ?? new(); view = new(this.assets, Path.Combine(this.storage.Home,"brand"), decodedSheets); office = liveOffice ?? new(42,this.assets,layout,ActivityCatalog.Load(this.storage.Home,this.assets.Warnings));
         agents=liveAgents ?? Array.Empty<AgentInfo>();
         settings = (initial ?? ReadSettings()).Normalize();
+        view.PrivacyMode = demo ? PrivacyMode.Off : PrivacyModes.Parse(settings.PrivacyMode ?? "off");
         view.TagMode = settings.TagMode;
         view.AmbientSettings=settings.Ambient; view.SeasonDecor=settings.SeasonDecor; view.PetsEnabled=settings.Pets=="on";
         if (qa) settings=settings with { Mode="normal",Borderless=true,Width=400,Height=300,Left=-30000,Top=-30000 };
@@ -525,12 +534,15 @@ internal sealed partial class OfficeWindow : Window
         ShowActivated = !qa && settings.Mode != "desktop" && !settings.ClickThrough;
         var options = new TrackerOptions
         {
+            PrivacyMode = view.PrivacyMode,
             Home = trackerHome ?? (this.storage.Isolated ? this.storage.Home : new TrackerOptions().Home),
             WorkingWindow = TimeSpan.FromSeconds(Finite(settings.WorkingSeconds,120,1,86400)),
             LeaveAfterIdle = TimeSpan.FromMinutes(settings.LeaveAfterIdleMinutes),
             LeaveAfterWaiting = TimeSpan.FromMinutes(settings.LeaveAfterWaitingMinutes)
         };
         tracker = new(options); modes = new(this,qa);
+        if (view.PrivacyMode != PrivacyMode.Off)
+        { agents=tracker.Redact(agents); office.ClearAgentCaches(); }
         var root = new DockPanel { Background=settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor) };
         var bar = new DockPanel { Margin = new(16,9,16,9), LastChildFill = true };
         DockPanel.SetDock(counts,Dock.Right); bar.Children.Add(counts);
@@ -592,7 +604,7 @@ internal sealed partial class OfficeWindow : Window
         if (bounds.IsEmpty || !double.IsFinite(bounds.Left) || !double.IsFinite(bounds.Top)) return;
         settings = (settings with { Width = bounds.Width, Height = bounds.Height, Left = bounds.Left, Top = bounds.Top, Zoom = view.PreferredZoom }).Normalize();
         try { settings.Write(settingsPath); }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or ArgumentException or JsonException) { warning = "Cannot save settings: "+e.Message; }
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or ArgumentException or JsonException) { warning = "Cannot save settings: "+PrivacyModes.Diagnostic(e,view.PrivacyMode); }
     }
     private void ApplyModes()
     {
@@ -667,6 +679,7 @@ internal sealed partial class OfficeWindow : Window
     private ContextMenu BuildContextMenu()
     {
         var menu = new ContextMenu();
+        AddPrivacyMenu(menu);
         var tags=new MenuItem { Header="Name tags" }; menu.Items.Add(tags);
         foreach (var mode in new[] { "hover","icon","always" })
         {
@@ -684,6 +697,7 @@ internal sealed partial class OfficeWindow : Window
     private Forms.ContextMenuStrip BuildTrayMenu()
     {
         var menu = new Forms.ContextMenuStrip();
+        AddPrivacyMenu(menu);
         var tags=new Forms.ToolStripMenuItem("Name tags"); menu.Items.Add(tags);
         foreach (var mode in new[] { "hover","icon","always" })
         {
@@ -776,7 +790,7 @@ internal sealed partial class OfficeWindow : Window
             if (modes.DesktopHostLost) ApplyModes();
             var countText = string.Join("  ·  ",Enum.GetValues<Provider>().Select(p=>$"{p} {agents.Count(a=>a.Provider==p&&a.State!=AgentState.Gone)}"));
             if (counts.Text!=countText) counts.Text=countText;
-            var issue=string.Join("  ",assets.Warnings.Concat(warning.Length>0 ? new[] { warning } : Array.Empty<string>()).Concat(modes.OpacityError != null ? new[] { "Opacity: "+modes.OpacityError } : Array.Empty<string>()));
+            var issue=string.Join("  ",PrivacyModes.Diagnostics(assets.Warnings.Concat(warning.Length>0 ? new[] { warning } : Array.Empty<string>()).Concat(modes.OpacityError != null ? new[] { "Opacity: "+modes.OpacityError } : Array.Empty<string>()).ToArray(),view.PrivacyMode));
             status.Text = issue.Length>0 ? issue : editor != null ? "Editing office · live agents · click-through paused · Save applies layout" : settings.Mode=="desktop" && !modes.Embedded ? "Desktop host unavailable; bottom-level fallback. Recover from tray." : $"{agents.Count(a=>a.State!=AgentState.Gone)} agents  ·  {view.Zoom:0.##}×{(view.PreferredZoom==0 ? " auto" : "")}  ·  wheel / + / −  ·  drag to pan  ·  right-click for modes";
         }
         if (!demo && !polling && now>=nextPoll) { nextPoll = now.AddSeconds(1); _ = PollAsync(now); }
@@ -790,7 +804,7 @@ internal sealed partial class OfficeWindow : Window
         editor.LayoutChanged+=()=>
         {
             try { office.ReloadLayout(editor.Editor.Layout);warning=""; }
-            catch(Exception e) when(e is IOException or ArgumentException or InvalidOperationException) { warning="Preview: "+e.Message; }
+            catch(Exception e) when(e is IOException or ArgumentException or InvalidOperationException) { warning="Preview: "+PrivacyModes.Diagnostic(e,view.PrivacyMode); }
             view.Update(editor.Editor.Layout,view.Agents,DateTimeOffset.UtcNow,office.FurnitureSprites);
         };
         editor.ExitRequested+=ToggleEditor;
@@ -799,10 +813,11 @@ internal sealed partial class OfficeWindow : Window
     private async Task PollAsync(DateTimeOffset now)
     {
         polling = true;
+        var privacyVersion = privacyRevision;
         try
         {
             var current = await Task.Run(()=>tracker.Poll(now));
-            if (closed) return;
+            if (closed || privacyVersion != privacyRevision) return;
             var changed=!agents.SequenceEqual(current);
             agents = current; warning = tracker.Warnings.Count>0 ? string.Join("  ",tracker.Warnings) : "";
             if (!animationSuspended && changed)
@@ -812,7 +827,7 @@ internal sealed partial class OfficeWindow : Window
                 previous=time; ScheduleAnimation();
             }
         }
-        catch (Exception e) { warning = "Reading logs failed: "+e.Message; }
+        catch (Exception e) { warning = "Reading logs failed: "+PrivacyModes.Diagnostic(e,view.PrivacyMode); }
         finally { polling = false; if (closed) tracker.Dispose(); }
     }
 }

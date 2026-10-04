@@ -4,6 +4,10 @@ The tracker and WPF engine share PNG sheets, an asset manifest, and an authored 
 
 ## Version 5 additions
 
+Privacy adds an optional root `privacy` string: `off`, `tasks` or `full`. Current writers always emit it; missing input means `off`. This is additive and keeps schema version 5. Consumers can show a small privacy badge and should refresh tooltip/name caches when the level changes. Redaction already happens in Core: use the supplied metadata and `pose.displayName` without reconstructing text from older snapshots.
+
+`tasks` removes task, tool, tool-category and role text, reduces `agent.cwd` to a folder leaf, and replaces prompt-derived Antigravity titles with generic names. `full` additionally removes `agent.cwd` and `agent.model` and replaces all agent/display names with stable provider labels. Removed optional fields are null and task is empty. In enabled modes, session IDs and parent/desk ownership references are consistent opaque `private:<sha256>` identifiers; renderers must treat IDs as opaque. Once used, those opaque IDs remain for the run even after switching off. Provider, state, timestamps, relationships and poses retain their existing types. Generic labels are stable during one tracker run. See [privacy](privacy.md) for controls and limits.
+
 All v4 fields and existing `action`/semantic state names remain. Seating is an additional visual phase, independent of assignment, collision coordinates and `Working/Thinking/Waiting` state.
 
 | Optional field | Meaning / default for older input |

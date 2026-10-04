@@ -1,6 +1,6 @@
 # Privacy
 
-Vibedotcom displays local session information. Its source files are read-only, but the information it extracts can still be private. Use `--demo` whenever you capture images for documentation or a bug report.
+Vibedotcom displays local session information. Its source files are read-only, but the information it extracts can still be private. Turn on privacy before streaming or sharing your screen. Use `--demo` for documentation and bug-report images.
 
 ## What is read
 
@@ -14,16 +14,16 @@ Normal app/tracker files live under `%LOCALAPPDATA%\Vibedotcom\` by default. Exp
 
 | File or folder | Contents and writer |
 | --- | --- |
-| `state.json` | Tracker snapshot with agent names, models, project folders/paths, parent relationships and activity. Task summaries may retain up to 240 characters of the last prompt; tool names/text summaries also appear where parsed. |
+| `state.json` | Tracker snapshot with agent metadata, parent relationships, activity and a `privacy` level. With privacy off, task summaries may retain up to 240 characters of the last prompt. Enabled levels redact metadata in Core before snapshots are made. |
 | `runtime-layout.json` | Tracker's resolved office layout. |
-| `settings.json` | App window modes, geometry, opacity, zoom, timeouts and opt-in sharing settings/aliases. No bearer token. |
+| `settings.json` | App window modes, geometry, opacity, zoom, timeouts, `privacyMode` and opt-in sharing settings/aliases. No bearer token. |
 | `layout.json` | Editable office layout. The tracker creates it only if absent; editor Save writes a layout. |
 | `manifest.json`, `sheets/`, `atlas.png` | Exported runtime art files. Optional custom input packs use `assets/manifest.json`. |
 | `brand/` | Optional local brand overrides, written only when you install/copy them or select this output directory. |
 
 The standalone viewer keeps session data in memory and does not continuously publish `state.json`. Its smoke-test mode does export snapshots into the requested output directory. Without `--demo`, smoke tests can read real sources.
 
-Antigravity DB queries make disposable copies in `%TEMP%\Vibedotcom-sqlite-*`, including available WAL, SHM and journal files. They can contain more than the short text shown in the office. Cleanup is attempted when the query finishes; a crash or cleanup failure may leave a copy.
+With privacy off, Antigravity DB queries make disposable copies in `%TEMP%\Vibedotcom-sqlite-*`, including available WAL, SHM and journal files. They can contain more than the short text shown in the office. Cleanup is attempted when the query finishes; a crash or cleanup failure may leave a copy. With `tasks` or `full`, DB and committed WAL pages are read into memory instead; queries create no raw DB copies or provider sidecars. Unstable databases, active rollback journals, files above 256 MiB or an unavailable SQLite memory API use cached state and transcript/local API fallbacks, with a generic warning.
 
 Demo does not poll real providers. Current demo/QA code uses `%TEMP%\vibedotcom-demo-*` for local settings/layout paths, including editor Save, and attempts cleanup on exit. See [app usage](app-usage.md) for the earlier review finding and the current input restrictions.
 
@@ -31,7 +31,7 @@ Smoke without `--demo` still polls real sources even though its personal pack/la
 
 ## Where details appear
 
-Hover tooltips display project paths and recent task/tool information. The tracker also puts them in `state.json`. A screenshot or screen share can expose the tooltip or agent names, including when the office is embedded at desktop level. Bug-report attachments may expose the same data even if the main room looks harmless.
+With privacy off, hover tooltips display project paths and recent task/tool information. The tracker also puts them in `state.json`. Privacy applies to those fields, character plates and reserved-desk plates, including the office editor's live agents. A screenshot or screen share can expose these details if privacy is off, including when the office is embedded at desktop level.
 
 Do not attach your real `state.json` or raw session logs. Replace paths, names, prompts and tool arguments with invented examples. Check diagnostic output and screenshots before posting. Fixtures must contain invented text only.
 
@@ -72,6 +72,32 @@ Unregister-ScheduledTask -TaskName 'Vibedotcom.Tracker' -Confirm
 
 Use your chosen name if you supplied `-TaskName`. Confirm the tracker child has stopped; task-stop behavior remains a manual check in the [Windhawk guide](../windhawk/README.md). Remove leftover `Vibedotcom-sqlite-*` copies and `vibedotcom-demo-*` directories from your temp folder after all readers have stopped. Also clean any custom output folders you created.
 
-## Possible privacy mode
+## Privacy levels
 
-A future mode could hide task text and project paths in local tooltips and snapshots. This checkout has no such switch. Presence sharing already filters all private local fields; its `privacy:"full"` integration additionally forces generic aliases when that setting is supplied.
+| Level | Visible session text |
+| --- | --- |
+| `off` | Existing behavior: names, models, paths, prompts, roles and tools. This remains the default. |
+| `tasks` | Provider, agent name, model, state, elapsed time and only the project folder's leaf name. Prompts, tasks, tool text/categories and roles are removed. Antigravity conversation titles are derived from prompts, so its names become generic too. |
+| `full` | Provider, state and elapsed time, with stable names such as `Codex`, `Codex #2`, `Claude` and `Antigravity`. Model names, project names and paths are removed. Labels remain stable for an agent during that tracker run. |
+
+Right-click the office or tray, open **Privacy**, and choose **Off**, **Hide tasks** or **Hide all details**. The change clears the current tooltip, retained name drawings and held agent text immediately, then saves `privacyMode` for the next launch. A small viewer badge shows the active level. Turning privacy off does not recover text already discarded from memory; new provider events can supply text again. A restart with privacy off reads the original sources again. Demo mode keeps its fabricated text.
+
+You can also set the level before startup:
+
+```powershell
+dotnet run --project src/Vibedotcom.App --no-build -- --privacy full
+dotnet run --project src/Vibedotcom.Tracker --no-build -- --privacy tasks
+$env:VIBEDOTCOM_PRIVACY = 'full'
+```
+
+Or add `"privacyMode": "full"` to `settings.json`. The app uses its normal settings file; the tracker uses the file in its `--output` directory. Startup precedence is `--privacy`, then a valid saved `privacyMode`, then `VIBEDOTCOM_PRIVACY`, then `off`. An app startup override is saved on close; menu choices save immediately. A tracker without `--privacy` follows valid settings changes on its next update. A tracker started with the flag keeps that explicit level until restarted. If the app and tracker use different output/settings directories, set each separately.
+
+## Guarantees and limits
+
+Enabled levels redact at Core text assignment, before agent state and snapshots receive the text. Switching to a stricter level scrubs held state and parser metadata caches. `state.json`, resolved desk ownership, tooltips, tag plates and emitted diagnostics contain only the allowed metadata. Private snapshots use opaque session IDs so a filename fallback cannot reveal a name. The additive root `privacy` field is `off`, `tasks` or `full`; it does not change schema version 5. Windhawk can render already-redacted snapshots without adding its own redaction.
+
+The tracker still reads raw provider logs and local Antigravity data to infer state. Privacy does not edit, encrypt or delete those sources. It does not remove old snapshots, attachments, backups or temp copies left by an earlier run with privacy off. Ordinary permissions still apply. Raw parser buffers can exist briefly in process memory; this feature does not promise protection from memory inspection, OS paging or crash dumps.
+
+Other apps' windows, terminal output, screenshots captured before the switch and names you put in custom artwork or authored layout/asset labels are outside this mode. Provider, session counts, relationships, activity and timing remain visible. In `tasks`, the project leaf and agent/model names are intentionally visible. Use `full` when those names are sensitive.
+
+Presence sharing is independent of these levels: it sends only the allowlisted fields described in the Presence sharing section, and nothing from a level that is off is exposed by it.

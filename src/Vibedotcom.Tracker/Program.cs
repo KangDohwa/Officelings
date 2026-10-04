@@ -5,11 +5,13 @@ using System.Text;
 using System.Text.Json;
 using Vibedotcom.Core;
 
+var activePrivacy = PrivacyMode.Full;
 try
 {
     var options = new TrackerOptions();
     var output = TrackerOptions.OutputDirectory;
     string? assetDirectory = null, layoutFile = null;
+    string? privacyOption = null;
     double seconds = double.PositiveInfinity, interval = .2;
     var sharingRequested = false;
     for (var i = 0; i < args.Length; i++)
@@ -20,8 +22,9 @@ try
         switch (args[i])
         {
             case "--help":
-                Console.WriteLine("Vibedotcom.Tracker [--once | --seconds N] [--output DIR] [--home DIR] [--asset-dir DIR] [--layout FILE] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated waiting alias)] [--scan-seconds N] [--interval-seconds N] [--sharing]\nSharing requires interactive JSON confirmation and the app's stored token. Read-only observation. Default output: " + output);
+                Console.WriteLine("Vibedotcom.Tracker [--once | --seconds N] [--privacy off|tasks|full] [--output DIR] [--home DIR] [--asset-dir DIR] [--layout FILE] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated waiting alias)] [--scan-seconds N] [--interval-seconds N] [--sharing]\nSharing requires interactive JSON confirmation and the app's stored token. Read-only observation. Default output: " + output);
                 return;
+            case "--privacy": privacyOption = PrivacyModes.Value(PrivacyModes.Parse(Value())); break;
             case "--output": output = Value(); break;
             case "--home": options = options with { Home = Path.GetFullPath(Value()) }; break;
             case "--asset-dir": assetDirectory = Value(); break;
@@ -35,9 +38,17 @@ try
             case "--scan-seconds": options = options with { ScanInterval = TimeSpan.FromSeconds(Number()) }; break;
             case "--interval-seconds": interval = Number(); break;
             case "--sharing": sharingRequested = true; break;
-            default: throw new ArgumentException("Unknown option: " + args[i]);
+                        default: throw new ArgumentException("Unknown tracker option. Use --help.");
         }
     }
+    string? privacySetting = null;
+    PrivacyMode ReadPrivacy()
+    {
+        var value=PrivacyModes.ReadSetting(Path.Combine(output,"settings.json"));
+        if (value is "off" or "tasks" or "full") privacySetting=value;
+        return PrivacyModes.Resolve(privacyOption,privacySetting,Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY"));
+    }
+    activePrivacy = ReadPrivacy(); options=options with { PrivacyMode=activePrivacy };
     options.Validate();
     output = Path.TrimEndingDirectorySeparator(StateJson.OutputPath(output, options.Home));
     var lockName = "Vibedotcom.Tracker." + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(output.ToUpperInvariant())))[..24];
@@ -48,12 +59,13 @@ try
     await using var sharing = TrackerSharing.Start(sharingRequested, Path.Combine(output, "settings.json"), cancellation.Token);
     var publicationLogged = false;
     void LogPublication(string message) { if (!publicationLogged) { Console.Error.WriteLine(message); publicationLogged = true; } }
-    var assets = AssetPack.LoadDefault(assetDirectory);
+    var personalSources = Path.GetFullPath(options.Home).Equals(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),StringComparison.OrdinalIgnoreCase);
+    var assets = AssetPack.LoadDefault(assetDirectory,useUserPack:personalSources);
     AssetManifest? manifest = null;
-    await StateJson.PublishWithRetryAsync(() => manifest = assets.Export(output), LogPublication, cancellation.Token);
-    var layout = LayoutLoader.Load(assets,layoutFile ?? Path.Combine(TrackerOptions.OutputDirectory,"layout.json"),assets.Warnings);
+    await StateJson.PublishWithRetryAsync(() => manifest = assets.Export(output), LogPublication, cancellation.Token,activePrivacy);
+    var layout = LayoutLoader.Load(assets,layoutFile ?? Path.Combine(personalSources ? TrackerOptions.OutputDirectory : options.Home,"layout.json"),assets.Warnings);
     if (!File.Exists(Path.Combine(output,"layout.json")))
-        await StateJson.PublishWithRetryAsync(() => StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(layout,StateJson.Options)), LogPublication, cancellation.Token);
+        await StateJson.PublishWithRetryAsync(() => StateJson.WriteAtomic(Path.Combine(output,"layout.json"),JsonSerializer.SerializeToUtf8Bytes(layout,StateJson.Options)), LogPublication, cancellation.Token,activePrivacy);
     using var tracker = new AgentTracker(options);
     var office = new OfficeAnimator(null,assets,layout,ActivityCatalog.Load(output,assets.Warnings));
     var started = DateTimeOffset.UtcNow;
@@ -62,7 +74,7 @@ try
     long sequence = 0;
     string lastCounts = "";
     OfficeLayout? previousLayout = null;
-    var snapshots = new TrackerSnapshotCache(manifest);
+    var snapshots = new TrackerSnapshotCache(manifest,activePrivacy);
     IReadOnlyList<AgentInfo> previousAgents = [];
     IReadOnlyList<AgentView> views = [];
     var nextAnimation = started;
@@ -71,6 +83,12 @@ try
     do
     {
         var now = DateTimeOffset.UtcNow;
+        var privacy = ReadPrivacy();
+        if (privacy != activePrivacy)
+        {
+            activePrivacy = privacy; tracker.SetPrivacy(privacy); office.ClearAgentCaches();
+            previousAgents=[]; previousLayout=null; snapshots=new(manifest,privacy); nextAnimation=now;
+        }
         var agents = tracker.Poll(now);
         sharing.Update(agents);
         var hasLiveAgents = agents.Any(a => a.State != AgentState.Gone);
@@ -85,7 +103,7 @@ try
                     ? now.AddSeconds(Math.Max(interval, hasLiveAgents ? Math.Clamp(office.AnimationInterval.TotalSeconds, .5, 1) : 1))
                     : DateTimeOffset.MaxValue;
         }
-        var changed = snapshots.Update(office.Layout, views, tracker.Warnings.Concat(assets.Warnings).ToArray(), office.FurnitureSprites);
+        var changed = snapshots.Update(office.Layout, views, PrivacyModes.Diagnostics(tracker.Warnings.Concat(assets.Warnings).ToArray(),activePrivacy), office.FurnitureSprites);
         if (changed || now < lastPublished || now - lastPublished >= heartbeat)
         {
             await StateJson.PublishWithRetryAsync(() =>
@@ -99,7 +117,7 @@ try
                 var generatedAt = DateTimeOffset.UtcNow;
                 StateJson.WriteAtomic(Path.Combine(output, "state.json"), snapshots.Serialize(generatedAt, sequence + 1).Span);
                 lastPublished = generatedAt;
-            }, LogPublication, cancellation.Token);
+            }, LogPublication, cancellation.Token,activePrivacy);
             sequence++;
         }
         if (agentsChanged || sequence == 1 && lastCounts.Length == 0)
@@ -117,17 +135,17 @@ try
         if (delay > TimeSpan.Zero)
             try { await Task.Delay(delay, cancellation.Token); } catch (OperationCanceledException) { break; }
     } while (!cancellation.IsCancellationRequested);
-    foreach (var warning in tracker.Warnings) Console.Error.WriteLine(warning);
-    foreach (var warning in assets.Warnings) Console.Error.WriteLine(warning);
-    Console.WriteLine($"Wrote {sequence} snapshots to {output}; log bytes read={tracker.BytesRead}.");
+    foreach (var warning in PrivacyModes.Diagnostics(tracker.Warnings.Concat(assets.Warnings).ToArray(),activePrivacy)) Console.Error.WriteLine(warning);
+    Console.WriteLine($"Wrote {sequence} snapshots{(activePrivacy==PrivacyMode.Off ? " to "+output : "")}; log bytes read={tracker.BytesRead}.");
 }
 catch (OperationCanceledException) { }
 catch (Exception e) when (e is ArgumentException or IOException or UnauthorizedAccessException)
-{ Console.Error.WriteLine(e.Message); Environment.ExitCode = 1; }
+{ Console.Error.WriteLine(PrivacyModes.Diagnostic(e,activePrivacy)); Environment.ExitCode = 1; }
 
 // Cache only serialized content. Publication still uses StateJson's atomic replace and retry.
-internal sealed class TrackerSnapshotCache(AssetManifest? manifest)
+internal sealed class TrackerSnapshotCache(AssetManifest? manifest, PrivacyMode privacy)
 {
+    public TrackerSnapshotCache(AssetManifest? manifest) : this(manifest,PrivacyMode.Off) { }
     private static readonly JsonSerializerOptions ContentOptions = new(StateJson.Options) { WriteIndented = false };
     private readonly byte[] atlasBytes = JsonSerializer.SerializeToUtf8Bytes(SpriteAtlas.Info, ContentOptions);
     private readonly byte[] assetBytes = JsonSerializer.SerializeToUtf8Bytes(manifest, ContentOptions);
@@ -171,6 +189,7 @@ internal sealed class TrackerSnapshotCache(AssetManifest? manifest)
             json.WriteNumber("schemaVersion", StateJson.SchemaVersion);
             json.WriteString("generatedAt", generatedAt);
             json.WriteNumber("sequence", sequence);
+            json.WriteString("privacy", PrivacyModes.Value(privacy));
             void Raw(string name, byte[] bytes) { json.WritePropertyName(name); json.WriteRawValue(bytes, skipInputValidation: true); }
             Raw("atlas", atlasBytes); Raw("office", LayoutBytes); Raw("agents", agentBytes);
             Raw("warnings", warningBytes); Raw("assets", assetBytes); Raw("furnitureSprites", furnitureBytes);

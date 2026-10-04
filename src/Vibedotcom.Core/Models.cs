@@ -8,6 +8,7 @@ public enum AgentState { Working, Thinking, Waiting, Reporting, Idle, Gone }
 
 public sealed record TrackerOptions
 {
+    public PrivacyMode PrivacyMode { get; init; }
     public string Home { get; init; } = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
     public TimeSpan WorkingWindow { get; init; } = TimeSpan.FromMinutes(2);
     private TimeSpan? waiting;
@@ -34,13 +35,26 @@ public sealed record AgentInfo(string Id, Provider Provider, string? ParentId, b
     string? Role, string? Model, string? Cwd, string Task, string? Tool, string? ToolKind,
     AgentState State, DateTimeOffset LastSeen, DateTimeOffset StateSince, bool BestEffort);
 
-internal sealed class TrackedAgent(string id, Provider provider)
+internal sealed class TrackedAgent(string id, Provider provider, PrivacyRedactor? redactor = null)
 {
+    private readonly PrivacyRedactor privacy = redactor ?? new();
     public string Id = id;
     public Provider Provider = provider;
-    public string? ParentId, Role, Model, Cwd, Tool, ToolKind;
-    public string Name = provider.ToString();
-    public string Task = "";
+    public string? ParentId;
+    private string? role, model, cwd, tool, toolKind;
+    private string name = (redactor ?? new()).Name(provider, id, provider.ToString()), task = "";
+    public string? Role { get => role; set => role = privacy.Detail(value); }
+    public string? Model { get => model; set => model = privacy.Model(value); }
+    public string? Cwd { get => cwd; set => cwd = privacy.Cwd(value); }
+    public string? Tool { get => tool; set => tool = privacy.Detail(value); }
+    public string? ToolKind { get => toolKind; set => toolKind = privacy.Detail(value); }
+    public string Name { get => name; set => name = privacy.Name(Provider, Id, value); }
+    public string Task { get => task; set => task = privacy.Task(value); }
+
+    internal void Scrub()
+    {
+        Name = name; Role = role; Model = model; Cwd = cwd; Task = task; Tool = tool; ToolKind = toolKind;
+    }
     public bool IsSubagent, Finished;
     public AgentState EventState = AgentState.Idle, DisplayState = AgentState.Idle;
     public DateTimeOffset LastSeen, LastEvent, StateSince;
@@ -60,7 +74,7 @@ internal sealed class TrackedAgent(string id, Provider provider)
     {
         var next = StateAt(now, options, hasActiveChildren);
         if (DisplayState != next) { DisplayState = next; StateSince = now; }
-        return new(Id, Provider, ParentId, IsSubagent, Name, Role, Model, Cwd, Task,
+        return new(privacy.Id(Id)!, Provider, privacy.Id(ParentId), IsSubagent, Name, Role, Model, Cwd, Task,
             next == AgentState.Working ? Tool : null, next == AgentState.Working ? ToolKind : null,
             next, LastSeen, StateSince, Provider == Provider.Antigravity);
     }
@@ -106,7 +120,8 @@ public sealed record StateSnapshot(int SchemaVersion, DateTimeOffset GeneratedAt
     AtlasInfo Atlas, OfficeLayout Office, IReadOnlyList<AgentView> Agents, IReadOnlyList<string> Warnings, AssetManifest? Assets = null,
     IReadOnlyList<FurnitureSprite>? FurnitureSprites = null,
     [property: System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)] AmbientState? Ambient = null,
-    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] IReadOnlyList<PetView>? Pets = null);
+    [property: JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] IReadOnlyList<PetView>? Pets = null,
+    PrivacyMode Privacy = PrivacyMode.Off);
 
 public static class StateJson
 {
@@ -147,7 +162,8 @@ public static class StateJson
         finally { if (File.Exists(temporary)) File.Delete(temporary); }
     }
 
-    public static async Task PublishWithRetryAsync(Action publish, Action<string> log, CancellationToken cancellation = default)
+    public static async Task PublishWithRetryAsync(Action publish, Action<string> log, CancellationToken cancellation = default,
+        PrivacyMode privacy = PrivacyMode.Off)
     {
         var delay = 100; var logged = false;
         while (true)
@@ -156,7 +172,7 @@ public static class StateJson
             try { publish(); return; }
             catch (Exception e) when (e is IOException or UnauthorizedAccessException)
             {
-                if (!logged) { log("Publication unavailable; retrying: " + e.Message); logged = true; }
+                if (!logged) { log("Publication unavailable; retrying: " + PrivacyModes.Diagnostic(e, privacy)); logged = true; }
                 await Task.Delay(delay, cancellation); delay = Math.Min(delay * 2, 2000);
             }
         }

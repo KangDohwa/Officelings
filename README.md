@@ -43,7 +43,7 @@ dotnet run --project src/Vibedotcom.Tracker --no-build
 
 To edit the office, right-click it and choose **Edit office**. See the [editor guide](docs/editor.md) and [app usage](docs/app-usage.md) for layouts, settings and publishing. The standalone app does not need the headless tracker. For the other variant, follow the [Windhawk setup and manual checks](windhawk/README.md).
 
-Session details can include private paths and prompt text. Read [privacy](docs/privacy.md) before sharing a screenshot or bug report. Unsigned builds are covered in the [Windows security notice](docs/windows-security-notice.md).
+Session details can include private paths and prompt text. Choose **Privacy** in the office/tray menu or start either executable with `--privacy tasks` or `--privacy full` before a screen share. Core redacts the text before storing agent state; [privacy](docs/privacy.md) explains the levels and limits. Unsigned builds are covered in the [Windows security notice](docs/windows-security-notice.md).
 
 ## Controls
 
