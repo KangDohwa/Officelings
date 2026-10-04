@@ -14,7 +14,8 @@ def review(directory,pack_directory,seated_only=False):
         seated=np.zeros((h,w),bool)
         frames={f["InstanceId"]:f for f in record["frames"]}
         for item in scene["Items"]:
-            f=frames[item["InstanceId"]];path=pack_directory/f["file"]
+            f=frames[item["InstanceId"]]
+            path=directory/f["runtimeFile"] if f.get("runtimeFile") else pack_directory/f["file"]
             if path not in images:images[path]=Image.open(path).convert("RGBA")
             r=f["frame"];cell=images[path].crop((r["X"],r["Y"],r["X"]+r["Width"],r["Y"]+r["Height"]))
             x,y=item["X"],item["Y"];left=max(0,x);top=max(0,y);right=min(w,x+cell.width);bottom=min(h,y+cell.height)
@@ -22,7 +23,7 @@ def review(directory,pack_directory,seated_only=False):
             pixels=np.array(cell.crop((left-x,top-y,right-x,bottom-y)))
             mask=pixels[:,:,3]==255
             expected[top:bottom,left:right][mask]=pixels[mask]
-            seated[top:bottom,left:right][mask]=item['InstanceId']=='actor' or item['InstanceId'].startswith('chair/')
+            seated[top:bottom,left:right][mask]=item['InstanceId']=='actor/body' or item['InstanceId'].startswith('chair/')
         actual=np.array(Image.open(directory/(record["name"]+".png")).convert("RGBA"))
         # Both ownership and every 4x nearest-neighbor block must match the queue.
         scaled=np.repeat(np.repeat(expected,4,axis=0),4,axis=1);mask=scaled[:,:,3]==255

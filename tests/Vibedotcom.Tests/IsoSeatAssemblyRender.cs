@@ -18,6 +18,14 @@ internal static class IsoSeatAssemblyRender
     internal static void Export(string packDirectory,string output)
     {
         var pack=IsoPack.Load(packDirectory);Directory.CreateDirectory(output);
+        var runtimeFiles=new Dictionary<string,string>();
+        foreach(var (id,bytes) in pack.Images)
+        {
+            if(File.Exists(Path.Combine(packDirectory,pack.Sheet(id).File)))continue;
+            var file="runtime-sheets/"+Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(bytes)).ToLowerInvariant()+".png";
+            Directory.CreateDirectory(Path.Combine(output,"runtime-sheets"));File.WriteAllBytes(Path.Combine(output,file),bytes);
+            runtimeFiles.Add(id,file);
+        }
         var view=new IsoView(new Snapshot(new(1,1,[],[],0)),new PackIsoSheetSource(pack),Path.Combine(output,"synthetic-no-brand"));
         long revision=0;var queues=new List<object>();
         void Save(IsoScene scene,string name,int zoom)
@@ -42,8 +50,10 @@ internal static class IsoSeatAssemblyRender
                 scene=scene with { Width=96,Height=96,Items=scene.Items.Select(i=>i with {X=i.X-left,Y=i.Y-top}).ToArray() };
                 var name=design.Id.Split('/')[^1]+"-"+seat.Facing+"-"+action+"-"+phase+"-4x";
                 Save(scene,name,4);
-                queues.Add(new { name, scene=scene with {Items=scene.Items.Where(i=>i.Layer is IsoLayer.Character or IsoLayer.Furniture).ToArray()},
-                    frames=scene.Items.Where(i=>i.Layer is IsoLayer.Character or IsoLayer.Furniture).Select(i=>new {i.InstanceId,frame=pack.Frame(i),file=pack.Sheet(i.SheetId).File}) });
+                var visible=scene.Items.Where(i=>i.Layer is not (IsoLayer.Floor or IsoLayer.Wall or IsoLayer.Shadow)).ToArray();
+                queues.Add(new { name, scene=scene with {Items=visible},
+                    frames=visible.Select(i=>new {i.InstanceId,frame=pack.Frame(i),file=pack.Sheet(i.SheetId).File,
+                        runtimeFile=runtimeFiles.GetValueOrDefault(i.SheetId)}) });
             }
         }
         var whole=new IsoSceneBuilder(pack,pack.Layout);var actors=new List<IsoActorPose>();

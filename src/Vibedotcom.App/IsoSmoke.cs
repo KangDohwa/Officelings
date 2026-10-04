@@ -33,7 +33,9 @@ internal static class IsoSmoke
                 summary.Add(new {file,seconds,zoom,agents=people.Count,visible=scene.Labels.Count,scene.Revision,
                     walking=scene.Items.Count(i=>i.Layer==IsoLayer.Character && i.Clip.StartsWith("walk/")),
                     typing=scene.Items.Count(i=>i.Layer==IsoLayer.Character && i.Clip.StartsWith("typing/")),
-                    cat=scene.Items.Any(i=>i.Layer==IsoLayer.Pet),nextChangeSeconds=double.IsFinite(office.NextChangeSeconds) ? office.NextChangeSeconds : (double?)null});
+                    cat=scene.Items.Any(i=>i.Layer==IsoLayer.Pet),nextChangeSeconds=double.IsFinite(office.NextChangeSeconds) ? office.NextChangeSeconds : (double?)null,
+                    characterSheets=scene.Items.Where(i=>i.Layer==IsoLayer.Character).Select(i=>i.SheetId).Distinct(),
+                    pets=scene.Items.Where(i=>i.Layer==IsoLayer.Pet).Select(i=>new {i.InstanceId,i.SheetId,i.Clip,i.X,i.Y})});
             }
             if(name=="twelve-working")
             {
@@ -50,9 +52,9 @@ internal static class IsoSmoke
                 }
             }
         }
-        void Scenario(string name,Func<double,IReadOnlyList<AgentInfo>> peopleAt,double[] moments,double start=0)
+        void Scenario(string name,Func<double,IReadOnlyList<AgentInfo>> peopleAt,double[] moments,double start=0,int seed=0)
         {
-            var office=create(0);
+            var office=create(seed);
             if(office is IsoOffice engine) engine.PetsEnabled=settings.Pets=="on";
             var scene=office.Update(peopleAt(start),Epoch.AddSeconds(start),0); var elapsed=start;
             foreach(var moment in moments)
@@ -75,6 +77,8 @@ internal static class IsoSmoke
             Scenario("departure",t=>t<20 ? twelve : twelve.Select(a=>a with { State=AgentState.Gone }).ToArray(),[20.7,22,27]);
             Scenario("demo",t=>DemoScenario.Agents(Epoch,t),[0,8,12,24,42,55],-18);
             Scenario("cat",_=>Array.Empty<AgentInfo>(),[9,35]);
+            for(var seed=1;seed<=3;seed++)
+                Scenario($"pets-seed-{42+seed}",_=>Array.Empty<AgentInfo>(),[9,35],seed:seed);
         }
         else
         {
