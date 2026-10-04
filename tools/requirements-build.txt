@@ -1,0 +1,4 @@
+# Verified art-tool inputs; install explicitly into a disposable environment.
+# Downloaded SVGs are disabled, so CairoSVG is deliberately unnecessary.
+Pillow==12.3.0
+numpy==2.5.3

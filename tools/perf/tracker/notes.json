@@ -1,6 +1,6 @@
 {
     "measurementStatus":  "COMPLETE",
-    "sourceCheckout":  "C:/Users/myori/AppData/Local/Temp/vd-perf",
+    "sourceCheckout":  "C:/Users/<user>/AppData/Local/Temp/vd-perf",
     "sourceCommit":  "280e7a61b0d3c049de75967892debac15627fbcc",
     "sourceReferences":  [
                              {

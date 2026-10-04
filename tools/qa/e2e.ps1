@@ -7,7 +7,7 @@ param(
     [string]$RendererTests,
     [switch]$DirectTracker,
     [switch]$Workspace,
-    [string]$Python = 'C:\Users\myori\.codex\skills\sprite-gen\.venv\Scripts\python.exe'
+    [string]$Python = 'python'
 )
 $ErrorActionPreference = 'Stop'
 if (-not (Test-Path -LiteralPath $Python -PathType Leaf)) { throw "Python missing: $Python" }
