@@ -108,7 +108,7 @@ public sealed class IsoIntegrationTests
                 Assert.Equal(12,office.Layout.Furniture.Count(f=>f.AssetId=="iso/desk"));
                 var epoch=DateTimeOffset.Parse("2026-10-04T00:00:00Z");
                 var agents=Enumerable.Range(0,12).Select(i=>new AgentInfo($"integration:{i:00}",(Provider)(i%3),
-                    null,false,$"Agent {i+1}",null,null,null,null,null,null,AgentState.Working,epoch,epoch,false)).ToArray();
+                    null,false,$"Agent {i+1}",null,null,null,"",null,null,AgentState.Working,epoch,epoch,false)).ToArray();
                 var scene=office.Update(agents,epoch,0);
                 var arrival=scene;
                 Assert.Contains(arrival.Items,i=>i.SheetId==IsoActorShadow.SheetId);
@@ -129,6 +129,17 @@ public sealed class IsoIntegrationTests
                 var rendered=Vibedotcom.App.Program.RenderBitmap(view,scene.Width,scene.Height);
                 Assert.Equal(scene.Width,rendered.PixelWidth);
                 Assert.Equal(scene.Height,rendered.PixelHeight);
+                var native=new byte[scene.Width*scene.Height*4]; rendered.CopyPixels(native,scene.Width*4,0);
+                foreach(var zoom in new[] {2,3})
+                {
+                    view.SetZoom(zoom);
+                    var scaled=Vibedotcom.App.Program.RenderBitmap(view,scene.Width*zoom,scene.Height*zoom);
+                    var pixels=new byte[scaled.PixelWidth*scaled.PixelHeight*4]; scaled.CopyPixels(pixels,scaled.PixelWidth*4,0);
+                    for(var y=0;y<scene.Height;y++) for(var x=0;x<scene.Width;x++)
+                    for(var dy=0;dy<zoom;dy++) for(var dx=0;dx<zoom;dx++)
+                        if(!native.AsSpan((y*scene.Width+x)*4,4).SequenceEqual(pixels.AsSpan(((y*zoom+dy)*scaled.PixelWidth+x*zoom+dx)*4,4)))
+                            throw new InvalidOperationException($"Engine pixel changed at {x},{y}, {zoom}x.");
+                }
             }
             catch(Exception e) { error=e; }
         });

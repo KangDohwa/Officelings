@@ -50,11 +50,11 @@ internal static class IsoSmoke
                 }
             }
         }
-        void Scenario(string name,Func<double,IReadOnlyList<AgentInfo>> peopleAt,double[] moments)
+        void Scenario(string name,Func<double,IReadOnlyList<AgentInfo>> peopleAt,double[] moments,double start=0)
         {
             var office=create(0);
             if(office is IsoOffice engine) engine.PetsEnabled=settings.Pets=="on";
-            var scene=office.Update(peopleAt(0),Epoch,0); var elapsed=0d;
+            var scene=office.Update(peopleAt(start),Epoch.AddSeconds(start),0); var elapsed=start;
             foreach(var moment in moments)
             {
                 while(elapsed+1e-9<moment)
@@ -73,7 +73,7 @@ internal static class IsoSmoke
             Scenario("arrival",_=>twelve,[.5,2]);
             Scenario("twelve-working",_=>twelve,[20]);
             Scenario("departure",t=>t<20 ? twelve : twelve.Select(a=>a with { State=AgentState.Gone }).ToArray(),[20.7,22,27]);
-            Scenario("demo",t=>DemoScenario.Agents(Epoch,t),[0,8,12,24,42,55]);
+            Scenario("demo",t=>DemoScenario.Agents(Epoch,t),[0,8,12,24,42,55],-18);
             Scenario("cat",_=>Array.Empty<AgentInfo>(),[9,35]);
         }
         else
