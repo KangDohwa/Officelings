@@ -1,0 +1,703 @@
+[
+  {
+    "character": "dev-hoodie-v2",
+    "backupSHA256": {
+      "dev-hoodie-iso.png": "a49b7c739d6d3bd703913a3b45a98451c462c5cd1bf89b3e77a57dc04a73fd2c",
+      "dev-hoodie-iso-blink.png": "9f1c26b171321a85d3b43970c68c39bfeede2d43be94282b45b2cb27ad616b38"
+    },
+    "idle": [
+      {
+        "facing": "se",
+        "beforeHeight": 40,
+        "beforeBounds": [
+          6,
+          21,
+          25,
+          60
+        ],
+        "outwardHeight": 41,
+        "outwardBounds": [
+          5,
+          20,
+          26,
+          60
+        ],
+        "S0Pass": true
+      },
+      {
+        "facing": "sw",
+        "beforeHeight": 40,
+        "beforeBounds": [
+          7,
+          21,
+          26,
+          60
+        ],
+        "outwardHeight": 41,
+        "outwardBounds": [
+          6,
+          20,
+          27,
+          60
+        ],
+        "S0Pass": true
+      },
+      {
+        "facing": "ne",
+        "beforeHeight": 40,
+        "beforeBounds": [
+          6,
+          21,
+          25,
+          60
+        ],
+        "outwardHeight": 41,
+        "outwardBounds": [
+          5,
+          20,
+          26,
+          60
+        ],
+        "S0Pass": true
+      },
+      {
+        "facing": "nw",
+        "beforeHeight": 40,
+        "beforeBounds": [
+          7,
+          21,
+          26,
+          60
+        ],
+        "outwardHeight": 41,
+        "outwardBounds": [
+          6,
+          20,
+          27,
+          60
+        ],
+        "S0Pass": true
+      }
+    ],
+    "identityPalette": [
+      "#040201",
+      "#090707",
+      "#0B0605",
+      "#11141B",
+      "#120E0C",
+      "#16100E",
+      "#161210",
+      "#191413",
+      "#1E1916",
+      "#291407",
+      "#2C2721",
+      "#2F3549",
+      "#312521",
+      "#341D07",
+      "#3A2B25",
+      "#3C3021",
+      "#3C302C",
+      "#402609",
+      "#412411",
+      "#422613",
+      "#442712",
+      "#453926",
+      "#462710",
+      "#4A2C11",
+      "#4A2F08",
+      "#4A4D5A",
+      "#4C2F13",
+      "#51423B",
+      "#534834",
+      "#583F0C",
+      "#584010",
+      "#594011",
+      "#595040",
+      "#5D5950",
+      "#6D3713",
+      "#746759",
+      "#777372",
+      "#8B4D15",
+      "#9E8059",
+      "#9F8665",
+      "#A96418",
+      "#AC5F2D",
+      "#B06532",
+      "#B56731",
+      "#B89766",
+      "#B96931",
+      "#BA672C",
+      "#BB6B31",
+      "#BC692C",
+      "#C37D17",
+      "#C5752D",
+      "#C97E32",
+      "#DCBE89",
+      "#E9A622",
+      "#EAA92C",
+      "#EBAB2F",
+      "#EBD5AA",
+      "#F7ECD3"
+    ],
+    "faceLock": {
+      "se": {
+        "eyeMask": "dev-hoodie-eyes-se.png"
+      },
+      "sw": {
+        "eyeMask": "dev-hoodie-eyes-sw.png"
+      }
+    }
+  },
+  {
+    "character": "punk-girl",
+    "backupSHA256": {
+      "punk-girl-iso.png": "817058b50a755a82da8bd2b6620055131793f8848b1891eb04b70c4727098485",
+      "punk-girl-iso-blink.png": "41a317bfefaa70d49e35664903fcd57471953ec85e2b4e529205769f7bc1d670"
+    },
+    "idle": [
+      {
+        "facing": "se",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "sw",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          24,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          25,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "ne",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "nw",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          7,
+          19,
+          23,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          6,
+          18,
+          24,
+          60
+        ],
+        "S0Pass": false
+      }
+    ],
+    "identityPalette": [
+      "#0C0302",
+      "#160E0D",
+      "#1E1312",
+      "#1F1C1C",
+      "#200907",
+      "#322015",
+      "#3B2523",
+      "#3C0F14",
+      "#4C1721",
+      "#4E2513",
+      "#4F3431",
+      "#531E27",
+      "#534B4C",
+      "#551E28",
+      "#561F29",
+      "#56271F",
+      "#57212B",
+      "#584D4D",
+      "#59232D",
+      "#5A292A",
+      "#5B2730",
+      "#5B3733",
+      "#5B3A22",
+      "#5F393B",
+      "#5F4932",
+      "#5F544F",
+      "#604F4C",
+      "#625655",
+      "#865539",
+      "#9C887D",
+      "#9F2937",
+      "#BE9B8B",
+      "#CA3D59",
+      "#CF6233",
+      "#D94B66",
+      "#DB4F67",
+      "#DB5468",
+      "#E04F6A",
+      "#E3526E",
+      "#E36854",
+      "#E65873",
+      "#EC5D77",
+      "#EE6D6F",
+      "#F06880",
+      "#F16F82",
+      "#F19188",
+      "#F19B5B",
+      "#F7C4B7",
+      "#F89185",
+      "#FA979C",
+      "#FA9E9F",
+      "#FADFD1",
+      "#FBC186"
+    ],
+    "faceLock": {
+      "se": {
+        "eyeMask": "punk-girl-eyes-se.png"
+      },
+      "sw": {
+        "eyeMask": "punk-girl-eyes-sw.png"
+      }
+    }
+  },
+  {
+    "character": "professor",
+    "backupSHA256": {
+      "professor-iso.png": "4289f9ac9d08a7a81fd39eebe4f3d732a49a09030d2c91b17f7bd0cd5b2c4e51",
+      "professor-iso-blink.png": "fc459b0491f47c343e784b9e518ace6d0c30c4ab05e6f6a6739349a9d77c8390"
+    },
+    "idle": [
+      {
+        "facing": "se",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "sw",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          7,
+          19,
+          26,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          6,
+          18,
+          27,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "ne",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "nw",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          7,
+          19,
+          26,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          6,
+          18,
+          27,
+          60
+        ],
+        "S0Pass": false
+      }
+    ],
+    "identityPalette": [
+      "#0B0502",
+      "#140903",
+      "#160F0C",
+      "#1F0F07",
+      "#1F1108",
+      "#221812",
+      "#2A1608",
+      "#2C1C12",
+      "#321B0A",
+      "#32261E",
+      "#351A0A",
+      "#362C26",
+      "#3B2A20",
+      "#3C3026",
+      "#3D322A",
+      "#40362F",
+      "#453A31",
+      "#4A3C2F",
+      "#4D2A14",
+      "#4E443A",
+      "#502F1A",
+      "#534A3E",
+      "#542E17",
+      "#56371F",
+      "#5B3E21",
+      "#5C4131",
+      "#5C4228",
+      "#5C5549",
+      "#5D4125",
+      "#5F594F",
+      "#703A17",
+      "#744B31",
+      "#78411A",
+      "#7D4319",
+      "#846651",
+      "#86481C",
+      "#907664",
+      "#9F7F66",
+      "#9F816C",
+      "#A07C61",
+      "#A28671",
+      "#A4704C",
+      "#AA907C",
+      "#B89A81",
+      "#C49F7C",
+      "#CD6F36",
+      "#CEB59B",
+      "#D57D45",
+      "#DCC3A4",
+      "#E18B41",
+      "#E49252",
+      "#EFA763",
+      "#F2A459",
+      "#F3B06B",
+      "#F4E1C2",
+      "#F6AD62",
+      "#FBECD0"
+    ],
+    "faceLock": {
+      "se": {
+        "eyeMask": "professor-eyes-se.png"
+      },
+      "sw": {
+        "eyeMask": "professor-eyes-sw.png"
+      }
+    }
+  },
+  {
+    "character": "glasses-bun",
+    "backupSHA256": {
+      "glasses-bun-iso.png": "88c85f2f4af90abd651db665e519aa955460fffa1c12897300665b9c8e9500de",
+      "glasses-bun-iso-blink.png": "171385f451f9e12b16b9a30f8ee3346d0e18e8d4aedcf638abdc2cc7083a1b6e"
+    },
+    "idle": [
+      {
+        "facing": "se",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "sw",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "ne",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          5,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          4,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "nw",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      }
+    ],
+    "identityPalette": [
+      "#0B0503",
+      "#100705",
+      "#1B0D08",
+      "#1E0F0A",
+      "#21110A",
+      "#26130C",
+      "#29160D",
+      "#2C150E",
+      "#2D190F",
+      "#331B10",
+      "#392214",
+      "#3F2517",
+      "#401C11",
+      "#40291A",
+      "#421E12",
+      "#45301F",
+      "#482114",
+      "#482316",
+      "#4B291A",
+      "#502919",
+      "#503C27",
+      "#51321F",
+      "#53402B",
+      "#582D1B",
+      "#58351D",
+      "#593D26",
+      "#5C3B21",
+      "#5C472E",
+      "#5D3F27",
+      "#5D4A35",
+      "#5D4D38",
+      "#5F5748",
+      "#643420",
+      "#6D3A23",
+      "#784228",
+      "#88492C",
+      "#975A37",
+      "#A7633D",
+      "#A94B2E",
+      "#A96C45",
+      "#AF5130",
+      "#B88052",
+      "#BE5936",
+      "#C76E45",
+      "#CD673C",
+      "#D2693E",
+      "#D49E68",
+      "#D56D42",
+      "#D78453",
+      "#DBAA72",
+      "#E78F61",
+      "#E98E4D",
+      "#EBA166",
+      "#F39D58",
+      "#F4BC7B",
+      "#F5A869",
+      "#F5C48D",
+      "#F7CD94",
+      "#FBE5BE",
+      "#FCEAC7"
+    ],
+    "faceLock": {
+      "se": {
+        "eyeMask": "glasses-bun-eyes-se.png"
+      },
+      "sw": {
+        "eyeMask": "glasses-bun-eyes-sw.png"
+      }
+    }
+  },
+  {
+    "character": "hanbok-modern",
+    "backupSHA256": {
+      "hanbok-modern-iso.png": "7c9337a2977a4333e22e216bd7cfc5ca9af9f59fcb5a7748aff37d168b94ce0c",
+      "hanbok-modern-iso-blink.png": "123c3a1bf6bbd5082edde01fd6713e1e60444e00fa4d465d463a22f6af170574"
+    },
+    "idle": [
+      {
+        "facing": "se",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "sw",
+        "beforeHeight": 42,
+        "beforeBounds": [
+          6,
+          19,
+          25,
+          60
+        ],
+        "outwardHeight": 43,
+        "outwardBounds": [
+          5,
+          18,
+          26,
+          60
+        ],
+        "S0Pass": false
+      },
+      {
+        "facing": "ne",
+        "beforeHeight": 41,
+        "beforeBounds": [
+          6,
+          20,
+          25,
+          60
+        ],
+        "outwardHeight": 42,
+        "outwardBounds": [
+          5,
+          19,
+          26,
+          60
+        ],
+        "S0Pass": true
+      },
+      {
+        "facing": "nw",
+        "beforeHeight": 41,
+        "beforeBounds": [
+          6,
+          20,
+          25,
+          60
+        ],
+        "outwardHeight": 42,
+        "outwardBounds": [
+          5,
+          19,
+          26,
+          60
+        ],
+        "S0Pass": true
+      }
+    ],
+    "identityPalette": [
+      "#100804",
+      "#25160F",
+      "#432F26",
+      "#623A2A",
+      "#835A47",
+      "#C9896A",
+      "#FBD3A8",
+      "#FBDDBC",
+      "#CC684C",
+      "#E57053",
+      "#F07B5F",
+      "#F9A17E",
+      "#574A3F",
+      "#9F8372",
+      "#AD8870",
+      "#B9957C",
+      "#EADCCA",
+      "#FFFFFF"
+    ],
+    "faceLock": {
+      "se": {
+        "eyeMask": "hanbok-modern-eyes-se.png"
+      },
+      "sw": {
+        "eyeMask": "hanbok-modern-eyes-sw.png"
+      }
+    }
+  }
+]

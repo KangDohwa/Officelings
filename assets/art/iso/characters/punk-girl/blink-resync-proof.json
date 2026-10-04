@@ -10,7 +10,7 @@
   "protectedFileSha256": {
     "punk-girl.iso.json": "955f7b3b47b4e79f843882269bbe393b40ce47f3b2e32d4027b008082e6bd744",
     "punk-girl-iso.manifest.json": "955f7b3b47b4e79f843882269bbe393b40ce47f3b2e32d4027b008082e6bd744",
-    "punk-girl-iso.png": "817058b50a755a82da8bd2b6620055131793f8848b1891eb04b70c4727098485",
+    "punk-girl-iso.png": "7a4dc8068af516c2837505ee512515d8397360dd79cf204dc512f2cdf430c10c",
     "runs/se-idle-native.png": "2409009db17ad99104aa68fe0336c3e7138a25832b9d7ed09758e6ab218504b3",
     "runs/sw-idle-native.png": "ce730f2e188e035bea463e57abf5de97fd247047f08ce570df1902737ce86b51",
     "runs/ne-idle-native.png": "6017359d1cb75bd0ebf62ec04d6af750c5e666a4320c6225aed0728cf1d2e2ed",
@@ -19,7 +19,7 @@
     "punk-girl-eyes-sw.png": "fc74bfe27d7e5238ba1121014f29ec2798351bc5f17f7806e6fe171dcc748d68"
   },
   "approvedBlinkSha256": "2fc6f750083246cf50c3b138d7a51c3d15718d30a8c746643fbeafc0e6b22147",
-  "resyncedBlinkSha256": "41a317bfefaa70d49e35664903fcd57471953ec85e2b4e529205769f7bc1d670",
+  "resyncedBlinkSha256": "94b29038c2f6e7beb873434a181058ce77c6e3c6599bc02a4f9700d5fd6abc2c",
   "changedCellsFromApprovedBlink": [
     {
       "blinkRow": 0,

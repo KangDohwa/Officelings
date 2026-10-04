@@ -1,0 +1,327 @@
+{
+  "scope": "Same original perimeter pairs across all revisions; full-room v3 queue on the supplied empty raster, nine poses/probes per character. Includes intentionally difficult wall/checker probes; these are counterfactual actor placements.",
+  "all": {
+    "original": {
+      "edgePairs": 7479,
+      "atLeast3Percent": 46.49,
+      "lowContrastPercent": 53.51,
+      "medianRatio": 2.6721
+    },
+    "rev1": {
+      "edgePairs": 7479,
+      "atLeast3Percent": 49.512,
+      "lowContrastPercent": 50.488,
+      "medianRatio": 2.9351
+    },
+    "rev2": {
+      "edgePairs": 7479,
+      "atLeast3Percent": 73.125,
+      "lowContrastPercent": 26.875,
+      "medianRatio": 4.2086
+    },
+    "rev2-max": {
+      "edgePairs": 7479,
+      "atLeast3Percent": 74.154,
+      "lowContrastPercent": 25.846,
+      "medianRatio": 4.7386
+    }
+  },
+  "dark": {
+    "original": {
+      "edgePairs": 3413,
+      "atLeast3Percent": 21.77,
+      "lowContrastPercent": 78.23,
+      "medianRatio": 1.3853
+    },
+    "rev1": {
+      "edgePairs": 3413,
+      "atLeast3Percent": 16.965,
+      "lowContrastPercent": 83.035,
+      "medianRatio": 1.2328
+    },
+    "rev2": {
+      "edgePairs": 3413,
+      "atLeast3Percent": 51.362,
+      "lowContrastPercent": 48.638,
+      "medianRatio": 3.3265
+    },
+    "rev2-max": {
+      "edgePairs": 3413,
+      "atLeast3Percent": 51.362,
+      "lowContrastPercent": 48.638,
+      "medianRatio": 3.6439
+    }
+  },
+  "perCharacter": {
+    "dev-hoodie-v2": {
+      "all": {
+        "original": {
+          "edgePairs": 1434,
+          "atLeast3Percent": 44.142,
+          "lowContrastPercent": 55.858,
+          "medianRatio": 2.5447
+        },
+        "rev1": {
+          "edgePairs": 1434,
+          "atLeast3Percent": 45.676,
+          "lowContrastPercent": 54.324,
+          "medianRatio": 2.5447
+        },
+        "rev2": {
+          "edgePairs": 1434,
+          "atLeast3Percent": 66.946,
+          "lowContrastPercent": 33.054,
+          "medianRatio": 4.1902
+        },
+        "rev2-max": {
+          "edgePairs": 1434,
+          "atLeast3Percent": 67.155,
+          "lowContrastPercent": 32.845,
+          "medianRatio": 4.1902
+        }
+      },
+      "dark": {
+        "original": {
+          "edgePairs": 686,
+          "atLeast3Percent": 12.245,
+          "lowContrastPercent": 87.755,
+          "medianRatio": 1.3064
+        },
+        "rev1": {
+          "edgePairs": 686,
+          "atLeast3Percent": 5.394,
+          "lowContrastPercent": 94.606,
+          "medianRatio": 1.195
+        },
+        "rev2": {
+          "edgePairs": 686,
+          "atLeast3Percent": 35.86,
+          "lowContrastPercent": 64.14,
+          "medianRatio": 2.4726
+        },
+        "rev2-max": {
+          "edgePairs": 686,
+          "atLeast3Percent": 35.86,
+          "lowContrastPercent": 64.14,
+          "medianRatio": 2.4726
+        }
+      }
+    },
+    "punk-girl": {
+      "all": {
+        "original": {
+          "edgePairs": 1583,
+          "atLeast3Percent": 48.515,
+          "lowContrastPercent": 51.485,
+          "medianRatio": 2.8537
+        },
+        "rev1": {
+          "edgePairs": 1583,
+          "atLeast3Percent": 51.232,
+          "lowContrastPercent": 48.768,
+          "medianRatio": 3.1776
+        },
+        "rev2": {
+          "edgePairs": 1583,
+          "atLeast3Percent": 76.879,
+          "lowContrastPercent": 23.121,
+          "medianRatio": 4.8367
+        },
+        "rev2-max": {
+          "edgePairs": 1583,
+          "atLeast3Percent": 79.596,
+          "lowContrastPercent": 20.404,
+          "medianRatio": 4.9929
+        }
+      },
+      "dark": {
+        "original": {
+          "edgePairs": 708,
+          "atLeast3Percent": 32.345,
+          "lowContrastPercent": 67.655,
+          "medianRatio": 1.573
+        },
+        "rev1": {
+          "edgePairs": 708,
+          "atLeast3Percent": 29.802,
+          "lowContrastPercent": 70.198,
+          "medianRatio": 1.4714
+        },
+        "rev2": {
+          "edgePairs": 708,
+          "atLeast3Percent": 62.571,
+          "lowContrastPercent": 37.429,
+          "medianRatio": 4.9214
+        },
+        "rev2-max": {
+          "edgePairs": 708,
+          "atLeast3Percent": 62.571,
+          "lowContrastPercent": 37.429,
+          "medianRatio": 5.1167
+        }
+      }
+    },
+    "professor": {
+      "all": {
+        "original": {
+          "edgePairs": 1632,
+          "atLeast3Percent": 44.179,
+          "lowContrastPercent": 55.821,
+          "medianRatio": 2.5484
+        },
+        "rev1": {
+          "edgePairs": 1632,
+          "atLeast3Percent": 46.998,
+          "lowContrastPercent": 53.002,
+          "medianRatio": 2.6838
+        },
+        "rev2": {
+          "edgePairs": 1632,
+          "atLeast3Percent": 77.574,
+          "lowContrastPercent": 22.426,
+          "medianRatio": 5.5378
+        },
+        "rev2-max": {
+          "edgePairs": 1632,
+          "atLeast3Percent": 78.431,
+          "lowContrastPercent": 21.569,
+          "medianRatio": 5.547
+        }
+      },
+      "dark": {
+        "original": {
+          "edgePairs": 738,
+          "atLeast3Percent": 34.959,
+          "lowContrastPercent": 65.041,
+          "medianRatio": 2.2261
+        },
+        "rev1": {
+          "edgePairs": 738,
+          "atLeast3Percent": 34.282,
+          "lowContrastPercent": 65.718,
+          "medianRatio": 2.2261
+        },
+        "rev2": {
+          "edgePairs": 738,
+          "atLeast3Percent": 69.648,
+          "lowContrastPercent": 30.352,
+          "medianRatio": 6.8506
+        },
+        "rev2-max": {
+          "edgePairs": 738,
+          "atLeast3Percent": 69.648,
+          "lowContrastPercent": 30.352,
+          "medianRatio": 7.4154
+        }
+      }
+    },
+    "glasses-bun": {
+      "all": {
+        "original": {
+          "edgePairs": 1558,
+          "atLeast3Percent": 46.085,
+          "lowContrastPercent": 53.915,
+          "medianRatio": 2.4883
+        },
+        "rev1": {
+          "edgePairs": 1558,
+          "atLeast3Percent": 52.311,
+          "lowContrastPercent": 47.689,
+          "medianRatio": 3.1977
+        },
+        "rev2": {
+          "edgePairs": 1558,
+          "atLeast3Percent": 73.363,
+          "lowContrastPercent": 26.637,
+          "medianRatio": 4.2168
+        },
+        "rev2-max": {
+          "edgePairs": 1558,
+          "atLeast3Percent": 74.454,
+          "lowContrastPercent": 25.546,
+          "medianRatio": 4.2168
+        }
+      },
+      "dark": {
+        "original": {
+          "edgePairs": 696,
+          "atLeast3Percent": 13.937,
+          "lowContrastPercent": 86.063,
+          "medianRatio": 1.1533
+        },
+        "rev1": {
+          "edgePairs": 696,
+          "atLeast3Percent": 4.885,
+          "lowContrastPercent": 95.115,
+          "medianRatio": 1.1394
+        },
+        "rev2": {
+          "edgePairs": 696,
+          "atLeast3Percent": 46.121,
+          "lowContrastPercent": 53.879,
+          "medianRatio": 2.4883
+        },
+        "rev2-max": {
+          "edgePairs": 696,
+          "atLeast3Percent": 46.121,
+          "lowContrastPercent": 53.879,
+          "medianRatio": 2.4883
+        }
+      }
+    },
+    "hanbok-modern": {
+      "all": {
+        "original": {
+          "edgePairs": 1272,
+          "atLeast3Percent": 50.079,
+          "lowContrastPercent": 49.921,
+          "medianRatio": 3.0093
+        },
+        "rev1": {
+          "edgePairs": 1272,
+          "atLeast3Percent": 51.494,
+          "lowContrastPercent": 48.506,
+          "medianRatio": 3.1459
+        },
+        "rev2": {
+          "edgePairs": 1272,
+          "atLeast3Percent": 69.418,
+          "lowContrastPercent": 30.582,
+          "medianRatio": 4.1902
+        },
+        "rev2-max": {
+          "edgePairs": 1272,
+          "atLeast3Percent": 69.418,
+          "lowContrastPercent": 30.582,
+          "medianRatio": 4.2173
+        }
+      },
+      "dark": {
+        "original": {
+          "edgePairs": 585,
+          "atLeast3Percent": 12.821,
+          "lowContrastPercent": 87.179,
+          "medianRatio": 1.1334
+        },
+        "rev1": {
+          "edgePairs": 585,
+          "atLeast3Percent": 7.521,
+          "lowContrastPercent": 92.479,
+          "medianRatio": 1.1334
+        },
+        "rev2": {
+          "edgePairs": 585,
+          "atLeast3Percent": 39.145,
+          "lowContrastPercent": 60.855,
+          "medianRatio": 2.3416
+        },
+        "rev2-max": {
+          "edgePairs": 585,
+          "atLeast3Percent": 39.145,
+          "lowContrastPercent": 60.855,
+          "medianRatio": 2.3416
+        }
+      }
+    }
+  }
+}

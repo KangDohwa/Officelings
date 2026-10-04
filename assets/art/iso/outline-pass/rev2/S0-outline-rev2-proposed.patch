@@ -1,0 +1,31 @@
+--- a/tools/iso_check.py
++++ b/tools/iso_check.py
+@@ -216,7 +216,7 @@
+                     assert present(cell, 16, sy) and cell[foot_y, 4:29, 3].any(), 'transition contact pixels'
+             if name == 'idle':
+                 yy, _ = np.where(frames[0][:, :, 3] > 0)
+-                assert 38 <= yy.max()-yy.min()+1 <= 42, 'standing height outside 38–42'
++                assert 38 <= yy.max()-yy.min()+1 <= 43, 'standing height outside 38–43'
+         elif kind == 'floor':
+             if not clip.get('transition', False):
+                 assert all(present(cell, 32, 16, 0) for cell in frames), 'tile center absent'
+--- a/docs/iso-slice-s0.md
++++ b/docs/iso-slice-s0.md
+@@ -18,7 +18,7 @@
+ | `wallRise`, `wallHeight` | 16, 48. Wall horizontal span is 32. |
+ | Wall cell / first `edgeAnchor` | Left 32×64 / `(32,48)`; right 32×64 / `(0,48)`; rear corner 64×64 / `(32,48)`. An anchor can lie on an exclusive boundary. |
+ | Wall endpoints in source geometry | Left `(32,48)→(0,64)`; right `(0,48)→(32,64)`; tops are 48px above those endpoints. Corner joins both arms. Top/base trim is 2px inside that height. |
+-| `characterCell`, `footAnchor`, sheet `anchor` | 32×64, `(16,60)`, `(16,60)`; `scale:1`. Standing reference height 40, allowed 38–42. |
++| `characterCell`, `footAnchor`, sheet `anchor` | 32×64, `(16,60)`, `(16,60)`; `scale:1`. Standing reference height 40; grounded standing/idle height including the exterior outline allowed 38–43. The character body, foot/pelvis/hand contacts, head offsets, cell size, and x=0 / y=61..63 transparency remain unchanged. |
+ | Clip `seatAnchor` | Stable seated pelvis `(16,44)`. This is the seated pivot; source foot is retained as the sheet reference. |
+ | `deskHeight`, `seatHeight` | Desktop 18, cushion 12. Monitor top 36 (v2), 40 (desk rig v3); chair back top 21, including chair v3. |
+ | `deskOrientation`, `seatProfile`, variant `seatProfiles` | Four named orientations; only `front`; variants declare only the front profile. Keep the collection/field hook for a later end profile. Reject end before playback. |
+@@ -237,7 +237,7 @@
+ | A3 desk+monitor+chair / 5–8 | S0 | Desk and chair in SE/SW/NE/NW, front profile only. Desk default aliases off; screensaver static; working four screen phases at 3fps. Same contacts/footprints in all states; only screen/LED pixels vary. Publish screen mask, disjoint desk/chair parts and physical contact checks. All four C/H pairs match the reference within 1px. Reconstruct empty/occupied chair; inspect near/far/end walker overlap. Preserve end hook without end art. |
+ | A4 sofa/rug/TV/side table / 4–7 | A3 part convention | Four named variants for each family. Sofa 1×3 at rotation 0, cushion12/back24, explicit rotated nap approach/contact; split rear/front strips. Rug 2×3, nonblocking, 192×128 cells, 180° pairs reusable if nondirectional. TV cabinet 1×2, cabinet16/top48 (v3; v2 top38); side table 1×1,height16. Check empty/occupied sofa reconstruction and walkers at both ends. |
+ | A5 plant/shelf/coffee/fridge/water/lamp / 5–9 | S0 | Four named variants each, with spec footprints/heights: plant1×1/top34/pot12; shelf1×2/top44; coffee1×1/top28; fridge1×1/top44; water1×1/top40; lamp1×1/top40. Front/rear controls, spines, hinges/spigots and fixed upper-left light remain correct; safe radial reuse is allowed. Publish reachable authored interaction points where used and explicit parts/anchors. |
+-| C1 per character / 3–5 each | S0; A3 for seated contacts; pilot gate for IDs after dev-hoodie | Four-facing identity references; rows0–3 idle, rows4–7 walk, four cells each. Grounded 38–42px idle silhouette, no clipped guard/padding, four distinct gait phases and approved asymmetry/light. Review a neutral seated rig in all four desk orientations against C/H; C2 alone publishes its final seated rows. Run `--stage c1`. |
++| C1 per character / 3–5 each | S0; A3 for seated contacts; pilot gate for IDs after dev-hoodie | Four-facing identity references; rows0–3 idle, rows4–7 walk, four cells each. Grounded 38–43px idle silhouette including the exterior outline; unchanged character body and contacts, no clipped guard/padding, four distinct gait phases and approved asymmetry/light. Review a neutral seated rig in all four desk orientations against C/H; C2 alone publishes its final seated rows. Run `--stage c1`. |
+ | C2 seated/actions / 4–7 each | Same ID's C1 | Complete rows8–37 in the exact contract: four front typing, four thinking with neutral phase0, four sit, four stand; SE/SW pickup/handover/coffee/phone/talk/surprised; NE/NW sleep. Publish all explicit aliases, per-phase transition/prop contacts and bubble bindings. Waiting holds neutral seated phase0; raises finish before walking; report timing stays intact. Review all stored rows and all alias directions, including water/TV/darts and optional wave/celebrate. Run `--stage c2`. |
+ | C3 blink/face-lock / 1–2 each | Same ID's C2 | 24×4 blink cells and exactly SE/SW phase-aligned eye-mask atlases. Every non-eye byte equals the corresponding normal phase. Head/identity stable; anatomical accessories and directional light restored after any mirror. No NE/NW eye masks. Run final checker on the complete character manifest. |
+ | P1 cat+props / 7–13 total | S0; pilot hand contacts | Cat 9 rows/36 cells, 128×288: idle SE/SW/NE/NW, walk SE/SW/NE/NW, curled sleep any, four phases each. Ground foot(16,28), 14–18px silhouette, nonblocking independent depth and separate shadow. Shared 32×32 grip-anchored cup/water cup/phone/report paper and optional held dart; attach to all three rigs without clipping or duplicate body pixels. Export explicit normal/reaction bubble bindings using existing shared UI art. Run checker on pets and props. |

@@ -1,41 +1,32 @@
-"""Deterministic, in-place selective outline pass; Pillow + numpy, Python -B.
+"""Deterministic outline revisions (Pillow/numpy; run Python -B).
 
-Usage (from repository root, with a Python containing Pillow/numpy):
-  python -B assets/art/iso/outline-pass/outline_pass.py CHARACTER_FOLDER --apply
-  python -B assets/art/iso/outline-pass/outline_pass.py --evidence
-  python -B assets/art/iso/outline-pass/outline_pass.py --walking-evidence
+  python -B assets/art/iso/outline-pass/outline_pass.py --all --comparisons --apply
+  python -B assets/art/iso/outline-pass/outline_pass.py CHARACTER_FOLDER --comparisons
+  python -B assets/art/iso/outline-pass/outline_pass.py CHARACTER_FOLDER --revision rev1
 
-Without --apply the new normal/blink PNGs are previews beside this script.
-All snapshots/evidence go here; only --apply writes the input folder. No pack,
-furniture, source, tool, test, or git mutation. Repeating the same applied pass
-is a no-op, checked against output hashes (no accumulated darkening).
+Default rev2 upgrades only the five owned folders: dev-hoodie-v2, punk-girl,
+professor, glasses-bun, hanbok-modern. Without --apply, all atlases are previews
+under rev2/. Rev2-max is comparison-only and cannot be applied. Sources always
+come from rev2/runs/outline-rev1-backup, so expansion/darkening do not accumulate.
 
-PARAMETERS: 4-connected exterior boundary, replacement only (expansion=0).
-The ONE shared exterior color #111924 must exist in iso_check.RAMPS; no other
-color is added. Protect the complete canonical head RGBA at manifest offsets,
-all eye-mask files, skin clusters plus a 1px collar, and 5x5 typing contact
-neighborhoods. An interior line requires eight opaque neighbors and no adjacent
-exterior outline; shadow only when source luminance is >= shadow + 18. Arm
-overlap follows the approved arm paths, offset down 1px; hem follows the body
-bob. Existing low-tone details are retained. The upper/left inner boundary can
-receive an identity-palette rim if luminance <65, never a new exterior pixel.
-No alpha pixel, geometry, head, hand, manifest, or ramp membership changes.
+Rev2 adds a true 8-neighbor 1px exterior #111924 ring in transparent exterior
+space, preserves the exact foot-contact row and x=0/y=61..63 guards, and uses
+existing identity/ramp colors for a clothing rim, overlap contours and one-step
+material separation. Existing canonical head, eyes, hands and contacts remain
+byte-identical. The brighter clothing rim runs around dark clothing; --rim-sides
+upper-left restricts it to the lit sides. --rim-below sets the linear-Y threshold;
+--contour-width chooses 1/2px. Rev2-max has a brighter rim and stronger contours.
 
-For a later character pass --profile PATH.json. It uses the same fields as a
-PROFILES entry below: headFiles (four relative PNGs), headCrop (four optional
-exclusive y ends; null means full head layer), skin (hex RGB without #), shadow,
-rim, hem, seatedHem, armPaths {front/back: two polylines}. Author these from that
-character's approved head/skin/arm data; do not infer a face mask from brightness.
-Unknown characters require this explicit profile. Outputs record the full
-parameter set. Full-head protection intentionally leaves hair/face contours
-unchanged, even where a background has weak contrast.
+The approved inclusive idle height is 38-43. Only the local rev2/iso_check.py
+copy implements that allowance. S0-outline-rev2-proposed.patch contains the
+exact shared checker/doc proposal; this script never applies the shared patch.
 
---evidence uses the three saved pilot snapshots and READS the existing v3
-workstation measurement functions. It uses live v3 desk AND chair serialized
-parts, fixed ROIs, 48 typing cases, 1,536 walker cases, and actual integrated
-native pixels. Integrated replacements are limited to pixels owned by the actor
-in the serialized queue AND matching the original sprite texel. No runtime
-repack/render claim; the original renderer PNG is never modified.
+--revision rev1 retains the original zero-expansion recoloring implementation.
+Its --profile and original --evidence/--walking-evidence options remain available.
+--all --comparisons uses real pack-v3 pixels, native post-occlusion queues, and
+48 typing / 1,536 walking visibility cases per character. Raster composites are
+static evidence; no runtime repack, furniture edit, source/tool/test edit, git
+mutation or image generation is performed.
 """
 from pathlib import Path
 import argparse
@@ -76,6 +67,41 @@ PROFILES = {
         armPaths=dict(front=[[(11,36),(17,41),(26,43)],[(21,35),(25,40),(29,43)]],
                       back=[[(11,35),(17,38),(26,33)],[(21,34),(25,37),(29,33)]])),
 }
+LEGACY_PROFILES = dict(PROFILES)
+PROFILES.update({
+    'glasses-bun': dict(
+        headFiles=[f'runs/head-{f}.png' for f in FACINGS], headCrop=[None]*4,
+        skin=['F7CD94','F4BC7B','E78F61'], shadow='#26130C', rim='#975A37',
+        hem=51, seatedHem=47,
+        armPaths=dict(front=[[(12,41),(20,42),(26,43)],[(21,41),(24,41),(28,43)]],
+                      back=[[(12,41),(20,36),(26,32)],[(21,41),(24,37),(28,32)]])),
+    'hanbok-modern': dict(
+        headFiles=[f'runs/head-{f}.png' for f in FACINGS], headCrop=[None]*4,
+        skin=['FBD3A8','C9896A','FBDDBC'], shadow='#25160F', rim='#AD8870',
+        hem=49, seatedHem=47,
+        armPaths=dict(front=[[(12,41),(18,46),(27,44)],[(21,41),(25,43),(29,44)]],
+                      back=[[(12,42),(27,38),(27,32)],[(22,42),(30,36),(29,32)]])),
+})
+
+STRONG_PROFILES = {
+    'dev-hoodie-v2': dict(rim='#DCBE89', maxRim='#F7ECD3', shadow='#11141B',
+        materials=[['#A96418','#C37D17','#EAA92C','#EBAB2F'],
+                   ['#11141B','#2F3549','#4A4D5A']]),
+    'punk-girl': dict(rim='#F19188', maxRim='#FADFD1', shadow='#200907',
+        materials=[['#200907','#3B2523','#4F3431','#625655']]),
+    'professor': dict(rim='#CEB59B', maxRim='#F4E1C2', shadow='#321B0A',
+        materials=[['#4D2A14','#56371F','#744B31','#A4704C']]),
+    'glasses-bun': dict(rim='#F39D58', maxRim='#FCEAC7', shadow='#26130C',
+        materials=[['#B88052','#DBAA72','#FCEAC7'],
+                   ['#975A37','#AF5130','#C76E45','#E98E4D']]),
+    'hanbok-modern': dict(rim='#EADCCA', maxRim='#FFFFFF', shadow='#25160F',
+        materials=[['#CC684C','#E57053','#F07B5F','#F9A17E'],
+                   ['#574A3F','#9F8372','#AD8870','#B9957C']]),
+}
+STRONG_PARAMETERS = dict(exterior='#111924', connectivity=8, expansion=1,
+    rimBelowLinearY=.18, rimSides='all', contourWidth=1,
+    materialSteps=1, protectHeadRGBA=True, protectHandRGBA=True,
+    skinCollar=0, preserveFootRows=True, idleHeightAllowance=[38,43])
 PARAMETERS = dict(exterior='#111924', connectivity=4, expansion=0,
                   skinCollar=1, contactRadius=2, shadowDelta=18, rimBelow=65,
                   armLineOffsetY=1, interiorOpaqueNeighbors=8)
@@ -206,6 +232,118 @@ def edit_cell(src, head, clip, phase, profile):
     assert np.array_equal(src[protected],dst[protected])
     return dst, dict(edge=editable,rim=rim,contour=contour,head=head,hands=hands,
                      protected=protected,fullEdge=edge)
+
+
+def relative_luminance(a):
+    c = np.asarray(a, dtype=float)[..., :3] / 255
+    c = np.where(c <= .04045, c / 12.92, ((c + .055) / 1.055) ** 2.4)
+    return np.dot(c, [.2126,.7152,.0722])
+
+
+def exterior_empty(opaque):
+    """4-connected transparent exterior; leave enclosed holes unchanged."""
+    seen = np.zeros_like(opaque)
+    stack = [(y,x) for y in range(64) for x in (0,31) if not opaque[y,x]]
+    stack += [(y,x) for y in (0,63) for x in range(32) if not opaque[y,x]]
+    while stack:
+        y,x = stack.pop()
+        if seen[y,x]:
+            continue
+        seen[y,x] = True
+        for dy,dx in ((-1,0),(1,0),(0,-1),(0,1)):
+            ny,nx = y+dy,x+dx
+            if 0 <= ny < 64 and 0 <= nx < 32 and not opaque[ny,nx] and not seen[ny,nx]:
+                stack.append((ny,nx))
+    return seen
+
+
+def strong_cell(src, head, clip, phase, profile, strong_profile, parameters):
+    """Rev2: real exterior texels, frozen head/hands/contacts, palette-only RGB."""
+    dst = src.copy()
+    opaque = src[:,:,3] > 0
+    yy,xx = np.indices(opaque.shape)
+    protected,hands = locked(src,head,clip,profile)
+    # Protect actual hand/contact RGBA, but allow a clothing rim next to skin.
+    # The rev1 skin collar also locked adjacent sleeve texels and hid this cue.
+    protected = head | hands
+    protected |= yy == 60  # retain the exact grounded footprint and sole RGBA
+    seated = clip['name'] in ('seated-typing-front','seated-thinking','sleep')
+    foot_limit = int(np.where(opaque)[0].max()) if seated else 60
+    protected |= yy == foot_limit
+    if 'seatAnchor' in clip:
+        h = clip['seatAnchor']
+        protected |= (abs(xx-h['x']) <= 1) & (abs(yy-h['y']) <= 1)
+    contacts = clip.get('phaseContacts', [])
+    if contacts:
+        contact = contacts[phase]
+        foot_limit = contact['footY']
+        protected |= yy == contact['footY']
+        h = contact['seatAnchor']
+        protected |= (abs(xx-h['x']) <= 1) & (abs(yy-h['y']) <= 1)
+    edge = opaque & ~np.logical_and.reduce(neighbors(opaque))
+    ring = dilate(opaque) & exterior_empty(opaque)
+    ring[:,0] = False
+    ring[foot_limit:] = False  # no sole expansion below the original foot contact
+    dst[ring] = rgb(parameters['exterior']) + (255,)
+    lit = ~shifted(opaque,1,0) | ~shifted(opaque,0,1)
+    editable = opaque & ~protected
+    rim = editable & edge & (relative_luminance(src) < parameters['rimBelowLinearY'])
+    if parameters['rimSides'] == 'upper-left':
+        rim &= lit
+    dst[rim,:3] = rgb(strong_profile['rim'])
+
+    # One palette step at the shaded/right or lit/left side. Retain fine detail.
+    inner = editable & ~edge
+    tonal = np.zeros_like(opaque)
+    for ramp in strong_profile['materials']:
+        colors = [rgb(h) for h in ramp]
+        for n,color in enumerate(colors):
+            match = np.all(src[:,:,:3] == color,axis=2) & inner
+            light = match & (xx <= 14) & (n < len(colors)-1)
+            shade = match & (xx >= 20) & (n > 0)
+            if n < len(colors)-1:
+                dst[light,:3] = colors[min(len(colors)-1,n+parameters['materialSteps'])]
+            if n > 0:
+                dst[shade,:3] = colors[max(0,n-parameters['materialSteps'])]
+            tonal |= light | shade
+
+    stroke = Image.new('L',(32,64))
+    draw = ImageDraw.Draw(stroke)
+    bob = [0,1,0,-1][phase] if clip['name']=='walk' else 0
+    hy = profile['seatedHem'] if seated else profile['hem'] + bob
+    if clip['name'] in ('sit-down','stand-up'):
+        hy = round(profile['hem']+(profile['seatedHem']-profile['hem'])*
+                   ((phase if clip['name']=='sit-down' else 3-phase)/3))
+    width = parameters['contourWidth']
+    draw.line([(11,hy),(22,hy)],fill=255,width=width)
+    if clip['name']=='seated-typing-front':
+        paths = profile['armPaths']['back' if clip['direction'] in ('ne','nw') else 'front']
+        for path in paths:
+            pts = [(32-x if clip['direction'] in ('sw','nw') else x,y+1) for x,y in path]
+            draw.line(pts,fill=255,width=width)
+    # Collar directly below the canonical head; never overwrite hair/face bytes.
+    collar = shifted(head,0,1) & ~head & inner
+    # Reinforce authored arm cuffs and separation on either side of skin clusters.
+    skin = np.zeros_like(opaque)
+    for h in profile['skin']:
+        skin |= np.all(src[:,:,:3]==rgb(h),axis=2) & opaque & ~head & (yy<52)
+    cuffs = (dilate(dilate(skin)) & ~dilate(skin)) & inner
+    # Ground-adjacent shoe seam and the medial leg contours across all gait phases.
+    sole = (yy==59) & inner
+    limbs = inner & (yy>=hy+1) & (yy<59) & (xx>=13) & (xx<=19)
+    limbs &= ~np.logical_and.reduce(neighbors(opaque)) | shifted(edge,1,0) | shifted(edge,-1,0)
+    contour = ((np.array(stroke)>0) | collar | cuffs | sole | limbs) & inner & ~rim
+    contour &= relative_luminance(dst) > relative_luminance(np.array(rgb(strong_profile['shadow'])))+.012
+    dst[contour,:3] = rgb(strong_profile['shadow'])
+    assert np.array_equal(dst[protected & opaque],src[protected & opaque])
+    assert np.array_equal(dst[head],src[head])
+    assert np.array_equal(dst[hands],src[hands])
+    assert np.array_equal(dst[60],src[60])
+    assert np.array_equal(dst[foot_limit],src[foot_limit])
+    assert np.all(dst[:,:,3][opaque]==255) and np.array_equal(dst[:,:,3]>0,opaque|ring)
+    assert not dst[:,0,3].any() and not dst[61:,:,3].any()
+    return dst, dict(ring=ring,rim=rim,contour=contour,tonal=tonal,head=head,
+                     hands=hands,protected=protected,fullEdge=edge)
 
 
 def review(folder, a, normal):
@@ -427,7 +565,7 @@ def evidence():
     study=Image.new('RGBA',(3*384,4*176),'#E7D1AC');std=ImageDraw.Draw(study)
     typing=[];walking=[];matches=[]
     colors=['#E7D1AC','#C78251','#262D38','#111924']
-    for ci,(folder,profile) in enumerate(PROFILES.items()):
+    for ci,(folder,profile) in enumerate(LEGACY_PROFILES.items()):
         base=ART/'characters'/folder;eid=OUT/'evidence'/folder
         cid='dev-hoodie' if folder=='dev-hoodie-v2' else folder
         s=next(s for s in read(base/(cid+'.iso.json'))['sheets'] if s['kind']=='character')
@@ -576,7 +714,7 @@ def walking_evidence():
     actual=rgba(p);updated=actual.copy()
     original2x=rgba(p.with_name('iso-arrival-02.0s-2x.png'));updated2x=original2x.copy()
     candidates={}
-    for folder,profile in PROFILES.items():
+    for folder,profile in LEGACY_PROFILES.items():
         base=ART/'characters'/folder;eid=OUT/'evidence'/folder
         cid='dev-hoodie' if folder=='dev-hoodie-v2' else folder
         s=next(s for s in read(base/(cid+'.iso.json'))['sheets'] if s['kind']=='character')
@@ -617,7 +755,7 @@ def walking_evidence():
                     key=(ax,ay)
                     if key not in candidates or candidates[key][0]<score:
                         candidates[key]=(score,data,dst.copy(),changed)
-    assert {v[1]['character'] for v in candidates.values()}==set(PROFILES), 'need one exact walking match for each pilot'
+    assert {v[1]['character'] for v in candidates.values()}==set(LEGACY_PROFILES), 'need one exact walking match for each pilot'
     records=[]
     crops=Image.new('RGBA',(3*256,((len(candidates)+2)//3)*128),'#E7D1AC');d=ImageDraw.Draw(crops)
     for n,(_,data,dst,changed) in enumerate(sorted(candidates.values(),key=lambda v:(v[1]['character'],v[1]['position']))):
@@ -649,8 +787,17 @@ def main():
     parser.add_argument('--profile',type=Path)
     parser.add_argument('--evidence',action='store_true')
     parser.add_argument('--walking-evidence',action='store_true')
+    parser.add_argument('--revision',choices=('rev1','rev2','rev2-max'),default='rev2')
+    parser.add_argument('--all',action='store_true',help='the five explicitly owned characters only')
+    parser.add_argument('--comparisons',action='store_true')
+    parser.add_argument('--rim-sides',choices=('upper-left','all'))
+    parser.add_argument('--rim-below',type=float,help='linear sRGB Y threshold')
+    parser.add_argument('--contour-width',type=int,choices=(1,2))
     args=parser.parse_args()
-    if args.walking_evidence:
+    if args.revision != 'rev1':
+        runner=load_module('outline_strong_runner',OUT/'rev2/strong_pass.py')
+        runner.run(args)
+    elif args.walking_evidence:
         walking_evidence()
     elif args.evidence:
         evidence()

@@ -1,0 +1,88 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | transparency | PASS | straight alpha and guards |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | palette | PASS | 26 colors; RGB max-channel tolerance 0 |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | 6×6 seams | SKIP | floor sheets only |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | depth-part names | SKIP | furniture sheets only |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| dev-hoodie.iso.json:dev-hoodie-v2-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | transparency | PASS | straight alpha and guards |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | palette | PASS | 25 colors; RGB max-channel tolerance 0 |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | row contract | PASS | 24 rows / 96 cells |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | 6×6 seams | SKIP | floor sheets only |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | depth-part names | SKIP | furniture sheets only |
+| dev-hoodie.iso.json:dev-hoodie-v2-blink | face-lock / blink | SKIP | checked from normal character sheet |
+| glasses-bun.iso.json:glasses-bun-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| glasses-bun.iso.json:glasses-bun-normal | transparency | PASS | straight alpha and guards |
+| glasses-bun.iso.json:glasses-bun-normal | anchor pixels | FAIL | standing height outside 38–42 |
+| glasses-bun.iso.json:glasses-bun-normal | palette | PASS | 20 colors; RGB max-channel tolerance 0 |
+| glasses-bun.iso.json:glasses-bun-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| glasses-bun.iso.json:glasses-bun-normal | 6×6 seams | SKIP | floor sheets only |
+| glasses-bun.iso.json:glasses-bun-normal | depth-part names | SKIP | furniture sheets only |
+| glasses-bun.iso.json:glasses-bun-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| glasses-bun.iso.json:glasses-bun-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| glasses-bun.iso.json:glasses-bun-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| glasses-bun.iso.json:glasses-bun-blink | transparency | PASS | straight alpha and guards |
+| glasses-bun.iso.json:glasses-bun-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| glasses-bun.iso.json:glasses-bun-blink | palette | PASS | 20 colors; RGB max-channel tolerance 0 |
+| glasses-bun.iso.json:glasses-bun-blink | row contract | PASS | 24 rows / 96 cells |
+| glasses-bun.iso.json:glasses-bun-blink | 6×6 seams | SKIP | floor sheets only |
+| glasses-bun.iso.json:glasses-bun-blink | depth-part names | SKIP | furniture sheets only |
+| glasses-bun.iso.json:glasses-bun-blink | face-lock / blink | SKIP | checked from normal character sheet |
+| hanbok-modern.iso.json:hanbok-modern-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| hanbok-modern.iso.json:hanbok-modern-normal | transparency | PASS | straight alpha and guards |
+| hanbok-modern.iso.json:hanbok-modern-normal | anchor pixels | FAIL | standing height outside 38–42 |
+| hanbok-modern.iso.json:hanbok-modern-normal | palette | PASS | 21 colors; RGB max-channel tolerance 0 |
+| hanbok-modern.iso.json:hanbok-modern-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| hanbok-modern.iso.json:hanbok-modern-normal | 6×6 seams | SKIP | floor sheets only |
+| hanbok-modern.iso.json:hanbok-modern-normal | depth-part names | SKIP | furniture sheets only |
+| hanbok-modern.iso.json:hanbok-modern-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| hanbok-modern.iso.json:hanbok-modern-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| hanbok-modern.iso.json:hanbok-modern-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| hanbok-modern.iso.json:hanbok-modern-blink | transparency | PASS | straight alpha and guards |
+| hanbok-modern.iso.json:hanbok-modern-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| hanbok-modern.iso.json:hanbok-modern-blink | palette | PASS | 21 colors; RGB max-channel tolerance 0 |
+| hanbok-modern.iso.json:hanbok-modern-blink | row contract | PASS | 24 rows / 96 cells |
+| hanbok-modern.iso.json:hanbok-modern-blink | 6×6 seams | SKIP | floor sheets only |
+| hanbok-modern.iso.json:hanbok-modern-blink | depth-part names | SKIP | furniture sheets only |
+| hanbok-modern.iso.json:hanbok-modern-blink | face-lock / blink | SKIP | checked from normal character sheet |
+| professor.iso.json:professor-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| professor.iso.json:professor-normal | transparency | PASS | straight alpha and guards |
+| professor.iso.json:professor-normal | anchor pixels | FAIL | standing height outside 38–42 |
+| professor.iso.json:professor-normal | palette | PASS | 23 colors; RGB max-channel tolerance 0 |
+| professor.iso.json:professor-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| professor.iso.json:professor-normal | 6×6 seams | SKIP | floor sheets only |
+| professor.iso.json:professor-normal | depth-part names | SKIP | furniture sheets only |
+| professor.iso.json:professor-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| professor.iso.json:professor-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| professor.iso.json:professor-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| professor.iso.json:professor-blink | transparency | PASS | straight alpha and guards |
+| professor.iso.json:professor-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| professor.iso.json:professor-blink | palette | PASS | 23 colors; RGB max-channel tolerance 0 |
+| professor.iso.json:professor-blink | row contract | PASS | 24 rows / 96 cells |
+| professor.iso.json:professor-blink | 6×6 seams | SKIP | floor sheets only |
+| professor.iso.json:professor-blink | depth-part names | SKIP | furniture sheets only |
+| professor.iso.json:professor-blink | face-lock / blink | SKIP | checked from normal character sheet |
+| punk-girl.iso.json:punk-girl-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| punk-girl.iso.json:punk-girl-normal | transparency | PASS | straight alpha and guards |
+| punk-girl.iso.json:punk-girl-normal | anchor pixels | FAIL | standing height outside 38–42 |
+| punk-girl.iso.json:punk-girl-normal | palette | PASS | 20 colors; RGB max-channel tolerance 0 |
+| punk-girl.iso.json:punk-girl-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| punk-girl.iso.json:punk-girl-normal | 6×6 seams | SKIP | floor sheets only |
+| punk-girl.iso.json:punk-girl-normal | depth-part names | SKIP | furniture sheets only |
+| punk-girl.iso.json:punk-girl-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| punk-girl.iso.json:punk-girl-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| punk-girl.iso.json:punk-girl-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| punk-girl.iso.json:punk-girl-blink | transparency | PASS | straight alpha and guards |
+| punk-girl.iso.json:punk-girl-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| punk-girl.iso.json:punk-girl-blink | palette | PASS | 20 colors; RGB max-channel tolerance 0 |
+| punk-girl.iso.json:punk-girl-blink | row contract | PASS | 24 rows / 96 cells |
+| punk-girl.iso.json:punk-girl-blink | 6×6 seams | SKIP | floor sheets only |
+| punk-girl.iso.json:punk-girl-blink | depth-part names | SKIP | furniture sheets only |
+| punk-girl.iso.json:punk-girl-blink | face-lock / blink | SKIP | checked from normal character sheet |
+85 checks; 4 failed

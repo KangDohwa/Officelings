@@ -1,0 +1,412 @@
+{
+  "sourceRoot": "C:\\Codex-Workspace\\vd-lanes\\packv3\\artifacts\\iso-packv3-final",
+  "cases": [
+    {
+      "character": "dev-hoodie-v2",
+      "state": "seated",
+      "position": [
+        600,
+        208
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 10,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 129,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 131,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "dev-hoodie-v2",
+      "state": "seated",
+      "position": [
+        344,
+        336
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 16,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 133,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 133,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "dev-hoodie-v2",
+      "state": "seated",
+      "position": [
+        408,
+        80
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 49,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 242,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 248,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "dev-hoodie-v2",
+      "state": "seated",
+      "position": [
+        344,
+        208
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 54,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 246,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 250,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "dev-hoodie-v2",
+      "state": "seated",
+      "position": [
+        216,
+        240
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 54,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 246,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 250,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "punk-girl",
+      "state": "seated",
+      "position": [
+        248,
+        192
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 17,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 138,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 138,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "punk-girl",
+      "state": "seated",
+      "position": [
+        408,
+        272
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 49,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 258,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 260,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "punk-girl",
+      "state": "seated",
+      "position": [
+        472,
+        176
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 46,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 259,
+          "unmatchedExistingPreserved": 1
+        },
+        "rev2-max": {
+          "replaced": 261,
+          "unmatchedExistingPreserved": 1
+        }
+      }
+    },
+    {
+      "character": "professor",
+      "state": "seated",
+      "position": [
+        472,
+        240
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 18,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 154,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 161,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "professor",
+      "state": "seated",
+      "position": [
+        344,
+        272
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 15,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 129,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 136,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "professor",
+      "state": "seated",
+      "position": [
+        344,
+        144
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 18,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 148,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 154,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "professor",
+      "state": "seated",
+      "position": [
+        312,
+        128
+      ],
+      "visibleSourceHeadFraction": 0.9785407725321889,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 48,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 264,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 282,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "dev-hoodie-v2",
+      "state": "walking",
+      "position": [
+        376,
+        156
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 53,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 318,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 322,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "professor",
+      "state": "walking",
+      "position": [
+        248,
+        124
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 52,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 247,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 250,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    },
+    {
+      "character": "punk-girl",
+      "state": "walking",
+      "position": [
+        184,
+        156
+      ],
+      "visibleSourceHeadFraction": 1.0,
+      "changes": {
+        "original": {
+          "replaced": 0,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev1": {
+          "replaced": 63,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2": {
+          "replaced": 280,
+          "unmatchedExistingPreserved": 0
+        },
+        "rev2-max": {
+          "replaced": 280,
+          "unmatchedExistingPreserved": 0
+        }
+      }
+    }
+  ],
+  "unchangedUnknownSourcePixels": true,
+  "scope": "Matched original actor texels and newly added outline pixels; static full-room v3 desk/chair queue."
+}

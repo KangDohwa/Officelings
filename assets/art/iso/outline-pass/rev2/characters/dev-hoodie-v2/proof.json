@@ -1,0 +1,3137 @@
+{
+  "character": "dev-hoodie-v2",
+  "applied": true,
+  "parameters": {
+    "exterior": "#111924",
+    "connectivity": 8,
+    "expansion": 1,
+    "rimBelowLinearY": 0.18,
+    "rimSides": "all",
+    "contourWidth": 1,
+    "materialSteps": 1,
+    "protectHeadRGBA": true,
+    "protectHandRGBA": true,
+    "skinCollar": 0,
+    "preserveFootRows": true,
+    "idleHeightAllowance": [
+      38,
+      43
+    ]
+  },
+  "maxParameters": {
+    "exterior": "#111924",
+    "connectivity": 8,
+    "expansion": 1,
+    "rimBelowLinearY": 0.18,
+    "rimSides": "all",
+    "contourWidth": 2,
+    "materialSteps": 2,
+    "protectHeadRGBA": true,
+    "protectHandRGBA": true,
+    "skinCollar": 0,
+    "preserveFootRows": true,
+    "idleHeightAllowance": [
+      38,
+      43
+    ]
+  },
+  "originalSource": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\outline-pass\\evidence\\dev-hoodie-v2\\before\\dev-hoodie-iso.png",
+  "rev1Simulated": false,
+  "normalCells": 152,
+  "blinkCells": 96,
+  "originalBodyAlphaPreserved": true,
+  "canonicalHeadRGBAExactCells": 152,
+  "handRGBAExactCells": 152,
+  "footprintRow60RGBAExact": true,
+  "eyeMasksSHA256": {
+    "dev-hoodie-eyes-se.png": "8544aa4e30cc412739f2fbaf4228eea5827d826d6874b6f7956a29d2e0a59852",
+    "dev-hoodie-eyes-sw.png": "44e3ddfe50c2c8a33da9e422a9857243bd0334ed40177a109d260f9db4f7f15f"
+  },
+  "contactsAndHeadOffsetsUnchanged": true,
+  "closedEyeRGBAExactCells": 96,
+  "blinkNonEyeCellsEqualNewNormal": 96,
+  "protectedSHA256Before": {
+    "dev-hoodie.iso.json": "10a2e1ac7158477aece9711a7606293463846e4aee73f6a0bdb30485e62147ee",
+    "dev-hoodie-iso.manifest.json": "10a2e1ac7158477aece9711a7606293463846e4aee73f6a0bdb30485e62147ee",
+    "dev-hoodie-eyes-se.png": "8544aa4e30cc412739f2fbaf4228eea5827d826d6874b6f7956a29d2e0a59852",
+    "dev-hoodie-eyes-sw.png": "44e3ddfe50c2c8a33da9e422a9857243bd0334ed40177a109d260f9db4f7f15f"
+  },
+  "productionBeforeSHA256": {
+    "dev-hoodie-iso.png": "a49b7c739d6d3bd703913a3b45a98451c462c5cd1bf89b3e77a57dc04a73fd2c",
+    "dev-hoodie-iso-blink.png": "9f1c26b171321a85d3b43970c68c39bfeede2d43be94282b45b2cb27ad616b38"
+  },
+  "records": [
+    {
+      "row": 0,
+      "phase": 0,
+      "action": "idle",
+      "facing": "se",
+      "rev2": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 53,
+        "tonal": 32,
+        "changed": 248
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 58,
+        "tonal": 32,
+        "changed": 252
+      }
+    },
+    {
+      "row": 0,
+      "phase": 1,
+      "action": "idle",
+      "facing": "se",
+      "rev2": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 53,
+        "tonal": 32,
+        "changed": 248
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 58,
+        "tonal": 32,
+        "changed": 252
+      }
+    },
+    {
+      "row": 0,
+      "phase": 2,
+      "action": "idle",
+      "facing": "se",
+      "rev2": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 53,
+        "tonal": 32,
+        "changed": 248
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 58,
+        "tonal": 32,
+        "changed": 252
+      }
+    },
+    {
+      "row": 0,
+      "phase": 3,
+      "action": "idle",
+      "facing": "se",
+      "rev2": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 53,
+        "tonal": 32,
+        "changed": 248
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 58,
+        "tonal": 32,
+        "changed": 252
+      }
+    },
+    {
+      "row": 1,
+      "phase": 0,
+      "action": "idle",
+      "facing": "sw",
+      "rev2": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 35,
+        "tonal": 17,
+        "changed": 222
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 40,
+        "tonal": 17,
+        "changed": 227
+      }
+    },
+    {
+      "row": 1,
+      "phase": 1,
+      "action": "idle",
+      "facing": "sw",
+      "rev2": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 35,
+        "tonal": 17,
+        "changed": 222
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 40,
+        "tonal": 17,
+        "changed": 227
+      }
+    },
+    {
+      "row": 1,
+      "phase": 2,
+      "action": "idle",
+      "facing": "sw",
+      "rev2": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 35,
+        "tonal": 17,
+        "changed": 222
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 40,
+        "tonal": 17,
+        "changed": 227
+      }
+    },
+    {
+      "row": 1,
+      "phase": 3,
+      "action": "idle",
+      "facing": "sw",
+      "rev2": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 35,
+        "tonal": 17,
+        "changed": 222
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 40,
+        "tonal": 17,
+        "changed": 227
+      }
+    },
+    {
+      "row": 2,
+      "phase": 0,
+      "action": "idle",
+      "facing": "ne",
+      "rev2": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 50,
+        "tonal": 18,
+        "changed": 243
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 56,
+        "tonal": 18,
+        "changed": 250
+      }
+    },
+    {
+      "row": 2,
+      "phase": 1,
+      "action": "idle",
+      "facing": "ne",
+      "rev2": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 50,
+        "tonal": 18,
+        "changed": 243
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 56,
+        "tonal": 18,
+        "changed": 250
+      }
+    },
+    {
+      "row": 2,
+      "phase": 2,
+      "action": "idle",
+      "facing": "ne",
+      "rev2": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 50,
+        "tonal": 18,
+        "changed": 243
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 56,
+        "tonal": 18,
+        "changed": 250
+      }
+    },
+    {
+      "row": 2,
+      "phase": 3,
+      "action": "idle",
+      "facing": "ne",
+      "rev2": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 50,
+        "tonal": 18,
+        "changed": 243
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 56,
+        "tonal": 18,
+        "changed": 250
+      }
+    },
+    {
+      "row": 3,
+      "phase": 0,
+      "action": "idle",
+      "facing": "nw",
+      "rev2": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 37,
+        "tonal": 29,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 38,
+        "tonal": 29,
+        "changed": 237
+      }
+    },
+    {
+      "row": 3,
+      "phase": 1,
+      "action": "idle",
+      "facing": "nw",
+      "rev2": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 37,
+        "tonal": 29,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 38,
+        "tonal": 29,
+        "changed": 237
+      }
+    },
+    {
+      "row": 3,
+      "phase": 2,
+      "action": "idle",
+      "facing": "nw",
+      "rev2": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 37,
+        "tonal": 29,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 38,
+        "tonal": 29,
+        "changed": 237
+      }
+    },
+    {
+      "row": 3,
+      "phase": 3,
+      "action": "idle",
+      "facing": "nw",
+      "rev2": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 37,
+        "tonal": 29,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 38,
+        "tonal": 29,
+        "changed": 237
+      }
+    },
+    {
+      "row": 4,
+      "phase": 0,
+      "action": "walk",
+      "facing": "se",
+      "rev2": {
+        "ring": 178,
+        "rim": 57,
+        "contour": 47,
+        "tonal": 41,
+        "changed": 312
+      },
+      "rev2-max": {
+        "ring": 178,
+        "rim": 57,
+        "contour": 50,
+        "tonal": 41,
+        "changed": 315
+      }
+    },
+    {
+      "row": 4,
+      "phase": 1,
+      "action": "walk",
+      "facing": "se",
+      "rev2": {
+        "ring": 145,
+        "rim": 39,
+        "contour": 43,
+        "tonal": 12,
+        "changed": 234
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 39,
+        "contour": 45,
+        "tonal": 12,
+        "changed": 236
+      }
+    },
+    {
+      "row": 4,
+      "phase": 2,
+      "action": "walk",
+      "facing": "se",
+      "rev2": {
+        "ring": 157,
+        "rim": 58,
+        "contour": 27,
+        "tonal": 32,
+        "changed": 266
+      },
+      "rev2-max": {
+        "ring": 157,
+        "rim": 58,
+        "contour": 30,
+        "tonal": 32,
+        "changed": 268
+      }
+    },
+    {
+      "row": 4,
+      "phase": 3,
+      "action": "walk",
+      "facing": "se",
+      "rev2": {
+        "ring": 145,
+        "rim": 44,
+        "contour": 40,
+        "tonal": 14,
+        "changed": 235
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 44,
+        "contour": 42,
+        "tonal": 14,
+        "changed": 237
+      }
+    },
+    {
+      "row": 5,
+      "phase": 0,
+      "action": "walk",
+      "facing": "sw",
+      "rev2": {
+        "ring": 178,
+        "rim": 54,
+        "contour": 33,
+        "tonal": 29,
+        "changed": 289
+      },
+      "rev2-max": {
+        "ring": 178,
+        "rim": 54,
+        "contour": 36,
+        "tonal": 29,
+        "changed": 292
+      }
+    },
+    {
+      "row": 5,
+      "phase": 1,
+      "action": "walk",
+      "facing": "sw",
+      "rev2": {
+        "ring": 145,
+        "rim": 31,
+        "contour": 36,
+        "tonal": 17,
+        "changed": 227
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 31,
+        "contour": 38,
+        "tonal": 17,
+        "changed": 229
+      }
+    },
+    {
+      "row": 5,
+      "phase": 2,
+      "action": "walk",
+      "facing": "sw",
+      "rev2": {
+        "ring": 157,
+        "rim": 55,
+        "contour": 28,
+        "tonal": 41,
+        "changed": 269
+      },
+      "rev2-max": {
+        "ring": 157,
+        "rim": 55,
+        "contour": 32,
+        "tonal": 41,
+        "changed": 270
+      }
+    },
+    {
+      "row": 5,
+      "phase": 3,
+      "action": "walk",
+      "facing": "sw",
+      "rev2": {
+        "ring": 145,
+        "rim": 40,
+        "contour": 33,
+        "tonal": 26,
+        "changed": 236
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 26,
+        "changed": 237
+      }
+    },
+    {
+      "row": 6,
+      "phase": 0,
+      "action": "walk",
+      "facing": "ne",
+      "rev2": {
+        "ring": 166,
+        "rim": 60,
+        "contour": 39,
+        "tonal": 38,
+        "changed": 293
+      },
+      "rev2-max": {
+        "ring": 166,
+        "rim": 60,
+        "contour": 42,
+        "tonal": 38,
+        "changed": 295
+      }
+    },
+    {
+      "row": 6,
+      "phase": 1,
+      "action": "walk",
+      "facing": "ne",
+      "rev2": {
+        "ring": 154,
+        "rim": 55,
+        "contour": 44,
+        "tonal": 15,
+        "changed": 262
+      },
+      "rev2-max": {
+        "ring": 154,
+        "rim": 55,
+        "contour": 46,
+        "tonal": 15,
+        "changed": 264
+      }
+    },
+    {
+      "row": 6,
+      "phase": 2,
+      "action": "walk",
+      "facing": "ne",
+      "rev2": {
+        "ring": 185,
+        "rim": 65,
+        "contour": 51,
+        "tonal": 43,
+        "changed": 328
+      },
+      "rev2-max": {
+        "ring": 185,
+        "rim": 65,
+        "contour": 59,
+        "tonal": 43,
+        "changed": 332
+      }
+    },
+    {
+      "row": 6,
+      "phase": 3,
+      "action": "walk",
+      "facing": "ne",
+      "rev2": {
+        "ring": 153,
+        "rim": 52,
+        "contour": 40,
+        "tonal": 15,
+        "changed": 254
+      },
+      "rev2-max": {
+        "ring": 153,
+        "rim": 52,
+        "contour": 43,
+        "tonal": 15,
+        "changed": 257
+      }
+    },
+    {
+      "row": 7,
+      "phase": 0,
+      "action": "walk",
+      "facing": "nw",
+      "rev2": {
+        "ring": 166,
+        "rim": 54,
+        "contour": 29,
+        "tonal": 32,
+        "changed": 276
+      },
+      "rev2-max": {
+        "ring": 166,
+        "rim": 54,
+        "contour": 32,
+        "tonal": 32,
+        "changed": 278
+      }
+    },
+    {
+      "row": 7,
+      "phase": 1,
+      "action": "walk",
+      "facing": "nw",
+      "rev2": {
+        "ring": 154,
+        "rim": 47,
+        "contour": 39,
+        "tonal": 19,
+        "changed": 254
+      },
+      "rev2-max": {
+        "ring": 154,
+        "rim": 47,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 255
+      }
+    },
+    {
+      "row": 7,
+      "phase": 2,
+      "action": "walk",
+      "facing": "nw",
+      "rev2": {
+        "ring": 185,
+        "rim": 60,
+        "contour": 31,
+        "tonal": 27,
+        "changed": 300
+      },
+      "rev2-max": {
+        "ring": 185,
+        "rim": 60,
+        "contour": 38,
+        "tonal": 27,
+        "changed": 304
+      }
+    },
+    {
+      "row": 7,
+      "phase": 3,
+      "action": "walk",
+      "facing": "nw",
+      "rev2": {
+        "ring": 153,
+        "rim": 46,
+        "contour": 34,
+        "tonal": 17,
+        "changed": 246
+      },
+      "rev2-max": {
+        "ring": 153,
+        "rim": 46,
+        "contour": 37,
+        "tonal": 17,
+        "changed": 248
+      }
+    },
+    {
+      "row": 8,
+      "phase": 0,
+      "action": "seated-typing-front",
+      "facing": "se",
+      "rev2": {
+        "ring": 146,
+        "rim": 50,
+        "contour": 44,
+        "tonal": 31,
+        "changed": 259
+      },
+      "rev2-max": {
+        "ring": 146,
+        "rim": 50,
+        "contour": 51,
+        "tonal": 31,
+        "changed": 263
+      }
+    },
+    {
+      "row": 8,
+      "phase": 1,
+      "action": "seated-typing-front",
+      "facing": "se",
+      "rev2": {
+        "ring": 147,
+        "rim": 50,
+        "contour": 44,
+        "tonal": 31,
+        "changed": 260
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 50,
+        "contour": 51,
+        "tonal": 31,
+        "changed": 264
+      }
+    },
+    {
+      "row": 8,
+      "phase": 2,
+      "action": "seated-typing-front",
+      "facing": "se",
+      "rev2": {
+        "ring": 145,
+        "rim": 50,
+        "contour": 44,
+        "tonal": 31,
+        "changed": 258
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 50,
+        "contour": 51,
+        "tonal": 31,
+        "changed": 262
+      }
+    },
+    {
+      "row": 8,
+      "phase": 3,
+      "action": "seated-typing-front",
+      "facing": "se",
+      "rev2": {
+        "ring": 146,
+        "rim": 50,
+        "contour": 44,
+        "tonal": 31,
+        "changed": 259
+      },
+      "rev2-max": {
+        "ring": 146,
+        "rim": 50,
+        "contour": 51,
+        "tonal": 31,
+        "changed": 263
+      }
+    },
+    {
+      "row": 9,
+      "phase": 0,
+      "action": "seated-typing-front",
+      "facing": "sw",
+      "rev2": {
+        "ring": 146,
+        "rim": 47,
+        "contour": 45,
+        "tonal": 23,
+        "changed": 246
+      },
+      "rev2-max": {
+        "ring": 146,
+        "rim": 47,
+        "contour": 49,
+        "tonal": 23,
+        "changed": 252
+      }
+    },
+    {
+      "row": 9,
+      "phase": 1,
+      "action": "seated-typing-front",
+      "facing": "sw",
+      "rev2": {
+        "ring": 147,
+        "rim": 47,
+        "contour": 45,
+        "tonal": 23,
+        "changed": 247
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 47,
+        "contour": 49,
+        "tonal": 23,
+        "changed": 253
+      }
+    },
+    {
+      "row": 9,
+      "phase": 2,
+      "action": "seated-typing-front",
+      "facing": "sw",
+      "rev2": {
+        "ring": 145,
+        "rim": 47,
+        "contour": 45,
+        "tonal": 23,
+        "changed": 245
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 47,
+        "contour": 49,
+        "tonal": 23,
+        "changed": 251
+      }
+    },
+    {
+      "row": 9,
+      "phase": 3,
+      "action": "seated-typing-front",
+      "facing": "sw",
+      "rev2": {
+        "ring": 146,
+        "rim": 47,
+        "contour": 45,
+        "tonal": 23,
+        "changed": 246
+      },
+      "rev2-max": {
+        "ring": 146,
+        "rim": 47,
+        "contour": 49,
+        "tonal": 23,
+        "changed": 252
+      }
+    },
+    {
+      "row": 10,
+      "phase": 0,
+      "action": "seated-typing-front",
+      "facing": "ne",
+      "rev2": {
+        "ring": 145,
+        "rim": 55,
+        "contour": 61,
+        "tonal": 36,
+        "changed": 281
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 55,
+        "contour": 63,
+        "tonal": 36,
+        "changed": 284
+      }
+    },
+    {
+      "row": 10,
+      "phase": 1,
+      "action": "seated-typing-front",
+      "facing": "ne",
+      "rev2": {
+        "ring": 142,
+        "rim": 55,
+        "contour": 61,
+        "tonal": 36,
+        "changed": 278
+      },
+      "rev2-max": {
+        "ring": 142,
+        "rim": 55,
+        "contour": 63,
+        "tonal": 36,
+        "changed": 281
+      }
+    },
+    {
+      "row": 10,
+      "phase": 2,
+      "action": "seated-typing-front",
+      "facing": "ne",
+      "rev2": {
+        "ring": 148,
+        "rim": 55,
+        "contour": 61,
+        "tonal": 36,
+        "changed": 284
+      },
+      "rev2-max": {
+        "ring": 148,
+        "rim": 55,
+        "contour": 63,
+        "tonal": 36,
+        "changed": 287
+      }
+    },
+    {
+      "row": 10,
+      "phase": 3,
+      "action": "seated-typing-front",
+      "facing": "ne",
+      "rev2": {
+        "ring": 151,
+        "rim": 55,
+        "contour": 61,
+        "tonal": 36,
+        "changed": 287
+      },
+      "rev2-max": {
+        "ring": 151,
+        "rim": 55,
+        "contour": 63,
+        "tonal": 36,
+        "changed": 290
+      }
+    },
+    {
+      "row": 11,
+      "phase": 0,
+      "action": "seated-typing-front",
+      "facing": "nw",
+      "rev2": {
+        "ring": 145,
+        "rim": 49,
+        "contour": 44,
+        "tonal": 30,
+        "changed": 260
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 49,
+        "contour": 49,
+        "tonal": 30,
+        "changed": 263
+      }
+    },
+    {
+      "row": 11,
+      "phase": 1,
+      "action": "seated-typing-front",
+      "facing": "nw",
+      "rev2": {
+        "ring": 142,
+        "rim": 49,
+        "contour": 44,
+        "tonal": 30,
+        "changed": 257
+      },
+      "rev2-max": {
+        "ring": 142,
+        "rim": 49,
+        "contour": 49,
+        "tonal": 30,
+        "changed": 260
+      }
+    },
+    {
+      "row": 11,
+      "phase": 2,
+      "action": "seated-typing-front",
+      "facing": "nw",
+      "rev2": {
+        "ring": 148,
+        "rim": 49,
+        "contour": 44,
+        "tonal": 30,
+        "changed": 263
+      },
+      "rev2-max": {
+        "ring": 148,
+        "rim": 49,
+        "contour": 49,
+        "tonal": 30,
+        "changed": 266
+      }
+    },
+    {
+      "row": 11,
+      "phase": 3,
+      "action": "seated-typing-front",
+      "facing": "nw",
+      "rev2": {
+        "ring": 151,
+        "rim": 49,
+        "contour": 44,
+        "tonal": 30,
+        "changed": 266
+      },
+      "rev2-max": {
+        "ring": 151,
+        "rim": 49,
+        "contour": 49,
+        "tonal": 30,
+        "changed": 269
+      }
+    },
+    {
+      "row": 12,
+      "phase": 0,
+      "action": "seated-thinking",
+      "facing": "se",
+      "rev2": {
+        "ring": 133,
+        "rim": 55,
+        "contour": 35,
+        "tonal": 18,
+        "changed": 233
+      },
+      "rev2-max": {
+        "ring": 133,
+        "rim": 55,
+        "contour": 36,
+        "tonal": 18,
+        "changed": 234
+      }
+    },
+    {
+      "row": 12,
+      "phase": 1,
+      "action": "seated-thinking",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 54,
+        "contour": 32,
+        "tonal": 19,
+        "changed": 236
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 54,
+        "contour": 34,
+        "tonal": 19,
+        "changed": 237
+      }
+    },
+    {
+      "row": 12,
+      "phase": 2,
+      "action": "seated-thinking",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 54,
+        "contour": 32,
+        "tonal": 18,
+        "changed": 235
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 54,
+        "contour": 34,
+        "tonal": 18,
+        "changed": 236
+      }
+    },
+    {
+      "row": 12,
+      "phase": 3,
+      "action": "seated-thinking",
+      "facing": "se",
+      "rev2": {
+        "ring": 133,
+        "rim": 55,
+        "contour": 35,
+        "tonal": 18,
+        "changed": 233
+      },
+      "rev2-max": {
+        "ring": 133,
+        "rim": 55,
+        "contour": 36,
+        "tonal": 18,
+        "changed": 234
+      }
+    },
+    {
+      "row": 13,
+      "phase": 0,
+      "action": "seated-thinking",
+      "facing": "sw",
+      "rev2": {
+        "ring": 133,
+        "rim": 51,
+        "contour": 36,
+        "tonal": 26,
+        "changed": 234
+      },
+      "rev2-max": {
+        "ring": 133,
+        "rim": 51,
+        "contour": 38,
+        "tonal": 26,
+        "changed": 236
+      }
+    },
+    {
+      "row": 13,
+      "phase": 1,
+      "action": "seated-thinking",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 50,
+        "contour": 35,
+        "tonal": 26,
+        "changed": 231
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 50,
+        "contour": 38,
+        "tonal": 26,
+        "changed": 234
+      }
+    },
+    {
+      "row": 13,
+      "phase": 2,
+      "action": "seated-thinking",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 50,
+        "contour": 35,
+        "tonal": 26,
+        "changed": 231
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 50,
+        "contour": 38,
+        "tonal": 26,
+        "changed": 234
+      }
+    },
+    {
+      "row": 13,
+      "phase": 3,
+      "action": "seated-thinking",
+      "facing": "sw",
+      "rev2": {
+        "ring": 133,
+        "rim": 51,
+        "contour": 36,
+        "tonal": 26,
+        "changed": 234
+      },
+      "rev2-max": {
+        "ring": 133,
+        "rim": 51,
+        "contour": 38,
+        "tonal": 26,
+        "changed": 236
+      }
+    },
+    {
+      "row": 14,
+      "phase": 0,
+      "action": "seated-thinking",
+      "facing": "ne",
+      "rev2": {
+        "ring": 137,
+        "rim": 56,
+        "contour": 47,
+        "tonal": 39,
+        "changed": 264
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 56,
+        "contour": 46,
+        "tonal": 39,
+        "changed": 265
+      }
+    },
+    {
+      "row": 14,
+      "phase": 1,
+      "action": "seated-thinking",
+      "facing": "ne",
+      "rev2": {
+        "ring": 138,
+        "rim": 55,
+        "contour": 46,
+        "tonal": 38,
+        "changed": 265
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 55,
+        "contour": 48,
+        "tonal": 38,
+        "changed": 267
+      }
+    },
+    {
+      "row": 14,
+      "phase": 2,
+      "action": "seated-thinking",
+      "facing": "ne",
+      "rev2": {
+        "ring": 138,
+        "rim": 55,
+        "contour": 46,
+        "tonal": 35,
+        "changed": 261
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 55,
+        "contour": 48,
+        "tonal": 35,
+        "changed": 263
+      }
+    },
+    {
+      "row": 14,
+      "phase": 3,
+      "action": "seated-thinking",
+      "facing": "ne",
+      "rev2": {
+        "ring": 137,
+        "rim": 56,
+        "contour": 47,
+        "tonal": 39,
+        "changed": 264
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 56,
+        "contour": 46,
+        "tonal": 39,
+        "changed": 265
+      }
+    },
+    {
+      "row": 15,
+      "phase": 0,
+      "action": "seated-thinking",
+      "facing": "nw",
+      "rev2": {
+        "ring": 137,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 34,
+        "changed": 253
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 34,
+        "changed": 253
+      }
+    },
+    {
+      "row": 15,
+      "phase": 1,
+      "action": "seated-thinking",
+      "facing": "nw",
+      "rev2": {
+        "ring": 138,
+        "rim": 49,
+        "contour": 40,
+        "tonal": 37,
+        "changed": 256
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 49,
+        "contour": 43,
+        "tonal": 37,
+        "changed": 257
+      }
+    },
+    {
+      "row": 15,
+      "phase": 2,
+      "action": "seated-thinking",
+      "facing": "nw",
+      "rev2": {
+        "ring": 138,
+        "rim": 49,
+        "contour": 39,
+        "tonal": 37,
+        "changed": 256
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 49,
+        "contour": 42,
+        "tonal": 37,
+        "changed": 257
+      }
+    },
+    {
+      "row": 15,
+      "phase": 3,
+      "action": "seated-thinking",
+      "facing": "nw",
+      "rev2": {
+        "ring": 137,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 34,
+        "changed": 253
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 34,
+        "changed": 253
+      }
+    },
+    {
+      "row": 16,
+      "phase": 0,
+      "action": "sit-down",
+      "facing": "se",
+      "rev2": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 50,
+        "tonal": 32,
+        "changed": 245
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 55,
+        "tonal": 32,
+        "changed": 249
+      }
+    },
+    {
+      "row": 16,
+      "phase": 1,
+      "action": "sit-down",
+      "facing": "se",
+      "rev2": {
+        "ring": 137,
+        "rim": 48,
+        "contour": 55,
+        "tonal": 32,
+        "changed": 257
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 48,
+        "contour": 59,
+        "tonal": 32,
+        "changed": 261
+      }
+    },
+    {
+      "row": 16,
+      "phase": 2,
+      "action": "sit-down",
+      "facing": "se",
+      "rev2": {
+        "ring": 147,
+        "rim": 57,
+        "contour": 54,
+        "tonal": 45,
+        "changed": 284
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 57,
+        "contour": 57,
+        "tonal": 45,
+        "changed": 288
+      }
+    },
+    {
+      "row": 16,
+      "phase": 3,
+      "action": "sit-down",
+      "facing": "se",
+      "rev2": {
+        "ring": 133,
+        "rim": 55,
+        "contour": 35,
+        "tonal": 18,
+        "changed": 233
+      },
+      "rev2-max": {
+        "ring": 133,
+        "rim": 55,
+        "contour": 36,
+        "tonal": 18,
+        "changed": 234
+      }
+    },
+    {
+      "row": 17,
+      "phase": 0,
+      "action": "sit-down",
+      "facing": "sw",
+      "rev2": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 33,
+        "tonal": 17,
+        "changed": 220
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 38,
+        "tonal": 17,
+        "changed": 225
+      }
+    },
+    {
+      "row": 17,
+      "phase": 1,
+      "action": "sit-down",
+      "facing": "sw",
+      "rev2": {
+        "ring": 137,
+        "rim": 42,
+        "contour": 43,
+        "tonal": 20,
+        "changed": 236
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 42,
+        "contour": 47,
+        "tonal": 20,
+        "changed": 239
+      }
+    },
+    {
+      "row": 17,
+      "phase": 2,
+      "action": "sit-down",
+      "facing": "sw",
+      "rev2": {
+        "ring": 147,
+        "rim": 52,
+        "contour": 44,
+        "tonal": 34,
+        "changed": 265
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 52,
+        "contour": 50,
+        "tonal": 34,
+        "changed": 270
+      }
+    },
+    {
+      "row": 17,
+      "phase": 3,
+      "action": "sit-down",
+      "facing": "sw",
+      "rev2": {
+        "ring": 133,
+        "rim": 51,
+        "contour": 36,
+        "tonal": 26,
+        "changed": 234
+      },
+      "rev2-max": {
+        "ring": 133,
+        "rim": 51,
+        "contour": 38,
+        "tonal": 26,
+        "changed": 236
+      }
+    },
+    {
+      "row": 18,
+      "phase": 0,
+      "action": "sit-down",
+      "facing": "ne",
+      "rev2": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 44,
+        "tonal": 18,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 50,
+        "tonal": 18,
+        "changed": 244
+      }
+    },
+    {
+      "row": 18,
+      "phase": 1,
+      "action": "sit-down",
+      "facing": "ne",
+      "rev2": {
+        "ring": 141,
+        "rim": 48,
+        "contour": 58,
+        "tonal": 24,
+        "changed": 261
+      },
+      "rev2-max": {
+        "ring": 141,
+        "rim": 48,
+        "contour": 62,
+        "tonal": 24,
+        "changed": 265
+      }
+    },
+    {
+      "row": 18,
+      "phase": 2,
+      "action": "sit-down",
+      "facing": "ne",
+      "rev2": {
+        "ring": 147,
+        "rim": 52,
+        "contour": 56,
+        "tonal": 47,
+        "changed": 283
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 52,
+        "contour": 60,
+        "tonal": 47,
+        "changed": 289
+      }
+    },
+    {
+      "row": 18,
+      "phase": 3,
+      "action": "sit-down",
+      "facing": "ne",
+      "rev2": {
+        "ring": 137,
+        "rim": 56,
+        "contour": 47,
+        "tonal": 39,
+        "changed": 264
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 56,
+        "contour": 46,
+        "tonal": 39,
+        "changed": 265
+      }
+    },
+    {
+      "row": 19,
+      "phase": 0,
+      "action": "sit-down",
+      "facing": "nw",
+      "rev2": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 33,
+        "tonal": 29,
+        "changed": 233
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 34,
+        "tonal": 29,
+        "changed": 233
+      }
+    },
+    {
+      "row": 19,
+      "phase": 1,
+      "action": "sit-down",
+      "facing": "nw",
+      "rev2": {
+        "ring": 141,
+        "rim": 45,
+        "contour": 48,
+        "tonal": 38,
+        "changed": 255
+      },
+      "rev2-max": {
+        "ring": 141,
+        "rim": 45,
+        "contour": 54,
+        "tonal": 38,
+        "changed": 259
+      }
+    },
+    {
+      "row": 19,
+      "phase": 2,
+      "action": "sit-down",
+      "facing": "nw",
+      "rev2": {
+        "ring": 147,
+        "rim": 46,
+        "contour": 48,
+        "tonal": 50,
+        "changed": 275
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 46,
+        "contour": 56,
+        "tonal": 50,
+        "changed": 280
+      }
+    },
+    {
+      "row": 19,
+      "phase": 3,
+      "action": "sit-down",
+      "facing": "nw",
+      "rev2": {
+        "ring": 137,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 34,
+        "changed": 253
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 34,
+        "changed": 253
+      }
+    },
+    {
+      "row": 20,
+      "phase": 0,
+      "action": "stand-up",
+      "facing": "se",
+      "rev2": {
+        "ring": 133,
+        "rim": 55,
+        "contour": 35,
+        "tonal": 18,
+        "changed": 233
+      },
+      "rev2-max": {
+        "ring": 133,
+        "rim": 55,
+        "contour": 36,
+        "tonal": 18,
+        "changed": 234
+      }
+    },
+    {
+      "row": 20,
+      "phase": 1,
+      "action": "stand-up",
+      "facing": "se",
+      "rev2": {
+        "ring": 147,
+        "rim": 57,
+        "contour": 54,
+        "tonal": 45,
+        "changed": 284
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 57,
+        "contour": 57,
+        "tonal": 45,
+        "changed": 288
+      }
+    },
+    {
+      "row": 20,
+      "phase": 2,
+      "action": "stand-up",
+      "facing": "se",
+      "rev2": {
+        "ring": 137,
+        "rim": 48,
+        "contour": 55,
+        "tonal": 32,
+        "changed": 257
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 48,
+        "contour": 59,
+        "tonal": 32,
+        "changed": 261
+      }
+    },
+    {
+      "row": 20,
+      "phase": 3,
+      "action": "stand-up",
+      "facing": "se",
+      "rev2": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 50,
+        "tonal": 32,
+        "changed": 245
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 44,
+        "contour": 55,
+        "tonal": 32,
+        "changed": 249
+      }
+    },
+    {
+      "row": 21,
+      "phase": 0,
+      "action": "stand-up",
+      "facing": "sw",
+      "rev2": {
+        "ring": 133,
+        "rim": 51,
+        "contour": 36,
+        "tonal": 26,
+        "changed": 234
+      },
+      "rev2-max": {
+        "ring": 133,
+        "rim": 51,
+        "contour": 38,
+        "tonal": 26,
+        "changed": 236
+      }
+    },
+    {
+      "row": 21,
+      "phase": 1,
+      "action": "stand-up",
+      "facing": "sw",
+      "rev2": {
+        "ring": 147,
+        "rim": 52,
+        "contour": 44,
+        "tonal": 34,
+        "changed": 265
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 52,
+        "contour": 50,
+        "tonal": 34,
+        "changed": 270
+      }
+    },
+    {
+      "row": 21,
+      "phase": 2,
+      "action": "stand-up",
+      "facing": "sw",
+      "rev2": {
+        "ring": 137,
+        "rim": 42,
+        "contour": 43,
+        "tonal": 20,
+        "changed": 236
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 42,
+        "contour": 47,
+        "tonal": 20,
+        "changed": 239
+      }
+    },
+    {
+      "row": 21,
+      "phase": 3,
+      "action": "stand-up",
+      "facing": "sw",
+      "rev2": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 33,
+        "tonal": 17,
+        "changed": 220
+      },
+      "rev2-max": {
+        "ring": 135,
+        "rim": 38,
+        "contour": 38,
+        "tonal": 17,
+        "changed": 225
+      }
+    },
+    {
+      "row": 22,
+      "phase": 0,
+      "action": "stand-up",
+      "facing": "ne",
+      "rev2": {
+        "ring": 137,
+        "rim": 56,
+        "contour": 47,
+        "tonal": 39,
+        "changed": 264
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 56,
+        "contour": 46,
+        "tonal": 39,
+        "changed": 265
+      }
+    },
+    {
+      "row": 22,
+      "phase": 1,
+      "action": "stand-up",
+      "facing": "ne",
+      "rev2": {
+        "ring": 147,
+        "rim": 52,
+        "contour": 56,
+        "tonal": 47,
+        "changed": 283
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 52,
+        "contour": 60,
+        "tonal": 47,
+        "changed": 289
+      }
+    },
+    {
+      "row": 22,
+      "phase": 2,
+      "action": "stand-up",
+      "facing": "ne",
+      "rev2": {
+        "ring": 141,
+        "rim": 48,
+        "contour": 58,
+        "tonal": 24,
+        "changed": 261
+      },
+      "rev2-max": {
+        "ring": 141,
+        "rim": 48,
+        "contour": 62,
+        "tonal": 24,
+        "changed": 265
+      }
+    },
+    {
+      "row": 22,
+      "phase": 3,
+      "action": "stand-up",
+      "facing": "ne",
+      "rev2": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 44,
+        "tonal": 18,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 46,
+        "contour": 50,
+        "tonal": 18,
+        "changed": 244
+      }
+    },
+    {
+      "row": 23,
+      "phase": 0,
+      "action": "stand-up",
+      "facing": "nw",
+      "rev2": {
+        "ring": 137,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 34,
+        "changed": 253
+      },
+      "rev2-max": {
+        "ring": 137,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 34,
+        "changed": 253
+      }
+    },
+    {
+      "row": 23,
+      "phase": 1,
+      "action": "stand-up",
+      "facing": "nw",
+      "rev2": {
+        "ring": 147,
+        "rim": 46,
+        "contour": 48,
+        "tonal": 50,
+        "changed": 275
+      },
+      "rev2-max": {
+        "ring": 147,
+        "rim": 46,
+        "contour": 56,
+        "tonal": 50,
+        "changed": 280
+      }
+    },
+    {
+      "row": 23,
+      "phase": 2,
+      "action": "stand-up",
+      "facing": "nw",
+      "rev2": {
+        "ring": 141,
+        "rim": 45,
+        "contour": 48,
+        "tonal": 38,
+        "changed": 255
+      },
+      "rev2-max": {
+        "ring": 141,
+        "rim": 45,
+        "contour": 54,
+        "tonal": 38,
+        "changed": 259
+      }
+    },
+    {
+      "row": 23,
+      "phase": 3,
+      "action": "stand-up",
+      "facing": "nw",
+      "rev2": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 33,
+        "tonal": 29,
+        "changed": 233
+      },
+      "rev2-max": {
+        "ring": 139,
+        "rim": 43,
+        "contour": 34,
+        "tonal": 29,
+        "changed": 233
+      }
+    },
+    {
+      "row": 24,
+      "phase": 0,
+      "action": "pickup",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 24,
+      "phase": 1,
+      "action": "pickup",
+      "facing": "se",
+      "rev2": {
+        "ring": 151,
+        "rim": 53,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 266
+      },
+      "rev2-max": {
+        "ring": 151,
+        "rim": 53,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 270
+      }
+    },
+    {
+      "row": 24,
+      "phase": 2,
+      "action": "pickup",
+      "facing": "se",
+      "rev2": {
+        "ring": 146,
+        "rim": 49,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 257
+      },
+      "rev2-max": {
+        "ring": 146,
+        "rim": 49,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 261
+      }
+    },
+    {
+      "row": 24,
+      "phase": 3,
+      "action": "pickup",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 25,
+      "phase": 0,
+      "action": "pickup",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 25,
+      "phase": 1,
+      "action": "pickup",
+      "facing": "sw",
+      "rev2": {
+        "ring": 151,
+        "rim": 50,
+        "contour": 35,
+        "tonal": 20,
+        "changed": 252
+      },
+      "rev2-max": {
+        "ring": 151,
+        "rim": 50,
+        "contour": 40,
+        "tonal": 20,
+        "changed": 257
+      }
+    },
+    {
+      "row": 25,
+      "phase": 2,
+      "action": "pickup",
+      "facing": "sw",
+      "rev2": {
+        "ring": 146,
+        "rim": 46,
+        "contour": 35,
+        "tonal": 20,
+        "changed": 243
+      },
+      "rev2-max": {
+        "ring": 146,
+        "rim": 46,
+        "contour": 40,
+        "tonal": 20,
+        "changed": 248
+      }
+    },
+    {
+      "row": 25,
+      "phase": 3,
+      "action": "pickup",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 26,
+      "phase": 0,
+      "action": "report-handover",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 26,
+      "phase": 1,
+      "action": "report-handover",
+      "facing": "se",
+      "rev2": {
+        "ring": 142,
+        "rim": 44,
+        "contour": 50,
+        "tonal": 22,
+        "changed": 247
+      },
+      "rev2-max": {
+        "ring": 142,
+        "rim": 44,
+        "contour": 55,
+        "tonal": 22,
+        "changed": 251
+      }
+    },
+    {
+      "row": 26,
+      "phase": 2,
+      "action": "report-handover",
+      "facing": "se",
+      "rev2": {
+        "ring": 142,
+        "rim": 48,
+        "contour": 50,
+        "tonal": 22,
+        "changed": 251
+      },
+      "rev2-max": {
+        "ring": 142,
+        "rim": 48,
+        "contour": 55,
+        "tonal": 22,
+        "changed": 255
+      }
+    },
+    {
+      "row": 26,
+      "phase": 3,
+      "action": "report-handover",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 27,
+      "phase": 0,
+      "action": "report-handover",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 27,
+      "phase": 1,
+      "action": "report-handover",
+      "facing": "sw",
+      "rev2": {
+        "ring": 142,
+        "rim": 41,
+        "contour": 34,
+        "tonal": 20,
+        "changed": 233
+      },
+      "rev2-max": {
+        "ring": 142,
+        "rim": 41,
+        "contour": 39,
+        "tonal": 20,
+        "changed": 238
+      }
+    },
+    {
+      "row": 27,
+      "phase": 2,
+      "action": "report-handover",
+      "facing": "sw",
+      "rev2": {
+        "ring": 142,
+        "rim": 45,
+        "contour": 34,
+        "tonal": 20,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 142,
+        "rim": 45,
+        "contour": 39,
+        "tonal": 20,
+        "changed": 242
+      }
+    },
+    {
+      "row": 27,
+      "phase": 3,
+      "action": "report-handover",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 28,
+      "phase": 0,
+      "action": "coffee",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 28,
+      "phase": 1,
+      "action": "coffee",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 42,
+        "contour": 50,
+        "tonal": 22,
+        "changed": 239
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 42,
+        "contour": 55,
+        "tonal": 22,
+        "changed": 243
+      }
+    },
+    {
+      "row": 28,
+      "phase": 2,
+      "action": "coffee",
+      "facing": "se",
+      "rev2": {
+        "ring": 131,
+        "rim": 44,
+        "contour": 49,
+        "tonal": 21,
+        "changed": 235
+      },
+      "rev2-max": {
+        "ring": 131,
+        "rim": 44,
+        "contour": 54,
+        "tonal": 21,
+        "changed": 239
+      }
+    },
+    {
+      "row": 28,
+      "phase": 3,
+      "action": "coffee",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 29,
+      "phase": 0,
+      "action": "coffee",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 29,
+      "phase": 1,
+      "action": "coffee",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 39,
+        "contour": 34,
+        "tonal": 19,
+        "changed": 224
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 39,
+        "contour": 39,
+        "tonal": 19,
+        "changed": 229
+      }
+    },
+    {
+      "row": 29,
+      "phase": 2,
+      "action": "coffee",
+      "facing": "sw",
+      "rev2": {
+        "ring": 131,
+        "rim": 41,
+        "contour": 33,
+        "tonal": 19,
+        "changed": 220
+      },
+      "rev2-max": {
+        "ring": 131,
+        "rim": 41,
+        "contour": 38,
+        "tonal": 19,
+        "changed": 225
+      }
+    },
+    {
+      "row": 29,
+      "phase": 3,
+      "action": "coffee",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 30,
+      "phase": 0,
+      "action": "phone",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 30,
+      "phase": 1,
+      "action": "phone",
+      "facing": "se",
+      "rev2": {
+        "ring": 138,
+        "rim": 43,
+        "contour": 49,
+        "tonal": 21,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 43,
+        "contour": 54,
+        "tonal": 21,
+        "changed": 245
+      }
+    },
+    {
+      "row": 30,
+      "phase": 2,
+      "action": "phone",
+      "facing": "se",
+      "rev2": {
+        "ring": 131,
+        "rim": 49,
+        "contour": 49,
+        "tonal": 21,
+        "changed": 240
+      },
+      "rev2-max": {
+        "ring": 131,
+        "rim": 49,
+        "contour": 54,
+        "tonal": 21,
+        "changed": 244
+      }
+    },
+    {
+      "row": 30,
+      "phase": 3,
+      "action": "phone",
+      "facing": "se",
+      "rev2": {
+        "ring": 131,
+        "rim": 49,
+        "contour": 49,
+        "tonal": 21,
+        "changed": 240
+      },
+      "rev2-max": {
+        "ring": 131,
+        "rim": 49,
+        "contour": 54,
+        "tonal": 21,
+        "changed": 244
+      }
+    },
+    {
+      "row": 31,
+      "phase": 0,
+      "action": "phone",
+      "facing": "sw",
+      "rev2": {
+        "ring": 140,
+        "rim": 41,
+        "contour": 35,
+        "tonal": 18,
+        "changed": 230
+      },
+      "rev2-max": {
+        "ring": 140,
+        "rim": 41,
+        "contour": 40,
+        "tonal": 18,
+        "changed": 235
+      }
+    },
+    {
+      "row": 31,
+      "phase": 1,
+      "action": "phone",
+      "facing": "sw",
+      "rev2": {
+        "ring": 143,
+        "rim": 44,
+        "contour": 35,
+        "tonal": 17,
+        "changed": 235
+      },
+      "rev2-max": {
+        "ring": 143,
+        "rim": 44,
+        "contour": 40,
+        "tonal": 17,
+        "changed": 240
+      }
+    },
+    {
+      "row": 31,
+      "phase": 2,
+      "action": "phone",
+      "facing": "sw",
+      "rev2": {
+        "ring": 134,
+        "rim": 45,
+        "contour": 34,
+        "tonal": 16,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 134,
+        "rim": 45,
+        "contour": 39,
+        "tonal": 16,
+        "changed": 231
+      }
+    },
+    {
+      "row": 31,
+      "phase": 3,
+      "action": "phone",
+      "facing": "sw",
+      "rev2": {
+        "ring": 134,
+        "rim": 45,
+        "contour": 34,
+        "tonal": 16,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 134,
+        "rim": 45,
+        "contour": 39,
+        "tonal": 16,
+        "changed": 231
+      }
+    },
+    {
+      "row": 32,
+      "phase": 0,
+      "action": "sleep",
+      "facing": "ne",
+      "rev2": {
+        "ring": 130,
+        "rim": 51,
+        "contour": 42,
+        "tonal": 36,
+        "changed": 246
+      },
+      "rev2-max": {
+        "ring": 130,
+        "rim": 51,
+        "contour": 41,
+        "tonal": 36,
+        "changed": 250
+      }
+    },
+    {
+      "row": 32,
+      "phase": 1,
+      "action": "sleep",
+      "facing": "ne",
+      "rev2": {
+        "ring": 130,
+        "rim": 51,
+        "contour": 44,
+        "tonal": 37,
+        "changed": 249
+      },
+      "rev2-max": {
+        "ring": 130,
+        "rim": 51,
+        "contour": 43,
+        "tonal": 37,
+        "changed": 253
+      }
+    },
+    {
+      "row": 32,
+      "phase": 2,
+      "action": "sleep",
+      "facing": "ne",
+      "rev2": {
+        "ring": 130,
+        "rim": 51,
+        "contour": 44,
+        "tonal": 37,
+        "changed": 249
+      },
+      "rev2-max": {
+        "ring": 130,
+        "rim": 51,
+        "contour": 43,
+        "tonal": 37,
+        "changed": 253
+      }
+    },
+    {
+      "row": 32,
+      "phase": 3,
+      "action": "sleep",
+      "facing": "ne",
+      "rev2": {
+        "ring": 130,
+        "rim": 51,
+        "contour": 42,
+        "tonal": 36,
+        "changed": 246
+      },
+      "rev2-max": {
+        "ring": 130,
+        "rim": 51,
+        "contour": 41,
+        "tonal": 36,
+        "changed": 250
+      }
+    },
+    {
+      "row": 33,
+      "phase": 0,
+      "action": "sleep",
+      "facing": "nw",
+      "rev2": {
+        "ring": 130,
+        "rim": 45,
+        "contour": 37,
+        "tonal": 37,
+        "changed": 239
+      },
+      "rev2-max": {
+        "ring": 130,
+        "rim": 45,
+        "contour": 42,
+        "tonal": 37,
+        "changed": 243
+      }
+    },
+    {
+      "row": 33,
+      "phase": 1,
+      "action": "sleep",
+      "facing": "nw",
+      "rev2": {
+        "ring": 130,
+        "rim": 45,
+        "contour": 39,
+        "tonal": 38,
+        "changed": 240
+      },
+      "rev2-max": {
+        "ring": 130,
+        "rim": 45,
+        "contour": 44,
+        "tonal": 38,
+        "changed": 244
+      }
+    },
+    {
+      "row": 33,
+      "phase": 2,
+      "action": "sleep",
+      "facing": "nw",
+      "rev2": {
+        "ring": 130,
+        "rim": 45,
+        "contour": 39,
+        "tonal": 38,
+        "changed": 240
+      },
+      "rev2-max": {
+        "ring": 130,
+        "rim": 45,
+        "contour": 44,
+        "tonal": 38,
+        "changed": 244
+      }
+    },
+    {
+      "row": 33,
+      "phase": 3,
+      "action": "sleep",
+      "facing": "nw",
+      "rev2": {
+        "ring": 130,
+        "rim": 45,
+        "contour": 37,
+        "tonal": 37,
+        "changed": 239
+      },
+      "rev2-max": {
+        "ring": 130,
+        "rim": 45,
+        "contour": 42,
+        "tonal": 37,
+        "changed": 243
+      }
+    },
+    {
+      "row": 34,
+      "phase": 0,
+      "action": "talk",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 34,
+      "phase": 1,
+      "action": "talk",
+      "facing": "se",
+      "rev2": {
+        "ring": 138,
+        "rim": 44,
+        "contour": 50,
+        "tonal": 22,
+        "changed": 243
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 44,
+        "contour": 55,
+        "tonal": 22,
+        "changed": 247
+      }
+    },
+    {
+      "row": 34,
+      "phase": 2,
+      "action": "talk",
+      "facing": "se",
+      "rev2": {
+        "ring": 138,
+        "rim": 44,
+        "contour": 49,
+        "tonal": 21,
+        "changed": 242
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 44,
+        "contour": 54,
+        "tonal": 21,
+        "changed": 246
+      }
+    },
+    {
+      "row": 34,
+      "phase": 3,
+      "action": "talk",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 35,
+      "phase": 0,
+      "action": "talk",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 35,
+      "phase": 1,
+      "action": "talk",
+      "facing": "sw",
+      "rev2": {
+        "ring": 138,
+        "rim": 41,
+        "contour": 34,
+        "tonal": 20,
+        "changed": 229
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 41,
+        "contour": 39,
+        "tonal": 20,
+        "changed": 234
+      }
+    },
+    {
+      "row": 35,
+      "phase": 2,
+      "action": "talk",
+      "facing": "sw",
+      "rev2": {
+        "ring": 138,
+        "rim": 41,
+        "contour": 33,
+        "tonal": 20,
+        "changed": 228
+      },
+      "rev2-max": {
+        "ring": 138,
+        "rim": 41,
+        "contour": 38,
+        "tonal": 20,
+        "changed": 233
+      }
+    },
+    {
+      "row": 35,
+      "phase": 3,
+      "action": "talk",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 36,
+      "phase": 0,
+      "action": "surprised",
+      "facing": "se",
+      "rev2": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 51,
+        "tonal": 23,
+        "changed": 241
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 43,
+        "contour": 56,
+        "tonal": 23,
+        "changed": 245
+      }
+    },
+    {
+      "row": 36,
+      "phase": 1,
+      "action": "surprised",
+      "facing": "se",
+      "rev2": {
+        "ring": 145,
+        "rim": 47,
+        "contour": 49,
+        "tonal": 23,
+        "changed": 253
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 47,
+        "contour": 54,
+        "tonal": 23,
+        "changed": 257
+      }
+    },
+    {
+      "row": 36,
+      "phase": 2,
+      "action": "surprised",
+      "facing": "se",
+      "rev2": {
+        "ring": 145,
+        "rim": 48,
+        "contour": 48,
+        "tonal": 22,
+        "changed": 253
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 48,
+        "contour": 53,
+        "tonal": 22,
+        "changed": 257
+      }
+    },
+    {
+      "row": 36,
+      "phase": 3,
+      "action": "surprised",
+      "facing": "se",
+      "rev2": {
+        "ring": 134,
+        "rim": 41,
+        "contour": 49,
+        "tonal": 23,
+        "changed": 236
+      },
+      "rev2-max": {
+        "ring": 134,
+        "rim": 41,
+        "contour": 54,
+        "tonal": 23,
+        "changed": 240
+      }
+    },
+    {
+      "row": 37,
+      "phase": 0,
+      "action": "surprised",
+      "facing": "sw",
+      "rev2": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 35,
+        "tonal": 19,
+        "changed": 226
+      },
+      "rev2-max": {
+        "ring": 136,
+        "rim": 40,
+        "contour": 40,
+        "tonal": 19,
+        "changed": 231
+      }
+    },
+    {
+      "row": 37,
+      "phase": 1,
+      "action": "surprised",
+      "facing": "sw",
+      "rev2": {
+        "ring": 145,
+        "rim": 44,
+        "contour": 33,
+        "tonal": 19,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 44,
+        "contour": 38,
+        "tonal": 19,
+        "changed": 242
+      }
+    },
+    {
+      "row": 37,
+      "phase": 2,
+      "action": "surprised",
+      "facing": "sw",
+      "rev2": {
+        "ring": 145,
+        "rim": 45,
+        "contour": 33,
+        "tonal": 18,
+        "changed": 237
+      },
+      "rev2-max": {
+        "ring": 145,
+        "rim": 45,
+        "contour": 38,
+        "tonal": 18,
+        "changed": 242
+      }
+    },
+    {
+      "row": 37,
+      "phase": 3,
+      "action": "surprised",
+      "facing": "sw",
+      "rev2": {
+        "ring": 134,
+        "rim": 37,
+        "contour": 34,
+        "tonal": 19,
+        "changed": 220
+      },
+      "rev2-max": {
+        "ring": 134,
+        "rim": 37,
+        "contour": 39,
+        "tonal": 19,
+        "changed": 225
+      }
+    }
+  ],
+  "productionAfterSHA256": {
+    "dev-hoodie-iso.png": "1c2fbc062a884bf595fe61e89c4edc62840e90d95936471536bd3b4f321308b4",
+    "dev-hoodie-iso-blink.png": "bf476b74525c17b54d83a474e1077e21c8c153f4b55997d12d2eb6f75f367336"
+  },
+  "checker": {
+    "command": [
+      "C:\\Users\\myori\\.codex\\skills\\sprite-gen\\.venv\\Scripts\\python.exe",
+      "-B",
+      "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\outline-pass\\rev2\\iso_check.py",
+      "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\characters\\dev-hoodie-v2",
+      "--stage",
+      "final",
+      "--tolerance",
+      "0"
+    ],
+    "PASS": 12,
+    "FAIL": 0,
+    "SKIP": 5,
+    "exitCode": 0
+  },
+  "protectedRGBA_SHA256": {
+    "headBefore": "a8bf6048aee9074b107d88a00cd40aacbcca1e50e2f5e3a2556d84f2b2d19575",
+    "headAfter": "a8bf6048aee9074b107d88a00cd40aacbcca1e50e2f5e3a2556d84f2b2d19575",
+    "handsBefore": "db7d7312d039b21e7fc13bd9f087fe95c21a064ebaec59ff09f738779a73ff40",
+    "handsAfter": "db7d7312d039b21e7fc13bd9f087fe95c21a064ebaec59ff09f738779a73ff40"
+  },
+  "idleHeightsIncludingOutline": {
+    "se": 41,
+    "sw": 41,
+    "ne": 41,
+    "nw": 41
+  }
+}

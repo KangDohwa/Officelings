@@ -10,7 +10,7 @@
   "protectedFileSha256": {
     "professor.iso.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
     "professor-iso.manifest.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
-    "professor-iso.png": "4289f9ac9d08a7a81fd39eebe4f3d732a49a09030d2c91b17f7bd0cd5b2c4e51",
+    "professor-iso.png": "675df1983573700f03cc35e2bc9c2ae121a6387d56e420630df2d0679cde6c0d",
     "runs/v1/head-se.png": "29712fca9df58215128b2ed9d077dee01d088ef4bf482017ca897b489960b4bd",
     "runs/v1/head-sw.png": "14c08f17dfa9e6ea996587a6f5104ea4d9cfa0b2b838af634c100824bd2a4dbc",
     "runs/v1/head-ne.png": "17da7eb1aaf6e3009fc10714bcea274c6ae27ee09afba2fda2946ee1f3294469",
@@ -19,7 +19,7 @@
     "professor-eyes-sw.png": "33e5b58ed561f710263a2d143054efa9c5c322e089472ee329a1eb002a638a19"
   },
   "approvedBlinkSha256": "2db2a6032e43662a3afe5ad048561ca07cdfd2349233691d824889f098ea30a4",
-  "resyncedBlinkSha256": "fc459b0491f47c343e784b9e518ace6d0c30c4ab05e6f6a6739349a9d77c8390",
+  "resyncedBlinkSha256": "2f4fa043b4b7f2ffcdde86152603907ebca647f381aaaed2bc0be4011cb16ae9",
   "changedCellsFromApprovedBlink": [
     {
       "blinkRow": 0,
