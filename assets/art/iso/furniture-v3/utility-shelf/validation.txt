@@ -1,0 +1,6 @@
+PASS: S0 source anchors, cell sizes, version/projection, facings, light, footprints, height44, blockedCells, parts/depth/isoZOrder unchanged against v2.
+PASS: four empty cells exactly reconstructed from five non-overlapping parts each; binary alpha, zero transparent RGB, exact frozen ramp colors.
+PASS: 48 structural endpoint edges exactly slope +/-0.5 or vertical; all uprights44px; independently sampled raster max accumulated drift 0.026316px.
+PASS: 52 read-only source hashes unchanged since audit snapshot (source art, manifests, frozen specs and external reference).
+PASS: tools/iso_check.py output_dir --tolerance 0: PASS 11 / SKIP 5 / FAIL 0. SKIP: floor seams, character face-lock/blink, shadow furniture depth names are inapplicable.
+No pack integration, app build, full dotnet test, git mutations, or changes to any other lane performed.

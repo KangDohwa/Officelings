@@ -1,0 +1,19 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| shelf.iso.json:iso-shelf-parts | cell sizes | PASS | 128×2560, 128×128 cells |
+| shelf.iso.json:iso-shelf-parts | transparency | PASS | straight alpha and guards |
+| shelf.iso.json:iso-shelf-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| shelf.iso.json:iso-shelf-parts | palette | PASS | 20 colors; RGB max-channel tolerance 0 |
+| shelf.iso.json:iso-shelf-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| shelf.iso.json:iso-shelf-parts | 6×6 seams | SKIP | floor sheets only |
+| shelf.iso.json:iso-shelf-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| shelf.iso.json:iso-shelf-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| shelf.iso.json:iso-shelf-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| shelf.iso.json:iso-shelf-shadow | transparency | PASS | straight alpha and guards |
+| shelf.iso.json:iso-shelf-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| shelf.iso.json:iso-shelf-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| shelf.iso.json:iso-shelf-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| shelf.iso.json:iso-shelf-shadow | 6×6 seams | SKIP | floor sheets only |
+| shelf.iso.json:iso-shelf-shadow | depth-part names | SKIP | furniture sheets only |
+| shelf.iso.json:iso-shelf-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+16 checks; 0 failed
