@@ -1,0 +1,5678 @@
+[
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.49408866995073986,
+    "expected": -0.5,
+    "span_px": 28.0,
+    "drift_px": 0.16551724137928403,
+    "fit_residual_px": 0.6532019704433409,
+    "p0": [
+      11.0,
+      60.0
+    ],
+    "p1": [
+      39.0,
+      46.0
+    ],
+    "samples": 29,
+    "edge": "top-9"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4999999999999997,
+    "expected": -0.5,
+    "span_px": 26.0,
+    "drift_px": 7.216449660063518e-15,
+    "fit_residual_px": 0.25925925925926663,
+    "p0": [
+      41.0,
+      45.0
+    ],
+    "p1": [
+      67.0,
+      32.0
+    ],
+    "samples": 27,
+    "edge": "top-39"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4999999999999986,
+    "expected": -0.5,
+    "span_px": 8.0,
+    "drift_px": 1.1102230246251565e-14,
+    "fit_residual_px": 0.2777777777777999,
+    "p0": [
+      71.0,
+      30.0
+    ],
+    "p1": [
+      79.0,
+      26.0
+    ],
+    "samples": 9,
+    "edge": "top-69"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.47111111111111065,
+    "expected": 0.5,
+    "span_px": 25.0,
+    "drift_px": 0.7222222222222339,
+    "fit_residual_px": 0.47589743589743705,
+    "p0": [
+      4.0,
+      85.0
+    ],
+    "p1": [
+      29.0,
+      97.0
+    ],
+    "samples": 26,
+    "edge": "bottom-2"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4989919354838714,
+    "expected": -0.5,
+    "span_px": 62.0,
+    "drift_px": 0.06249999999997413,
+    "fit_residual_px": 0.716925883256522,
+    "p0": [
+      60.0,
+      84.0
+    ],
+    "p1": [
+      122.0,
+      53.0
+    ],
+    "samples": 63,
+    "edge": "bottom-58"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": 0.063157894736842,
+    "expected": 0.0,
+    "span_px": 19.0,
+    "drift_px": 1.199999999999998,
+    "fit_residual_px": 0.521052631578947,
+    "p0": [
+      2.0,
+      65.0
+    ],
+    "p1": [
+      3.0,
+      84.0
+    ],
+    "samples": 20,
+    "edge": "left-48"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -0.09264705882353054,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 1.389705882352958,
+    "fit_residual_px": 0.48382352941179363,
+    "p0": [
+      124.0,
+      37.0
+    ],
+    "p1": [
+      123.0,
+      52.0
+    ],
+    "samples": 16,
+    "edge": "right-20"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5001772421127259,
+    "expected": -0.5,
+    "span_px": 91.0,
+    "drift_px": 0.0161290322580524,
+    "fit_residual_px": 0.25788727401630496,
+    "p0": [
+      4.0,
+      64.0
+    ],
+    "p1": [
+      95.0,
+      18.0
+    ],
+    "samples": 92,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.47619047619047217,
+    "expected": 0.5,
+    "span_px": 7.0,
+    "drift_px": 0.16666666666669483,
+    "fit_residual_px": 0.30952380952383507,
+    "p0": [
+      95.0,
+      18.0
+    ],
+    "p1": [
+      102.0,
+      21.0
+    ],
+    "samples": 8,
+    "edge": "top-91"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.49999999999999806,
+    "expected": 0.5,
+    "span_px": 18.0,
+    "drift_px": 3.497202527569243e-14,
+    "fit_residual_px": 0.26315789473688866,
+    "p0": [
+      105.0,
+      27.0
+    ],
+    "p1": [
+      123.0,
+      36.0
+    ],
+    "samples": 19,
+    "edge": "top-101"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4999999999999987,
+    "expected": 0.5,
+    "span_px": 28.0,
+    "drift_px": 3.574918139293004e-14,
+    "fit_residual_px": 0.2586206896551744,
+    "p0": [
+      4.0,
+      84.0
+    ],
+    "p1": [
+      32.0,
+      98.0
+    ],
+    "samples": 29,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5001772421127263,
+    "expected": -0.5,
+    "span_px": 91.0,
+    "drift_px": 0.016129032258092812,
+    "fit_residual_px": 0.2578872740163547,
+    "p0": [
+      32.0,
+      98.0
+    ],
+    "p1": [
+      123.0,
+      52.0
+    ],
+    "samples": 92,
+    "edge": "bottom-28"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": 1.0248234696013651e-17,
+    "expected": 0.0,
+    "span_px": 20.0,
+    "drift_px": 2.0496469392027301e-16,
+    "fit_residual_px": 8.881784197001252e-16,
+    "p0": [
+      4.0,
+      64.0
+    ],
+    "p1": [
+      4.0,
+      84.0
+    ],
+    "samples": 21,
+    "edge": "left-46"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "se",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -1.3290246631917523e-15,
+    "expected": 0.0,
+    "span_px": 16.0,
+    "drift_px": 2.1264394611068037e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      123.0,
+      36.0
+    ],
+    "p1": [
+      123.0,
+      52.0
+    ],
+    "samples": 17,
+    "edge": "right-18"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.41208791208791173,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 1.0549450549450592,
+    "fit_residual_px": 0.5934065934065913,
+    "p0": [
+      3.0,
+      37.0
+    ],
+    "p1": [
+      15.0,
+      32.0
+    ],
+    "samples": 13,
+    "edge": "top-0"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4950980392156858,
+    "expected": 0.5,
+    "span_px": 16.0,
+    "drift_px": 0.07843137254902732,
+    "fit_residual_px": 0.6568627450980351,
+    "p0": [
+      36.0,
+      20.0
+    ],
+    "p1": [
+      52.0,
+      28.0
+    ],
+    "samples": 17,
+    "edge": "top-33"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5000000000000002,
+    "expected": 0.5,
+    "span_px": 26.0,
+    "drift_px": 5.773159728050814e-15,
+    "fit_residual_px": 0.2592592592592524,
+    "p0": [
+      60.0,
+      32.0
+    ],
+    "p1": [
+      86.0,
+      45.0
+    ],
+    "samples": 27,
+    "edge": "top-57"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5038610038610035,
+    "expected": 0.5,
+    "span_px": 35.0,
+    "drift_px": 0.1351351351351232,
+    "fit_residual_px": 0.681681681681674,
+    "p0": [
+      90.0,
+      47.0
+    ],
+    "p1": [
+      125.0,
+      65.0
+    ],
+    "samples": 36,
+    "edge": "top-87"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.49999999999999994,
+    "expected": 0.5,
+    "span_px": 52.0,
+    "drift_px": 2.886579864025407e-15,
+    "fit_residual_px": 0.25471698113205576,
+    "p0": [
+      5.0,
+      53.0
+    ],
+    "p1": [
+      57.0,
+      79.0
+    ],
+    "samples": 53,
+    "edge": "bottom-2"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5,
+    "expected": 0.5,
+    "span_px": 18.0,
+    "drift_px": 0.0,
+    "fit_residual_px": 0.26315789473682116,
+    "p0": [
+      77.0,
+      89.0
+    ],
+    "p1": [
+      95.0,
+      98.0
+    ],
+    "samples": 19,
+    "edge": "bottom-74"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.46913043478260674,
+    "expected": -0.5,
+    "span_px": 23.0,
+    "drift_px": 0.7100000000000449,
+    "fit_residual_px": 0.473768115942093,
+    "p0": [
+      100.0,
+      96.0
+    ],
+    "p1": [
+      123.0,
+      85.0
+    ],
+    "samples": 24,
+    "edge": "bottom-97"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": 0.09264705882352953,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 1.389705882352943,
+    "fit_residual_px": 0.48382352941176343,
+    "p0": [
+      3.0,
+      37.0
+    ],
+    "p1": [
+      4.0,
+      52.0
+    ],
+    "samples": 16,
+    "edge": "left-20"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -1.1172375447198574e-15,
+    "expected": 0.0,
+    "span_px": 13.0,
+    "drift_px": 1.4524088081358147e-14,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      125.0,
+      65.0
+    ],
+    "p1": [
+      125.0,
+      78.0
+    ],
+    "samples": 14,
+    "edge": "right-48"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4999999999999994,
+    "expected": -0.5,
+    "span_px": 18.0,
+    "drift_px": 1.099120794378905e-14,
+    "fit_residual_px": 0.2631578947368354,
+    "p0": [
+      4.0,
+      36.0
+    ],
+    "p1": [
+      22.0,
+      27.0
+    ],
+    "samples": 19,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4761904761904777,
+    "expected": -0.5,
+    "span_px": 7.0,
+    "drift_px": 0.16666666666665597,
+    "fit_residual_px": 0.3095238095238173,
+    "p0": [
+      25.0,
+      21.0
+    ],
+    "p1": [
+      32.0,
+      18.0
+    ],
+    "samples": 8,
+    "edge": "top-21"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5001772421127261,
+    "expected": 0.5,
+    "span_px": 91.0,
+    "drift_px": 0.016129032258072606,
+    "fit_residual_px": 0.2578872740163263,
+    "p0": [
+      32.0,
+      18.0
+    ],
+    "p1": [
+      123.0,
+      64.0
+    ],
+    "samples": 92,
+    "edge": "top-28"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.500177242112726,
+    "expected": 0.5,
+    "span_px": 91.0,
+    "drift_px": 0.016129032258062503,
+    "fit_residual_px": 0.25788727401631206,
+    "p0": [
+      4.0,
+      52.0
+    ],
+    "p1": [
+      95.0,
+      98.0
+    ],
+    "samples": 92,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5000000000000003,
+    "expected": -0.5,
+    "span_px": 28.0,
+    "drift_px": 9.325873406851315e-15,
+    "fit_residual_px": 0.25862068965516016,
+    "p0": [
+      95.0,
+      98.0
+    ],
+    "p1": [
+      123.0,
+      84.0
+    ],
+    "samples": 29,
+    "edge": "bottom-91"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -5.094997499308092e-17,
+    "expected": 0.0,
+    "span_px": 16.0,
+    "drift_px": 8.151995998892947e-16,
+    "fit_residual_px": 8.881784197001252e-16,
+    "p0": [
+      4.0,
+      36.0
+    ],
+    "p1": [
+      4.0,
+      52.0
+    ],
+    "samples": 17,
+    "edge": "left-18"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "sw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -7.225342642782398e-16,
+    "expected": 0.0,
+    "span_px": 20.0,
+    "drift_px": 1.4450685285564796e-14,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      123.0,
+      64.0
+    ],
+    "p1": [
+      123.0,
+      84.0
+    ],
+    "samples": 21,
+    "edge": "right-46"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.49285714285714294,
+    "expected": 0.5,
+    "span_px": 14.0,
+    "drift_px": 0.09999999999999887,
+    "fit_residual_px": 0.6404761904761784,
+    "p0": [
+      46.0,
+      39.0
+    ],
+    "p1": [
+      60.0,
+      46.0
+    ],
+    "samples": 15,
+    "edge": "top-44"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5,
+    "expected": 0.5,
+    "span_px": 20.0,
+    "drift_px": 0.0,
+    "fit_residual_px": 0.2619047619047734,
+    "p0": [
+      64.0,
+      48.0
+    ],
+    "p1": [
+      84.0,
+      58.0
+    ],
+    "samples": 21,
+    "edge": "top-62"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4999999999999998,
+    "expected": 0.5,
+    "span_px": 16.0,
+    "drift_px": 3.552713678800501e-15,
+    "fit_residual_px": 0.2647058823529278,
+    "p0": [
+      88.0,
+      60.0
+    ],
+    "p1": [
+      104.0,
+      68.0
+    ],
+    "samples": 17,
+    "edge": "top-86"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.49999999999999917,
+    "expected": -0.5,
+    "span_px": 8.0,
+    "drift_px": 6.661338147750939e-15,
+    "fit_residual_px": 0.27777777777777146,
+    "p0": [
+      111.0,
+      72.0
+    ],
+    "p1": [
+      119.0,
+      68.0
+    ],
+    "samples": 9,
+    "edge": "top-109"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5,
+    "expected": 0.5,
+    "span_px": 44.0,
+    "drift_px": 0.0,
+    "fit_residual_px": 0.25555555555554577,
+    "p0": [
+      4.0,
+      53.0
+    ],
+    "p1": [
+      48.0,
+      75.0
+    ],
+    "samples": 45,
+    "edge": "bottom-2"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4060606060606037,
+    "expected": 0.5,
+    "span_px": 9.0,
+    "drift_px": 0.8454545454545669,
+    "fit_residual_px": 0.48484848484849863,
+    "p0": [
+      48.0,
+      75.0
+    ],
+    "p1": [
+      57.0,
+      78.0
+    ],
+    "samples": 10,
+    "edge": "bottom-46"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5549450549450564,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 0.659340659340677,
+    "fit_residual_px": 0.49450549450553183,
+    "p0": [
+      57.0,
+      78.0
+    ],
+    "p1": [
+      69.0,
+      85.0
+    ],
+    "samples": 13,
+    "edge": "bottom-55"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5219780219780197,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 0.26373626373623615,
+    "fit_residual_px": 0.6043956043956484,
+    "p0": [
+      71.0,
+      86.0
+    ],
+    "p1": [
+      83.0,
+      92.0
+    ],
+    "samples": 13,
+    "edge": "bottom-69"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4636363636363627,
+    "expected": 0.5,
+    "span_px": 10.0,
+    "drift_px": 0.3636363636363732,
+    "fit_residual_px": 0.5909090909091077,
+    "p0": [
+      85.0,
+      93.0
+    ],
+    "p1": [
+      95.0,
+      98.0
+    ],
+    "samples": 11,
+    "edge": "bottom-83"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4980842911877396,
+    "expected": -0.5,
+    "span_px": 27.0,
+    "drift_px": 0.05172413793103042,
+    "fit_residual_px": 0.2739463601532748,
+    "p0": [
+      95.0,
+      98.0
+    ],
+    "p1": [
+      122.0,
+      85.0
+    ],
+    "samples": 28,
+    "edge": "bottom-93"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -0.13333333333333341,
+    "expected": 0.0,
+    "span_px": 8.0,
+    "drift_px": 1.0666666666666673,
+    "fit_residual_px": 0.46666666666666856,
+    "p0": [
+      4.0,
+      34.0
+    ],
+    "p1": [
+      2.0,
+      42.0
+    ],
+    "samples": 9,
+    "edge": "left-11"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": 0.16666666666666663,
+    "expected": 0.0,
+    "span_px": 7.0,
+    "drift_px": 1.1666666666666665,
+    "fit_residual_px": 0.41666666666666785,
+    "p0": [
+      2.0,
+      42.0
+    ],
+    "p1": [
+      4.0,
+      49.0
+    ],
+    "samples": 8,
+    "edge": "left-19"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -1.4514505964063702e-15,
+    "expected": 0.0,
+    "span_px": 8.0,
+    "drift_px": 1.1611604771250962e-14,
+    "fit_residual_px": 4.263256414560601e-14,
+    "p0": [
+      124.0,
+      71.0
+    ],
+    "p1": [
+      124.0,
+      79.0
+    ],
+    "samples": 9,
+    "edge": "right-48"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5238095238095254,
+    "expected": -0.5,
+    "span_px": 7.0,
+    "drift_px": 0.16666666666667773,
+    "fit_residual_px": 0.3095238095238173,
+    "p0": [
+      4.0,
+      32.0
+    ],
+    "p1": [
+      11.0,
+      28.0
+    ],
+    "samples": 8,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4999999999999989,
+    "expected": -0.5,
+    "span_px": 16.0,
+    "drift_px": 1.7763568394002505e-14,
+    "fit_residual_px": 0.264705882352942,
+    "p0": [
+      16.0,
+      30.0
+    ],
+    "p1": [
+      32.0,
+      22.0
+    ],
+    "samples": 17,
+    "edge": "top-12"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.523809523809525,
+    "expected": 0.5,
+    "span_px": 7.0,
+    "drift_px": 0.16666666666667462,
+    "fit_residual_px": 0.30952380952382086,
+    "p0": [
+      32.0,
+      22.0
+    ],
+    "p1": [
+      39.0,
+      26.0
+    ],
+    "samples": 8,
+    "edge": "top-28"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4962406015037594,
+    "expected": 0.5,
+    "span_px": 19.0,
+    "drift_px": 0.0714285714285709,
+    "fit_residual_px": 0.28195488721804907,
+    "p0": [
+      41.0,
+      37.0
+    ],
+    "p1": [
+      60.0,
+      46.0
+    ],
+    "samples": 20,
+    "edge": "top-37"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.49999999999999983,
+    "expected": 0.5,
+    "span_px": 22.0,
+    "drift_px": 3.6637359812630166e-15,
+    "fit_residual_px": 0.2608695652173765,
+    "p0": [
+      64.0,
+      48.0
+    ],
+    "p1": [
+      86.0,
+      59.0
+    ],
+    "samples": 23,
+    "edge": "top-60"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5058823529411778,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411766673,
+    "fit_residual_px": 0.28823529411768334,
+    "p0": [
+      90.0,
+      61.0
+    ],
+    "p1": [
+      105.0,
+      69.0
+    ],
+    "samples": 16,
+    "edge": "top-86"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5000000000000004,
+    "expected": -0.5,
+    "span_px": 10.0,
+    "drift_px": 4.440892098500626e-15,
+    "fit_residual_px": 0.2727272727273089,
+    "p0": [
+      105.0,
+      69.0
+    ],
+    "p1": [
+      115.0,
+      64.0
+    ],
+    "samples": 11,
+    "edge": "top-101"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4999999999999984,
+    "expected": 0.5,
+    "span_px": 8.0,
+    "drift_px": 1.2878587085651816e-14,
+    "fit_residual_px": 0.27777777777777146,
+    "p0": [
+      115.0,
+      64.0
+    ],
+    "p1": [
+      123.0,
+      68.0
+    ],
+    "samples": 9,
+    "edge": "top-111"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.500177242112726,
+    "expected": 0.5,
+    "span_px": 91.0,
+    "drift_px": 0.016129032258062503,
+    "fit_residual_px": 0.25788727401631206,
+    "p0": [
+      4.0,
+      52.0
+    ],
+    "p1": [
+      95.0,
+      98.0
+    ],
+    "samples": 92,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5000000000000003,
+    "expected": -0.5,
+    "span_px": 28.0,
+    "drift_px": 9.325873406851315e-15,
+    "fit_residual_px": 0.25862068965516016,
+    "p0": [
+      95.0,
+      98.0
+    ],
+    "p1": [
+      123.0,
+      84.0
+    ],
+    "samples": 29,
+    "edge": "bottom-91"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -5.167828487107859e-17,
+    "expected": 0.0,
+    "span_px": 20.0,
+    "drift_px": 1.0335656974215718e-15,
+    "fit_residual_px": 1.7763568394002505e-15,
+    "p0": [
+      4.0,
+      32.0
+    ],
+    "p1": [
+      4.0,
+      52.0
+    ],
+    "samples": 21,
+    "edge": "left-10"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": 0.045454545454545525,
+    "expected": 0.0,
+    "span_px": 10.0,
+    "drift_px": 0.45454545454545525,
+    "fit_residual_px": 0.681818181818187,
+    "p0": [
+      39.0,
+      26.0
+    ],
+    "p1": [
+      40.0,
+      36.0
+    ],
+    "samples": 11,
+    "edge": "right-4"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "ne",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": 3.4984874015742507e-16,
+    "expected": 0.0,
+    "span_px": 16.0,
+    "drift_px": 5.597579842518801e-15,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      123.0,
+      68.0
+    ],
+    "p1": [
+      123.0,
+      84.0
+    ],
+    "samples": 17,
+    "edge": "right-46"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5000000000000004,
+    "expected": 0.5,
+    "span_px": 8.0,
+    "drift_px": 3.552713678800501e-15,
+    "fit_residual_px": 0.27777777777777146,
+    "p0": [
+      8.0,
+      68.0
+    ],
+    "p1": [
+      16.0,
+      72.0
+    ],
+    "samples": 9,
+    "edge": "top-5"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.49999999999999933,
+    "expected": -0.5,
+    "span_px": 16.0,
+    "drift_px": 1.0658141036401503e-14,
+    "fit_residual_px": 0.26470588235298464,
+    "p0": [
+      23.0,
+      68.0
+    ],
+    "p1": [
+      39.0,
+      60.0
+    ],
+    "samples": 17,
+    "edge": "top-20"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5000000000000012,
+    "expected": -0.5,
+    "span_px": 18.0,
+    "drift_px": 2.19824158875781e-14,
+    "fit_residual_px": 0.2631578947368496,
+    "p0": [
+      43.0,
+      58.0
+    ],
+    "p1": [
+      61.0,
+      49.0
+    ],
+    "samples": 19,
+    "edge": "top-40"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.35714285714285415,
+    "expected": -0.5,
+    "span_px": 7.0,
+    "drift_px": 1.0000000000000209,
+    "fit_residual_px": 0.4642857142857366,
+    "p0": [
+      67.0,
+      46.0
+    ],
+    "p1": [
+      74.0,
+      44.0
+    ],
+    "samples": 8,
+    "edge": "top-64"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.6309523809523785,
+    "expected": -0.5,
+    "span_px": 7.0,
+    "drift_px": 0.9166666666666494,
+    "fit_residual_px": 0.690476190476204,
+    "p0": [
+      74.0,
+      44.0
+    ],
+    "p1": [
+      81.0,
+      39.0
+    ],
+    "samples": 8,
+    "edge": "top-71"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.6083916083916071,
+    "expected": 0.5,
+    "span_px": 11.0,
+    "drift_px": 1.1923076923076783,
+    "fit_residual_px": 0.7960372960372766,
+    "p0": [
+      97.0,
+      23.0
+    ],
+    "p1": [
+      108.0,
+      30.0
+    ],
+    "samples": 12,
+    "edge": "top-94"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4980842911877392,
+    "expected": 0.5,
+    "span_px": 27.0,
+    "drift_px": 0.051724137931040914,
+    "fit_residual_px": 0.273946360153289,
+    "p0": [
+      5.0,
+      85.0
+    ],
+    "p1": [
+      32.0,
+      98.0
+    ],
+    "samples": 28,
+    "edge": "bottom-2"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5076923076923074,
+    "expected": -0.5,
+    "span_px": 24.0,
+    "drift_px": 0.18461538461537863,
+    "fit_residual_px": 0.6953846153846115,
+    "p0": [
+      34.0,
+      97.0
+    ],
+    "p1": [
+      58.0,
+      84.0
+    ],
+    "samples": 25,
+    "edge": "bottom-31"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4889051247260209,
+    "expected": -0.5,
+    "span_px": 65.0,
+    "drift_px": 0.7211668928086429,
+    "fit_residual_px": 0.7227498869289946,
+    "p0": [
+      58.0,
+      84.0
+    ],
+    "p1": [
+      123.0,
+      53.0
+    ],
+    "samples": 66,
+    "edge": "bottom-55"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": 1.1648528397897345e-17,
+    "expected": 0.0,
+    "span_px": 8.0,
+    "drift_px": 9.318822718317876e-17,
+    "fit_residual_px": 8.881784197001252e-16,
+    "p0": [
+      3.0,
+      71.0
+    ],
+    "p1": [
+      3.0,
+      79.0
+    ],
+    "samples": 9,
+    "edge": "left-48"
+  },
+  {
+    "stage": "before",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -0.0825593395252814,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 1.4035087719297838,
+    "fit_residual_px": 0.4857241142070592,
+    "p0": [
+      125.0,
+      35.0
+    ],
+    "p1": [
+      124.0,
+      52.0
+    ],
+    "samples": 18,
+    "edge": "right-12"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.49999999999999967,
+    "expected": -0.5,
+    "span_px": 8.0,
+    "drift_px": 2.6645352591003757e-15,
+    "fit_residual_px": 0.27777777777775725,
+    "p0": [
+      4.0,
+      68.0
+    ],
+    "p1": [
+      12.0,
+      64.0
+    ],
+    "samples": 9,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4999999999999993,
+    "expected": 0.5,
+    "span_px": 10.0,
+    "drift_px": 7.216449660063518e-15,
+    "fit_residual_px": 0.2727272727272805,
+    "p0": [
+      12.0,
+      64.0
+    ],
+    "p1": [
+      22.0,
+      69.0
+    ],
+    "samples": 11,
+    "edge": "top-8"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5058823529411778,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411766673,
+    "fit_residual_px": 0.2882352941176691,
+    "p0": [
+      22.0,
+      69.0
+    ],
+    "p1": [
+      37.0,
+      61.0
+    ],
+    "samples": 16,
+    "edge": "top-18"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5000000000000007,
+    "expected": -0.5,
+    "span_px": 22.0,
+    "drift_px": 1.4654943925052066e-14,
+    "fit_residual_px": 0.2608695652174191,
+    "p0": [
+      41.0,
+      59.0
+    ],
+    "p1": [
+      63.0,
+      48.0
+    ],
+    "samples": 23,
+    "edge": "top-37"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.4962406015037583,
+    "expected": -0.5,
+    "span_px": 19.0,
+    "drift_px": 0.07142857142859199,
+    "fit_residual_px": 0.2819548872180633,
+    "p0": [
+      67.0,
+      46.0
+    ],
+    "p1": [
+      86.0,
+      37.0
+    ],
+    "samples": 20,
+    "edge": "top-63"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5238095238095265,
+    "expected": -0.5,
+    "span_px": 7.0,
+    "drift_px": 0.1666666666666855,
+    "fit_residual_px": 0.3095238095238244,
+    "p0": [
+      88.0,
+      26.0
+    ],
+    "p1": [
+      95.0,
+      22.0
+    ],
+    "samples": 8,
+    "edge": "top-84"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5000000000000003,
+    "expected": 0.5,
+    "span_px": 16.0,
+    "drift_px": 5.329070518200751e-15,
+    "fit_residual_px": 0.2647058823529349,
+    "p0": [
+      95.0,
+      22.0
+    ],
+    "p1": [
+      111.0,
+      30.0
+    ],
+    "samples": 17,
+    "edge": "top-91"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.5238095238095265,
+    "expected": 0.5,
+    "span_px": 7.0,
+    "drift_px": 0.1666666666666855,
+    "fit_residual_px": 0.3095238095238315,
+    "p0": [
+      116.0,
+      28.0
+    ],
+    "p1": [
+      123.0,
+      32.0
+    ],
+    "samples": 8,
+    "edge": "top-112"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": 0.4999999999999987,
+    "expected": 0.5,
+    "span_px": 28.0,
+    "drift_px": 3.574918139293004e-14,
+    "fit_residual_px": 0.2586206896551744,
+    "p0": [
+      4.0,
+      84.0
+    ],
+    "p1": [
+      32.0,
+      98.0
+    ],
+    "samples": 29,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "x",
+    "slope": -0.5001772421127263,
+    "expected": -0.5,
+    "span_px": 91.0,
+    "drift_px": 0.016129032258092812,
+    "fit_residual_px": 0.2578872740163547,
+    "p0": [
+      32.0,
+      98.0
+    ],
+    "p1": [
+      123.0,
+      52.0
+    ],
+    "samples": 92,
+    "edge": "bottom-28"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -0.04545454545454449,
+    "expected": 0.0,
+    "span_px": 10.0,
+    "drift_px": 0.4545454545454449,
+    "fit_residual_px": 0.6818181818181586,
+    "p0": [
+      88.0,
+      26.0
+    ],
+    "p1": [
+      87.0,
+      36.0
+    ],
+    "samples": 11,
+    "edge": "left-4"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": 4.073306235667021e-17,
+    "expected": 0.0,
+    "span_px": 16.0,
+    "drift_px": 6.517289977067234e-16,
+    "fit_residual_px": 1.7763568394002505e-15,
+    "p0": [
+      4.0,
+      68.0
+    ],
+    "p1": [
+      4.0,
+      84.0
+    ],
+    "samples": 17,
+    "edge": "left-46"
+  },
+  {
+    "stage": "after",
+    "family": "sofa",
+    "facing": "nw",
+    "surface": "red structure",
+    "axis": "y",
+    "slope": -3.7882441147679303e-16,
+    "expected": 0.0,
+    "span_px": 20.0,
+    "drift_px": 7.57648822953586e-15,
+    "fit_residual_px": 5.684341886080802e-14,
+    "p0": [
+      123.0,
+      32.0
+    ],
+    "p1": [
+      123.0,
+      52.0
+    ],
+    "samples": 21,
+    "edge": "right-10"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.4859584859584853,
+    "expected": 0.5,
+    "span_px": 26.0,
+    "drift_px": 0.36507936507938255,
+    "fit_residual_px": 0.9552299552299672,
+    "p0": [
+      63.0,
+      43.0
+    ],
+    "p1": [
+      89.0,
+      56.0
+    ],
+    "samples": 27,
+    "edge": "top-26"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": -0.024175824175824208,
+    "expected": 0.0,
+    "span_px": 13.0,
+    "drift_px": 0.3142857142857147,
+    "fit_residual_px": 0.7956043956043999,
+    "p0": [
+      37.0,
+      58.0
+    ],
+    "p1": [
+      37.0,
+      71.0
+    ],
+    "samples": 14,
+    "edge": "left-15"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 2.161109206880686e-16,
+    "expected": 0.0,
+    "span_px": 11.0,
+    "drift_px": 2.3772201275687547e-15,
+    "fit_residual_px": 5.684341886080802e-14,
+    "p0": [
+      89.0,
+      61.0
+    ],
+    "p1": [
+      89.0,
+      72.0
+    ],
+    "samples": 12,
+    "edge": "right-18"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": -0.5019157088122597,
+    "expected": -0.5,
+    "span_px": 27.0,
+    "drift_px": 0.05172413793101094,
+    "fit_residual_px": 0.27394636015325347,
+    "p0": [
+      36.0,
+      56.0
+    ],
+    "p1": [
+      63.0,
+      42.0
+    ],
+    "samples": 28,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.5000000000000002,
+    "expected": 0.5,
+    "span_px": 28.0,
+    "drift_px": 6.217248937900877e-15,
+    "fit_residual_px": 0.25862068965516016,
+    "p0": [
+      63.0,
+      42.0
+    ],
+    "p1": [
+      91.0,
+      56.0
+    ],
+    "samples": 29,
+    "edge": "top-27"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.5000000000000003,
+    "expected": 0.5,
+    "span_px": 14.0,
+    "drift_px": 4.6629367034256575e-15,
+    "fit_residual_px": 0.2666666666666657,
+    "p0": [
+      44.0,
+      62.0
+    ],
+    "p1": [
+      58.0,
+      69.0
+    ],
+    "samples": 15,
+    "edge": "bottom-8"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": -0.4999999999999995,
+    "expected": -0.5,
+    "span_px": 14.0,
+    "drift_px": 6.994405055138486e-15,
+    "fit_residual_px": 0.26666666666667993,
+    "p0": [
+      69.0,
+      69.0
+    ],
+    "p1": [
+      83.0,
+      62.0
+    ],
+    "samples": 15,
+    "edge": "bottom-33"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 5.720055373950604e-16,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 8.580083060925906e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      36.0,
+      56.0
+    ],
+    "p1": [
+      36.0,
+      71.0
+    ],
+    "samples": 16,
+    "edge": "left-14"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 1.9699816324583527e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 1.7729834692125173e-14,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      60.0,
+      74.0
+    ],
+    "p1": [
+      60.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "left-32"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 6.964094981271377e-16,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 1.0446142471907066e-14,
+    "fit_residual_px": 0.0,
+    "p0": [
+      91.0,
+      56.0
+    ],
+    "p1": [
+      91.0,
+      71.0
+    ],
+    "samples": 16,
+    "edge": "right-14"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "se",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 2.5354191642347795e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 2.2818772478113017e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      67.0,
+      74.0
+    ],
+    "p1": [
+      67.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "right-32"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.4859584859584853,
+    "expected": 0.5,
+    "span_px": 26.0,
+    "drift_px": 0.36507936507938255,
+    "fit_residual_px": 0.9552299552299672,
+    "p0": [
+      63.0,
+      43.0
+    ],
+    "p1": [
+      89.0,
+      56.0
+    ],
+    "samples": 27,
+    "edge": "top-27"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": -5.257126432740265e-16,
+    "expected": 0.0,
+    "span_px": 13.0,
+    "drift_px": 6.834264362562345e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      36.0,
+      58.0
+    ],
+    "p1": [
+      36.0,
+      71.0
+    ],
+    "samples": 14,
+    "edge": "left-15"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 1.7164693424987469e-15,
+    "expected": 0.0,
+    "span_px": 8.0,
+    "drift_px": 1.3731754739989975e-14,
+    "fit_residual_px": 3.552713678800501e-14,
+    "p0": [
+      58.0,
+      74.0
+    ],
+    "p1": [
+      58.0,
+      82.0
+    ],
+    "samples": 9,
+    "edge": "left-31"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": -4.018317043006273e-15,
+    "expected": 0.0,
+    "span_px": 10.0,
+    "drift_px": 4.018317043006273e-14,
+    "fit_residual_px": 7.105427357601002e-14,
+    "p0": [
+      89.0,
+      61.0
+    ],
+    "p1": [
+      89.0,
+      71.0
+    ],
+    "samples": 11,
+    "edge": "right-18"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 1.0927452626945658e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 9.834707364251091e-15,
+    "fit_residual_px": 0.0,
+    "p0": [
+      65.0,
+      74.0
+    ],
+    "p1": [
+      65.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "right-31"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": -0.5019157088122597,
+    "expected": -0.5,
+    "span_px": 27.0,
+    "drift_px": 0.05172413793101094,
+    "fit_residual_px": 0.27394636015325347,
+    "p0": [
+      36.0,
+      56.0
+    ],
+    "p1": [
+      63.0,
+      42.0
+    ],
+    "samples": 28,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.5000000000000002,
+    "expected": 0.5,
+    "span_px": 28.0,
+    "drift_px": 6.217248937900877e-15,
+    "fit_residual_px": 0.25862068965516016,
+    "p0": [
+      63.0,
+      42.0
+    ],
+    "p1": [
+      91.0,
+      56.0
+    ],
+    "samples": 29,
+    "edge": "top-27"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.5000000000000003,
+    "expected": 0.5,
+    "span_px": 14.0,
+    "drift_px": 4.6629367034256575e-15,
+    "fit_residual_px": 0.2666666666666657,
+    "p0": [
+      44.0,
+      62.0
+    ],
+    "p1": [
+      58.0,
+      69.0
+    ],
+    "samples": 15,
+    "edge": "bottom-8"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": -0.4999999999999995,
+    "expected": -0.5,
+    "span_px": 14.0,
+    "drift_px": 6.994405055138486e-15,
+    "fit_residual_px": 0.26666666666667993,
+    "p0": [
+      69.0,
+      69.0
+    ],
+    "p1": [
+      83.0,
+      62.0
+    ],
+    "samples": 15,
+    "edge": "bottom-33"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 5.720055373950604e-16,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 8.580083060925906e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      36.0,
+      56.0
+    ],
+    "p1": [
+      36.0,
+      71.0
+    ],
+    "samples": 16,
+    "edge": "left-14"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 1.9699816324583527e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 1.7729834692125173e-14,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      60.0,
+      74.0
+    ],
+    "p1": [
+      60.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "left-32"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 6.964094981271377e-16,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 1.0446142471907066e-14,
+    "fit_residual_px": 0.0,
+    "p0": [
+      91.0,
+      56.0
+    ],
+    "p1": [
+      91.0,
+      71.0
+    ],
+    "samples": 16,
+    "edge": "right-14"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "sw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 2.5354191642347795e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 2.2818772478113017e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      67.0,
+      74.0
+    ],
+    "p1": [
+      67.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "right-32"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 6.052479291163705e-16,
+    "expected": 0.0,
+    "span_px": 7.0,
+    "drift_px": 4.236735503814593e-15,
+    "fit_residual_px": 0.7499999999999929,
+    "p0": [
+      38.0,
+      63.0
+    ],
+    "p1": [
+      38.0,
+      70.0
+    ],
+    "samples": 8,
+    "edge": "left-20"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 0.050000000000003555,
+    "expected": 0.0,
+    "span_px": 8.0,
+    "drift_px": 0.40000000000002844,
+    "fit_residual_px": 0.8277777777777757,
+    "p0": [
+      60.0,
+      75.0
+    ],
+    "p1": [
+      61.0,
+      83.0
+    ],
+    "samples": 9,
+    "edge": "left-32"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": -0.02500000000000263,
+    "expected": 0.0,
+    "span_px": 14.0,
+    "drift_px": 0.35000000000003684,
+    "fit_residual_px": 0.7583333333333115,
+    "p0": [
+      91.0,
+      58.0
+    ],
+    "p1": [
+      90.0,
+      72.0
+    ],
+    "samples": 15,
+    "edge": "right-15"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": -0.5019157088122597,
+    "expected": -0.5,
+    "span_px": 27.0,
+    "drift_px": 0.05172413793101094,
+    "fit_residual_px": 0.27394636015325347,
+    "p0": [
+      36.0,
+      56.0
+    ],
+    "p1": [
+      63.0,
+      42.0
+    ],
+    "samples": 28,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.5000000000000002,
+    "expected": 0.5,
+    "span_px": 28.0,
+    "drift_px": 6.217248937900877e-15,
+    "fit_residual_px": 0.25862068965516016,
+    "p0": [
+      63.0,
+      42.0
+    ],
+    "p1": [
+      91.0,
+      56.0
+    ],
+    "samples": 29,
+    "edge": "top-27"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.5000000000000003,
+    "expected": 0.5,
+    "span_px": 14.0,
+    "drift_px": 4.6629367034256575e-15,
+    "fit_residual_px": 0.2666666666666657,
+    "p0": [
+      44.0,
+      62.0
+    ],
+    "p1": [
+      58.0,
+      69.0
+    ],
+    "samples": 15,
+    "edge": "bottom-8"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": -0.4999999999999995,
+    "expected": -0.5,
+    "span_px": 14.0,
+    "drift_px": 6.994405055138486e-15,
+    "fit_residual_px": 0.26666666666667993,
+    "p0": [
+      69.0,
+      69.0
+    ],
+    "p1": [
+      83.0,
+      62.0
+    ],
+    "samples": 15,
+    "edge": "bottom-33"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 5.720055373950604e-16,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 8.580083060925906e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      36.0,
+      56.0
+    ],
+    "p1": [
+      36.0,
+      71.0
+    ],
+    "samples": 16,
+    "edge": "left-14"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 1.9699816324583527e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 1.7729834692125173e-14,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      60.0,
+      74.0
+    ],
+    "p1": [
+      60.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "left-32"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 6.964094981271377e-16,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 1.0446142471907066e-14,
+    "fit_residual_px": 0.0,
+    "p0": [
+      91.0,
+      56.0
+    ],
+    "p1": [
+      91.0,
+      71.0
+    ],
+    "samples": 16,
+    "edge": "right-14"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "ne",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 2.5354191642347795e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 2.2818772478113017e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      67.0,
+      74.0
+    ],
+    "p1": [
+      67.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "right-32"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 6.052479291163705e-16,
+    "expected": 0.0,
+    "span_px": 7.0,
+    "drift_px": 4.236735503814593e-15,
+    "fit_residual_px": 0.7499999999999929,
+    "p0": [
+      38.0,
+      63.0
+    ],
+    "p1": [
+      38.0,
+      70.0
+    ],
+    "samples": 8,
+    "edge": "left-20"
+  },
+  {
+    "stage": "before",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": -1.2089146692459826e-15,
+    "expected": 0.0,
+    "span_px": 13.0,
+    "drift_px": 1.5715890700197773e-14,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      90.0,
+      58.0
+    ],
+    "p1": [
+      90.0,
+      71.0
+    ],
+    "samples": 14,
+    "edge": "right-15"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": -0.5019157088122597,
+    "expected": -0.5,
+    "span_px": 27.0,
+    "drift_px": 0.05172413793101094,
+    "fit_residual_px": 0.27394636015325347,
+    "p0": [
+      36.0,
+      56.0
+    ],
+    "p1": [
+      63.0,
+      42.0
+    ],
+    "samples": 28,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.5000000000000002,
+    "expected": 0.5,
+    "span_px": 28.0,
+    "drift_px": 6.217248937900877e-15,
+    "fit_residual_px": 0.25862068965516016,
+    "p0": [
+      63.0,
+      42.0
+    ],
+    "p1": [
+      91.0,
+      56.0
+    ],
+    "samples": 29,
+    "edge": "top-27"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": 0.5000000000000003,
+    "expected": 0.5,
+    "span_px": 14.0,
+    "drift_px": 4.6629367034256575e-15,
+    "fit_residual_px": 0.2666666666666657,
+    "p0": [
+      44.0,
+      62.0
+    ],
+    "p1": [
+      58.0,
+      69.0
+    ],
+    "samples": 15,
+    "edge": "bottom-8"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "x",
+    "slope": -0.4999999999999995,
+    "expected": -0.5,
+    "span_px": 14.0,
+    "drift_px": 6.994405055138486e-15,
+    "fit_residual_px": 0.26666666666667993,
+    "p0": [
+      69.0,
+      69.0
+    ],
+    "p1": [
+      83.0,
+      62.0
+    ],
+    "samples": 15,
+    "edge": "bottom-33"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 5.720055373950604e-16,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 8.580083060925906e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      36.0,
+      56.0
+    ],
+    "p1": [
+      36.0,
+      71.0
+    ],
+    "samples": 16,
+    "edge": "left-14"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 1.9699816324583527e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 1.7729834692125173e-14,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      60.0,
+      74.0
+    ],
+    "p1": [
+      60.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "left-32"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 6.964094981271377e-16,
+    "expected": 0.0,
+    "span_px": 15.0,
+    "drift_px": 1.0446142471907066e-14,
+    "fit_residual_px": 0.0,
+    "p0": [
+      91.0,
+      56.0
+    ],
+    "p1": [
+      91.0,
+      71.0
+    ],
+    "samples": 16,
+    "edge": "right-14"
+  },
+  {
+    "stage": "after",
+    "family": "side-table",
+    "facing": "nw",
+    "surface": "wood structure",
+    "axis": "y",
+    "slope": 2.5354191642347795e-15,
+    "expected": 0.0,
+    "span_px": 9.0,
+    "drift_px": 2.2818772478113017e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      67.0,
+      74.0
+    ],
+    "p1": [
+      67.0,
+      83.0
+    ],
+    "samples": 10,
+    "edge": "right-32"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.630952380952384,
+    "expected": 0.5,
+    "span_px": 7.0,
+    "drift_px": 0.9166666666666883,
+    "fit_residual_px": 0.6904761904762182,
+    "p0": [
+      55.0,
+      58.0
+    ],
+    "p1": [
+      62.0,
+      63.0
+    ],
+    "samples": 8,
+    "edge": "top-4"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.3516483516483513,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 1.7802197802197846,
+    "fit_residual_px": 0.769230769230802,
+    "p0": [
+      51.0,
+      81.0
+    ],
+    "p1": [
+      63.0,
+      85.0
+    ],
+    "samples": 13,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.26190476190476036,
+    "expected": -0.5,
+    "span_px": 7.0,
+    "drift_px": 1.6666666666666774,
+    "fit_residual_px": 0.4047619047619122,
+    "p0": [
+      67.0,
+      84.0
+    ],
+    "p1": [
+      74.0,
+      82.0
+    ],
+    "samples": 8,
+    "edge": "bottom-16"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 5.5588053841207405e-16,
+    "expected": 0.0,
+    "span_px": 20.0,
+    "drift_px": 1.1117610768241481e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      51.0,
+      61.0
+    ],
+    "p1": [
+      51.0,
+      81.0
+    ],
+    "samples": 21,
+    "edge": "left-3"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 7.253113636854251e-16,
+    "expected": 0.0,
+    "span_px": 20.0,
+    "drift_px": 1.4506227273708503e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      77.0,
+      61.0
+    ],
+    "p1": [
+      77.0,
+      81.0
+    ],
+    "samples": 21,
+    "edge": "right-3"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5058823529411763,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411764508,
+    "fit_residual_px": 0.2882352941176407,
+    "p0": [
+      50.0,
+      78.0
+    ],
+    "p1": [
+      65.0,
+      86.0
+    ],
+    "samples": 16,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000012,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 1.4654943925052066e-14,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      65.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 13,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 3.1222470872816493e-16,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 7.805617718204124e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      50.0,
+      53.0
+    ],
+    "p1": [
+      50.0,
+      78.0
+    ],
+    "samples": 26,
+    "edge": "left-3"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -2.1971666512054143e-16,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 5.492916628013535e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      77.0,
+      55.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 26,
+    "edge": "right-5"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5549450549450552,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 0.6593406593406623,
+    "fit_residual_px": 0.4945054945055176,
+    "p0": [
+      51.0,
+      79.0
+    ],
+    "p1": [
+      63.0,
+      86.0
+    ],
+    "samples": 13,
+    "edge": "bottom-1"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000016,
+    "expected": -0.5,
+    "span_px": 14.0,
+    "drift_px": 2.1760371282653068e-14,
+    "fit_residual_px": 0.26666666666667993,
+    "p0": [
+      63.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      79.0
+    ],
+    "samples": 15,
+    "edge": "bottom-13"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 2.309715266055173e-16,
+    "expected": 0.0,
+    "span_px": 26.0,
+    "drift_px": 6.005259691743449e-15,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      50.0,
+      54.0
+    ],
+    "p1": [
+      50.0,
+      80.0
+    ],
+    "samples": 27,
+    "edge": "left-2"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -4.0019578793354886e-17,
+    "expected": 0.0,
+    "span_px": 18.0,
+    "drift_px": 7.20352418280388e-16,
+    "fit_residual_px": 0.0,
+    "p0": [
+      77.0,
+      61.0
+    ],
+    "p1": [
+      77.0,
+      79.0
+    ],
+    "samples": 19,
+    "edge": "right-9"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4999999999999995,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 5.995204332975845e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      50.0,
+      80.0
+    ],
+    "p1": [
+      62.0,
+      86.0
+    ],
+    "samples": 13,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.505882352941175,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.0882352941176251,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      62.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 16,
+    "edge": "bottom-12"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -1.0023150244245773e-16,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 2.505787561061443e-15,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      50.0,
+      55.0
+    ],
+    "p1": [
+      50.0,
+      80.0
+    ],
+    "samples": 26,
+    "edge": "left-5"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -2.2227629725355966e-17,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 5.556907431338992e-16,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      77.0,
+      53.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 26,
+    "edge": "right-3"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.34545454545454146,
+    "expected": 0.5,
+    "span_px": 10.0,
+    "drift_px": 1.5454545454545854,
+    "fit_residual_px": 0.5818181818181927,
+    "p0": [
+      51.0,
+      81.0
+    ],
+    "p1": [
+      61.0,
+      84.0
+    ],
+    "samples": 11,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 5.5588053841207405e-16,
+    "expected": 0.0,
+    "span_px": 20.0,
+    "drift_px": 1.1117610768241481e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      51.0,
+      61.0
+    ],
+    "p1": [
+      51.0,
+      81.0
+    ],
+    "samples": 21,
+    "edge": "left-2"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 7.253113636854251e-16,
+    "expected": 0.0,
+    "span_px": 20.0,
+    "drift_px": 1.4506227273708503e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      77.0,
+      61.0
+    ],
+    "p1": [
+      77.0,
+      81.0
+    ],
+    "samples": 21,
+    "edge": "right-2"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4999999999999995,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 5.995204332975845e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      50.0,
+      80.0
+    ],
+    "p1": [
+      62.0,
+      86.0
+    ],
+    "samples": 13,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.505882352941175,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.0882352941176251,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      62.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 16,
+    "edge": "bottom-12"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -1.0023150244245773e-16,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 2.505787561061443e-15,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      50.0,
+      55.0
+    ],
+    "p1": [
+      50.0,
+      80.0
+    ],
+    "samples": 26,
+    "edge": "left-5"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -2.2227629725355966e-17,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 5.556907431338992e-16,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      77.0,
+      53.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 26,
+    "edge": "right-3"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.49999999999999944,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 6.661338147750939e-15,
+    "fit_residual_px": 0.2692307692307878,
+    "p0": [
+      51.0,
+      79.0
+    ],
+    "p1": [
+      63.0,
+      85.0
+    ],
+    "samples": 13,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.4560439560439577,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 0.5274725274725076,
+    "fit_residual_px": 0.560439560439562,
+    "p0": [
+      65.0,
+      85.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 13,
+    "edge": "bottom-14"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -4.999913522204373e-16,
+    "expected": 0.0,
+    "span_px": 18.0,
+    "drift_px": 8.99984433996787e-15,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      51.0,
+      61.0
+    ],
+    "p1": [
+      51.0,
+      79.0
+    ],
+    "samples": 19,
+    "edge": "left-5"
+  },
+  {
+    "stage": "before",
+    "family": "water-cooler",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 0.009230769230770116,
+    "expected": 0.0,
+    "span_px": 24.0,
+    "drift_px": 0.22153846153848278,
+    "fit_residual_px": 0.8492307692307293,
+    "p0": [
+      76.0,
+      56.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 25,
+    "edge": "right-0"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5058823529411763,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411764508,
+    "fit_residual_px": 0.2882352941176407,
+    "p0": [
+      50.0,
+      78.0
+    ],
+    "p1": [
+      65.0,
+      86.0
+    ],
+    "samples": 16,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000012,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 1.4654943925052066e-14,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      65.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 13,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 3.1222470872816493e-16,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 7.805617718204124e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      50.0,
+      53.0
+    ],
+    "p1": [
+      50.0,
+      78.0
+    ],
+    "samples": 26,
+    "edge": "left-3"
+  },
+  {
+    "stage": "after",
+    "family": "water-cooler",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -2.1971666512054143e-16,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 5.492916628013535e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      77.0,
+      55.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 26,
+    "edge": "right-5"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5329670329670327,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 0.39560439560439287,
+    "fit_residual_px": 0.4945054945055034,
+    "p0": [
+      51.0,
+      36.0
+    ],
+    "p1": [
+      63.0,
+      29.0
+    ],
+    "samples": 13,
+    "edge": "top-0"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.49999999999999994,
+    "expected": 0.5,
+    "span_px": 8.0,
+    "drift_px": 4.440892098500626e-16,
+    "fit_residual_px": 0.27777777777776436,
+    "p0": [
+      66.0,
+      29.0
+    ],
+    "p1": [
+      74.0,
+      33.0
+    ],
+    "samples": 9,
+    "edge": "top-15"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.6727272727272717,
+    "expected": 0.5,
+    "span_px": 9.0,
+    "drift_px": 1.5545454545454456,
+    "fit_residual_px": 0.7454545454545496,
+    "p0": [
+      54.0,
+      81.0
+    ],
+    "p1": [
+      63.0,
+      87.0
+    ],
+    "samples": 10,
+    "edge": "bottom-3"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.49999999999999817,
+    "expected": -0.5,
+    "span_px": 8.0,
+    "drift_px": 1.4654943925052066e-14,
+    "fit_residual_px": 0.2777777777777999,
+    "p0": [
+      66.0,
+      84.0
+    ],
+    "p1": [
+      74.0,
+      80.0
+    ],
+    "samples": 9,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -5.712706783734356e-17,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 2.4564639170057733e-15,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      51.0,
+      36.0
+    ],
+    "p1": [
+      51.0,
+      79.0
+    ],
+    "samples": 44,
+    "edge": "left-7"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 3.938643710456706e-16,
+    "expected": 0.0,
+    "span_px": 42.0,
+    "drift_px": 1.6542303583918165e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      77.0,
+      36.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 43,
+    "edge": "right-7"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000003,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 3.9968028886505635e-15,
+    "fit_residual_px": 0.26923076923074873,
+    "p0": [
+      50.0,
+      35.0
+    ],
+    "p1": [
+      62.0,
+      29.0
+    ],
+    "samples": 13,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.505882352941177,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411765507,
+    "fit_residual_px": 0.288235294117662,
+    "p0": [
+      62.0,
+      29.0
+    ],
+    "p1": [
+      77.0,
+      37.0
+    ],
+    "samples": 16,
+    "edge": "top-12"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5058823529411763,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411764508,
+    "fit_residual_px": 0.2882352941176407,
+    "p0": [
+      50.0,
+      78.0
+    ],
+    "p1": [
+      65.0,
+      86.0
+    ],
+    "samples": 16,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000012,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 1.4654943925052066e-14,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      65.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 13,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -9.372887531965461e-17,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 4.030341638745148e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      50.0,
+      35.0
+    ],
+    "p1": [
+      50.0,
+      78.0
+    ],
+    "samples": 44,
+    "edge": "left-6"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 2.9188161572573416e-16,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 1.255090947620657e-14,
+    "fit_residual_px": 4.263256414560601e-14,
+    "p0": [
+      77.0,
+      37.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 44,
+    "edge": "right-8"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 0.0,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      50.0,
+      36.0
+    ],
+    "p1": [
+      62.0,
+      30.0
+    ],
+    "samples": 13,
+    "edge": "top-0"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4755244755244742,
+    "expected": 0.5,
+    "span_px": 11.0,
+    "drift_px": 0.26923076923078393,
+    "fit_residual_px": 0.551282051282044,
+    "p0": [
+      66.0,
+      30.0
+    ],
+    "p1": [
+      77.0,
+      36.0
+    ],
+    "samples": 12,
+    "edge": "top-16"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4545454545454539,
+    "expected": 0.5,
+    "span_px": 10.0,
+    "drift_px": 0.4545454545454608,
+    "fit_residual_px": 0.4545454545454959,
+    "p0": [
+      50.0,
+      79.0
+    ],
+    "p1": [
+      60.0,
+      83.0
+    ],
+    "samples": 11,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000029,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 3.4638958368304884e-14,
+    "fit_residual_px": 0.269230769230802,
+    "p0": [
+      65.0,
+      85.0
+    ],
+    "p1": [
+      77.0,
+      79.0
+    ],
+    "samples": 13,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -8.334751614119505e-17,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 3.583943194071387e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      50.0,
+      36.0
+    ],
+    "p1": [
+      50.0,
+      79.0
+    ],
+    "samples": 44,
+    "edge": "left-6"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -9.206412985568763e-17,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 3.958757583794568e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      77.0,
+      36.0
+    ],
+    "p1": [
+      77.0,
+      79.0
+    ],
+    "samples": 44,
+    "edge": "right-6"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5058823529411773,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411766007,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      50.0,
+      37.0
+    ],
+    "p1": [
+      65.0,
+      29.0
+    ],
+    "samples": 16,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.49999999999999944,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 6.661338147750939e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      65.0,
+      29.0
+    ],
+    "p1": [
+      77.0,
+      35.0
+    ],
+    "samples": 13,
+    "edge": "top-15"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4999999999999995,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 5.995204332975845e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      50.0,
+      80.0
+    ],
+    "p1": [
+      62.0,
+      86.0
+    ],
+    "samples": 13,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.505882352941175,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.0882352941176251,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      62.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 16,
+    "edge": "bottom-12"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 2.7589483338173606e-16,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 1.1863477835414651e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      50.0,
+      37.0
+    ],
+    "p1": [
+      50.0,
+      80.0
+    ],
+    "samples": 44,
+    "edge": "left-8"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -3.0289201150014307e-16,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 1.3024356494506152e-14,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      77.0,
+      35.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 44,
+    "edge": "right-6"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5340659340659334,
+    "expected": -0.5,
+    "span_px": 13.0,
+    "drift_px": 0.44285714285713407,
+    "fit_residual_px": 0.7670329670329608,
+    "p0": [
+      50.0,
+      36.0
+    ],
+    "p1": [
+      63.0,
+      29.0
+    ],
+    "samples": 14,
+    "edge": "top-0"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5178571428571423,
+    "expected": 0.5,
+    "span_px": 14.0,
+    "drift_px": 0.2499999999999929,
+    "fit_residual_px": 0.7488095238095411,
+    "p0": [
+      63.0,
+      29.0
+    ],
+    "p1": [
+      77.0,
+      36.0
+    ],
+    "samples": 15,
+    "edge": "top-13"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.63030303030303,
+    "expected": 0.5,
+    "span_px": 9.0,
+    "drift_px": 1.1727272727272702,
+    "fit_residual_px": 0.4848484848484702,
+    "p0": [
+      55.0,
+      80.0
+    ],
+    "p1": [
+      64.0,
+      86.0
+    ],
+    "samples": 10,
+    "edge": "bottom-5"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.2833333333333329,
+    "expected": -0.5,
+    "span_px": 8.0,
+    "drift_px": 1.733333333333337,
+    "fit_residual_px": 0.6666666666666572,
+    "p0": [
+      68.0,
+      82.0
+    ],
+    "p1": [
+      76.0,
+      80.0
+    ],
+    "samples": 9,
+    "edge": "bottom-18"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 4.321758449103337e-16,
+    "expected": 0.0,
+    "span_px": 41.0,
+    "drift_px": 1.7719209641323683e-14,
+    "fit_residual_px": 2.1316282072803006e-14,
+    "p0": [
+      50.0,
+      36.0
+    ],
+    "p1": [
+      50.0,
+      77.0
+    ],
+    "samples": 42,
+    "edge": "left-7"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 7.253898050749665e-16,
+    "expected": 0.0,
+    "span_px": 41.0,
+    "drift_px": 2.9740982008073626e-14,
+    "fit_residual_px": 4.263256414560601e-14,
+    "p0": [
+      77.0,
+      36.0
+    ],
+    "p1": [
+      77.0,
+      77.0
+    ],
+    "samples": 42,
+    "edge": "right-7"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5058823529411773,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411766007,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      50.0,
+      37.0
+    ],
+    "p1": [
+      65.0,
+      29.0
+    ],
+    "samples": 16,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.49999999999999944,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 6.661338147750939e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      65.0,
+      29.0
+    ],
+    "p1": [
+      77.0,
+      35.0
+    ],
+    "samples": 13,
+    "edge": "top-15"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4999999999999995,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 5.995204332975845e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      50.0,
+      80.0
+    ],
+    "p1": [
+      62.0,
+      86.0
+    ],
+    "samples": 13,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.505882352941175,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.0882352941176251,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      62.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 16,
+    "edge": "bottom-12"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 2.7589483338173606e-16,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 1.1863477835414651e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      50.0,
+      37.0
+    ],
+    "p1": [
+      50.0,
+      80.0
+    ],
+    "samples": 44,
+    "edge": "left-8"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -3.0289201150014307e-16,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 1.3024356494506152e-14,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      77.0,
+      35.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 44,
+    "edge": "right-6"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.3878787878787874,
+    "expected": -0.5,
+    "span_px": 9.0,
+    "drift_px": 1.0090909090909137,
+    "fit_residual_px": 0.6181818181818102,
+    "p0": [
+      51.0,
+      35.0
+    ],
+    "p1": [
+      60.0,
+      32.0
+    ],
+    "samples": 10,
+    "edge": "top-0"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.49999999999999944,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 6.661338147750939e-15,
+    "fit_residual_px": 0.2692307692307807,
+    "p0": [
+      65.0,
+      30.0
+    ],
+    "p1": [
+      77.0,
+      36.0
+    ],
+    "samples": 13,
+    "edge": "top-14"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.4000000000000028,
+    "expected": -0.5,
+    "span_px": 8.0,
+    "drift_px": 0.7999999999999776,
+    "fit_residual_px": 0.4444444444444855,
+    "p0": [
+      69.0,
+      82.0
+    ],
+    "p1": [
+      77.0,
+      79.0
+    ],
+    "samples": 9,
+    "edge": "bottom-18"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -2.8335422819949005e-16,
+    "expected": 0.0,
+    "span_px": 42.0,
+    "drift_px": 1.1900877584378582e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      51.0,
+      35.0
+    ],
+    "p1": [
+      51.0,
+      77.0
+    ],
+    "samples": 43,
+    "edge": "left-5"
+  },
+  {
+    "stage": "before",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -9.206412985568763e-17,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 3.958757583794568e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      77.0,
+      36.0
+    ],
+    "p1": [
+      77.0,
+      79.0
+    ],
+    "samples": 44,
+    "edge": "right-6"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000003,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 3.9968028886505635e-15,
+    "fit_residual_px": 0.26923076923074873,
+    "p0": [
+      50.0,
+      35.0
+    ],
+    "p1": [
+      62.0,
+      29.0
+    ],
+    "samples": 13,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.505882352941177,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411765507,
+    "fit_residual_px": 0.288235294117662,
+    "p0": [
+      62.0,
+      29.0
+    ],
+    "p1": [
+      77.0,
+      37.0
+    ],
+    "samples": 16,
+    "edge": "top-12"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5058823529411763,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411764508,
+    "fit_residual_px": 0.2882352941176407,
+    "p0": [
+      50.0,
+      78.0
+    ],
+    "p1": [
+      65.0,
+      86.0
+    ],
+    "samples": 16,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000012,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 1.4654943925052066e-14,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      65.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 13,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -9.372887531965461e-17,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 4.030341638745148e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      50.0,
+      35.0
+    ],
+    "p1": [
+      50.0,
+      78.0
+    ],
+    "samples": 44,
+    "edge": "left-6"
+  },
+  {
+    "stage": "after",
+    "family": "fridge",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 2.9188161572573416e-16,
+    "expected": 0.0,
+    "span_px": 43.0,
+    "drift_px": 1.255090947620657e-14,
+    "fit_residual_px": 4.263256414560601e-14,
+    "p0": [
+      77.0,
+      37.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 44,
+    "edge": "right-8"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.6090909090909096,
+    "expected": -0.5,
+    "span_px": 10.0,
+    "drift_px": 1.0909090909090957,
+    "fit_residual_px": 0.7636363636363654,
+    "p0": [
+      51.0,
+      52.0
+    ],
+    "p1": [
+      61.0,
+      45.0
+    ],
+    "samples": 11,
+    "edge": "top-0"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5692307692307681,
+    "expected": 0.5,
+    "span_px": 13.0,
+    "drift_px": 0.8999999999999853,
+    "fit_residual_px": 0.6417582417582608,
+    "p0": [
+      61.0,
+      45.0
+    ],
+    "p1": [
+      74.0,
+      52.0
+    ],
+    "samples": 14,
+    "edge": "top-10"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.521212121212121,
+    "expected": 0.5,
+    "span_px": 9.0,
+    "drift_px": 0.19090909090908914,
+    "fit_residual_px": 0.5454545454545325,
+    "p0": [
+      52.0,
+      80.0
+    ],
+    "p1": [
+      61.0,
+      84.0
+    ],
+    "samples": 10,
+    "edge": "bottom-1"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -3.5394575388802733e-16,
+    "expected": 0.0,
+    "span_px": 26.0,
+    "drift_px": 9.20258960108871e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      51.0,
+      52.0
+    ],
+    "p1": [
+      51.0,
+      78.0
+    ],
+    "samples": 27,
+    "edge": "left-7"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -0.06842105263157866,
+    "expected": 0.0,
+    "span_px": 19.0,
+    "drift_px": 1.2999999999999945,
+    "fit_residual_px": 0.5210526315789252,
+    "p0": [
+      75.0,
+      53.0
+    ],
+    "p1": [
+      74.0,
+      72.0
+    ],
+    "samples": 20,
+    "edge": "right-8"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.49999999999999944,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 6.661338147750939e-15,
+    "fit_residual_px": 0.2692307692307665,
+    "p0": [
+      50.0,
+      51.0
+    ],
+    "p1": [
+      62.0,
+      45.0
+    ],
+    "samples": 13,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5058823529411767,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411765008,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      62.0,
+      45.0
+    ],
+    "p1": [
+      77.0,
+      53.0
+    ],
+    "samples": 16,
+    "edge": "top-12"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5058823529411763,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411764508,
+    "fit_residual_px": 0.2882352941176407,
+    "p0": [
+      50.0,
+      78.0
+    ],
+    "p1": [
+      65.0,
+      86.0
+    ],
+    "samples": 16,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000012,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 1.4654943925052066e-14,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      65.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 13,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 4.362232738864337e-16,
+    "expected": 0.0,
+    "span_px": 27.0,
+    "drift_px": 1.1778028394933711e-14,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      50.0,
+      51.0
+    ],
+    "p1": [
+      50.0,
+      78.0
+    ],
+    "samples": 28,
+    "edge": "left-6"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "se",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 4.465599689479895e-16,
+    "expected": 0.0,
+    "span_px": 27.0,
+    "drift_px": 1.2057119161595716e-14,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      77.0,
+      53.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 28,
+    "edge": "right-8"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.4999999999999997,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 3.3306690738754696e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      50.0,
+      52.0
+    ],
+    "p1": [
+      62.0,
+      46.0
+    ],
+    "samples": 13,
+    "edge": "top-0"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4755244755244734,
+    "expected": 0.5,
+    "span_px": 11.0,
+    "drift_px": 0.2692307692307925,
+    "fit_residual_px": 0.5512820512820298,
+    "p0": [
+      66.0,
+      46.0
+    ],
+    "p1": [
+      77.0,
+      52.0
+    ],
+    "samples": 12,
+    "edge": "top-16"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.43706293706293614,
+    "expected": 0.5,
+    "span_px": 11.0,
+    "drift_px": 0.6923076923077025,
+    "fit_residual_px": 0.46853146853146654,
+    "p0": [
+      50.0,
+      80.0
+    ],
+    "p1": [
+      61.0,
+      85.0
+    ],
+    "samples": 12,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5329670329670365,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 0.39560439560443816,
+    "fit_residual_px": 0.4945054945054608,
+    "p0": [
+      65.0,
+      85.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 13,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 3.44949676629211e-17,
+    "expected": 0.0,
+    "span_px": 28.0,
+    "drift_px": 9.658590945617908e-16,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      50.0,
+      52.0
+    ],
+    "p1": [
+      50.0,
+      80.0
+    ],
+    "samples": 29,
+    "edge": "left-6"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -3.1289116178072814e-16,
+    "expected": 0.0,
+    "span_px": 26.0,
+    "drift_px": 8.135170206298932e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      77.0,
+      52.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 27,
+    "edge": "right-6"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5058823529411768,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411765174,
+    "fit_residual_px": 0.288235294117662,
+    "p0": [
+      50.0,
+      53.0
+    ],
+    "p1": [
+      65.0,
+      45.0
+    ],
+    "samples": 16,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.49999999999999933,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 7.993605777301127e-15,
+    "fit_residual_px": 0.2692307692307594,
+    "p0": [
+      65.0,
+      45.0
+    ],
+    "p1": [
+      77.0,
+      51.0
+    ],
+    "samples": 13,
+    "edge": "top-15"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4999999999999995,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 5.995204332975845e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      50.0,
+      80.0
+    ],
+    "p1": [
+      62.0,
+      86.0
+    ],
+    "samples": 13,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.505882352941175,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.0882352941176251,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      62.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 16,
+    "edge": "bottom-12"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 4.078725319452696e-16,
+    "expected": 0.0,
+    "span_px": 27.0,
+    "drift_px": 1.1012558362522279e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      50.0,
+      53.0
+    ],
+    "p1": [
+      50.0,
+      80.0
+    ],
+    "samples": 28,
+    "edge": "left-8"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "sw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -3.4917998679283243e-16,
+    "expected": 0.0,
+    "span_px": 27.0,
+    "drift_px": 9.427859643406476e-15,
+    "fit_residual_px": 4.263256414560601e-14,
+    "p0": [
+      77.0,
+      51.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 28,
+    "edge": "right-6"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5142857142857155,
+    "expected": -0.5,
+    "span_px": 14.0,
+    "drift_px": 0.2000000000000164,
+    "fit_residual_px": 0.6761904761904844,
+    "p0": [
+      50.0,
+      53.0
+    ],
+    "p1": [
+      64.0,
+      45.0
+    ],
+    "samples": 15,
+    "edge": "top-0"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5090909090909087,
+    "expected": 0.5,
+    "span_px": 10.0,
+    "drift_px": 0.09090909090908705,
+    "fit_residual_px": 0.8727272727272677,
+    "p0": [
+      64.0,
+      45.0
+    ],
+    "p1": [
+      74.0,
+      50.0
+    ],
+    "samples": 11,
+    "edge": "top-14"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4999999999999991,
+    "expected": 0.5,
+    "span_px": 8.0,
+    "drift_px": 7.105427357601002e-15,
+    "fit_residual_px": 0.5555555555555856,
+    "p0": [
+      55.0,
+      82.0
+    ],
+    "p1": [
+      63.0,
+      86.0
+    ],
+    "samples": 9,
+    "edge": "bottom-5"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5489510489510483,
+    "expected": -0.5,
+    "span_px": 11.0,
+    "drift_px": 0.5384615384615312,
+    "fit_residual_px": 0.6620046620046196,
+    "p0": [
+      64.0,
+      84.0
+    ],
+    "p1": [
+      75.0,
+      79.0
+    ],
+    "samples": 12,
+    "edge": "bottom-14"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 3.1222470872816493e-16,
+    "expected": 0.0,
+    "span_px": 25.0,
+    "drift_px": 7.805617718204124e-15,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      50.0,
+      53.0
+    ],
+    "p1": [
+      50.0,
+      78.0
+    ],
+    "samples": 26,
+    "edge": "left-8"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 2.233234556742744e-15,
+    "expected": 0.0,
+    "span_px": 7.0,
+    "drift_px": 1.563264189719921e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      73.0,
+      61.0
+    ],
+    "p1": [
+      73.0,
+      68.0
+    ],
+    "samples": 8,
+    "edge": "right-16"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5058823529411768,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411765174,
+    "fit_residual_px": 0.288235294117662,
+    "p0": [
+      50.0,
+      53.0
+    ],
+    "p1": [
+      65.0,
+      45.0
+    ],
+    "samples": 16,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.49999999999999933,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 7.993605777301127e-15,
+    "fit_residual_px": 0.2692307692307594,
+    "p0": [
+      65.0,
+      45.0
+    ],
+    "p1": [
+      77.0,
+      51.0
+    ],
+    "samples": 13,
+    "edge": "top-15"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4999999999999995,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 5.995204332975845e-15,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      50.0,
+      80.0
+    ],
+    "p1": [
+      62.0,
+      86.0
+    ],
+    "samples": 13,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.505882352941175,
+    "expected": -0.5,
+    "span_px": 15.0,
+    "drift_px": 0.0882352941176251,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      62.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 16,
+    "edge": "bottom-12"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 4.078725319452696e-16,
+    "expected": 0.0,
+    "span_px": 27.0,
+    "drift_px": 1.1012558362522279e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      50.0,
+      53.0
+    ],
+    "p1": [
+      50.0,
+      80.0
+    ],
+    "samples": 28,
+    "edge": "left-8"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "ne",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -3.4917998679283243e-16,
+    "expected": 0.0,
+    "span_px": 27.0,
+    "drift_px": 9.427859643406476e-15,
+    "fit_residual_px": 4.263256414560601e-14,
+    "p0": [
+      77.0,
+      51.0
+    ],
+    "p1": [
+      77.0,
+      78.0
+    ],
+    "samples": 28,
+    "edge": "right-6"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.4999999999999998,
+    "expected": 0.5,
+    "span_px": 12.0,
+    "drift_px": 2.6645352591003757e-15,
+    "fit_residual_px": 0.2692307692307807,
+    "p0": [
+      65.0,
+      46.0
+    ],
+    "p1": [
+      77.0,
+      52.0
+    ],
+    "samples": 13,
+    "edge": "top-14"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.67857142857143,
+    "expected": 0.5,
+    "span_px": 7.0,
+    "drift_px": 1.2500000000000102,
+    "fit_residual_px": 0.3928571428571388,
+    "p0": [
+      57.0,
+      80.0
+    ],
+    "p1": [
+      64.0,
+      85.0
+    ],
+    "samples": 8,
+    "edge": "bottom-6"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.41978021978021784,
+    "expected": -0.5,
+    "span_px": 13.0,
+    "drift_px": 1.042857142857168,
+    "fit_residual_px": 0.46813186813190555,
+    "p0": [
+      64.0,
+      85.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 14,
+    "edge": "bottom-13"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 2.1489958375155042e-15,
+    "expected": 0.0,
+    "span_px": 7.0,
+    "drift_px": 1.504297086260853e-14,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      55.0,
+      61.0
+    ],
+    "p1": [
+      55.0,
+      68.0
+    ],
+    "samples": 8,
+    "edge": "left-15"
+  },
+  {
+    "stage": "before",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": -3.092203954710206e-16,
+    "expected": 0.0,
+    "span_px": 28.0,
+    "drift_px": 8.658171073188576e-15,
+    "fit_residual_px": 4.263256414560601e-14,
+    "p0": [
+      77.0,
+      52.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 29,
+    "edge": "right-6"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.49999999999999944,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 6.661338147750939e-15,
+    "fit_residual_px": 0.2692307692307665,
+    "p0": [
+      50.0,
+      51.0
+    ],
+    "p1": [
+      62.0,
+      45.0
+    ],
+    "samples": 13,
+    "edge": "top-0"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5058823529411767,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411765008,
+    "fit_residual_px": 0.2882352941176549,
+    "p0": [
+      62.0,
+      45.0
+    ],
+    "p1": [
+      77.0,
+      53.0
+    ],
+    "samples": 16,
+    "edge": "top-12"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": 0.5058823529411763,
+    "expected": 0.5,
+    "span_px": 15.0,
+    "drift_px": 0.08823529411764508,
+    "fit_residual_px": 0.2882352941176407,
+    "p0": [
+      50.0,
+      78.0
+    ],
+    "p1": [
+      65.0,
+      86.0
+    ],
+    "samples": 16,
+    "edge": "bottom-0"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "x",
+    "slope": -0.5000000000000012,
+    "expected": -0.5,
+    "span_px": 12.0,
+    "drift_px": 1.4654943925052066e-14,
+    "fit_residual_px": 0.2692307692307736,
+    "p0": [
+      65.0,
+      86.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 13,
+    "edge": "bottom-15"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 4.362232738864337e-16,
+    "expected": 0.0,
+    "span_px": 27.0,
+    "drift_px": 1.1778028394933711e-14,
+    "fit_residual_px": 7.105427357601002e-15,
+    "p0": [
+      50.0,
+      51.0
+    ],
+    "p1": [
+      50.0,
+      78.0
+    ],
+    "samples": 28,
+    "edge": "left-6"
+  },
+  {
+    "stage": "after",
+    "family": "coffee-machine",
+    "facing": "nw",
+    "surface": "chassis",
+    "axis": "y",
+    "slope": 4.465599689479895e-16,
+    "expected": 0.0,
+    "span_px": 27.0,
+    "drift_px": 1.2057119161595716e-14,
+    "fit_residual_px": 2.842170943040401e-14,
+    "p0": [
+      77.0,
+      53.0
+    ],
+    "p1": [
+      77.0,
+      80.0
+    ],
+    "samples": 28,
+    "edge": "right-8"
+  },
+  {
+    "stage": "before",
+    "family": "floor-lamp",
+    "facing": "se",
+    "surface": "straight stem",
+    "axis": "y",
+    "slope": 5.237502577269765e-16,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 8.903754381358601e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      64.0,
+      59.0
+    ],
+    "p1": [
+      64.0,
+      76.0
+    ],
+    "samples": 18,
+    "edge": "right-13"
+  },
+  {
+    "stage": "after",
+    "family": "floor-lamp",
+    "facing": "se",
+    "surface": "straight stem",
+    "axis": "y",
+    "slope": 5.237502577269765e-16,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 8.903754381358601e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      64.0,
+      59.0
+    ],
+    "p1": [
+      64.0,
+      76.0
+    ],
+    "samples": 18,
+    "edge": "right-13"
+  },
+  {
+    "stage": "before",
+    "family": "floor-lamp",
+    "facing": "sw",
+    "surface": "straight stem",
+    "axis": "y",
+    "slope": 5.237502577269765e-16,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 8.903754381358601e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      64.0,
+      59.0
+    ],
+    "p1": [
+      64.0,
+      76.0
+    ],
+    "samples": 18,
+    "edge": "right-13"
+  },
+  {
+    "stage": "after",
+    "family": "floor-lamp",
+    "facing": "sw",
+    "surface": "straight stem",
+    "axis": "y",
+    "slope": 5.237502577269765e-16,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 8.903754381358601e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      64.0,
+      59.0
+    ],
+    "p1": [
+      64.0,
+      76.0
+    ],
+    "samples": 18,
+    "edge": "right-13"
+  },
+  {
+    "stage": "before",
+    "family": "floor-lamp",
+    "facing": "ne",
+    "surface": "straight stem",
+    "axis": "y",
+    "slope": 5.237502577269765e-16,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 8.903754381358601e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      64.0,
+      59.0
+    ],
+    "p1": [
+      64.0,
+      76.0
+    ],
+    "samples": 18,
+    "edge": "right-13"
+  },
+  {
+    "stage": "after",
+    "family": "floor-lamp",
+    "facing": "ne",
+    "surface": "straight stem",
+    "axis": "y",
+    "slope": 5.237502577269765e-16,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 8.903754381358601e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      64.0,
+      59.0
+    ],
+    "p1": [
+      64.0,
+      76.0
+    ],
+    "samples": 18,
+    "edge": "right-13"
+  },
+  {
+    "stage": "before",
+    "family": "floor-lamp",
+    "facing": "nw",
+    "surface": "straight stem",
+    "axis": "y",
+    "slope": 5.237502577269765e-16,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 8.903754381358601e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      64.0,
+      59.0
+    ],
+    "p1": [
+      64.0,
+      76.0
+    ],
+    "samples": 18,
+    "edge": "right-13"
+  },
+  {
+    "stage": "after",
+    "family": "floor-lamp",
+    "facing": "nw",
+    "surface": "straight stem",
+    "axis": "y",
+    "slope": 5.237502577269765e-16,
+    "expected": 0.0,
+    "span_px": 17.0,
+    "drift_px": 8.903754381358601e-15,
+    "fit_residual_px": 1.4210854715202004e-14,
+    "p0": [
+      64.0,
+      59.0
+    ],
+    "p1": [
+      64.0,
+      76.0
+    ],
+    "samples": 18,
+    "edge": "right-13"
+  }
+]

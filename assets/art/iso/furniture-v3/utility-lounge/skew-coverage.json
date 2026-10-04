@@ -1,0 +1,254 @@
+[
+  {
+    "family": "sofa",
+    "facing": "se",
+    "before_edges": 7,
+    "after_edges": 7,
+    "before_max_drift": 1.389705882352958,
+    "after_max_drift": 0.16666666666669483,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "sofa",
+    "facing": "sw",
+    "before_edges": 9,
+    "after_edges": 7,
+    "before_max_drift": 1.389705882352943,
+    "after_max_drift": 0.16666666666665597,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "sofa",
+    "facing": "ne",
+    "before_edges": 13,
+    "after_edges": 13,
+    "before_max_drift": 1.1666666666666665,
+    "after_max_drift": 0.45454545454545525,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "sofa",
+    "facing": "nw",
+    "before_edges": 11,
+    "after_edges": 13,
+    "before_max_drift": 1.4035087719297838,
+    "after_max_drift": 0.4545454545454449,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "side-table",
+    "facing": "se",
+    "before_edges": 3,
+    "after_edges": 8,
+    "before_max_drift": 0.36507936507938255,
+    "after_max_drift": 0.05172413793101094,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "side-table",
+    "facing": "sw",
+    "before_edges": 5,
+    "after_edges": 8,
+    "before_max_drift": 0.36507936507938255,
+    "after_max_drift": 0.05172413793101094,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "side-table",
+    "facing": "ne",
+    "before_edges": 3,
+    "after_edges": 8,
+    "before_max_drift": 0.40000000000002844,
+    "after_max_drift": 0.05172413793101094,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "side-table",
+    "facing": "nw",
+    "before_edges": 2,
+    "after_edges": 8,
+    "before_max_drift": 1.5715890700197773e-14,
+    "after_max_drift": 0.05172413793101094,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "water-cooler",
+    "facing": "se",
+    "before_edges": 5,
+    "after_edges": 4,
+    "before_max_drift": 1.7802197802197846,
+    "after_max_drift": 0.08823529411764508,
+    "note": "Jug curved rims excluded; chassis measured."
+  },
+  {
+    "family": "water-cooler",
+    "facing": "sw",
+    "before_edges": 4,
+    "after_edges": 4,
+    "before_max_drift": 0.6593406593406623,
+    "after_max_drift": 0.0882352941176251,
+    "note": "Jug curved rims excluded; chassis measured."
+  },
+  {
+    "family": "water-cooler",
+    "facing": "ne",
+    "before_edges": 3,
+    "after_edges": 4,
+    "before_max_drift": 1.5454545454545854,
+    "after_max_drift": 0.0882352941176251,
+    "note": "Jug curved rims excluded; chassis measured."
+  },
+  {
+    "family": "water-cooler",
+    "facing": "nw",
+    "before_edges": 4,
+    "after_edges": 4,
+    "before_max_drift": 0.5274725274725076,
+    "after_max_drift": 0.08823529411764508,
+    "note": "Jug curved rims excluded; chassis measured."
+  },
+  {
+    "family": "fridge",
+    "facing": "se",
+    "before_edges": 6,
+    "after_edges": 6,
+    "before_max_drift": 1.5545454545454456,
+    "after_max_drift": 0.08823529411765507,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "fridge",
+    "facing": "sw",
+    "before_edges": 6,
+    "after_edges": 6,
+    "before_max_drift": 0.4545454545454608,
+    "after_max_drift": 0.08823529411766007,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "fridge",
+    "facing": "ne",
+    "before_edges": 6,
+    "after_edges": 6,
+    "before_max_drift": 1.733333333333337,
+    "after_max_drift": 0.08823529411766007,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "fridge",
+    "facing": "nw",
+    "before_edges": 5,
+    "after_edges": 6,
+    "before_max_drift": 1.0090909090909137,
+    "after_max_drift": 0.08823529411765507,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "coffee-machine",
+    "facing": "se",
+    "before_edges": 5,
+    "after_edges": 6,
+    "before_max_drift": 1.2999999999999945,
+    "after_max_drift": 0.08823529411765008,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "coffee-machine",
+    "facing": "sw",
+    "before_edges": 6,
+    "after_edges": 6,
+    "before_max_drift": 0.6923076923077025,
+    "after_max_drift": 0.08823529411765174,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "coffee-machine",
+    "facing": "ne",
+    "before_edges": 6,
+    "after_edges": 6,
+    "before_max_drift": 0.5384615384615312,
+    "after_max_drift": 0.08823529411765174,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "coffee-machine",
+    "facing": "nw",
+    "before_edges": 5,
+    "after_edges": 6,
+    "before_max_drift": 1.2500000000000102,
+    "after_max_drift": 0.08823529411765008,
+    "note": "Same shelf-v3 boundary OLS algorithm, minimum 8 samples."
+  },
+  {
+    "family": "floor-lamp",
+    "facing": "se",
+    "before_edges": 1,
+    "after_edges": 1,
+    "before_max_drift": 8.903754381358601e-15,
+    "after_max_drift": 8.903754381358601e-15,
+    "note": "Conical shade and elliptical base excluded; unchanged vertical stem measured."
+  },
+  {
+    "family": "floor-lamp",
+    "facing": "sw",
+    "before_edges": 1,
+    "after_edges": 1,
+    "before_max_drift": 8.903754381358601e-15,
+    "after_max_drift": 8.903754381358601e-15,
+    "note": "Conical shade and elliptical base excluded; unchanged vertical stem measured."
+  },
+  {
+    "family": "floor-lamp",
+    "facing": "ne",
+    "before_edges": 1,
+    "after_edges": 1,
+    "before_max_drift": 8.903754381358601e-15,
+    "after_max_drift": 8.903754381358601e-15,
+    "note": "Conical shade and elliptical base excluded; unchanged vertical stem measured."
+  },
+  {
+    "family": "floor-lamp",
+    "facing": "nw",
+    "before_edges": 1,
+    "after_edges": 1,
+    "before_max_drift": 8.903754381358601e-15,
+    "after_max_drift": 8.903754381358601e-15,
+    "note": "Conical shade and elliptical base excluded; unchanged vertical stem measured."
+  },
+  {
+    "family": "plant",
+    "facing": "se",
+    "before_edges": 0,
+    "after_edges": 0,
+    "before_max_drift": null,
+    "after_max_drift": null,
+    "note": "Leaves and round/tapered pot: no rectilinear plane."
+  },
+  {
+    "family": "plant",
+    "facing": "sw",
+    "before_edges": 0,
+    "after_edges": 0,
+    "before_max_drift": null,
+    "after_max_drift": null,
+    "note": "Leaves and round/tapered pot: no rectilinear plane."
+  },
+  {
+    "family": "plant",
+    "facing": "ne",
+    "before_edges": 0,
+    "after_edges": 0,
+    "before_max_drift": null,
+    "after_max_drift": null,
+    "note": "Leaves and round/tapered pot: no rectilinear plane."
+  },
+  {
+    "family": "plant",
+    "facing": "nw",
+    "before_edges": 0,
+    "after_edges": 0,
+    "before_max_drift": null,
+    "after_max_drift": null,
+    "note": "Leaves and round/tapered pot: no rectilinear plane."
+  }
+]

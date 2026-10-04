@@ -1,0 +1,17 @@
+sofa : variants/anchors/part IDs/depth/tie ranks/seat contacts/shadows preserved; disjoint reconstruction PASS
+side-table : variants/anchors/part IDs/depth/tie ranks/seat contacts/shadows preserved; disjoint reconstruction PASS
+water-cooler : variants/anchors/part IDs/depth/tie ranks/seat contacts/shadows preserved; disjoint reconstruction PASS
+fridge : variants/anchors/part IDs/depth/tie ranks/seat contacts/shadows preserved; disjoint reconstruction PASS
+coffee-machine : variants/anchors/part IDs/depth/tie ranks/seat contacts/shadows preserved; disjoint reconstruction PASS
+floor-lamp : variants/anchors/part IDs/depth/tie ranks/seat contacts/shadows preserved; disjoint reconstruction PASS
+plant : variants/anchors/part IDs/depth/tie ranks/seat contacts/shadows preserved; disjoint reconstruction PASS
+1008 structural cuboid edges: exact 2:1 or vertical, endpoint drift 0px.
+116 body parts / 28 reconstructed cells: disjoint and byte-exact union.
+136 clip records: anchors, names, depth fields and ordering unchanged (only physical anchorChecks regenerated).
+Four sofa ground/pelvis contacts: P(seatGround)+(0,-12); source pelvis remains (16,44).
+Lamp: original straight vertical stem (drift 0px); shade/base are round, inapplicable to rectilinear slope.
+Plant: original organic leaves and round pot; straight-edge regression inapplicable.
+Seven original shadow PNGs byte-identical; alpha 0/48/96 and offsets preserved. All body RGB colors belong to the eight frozen S0 ramps.
+No full dotnet test, pack change, live runtime validation, git mutation, dependency install or new image generation.
+112 checks; 0 failed
+Checker SKIP is limited to 6x6 floor seams, character face-lock/blink and shadow depth-part naming (inapplicable sheet kinds).

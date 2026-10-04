@@ -1,0 +1,705 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "facings": [
+    "se",
+    "sw",
+    "ne",
+    "nw"
+  ],
+  "light": {
+    "screenDirection": "upper-left",
+    "highlightVector": {
+      "x": -2,
+      "y": -1
+    },
+    "shadowOffset": {
+      "x": 6,
+      "y": 3
+    }
+  },
+  "sheets": [
+    {
+      "id": "iso-fridge-parts",
+      "kind": "furniture",
+      "file": "fridge-parts.png",
+      "cellW": 128,
+      "cellH": 128,
+      "anchor": {
+        "x": 64,
+        "y": 80
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "rear-00",
+          "direction": "se",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__rear__se__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 66,
+              "y": 42,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "side-00",
+          "direction": "se",
+          "row": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__side__se__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.2
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 65,
+              "y": 86,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "front-00",
+          "direction": "se",
+          "row": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__front__se__00",
+          "depthAnchor": {
+            "i": 0.22,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 66,
+              "y": 86,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "rear-00",
+          "direction": "sw",
+          "row": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__rear__sw__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 62,
+              "y": 42,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "side-00",
+          "direction": "sw",
+          "row": 4,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__side__sw__00",
+          "depthAnchor": {
+            "i": 0.2,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 62,
+              "y": 86,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "front-00",
+          "direction": "sw",
+          "row": 5,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__front__sw__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.22
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 61,
+              "y": 86,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "rear-00",
+          "direction": "ne",
+          "row": 6,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__rear__ne__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 62,
+              "y": 42,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "side-00",
+          "direction": "ne",
+          "row": 7,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__side__ne__00",
+          "depthAnchor": {
+            "i": 0.2,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 62,
+              "y": 86,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "side-01",
+          "direction": "ne",
+          "row": 8,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__side__ne__01",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.22
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 61,
+              "y": 86,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "rear-00",
+          "direction": "nw",
+          "row": 9,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__rear__nw__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 66,
+              "y": 42,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "side-00",
+          "direction": "nw",
+          "row": 10,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__side__nw__00",
+          "depthAnchor": {
+            "i": 0.0,
+            "j": 0.2
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 65,
+              "y": 86,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        },
+        {
+          "name": "side-01",
+          "direction": "nw",
+          "row": 11,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "partId": "fridge__side__nw__01",
+          "depthAnchor": {
+            "i": 0.22,
+            "j": 0.0
+          },
+          "isoZOrder": 0,
+          "anchorChecks": [
+            {
+              "x": 66,
+              "y": 86,
+              "radius": 0,
+              "meaning": "lowest texel of this physical assembly surface"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "iso-fridge-shadow",
+      "kind": "shadow",
+      "file": "fridge-shadow.png",
+      "cellW": 128,
+      "cellH": 128,
+      "anchor": {
+        "x": 64,
+        "y": 80
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "shadow",
+          "direction": "se",
+          "row": 0,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "anchorChecks": [
+            {
+              "x": 65,
+              "y": 86,
+              "radius": 0,
+              "meaning": "floor contact"
+            }
+          ]
+        },
+        {
+          "name": "shadow",
+          "direction": "sw",
+          "row": 1,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "anchorChecks": [
+            {
+              "x": 63,
+              "y": 86,
+              "radius": 0,
+              "meaning": "floor contact"
+            }
+          ]
+        },
+        {
+          "name": "shadow",
+          "direction": "ne",
+          "row": 2,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "anchorChecks": [
+            {
+              "x": 63,
+              "y": 86,
+              "radius": 0,
+              "meaning": "floor contact"
+            }
+          ]
+        },
+        {
+          "name": "shadow",
+          "direction": "nw",
+          "row": 3,
+          "frames": 1,
+          "fps": 1,
+          "loop": false,
+          "anchor": {
+            "x": 64,
+            "y": 80
+          },
+          "anchorChecks": [
+            {
+              "x": 65,
+              "y": 86,
+              "radius": 0,
+              "meaning": "floor contact"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "furniture": [
+    {
+      "id": "iso/fridge",
+      "name": "fridge",
+      "variants": [
+        {
+          "id": "se",
+          "name": "SE",
+          "rotation": 0,
+          "orientation": "se",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "height": 44,
+          "potHeight": null,
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "rear-00",
+              "direction": "se",
+              "partId": "fridge__rear__se__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "side-00",
+              "direction": "se",
+              "partId": "fridge__side__se__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.2
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "front-00",
+              "direction": "se",
+              "partId": "fridge__front__se__00",
+              "depthAnchor": {
+                "i": 0.22,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "shadow": {
+            "sheetId": "iso-fridge-shadow",
+            "animation": "shadow",
+            "direction": "se",
+            "renderPass": "shadows"
+          }
+        },
+        {
+          "id": "sw",
+          "name": "SW",
+          "rotation": 90,
+          "orientation": "sw",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "height": 44,
+          "potHeight": null,
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "rear-00",
+              "direction": "sw",
+              "partId": "fridge__rear__sw__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "side-00",
+              "direction": "sw",
+              "partId": "fridge__side__sw__00",
+              "depthAnchor": {
+                "i": 0.2,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "front-00",
+              "direction": "sw",
+              "partId": "fridge__front__sw__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.22
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "shadow": {
+            "sheetId": "iso-fridge-shadow",
+            "animation": "shadow",
+            "direction": "sw",
+            "renderPass": "shadows"
+          }
+        },
+        {
+          "id": "ne",
+          "name": "NE",
+          "rotation": 270,
+          "orientation": "ne",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "height": 44,
+          "potHeight": null,
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "rear-00",
+              "direction": "ne",
+              "partId": "fridge__rear__ne__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "side-00",
+              "direction": "ne",
+              "partId": "fridge__side__ne__00",
+              "depthAnchor": {
+                "i": 0.2,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "side-01",
+              "direction": "ne",
+              "partId": "fridge__side__ne__01",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.22
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "shadow": {
+            "sheetId": "iso-fridge-shadow",
+            "animation": "shadow",
+            "direction": "ne",
+            "renderPass": "shadows"
+          }
+        },
+        {
+          "id": "nw",
+          "name": "NW",
+          "rotation": 180,
+          "orientation": "nw",
+          "state": "default",
+          "footprintW": 1,
+          "footprintH": 1,
+          "blockedCells": [
+            {
+              "x": 0,
+              "y": 0
+            }
+          ],
+          "height": 44,
+          "potHeight": null,
+          "layer": 1,
+          "parts": [
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "rear-00",
+              "direction": "nw",
+              "partId": "fridge__rear__nw__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "side-00",
+              "direction": "nw",
+              "partId": "fridge__side__nw__00",
+              "depthAnchor": {
+                "i": 0.0,
+                "j": 0.2
+              },
+              "isoZOrder": 0
+            },
+            {
+              "sheetId": "iso-fridge-parts",
+              "animation": "side-01",
+              "direction": "nw",
+              "partId": "fridge__side__nw__01",
+              "depthAnchor": {
+                "i": 0.22,
+                "j": 0.0
+              },
+              "isoZOrder": 0
+            }
+          ],
+          "points": [],
+          "shadow": {
+            "sheetId": "iso-fridge-shadow",
+            "animation": "shadow",
+            "direction": "nw",
+            "renderPass": "shadows"
+          }
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "method": "native pixel-center 3D plane redraw using the shelf-v3 method; no nonuniform resize",
+    "source": "assets\\art\\iso\\furniture-v2\\utility\\fridge.iso.json",
+    "geometry": "integer structural endpoints; exact 2:1 floor-plane edges and vertical uprights",
+    "preserved": "all furniture/variant fields, sheet/clip anchors, IDs, depth anchors, ordering, contacts and shadow bytes",
+    "radialException": "",
+    "limitations": "private lane assets; pack and runtime not modified; strict rectilinear cushion silhouette with pillowy shading"
+  },
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1"
+  ]
+}
