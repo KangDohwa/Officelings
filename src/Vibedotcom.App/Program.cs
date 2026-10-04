@@ -18,7 +18,7 @@ using Forms = System.Windows.Forms;
 
 namespace Vibedotcom.App;
 
-internal sealed record Settings
+internal sealed partial record Settings
 {
     public string Mode { get; init; } = "normal";
     public string TagMode { get; init; } = "hover";
@@ -46,7 +46,7 @@ internal sealed record Settings
         static double Number(double value, double fallback, double min, double max) => double.IsFinite(value) ? Math.Clamp(value, min, max) : fallback;
         var working = Number(WorkingSeconds, 120, 1, 86400);
         var waiting = Math.Max(Number(LeaveAfterWaitingMinutes, 30, 1, 10080), (working + 1) / 60);
-        return this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
+        return (this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
             TagMode = NameTagHover.Normalize(TagMode),
             Ambient = (Ambient ?? new()).Normalize(), SeasonDecor = SeasonDecor == "auto" ? "auto" : "off",
             Pets = Pets == "off" ? "off" : "on",
@@ -55,7 +55,7 @@ internal sealed record Settings
             Top = Top is {} y && double.IsFinite(y) ? Math.Clamp(y, -100000, 100000) : null,
             Opacity = Number(Opacity, 1, .25, 1), WorkingSeconds = working,
             LeaveAfterIdleMinutes = Math.Max(Number(LeaveAfterIdleMinutes, 5, 1, 10080), (working + 1) / 60),
-            LeaveAfterWaitingMinutes = waiting, GoneMinutes = waiting };
+            LeaveAfterWaitingMinutes = waiting, GoneMinutes = waiting }).NormalizeSharing();
     }
 
     internal static Settings Read(string path)
@@ -467,7 +467,7 @@ internal static class DemoScenario
     }
 }
 
-internal sealed class OfficeWindow : Window
+internal sealed partial class OfficeWindow : Window
 {
     private readonly AppStorage storage;
     private string settingsPath => storage.SettingsPath;
@@ -538,6 +538,7 @@ internal sealed class OfficeWindow : Window
         DockPanel.SetDock(bar,Dock.Top); root.Children.Add(bar);
         DockPanel.SetDock(status,Dock.Bottom); root.Children.Add(status);
         surface.Children.Add(view);root.Children.Add(surface); Content = root;
+        InitializeSharing();
         PreviewMouseWheel += (_,e) => { if(editor != null && !view.IsMouseOver) return; Zoom(e.Delta>0 ? 1 : -1); e.Handled = true; };
         PreviewKeyDown += (_,e) =>
         {
@@ -652,6 +653,7 @@ internal sealed class OfficeWindow : Window
         ("Borderless",ToggleBorderless,()=>settings.Borderless),
         ("Transparent background",ToggleTransparent,()=>settings.TransparentBackground),
         ("Pets",TogglePets,()=>settings.Pets=="on"),
+        ("Sharing",ShowSharing,()=>sharingSender?.Enabled==true),
         ("Opacity 100%",()=>OpacityTo(1),()=>settings.Opacity==1),
         ("Opacity 85%",()=>OpacityTo(.85),()=>settings.Opacity==.85),
         ("Opacity 70%",()=>OpacityTo(.70),()=>settings.Opacity==.70),

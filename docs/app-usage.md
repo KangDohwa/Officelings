@@ -27,6 +27,10 @@ Normal use writes `%LOCALAPPDATA%\Vibedotcom\settings.json` atomically. Close th
 | `ambient.weather` | `off`; also `rain`, `snow`, `auto`. No network requests. `auto` shows snow in December and a clear view in other months. |
 | `seasonDecor` | `off`; `auto` adds a small winter window decoration in December. |
 | `pets` | `on`; `off` hides the roaming pets. Right-click **Pets** changes and saves this preference. Missing pet sheets simply leave the room without pets. |
+| `sharing` | `off`; also `on`. Saved intent only: a fresh JSON preview and confirmation are required before transmission starts. |
+| `sharingServer` | Empty; server origin such as `https://presence.example`. HTTPS required outside loopback; credentials, paths, queries and fragments are rejected. |
+| `sharingOfficeId` | Empty; nonzero UUID belonging to the ingest token. |
+| `sharingAliases` | Empty object; map of `platform:slot` to chosen aliases, for example `{"codex:1":"Nova","claude:1":"Moon"}`. Platforms are `codex`, `claude`, `antigravity`, `other`; slots are 1–64. |
 | `clickThrough` | `false`. |
 | `zoom` | `0` for auto-fit; integers 1 through 6. Fractional values are rounded. |
 | `width`, `height` | 720, 480; window sizing clamps to 400–3000 and 300–2000 respectively. |
@@ -42,6 +46,33 @@ Normal use writes `%LOCALAPPDATA%\Vibedotcom\settings.json` atomically. Close th
 Older settings are accepted. Invalid/nonfinite values are normalized before use or saving. Both leave thresholds are raised when needed to exceed the working window. Saved settings include the new keys and retain `goneMinutes` with the same waiting value for compatibility.
 
 Working/Thinking becomes Idle after `workingSeconds`. Finished workers still deliver their report, then take breaks until the idle threshold. Parents stay while a tracked descendant is active. Departure begins wherever the character is, walks to the door and fades there. Later work re-enters through the door. [Closed-session signals](sources-and-inference.md#closed-sessions) can make agents leave sooner; undetectable closures use these time thresholds.
+
+## Presence sharing
+
+Sharing starts **off**. Open **Sharing** from the office or tray menu. Enter the server origin, office UUID and ingest bearer token obtained from the server's account page. Creating a token, transmitting presence and making an office public are separate actions. This client does not change the office's public/private setting or implement a web viewer.
+
+Choose aliases using one `platform:slot=alias` per line, such as `codex:1=Nova`. Slots are numbered within each platform in the current snapshot, with supervisors before sub-agents; they can shift when membership changes. They are not persistent session identities. Unlisted slots use `Agent N`. Aliases are normalized to NFC, rejected above 24 Unicode scalar values, then stripped to letters, digits, ASCII spaces, `_`, `-` and `.`. Spaces collapse. Pick aliases without private details; sanitization does not detect personal information.
+
+Click **Preview exact JSON**. The complete JSON is an invented-agent example using the chosen aliases, current office ID and current UTC timestamp. Check **I reviewed this JSON and agree to share presence**, then **Enable sharing**. The first request sends exactly the displayed UTF-8 body. Later requests contain complete live presence, even when unchanged. Editing the server, office or aliases clears the preview and consent; a preview older than 90 seconds must be refreshed. The bearer token is masked in setup and never included in the JSON.
+
+The only body fields are `v`, `officeId`, `agents` and `ts`; agents contain `platform`, `alias`, `state`, `role` and optional `parentIndex`. Working/thinking maps to `working`, explicit waits to `waiting`, and reporting/idle to `idle`; gone agents are omitted. Parents refer only to earlier supervisors in the current array. Local names, prompts, task/tool text, paths, project/model names and session/agent IDs never enter this payload. More than 64 agents or 8,192 UTF-8 bytes stops sharing rather than uploading a partial office.
+
+Successful heartbeats use a random 10–30 second interval. Every attempted request consumes at least 10 seconds; 429 honors both forms of `Retry-After`, and temporary failures use backoff. App and Tracker share a timing gate across restarts. HTTPS is required except for loopback development; proxies and redirects are disabled. Server rejection stops transmission. The visible **Sharing** line shows off, sending, live, retry waiting or the reason sharing stopped.
+
+By default the token is stored with Windows DPAPI **CurrentUser** in `%LOCALAPPDATA%\Vibedotcom.Credentials\presence.dpapi`, bound to the chosen server and office. Uncheck token storage to keep the supplied token in memory for this run. The token is never written to settings, layouts, exported state, URLs or diagnostics. The credential folder also holds token-hash-named `.cooldown` files containing only timing data. See [privacy](privacy.md#optional-presence-sharing).
+
+Open **Sharing** and click **Stop sharing** to cancel transmission. **Also delete the stored token** removes the DPAPI file. Stopping does not revoke a server token or unpublish an office. Presence expires within 90 seconds; revocation or unpublishing clears it immediately in the server process. Downloaded data cannot be recalled. Anyone who learns a public office URL can save or redistribute aliases, platforms, states, hierarchy and approximate activity times.
+
+Demo and QA disable sharing. A new app process or a replacement window (for example, changing transparency) starts with transmission off and requires a fresh preview to resume. If a `privacy:"full"` setting is supplied by the privacy feature, previews and live payloads force generic `Agent N` aliases. Changing privacy mode during sharing stops transmission and requires new consent. This checkout has no separate privacy-mode selector.
+
+For the headless Tracker, first enable sharing and store the token in the app, then close the app to stop its sender. The saved `sharing:"on"` must be in the Tracker output directory's `settings.json`. Run `Vibedotcom.Tracker --sharing` in an interactive terminal, review its full invented JSON, and type `ENABLE`. Without this flag, or with redirected standard input, it sends nothing. Ctrl+C cancels sharing. The app's **Stop sharing** sets `sharing:"off"`, which the Tracker observes; changing privacy mode also stops it. Token deletion remains available in the app.
+
+The dependency-free checks use fake HTTP, synthetic tokens and temporary settings only:
+
+```powershell
+dotnet build tests/Vibedotcom.SharingChecks -m:1 -p:UseSharedCompilation=false
+dotnet tests/Vibedotcom.SharingChecks/bin/Debug/net10.0-windows/Vibedotcom.SharingChecks.dll
+```
 
 ## Art packs and office editing
 

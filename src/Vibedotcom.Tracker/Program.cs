@@ -11,6 +11,7 @@ try
     var output = TrackerOptions.OutputDirectory;
     string? assetDirectory = null, layoutFile = null;
     double seconds = double.PositiveInfinity, interval = .2;
+    var sharingRequested = false;
     for (var i = 0; i < args.Length; i++)
     {
         string Value() => ++i < args.Length ? args[i] : throw new ArgumentException("Missing value for " + args[i - 1]);
@@ -19,7 +20,7 @@ try
         switch (args[i])
         {
             case "--help":
-                Console.WriteLine("Vibedotcom.Tracker [--once | --seconds N] [--output DIR] [--home DIR] [--asset-dir DIR] [--layout FILE] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated waiting alias)] [--scan-seconds N] [--interval-seconds N]\nRead-only observation. Default output: " + output);
+                Console.WriteLine("Vibedotcom.Tracker [--once | --seconds N] [--output DIR] [--home DIR] [--asset-dir DIR] [--layout FILE] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated waiting alias)] [--scan-seconds N] [--interval-seconds N] [--sharing]\nSharing requires interactive JSON confirmation and the app's stored token. Read-only observation. Default output: " + output);
                 return;
             case "--output": output = Value(); break;
             case "--home": options = options with { Home = Path.GetFullPath(Value()) }; break;
@@ -33,6 +34,7 @@ try
             case "--gone-minutes": options = options with { GoneAfter = TimeSpan.FromMinutes(Number()) }; break;
             case "--scan-seconds": options = options with { ScanInterval = TimeSpan.FromSeconds(Number()) }; break;
             case "--interval-seconds": interval = Number(); break;
+            case "--sharing": sharingRequested = true; break;
             default: throw new ArgumentException("Unknown option: " + args[i]);
         }
     }
@@ -43,6 +45,7 @@ try
     if (!owns) throw new IOException("Another tracker already writes this output directory.");
     using var cancellation = new CancellationTokenSource();
     Console.CancelKeyPress += (_, e) => { e.Cancel = true; cancellation.Cancel(); };
+    await using var sharing = TrackerSharing.Start(sharingRequested, Path.Combine(output, "settings.json"), cancellation.Token);
     var publicationLogged = false;
     void LogPublication(string message) { if (!publicationLogged) { Console.Error.WriteLine(message); publicationLogged = true; } }
     var assets = AssetPack.LoadDefault(assetDirectory);
@@ -69,6 +72,7 @@ try
     {
         var now = DateTimeOffset.UtcNow;
         var agents = tracker.Poll(now);
+        sharing.Update(agents);
         var hasLiveAgents = agents.Any(a => a.State != AgentState.Gone);
         var agentsChanged = !previousAgents.SequenceEqual(agents);
         if (sequence == 0 || agentsChanged || now < previous || now >= nextAnimation || now >= office.NextUpdateAt)
