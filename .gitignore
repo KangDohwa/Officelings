@@ -59,3 +59,11 @@ assets/art/iso/**/runs/
 assets/art/iso/**/qa/
 
 tools/perf/results/
+
+# Authored animation masks are pack validation inputs, not disposable QA output.
+!assets/art/env3/qa/
+assets/art/env3/qa/*
+!assets/art/env3/qa/masks/
+!assets/art/env4/qa/
+assets/art/env4/qa/*
+!assets/art/env4/qa/masks/
