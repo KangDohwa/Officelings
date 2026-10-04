@@ -1,0 +1,434 @@
+{
+  "room": [
+    10,
+    10
+  ],
+  "projection": "P(i,j,z)=(32*(i-j),16*(i+j)-z)",
+  "screenOrigin": [
+    320,
+    64
+  ],
+  "walls": [
+    {
+      "face": "left",
+      "segment": 0,
+      "kind": "whiteboard",
+      "edge": {
+        "i": -0.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        320,
+        48
+      ],
+      "destination": [
+        288,
+        0
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 1,
+      "kind": "clock",
+      "edge": {
+        "i": -0.5,
+        "j": 0.5
+      },
+      "edgeScreen": [
+        288,
+        64
+      ],
+      "destination": [
+        256,
+        16
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 2,
+      "kind": "corkboard",
+      "edge": {
+        "i": -0.5,
+        "j": 1.5
+      },
+      "edgeScreen": [
+        256,
+        80
+      ],
+      "destination": [
+        224,
+        32
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 3,
+      "kind": "plant-shelf",
+      "edge": {
+        "i": -0.5,
+        "j": 2.5
+      },
+      "edgeScreen": [
+        224,
+        96
+      ],
+      "destination": [
+        192,
+        48
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 4,
+      "kind": "window",
+      "edge": {
+        "i": -0.5,
+        "j": 3.5
+      },
+      "edgeScreen": [
+        192,
+        112
+      ],
+      "destination": [
+        160,
+        64
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 5,
+      "kind": "window",
+      "edge": {
+        "i": -0.5,
+        "j": 4.5
+      },
+      "edgeScreen": [
+        160,
+        128
+      ],
+      "destination": [
+        128,
+        80
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 6,
+      "kind": "abstract-art",
+      "edge": {
+        "i": -0.5,
+        "j": 5.5
+      },
+      "edgeScreen": [
+        128,
+        144
+      ],
+      "destination": [
+        96,
+        96
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 7,
+      "kind": "wall-lamp",
+      "edge": {
+        "i": -0.5,
+        "j": 6.5
+      },
+      "edgeScreen": [
+        96,
+        160
+      ],
+      "destination": [
+        64,
+        112
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 8,
+      "kind": "city-picture",
+      "edge": {
+        "i": -0.5,
+        "j": 7.5
+      },
+      "edgeScreen": [
+        64,
+        176
+      ],
+      "destination": [
+        32,
+        128
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "left",
+      "segment": 9,
+      "kind": "string-lights",
+      "edge": {
+        "i": -0.5,
+        "j": 8.5
+      },
+      "edgeScreen": [
+        32,
+        192
+      ],
+      "destination": [
+        0,
+        144
+      ],
+      "anchor": {
+        "x": 32,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 0,
+      "kind": "whiteboard",
+      "edge": {
+        "i": -0.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        320,
+        48
+      ],
+      "destination": [
+        320,
+        0
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 1,
+      "kind": "window",
+      "edge": {
+        "i": 0.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        352,
+        64
+      ],
+      "destination": [
+        352,
+        16
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 2,
+      "kind": "window",
+      "edge": {
+        "i": 1.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        384,
+        80
+      ],
+      "destination": [
+        384,
+        32
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 3,
+      "kind": "clock",
+      "edge": {
+        "i": 2.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        416,
+        96
+      ],
+      "destination": [
+        416,
+        48
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 4,
+      "kind": "door",
+      "edge": {
+        "i": 3.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        448,
+        112
+      ],
+      "destination": [
+        448,
+        64
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 5,
+      "kind": "abstract-art",
+      "edge": {
+        "i": 4.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        480,
+        128
+      ],
+      "destination": [
+        480,
+        80
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 6,
+      "kind": "plant-shelf",
+      "edge": {
+        "i": 5.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        512,
+        144
+      ],
+      "destination": [
+        512,
+        96
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 7,
+      "kind": "corkboard",
+      "edge": {
+        "i": 6.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        544,
+        160
+      ],
+      "destination": [
+        544,
+        112
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 8,
+      "kind": "wall-lamp",
+      "edge": {
+        "i": 7.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        576,
+        176
+      ],
+      "destination": [
+        576,
+        128
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    },
+    {
+      "face": "right",
+      "segment": 9,
+      "kind": "city-picture",
+      "edge": {
+        "i": 8.5,
+        "j": -0.5
+      },
+      "edgeScreen": [
+        608,
+        192
+      ],
+      "destination": [
+        608,
+        144
+      ],
+      "anchor": {
+        "x": 0,
+        "y": 48
+      }
+    }
+  ],
+  "actorAndFurniture": "none; real existing S0 floor and wall modules"
+}

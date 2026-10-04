@@ -1,0 +1,9 @@
+PASS: 15 logical wall modules, 22 face cells + corner, original rows/names, source edge anchors, rise16/height48, hinge .25 and leaf ground steps unchanged.
+PASS: 73 exported clips; exact frozen ramp membership, binary alpha, zero transparent RGB, no environment identityPalette.
+PASS: L/R artwork independently shaded; R differs from reflected L for all nine one-edge decor bodies. Windows use independent sky/frame pigment and reflection stops.
+PASS: 344 structural endpoint edges exactly +/-0.5 or vertical (drift0); 56 native saved-alpha OLS traces; maximum staircase-fit accumulated drift 0.100000px. Every sampled diagonal repeats exactly 2 pixels per 1 row.
+PASS: all 102400 real floor texels byte-identical to existing ENV baseline, including transitions, AO and final near cut; room changes are confined to walls/decor.
+PASS: 10x10 real S0 floor/wall placement, original transition/AO pixels, independent complete floor+20-face coverage with no gaps/overhangs; 640x368, 1280x736, 1920x1104 exact nearest-neighbor previews. Main left door remains beside (0,4), first right window edge beside (4,0).
+PASS: read-only ENV/spec/reference source hashes preserved within this run; no writes outside env-v3.
+PASS: tools/iso_check.py env-v3 --tolerance 0: 20 PASS / 12 inapplicable SKIP / 0 FAIL.
+Limits: no engine/pack wiring, actor crossing test or dotnet tests; binary glow is stylized, not soft room illumination. Raw generated master is reference only and excluded from production manifests.

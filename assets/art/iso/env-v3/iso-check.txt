@@ -1,0 +1,35 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| wall-decor.iso.json:iso-env-v3-decor | cell sizes | PASS | 256×320, 32×64 cells |
+| wall-decor.iso.json:iso-env-v3-decor | transparency | PASS | straight alpha and guards |
+| wall-decor.iso.json:iso-env-v3-decor | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| wall-decor.iso.json:iso-env-v3-decor | palette | PASS | 32 colors; RGB max-channel tolerance 0 |
+| wall-decor.iso.json:iso-env-v3-decor | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| wall-decor.iso.json:iso-env-v3-decor | 6×6 seams | SKIP | floor sheets only |
+| wall-decor.iso.json:iso-env-v3-decor | depth-part names | SKIP | furniture sheets only |
+| wall-decor.iso.json:iso-env-v3-decor | face-lock / blink | SKIP | checked from normal character sheet |
+| wall-decor.iso.json:iso-env-v3-glow | cell sizes | PASS | 256×128, 32×64 cells |
+| wall-decor.iso.json:iso-env-v3-glow | transparency | PASS | straight alpha and guards |
+| wall-decor.iso.json:iso-env-v3-glow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| wall-decor.iso.json:iso-env-v3-glow | palette | PASS | 9 colors; RGB max-channel tolerance 0 |
+| wall-decor.iso.json:iso-env-v3-glow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| wall-decor.iso.json:iso-env-v3-glow | 6×6 seams | SKIP | floor sheets only |
+| wall-decor.iso.json:iso-env-v3-glow | depth-part names | SKIP | furniture sheets only |
+| wall-decor.iso.json:iso-env-v3-glow | face-lock / blink | SKIP | checked from normal character sheet |
+| walls.iso.json:iso-env-walls-v3 | cell sizes | PASS | 128×384, 32×64 cells |
+| walls.iso.json:iso-env-walls-v3 | transparency | PASS | straight alpha and guards |
+| walls.iso.json:iso-env-walls-v3 | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| walls.iso.json:iso-env-walls-v3 | palette | PASS | 12 colors; RGB max-channel tolerance 0 |
+| walls.iso.json:iso-env-walls-v3 | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| walls.iso.json:iso-env-walls-v3 | 6×6 seams | SKIP | floor sheets only |
+| walls.iso.json:iso-env-walls-v3 | depth-part names | SKIP | furniture sheets only |
+| walls.iso.json:iso-env-walls-v3 | face-lock / blink | SKIP | checked from normal character sheet |
+| walls.iso.json:iso-env-wall-corner-v3 | cell sizes | PASS | 64×64, 64×64 cells |
+| walls.iso.json:iso-env-wall-corner-v3 | transparency | PASS | straight alpha and guards |
+| walls.iso.json:iso-env-wall-corner-v3 | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| walls.iso.json:iso-env-wall-corner-v3 | palette | PASS | 6 colors; RGB max-channel tolerance 0 |
+| walls.iso.json:iso-env-wall-corner-v3 | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| walls.iso.json:iso-env-wall-corner-v3 | 6×6 seams | SKIP | floor sheets only |
+| walls.iso.json:iso-env-wall-corner-v3 | depth-part names | SKIP | furniture sheets only |
+| walls.iso.json:iso-env-wall-corner-v3 | face-lock / blink | SKIP | checked from normal character sheet |
+32 checks; 0 failed

@@ -1,0 +1,2432 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1"
+  ],
+  "light": {
+    "screenDirection": "upper-left",
+    "highlightVector": [
+      -2,
+      -1
+    ]
+  },
+  "sheets": [
+    {
+      "id": "iso-env-v3-decor",
+      "kind": "wall",
+      "file": "wall-decor.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 32,
+        "y": 48
+      },
+      "projection": "iso2to1",
+      "scale": 1,
+      "rows": [
+        {
+          "name": "whiteboard-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 0,
+          "column": 0
+        },
+        {
+          "name": "abstract-art-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 0,
+          "column": 1
+        },
+        {
+          "name": "city-picture-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 0,
+          "column": 2
+        },
+        {
+          "name": "corkboard-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 0,
+          "column": 3
+        },
+        {
+          "name": "clock-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 0,
+          "column": 4
+        },
+        {
+          "name": "plant-shelf-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 0,
+          "column": 5
+        },
+        {
+          "name": "wall-lamp-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 0,
+          "column": 6
+        },
+        {
+          "name": "string-lights-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 6
+          },
+          "anchorChecks": [
+            {
+              "x": 25,
+              "y": 10,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 0,
+          "column": 7
+        },
+        {
+          "name": "door-nameplate-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "attachment",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 18,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "closed",
+          "row": 1,
+          "column": 0
+        },
+        {
+          "name": "large-window-frame-h0-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "frame",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "row": 1,
+          "column": 1
+        },
+        {
+          "name": "large-window-day-h0-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "backdrop",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "day",
+          "opaqueBackdrop": true,
+          "row": 1,
+          "column": 2
+        },
+        {
+          "name": "large-window-night-h0-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "backdrop",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "night",
+          "opaqueBackdrop": true,
+          "row": 1,
+          "column": 3
+        },
+        {
+          "name": "large-window-blinds-h0-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "backdrop",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "blinds",
+          "opaqueBackdrop": true,
+          "row": 1,
+          "column": 4
+        },
+        {
+          "name": "large-window-frame-h1-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "frame",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "row": 1,
+          "column": 5
+        },
+        {
+          "name": "large-window-day-h1-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "backdrop",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "day",
+          "opaqueBackdrop": true,
+          "row": 1,
+          "column": 6
+        },
+        {
+          "name": "large-window-night-h1-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "backdrop",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "night",
+          "opaqueBackdrop": true,
+          "row": 1,
+          "column": 7
+        },
+        {
+          "name": "large-window-blinds-h1-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "backdrop",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "blinds",
+          "opaqueBackdrop": true,
+          "row": 2,
+          "column": 0
+        },
+        {
+          "name": "whiteboard-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 2,
+          "column": 1
+        },
+        {
+          "name": "abstract-art-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 2,
+          "column": 2
+        },
+        {
+          "name": "city-picture-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 2,
+          "column": 3
+        },
+        {
+          "name": "corkboard-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 2,
+          "column": 4
+        },
+        {
+          "name": "clock-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 2,
+          "column": 5
+        },
+        {
+          "name": "plant-shelf-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 16,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 2,
+          "column": 6
+        },
+        {
+          "name": "wall-lamp-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 2,
+          "column": 7
+        },
+        {
+          "name": "string-lights-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 6
+          },
+          "anchorChecks": [
+            {
+              "x": 6,
+              "y": 10,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "any",
+          "row": 3,
+          "column": 0
+        },
+        {
+          "name": "door-nameplate-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "attachment",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 18,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "visibleWhen": "closed",
+          "row": 3,
+          "column": 1
+        },
+        {
+          "name": "large-window-frame-h0-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "frame",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "row": 3,
+          "column": 2
+        },
+        {
+          "name": "large-window-day-h0-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "backdrop",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "day",
+          "opaqueBackdrop": true,
+          "row": 3,
+          "column": 3
+        },
+        {
+          "name": "large-window-night-h0-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "backdrop",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "night",
+          "opaqueBackdrop": true,
+          "row": 3,
+          "column": 4
+        },
+        {
+          "name": "large-window-blinds-h0-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "backdrop",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "blinds",
+          "opaqueBackdrop": true,
+          "row": 3,
+          "column": 5
+        },
+        {
+          "name": "large-window-frame-h1-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "frame",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 17,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "row": 3,
+          "column": 6
+        },
+        {
+          "name": "large-window-day-h1-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "backdrop",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "day",
+          "opaqueBackdrop": true,
+          "row": 3,
+          "column": 7
+        },
+        {
+          "name": "large-window-night-h1-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "backdrop",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "night",
+          "opaqueBackdrop": true,
+          "row": 4,
+          "column": 0
+        },
+        {
+          "name": "large-window-blinds-h1-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "backdrop",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 19,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "blinds",
+          "opaqueBackdrop": true,
+          "row": 4,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "id": "iso-env-v3-glow",
+      "kind": "wall",
+      "file": "wall-glow.png",
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 32,
+        "y": 48
+      },
+      "projection": "iso2to1",
+      "scale": 1,
+      "rows": [
+        {
+          "name": "wall-lamp-glow-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 26,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "wall-lamp-l",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 0,
+          "column": 0
+        },
+        {
+          "name": "string-lights-glow-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 6
+          },
+          "anchorChecks": [
+            {
+              "x": 25,
+              "y": 13,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "string-lights-l",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 0,
+          "column": 1
+        },
+        {
+          "name": "large-window-day-glow-h0-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 20,
+              "y": 24,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-day-h0-l",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "day",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 0,
+          "column": 2
+        },
+        {
+          "name": "large-window-night-glow-h0-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 20,
+              "y": 24,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-night-h0-l",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "night",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 0,
+          "column": 3
+        },
+        {
+          "name": "large-window-blinds-glow-h0-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 20,
+              "y": 24,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-blinds-h0-l",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "blinds",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 0,
+          "column": 4
+        },
+        {
+          "name": "large-window-day-glow-h1-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 24,
+              "y": 22,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-day-h1-l",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "day",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 0,
+          "column": 5
+        },
+        {
+          "name": "large-window-night-glow-h1-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 24,
+              "y": 22,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-night-h1-l",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "night",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 0,
+          "column": 6
+        },
+        {
+          "name": "large-window-blinds-glow-h1-l",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "left",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 32,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 32,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 24,
+              "y": 22,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-blinds-h1-l",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "blinds",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 0,
+          "column": 7
+        },
+        {
+          "name": "wall-lamp-glow-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 15,
+              "y": 26,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "wall-lamp-r",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 1,
+          "column": 0
+        },
+        {
+          "name": "string-lights-glow-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 6
+          },
+          "anchorChecks": [
+            {
+              "x": 5,
+              "y": 13,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "string-lights-r",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 1,
+          "column": 1
+        },
+        {
+          "name": "large-window-day-glow-h0-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 10,
+              "y": 24,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-day-h0-r",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "day",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 1,
+          "column": 2
+        },
+        {
+          "name": "large-window-night-glow-h0-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 10,
+              "y": 24,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-night-h0-r",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "night",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 1,
+          "column": 3
+        },
+        {
+          "name": "large-window-blinds-glow-h0-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 10,
+              "y": 24,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-blinds-h0-r",
+          "spanEdges": 2,
+          "edgeIndex": 0,
+          "state": "blinds",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 1,
+          "column": 4
+        },
+        {
+          "name": "large-window-day-glow-h1-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 6,
+              "y": 22,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-day-h1-r",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "day",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 1,
+          "column": 5
+        },
+        {
+          "name": "large-window-night-glow-h1-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 6,
+              "y": 22,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-night-h1-r",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "night",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 1,
+          "column": 6
+        },
+        {
+          "name": "large-window-blinds-glow-h1-r",
+          "direction": "any",
+          "frames": 1,
+          "fps": 1,
+          "loop": true,
+          "face": "right",
+          "role": "light-overlay",
+          "anchor": {
+            "x": 0,
+            "y": 48
+          },
+          "edgeAnchor": {
+            "x": 0,
+            "y": 48
+          },
+          "mountingAnchor": {
+            "t": 16,
+            "v": 9
+          },
+          "anchorChecks": [
+            {
+              "x": 6,
+              "y": 22,
+              "radius": 0
+            }
+          ],
+          "contactMeaning": "physical frame/hook/screw/emitter at the declared attachment",
+          "passName": "rear-walls",
+          "pairedBody": "large-window-blinds-h1-r",
+          "spanEdges": 2,
+          "edgeIndex": 1,
+          "state": "blinds",
+          "blend": "source-over",
+          "recommendedOpacity": 1,
+          "row": 1,
+          "column": 7
+        }
+      ]
+    }
+  ],
+  "palettePolicy": {
+    "identityPalette": "forbidden for environment; no identityPalette field on any sheet",
+    "source": "docs/iso-slice-s0.md",
+    "tolerance": 0
+  },
+  "wallHeight": 48,
+  "wallRise": 16,
+  "decorSlots": {
+    "picture": {
+      "t": 16,
+      "v": 9,
+      "source": {
+        "l": [
+          16,
+          17
+        ],
+        "r": [
+          16,
+          17
+        ]
+      }
+    },
+    "clock": {
+      "t": 16,
+      "v": 9,
+      "source": {
+        "l": [
+          16,
+          17
+        ],
+        "r": [
+          16,
+          17
+        ]
+      }
+    },
+    "string-lights": {
+      "t": 16,
+      "v": 6,
+      "source": {
+        "l": [
+          16,
+          14
+        ],
+        "r": [
+          16,
+          14
+        ]
+      },
+      "hooks": [
+        [
+          6,
+          8
+        ],
+        [
+          25,
+          8
+        ]
+      ]
+    }
+  },
+  "decorAssemblies": [
+    {
+      "id": "iso/env-v3/large-window-day-l",
+      "face": "left",
+      "spanEdges": 2,
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-day-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-day-h1-l",
+          "edgeIndex": 1
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h1-l",
+          "edgeIndex": 1
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-day-glow-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-day-glow-h1-l",
+          "edgeIndex": 1
+        }
+      ],
+      "mount": "two consecutive plain hosts; glass then frame then optional overlay",
+      "hostDepth": "inherit each edge; hanging height never changes depth"
+    },
+    {
+      "id": "iso/env-v3/large-window-night-l",
+      "face": "left",
+      "spanEdges": 2,
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-night-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-night-h1-l",
+          "edgeIndex": 1
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h1-l",
+          "edgeIndex": 1
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-night-glow-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-night-glow-h1-l",
+          "edgeIndex": 1
+        }
+      ],
+      "mount": "two consecutive plain hosts; glass then frame then optional overlay",
+      "hostDepth": "inherit each edge; hanging height never changes depth"
+    },
+    {
+      "id": "iso/env-v3/large-window-blinds-l",
+      "face": "left",
+      "spanEdges": 2,
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-blinds-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-blinds-h1-l",
+          "edgeIndex": 1
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h1-l",
+          "edgeIndex": 1
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-blinds-glow-h0-l",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-blinds-glow-h1-l",
+          "edgeIndex": 1
+        }
+      ],
+      "mount": "two consecutive plain hosts; glass then frame then optional overlay",
+      "hostDepth": "inherit each edge; hanging height never changes depth"
+    },
+    {
+      "id": "iso/env-v3/whiteboard-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "whiteboard-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/clock-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "clock",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "clock-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/abstract-art-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "abstract-art-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/city-picture-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "city-picture-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/corkboard-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "corkboard-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/plant-shelf-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "plant-shelf-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/wall-lamp-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "wall-lamp-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "wall-lamp-glow-l",
+          "edgeIndex": 0
+        }
+      ],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/string-lights-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "string-lights",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "string-lights-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "string-lights-glow-l",
+          "edgeIndex": 0
+        }
+      ],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/door-nameplate-l",
+      "face": "left",
+      "spanEdges": 1,
+      "slot": "closed-leaf",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "door-nameplate-l",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host",
+      "hostManifest": "walls.iso.json",
+      "hostModule": "iso/wall-closed-door-l-v3",
+      "visibleWhen": "closed"
+    },
+    {
+      "id": "iso/env-v3/large-window-day-r",
+      "face": "right",
+      "spanEdges": 2,
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-day-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-day-h1-r",
+          "edgeIndex": 1
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h1-r",
+          "edgeIndex": 1
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-day-glow-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-day-glow-h1-r",
+          "edgeIndex": 1
+        }
+      ],
+      "mount": "two consecutive plain hosts; glass then frame then optional overlay",
+      "hostDepth": "inherit each edge; hanging height never changes depth"
+    },
+    {
+      "id": "iso/env-v3/large-window-night-r",
+      "face": "right",
+      "spanEdges": 2,
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-night-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-night-h1-r",
+          "edgeIndex": 1
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h1-r",
+          "edgeIndex": 1
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-night-glow-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-night-glow-h1-r",
+          "edgeIndex": 1
+        }
+      ],
+      "mount": "two consecutive plain hosts; glass then frame then optional overlay",
+      "hostDepth": "inherit each edge; hanging height never changes depth"
+    },
+    {
+      "id": "iso/env-v3/large-window-blinds-r",
+      "face": "right",
+      "spanEdges": 2,
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-blinds-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-blinds-h1-r",
+          "edgeIndex": 1
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "large-window-frame-h1-r",
+          "edgeIndex": 1
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-blinds-glow-h0-r",
+          "edgeIndex": 0
+        },
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "large-window-blinds-glow-h1-r",
+          "edgeIndex": 1
+        }
+      ],
+      "mount": "two consecutive plain hosts; glass then frame then optional overlay",
+      "hostDepth": "inherit each edge; hanging height never changes depth"
+    },
+    {
+      "id": "iso/env-v3/whiteboard-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "whiteboard-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/clock-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "clock",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "clock-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/abstract-art-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "abstract-art-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/city-picture-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "city-picture-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/corkboard-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "corkboard-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/plant-shelf-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "plant-shelf-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/wall-lamp-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "picture",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "wall-lamp-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "wall-lamp-glow-r",
+          "edgeIndex": 0
+        }
+      ],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/string-lights-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "string-lights",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "string-lights-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [
+        {
+          "sheetId": "iso-env-v3-glow",
+          "clip": "string-lights-glow-r",
+          "edgeIndex": 0
+        }
+      ],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host"
+    },
+    {
+      "id": "iso/env-v3/door-nameplate-r",
+      "face": "right",
+      "spanEdges": 1,
+      "slot": "closed-leaf",
+      "parts": [
+        {
+          "sheetId": "iso-env-v3-decor",
+          "clip": "door-nameplate-r",
+          "edgeIndex": 0
+        }
+      ],
+      "overlays": [],
+      "hostDepth": "inherit host ground depth; attachment sorts after its host",
+      "hostManifest": "walls.iso.json",
+      "hostModule": "iso/wall-closed-door-r-v3",
+      "visibleWhen": "closed"
+    }
+  ],
+  "doorNameplate": {
+    "text": "LAB",
+    "applyTo": "closed door leaf only",
+    "hingeAlongEdge": 0.25,
+    "approachUnchanged": true
+  },
+  "optional": true,
+  "runtimeIntegration": "Art export only; adapters/packs not changed",
+  "masters": {
+    "city": {
+      "file": "master-city-attempt-01.png",
+      "native": "master-city-native.png",
+      "attempts": 1,
+      "method": "built-in imagegen, NEAREST 20x20, exact ramp snap"
+    },
+    "rectilinear": "native pixel-center masks; sufficient without generated masters",
+    "drawingPass": 3
+  }
+}
