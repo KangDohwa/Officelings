@@ -270,7 +270,11 @@ Sofa approach and cushion contact are different. The central approach for an SE 
 
 ### Depth and split layers
 
-Ground depth is **`d=i+j`**, never image top, canvas bottom, head height or projected y after subtracting object height. Draw ascending depth. Tie order is `(d, isoZOrder, ordinal instance/agent ID, part ID)`. `isoZOrder` is an integer tie rank; unlike flat's existing `zOrder`, it is not a pixel offset added to depth.
+Ground depth is **`d=i+j`**, never image top, canvas bottom, head height or projected y after subtracting object height. For unrelated parts, draw ascending `(d, isoZOrder, ordinal instance/agent ID, part ID)`. `isoZOrder` is an integer tie rank; unlike flat's existing `zOrder`, it is not a pixel offset added to depth. Footprint visibility and support dependencies below take precedence over that fallback key; the published item list is authoritative and encoded `depth` values need not be monotonic.
+
+For alpha-overlapping floor furniture, use the physical volume `[x−0.5,x+w−0.5] × [y−0.5,y+h−0.5] × [0,heightPx]`. A is behind B if A is entirely beyond B's far separating plane along i, j or z, and the opposite separation does not also hold. Add A→B to a visibility graph and draw a stable topological order. Opposing separations do not define an occlusion edge; retain the fallback key. Source alpha bounds only cull pairs, and never supply depth. Animation uses the union of its phases so order cannot flicker with screen/LED pixels. Cache static volume relations and alpha overlap at a layout revision. Walkers and pets use their own ground point and standing extent against furniture volumes.
+
+Within one supported assembly, optional runtime part `supportRank` adds local dependencies: structural support 0, the desk's keyboard/mouse surface mask 1, monitor housing/base and mug/paper 2, screen 3, glow 4. These ranks do not compare different furniture instances and do not change ordinary monitor `isoZOrder:0` or overlay `isoZOrder:1`. An object nearer along the camera axes still covers the complete farther support and its attachments. Occupied S0 seat-intersecting parts retain the published seat contact plane and seat ranks, including their walker comparisons; linked desk/chair contacts are not inferred from navigation rectangles.
 
 Render passes are:
 

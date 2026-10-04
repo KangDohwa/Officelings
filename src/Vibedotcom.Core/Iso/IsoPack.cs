@@ -12,6 +12,8 @@ public sealed class IsoPack
     private readonly Dictionary<(string Sheet, string Key), IsoClip> clips = [];
     private readonly Dictionary<string, IsoPngMask> masks = new(StringComparer.Ordinal);
     private readonly Dictionary<(string Sheet, string Key), bool[]> changedFrames = [];
+    private readonly Dictionary<(string Sheet, string Key), IsoBounds> opaqueBounds = [];
+    private readonly Dictionary<(string Sheet, string Key), bool[]> opaquePixels = [];
     public IsoManifest Manifest { get; private set; } = null!;
     public IReadOnlyDictionary<string, byte[]> Images => images;
     private readonly Dictionary<string, byte[]> images = new(StringComparer.Ordinal);
@@ -306,6 +308,34 @@ public sealed class IsoPack
         var s = Sheet(item.SheetId); if (x < 0 || x >= s.CellW || y < 0 || y >= s.CellH || item.Alpha < 32) return false;
         var c = Clip(item.SheetId, item.Clip);
         return masks[s.Id].Alpha((c.Column + item.Frame) * s.CellW + x, c.Row * s.CellH + y) * item.Alpha >= 32 * 255;
+    }
+    internal IsoBounds OpaqueBounds(string sheetId, string clipKey)
+    {
+        lock (opaqueBounds)
+        {
+            if (opaqueBounds.TryGetValue((sheetId, clipKey), out var bounds)) return bounds;
+            var s = Sheet(sheetId); var c = Clip(sheetId, clipKey); var mask = masks[s.Id];
+            var pixels = new bool[s.CellW * s.CellH];
+            var left = s.CellW; var top = s.CellH; var right = 0; var bottom = 0;
+            for (var frame = 0; frame < c.Frames; frame++)
+                for (var y = 0; y < s.CellH; y++) for (var x = 0; x < s.CellW; x++)
+                    if (mask.Alpha((c.Column + frame) * s.CellW + x, c.Row * s.CellH + y) >= 32)
+                    { pixels[y * s.CellW + x] = true; left = Math.Min(left, x); top = Math.Min(top, y); right = Math.Max(right, x + 1); bottom = Math.Max(bottom, y + 1); }
+            opaquePixels[(sheetId, clipKey)] = pixels;
+            return opaqueBounds[(sheetId, clipKey)] = new(left, top, right, bottom);
+        }
+    }
+    internal bool AlphaOverlaps(IsoDrawItem a, IsoDrawItem b)
+    {
+        var ba = OpaqueBounds(a.SheetId, a.Clip); var bb = OpaqueBounds(b.SheetId, b.Clip);
+        var l = Math.Max(a.X + ba.Left, b.X + bb.Left); var t = Math.Max(a.Y + ba.Top, b.Y + bb.Top);
+        var r = Math.Min(a.X + ba.Right, b.X + bb.Right); var bottom = Math.Min(a.Y + ba.Bottom, b.Y + bb.Bottom);
+        var wa = Sheet(a.SheetId).CellW; var wb = Sheet(b.SheetId).CellW;
+        bool[] pa, pb;
+        lock (opaqueBounds) { pa = opaquePixels[(a.SheetId, a.Clip)]; pb = opaquePixels[(b.SheetId, b.Clip)]; }
+        for (var y = t; y < bottom; y++) for (var x = l; x < r; x++)
+            if (pa[(y - a.Y) * wa + x - a.X] && pb[(y - b.Y) * wb + x - b.X]) return true;
+        return false;
     }
     /// Pixel-based scheduling avoids redraws for repeated still phases without moving any anchors.
     internal double NextFrameChange(string sheetId, IsoClip clip, double elapsed)

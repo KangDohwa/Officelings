@@ -18,6 +18,7 @@ import sys
 import tempfile
 
 from PIL import Image, ImageDraw
+from iso_depth_metadata import refine_depth
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "assets/art/iso"
@@ -372,6 +373,7 @@ def assemble(paths):
             manifest[field] = max(v.get(field, fallback) for v in family["variants"])
     if len(sheets) > 128 or len(manifest["furniture"]) > 512:
         raise ValueError("pack exceeds the 128-sheet/512-furniture limits")
+    refine_depth(manifest)
     verify_references(manifest)
     return manifest, files
 

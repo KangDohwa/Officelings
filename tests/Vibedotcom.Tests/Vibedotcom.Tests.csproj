@@ -8,5 +8,6 @@
     <ProjectReference Include="../../src/Vibedotcom.Core/Vibedotcom.Core.csproj" />
     <ProjectReference Include="../../src/Vibedotcom.App/Vibedotcom.App.csproj" />
     <None Update="Fixtures/*.jsonl" CopyToOutputDirectory="PreserveNewest" />
+    <Compile Include="../Vibedotcom.DepthChecks/DepthOracle.cs" Link="DepthOracle.cs" />
   </ItemGroup>
 </Project>

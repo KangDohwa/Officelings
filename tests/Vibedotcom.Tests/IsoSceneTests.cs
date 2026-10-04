@@ -60,7 +60,7 @@ public class IsoSceneTests
                 var body = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character));
                 Assert.Equal(new IsoDepthKey(IsoPass.Scene, position.X + position.Y, 0, "walker", "body").Encoded, body.Depth);
                 Assert.Contains(scene.Items, i => i.InstanceId == "walker/contact-shadow");
-                Assert.True(scene.Items.Zip(scene.Items.Skip(1)).All(pair => pair.First.Depth <= pair.Second.Depth));
+                Assert.Empty(Vibedotcom.DepthChecks.DepthOracle.WalkerViolations(p, layout, scene, "walker", position));
             }
         }
     }
