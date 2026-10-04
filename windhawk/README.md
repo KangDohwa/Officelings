@@ -1,8 +1,14 @@
 # Vibedotcom — Windhawk Variant B
 
-`vibedotcom.wh.cpp` hosts a passive pixel office in the **shell instance of explorer.exe**. It consumes the [v4 state contract](../docs/state-schema.md), PNG [asset contract](../docs/asset-format.md), and the resolved fixed office. Core supplies seats, stable desk IDs, overflow/queue destinations, monitor frames, animation and collision geometry. The renderer never creates desks or grows the office as membership changes.
+`vibedotcom.wh.cpp` hosts a passive pixel office in the **shell instance of explorer.exe**. It consumes the [v5 state contract](../docs/state-schema.md), PNG [asset contract](../docs/asset-format.md), and the resolved fixed office. Core supplies seats, stable desk IDs, overflow/queue destinations, monitor frames, animation and collision geometry. The renderer never creates desks or grows the office as membership changes.
 
-Version 3 remains readable. Additive v4+ snapshots use the v4 rendering rules and unknown fields are ignored; existing required field types, asset/layout format 1 and fallback atlas format 2 are still validated. Visible characters always have a `[provider icon] displayName` tag above their actual alpha silhouette. A reserved desk tag is hidden when its owner is within 1.5 Manhattan tiles of the work point and Working/Thinking/Waiting. Supplied frames, authored rotation/state variants, anchors and offsets remain authoritative; seated poses and future furniture need no renderer-specific roster rules.
+Versions **3, 4 and 5** are readable. Unknown fields within those versions are ignored; unknown versions, invalid required types, asset/layout formats other than 1 and fallback atlas formats other than 2 are rejected while the last valid scene remains available. Supplied frames, authored rotation/state variants, anchors and offsets remain authoritative. V5 seat phases use the published contact and linked chair depth, clip below the seat, and do not apply alignment twice.
+
+Name tags default to **Hover**; **Icon** and **Always** match the app's modes. Plates use a 6px font, a 14px body, 10px provider icons below 2× and 12px icons from 2×, with crown/badge role clips. Names show at most 14 Unicode text elements plus an ellipsis; tooltips retain the full name. Hover fades in over 120ms, has 60ms leave grace, then fades out over 200ms. Bodies, plates and their connecting gap keep the same hover. Away owners' desk footprints can also reveal their reservation. Reservations are hidden for invisible owners, during seat phases, and while a Working/Thinking/Waiting owner is within 1.5 Manhattan tiles of the work point.
+
+Departure timing belongs to Core: the defaults are 120 seconds before Working/Thinking becomes Idle, five minutes since real activity for finished/inactive agents, and 30 minutes for explicit input/approval waits. Active tracked descendants keep their parent present; closed-session signals can cause earlier departure. The mod follows supplied break, raising, walking, door-fade and re-entry poses even while semantic state is Gone. It does not start its own leave timer or teleport a departing character.
+
+V5 break rendering includes reclining beanbags, reading props, waiting/leisure bubbles, dispensing flaps and dart/ping-pong overlays. Supplied `ambient` fields control window views, clock hands, string lights and winter decoration. Without them, the mod uses its local clock and the weather/season settings below, including while offline. Supplied `pets` frames render without agent labels, hit targets or desk ownership. The ordinary tracker omits pets, so this mod does not create a second pet simulation.
 
 ## Install the tracker
 
@@ -67,8 +73,11 @@ The mod has no function hooks. A folder-only Explorer process is rejected. If th
 | State path | Local path, environment variables accepted. Default `%LOCALAPPDATA%\Vibedotcom\state.json`. |
 | Pack path | **Exported PNG root**, blank = state directory. The embedded manifest remains authoritative. This is normally blank: source `assets/pack/` belongs to the tracker's `--asset-dir`, because exported sheet filenames differ. |
 | FPS cap | 1–60, default 30. It is a maximum, not a constant paint timer. Live frames are sampled from the tracker's nominal 200ms snapshots. |
-| Show tooltip | Read-only cursor polling, 220ms hover delay. Provider, name/role, model, project, task, tool, state, elapsed and visual action. Popup cannot take focus or input. |
-| Transparent background | Skip floor/walls; keep furniture and characters. Uses premultiplied per-pixel alpha plus global opacity; see the native presentation policy below. |
+| Name tags (`tagMode`) | `hover` (default), `icon`, `always`; unknown values use `hover`. This is a renderer setting, outside `state.json`. |
+| Show tooltip | Read-only cursor polling, 420ms hover delay. Provider, full name/role, model, project, task, tool, state, elapsed and visual action. Popup avoids visible plates and cannot take focus or input. Turning it off still allows name-tag hover. |
+| Ambient weather (`ambientWeather`) | `off` (default), `rain`, `snow`, `auto`. Auto selects snow in December and clear views in other months. No network requests. Supplied snapshot ambient takes precedence. |
+| Seasonal decoration (`seasonDecor`) | `off` (default), `auto` for December window decoration. Supplied snapshot ambient takes precedence. |
+| Transparent background | V5 clears margins/letterbox and void tiles; nonvoid floor/wall tiles retain an opaque base. Versions 3/4 retain their legacy floor-hiding behavior. Per-pixel alpha and global opacity follow the native presentation policy below. |
 
 Wheel/keyboard zoom and native geometry changes are session-local and reset to configured values after a settings reload or host recreation. There are no global input hooks, task controls or tray UI.
 
@@ -106,51 +115,64 @@ powershell -NoProfile -ExecutionPolicy Bypass -File windhawk/compile.ps1 -Tests
 
 `windhawk/compile.ps1` reuses `poc/compile.ps1`, its **installed Windhawk clang**, C++23, `-O2`, `x86_64-w64-mingw32`, Windows macros, forced `windhawk_api.h`, the 1.7.3 x64 import library and exported callbacks. Added libraries are bcrypt, ole32, dwmapi and dwrite; `-fms-extensions` enables the local SEH envelopes. Output stays in ignored `windhawk/artifacts/`. Running the PoC compiler without arguments retains its original build target.
 
-The standalone harness `tests/windhawk/renderer_tests.cpp` **includes the actual mod source**. `VIBEDOTCOM_TEST` excludes all Windhawk callbacks, settings and HWND hosting; there is no DLL loading or UI. Delimited JSON/contract/geometry and GDI+ renderer sections are shared verbatim.
+The standalone harness [renderer_tests.cpp](renderer_tests.cpp) **includes the actual mod source** and retains the original regression checks. `VIBEDOTCOM_TEST` excludes all Windhawk callbacks, settings and HWND hosting; there is no DLL loading or UI. Delimited JSON/contract/geometry and GDI+ renderer sections are shared verbatim. V5 checks cover cold/warm parsing, unsupported versions, seat phases, name modes/fades/Unicode, optional ambient/pets, break props, Gone visibility and transparent tiles.
 
-`tests/windhawk/host_tests.cpp` includes the actual host under a separate test define. It creates only its own hidden windows, with an embedded test-only Windows 8+ compatibility manifest. It exercises cached worker packets, modal-stop notifications, client bounds, tooltip font scaling, list-view suppression, layered-child API admission, and the shutdown cancellation race using an owned local pipe. It does not load the mod DLL or interact with Explorer or existing application windows. Hidden-child API success does not verify visible DWM composition in Explorer.
+[host_tests.cpp](host_tests.cpp) runs the original `tests/windhawk/host_tests.cpp` checks under a separate test define and adds shared plate/desk metadata checks. It creates only its own hidden windows, with an embedded test-only Windows 8+ compatibility manifest. It exercises cached worker packets, modal-stop notifications, client bounds, tooltip font scaling, list-view suppression, layered-child API admission, and the shutdown cancellation race using an owned local pipe. It does not load the mod DLL or interact with Explorer or existing application windows. Hidden-child API success does not verify visible DWM composition in Explorer. Files under `tests/` are unchanged.
 
 Run compilation, existing WPF **offscreen demo**, unit/render checks, script syntax checks and CPU sampling:
 
 ```powershell
 # Requires an already-built Release WPF DLL; this script never builds or edits src/.
-powershell -NoProfile -ExecutionPolicy Bypass -File tools/windhawk_verify.ps1 -Profile
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/windhawk_verify.ps1 -Ambient -Profile
 ```
 
-`-AppDll` selects another existing WPF build. The script copies only the installed `libc++.whl` / `libunwind.whl` runtime files into the test directory, because the bundled import libraries use these filenames. Nothing is copied into Windhawk or loaded into Explorer. The installation script is syntax-parsed only, never executed.
+`-AppDll` selects another existing WPF build. `-Ambient` also exports the existing synthetic day/night/rain/snow smoke scenes. `-SkipCompile` reuses built binaries; `-SkipWpf` reuses an existing synthetic demo. CPU sampling separates fixed supplied ambient from the local-clock refresh cadence and offline breathing. The script copies only the installed `libc++.whl` / `libunwind.whl` runtime files into the test directory, because the bundled import libraries use these filenames. Nothing is copied into Windhawk or loaded into Explorer. The installation script is syntax-parsed only, never executed.
 
 Artifacts:
 
 - `artifacts/vibedotcom.dll`, `vibedotcom.log`, `renderer_tests.exe`, `tests.log`, `host_tests.exe`, `host-tests.log`.
 - `artifacts/demo/state.json`, matching hashed PNGs, and WPF `office-2x.png`, `office.png`, `transparent.png`.
 - `artifacts/render/windhawk-2x.png`, `windhawk-auto.png`, `windhawk-transparent.png`, `windhawk-offline.png`.
+- `artifacts/ambient/*-state.json` and day/night/rain/snow PNGs when `-Ambient` is selected.
 
 The parity harness [tools/windhawk_parity.py](../tools/windhawk_parity.py) uses the existing app's **offscreen** `--demo --smoke-test` output. It verifies exported PNG hashes, renders the same state/poses/frames with the actual C++ renderer, and compares all four decoded straight RGBA channels exactly (including RGB under zero alpha), without resizing or tolerance. Auxiliary WPF snapshots refer to original source filenames; only their sheet paths are relocated to the identical SHA256-verified exported PNG bytes. `--render-only` avoids repeating the entire regression suite for each comparison scenario.
 
 ```powershell
 # Python 3.9+ standard library only; use your installed Python executable.
-python tools/windhawk_parity.py --run-wpf --run-native --diff
+python tools/windhawk_parity_tests.py
+python tools/windhawk_parity.py --wpf-dir windhawk/artifacts/demo `
+    --ambient-dir windhawk/artifacts/ambient --run-native --diff --min-match 90
+
+# Use a WPF smoke export made with the same name-tag mode.
+python tools/windhawk_parity.py --wpf-dir windhawk/artifacts/parity/icon/wpf `
+    --tag-mode icon --out windhawk/artifacts/parity/icon --run-native --diff --min-match 90
 ```
 
-`--wpf-dir` accepts an existing smoke output; `--app` selects an audited existing build. Comparison images and a JSON report are written below `windhawk/artifacts/parity`. Opening images is optional. The 2x room draws source tiles at the final camera scale so authored 32px tile details are preserved instead of first disappearing into a 16px intermediate raster. Provider tag widths use DirectWrite ideal advances, matching WPF measurement and collision placement. Differences in GDI+/WPF glyph and line rasterization are reported rather than presented as pixel identity.
+`--wpf-dir` accepts an existing smoke output. `--tag-mode hover|icon|always` passes the setting to both renderers without changing state JSON. Ambient smoke exports use Hover independently of that setting. For fresh WPF exports, `--run-wpf --app PATH_TO_APP_EXE` accepts a recorded audited App/Core pair; after reviewing a new build's offscreen smoke path, supply both lowercase `--reviewed-app-sha256` and `--reviewed-core-sha256` pins. An unreviewed pair is rejected. The smoke path must return before constructing the app window and use synthetic sessions/disposable storage.
 
-Current verification results and F1-F11 evidence are recorded in [windhawk-notes.md](../docs/windhawk-notes.md). Offscreen checks do not verify native Explorer parenting, Win+D, actual virtual-desktop switching, mixed-DPI monitor movement, device-removal geometry, or long-term Explorer CPU/GDI behavior. No DLL injection, input/foreground changes, installer execution or git commit is part of this verification.
+Comparison images and a JSON report are written below `windhawk/artifacts/parity`. Opening images is optional. The 2x room draws source tiles at the final camera scale so authored 32px tile details are preserved. Provider tag widths use DirectWrite ideal advances. Exact RGBA comparisons report GDI+/WPF font, thin-line and fractional-scale sampling differences without tolerance or image resizing. The small 400×300 auto-fit scene has a larger raster difference; see the recorded results before judging visual equivalence.
+
+Current verification results and historical F1-F11 evidence are recorded in [windhawk-notes.md](../docs/windhawk-notes.md). Offscreen checks do not verify native Explorer parenting, Win+D, actual virtual-desktop switching, mixed-DPI monitor movement, device-removal geometry, or long-term Explorer CPU/GDI behavior. Verification does not inject the DLL, change input/foreground, execute installers or register tasks.
 
 ## Manual test checklist — user performs later
 
 - [ ] Enable only in shell Explorer; opening a separate folder process produces no second office.
-- [ ] Normal window appears without changing the foreground. Move/resize it; verify auto and fixed zooms 1–6, wheel and `+`/`-`, opacity and transparency.
+- [ ] Normal window appears without changing the foreground. Move/resize it; verify auto and fixed zooms 1–6, wheel and `+`/`-`, including a small fractional auto-fit viewport. At v5, transparency clears margins/void while floor/walls remain visible; opacity fades the complete office.
 - [ ] Topmost stays above ordinary windows. Switching back to normal removes topmost behavior.
 - [ ] Click-through reaches applications/desktop icons beneath the office. Recover by turning it off in Windhawk settings.
-- [ ] Hover each visible agent in normal/topmost/desktop/through modes. Verify all metadata, elapsed updates, popup delay, no focus/input capture, no tooltip over an occluding window or desktop icon.
+- [ ] Check Hover, Icon and Always at 1×/2×: provider art, supervisor crown/sub-agent badge, 14-element Unicode truncation and collision stacking. Move body → gap → plate and away owner's desk → plate; verify 120ms/60ms/200ms fades. Unassigned desks, invisible owners and seated/raising owners receive no reservation.
+- [ ] Hover each visible agent in normal/topmost/desktop/through modes. Verify full name and all metadata after 420ms, elapsed updates, no plate overlap, no focus/input capture, and no tooltip over an occluding window or desktop icon. Turn tooltips off and confirm name-tag hover still works.
 - [ ] Desktop level is below icons and normal application windows. On 24H2+ check Progman/DefView/WorkerW sibling order and visibility. On a classic topology check the selected wallpaper WorkerW.
 - [ ] Unsupported topology logs fallback and displays a bottom-level window. It must not alter unrelated shell windows.
 - [ ] Restart Explorer / change monitor layout or DPI. Confirm recreation and correct scale/order, no duplicate or abandoned windows. Explorer restart behavior is not simulated by the test harness.
 - [ ] Observe work, waits, reports, paper transfer, fades, parent links and leisure. Compare with the WPF app using the same pack/layout; do not expect frame synchronization between their independent running simulations.
-- [ ] With the concurrently updated v4 tracker/WPF build, verify display names/provider icons, queued bubbles, overflow laptops and monitor frames. The mod must use supplied poses/frames rather than assigning seats or simulating the queue.
+- [ ] With a v5 tracker, check turn/lower/seated/raise at back-facing desks, the profile pod and overflow furniture: chair back/body/desk/front order, clipped calves, no doubled seat offset, `?` waits, queued bubbles, laptops and assigned monitor frames. Compare the same snapshot with WPF; the mod must not assign seats or simulate the queue.
+- [ ] Using disposable session sources, verify inactive/finished departure at five minutes and explicit waits at 30 minutes, with Working/Thinking becoming Idle after 120s. An active descendant keeps its parent present. Leave begins at the current break/chair position, finishes raising, walks to the door, fades and hides; resumed work re-enters from the door. Core controls these timings.
+- [ ] Check beanbag rotation/contact, reading book, leisure bubbles, vending flap and dart/ping-pong overlays. A pair stops when either agent resumes work or leaves. Supplied poses remain authoritative during breaks and Gone walks/fades.
+- [ ] Check local day 07:00–17:00, sunset 17:00–19:00, night and 17:00–07:00 lights; clock hands, rain/snow/auto weather, December decoration and offline updates. Use synthetic timestamped `ambient` snapshots for fixed cases and confirm they override settings. Supplied test pets render without labels, tooltips or desk claims; ordinary tracker output has no pets.
 - [ ] Stop the tracker for over ten seconds: offline toast, retained map/agents, idle animation, no stale working bubble. Restart: fresh state and Core-selected frames return, including sequence reset.
-- [ ] Point state path at a missing/test file, a truncated JSON file, or a snapshot with a missing PNG: last valid scene survives; a restored complete snapshot recovers. Use disposable copies for these checks.
+- [ ] Point state path at disposable missing/truncated JSON, schema 6, invalid seat/ambient/pet fields, or missing/damaged PNGs: last valid scene survives; a restored complete snapshot recovers. Do not use real profile files for fault tests.
 - [ ] Measure Explorer CPU for at least a minute while idle, hovering, minimized/occluded and actively animated; target under 2% idle. Check memory/GDI objects while toggling settings and disabling/re-enabling the mod. Confirm clean unload removes every office/tooltip and the worker thread.
 - [ ] Register the task yourself, log out/in, confirm hidden tracker and fresh state; stop/restart it and verify its child exits. Remove the task if unwanted.
 
-**This review-fix verification performs no Explorer injection, existing-window/input manipulation, task registration, installer execution or git commit. Native host tests use only owned hidden windows.**
+**Automated verification uses offscreen rendering, synthetic state and owned hidden windows. Enabling the mod in Explorer and performing the checklist remain manual steps.**

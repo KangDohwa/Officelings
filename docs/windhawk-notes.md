@@ -272,3 +272,51 @@ Desktop child와 transparent frameless 창은 premultiplied BGRA + UpdateLayered
 결과: [parity report](../windhawk/artifacts/parity/report.json), [최종 기본 비교](../windhawk/artifacts/parity/office-2x-comparison.png), [최종 overflow 비교](../windhawk/artifacts/parity/overflow-comparison.png), [renderer log](../windhawk/artifacts/tests.log), [host log](../windhawk/artifacts/host-tests.log). artifacts는 git에 포함되지 않는다.
 
 남은 실기 검증은 Explorer parenting/WorkerW loss/reload, 실제 modal 중 unload, Win+D 및 virtual desktop 전환, mixed-DPI/monitor removal, visible embedded alpha, CPU/GDI/memory soak다. offscreen/hidden 검사로 이를 대신하지 않는다. native driver/library 내부의 부분 완료나 heap corruption 등 모든 Explorer crash를 절대적으로 차단한다는 보장은 할 수 없다.
+
+## 8. Schema v5 동기화 (2026-10-04)
+
+이 절이 현재 Windhawk 소비자의 검증 기록이다. 7절의 v4 결과와 additive 미래 버전 허용 설명은 당시 구현에 대한 기록으로 남긴다. 현재 mod는 **schema 3/4/5만 허용**하며 6 등 미지원 버전은 cold/warm 모두 거부하고 마지막 유효 장면을 유지한다. 알려진 버전의 추가 필드는 무시한다. asset/layout 1, fallback atlas 2, JSON 크기·개수·좌표·경로·PNG 해시/치수 검사는 유지했다.
+
+작업은 `lane/windhawk` worktree에서 진행했다. 앱/Core/Tracker와 `tests/`는 읽기만 했으며, 변경은 `windhawk/`, 지정된 Windhawk 도구와 이 문서에 한정했다. 앱 smoke 경로를 확인하고 같은 worktree에서 Release 빌드를 만들었다. `--demo --smoke-test`는 앱 창을 만들기 전에 반환하며 합성 세션과 임시 저장소를 사용한다. 실제 사용자 로그나 설정은 사용하지 않았다. mod 주입, 기존 창/입력 조작, installer 실행, task 등록과 push는 수행하지 않았다.
+
+### 표시와 상태 처리
+
+- 이름표는 `tagMode: hover/icon/always`이며 기본값은 Hover다. 14px plate, 6px 글꼴, 10/12px 자체 provider icon과 crown/badge를 사용한다. 14 Unicode text elements 뒤에 말줄임표를 붙이고 tooltip에는 전체 이름을 남긴다. 결합 문자, UTF-16 surrogate, 한글 자모와 ZWJ emoji 경계를 검사했다.
+- Hover의 120ms 진입, 60ms 이탈 유예, 200ms 퇴장과 충돌 plate의 2px stacking을 반영했다. 몸·plate·사이 틈과 자리를 비운 소유자의 desk footprint가 hover를 유지한다. seat phase, 보이지 않는 소유자, 작업 지점 근처 Working/Thinking/Waiting에는 예약 이름표가 없다. tooltip은 420ms 후 표시하며 보이는 plate를 피해 배치한다. tooltip 설정을 꺼도 이름표 hover는 남는다.
+- v5의 turn/lower/seated/raise, seatAnchor와 linked chair depth를 읽고 공급된 sprite offset을 한 번만 적용한다. 의자 접점 아래 clip, profile desk/overflow 전경, 대기 `?`, break bubble, beanbag 90도 회전과 hit bounds, reading prop, vending flap, dart/ping-pong flight를 반영했다.
+- 퇴장 시간과 활동 판단은 Core가 담당한다. 기본 WorkingWindow=120s, 비활동/완료=5분, 명시적 입력·승인 기다림=30분이며 활성 자손이 부모를 유지한다. mod는 Gone이라도 visible/opacity와 공급된 action/좌표를 따라 걷기와 fade를 그린다. 로컬 퇴장 타이머, 자리 배정, 이동 경로나 pet 시뮬레이션을 추가하지 않았다.
+- 선택적 `ambient`의 view/weather/light/decor/localTime과 최대 64개의 supplied pet frame을 검증한다. ambient가 없으면 로컬 시간과 `ambientWeather`/`seasonDecor` 설정을 사용한다. 창의 낮/일몰/밤·비/눈, 시계 바늘, 저녁 조명과 12월 장식은 offline에서도 갱신한다. 일반 Tracker는 pets를 쓰지 않으므로 이 mod에서 자체 pet은 나타나지 않는다.
+- v5의 투명 배경은 margin/letterbox와 void를 지우며, nonvoid 바닥/벽은 PNG 아래 opaque base를 유지한다. v3/v4의 기존 배경 정책은 보존했다.
+
+커서 poll은 scalar tag key를 전달하고 worker의 fade 저장소는 고정 32칸이다. provider role frame은 pack 로드 때 준비한다. plate/icon/gap/desk hit는 몸의 메타데이터를 참조하므로 긴 JSON 문자열을 예약 수만큼 복제하지 않는다. 읽기·파싱·PNG/GDI+·tooltip 문자열 작업은 기존 scene worker에 남고 UI는 완성된 packet을 받는다. 기존 stop/cancellation, native SEH/RAII, 오류 시 마지막 packet 보존 경로는 회귀 검사로 유지했다. 임의 native library/driver 오류에 대한 절대적 crash 방지는 보장하지 않는다.
+
+### 검증과 비교
+
+`windhawk/compile.ps1 -Tests`로 DLL과 두 EXE를 빌드했다. renderer는 Profile을 포함한 **411 checks**, hidden host는 **69 checks**를 통과했다. host 합계에는 기존 48개가 포함된다. 새 local harness는 기존 검사를 포함하며 `tests/` 원본을 수정하지 않는다. Python 표준 라이브러리 검사 **8개**는 지원 버전, 해시 불일치, sheet 경로만 재배치하는 복사, v5 선택 필드 보존, zero-alpha RGB와 치수 불일치, 검토한 App/Core hash pair 및 이름표 인자를 확인한다. host include의 사용하지 않는 production helper 경고 4개 외에 compile 오류는 없었다. installer/runner는 실행하지 않고 PowerShell syntax만 확인했다.
+
+마지막 CPU 표본은 720×520 offscreen render에서 fixed supplied ambient의 parse/cache **3.38% of one core** (8.77s, 추가 paint 0회), missing ambient의 로컬 시계 갱신 **15.01%** (9.68s, paint 9회), offline render **13.82%** (paint 8회)였다. 앞선 fixed/offline 표본은 각각 1.62%/9.64%였다. 일반 Tracker의 local ambient는 최대 초당 한 번 scene key가 바뀌며 현 구현은 전체 office를 다시 그린다. 이름표 fade나 활동 overlay도 갱신을 요구한다. 이 수치는 테스트 EXE의 단일 코어 사용률이며 Explorer 전체 사용률이나 README의 실기 idle 목표 통과를 뜻하지 않는다. 장시간 실기 CPU 측정은 남아 있다.
+
+WPF와 실제 C++ renderer에 같은 v5 state/asset bytes를 전달했다. 기본/normal/reserved/overflow의 7개 비교를 Hover·Icon·Always로 각각 수행하고, Hover의 day/night/rain/snow 4개를 더해 **25개 비교가 모두 `--min-match 90`을 통과**했다. 기준은 네 RGBA 채널의 완전 일치이며 tolerance나 image resizing은 없다. state version, seat phases, ambient/pet 정보와 source/input/build hash를 report에 기록한다. `--tag-mode`는 JSON에 삽입하지 않는다. 새 WPF 실행은 검토한 App/Core SHA256 쌍을 명시적으로 pin해야 한다.
+
+| 장면 | Hover | Icon | Always |
+| --- | ---: | ---: | ---: |
+| 기본 2x | 99.976878% | 99.976878% | 99.745009% |
+| 기본 auto | 99.986310% | 99.986310% | 99.786607% |
+| transparent | 99.986310% | 99.986310% | 99.786607% |
+| normal | 99.752630% | 99.752630% | 99.331778% |
+| reserved tags | 99.768260% | 99.768260% | 99.184389% |
+| overflow | 99.714782% | 99.714782% | 98.937924% |
+| 400×300 auto-fit | 92.058333% | 92.063333% | 91.830000% |
+| day/night/rain/snow 각 장면 | 99.989149% | — | — |
+
+작은 viewport에서는 같은 fractional camera geometry라도 WPF/GDI+ nearest-neighbor sampling 경계가 달라 차이가 커진다. 일반 장면의 남은 차이는 글꼴·얇은 선 등의 rasterization이다. 이번 v5 동기화에서 small auto-fit, ambient snow와 Always reserved 비교 이미지를 직접 확인했다. 픽셀 동일성이나 모든 장면의 시각적 동등성을 주장하지 않는다.
+
+앱 smoke의 합성 `leave-walk.json`은 5분 경계 전후에 같은 break 위치를 유지하고 이후 문으로 걸어가 fade/hide 후 재진입하는 trace를 만들었다. `logBytesRead`는 그 테스트가 만든 가짜 로그의 byte 수다. native 검사는 Gone의 supplied walk/fade와 invisible 이후 hit/plate 제거를 확인했다. 실제 provider의 30분 대기와 종료 신호, 활성 부모 유지까지 통합 실행한 것은 아니다.
+
+결과 파일: [Hover report](../windhawk/artifacts/parity/report.json), [Icon report](../windhawk/artifacts/parity/icon/report.json), [Always report](../windhawk/artifacts/parity/always/report.json), [renderer log](../windhawk/artifacts/tests.log), [host log](../windhawk/artifacts/host-tests.log). 생성한 바이너리, PNG, trace와 로그는 ignored artifacts에만 두며 커밋하지 않는다.
+
+### 남은 실기 확인
+
+[README 수동 checklist](../windhawk/README.md#manual-test-checklist--user-performs-later)에 v5 이름표/좌석/퇴장/휴식/ambient/pets 및 잘못된 snapshot 복구를 추가했다. Explorer 주입과 눈에 보이는 desktop alpha, 실제 hover·tooltip 배치, WorkerW 소실/reload, modal 중 unload, Win+D/virtual desktop, mixed-DPI/monitor removal과 장시간 CPU/GDI/memory는 사용자가 확인해야 한다. 숨겨진 창 API 검사와 offscreen CPU 표본으로 실기 결과를 대신하지 않는다.
+
+`docs/state-schema.md`의 “Windhawk consumer is not updated” 문장은 이 변경 이후 과거 설명이 된다. 이 lane의 허용 문서 범위 밖이므로 수정하지 않았다. supervisor가 병합 시 해당 설명을 함께 정리해야 한다.
