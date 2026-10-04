@@ -304,6 +304,17 @@ void Profile(const std::wstring& stateFile,const std::wstring& root,Renderer& re
     QueryPerformanceCounter(&end);double wall=double(end.QuadPart-start.QuadPart)/frequency.QuadPart,used=CpuSeconds()-cpu;
     std::cout<<"Idle live parse/cache profile: "<<used<<" CPU seconds / "<<wall<<" wall seconds = "<<100*used/wall<<"% of one core; repeated paints="<<paints<<"\n";
     Check(paints==0,"Unchanged live scene must not repaint");
+    // Ordinary tracker snapshots omit ambient. Sample the new local clock
+    // cadence separately from the fixed, supplied offscreen ambient above.
+    auto local=idle;local.hasAmbient=false;key=VisualKey(local,false,Now());paints=0;
+    QueryPerformanceCounter(&start);cpu=CpuSeconds();
+    for(int i=0;i<40;++i){auto time=Now();auto nextKey=VisualKey(local,false,time);
+        if(nextKey!=key){image=renderer.Render(local,720,520,0,false,false,time);key=nextKey;++paints;}Sleep(200);
+    }
+    QueryPerformanceCounter(&end);wall=double(end.QuadPart-start.QuadPart)/frequency.QuadPart;used=CpuSeconds()-cpu;
+    std::cout<<"Local ambient idle rendering: "<<100*used/wall<<"% of one core; paints="<<paints<<" / "<<wall<<" wall seconds\n";
+    const bool timed=local.schema>=5&&std::any_of(local.furniture.begin(),local.furniture.end(),[](const Furniture& f){return f.kind=="clock"||f.kind=="window"||f.asset.find("string-lights")!=std::string::npos;});
+    Check(timed?paints>0&&paints<=static_cast<int>(std::ceil(wall))+1:paints==0,"Local ambient changes at most once per second");
     // Also exercise the same offline breathing cadence, at one paint/second.
     QueryPerformanceCounter(&start);cpu=CpuSeconds();paints=0;
     for(int i=0;i<8;++i){image=renderer.Render(idle,720,520,0,false,true,i);++paints;Sleep(1000);}

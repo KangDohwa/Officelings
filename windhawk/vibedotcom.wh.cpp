@@ -71,7 +71,7 @@ See windhawk/README.md for installation, testing and the manual shell checklist.
   - off: Off
   - auto: December
 - transparentBackground: false
-  $name: Hide floor and walls
+  $name: Transparent margins and void tiles
 */
 // ==/WindhawkModSettings==
 
