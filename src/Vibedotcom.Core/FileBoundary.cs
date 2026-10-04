@@ -176,7 +176,9 @@ public static class FileBoundary
     internal static IDisposable LockWriteParent(string path)
     {
         if (!OperatingSystem.IsWindows()) return LockAncestors(path, writing: true);
-        using var initial = LockAncestors(path);
+        // Other publishers can have FILE_ADD_FILE access during an atomic rename.
+        // Deny directory replacement, while permitting that metadata write access.
+        using var initial = LockAncestors(path, writing: true);
         var guardPath = Path.Combine(Path.GetDirectoryName(path)!, ".boundary-" + Guid.NewGuid().ToString("N") + ".lock");
         // Pin a child so the directory cannot become empty and acquire a
         // junction while normal child-file renames remain allowed.
@@ -184,6 +186,13 @@ public static class FileBoundary
         try
         {
             if (guard.IsInvalid) throw new IOException("Cannot pin publication directory.");
+            // Sharing writes before the child pin exists permits a transient
+            // junction. Validate the opened pin's actual path, so even a junction
+            // inserted and removed during creation cannot redirect publication.
+            var final = new StringBuilder(32768);
+            var count = GetFinalPathNameByHandleW(guard, final, final.Capacity, 0);
+            if (count == 0 || count >= final.Capacity || !final.ToString().Equals(@"\\?\" + guardPath, StringComparison.Ordinal))
+                throw new InvalidDataException("Publication pin differs from the validated local path.");
             return new WriteLocks(LockAncestors(path, writing: true), guard);
         }
         catch { guard.Dispose(); throw; }

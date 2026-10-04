@@ -12,6 +12,11 @@ namespace Vibedotcom.Tests;
 
 public sealed class IsoPresentationModesTests
 {
+    private sealed class ManualTime : TimeProvider
+    {
+        internal DateTimeOffset Now = DateTimeOffset.Parse("2026-10-04T00:00:00Z");
+        public override DateTimeOffset GetUtcNow() => Now;
+    }
     private static void Sta(Action action)
     {
         Exception? error = null;
@@ -129,8 +134,9 @@ public sealed class IsoPresentationModesTests
     {
         var source = new SourceManifestIsoSheets(SourceManifestIsoSheets.FindSourceDirectory());
         var people = FakeIsoOffice.Agents(12); var office = new FakeIsoOffice(source, people);
-        var view = new IsoView(office, source, Path.Combine(Path.GetTempPath(), "vibedotcom-iso-motion-empty-brand")) { TagMode = "icon" };
-        var now = DateTimeOffset.UtcNow; view.SetZoom(1); view.Update(people, now, 0);
+        var clock = new ManualTime();
+        var view = new IsoView(office, source, Path.Combine(Path.GetTempPath(), "vibedotcom-iso-motion-empty-brand"), clock) { TagMode = "icon" };
+        var now = clock.Now; view.SetZoom(1); view.Update(people, now, 0);
         using var host = new HwndSource(new HwndSourceParameters("ISO stationary pointer test")
         {
             PositionX = -30000, PositionY = -30000, Width = 704, Height = 448,
@@ -141,22 +147,37 @@ public sealed class IsoPresentationModesTests
         view.Dispatcher.Invoke(() => { }, DispatcherPriority.ApplicationIdle);
         var id = office.Scene.Labels.Last().AgentId; var icon = view.AgentIconRect(id);
         var pointer = new Point(icon.X + icon.Width / 2, icon.Y + icon.Height / 2);
-        view.Pointer = () => pointer;
         view.SimulateHover(pointer, now);
-        view.AdvanceHover(now.AddMilliseconds(120)); Assert.False(view.AgentTagRect(id).IsEmpty);
+        clock.Now = now.AddMilliseconds(120);
+        view.AdvanceHover(clock.Now); Assert.False(view.AgentTagRect(id).IsEmpty);
         office.SetSnapshot(office.Scene with
         {
             Revision = office.Scene.Revision + 1,
             Items = office.Scene.Items.Select(i => i.HitTargetId == id ? i with { X = i.X + 96 } : i).ToArray(),
             Labels = office.Scene.Labels.Select(l => l.AgentId == id ? l with { X = l.X + 96 } : l).ToArray()
         });
+        var frame = new DispatcherFrame();
+        // End the pump after the actual background animation tick has re-picked
+        // the pointer, rather than racing it against a higher-priority timer.
+        view.Pointer = () =>
+        {
+            view.Dispatcher.InvokeAsync(() => frame.Continue = false, DispatcherPriority.Background);
+            return pointer;
+        };
         office.NextChangeSeconds = .05; view.SetAnimationEnabled(true);
+        clock.Now = now.AddMilliseconds(170);
+        // A deadline only bounds a broken event path; it never completes a passing test.
+        using var deadline = new CancellationTokenSource(TimeSpan.FromSeconds(30));
+        using var registration = deadline.Token.Register(() =>
+            view.Dispatcher.InvokeAsync(() => frame.Continue = false, DispatcherPriority.Send));
         try
         {
-            var frame = new DispatcherFrame(); var stop = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(300) };
-            stop.Tick += (_, _) => { stop.Stop(); frame.Continue = false; }; stop.Start(); Dispatcher.PushFrame(frame);
+            Dispatcher.PushFrame(frame);
             Assert.True(view.AnimationTickCount > 0);
-            view.AdvanceHover(now.AddMilliseconds(800)); Assert.True(view.AgentTagRect(id).IsEmpty);
+            Assert.Equal(office.Scene.Revision, view.Revision);
+            Assert.False(view.HasHoverTarget);
+            clock.Now = now.AddMilliseconds(800);
+            view.AdvanceHover(clock.Now); Assert.True(view.AgentTagRect(id).IsEmpty);
         }
         finally { view.SetAnimationEnabled(false); }
     });

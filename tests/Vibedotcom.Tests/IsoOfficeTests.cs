@@ -48,27 +48,27 @@ public class IsoOfficeTests
     {
         var pack = IsoPackTests.Source.Value; var office = new IsoOffice(pack, 42, pack.Layout); var agents = new[] { Agent("solo") };
         var scene = office.Update(agents, Epoch, .8);
-        var turn = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character)); Assert.Equal("idle/se", turn.Clip);
+        var turn = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character); Assert.Equal("idle/se", turn.Clip);
         scene = office.Update(agents, Epoch, .12);
-        var lower = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character)); Assert.Equal("sit-down/se", lower.Clip); Assert.Equal(0, lower.Frame);
+        var lower = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character); Assert.Equal("sit-down/se", lower.Clip); Assert.Equal(0, lower.Frame);
         var seat = IsoContacts.Desk(2, 2, 180); var ground = IsoGeometry.Ground(seat.Approach.X, seat.Approach.Y);
         for (var phase = 1; phase <= 3; phase++)
         {
-            scene = office.Update(agents, Epoch, .1); lower = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character));
+            scene = office.Update(agents, Epoch, .1); lower = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character);
             var c = IsoContacts.Lowering(phase); Assert.Equal(phase, lower.Frame);
             Assert.Equal(office.Camera.Y + ground.Y, lower.Y + c.FootY);
         }
         scene = office.Update(agents, Epoch, .1);
-        var typing = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character)); Assert.Equal("typing/se", typing.Clip);
+        var typing = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character); Assert.Equal("typing/se", typing.Clip);
         Assert.Equal(office.Camera.X + seat.Pelvis.X - 16, typing.X);
         Assert.Equal(office.Camera.Y + seat.Pelvis.Y - 44, typing.Y);
         var gone = new[] { agents[0] with { State = AgentState.Gone } };
-        scene = office.Update(gone, Epoch, 0); var raise = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character));
+        scene = office.Update(gone, Epoch, 0); var raise = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character);
         Assert.Equal("stand-up/se", raise.Clip); Assert.Equal(0, raise.Frame); Assert.Equal(typing.X, raise.X); Assert.Equal(typing.Y, raise.Y);
-        scene = office.Update(gone, Epoch, .3); raise = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character));
+        scene = office.Update(gone, Epoch, .3); raise = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character);
         Assert.Equal("stand-up/se", raise.Clip); Assert.Equal(3, raise.Frame);
         Assert.Equal(office.Camera.Y + ground.Y, raise.Y + 60);
-        scene = office.Update(gone, Epoch, .1); Assert.StartsWith("walk/", Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character)).Clip);
+        scene = office.Update(gone, Epoch, .1); Assert.StartsWith("walk/", Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character).Clip);
         Assert.Empty(Advance(office, gone, 5).Labels);
     }
     [Fact]
@@ -77,20 +77,20 @@ public class IsoOfficeTests
         var office = new IsoOffice(IsoPackTests.Source.Value, 42, IsoPackTests.Source.Value.Layout); var agent = Agent("solo");
         Advance(office, [agent], 4);
         var waiting = office.Update([agent with { State = AgentState.Waiting }], Epoch, 0);
-        Assert.Equal("seated-waiting/se", Assert.Single(waiting.Items.Where(i => i.Layer == IsoLayer.Character)).Clip);
+        Assert.Equal("seated-waiting/se", Assert.Single(waiting.Items, i => i.Layer == IsoLayer.Character).Clip);
         var still = Advance(office, [agent with { State = AgentState.Waiting }], 2);
-        Assert.Equal(0, Assert.Single(still.Items.Where(i => i.Layer == IsoLayer.Character)).Frame);
+        Assert.Equal(0, Assert.Single(still.Items, i => i.Layer == IsoLayer.Character).Frame);
         var rest = office.Update([agent with { State = AgentState.Idle }], Epoch, 0);
-        Assert.Equal(0, Assert.Single(rest.Items.Where(i => i.Layer == IsoLayer.Character)).Frame);
+        Assert.Equal(0, Assert.Single(rest.Items, i => i.Layer == IsoLayer.Character).Frame);
         var thinking = office.Update([agent with { State = AgentState.Thinking }], Epoch, .5);
-        Assert.StartsWith("thinking/", Assert.Single(thinking.Items.Where(i => i.Layer == IsoLayer.Character)).Clip);
+        Assert.StartsWith("thinking/", Assert.Single(thinking.Items, i => i.Layer == IsoLayer.Character).Clip);
     }
     [Fact]
     public void MonitorStateAndLabelsFollowVisibleActorsAndExitRemovesThem()
     {
         var office = new IsoOffice(IsoPackTests.Source.Value, 42, IsoPackTests.Source.Value.Layout); var agent = Agent("solo"); var scene = Advance(office, [agent], 5);
         Assert.Contains(scene.Items, i => i.InstanceId == "desk-1/screen" && i.Clip.StartsWith("screen-working/"));
-        var label = Assert.Single(scene.Labels); var body = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character));
+        var label = Assert.Single(scene.Labels); var body = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character);
         Assert.Equal(agent.Name, label.Text); Assert.Equal(body.X + 16, label.X); Assert.True(label.Y < body.Y + 44);
         scene = office.Update([agent with { State = AgentState.Waiting }], Epoch, 0);
         Assert.Contains(scene.Items, i => i.InstanceId == "desk-1/screen" && i.Clip.StartsWith("screen-screensaver/"));
@@ -102,11 +102,11 @@ public class IsoOfficeTests
     public void CatWalksOnUnblockedGridAndSleepsAgain()
     {
         var pack = IsoPackTests.Source.Value; var office = new IsoOffice(pack, 42, pack.Layout);
-        var first = office.Update([], Epoch, 0); Assert.StartsWith("sleep/", Assert.Single(first.Items.Where(i => i.Layer == IsoLayer.Pet)).Clip);
+        var first = office.Update([], Epoch, 0); Assert.StartsWith("sleep/", Assert.Single(first.Items, i => i.Layer == IsoLayer.Pet).Clip);
         var sawWalk = false; var sawSleepAgain = false; var nav = IsoLayoutLoader.Navigation(office.Layout, pack);
         for (var t = 0d; t < 90; t += .1)
         {
-            var scene = office.Update([], Epoch.AddSeconds(t), .1); var pet = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Pet));
+            var scene = office.Update([], Epoch.AddSeconds(t), .1); var pet = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Pet);
             var anchor = pack.Frame(pet); var tile = IsoGeometry.Pick(pet.X + anchor.AnchorX - office.Camera.X, pet.Y + anchor.AnchorY - office.Camera.Y);
             Assert.True(nav.Walkable(tile));
             Assert.DoesNotContain(tile, office.Layout.Furniture.Where(f => f.AssetId == "iso/desk").Select(f => IsoContacts.Desk(f.X, f.Y, f.Rotation).Approach));

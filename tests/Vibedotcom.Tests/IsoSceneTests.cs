@@ -27,7 +27,7 @@ public class IsoSceneTests
         {
             var actor = new IsoActorPose("actor", design.Id, "name", new(seat.Approach.X, seat.Approach.Y), seat.Facing,
                 "typing", phase / 6d, "desk-1", "seated");
-            var scene = b.Build([actor]); var body = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character));
+            var scene = b.Build([actor]); var body = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character);
             Assert.Equal(phase, body.Frame);
             Assert.Equal(b.Camera.X + seat.Pelvis.X - 16, body.X); Assert.Equal(b.Camera.Y + seat.Pelvis.Y - 44, body.Y);
             var c = p.Clip(body.SheetId, body.Clip); Assert.Equal(2, c.HandAnchors!.Count);
@@ -57,7 +57,7 @@ public class IsoSceneTests
                 new Position(f.X + v.FootprintW, f.Y), new Position(f.X, f.Y + v.FootprintH) })
             {
                 var scene = b.Build([new("walker", p.Characters[0].Id, "Walker", position, "se", "walk", 0)]);
-                var body = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character));
+                var body = Assert.Single(scene.Items, i => i.Layer == IsoLayer.Character);
                 Assert.Equal(new IsoDepthKey(IsoPass.Scene, position.X + position.Y, 0, "walker", "body").Encoded, body.Depth);
                 Assert.Contains(scene.Items, i => i.InstanceId == "walker/contact-shadow");
                 Assert.True(scene.Items.Zip(scene.Items.Skip(1)).All(pair => pair.First.Depth <= pair.Second.Depth));
@@ -74,7 +74,7 @@ public class IsoSceneTests
         {
             var clip = pack.Clip(design.SheetId, alias.Name, alias.Direction); effects.Add(clip.Effect!);
             var scene = builder.Build([new("actor", design.Id, "Name", new(3, 4), alias.Direction, alias.Name, 0)]);
-            var effect = Assert.Single(scene.Items.Where(i => i.InstanceId == "actor/effect"));
+            var effect = Assert.Single(scene.Items, i => i.InstanceId == "actor/effect");
             Assert.Equal(IsoLayer.Overlay, effect.Layer);
             Assert.StartsWith("iso/shared-", effect.SheetId);
             Assert.Contains(Enumerable.Range(0, pack.Sheet(effect.SheetId).CellH), y =>

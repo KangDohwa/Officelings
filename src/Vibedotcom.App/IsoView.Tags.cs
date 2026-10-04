@@ -180,6 +180,6 @@ internal sealed partial class IsoView
         var changed=HasHoverTarget || TagsAnimating || DebugTooltipText!=null;
         tagHover.Clear(); DebugTooltipText=null; hoverPoint=null;
         if (changed) RenderTags();
-        ScheduleAnimation(DateTimeOffset.UtcNow);
+        ScheduleAnimation(clock.GetUtcNow());
     }
 }

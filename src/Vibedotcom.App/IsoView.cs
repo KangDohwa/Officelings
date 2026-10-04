@@ -16,6 +16,7 @@ internal sealed partial class IsoView : FrameworkElement
 {
     private readonly IIsoOffice office;
     private readonly IIsoSheetSource sheets;
+    private readonly TimeProvider clock;
     private readonly ContainerVisual root = new(), sceneVisual = new();
     private readonly DrawingVisual tagsVisual = new();
     private readonly Dictionary<(bool Static,string Id,int Occurrence), Segment> retained = new();
@@ -63,9 +64,10 @@ internal sealed partial class IsoView : FrameworkElement
     protected override int VisualChildrenCount => 1;
     protected override Visual GetVisualChild(int index) => index==0 ? root : throw new ArgumentOutOfRangeException(nameof(index));
 
-    internal IsoView(IIsoOffice office, IIsoSheetSource sheets, string? brandDirectory = null)
+    internal IsoView(IIsoOffice office, IIsoSheetSource sheets, string? brandDirectory = null, TimeProvider? clock = null)
     {
         this.office=office; this.sheets=sheets; brandIcons=new(brandDirectory);
+        this.clock=clock ?? TimeProvider.System;
         root.Children.Add(sceneVisual); root.Children.Add(tagsVisual); AddVisualChild(root);
         background.Freeze();
         RenderOptions.SetBitmapScalingMode(this,BitmapScalingMode.NearestNeighbor);
@@ -78,7 +80,7 @@ internal sealed partial class IsoView : FrameworkElement
         animation.Tick+=(_,_)=>
         {
             animation.Stop(); AnimationTickCount++;
-            var now=DateTimeOffset.UtcNow;
+            var now=this.clock.GetUtcNow();
             if (double.IsFinite(office.NextChangeSeconds)) Update(agents,now,Math.Max(0,(now-previous).TotalSeconds));
             else previous=now;
             if (Pointer!=null && HasHoverTarget) PollHover(Pointer(),now);
@@ -90,11 +92,11 @@ internal sealed partial class IsoView : FrameworkElement
         {
             var point=e.GetPosition(this);
             if (drag is {} old) { PanBy(point-old); drag=point; }
-            else PollHover(point,DateTimeOffset.UtcNow);
+            else PollHover(point,this.clock.GetUtcNow());
         };
         MouseLeftButtonUp+=(_,_)=> { drag=null; ReleaseMouseCapture(); };
         LostMouseCapture+=(_,_)=>drag=null;
-        MouseLeave+=(_,_)=>PollHover(null,DateTimeOffset.UtcNow);
+        MouseLeave+=(_,_)=>PollHover(null,this.clock.GetUtcNow());
         Unloaded+=(_,_)=> { SetAnimationEnabled(false); HideTooltip(); };
     }
 
@@ -253,7 +255,7 @@ internal sealed partial class IsoView : FrameworkElement
     internal void SetAnimationEnabled(bool enabled)
     {
         running=enabled;
-        if (!enabled) animation.Stop(); else { previous=DateTimeOffset.UtcNow; ScheduleAnimation(previous); }
+        if (!enabled) animation.Stop(); else { previous=clock.GetUtcNow(); ScheduleAnimation(previous); }
     }
     private void ScheduleAnimation(DateTimeOffset now)
     {
