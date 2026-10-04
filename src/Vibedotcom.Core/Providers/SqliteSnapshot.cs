@@ -5,7 +5,7 @@ namespace Vibedotcom.Core.Providers;
 // SQLite never receives a provider path. Only disposable copies can acquire SQLite locks/SHM.
 internal sealed class SqliteSnapshot : IDisposable
 {
-    private readonly string directory;
+    private readonly string? directory;
     private IntPtr database;
     internal static string Stamp(string path, bool includeShm = false) => string.Join("|",
         (includeShm ? new[] { "", "-wal", "-shm", "-journal" } : new[] { "", "-wal", "-journal" })
@@ -15,8 +15,31 @@ internal sealed class SqliteSnapshot : IDisposable
             return file.Exists ? $"{suffix}:{file.Length}:{file.LastWriteTimeUtc.Ticks}" : suffix + ":missing";
         }));
 
-    internal SqliteSnapshot(string source)
+    internal SqliteSnapshot(string source, bool memoryOnly = false)
     {
+        if (memoryOnly)
+        {
+            var image = SqliteMemoryImage.Read(source);
+            try
+            {
+                Check(Native.sqlite3_open_v2(":memory:", out database, 6, IntPtr.Zero));
+                var buffer = Native.sqlite3_malloc64((ulong)image.Length);
+                if (buffer == IntPtr.Zero) throw new IOException("Antigravity memory snapshot allocation failed.");
+                var transferred = false;
+                try
+                {
+                    Marshal.Copy(image, 0, buffer, image.Length);
+                    // FREEONCLOSE | READONLY. SQLite frees the buffer even when it returns an error.
+                    var result=Native.sqlite3_deserialize(database, "main", buffer, image.Length, image.Length, 5);
+                    transferred=true; Check(result);
+                }
+                finally { if (!transferred) Native.sqlite3_free(buffer); }
+                if (Query("PRAGMA quick_check").SingleOrDefault()?[0] != "ok") throw new IOException("Antigravity snapshot failed integrity check.");
+            }
+            catch { Dispose(); throw; }
+            finally { Array.Clear(image); }
+            return;
+        }
         directory = Path.Combine(Path.GetTempPath(), "Vibedotcom-sqlite-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(directory);
         try
@@ -79,7 +102,7 @@ internal sealed class SqliteSnapshot : IDisposable
     public void Dispose()
     {
         if (database != IntPtr.Zero) { Native.sqlite3_close(database); database = IntPtr.Zero; }
-        try { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+        try { if (directory != null && Directory.Exists(directory)) Directory.Delete(directory, true); }
         catch (Exception e) when (e is IOException or UnauthorizedAccessException) { }
     }
 
@@ -89,6 +112,12 @@ internal sealed class SqliteSnapshot : IDisposable
         internal static extern int sqlite3_open_v2([MarshalAs(UnmanagedType.LPUTF8Str)] string path, out IntPtr database, int flags, IntPtr vfs);
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int sqlite3_close(IntPtr database);
+        [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr sqlite3_malloc64(ulong size);
+        [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void sqlite3_free(IntPtr buffer);
+        [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int sqlite3_deserialize(IntPtr database, [MarshalAs(UnmanagedType.LPUTF8Str)] string schema, IntPtr bytes, long size, long capacity, uint flags);
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int sqlite3_prepare_v2(IntPtr database, [MarshalAs(UnmanagedType.LPUTF8Str)] string sql, int bytes, out IntPtr statement, IntPtr tail);
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]

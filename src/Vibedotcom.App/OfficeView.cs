@@ -537,7 +537,7 @@ internal sealed partial class OfficeView : FrameworkElement
         }
         RenderOverlays();
         layersDrawn = true;
-        if (tagMode != "hover" || tagHover.Target != null || tagHover.Animating || debugTooltip) RenderTags();
+        if (PrivacyMode != PrivacyMode.Off || tagMode != "hover" || tagHover.Target != null || tagHover.Animating || debugTooltip) RenderTags();
     }
     private void DrawLinks(DrawingContext dc)
     {
@@ -667,6 +667,7 @@ internal sealed partial class OfficeView : FrameworkElement
         }
         foreach (var key in tagOffsets.Keys.Where(k=>!tagRects.ContainsKey(k)).ToArray()) tagOffsets.Remove(key);
         dc.Pop(); dc.Pop();
+        DrawPrivacyBadge(dc);
         if (debugTooltip && DebugTooltipText != null)
         {
             dc.DrawRoundedRectangle(Color("#303d40"),null,tooltipRect,8,8);
@@ -735,7 +736,7 @@ internal sealed partial class OfficeView : FrameworkElement
     }
     private Rect DrawTag(DrawingContext dc, AgentView agent, Point anchor, List<Rect> plates, bool stack,string key)
     {
-        var sourceName = agent.Pose.DisplayName ?? agent.Agent.Name;
+        var sourceName = TagText(agent);
         if (!names.TryGetValue(sourceName,out var measured))
         {
             var elements = StringInfo.ParseCombiningCharacters(sourceName);
@@ -896,11 +897,11 @@ internal sealed partial class OfficeView : FrameworkElement
     {
         PollHover(point,now,offscreen:true);
     }
-    public static string TooltipText(AgentView agent, DateTimeOffset now)
+    public static string TooltipText(AgentView agent, DateTimeOffset now, PrivacyMode privacy = PrivacyMode.Off)
     {
         var a=agent.Agent;
-        var task=string.IsNullOrWhiteSpace(a.Task) ? "No task recorded" : a.Task.Length>150 ? a.Task[..147]+"…" : a.Task;
-        return $"{a.Provider} · {a.Name}\n{(a.IsSubagent ? "Sub-agent" : "Supervisor")}{(a.Role==null ? "" : " · "+a.Role)}\nModel   {a.Model ?? "unknown"}\nProject   {a.Cwd ?? "unknown"}\nTask   {task}\nTool   {a.Tool ?? "none"}\n{a.State.ToString().ToLowerInvariant()} · {Math.Max(0,(now-a.StateSince).TotalSeconds):0}s · {agent.Pose.Action}";
+        var task=privacy != PrivacyMode.Off ? "Hidden" : string.IsNullOrWhiteSpace(a.Task) ? "No task recorded" : a.Task.Length>150 ? a.Task[..147]+"…" : a.Task;
+        return $"{a.Provider} · {a.Name}\n{(a.IsSubagent ? "Sub-agent" : "Supervisor")}{(a.Role==null ? "" : " · "+a.Role)}\nModel   {(privacy==PrivacyMode.Full ? "Hidden" : a.Model ?? "unknown")}\nProject   {(privacy==PrivacyMode.Full ? "Hidden" : a.Cwd ?? "unknown")}\nTask   {task}\nTool   {(privacy!=PrivacyMode.Off ? "Hidden" : a.Tool ?? "none")}\n{a.State.ToString().ToLowerInvariant()} · {Math.Max(0,(now-a.StateSince).TotalSeconds):0}s · {agent.Pose.Action}";
     }
 
     public void PollHover(Point? cursor, DateTimeOffset now) => PollHover(cursor,now,offscreen:false);
@@ -945,7 +946,7 @@ internal sealed partial class OfficeView : FrameworkElement
         if (key!=previous || key==null || EditorMode) CloseTooltip();
         if (changed) RenderTags();
         if (agent==null || EditorMode || (now-tagHover.Entered).TotalMilliseconds<NameTagHover.TooltipDelayMs) return;
-        var body=TooltipText(agent,now);
+        var body=TooltipText(agent,now,PrivacyMode);
         if (body != tipText && (tipText==null || (now-tipUpdated).TotalMilliseconds>=200))
         { tipTitle.Text=body.Split('\n')[0]; tipBody.Text=body[(body.IndexOf('\n')+1)..]; tipText=body; tipUpdated=now; }
         tooltip.Child.Measure(new Size(Math.Max(1,ActualWidth-16),double.PositiveInfinity));
@@ -973,7 +974,7 @@ internal sealed partial class OfficeView : FrameworkElement
     private void CloseTooltip()
     {
         var redraw=debugTooltip;
-        tooltip.IsOpen=false; tipText=null; debugTooltip=false; DebugTooltipText=null; tooltipRect=Rect.Empty;
+        tooltip.IsOpen=false; tipText=null; tipTitle.Text=""; tipBody.Text=""; debugTooltip=false; DebugTooltipText=null; tooltipRect=Rect.Empty;
         if (redraw) RenderTags();
     }
     public void HideTooltip() { CloseTooltip(); hovered=null; tagHover.Clear(); RenderTags(); }

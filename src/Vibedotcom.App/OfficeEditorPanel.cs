@@ -96,7 +96,7 @@ internal sealed class OfficeEditorPanel : Border
     private void Change(Action mutation)
     {
         try { mutation(); message.Text="Unsaved changes · Save validates the office.";RefreshState();LayoutChanged?.Invoke(); }
-        catch(Exception e) when(e is ArgumentException or InvalidOperationException or IOException) { message.Text=e.Message; }
+        catch(Exception e) when(e is ArgumentException or InvalidOperationException or IOException) { message.Text=PrivacyModes.Diagnostic(e,view.PrivacyMode); }
     }
     private void WithSelection(Action<string> action)
     { if(selectedId==null) { message.Text="Select a furniture item first.";return; }Change(()=>action(selectedId)); }
@@ -168,7 +168,7 @@ internal sealed class OfficeEditorPanel : Border
     {
         var errors=Editor.Validate();if(errors.Count>0) { Validate();return; }
         try { Editor.Save(savePath);message.Text="Saved office · previous layout kept as layout.json.bak.";SaveSucceeded?.Invoke(); }
-        catch(Exception e) when(e is IOException or UnauthorizedAccessException or InvalidOperationException) { message.Text="Save failed: "+e.Message; }
+        catch(Exception e) when(e is IOException or UnauthorizedAccessException or InvalidOperationException) { message.Text="Save failed: "+PrivacyModes.Diagnostic(e,view.PrivacyMode); }
     }
     private void ResizeDialog()
     {
@@ -183,10 +183,11 @@ internal sealed class OfficeEditorPanel : Border
         {
             if(!int.TryParse(width.Text,out var w)||!int.TryParse(height.Text,out var h)) { error.Text="Enter whole tile counts.";return; }
             try { Editor.Resize(w,h);RefreshState();LayoutChanged?.Invoke();dialog.Close(); }
-            catch(Exception ex) when(ex is ArgumentException or InvalidOperationException or IOException) { error.Text=ex.Message; }
+            catch(Exception ex) when(ex is ArgumentException or InvalidOperationException or IOException) { error.Text=PrivacyModes.Diagnostic(ex,view.PrivacyMode); }
         }));
         body.Children.Add(Button("Cancel",dialog.Close));dialog.ShowDialog();
     }
+    internal void ClearPrivacyMessage() => message.Text="";
     public void Detach()
     {
         view.PreviewMouseLeftButtonDown-=PointerDown;view.PreviewMouseMove-=PointerMove;view.PreviewMouseLeftButtonUp-=PointerUp;

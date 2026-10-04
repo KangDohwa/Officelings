@@ -15,6 +15,9 @@ public sealed class AgentTracker : IDisposable
         public DateTime Modified;
     }
     private readonly TrackerOptions options;
+    private readonly object gate = new();
+    private readonly PrivacyRedactor privacy;
+    public PrivacyMode PrivacyMode => privacy.Mode;
     private readonly Dictionary<string, Source> sources = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, TrackedAgent> agents = new(StringComparer.Ordinal);
     private readonly HashSet<string> warnings = [];
@@ -34,11 +37,32 @@ public sealed class AgentTracker : IDisposable
     {
         this.options = options ?? new();
         this.options.Validate();
-        antigravity = new(this.options);
+        privacy = new(this.options.PrivacyMode);
+        antigravity = new(this.options, privacy);
         closedSessions = new(this.options.Home, processAlive);
     }
 
     public IReadOnlyList<AgentInfo> Poll(DateTimeOffset now)
+    {
+        lock (gate) return PollCore(now);
+    }
+
+    public void SetPrivacy(PrivacyMode mode)
+    {
+        lock (gate)
+        {
+            privacy.SetMode(mode);
+            foreach (var agent in agents.Values.Concat(sources.Values.SelectMany(s => s.Cached.Values)).Distinct()) agent.Scrub();
+            antigravity.Scrub();
+        }
+    }
+
+    public IReadOnlyList<AgentInfo> Redact(IReadOnlyList<AgentInfo> values)
+    {
+        lock (gate) return privacy.Mode == PrivacyMode.Off ? values : values.Select(privacy.Redact).ToArray();
+    }
+
+    private IReadOnlyList<AgentInfo> PollCore(DateTimeOffset now)
     {
         if (now < lastPoll) nextScan = nextDiscovery = now;
         lastPoll = now;
@@ -90,13 +114,13 @@ public sealed class AgentTracker : IDisposable
                 parent = agents.TryGetValue(parent, out var a) ? a.ParentId : null;
             }
         }
-        var snapshots = agents.Values.Select(a => a.Snapshot(now, options, activeParents.Contains(a.Id))).ToArray();
-        foreach (var old in snapshots.Where(a => a.State == AgentState.Gone && now - a.StateSince >= options.GoneRetention))
-            agents.Remove(old.Id);
+        var snapshots = agents.Values.Select(a => (Key:a.Id, Value:a.Snapshot(now, options, activeParents.Contains(a.Id)))).ToArray();
+        foreach (var old in snapshots.Where(a => a.Value.State == AgentState.Gone && now - a.Value.StateSince >= options.GoneRetention))
+            agents.Remove(old.Key);
         foreach (var path in sources.Where(s => now - new DateTimeOffset(s.Value.Modified, TimeSpan.Zero) >= options.DiscoveryWindow + options.GoneRetention &&
                      !s.Value.Cached.Keys.Any(activeParents.Contains))
                      .Select(s => s.Key).ToArray()) sources.Remove(path);
-        return snapshots.Where(a => agents.ContainsKey(a.Id)).OrderBy(a => a.Id, StringComparer.Ordinal).ToArray();
+        return snapshots.Where(a => agents.ContainsKey(a.Key)).Select(a=>a.Value).OrderBy(a => a.Id, StringComparer.Ordinal).ToArray();
     }
 
     private bool Recent(DateTime time, DateTimeOffset now) => now - new DateTimeOffset(time, TimeSpan.Zero) < options.DiscoveryWindow;
@@ -197,7 +221,7 @@ public sealed class AgentTracker : IDisposable
                     if (provider == Provider.Codex && type == "session_meta") source.AgentId = id;
                     if (!agents.TryGetValue(id, out var a))
                     {
-                        if (!source.Cached.TryGetValue(id, out a)) a = new(id, provider);
+                        if (!source.Cached.TryGetValue(id, out a)) a = new(id, provider, privacy);
                         agents[id] = a;
                     }
                     source.Cached[id] = a;

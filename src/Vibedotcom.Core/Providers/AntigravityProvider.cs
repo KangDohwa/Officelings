@@ -11,6 +11,7 @@ internal sealed class AntigravityProvider : IDisposable
     private sealed record Steps(string Stamp, AgentState? State, int Count, DateTimeOffset Activity);
     private sealed record Saved(AgentState State, DateTimeOffset Time, string Revision);
     private readonly TrackerOptions options;
+    private readonly PrivacyRedactor privacy;
     private readonly AntigravityRuntime? runtime;
     private readonly Dictionary<string, Catalog> catalogs = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, Steps> steps = new(StringComparer.OrdinalIgnoreCase);
@@ -18,12 +19,14 @@ internal sealed class AntigravityProvider : IDisposable
     private readonly Dictionary<string, (DateTimeOffset Receipt, AgentState State)> appliedLive = new(StringComparer.Ordinal);
     private readonly HashSet<string> databases = new(StringComparer.OrdinalIgnoreCase), transcripts = new(StringComparer.OrdinalIgnoreCase);
     private Dictionary<string, JsonElement> loaded = new(StringComparer.Ordinal);
+    private readonly Dictionary<string, string> liveRevisions = new(StringComparer.Ordinal);
     private readonly HashSet<string> departed = [];
     private DateTimeOffset nextRuntime, receipt;
 
-    internal AntigravityProvider(TrackerOptions options)
+    internal AntigravityProvider(TrackerOptions options, PrivacyRedactor? privacy = null)
     {
         this.options = options;
+        this.privacy = privacy ?? new(options.PrivacyMode);
         if (Path.GetFullPath(options.Home).Equals(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), StringComparison.OrdinalIgnoreCase))
             runtime = new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Antigravity", "logs"));
     }
@@ -39,7 +42,14 @@ internal sealed class AntigravityProvider : IDisposable
             {
                 foreach (var id in loaded.Keys.Except(observed.Keys)) departed.Add(id);
                 foreach (var id in observed.Keys) departed.Remove(id);
-                loaded = observed; receipt = now;
+                loaded = observed.ToDictionary(p => p.Key, p =>
+                {
+                    var revision = PrivacyRedactor.OpaqueId(p.Value.GetRawText());
+                    var unchanged = liveRevisions.GetValueOrDefault(p.Key) == revision && loaded.ContainsKey(p.Key);
+                    liveRevisions[p.Key] = revision;
+                    return unchanged ? loaded[p.Key] : PrivateLive(p.Value);
+                }, StringComparer.Ordinal);
+                receipt = now;
             }
         }
         foreach (var storage in new[] { "antigravity", "antigravity-cli" })
@@ -101,7 +111,7 @@ internal sealed class AntigravityProvider : IDisposable
             if (now - activity >= options.GoneAfter && !loaded.ContainsKey(id) && !agents.ContainsKey(key))
             { databases.Remove(path); steps.Remove(path); continue; }
             ReadSteps(path, warnings);
-            if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity);
+            if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity, privacy);
             if (summary != null) ApplySummary(a, summary);
             var explicitState = summary == null ? null : SavedState(summary.Status, summary.Busy, summary.Killed);
             var revision = "summary";
@@ -122,7 +132,7 @@ internal sealed class AntigravityProvider : IDisposable
             var key = LogParser.Key(Provider.Antigravity, summary.Id);
             if (departed.Contains(summary.Id) && !agents.ContainsKey(key)) continue;
             if (!loaded.ContainsKey(summary.Id) && now - summary.Activity >= options.GoneAfter && !agents.ContainsKey(key)) continue;
-            if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity);
+            if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity, privacy);
             ApplySummary(a, summary);
             if (summary.Activity > a.LastSeen) a.LastSeen = summary.Activity;
             if (SavedState(summary.Status, summary.Busy, summary.Killed) is { } state &&
@@ -132,7 +142,7 @@ internal sealed class AntigravityProvider : IDisposable
             foreach (var (id, value) in loaded)
             {
                 var key = LogParser.Key(Provider.Antigravity, id);
-                if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity);
+                if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity, privacy);
                 ApplyLiveMetadata(a, value);
                 if (LiveState(value) is { } state)
                 {
@@ -156,7 +166,7 @@ internal sealed class AntigravityProvider : IDisposable
         {
             var stamp = SqliteSnapshot.Stamp(path);
             if (catalogs.TryGetValue(path, out var old) && old.Stamp == stamp) return;
-            using var db = new SqliteSnapshot(path);
+            using var db = new SqliteSnapshot(path, privacy.Mode != PrivacyMode.Off);
             if (db.Query("PRAGMA user_version").Single()[0] != "3") throw new IOException("Unknown Antigravity summary schema.");
             var rows = db.Query("SELECT conversation_id,title,parent_conversation_id,nesting_depth,agent_name,workspace_uris,status,not_fully_idle,killed,last_modified_time,last_user_input_time,step_count FROM conversation_summaries");
             var result = new List<Summary>();
@@ -165,13 +175,14 @@ internal sealed class AntigravityProvider : IDisposable
                 if (string.IsNullOrEmpty(r[0])) continue;
                 var modified = LogParser.ParseTime(r[9]) ?? DateTimeOffset.MinValue;
                 var input = LogParser.ParseTime(r[10]) ?? DateTimeOffset.MinValue;
-                result.Add(new(r[0]!, r[1] ?? "", Empty(r[2]), Number(r[3]), Empty(r[4]),
-                    string.IsNullOrWhiteSpace(r[5]) ? [] : JsonSerializer.Deserialize<string[]>(r[5]!) ?? [],
+                result.Add(new(r[0]!, privacy.Task(r[1] ?? ""), Empty(r[2]), Number(r[3]), privacy.Detail(Empty(r[4])),
+                    (string.IsNullOrWhiteSpace(r[5]) ? [] : JsonSerializer.Deserialize<string[]>(r[5]!) ?? [])
+                        .Select(WorkspacePath).Select(privacy.Cwd).OfType<string>().ToArray(),
                     Empty(r[6]), Number(r[7]) != 0, Number(r[8]) != 0, modified > input ? modified : input, Number(r[11])));
             }
             catalogs[path] = new(stamp, result); // Preserve the previous good catalog after any copy/query failure.
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException or DllNotFoundException)
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException or DllNotFoundException or EntryPointNotFoundException)
         { warnings.Add($"Antigravity summary unavailable; retaining cached metadata ({e.GetType().Name})."); }
     }
 
@@ -181,7 +192,7 @@ internal sealed class AntigravityProvider : IDisposable
         {
             var stamp = SqliteSnapshot.Stamp(path);
             if (steps.TryGetValue(path, out var old) && old.Stamp == stamp) return;
-            using var db = new SqliteSnapshot(path);
+            using var db = new SqliteSnapshot(path, privacy.Mode != PrivacyMode.Off);
             if (db.Query("PRAGMA user_version").Single()[0] != "1") throw new IOException("Unknown Antigravity step schema.");
             var rows = db.Query("SELECT idx,step_type,status FROM steps WHERE idx IN (SELECT idx FROM steps ORDER BY idx DESC LIMIT 8) OR status IN (1,2,8,9,11) ORDER BY idx DESC LIMIT 24");
             AgentState? state = null;
@@ -199,7 +210,7 @@ internal sealed class AntigravityProvider : IDisposable
             var activity = old != null && old.State == state && old.Count == count ? old.Activity : new DateTimeOffset(modified, TimeSpan.Zero);
             steps[path] = new(stamp, state, count, activity);
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or DllNotFoundException)
+        catch (Exception e) when (e is IOException or UnauthorizedAccessException or DllNotFoundException or EntryPointNotFoundException)
         { warnings.Add($"Antigravity steps unavailable; using summary/transcript fallback ({e.GetType().Name})."); }
     }
 
@@ -225,7 +236,7 @@ internal sealed class AntigravityProvider : IDisposable
         if (a.Task.Length == 0) a.Task = LogParser.Clip(s.Title);
         if (s.Parent != null && LogParser.Key(Provider.Antigravity, s.Parent) != a.Id) a.ParentId = LogParser.Key(Provider.Antigravity, s.Parent);
         a.IsSubagent |= a.ParentId != null || s.Depth > 0;
-        a.Cwd = s.Workspaces.Select(WorkspacePath).FirstOrDefault(p => p != null) ?? a.Cwd;
+        a.Cwd = s.Workspaces.FirstOrDefault() ?? a.Cwd;
     }
 
     internal static AgentState? SavedState(string? status, bool busy, bool killed) => killed ? AgentState.Gone
@@ -256,8 +267,38 @@ internal sealed class AntigravityProvider : IDisposable
         var boundary = Get(Get(Get(root, "latestTaskBoundaryStep"), "step"), "taskBoundary");
         if (LogParser.String(boundary, "taskName") is { } task) a.Task = LogParser.Clip(task);
         var workspaces = Get(root, "workspaces");
+        if (LogParser.String(root, "privacyCwd") is {} privateCwd) a.Cwd = privateCwd;
         if (workspaces.ValueKind == JsonValueKind.Array)
             a.Cwd = workspaces.EnumerateArray().Select(w => WorkspacePath(LogParser.String(w, "workspaceFolderAbsoluteUri"))).FirstOrDefault(p => p != null) ?? a.Cwd;
+    }
+
+    internal void Scrub()
+    {
+        foreach (var path in catalogs.Keys.ToArray())
+        {
+            var catalog = catalogs[path];
+            catalogs[path] = catalog with { Rows = catalog.Rows.Select(s => s with
+            { Title = privacy.Task(s.Title), Name = privacy.Detail(s.Name), Workspaces = s.Workspaces.Select(privacy.Cwd).OfType<string>().ToArray() }).ToList() };
+        }
+        loaded = loaded.ToDictionary(p => p.Key, p => PrivateLive(p.Value), StringComparer.Ordinal);
+    }
+
+    private JsonElement PrivateLive(JsonElement root)
+    {
+        if (privacy.Mode == PrivacyMode.Off) return root;
+        var metadata = Get(root, "trajectoryMetadata");
+        var workspaces = Get(root, "workspaces");
+        var cwd = LogParser.String(root, "privacyCwd") ?? (workspaces.ValueKind == JsonValueKind.Array
+            ? workspaces.EnumerateArray().Select(w => WorkspacePath(LogParser.String(w, "workspaceFolderAbsoluteUri"))).FirstOrDefault(p => p != null) : null);
+        var status = LogParser.String(root, "status");
+        var depth = Get(metadata,"nestingDepth");
+        return JsonSerializer.SerializeToElement(new
+        {
+            status = status is "CASCADE_RUN_STATUS_IDLE" or "CASCADE_RUN_STATUS_RUNNING" or "CASCADE_RUN_STATUS_BUSY" or "CASCADE_RUN_STATUS_CANCELING" ? status : null,
+            killed = Flag(root, "killed"), fullyIdle = Flag(root, "fullyIdle"), notFullyIdle = Flag(root, "notFullyIdle"),
+            trajectoryMetadata = new { parentConversationId = LogParser.String(metadata, "parentConversationId"), nestingDepth = depth.ValueKind == JsonValueKind.Number && depth.TryGetInt32(out var number) ? number : 0 },
+            privacyCwd = privacy.Cwd(cwd)
+        });
     }
 
     internal static string? WorkspacePath(string? value)
