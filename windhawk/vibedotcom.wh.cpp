@@ -220,6 +220,24 @@ public:
         auto j=Value(0); Space(); Require(p==s.size(),"Trailing JSON data"); return j;
     }
 };
+struct FileHandle {
+    HANDLE h=INVALID_HANDLE_VALUE;
+    explicit FileHandle(HANDLE value):h(value) {} ~FileHandle(){ if(h&&h!=INVALID_HANDLE_VALUE) CloseHandle(h); }
+    FileHandle(const FileHandle&)=delete;
+};
+std::vector<std::unique_ptr<FileHandle>> LockAncestors(const std::wstring& path) {
+    std::vector<std::unique_ptr<FileHandle>> ancestors;
+    for(size_t end=2;end<path.size();) {
+        auto directory=path.substr(0,end==2?3:end);
+        auto share=end==path.rfind(L'\\')?FILE_SHARE_READ:FILE_SHARE_READ|FILE_SHARE_WRITE;
+        auto handle=std::make_unique<FileHandle>(CreateFileW(directory.c_str(),FILE_LIST_DIRECTORY|FILE_READ_ATTRIBUTES,share,nullptr,OPEN_EXISTING,FILE_FLAG_BACKUP_SEMANTICS|FILE_FLAG_OPEN_REPARSE_POINT,nullptr));
+        if(handle->h==INVALID_HANDLE_VALUE){auto error=GetLastError();Require(error==ERROR_FILE_NOT_FOUND||error==ERROR_PATH_NOT_FOUND,"Ancestor open failed");break;}
+        BY_HANDLE_FILE_INFORMATION info{};
+        Require(GetFileInformationByHandle(handle->h,&info)&&!(info.dwFileAttributes&FILE_ATTRIBUTE_REPARSE_POINT),"Invalid/reparse ancestor");
+        ancestors.push_back(std::move(handle));end=path.find(L'\\',end+1);if(end==path.npos)break;
+    }
+    return ancestors;
+}
 std::wstring LocalPath(std::wstring path) {
     Require(!path.empty() && path.find(L'\0')==std::wstring::npos,"Empty/NUL path");
     DWORD n=ExpandEnvironmentStringsW(path.c_str(),nullptr,0); Require(n>0&&n<32768,"Path too long");
@@ -228,7 +246,17 @@ std::wstring LocalPath(std::wstring path) {
     Require(n>0&&n<full.size(),"Invalid local path"); path.assign(full.data(),n);
     Require(path.size()>3 && path[1]==L':' && path[2]==L'\\' && path.find(L':',2)==std::wstring::npos,"Use a local drive path");
     std::wstring drive=path.substr(0,3); auto type=GetDriveTypeW(drive.c_str()); Require(type==DRIVE_FIXED||type==DRIVE_REMOVABLE,"No network paths");
-    while(path.size()>3 && path.back()==L'\\') path.pop_back(); return path;
+    while(path.size()>3 && path.back()==L'\\') path.pop_back();
+    auto ancestors=LockAncestors(path);
+    // Inspect top-down, never stat a child through an unchecked ancestor.
+    for(size_t end=3;end<=path.size();) {
+        end=path.find(L'\\',end);auto part=end==path.npos?path:path.substr(0,end);
+        auto attrs=GetFileAttributesW(part.c_str());
+        if(attrs==INVALID_FILE_ATTRIBUTES){auto error=GetLastError();Require(error==ERROR_FILE_NOT_FOUND||error==ERROR_PATH_NOT_FOUND,"Path attribute check failed");break;}
+        Require(!(attrs&FILE_ATTRIBUTE_REPARSE_POINT),"Reparse paths are not allowed");
+        if(end==path.npos)break;++end;
+    }
+    return path;
 }
 std::wstring Parent(const std::wstring& path) { return path.substr(0,path.find_last_of(L"\\/")); }
 std::wstring ValidateRelativeSheetPath(const std::string& relative) {
@@ -241,27 +269,27 @@ std::wstring ValidateRelativeSheetPath(const std::string& relative) {
 }
 std::wstring SheetPath(const std::wstring& root,const std::string& relative) {
     auto r=ValidateRelativeSheetPath(relative);
-    auto path=LocalPath(root+L"\\"+r); Require(path.size()>root.size()&&_wcsnicmp(path.c_str(),root.c_str(),root.size())==0&&path[root.size()]==L'\\',"Sheet escapes root"); return path;
+    auto path=LocalPath(root+L"\\"+r); Require(path.size()>root.size()&&path.compare(0,root.size(),root)==0&&path[root.size()]==L'\\',"Sheet escapes root"); return path;
 }
-struct FileHandle {
-    HANDLE h=INVALID_HANDLE_VALUE;
-    explicit FileHandle(HANDLE value):h(value) {} ~FileHandle(){ if(h&&h!=INVALID_HANDLE_VALUE) CloseHandle(h); }
-    FileHandle(const FileHandle&)=delete;
-};
 thread_local HANDLE readStop=nullptr;
 void CheckStop() { Require(!readStop||WaitForSingleObject(readStop,0)==WAIT_TIMEOUT,"Read cancelled"); }
 std::string ReadFileBytes(const std::wstring& path,size_t max,const std::wstring& root={}) {
     CheckStop();
-    FileHandle f(CreateFileW(path.c_str(),GENERIC_READ,FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE,nullptr,OPEN_EXISTING,FILE_FLAG_SEQUENTIAL_SCAN|FILE_FLAG_OVERLAPPED,nullptr));
+    LocalPath(path);
+    // Hold every ancestor against rename while opening/reading. Each handle
+    // opens the link itself, so an intervening replacement is rejected.
+    auto ancestors=LockAncestors(path);
+    FileHandle f(CreateFileW(path.c_str(),GENERIC_READ,FILE_SHARE_READ|FILE_SHARE_WRITE,nullptr,OPEN_EXISTING,FILE_FLAG_SEQUENTIAL_SCAN|FILE_FLAG_OVERLAPPED|FILE_FLAG_OPEN_REPARSE_POINT,nullptr));
     Require(f.h!=INVALID_HANDLE_VALUE,"Open file failed");
+    BY_HANDLE_FILE_INFORMATION info{};Require(GetFileInformationByHandle(f.h,&info)&&!(info.dwFileAttributes&FILE_ATTRIBUTE_REPARSE_POINT),"Reparse input file");
     if(!root.empty()) {
-        FileHandle d(CreateFileW(root.c_str(),FILE_READ_ATTRIBUTES,FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE,nullptr,OPEN_EXISTING,FILE_FLAG_BACKUP_SEMANTICS,nullptr));
+        FileHandle d(CreateFileW(root.c_str(),FILE_READ_ATTRIBUTES,FILE_SHARE_READ|FILE_SHARE_WRITE,nullptr,OPEN_EXISTING,FILE_FLAG_BACKUP_SEMANTICS|FILE_FLAG_OPEN_REPARSE_POINT,nullptr));
         Require(d.h!=INVALID_HANDLE_VALUE,"Open pack root failed");
         std::vector<wchar_t> a(32768),b(32768);
         DWORD na=GetFinalPathNameByHandleW(d.h,a.data(),static_cast<DWORD>(a.size()),FILE_NAME_NORMALIZED), nb=GetFinalPathNameByHandleW(f.h,b.data(),static_cast<DWORD>(b.size()),FILE_NAME_NORMALIZED);
         Require(na>0&&nb>na&&na<a.size()&&nb<b.size(),"Resolve sheet path failed");
         while(na>0&&a[na-1]==L'\\') --na;
-        Require(_wcsnicmp(a.data(),b.data(),na)==0&&b[na]==L'\\',"Sheet reparse point escapes root");
+        Require(std::equal(a.data(),a.data()+na,b.data())&&b[na]==L'\\',"Sheet escapes final root");
     }
     LARGE_INTEGER length{}; Require(GetFileSizeEx(f.h,&length)&&length.QuadPart>0&&static_cast<uint64_t>(length.QuadPart)<=max,"File size limit");
     FILETIME before{},after{}; Require(GetFileTime(f.h,nullptr,nullptr,&before),"File time failed");
@@ -326,6 +354,7 @@ Frame ParseFrame(const Json& j,const Snapshot& s) {
     f.row=static_cast<int>(j.At("row").Int(0,8192));f.col=static_cast<int>(j.At("column").Int(0,8192));
     f.x=static_cast<int>(j.At("x").Int(0,sh.w));f.y=static_cast<int>(j.At("y").Int(0,sh.h));f.w=static_cast<int>(j.At("width").Int(1,sh.w));f.h=static_cast<int>(j.At("height").Int(1,sh.h));
     Require(f.x+f.w<=sh.w&&f.y+f.h<=sh.h,"Sprite outside sheet");
+    Require(f.w==sh.cw&&f.h==sh.ch,"Sprite must match its declared cell");
     Require(f.row<sh.h/sh.ch&&f.col<sh.w/sh.cw,"Sprite index outside sheet");
     f.ax=j.At("anchorX").Num(-8192,8192);f.ay=j.At("anchorY").Num(-8192,8192);f.scale=j.At("scale").Num(.125,4);f.ox=j.Optional("offsetX").NumOr(0,-8192,8192);f.oy=j.Optional("offsetY").NumOr(0,-8192,8192);return f;
 }
@@ -404,6 +433,7 @@ Snapshot ParseSnapshot(const std::string& bytes,const Snapshot* previous=nullptr
         t.x=p.At("x").Num(-1,s.w);t.y=p.At("y").Num(-1,s.h);t.dx=static_cast<int>(p.At("desk").At("x").Int(s.schema>=4?-1:0,s.w-1));t.dy=static_cast<int>(p.At("desk").At("y").Int(s.schema>=4?-1:0,s.h-1));
         t.action=p.At("action").Str();t.facing=p.At("facing").Str();t.visible=p.At("visible").Bool();t.opacity=p.Optional("opacity").NumOr(1,0,1);t.carrying=p.Optional("carryingPaper").BoolOr(false);t.paper=p.Optional("reportOnDesk").BoolOr(false);t.reaction=p.Optional("reaction").StrOr();t.partner=p.Optional("chatPartnerId").StrOr();t.character=p.Optional("characterId").StrOr();
         t.displayName=p.Optional("displayName").StrOr(t.name);t.providerIcon=p.Optional("providerIcon").StrOr();t.workLocation=p.Optional("workLocation").StrOr("desk");t.queued=p.Optional("queued").BoolOr(false);
+        auto display=Wide(t.displayName);if(display.size()>16){display.resize(16);if(display.back()>=0xD800&&display.back()<=0xDBFF)display.pop_back();}t.displayName=Utf8Text(display);
         t.deskId=p.Optional("deskId").StrOr();t.overflowSeatId=p.Optional("overflowSeatId").StrOr();
         t.frame=ParseFrame(p.At("sprite"),s);s.agents.push_back(t);
     }
@@ -552,7 +582,7 @@ Camera ViewCamera(const Snapshot& s,int width,int height,int requested) {
     return {z,std::nearbyint((width-s.w*16*z)/2.0),std::nearbyint((height-s.h*16*z)/2.0)};
 }
 class Renderer {
-    struct Image {std::wstring path;std::string sha;std::shared_ptr<Bitmap> pixels;};
+    struct Image {std::wstring path;std::string sha;std::shared_ptr<Bitmap> pixels;size_t bytes=0;};
     std::map<std::string,Image> images;
     using CropKey=std::tuple<std::string,int,int,int,int>;
     std::map<CropKey,GdiPtr<Bitmap>> crops;
@@ -566,7 +596,10 @@ class Renderer {
     ComPtr<IDWriteFactory> textFactory;
     ComPtr<IDWriteTextFormat> tagFormat;
     std::map<std::wstring,double> nameWidths;
+    uint64_t cropWork=0;
+    unsigned newCrops=0;
     double NameWidth(const std::wstring& name) {
+        Require(name.size()<=128,"Name measurement length budget");
         if(auto it=nameWidths.find(name);it!=nameWidths.end())return it->second;
         if(!textFactory){ThrowIfInjected();ComSlot<IDWriteFactory> slot;
             auto status=Native([&]{return DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,__uuidof(IDWriteFactory),reinterpret_cast<IUnknown**>(&slot.value));});textFactory=slot.take();
@@ -597,8 +630,9 @@ class Renderer {
             // reserves extra overhang padding and prematurely ellipsizes even
             // short names. Trim by the same metrics, then draw the whole run.
             if(NameWidth(text)>width) {
-                auto prefix=text;
-                do {if(prefix.empty())break;prefix.pop_back();if(!prefix.empty()&&prefix.back()>=0xD800&&prefix.back()<=0xDBFF)prefix.pop_back();text=prefix+L"\u2026";}while(NameWidth(text)>width);
+                size_t lo=0,hi=text.size();auto original=text;
+                while(lo<hi){auto mid=(lo+hi+1)/2;auto prefix=original.substr(0,mid);if(!prefix.empty()&&prefix.back()>=0xD800&&prefix.back()<=0xDBFF)prefix.pop_back();if(NameWidth(prefix+L"\u2026")<=width)lo=mid;else hi=mid-1;}
+                text=original.substr(0,lo);if(!text.empty()&&text.back()>=0xD800&&text.back()<=0xDBFF)text.pop_back();text+=L"\u2026";
             }
             GdiCheck(format.SetFormatFlags(format.GetFormatFlags()|StringFormatFlagsNoClip));
             GdiCheck(g.DrawString(text.c_str(),static_cast<INT>(text.size()),fonts.at(key).get(),PointF(static_cast<REAL>(x),static_cast<REAL>(y)),&format,&brush));
@@ -610,6 +644,8 @@ class Renderer {
     Bitmap& Crop(const Frame& f) {
         CropKey key{f.sheet,f.x,f.y,f.w,f.h};auto it=crops.find(key);if(it!=crops.end())return *it->second;
         uint64_t bytes=uint64_t(f.w)*f.h*4;
+        Require(bytes<=1024*1024&&cropWork+bytes<=32*1024*1024&&newCrops<512,"Render crop work budget");
+        cropWork+=bytes;++newCrops;
         if(crops.size()>=512||cropBytes+bytes>64*1024*1024){crops.clear();tops.clear();content.clear();cropBytes=0;}
         auto bitmap=CopyBitmap(*images.at(f.sheet).pixels,f.x,f.y,f.w,f.h);
         auto* ptr=bitmap.get();crops.emplace(key,std::move(bitmap));cropBytes+=bytes;return *ptr;
@@ -715,14 +751,14 @@ class Renderer {
     Bounds LaptopBounds(const Agent& a,const Frame& f) {auto body=ContentBounds(a,f);return {std::nearbyint(body.x+body.w/2-8),std::nearbyint(body.y+body.h-12),16,16};}
 public:
     void Load(const Snapshot& s,const std::wstring& root) {
-        std::map<std::string,Image> candidate;uint64_t pixels=0;bool changed=false;
+        std::map<std::string,Image> candidate;uint64_t pixels=0,totalBytes=0;bool changed=false;
         for(const auto& [id,sh]:s.sheets) {
             CheckStop();
             pixels+=uint64_t(sh.w)*sh.h;Require(pixels<=32*1024*1024,"Decoded pack exceeds 128 MiB");auto path=SheetPath(root,sh.file);
             auto old=images.find(id);if(old!=images.end()&&old->second.path==path&&old->second.sha==sh.sha){
                 Require(old->second.pixels!=nullptr,"Cached image null");auto w=Native([&]{return old->second.pixels->GetWidth();});GdiCheck(old->second.pixels->GetLastStatus());auto h=Native([&]{return old->second.pixels->GetHeight();});GdiCheck(old->second.pixels->GetLastStatus());
-                Require(w==static_cast<unsigned>(sh.w)&&h==static_cast<unsigned>(sh.h),"Cached PNG dimensions mismatch");candidate.emplace(id,old->second);continue;}
-            auto bytes=ReadFileBytes(path,32*1024*1024,root);auto image=Decode(bytes,sh);candidate.emplace(id,Image{path,sh.sha,std::move(image)});changed=true;
+                Require(w==static_cast<unsigned>(sh.w)&&h==static_cast<unsigned>(sh.h),"Cached PNG dimensions mismatch");totalBytes+=old->second.bytes;Require(totalBytes<=64*1024*1024,"Compressed pack exceeds 64 MiB");candidate.emplace(id,old->second);continue;}
+            auto bytes=ReadFileBytes(path,static_cast<size_t>(std::min<uint64_t>(32*1024*1024,64*1024*1024-totalBytes)),root);totalBytes+=bytes.size();auto image=Decode(bytes,sh);candidate.emplace(id,Image{path,sh.sha,std::move(image),bytes.size()});changed=true;
         }
         // Commit only after every referenced sheet has decoded and matched SHA256.
         changed|=images.size()!=s.sheets.size();auto manifest=s.rawAssets;auto nextRoot=root;images.swap(candidate);
@@ -730,6 +766,7 @@ public:
         loadedManifest.swap(manifest);loadedRoot.swap(nextRoot);
     }
     GdiPtr<Bitmap> Render(const Snapshot& s,int width,int height,int zoom,bool transparent,bool offline,double time,const std::string& hovered={}) {
+        cropWork=0;newCrops=0;
         Require(width>=1&&height>=1&&width<=4096&&height<=4096&&int64_t(width)*height<=8388608,"Viewport bounds");
         auto output=MakeGdi<Bitmap>(width,height,PixelFormat32bppPARGB);
         SafeGdi<Graphics> owner(output.get());auto& g=owner.get();Configure(g);if(s.schema>=4)GdiCheck(g.SetTextRenderingHint(TextRenderingHintSingleBitPerPixelGridFit));GdiCheck(g.Clear(transparent?Color(0,0,0,0):HexColor(s.schema>=4?"#10282b":"#302d2b")));
@@ -1118,11 +1155,13 @@ struct WorkerState {
     std::shared_ptr<const Pixels> pixels;
     std::wstring packRoot;
     void read(ULONGLONG tick) {
+        try {
+        LocalPath(g_settings.state);
+        auto ancestors=LockAncestors(g_settings.state);
         WIN32_FILE_ATTRIBUTE_DATA before{};
         const bool stamped=GetFileAttributesExW(g_settings.state.c_str(),GetFileExInfoStandard,&before)!=FALSE;
         if(stamped&&accepted&&before.nFileSizeHigh==0&&before.nFileSizeLow==acceptedSize&&
            CompareFileTime(&before.ftLastWriteTime,&acceptedTime)==0) { nextRead=tick+200;return; }
-        try {
             if(Stopping())return;
             auto bytes=ReadFileBytes(g_settings.state,4*1024*1024);
             auto candidate=ParseSnapshot(bytes,hasState?&snapshot:nullptr);
@@ -1132,6 +1171,7 @@ struct WorkerState {
             snapshot=std::move(candidate);hasState=true;++stateSerial;
             accepted=false;readFailures=0;nextRead=tick+200;
             WIN32_FILE_ATTRIBUTE_DATA after{};
+            LocalPath(g_settings.state);
             if(stamped&&GetFileAttributesExW(g_settings.state.c_str(),GetFileExInfoStandard,&after)&&
                before.nFileSizeHigh==0&&after.nFileSizeHigh==0&&after.nFileSizeLow==bytes.size()&&
                before.nFileSizeLow==after.nFileSizeLow&&CompareFileTime(&before.ftLastWriteTime,&after.ftLastWriteTime)==0) {

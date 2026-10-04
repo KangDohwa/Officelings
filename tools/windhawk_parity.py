@@ -28,6 +28,7 @@ import subprocess
 import sys
 import tempfile
 import zlib
+from safe_files import read_bytes, read_json, relative_file, safe_path, atomic_write, make_directory
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -38,6 +39,10 @@ AUDITED_BUILDS = {
     "9700d519c83f38b08cd15747f5bdff41c5e231bbbc5e7c1d01af6f9b87286d76":
         "0f10cff6c29b22b167b2734c952d59f22181ff1c88078e2a169009f00115667b",
 }
+# Launcher hashes must be added by an explicit binary audit. Old DLL-only
+# entries intentionally grant no executable authority.
+AUDITED_LAUNCHERS = {}
+AUDITED_RENDERERS = set()
 SCENARIOS = {"main": "state.json", "normal": "normal-state.json",
              "reserved-tags": "reserved-tags-state.json", "overflow": "overflow-state.json"}
 CASES = [("office-2x", "main", "office-2x.png", "windhawk-2x.png"),
@@ -52,13 +57,13 @@ CASES = [("office-2x", "main", "office-2x.png", "windhawk-2x.png"),
 
 
 def sha256(path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    return hashlib.sha256(read_bytes(path, 64 * 1024 * 1024)).hexdigest()
 
 
 def output_path(path):
-    path = path.resolve()
+    path = safe_path(path)
     if not any(path == base or base in path.parents
-               for base in (DEFAULT_OUT.resolve(), Path(tempfile.gettempdir()).resolve())):
+               for base in (safe_path(DEFAULT_OUT), safe_path(Path(tempfile.gettempdir())))):
         raise ValueError("Outputs must be under windhawk/artifacts/parity or TEMP")
     return path
 
@@ -69,12 +74,16 @@ def read_png(path):
     Compare stored straight RGBA bytes, including RGB beneath zero alpha.
     There is no compositing, color conversion, resampling, or tolerance.
     """
-    data = path.read_bytes()
+    data = read_bytes(path, 32 * 1024 * 1024)
     if data[:8] != b"\x89PNG\r\n\x1a\n":
         raise ValueError(f"Not a PNG: {path}")
-    pos, compressed, header, transparency = 8, bytearray(), None, False
+    pos, compressed, header, transparency, ended = 8, bytearray(), None, False, False
     while pos < len(data):
+        if pos + 12 > len(data):
+            raise ValueError("truncated PNG chunk")
         length, = struct.unpack_from(">I", data, pos)
+        if pos + 12 + length > len(data):
+            raise ValueError("invalid PNG chunk length")
         kind = data[pos + 4:pos + 8]
         payload = data[pos + 8:pos + 8 + length]
         crc, = struct.unpack_from(">I", data, pos + 8 + length)
@@ -82,23 +91,34 @@ def read_png(path):
             raise ValueError(f"PNG CRC mismatch: {path}")
         pos += length + 12
         if kind == b"IHDR":
+            if header is not None or length != 13 or pos != 33:
+                raise ValueError("invalid/duplicate PNG IHDR")
             header = struct.unpack(">IIBBBBB", payload)
         elif kind == b"IDAT":
             compressed.extend(payload)
         elif kind == b"tRNS":
             transparency = True
         elif kind == b"IEND":
+            if length or pos != len(data):
+                raise ValueError("trailing PNG data or invalid IEND")
+            ended = True
             break
-    if header is None:
+    if header is None or not ended:
         raise ValueError(f"Missing PNG IHDR: {path}")
     width, height, depth, color, compression, filtering, interlace = header
+    if min(width, height) < 1 or max(width, height) > 8192 or width * height > 16_777_216:
+        raise ValueError("PNG dimension/pixel budget exceeded")
     if depth != 8 or color not in (2, 6) or compression or filtering or interlace:
         raise ValueError(f"Expected 8-bit non-interlaced RGB/RGBA PNG: {path}")
     if color == 2 and transparency:
         raise ValueError(f"RGB transparency keys are unsupported: {path}")
     channels = 4 if color == 6 else 3
     stride = width * channels
-    raw = zlib.decompress(compressed)
+    expected = (stride + 1) * height
+    decoder = zlib.decompressobj()
+    raw = decoder.decompress(compressed, expected + 1)
+    if not decoder.eof or decoder.unused_data or decoder.unconsumed_tail:
+        raise ValueError("PNG compressed stream exceeds dimensions or has trailing data")
     if len(raw) != (stride + 1) * height:
         raise ValueError(f"PNG scanline length mismatch: {path}")
     previous, rgba = bytearray(stride), bytearray()
@@ -208,32 +228,51 @@ def run_hidden(command, log):
 
 
 def run_wpf(app, output, log):
+    app = safe_path(app)
     dll = app.with_suffix(".dll") if app.suffix.lower() == ".exe" else app
     app_hash, core_hash = sha256(dll), sha256(dll.parent / "Vibedotcom.Core.dll")
     if AUDITED_BUILDS.get(app_hash) != core_hash:
         raise ValueError("Unreviewed WPF build: use existing --wpf-dir after auditing its smoke path")
     if app.suffix.lower() != ".exe":
         raise ValueError("Use the built App.exe so its compatibility manifest applies")
-    output.mkdir(parents=True, exist_ok=True)
+    launcher_hash = sha256(app)
+    if AUDITED_LAUNCHERS.get(app_hash) != launcher_hash:
+        raise ValueError("Unreviewed WPF launcher: use --wpf-dir until the EXE is audited")
+    make_directory(output)
     run_hidden([app, "--demo", "--smoke-test", output], log)
     (output / "parity-build.json").write_text(json.dumps(
-        {"path": str(app), "appDllSha256": app_hash, "coreDllSha256": core_hash,
+        {"path": str(app), "exeSha256": launcher_hash, "appDllSha256": app_hash, "coreDllSha256": core_hash,
          "arguments": ["--demo", "--smoke-test", str(output)], "offscreen": True}, indent=2) + "\n", encoding="utf-8")
 
 
+def audited_renderer(renderer):
+    renderer = safe_path(renderer)
+    if renderer.name.lower() != "renderer_tests.exe":
+        raise ValueError("--renderer must be the standalone renderer_tests.exe, never a mod DLL")
+    renderer_bytes = read_bytes(renderer, 64 * 1024 * 1024)
+    if b"--render-only" not in renderer_bytes and "--render-only".encode("utf-16le") not in renderer_bytes:
+        raise ValueError("Existing harness lacks --render-only")
+    renderer_hash = hashlib.sha256(renderer_bytes).hexdigest()
+    if renderer_hash not in AUDITED_RENDERERS:
+        raise ValueError("Unreviewed native renderer: use --native-dir until its EXE is audited")
+    return renderer_hash
+
+
 def prepare_states(wpf, out):
-    exported = json.loads((wpf / "manifest.json").read_text(encoding="utf-8-sig"))
+    exported = read_json(wpf / "manifest.json")
+    if len(exported["sheets"]) > 128:
+        raise ValueError("Exported sheet count exceeds budget")
     sheets = {s["id"]: s for s in exported["sheets"]}
     for sheet in sheets.values():
-        image = (wpf / sheet["file"]).resolve()
+        image = relative_file(wpf, sheet["file"])
         if wpf not in image.parents or sha256(image) != sheet["sha256"]:
             raise ValueError(f"Exported image path/hash mismatch: {sheet['id']}")
     inputs = out / "native-input"
-    inputs.mkdir(parents=True, exist_ok=True)
+    make_directory(inputs)
     states = {}
     for scenario, filename in SCENARIOS.items():
         source = wpf / filename
-        snapshot = json.loads(source.read_text(encoding="utf-8-sig"))
+        snapshot = read_json(source)
         if snapshot["schemaVersion"] != 4:
             raise ValueError(f"Expected a real v4 WPF smoke snapshot: {source}")
         relocated = 0
@@ -247,9 +286,9 @@ def prepare_states(wpf, out):
         # content-addressed filenames. Relocate ONLY those paths in a new copy.
         native_input = inputs / filename
         if relocated:
-            native_input.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            atomic_write(native_input, (json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
         else:
-            native_input.write_bytes(source.read_bytes())
+            atomic_write(native_input, read_bytes(source, 4 * 1024 * 1024))
         states[scenario] = {"source": str(source), "sourceSha256": sha256(source),
                             "nativeInput": str(native_input), "nativeInputSha256": sha256(native_input),
                             "relocatedSheetPaths": relocated, "schemaVersion": 4,
@@ -274,24 +313,19 @@ def main():
     if args.min_match is not None and not 0 <= args.min_match <= 100:
         parser.error("--min-match must be in [0, 100]")
     out = output_path(args.out)
-    out.mkdir(parents=True, exist_ok=True)
-    wpf = (args.wpf_dir or out / "wpf").resolve()
-    native = (args.native_dir or out / "native").resolve()
-    app, renderer = args.app.resolve(), args.renderer.resolve()
+    make_directory(out)
+    wpf = safe_path(args.wpf_dir or out / "wpf")
+    native = safe_path(args.native_dir or out / "native")
+    app, renderer = safe_path(args.app), safe_path(args.renderer)
     if args.run_wpf:
         run_wpf(app, output_path(wpf), out / "wpf-smoke.log")
     states = prepare_states(wpf, out) if args.run_native or not args.pair else {}
     if args.run_native:
         native = output_path(native)
-        if renderer.name.lower() != "renderer_tests.exe":
-            raise ValueError("--renderer must be the standalone renderer_tests.exe, never a mod DLL")
-        renderer_bytes = renderer.read_bytes()
-        if b"--render-only" not in renderer_bytes and "--render-only".encode("utf-16le") not in renderer_bytes:
-            raise ValueError("Existing harness lacks --render-only; use the updated existing binary after its owner's build completes. No regression tests were run.")
-        renderer_hash = hashlib.sha256(renderer_bytes).hexdigest()
+        renderer_hash = audited_renderer(renderer)
         for scenario, state in states.items():
             destination = native / scenario
-            destination.mkdir(parents=True, exist_ok=True)
+            make_directory(destination)
             print(f"Offscreen native replay: {scenario}", flush=True)
             run_hidden([renderer, Path(state["nativeInput"]), wpf, destination, "--render-only"], out / f"{scenario}-native.log")
         if sha256(renderer) != renderer_hash:
@@ -301,7 +335,7 @@ def main():
     for name, reference, candidate in pairs:
         if not name or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_" for c in name):
             raise ValueError("Pair names must contain only letters, numbers, '-' and '_'")
-        result = compare(name, Path(reference).resolve(), Path(candidate).resolve(), out, args.diff)
+        result = compare(name, safe_path(reference), safe_path(candidate), out, args.diff)
         results.append(result)
         match = result["exactRgbaPercent"]
         detail = f"RGBA exact {match:.6f}%" if match is not None else "DIMENSION MISMATCH (no resampling)"
@@ -320,8 +354,8 @@ def main():
     if args.run_native:
         report["renderer"] = {"path": str(renderer), "sha256": renderer_hash, "mode": "--render-only"}
     if (wpf / "parity-build.json").is_file():
-        report["wpfBuild"] = json.loads((wpf / "parity-build.json").read_text(encoding="utf-8"))
-    (out / "report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        report["wpfBuild"] = read_json(wpf / "parity-build.json")
+    atomic_write(out / "report.json", (json.dumps(report, ensure_ascii=False, indent=2) + "\n").encode("utf-8"))
     print(f"Report: {out / 'report.json'}; images opened: 0", flush=True)
     return int(any(r["exactRgbaPercent"] is None or (args.min_match is not None and r["exactRgbaPercent"] < args.min_match) for r in results))
 
