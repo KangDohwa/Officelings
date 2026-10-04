@@ -1,0 +1,7549 @@
+{
+  "version": 1,
+  "view": "iso",
+  "projection": "iso2to1",
+  "editorVersion": 1,
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1",
+    "isoEditorV1"
+  ],
+  "tileSize": 16,
+  "tile": {
+    "width": 64,
+    "height": 32,
+    "anchor": {
+      "x": 32,
+      "y": 16
+    }
+  },
+  "wallRise": 16,
+  "wallHeight": 48,
+  "cutaway": "rear-two-walls",
+  "widthTiles": 10,
+  "heightTiles": 10,
+  "door": {
+    "x": 0,
+    "y": 4
+  },
+  "tiles": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "zones": [
+    {
+      "name": "workspace",
+      "x": 1,
+      "y": 0,
+      "width": 7,
+      "height": 7
+    },
+    {
+      "name": "pantry",
+      "x": 8,
+      "y": 0,
+      "width": 2,
+      "height": 6
+    },
+    {
+      "name": "lounge",
+      "x": 0,
+      "y": 7,
+      "width": 9,
+      "height": 3
+    },
+    {
+      "name": "door",
+      "x": 0,
+      "y": 4,
+      "width": 1,
+      "height": 1
+    }
+  ],
+  "furniture": [
+    {
+      "id": "plant-0",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-2",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-3",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-4",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-5",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-6",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-7",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-8",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-9",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-10",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-11",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-12",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-13",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-14",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-15",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-16",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-17",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-18",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-19",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-20",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-21",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-22",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-23",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-24",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-25",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-26",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-27",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-28",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-29",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-30",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-31",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-32",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-33",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-34",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-35",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-36",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-37",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-38",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-39",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-40",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-41",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-42",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-43",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-44",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-45",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-46",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-47",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-48",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-49",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-50",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-51",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-52",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-53",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-54",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-55",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-56",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-57",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-58",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-59",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-60",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-61",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-62",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-63",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-64",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-65",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-66",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-67",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-68",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-69",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-70",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-71",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-72",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-73",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-74",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-75",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-76",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-77",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-78",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-79",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-80",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-81",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-82",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-83",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-84",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-85",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-86",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-87",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-88",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-89",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-90",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-91",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-92",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-93",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-94",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-95",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-96",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-97",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-98",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-99",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-100",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-101",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-102",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-103",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-104",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-105",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-106",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-107",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-108",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-109",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-110",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-111",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-112",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-113",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-114",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-115",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-116",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-117",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-118",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-119",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-120",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-121",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-122",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-123",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-124",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-125",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-126",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-127",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-128",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-129",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-130",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-131",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-132",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-133",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-134",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-135",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-136",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-137",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-138",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-139",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-140",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-141",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-142",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-143",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-144",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-145",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-146",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-147",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-148",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-149",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-150",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-151",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-152",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-153",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-154",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-155",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-156",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-157",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-158",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-159",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-160",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-161",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-162",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-163",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-164",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-165",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-166",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-167",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-168",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-169",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-170",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-171",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-172",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-173",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-174",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-175",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-176",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-177",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-178",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-179",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-180",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-181",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-182",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-183",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-184",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-185",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-186",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-187",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-188",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-189",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-190",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-191",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-192",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-193",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-194",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-195",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-196",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-197",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-198",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-199",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-200",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-201",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-202",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-203",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-204",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-205",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-206",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-207",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-208",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-209",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-210",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-211",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-212",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-213",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-214",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-215",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-216",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-217",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-218",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-219",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-220",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-221",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-222",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-223",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-224",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-225",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-226",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-227",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-228",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-229",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-230",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-231",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-232",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-233",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-234",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-235",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-236",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-237",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-238",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-239",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-240",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-241",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-242",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-243",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-244",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-245",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-246",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-247",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-248",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-249",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-250",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-251",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-252",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-253",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-254",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-255",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-256",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-257",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-258",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-259",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-260",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-261",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-262",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-263",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-264",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-265",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-266",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-267",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-268",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-269",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-270",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-271",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-272",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-273",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-274",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-275",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-276",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-277",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-278",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-279",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-280",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-281",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-282",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-283",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-284",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-285",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-286",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-287",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-288",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-289",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-290",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-291",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-292",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-293",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-294",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-295",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-296",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-297",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-298",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-299",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-300",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-301",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-302",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-303",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-304",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-305",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-306",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-307",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-308",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-309",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-310",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-311",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-312",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-313",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-314",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-315",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-316",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-317",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-318",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-319",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-320",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-321",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-322",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-323",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-324",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-325",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-326",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-327",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-328",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-329",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-330",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-331",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-332",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-333",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-334",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-335",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-336",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-337",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-338",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-339",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-340",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-341",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-342",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-343",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-344",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-345",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-346",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-347",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-348",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-349",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-350",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-351",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-352",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-353",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-354",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-355",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-356",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-357",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-358",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-359",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-360",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-361",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-362",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-363",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-364",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-365",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-366",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-367",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-368",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-369",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-370",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-371",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-372",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-373",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-374",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-375",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-376",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-377",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-378",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-379",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-380",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-381",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-382",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-383",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-384",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-385",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-386",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-387",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-388",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-389",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-390",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-391",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-392",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-393",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-394",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-395",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-396",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-397",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-398",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-399",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-400",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-401",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-402",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-403",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-404",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-405",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-406",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-407",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-408",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-409",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-410",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-411",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-412",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-413",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-414",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-415",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-416",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-417",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-418",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-419",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-420",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-421",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-422",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-423",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-424",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-425",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-426",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-427",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-428",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-429",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-430",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-431",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-432",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-433",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-434",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-435",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-436",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-437",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-438",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-439",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-440",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-441",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-442",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-443",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-444",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-445",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-446",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-447",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-448",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-449",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-450",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-451",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-452",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-453",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-454",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-455",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-456",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-457",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-458",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-459",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-460",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-461",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-462",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-463",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-464",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-465",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-466",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-467",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-468",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-469",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-470",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-471",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-472",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-473",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-474",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-475",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-476",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-477",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-478",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-479",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-480",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-481",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-482",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-483",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-484",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-485",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-486",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-487",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-488",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-489",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-490",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-491",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-492",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-493",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-494",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-495",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-496",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-497",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-498",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-499",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-500",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-501",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-502",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-503",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-504",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-505",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-506",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-507",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-508",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-509",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-510",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-511",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-512",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-513",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-514",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-515",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-516",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-517",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-518",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-519",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-520",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-521",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-522",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-523",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-524",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-525",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-526",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-527",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-528",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-529",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-530",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-531",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-532",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-533",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-534",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-535",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-536",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-537",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-538",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-539",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-540",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-541",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-542",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-543",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-544",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-545",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-546",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-547",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-548",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-549",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-550",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-551",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-552",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-553",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-554",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-555",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-556",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-557",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-558",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-559",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-560",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-561",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-562",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-563",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-564",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-565",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-566",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-567",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-568",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-569",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-570",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-571",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-572",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-573",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-574",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-575",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-576",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-577",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-578",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-579",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-580",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-581",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-582",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-583",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-584",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-585",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-586",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-587",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-588",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-589",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-590",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-591",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-592",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-593",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-594",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-595",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-596",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-597",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-598",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-599",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-600",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-601",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-602",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-603",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-604",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-605",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-606",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-607",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-608",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-609",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-610",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-611",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-612",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-613",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-614",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-615",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-616",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-617",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-618",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-619",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-620",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-621",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-622",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-623",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-624",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-625",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-626",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-627",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-628",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-629",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-630",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-631",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-632",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-633",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-634",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-635",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-636",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-637",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-638",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-639",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-640",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-641",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-642",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-643",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-644",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-645",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-646",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-647",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-648",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-649",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-650",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-651",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-652",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-653",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-654",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-655",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-656",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-657",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-658",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-659",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-660",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-661",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-662",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-663",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-664",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-665",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-666",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-667",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-668",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-669",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-670",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-671",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-672",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-673",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-674",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-675",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-676",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-677",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-678",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-679",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-680",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-681",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-682",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-683",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-684",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-685",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-686",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-687",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-688",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-689",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-690",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-691",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-692",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-693",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-694",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-695",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-696",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-697",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-698",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-699",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-700",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-701",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-702",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-703",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-704",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-705",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-706",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-707",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-708",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-709",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-710",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-711",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-712",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-713",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-714",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-715",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-716",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-717",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-718",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-719",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-720",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-721",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-722",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-723",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-724",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-725",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-726",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-727",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-728",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-729",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-730",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-731",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-732",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-733",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-734",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-735",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-736",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-737",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-738",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-739",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-740",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-741",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-742",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-743",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-744",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-745",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-746",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-747",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-748",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-749",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-750",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-751",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-752",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-753",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-754",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-755",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-756",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-757",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-758",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-759",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-760",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-761",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-762",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-763",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-764",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-765",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-766",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-767",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-768",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-769",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-770",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-771",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-772",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-773",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-774",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-775",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-776",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-777",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-778",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-779",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-780",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-781",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-782",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-783",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-784",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-785",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-786",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-787",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-788",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-789",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-790",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-791",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-792",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-793",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-794",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-795",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-796",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-797",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-798",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-799",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-800",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-801",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-802",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-803",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-804",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-805",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-806",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-807",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-808",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-809",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-810",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-811",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-812",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-813",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-814",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-815",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-816",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-817",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-818",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-819",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-820",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-821",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-822",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-823",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-824",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-825",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-826",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-827",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-828",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-829",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-830",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-831",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-832",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-833",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-834",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-835",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-836",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-837",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-838",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-839",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-840",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-841",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-842",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-843",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-844",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-845",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-846",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-847",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-848",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-849",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-850",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-851",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-852",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-853",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-854",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-855",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-856",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-857",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-858",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-859",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-860",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-861",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-862",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-863",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-864",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-865",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-866",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-867",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-868",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-869",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-870",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-871",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-872",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-873",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-874",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-875",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-876",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-877",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-878",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-879",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-880",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-881",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-882",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-883",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-884",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-885",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-886",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-887",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-888",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-889",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-890",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-891",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-892",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-893",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-894",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-895",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-896",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-897",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-898",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-899",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-900",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-901",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-902",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-903",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-904",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-905",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-906",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-907",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-908",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-909",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-910",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-911",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-912",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-913",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-914",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-915",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-916",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-917",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-918",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-919",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-920",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-921",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-922",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-923",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-924",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-925",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-926",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-927",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-928",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-929",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-930",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-931",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-932",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-933",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-934",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-935",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-936",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-937",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-938",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-939",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-940",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-941",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-942",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-943",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-944",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-945",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-946",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-947",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-948",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-949",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-950",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-951",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-952",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-953",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-954",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-955",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-956",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-957",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-958",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-959",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-960",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-961",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-962",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-963",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-964",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-965",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-966",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-967",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-968",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-969",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-970",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-971",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-972",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-973",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-974",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-975",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-976",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-977",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-978",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-979",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-980",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-981",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-982",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-983",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-984",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-985",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-986",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-987",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-988",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-989",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-990",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-991",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-992",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-993",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-994",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-995",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-996",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-997",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-998",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-999",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1000",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1001",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1002",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1003",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1004",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1005",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1006",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1007",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1008",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1009",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1010",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1011",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1012",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1013",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1014",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1015",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1016",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1017",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1018",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1019",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1020",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1021",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1022",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1023",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    },
+    {
+      "id": "plant-1024",
+      "assetId": "iso/plant",
+      "x": 7,
+      "y": 6,
+      "rotation": 0
+    }
+  ],
+  "wallSegments": [
+    {
+      "id": "left-0",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-0",
+      "face": "right",
+      "edge": {
+        "i": -0.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-1",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 0.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-1",
+      "face": "right",
+      "edge": {
+        "i": 0.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-2",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 1.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-2",
+      "face": "right",
+      "edge": {
+        "i": 1.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-3",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 2.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-3",
+      "face": "right",
+      "edge": {
+        "i": 2.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-4",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 3.5
+      },
+      "assetId": "iso/wall-open-door-l-v3",
+      "state": "open"
+    },
+    {
+      "id": "right-4",
+      "face": "right",
+      "edge": {
+        "i": 3.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-5",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 4.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-5",
+      "face": "right",
+      "edge": {
+        "i": 4.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-6",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 5.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-6",
+      "face": "right",
+      "edge": {
+        "i": 5.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-7",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 6.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-7",
+      "face": "right",
+      "edge": {
+        "i": 6.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-8",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 7.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-8",
+      "face": "right",
+      "edge": {
+        "i": 7.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-9",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 8.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-9",
+      "face": "right",
+      "edge": {
+        "i": 8.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    }
+  ],
+  "workSeats": [
+    {
+      "id": "desk-a",
+      "deskId": "desk-a",
+      "chairId": "chair-a",
+      "computerId": null,
+      "profile": "front"
+    }
+  ]
+}

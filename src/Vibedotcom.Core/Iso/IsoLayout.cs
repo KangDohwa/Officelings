@@ -5,11 +5,13 @@ namespace Vibedotcom.Core.Iso;
 
 public sealed record IsoPlacement(string Id, string AssetId, int X, int Y, int Rotation = 0, string State = "default",
     string? DeskId = null, string SeatProfile = "front", string? Orientation = null, int? Width = null, int? Height = null);
-public sealed record IsoWallSegment(string Id, string Face, IsoGridPoint Edge, string AssetId, string State = "default", string? HostId = null);
+public sealed record IsoWallSegment(string Id, string Face, IsoGridPoint Edge, string AssetId, string State = "default", string? HostId = null,
+    string? AssemblyId = null);
 public sealed record IsoLayout(int WidthTiles, int HeightTiles, Tile Door, IReadOnlyList<IsoPlacement> Furniture,
     IReadOnlyList<int>? Tiles = null, IReadOnlyList<Zone>? Zones = null, IReadOnlyList<IsoWallSegment>? WallSegments = null,
     int Version = 1, string View = "iso", string Projection = "iso2to1", int TileSize = 16,
-    string Cutaway = "rear-two-walls", IReadOnlyList<string>? RequiredCapabilities = null, IsoTileSpec? Tile = null, int? WallRise = null, int? WallHeight = null);
+    string Cutaway = "rear-two-walls", IReadOnlyList<string>? RequiredCapabilities = null, IsoTileSpec? Tile = null, int? WallRise = null, int? WallHeight = null,
+    int? EditorVersion = null, IReadOnlyList<Editing.IsoSeatDesignation>? WorkSeats = null);
 
 public static class IsoLayoutLoader
 {

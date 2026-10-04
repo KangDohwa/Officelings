@@ -1,0 +1,274 @@
+{
+  "version": 1,
+  "spec": "docs/iso-editor-spec.md",
+  "cases": [
+    {
+      "path": "layouts/valid/canonical-seat.json",
+      "kind": "layout",
+      "valid": true,
+      "expectedRules": [],
+      "note": ""
+    },
+    {
+      "path": "layouts/valid/explicit-empty-seats.json",
+      "kind": "layout",
+      "valid": true,
+      "expectedRules": [],
+      "note": "Must create zero agent seats, not legacy inference."
+    },
+    {
+      "path": "layouts/valid/legacy-inferred-seat.json",
+      "kind": "layout",
+      "valid": true,
+      "expectedRules": [],
+      "note": "Must infer desk-a seat without writing the source."
+    },
+    {
+      "path": "layouts/valid/linked-computer.json",
+      "kind": "layout",
+      "valid": true,
+      "expectedRules": [],
+      "note": "Requires objects lane virtual iso/computer adapter."
+    },
+    {
+      "path": "layouts/valid/two-edge-decor.json",
+      "kind": "layout",
+      "valid": true,
+      "expectedRules": [],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/future-editor-version.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L001"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/missing-explicit-seats.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L001"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/wrong-room-size.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L002"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/duplicate-instance.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L003"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/unauthored-rotation.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L004"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/outside-room.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L005"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/blocking-overlap.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L006"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/chair-overlap.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L007"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/rug-under-workstation.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L008"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/unknown-link-owner.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L009"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/wrong-seat-rig.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L010"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/shared-seat.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L011"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/blocked-door.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L012"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/unreachable-seat.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L013"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/occupied-seat-corridor.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L014"
+      ],
+      "note": "Ordinary door paths exist; the first occupied approach blocks the second seat aisle."
+    },
+    {
+      "path": "layouts/invalid/missing-required-zone.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L015"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/decor-over-open-door.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L016"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/too-many-instances.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L017"
+      ],
+      "note": ""
+    },
+    {
+      "path": "layouts/invalid/no-pet-path.json",
+      "kind": "layout",
+      "valid": false,
+      "expectedRules": [
+        "L018"
+      ],
+      "note": ""
+    },
+    {
+      "path": "objects/valid/test-crate/test-crate.iso.json",
+      "kind": "object",
+      "valid": true,
+      "expectedRules": [],
+      "note": "One authored rotation; R must fail. PNG bytes must survive import unchanged.",
+      "expectedContentHash": "88d16cbb12cbb96f98521eba4389d19d66789cca5395002227cb9d0dd91b1034"
+    },
+    {
+      "path": "objects/invalid/traversal/test-crate.iso.json",
+      "kind": "object",
+      "valid": false,
+      "expectedRules": [
+        "O003"
+      ],
+      "note": ""
+    },
+    {
+      "path": "objects/invalid/palette/test-crate.iso.json",
+      "kind": "object",
+      "valid": false,
+      "expectedRules": [
+        "O008"
+      ],
+      "note": ""
+    },
+    {
+      "path": "objects/invalid/namespace/test-crate.iso.json",
+      "kind": "object",
+      "valid": false,
+      "expectedRules": [
+        "O002"
+      ],
+      "note": ""
+    },
+    {
+      "path": "objects/invalid/geometry/test-crate.iso.json",
+      "kind": "object",
+      "valid": false,
+      "expectedRules": [
+        "O006"
+      ],
+      "note": ""
+    },
+    {
+      "path": "objects/invalid/behavior/test-crate.iso.json",
+      "kind": "object",
+      "valid": false,
+      "expectedRules": [
+        "O001"
+      ],
+      "note": ""
+    },
+    {
+      "path": "objects/invalid/pixel-bomb/test-crate.iso.json",
+      "kind": "object",
+      "valid": false,
+      "expectedRules": [
+        "O004"
+      ],
+      "note": "Reject excessive header dimensions before allocation; additional O005 is allowed."
+    }
+  ]
+}
