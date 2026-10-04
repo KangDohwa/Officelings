@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Media;
 using Vibedotcom.Core;
+using Vibedotcom.Core.Iso;
 
 namespace Vibedotcom.App;
 
@@ -18,6 +20,11 @@ internal sealed partial class IsoView
     private readonly Dictionary<string,FormattedText> textCache = new(StringComparer.Ordinal);
     private readonly Dictionary<Provider,DrawingImage> neutralIcons = new();
     private readonly List<Rect> plates = new();
+    private readonly IsoTagLayout tagLayout=new();
+    private readonly List<IsoTagRequest> tagRequests=[];
+    private readonly List<IsoTagBox> tagBodies=[];
+    private readonly Dictionary<string,string> shortNames=new(StringComparer.Ordinal);
+    private IsoTagBox[] placedTags=[];
     private readonly SolidColorBrush plateFill = Frozen(0x17,0x2b,0x30), plateText = Frozen(0xf5,0xed,0xce);
     private readonly SolidColorBrush leadEdge = Frozen(0xc9,0x9a,0x52), childEdge = Frozen(0x73,0x8b,0x84);
     private string tagMode = "hover";
@@ -54,30 +61,96 @@ internal sealed partial class IsoView
         if (DebugTooltipText!=null) DebugTooltipText=tagHover.Target!=null && byId.TryGetValue(tagHover.Target,out var current) ? TooltipText(current,previous) : null;
         RenderTags();
     }
+    private bool TagGeometryChanged(IsoScene next)
+    {
+        if(next.Width!=scene.Width || next.Height!=scene.Height || next.Labels.Count!=scene.Labels.Count || DebugTooltipText!=null) return true;
+        for(var i=0;i<next.Labels.Count;i++) if(next.Labels[i]!=scene.Labels[i]) return true;
+        if(tagMode!="always") return false;
+        var oldIndex=0;
+        foreach(var item in next.Items)
+        {
+            if(item.Layer!=IsoLayer.Character) continue;
+            while(oldIndex<scene.Items.Count && scene.Items[oldIndex].Layer!=IsoLayer.Character) oldIndex++;
+            if(oldIndex==scene.Items.Count) return true;
+            var old=scene.Items[oldIndex++];
+            if(old.X!=item.X || old.Y!=item.Y || old.HitTargetId!=item.HitTargetId) return true;
+            var a=sheets.GetCell(old.SheetId,old.Clip,old.Frame); var b=sheets.GetCell(item.SheetId,item.Clip,item.Frame);
+            if(a.Width!=b.Width || a.Height!=b.Height) return true;
+        }
+        while(oldIndex<scene.Items.Count) if(scene.Items[oldIndex++].Layer==IsoLayer.Character) return true;
+        return false;
+    }
+    private string ShortName(string name)
+    {
+        if(shortNames.TryGetValue(name,out var cached)) return cached;
+        if(shortNames.Count>=512) shortNames.Clear();
+        var elements=StringInfo.ParseCombiningCharacters(name);
+        return shortNames[name]=elements.Length>14 ? name[..elements[14]]+"…" : name;
+    }
+    private void PlaceAlwaysTags()
+    {
+        tagBodies.Clear(); tagRequests.Clear();
+        foreach(var item in scene.Items)
+            if(item.Layer==IsoLayer.Character)
+            {
+                var cell=sheets.GetCell(item.SheetId,item.Clip,item.Frame);
+                tagBodies.Add(new(item.X-1,item.Y-1,cell.Width+2,cell.Height+2));
+            }
+        foreach(var label in scene.Labels)
+        {
+            var text=NameText(ShortName(label.Text));
+            var width=(int)Math.Clamp(Math.Ceiling(text.WidthIncludingTrailingWhitespace)+17,27,112);
+            var y=label.Y;
+            // Use the stable cell top instead of the animated head silhouette.
+            foreach(var item in scene.Items) if(item.Layer==IsoLayer.Character && item.HitTargetId==label.AgentId) { y=Math.Min(y,item.Y-2); break; }
+            tagRequests.Add(new(label.AgentId,label.X,y,width+2,16));
+        }
+        if(placedTags.Length<tagRequests.Count) Array.Resize(ref placedTags,tagRequests.Count);
+        var bounds=new IsoTagBox(0,0,scene.Width,scene.Height);
+        if(ActualWidth>0 && ActualHeight>0)
+        {
+            var a=ScenePoint(new(0,0)); var b=ScenePoint(new(ActualWidth,ActualHeight));
+            var left=Math.Clamp((int)Math.Ceiling(a.X),0,scene.Width); var top=Math.Clamp((int)Math.Ceiling(a.Y),0,scene.Height);
+            var right=Math.Clamp((int)Math.Floor(b.X),left,scene.Width); var bottom=Math.Clamp((int)Math.Floor(b.Y),top,scene.Height);
+            bounds=new(left,top,right-left,bottom-top);
+        }
+        tagLayout.Place(CollectionsMarshal.AsSpan(tagRequests),CollectionsMarshal.AsSpan(tagBodies),bounds,placedTags);
+    }
     private void RenderTags()
     {
         TagRenderCount++; tagRects.Clear(); iconRects.Clear(); plates.Clear();
         RenderedAgentTags=RenderedProviderIcons=0;
+        if(tagMode=="always") PlaceAlwaysTags();
         using var dc=tagsVisual.RenderOpen();
+        var labelIndex=0;
         foreach (var label in scene.Labels)
         {
+            var placement=tagMode=="always" ? placedTags[labelIndex] : default; labelIndex++;
             byId.TryGetValue(label.AgentId,out var agent);
             var opacity=tagMode=="always" ? 1 : tagHover.Opacity(label.AgentId);
             if (opacity>0)
             {
-                var elements=StringInfo.ParseCombiningCharacters(label.Text);
-                var name=elements.Length>14 ? label.Text[..elements[14]]+"…" : label.Text;
+                if(tagMode=="always" && placement.Width==0) continue;
+                var name=ShortName(label.Text);
                 var text=NameText(name);
                 var width=Math.Clamp(Math.Ceiling(text.WidthIncludingTrailingWhitespace)+17,27,112);
                 var rect=new Rect(Math.Clamp(label.X-width/2,1,Math.Max(1,scene.Width-width-1)),Math.Clamp(label.Y-15,1,Math.Max(1,scene.Height-15)),width,14);
                 rect=new(Snap(rect.X),Snap(rect.Y),rect.Width,rect.Height);
                 var outline=rect; outline.Inflate(1,1);
-                var desiredY=rect.Y;
-                while(rect.Y>=3 && plates.Any(p=>p.IntersectsWith(outline))) { rect.Y-=2; outline.Y-=2; }
-                if (plates.Any(p=>p.IntersectsWith(outline)))
+                if(tagMode=="always")
                 {
-                    rect.Y=desiredY; outline.Y=desiredY-1;
-                    while(rect.Bottom+2<=scene.Height-1 && plates.Any(p=>p.IntersectsWith(outline))) { rect.Y+=2; outline.Y+=2; }
+                    outline=new(placement.X,placement.Y,placement.Width,placement.Height);
+                    rect=new(outline.X+1,outline.Y+1,width,14);
+                }
+                else
+                {
+                    var desiredY=rect.Y;
+                    while(rect.Y>=3 && plates.Any(p=>p.IntersectsWith(outline))) { rect.Y-=2; outline.Y-=2; }
+                    if (plates.Any(p=>p.IntersectsWith(outline)))
+                    {
+                        rect.Y=desiredY; outline.Y=desiredY-1;
+                        while(rect.Bottom+2<=scene.Height-1 && plates.Any(p=>p.IntersectsWith(outline))) { rect.Y+=2; outline.Y+=2; }
+                    }
                 }
                 plates.Add(outline); tagRects[label.AgentId]=rect;
                 dc.PushOpacity(opacity);

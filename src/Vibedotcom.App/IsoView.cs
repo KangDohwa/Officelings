@@ -119,9 +119,10 @@ internal sealed partial class IsoView : FrameworkElement
         if (next.Revision==scene.Revision) { if (metadataChanged) RebuildTags(); return false; }
         if (next.Width<=0 || next.Height<=0) throw new ArgumentException("Iso scene bounds must be positive.");
         var geometryChanged=next.Width!=scene.Width || next.Height!=scene.Height;
+        var tagsChanged=metadataChanged || TagGeometryChanged(next);
         scene=next;
         if (people!=null) agents=people;
-        RebuildScene(); RebuildTags();
+        RebuildScene(); if(tagsChanged) RebuildTags();
         if (geometryChanged) { UpdateCamera(); InvalidateVisual(); }
         return true;
     }
@@ -232,6 +233,7 @@ internal sealed partial class IsoView : FrameworkElement
         var next=PhysicalCamera(scene.Width,scene.Height,ActualWidth,ActualHeight,dpi.DpiScaleX,dpi.DpiScaleY,zoom,physicalPan);
         if (next==camera) return;
         camera=next; var transform=new MatrixTransform(camera); transform.Freeze(); root.Transform=transform;
+        if(tagMode=="always") RenderTags();
     }
     protected override void OnDpiChanged(DpiScale oldDpi,DpiScale newDpi)
     { base.OnDpiChanged(oldDpi,newDpi); UpdateCamera(); InvalidateVisual(); }
