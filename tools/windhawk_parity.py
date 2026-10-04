@@ -7,7 +7,8 @@ or existing windows. PNG comparison also works outside Windows. Examples:
   python tools/windhawk_parity.py --wpf-dir windhawk/artifacts/parity/wpf --run-native --diff
   python tools/windhawk_parity.py --pair small WPF.png CPP.png --out TEMP_DIR
 
---run-wpf accepts only the existing, audited v4 Debug/Release binaries below.
+--run-wpf accepts the recorded audited builds below, or an explicitly reviewed
+App/Core pair pinned with --reviewed-app-sha256 and --reviewed-core-sha256.
 Their PDBs matched Program.cs, OfficeView.cs and OfficeEditorPanel.cs on
 2026-10-04: Main returns Smoke before constructing OfficeWindow; Render uses
 RenderTargetBitmap; SimulateHover draws inline and never opens the Popup.
@@ -207,21 +208,23 @@ def run_hidden(command, log):
         raise RuntimeError(f"Offscreen process exited {process.returncode}; see {log}")
 
 
-def run_wpf(app, output, log):
+def run_wpf(app, output, log, tag_mode, reviewed_app=None, reviewed_core=None):
     dll = app.with_suffix(".dll") if app.suffix.lower() == ".exe" else app
     app_hash, core_hash = sha256(dll), sha256(dll.parent / "Vibedotcom.Core.dll")
-    if AUDITED_BUILDS.get(app_hash) != core_hash:
+    reviewed = reviewed_app == app_hash and reviewed_core == core_hash
+    if AUDITED_BUILDS.get(app_hash) != core_hash and not reviewed:
         raise ValueError("Unreviewed WPF build: use existing --wpf-dir after auditing its smoke path")
     if app.suffix.lower() != ".exe":
         raise ValueError("Use the built App.exe so its compatibility manifest applies")
     output.mkdir(parents=True, exist_ok=True)
-    run_hidden([app, "--demo", "--smoke-test", output], log)
+    run_hidden([app, "--demo", "--smoke-test", output, "--tags", tag_mode], log)
     (output / "parity-build.json").write_text(json.dumps(
         {"path": str(app), "appDllSha256": app_hash, "coreDllSha256": core_hash,
-         "arguments": ["--demo", "--smoke-test", str(output)], "offscreen": True}, indent=2) + "\n", encoding="utf-8")
+         "arguments": ["--demo", "--smoke-test", str(output), "--tags", tag_mode], "offscreen": True,
+         "explicitReviewedHashes": reviewed}, indent=2) + "\n", encoding="utf-8")
 
 
-def prepare_states(wpf, out):
+def prepare_states(wpf, out, ambient=None):
     exported = json.loads((wpf / "manifest.json").read_text(encoding="utf-8-sig"))
     sheets = {s["id"]: s for s in exported["sheets"]}
     for sheet in sheets.values():
@@ -231,11 +234,14 @@ def prepare_states(wpf, out):
     inputs = out / "native-input"
     inputs.mkdir(parents=True, exist_ok=True)
     states = {}
-    for scenario, filename in SCENARIOS.items():
-        source = wpf / filename
+    sources = {name: wpf / filename for name, filename in SCENARIOS.items()}
+    if ambient:
+        sources.update({f"ambient-{name}": ambient / f"{name}-state.json"
+                        for name in ("day", "night", "rain", "snow")})
+    for scenario, source in sources.items():
         snapshot = json.loads(source.read_text(encoding="utf-8-sig"))
-        if snapshot["schemaVersion"] != 4:
-            raise ValueError(f"Expected a real v4 WPF smoke snapshot: {source}")
+        if type(snapshot["schemaVersion"]) is not int or snapshot["schemaVersion"] not in (3, 4, 5):
+            raise ValueError(f"Unsupported WPF smoke schema: {source}")
         relocated = 0
         for sheet in snapshot["assets"]["sheets"]:
             target = sheets[sheet["id"]]
@@ -245,14 +251,17 @@ def prepare_states(wpf, out):
             sheet["file"] = target["file"]
         # ReviewRenders exports assets.Manifest filenames, while Smoke exports
         # content-addressed filenames. Relocate ONLY those paths in a new copy.
-        native_input = inputs / filename
+        native_input = inputs / f"{scenario}.json"
         if relocated:
             native_input.write_text(json.dumps(snapshot, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         else:
             native_input.write_bytes(source.read_bytes())
         states[scenario] = {"source": str(source), "sourceSha256": sha256(source),
                             "nativeInput": str(native_input), "nativeInputSha256": sha256(native_input),
-                            "relocatedSheetPaths": relocated, "schemaVersion": 4,
+                            "relocatedSheetPaths": relocated, "schemaVersion": snapshot["schemaVersion"],
+                            "ambient": snapshot.get("ambient"), "pets": len(snapshot.get("pets") or []),
+                            "seatPhases": sorted({a["pose"].get("seatPhase") for a in snapshot["agents"]
+                                                  if a["pose"].get("seatPhase")}),
                             "officeTiles": [snapshot["office"]["widthTiles"], snapshot["office"]["heightTiles"]],
                             "agents": len(snapshot["agents"])}
     return states
@@ -265,12 +274,22 @@ def main():
     parser.add_argument("--native-dir", type=Path, help="Per-scenario native outputs; defaults to OUT/native")
     parser.add_argument("--app", type=Path, default=ROOT / "src/Vibedotcom.App/bin/Release/net10.0-windows/Vibedotcom.App.exe")
     parser.add_argument("--renderer", type=Path, default=ROOT / "windhawk/artifacts/renderer_tests.exe")
+    parser.add_argument("--tag-mode", choices=("hover", "icon", "always"), default="hover",
+                        help="Renderer setting for both consumers; never added to state.json")
+    parser.add_argument("--ambient-dir", type=Path, help="Existing synthetic --smoke-ambient output; compare four extra v5 states")
+    parser.add_argument("--reviewed-app-sha256", help="Pin a locally reviewed offscreen App.dll")
+    parser.add_argument("--reviewed-core-sha256", help="Pin its locally reviewed Core.dll")
     parser.add_argument("--run-wpf", action="store_true", help="Run only the audited 2026-10-04 Debug/Release smoke build, hidden; use --wpf-dir for other audited exports")
     parser.add_argument("--run-native", action="store_true", help="Replay the same snapshots using argv[4]=--render-only; never run broad regressions")
     parser.add_argument("--diff", action="store_true", help="Write error maps and WPF/native/error panels, without opening images")
     parser.add_argument("--pair", action="append", nargs=3, metavar=("NAME", "WPF_PNG", "CPP_PNG"), help="Compare explicit PNG pairs instead of the seven smoke cases")
     parser.add_argument("--min-match", type=float, help="Exit 1 when any exact RGBA match is below this percent")
     args = parser.parse_args()
+    if bool(args.reviewed_app_sha256) != bool(args.reviewed_core_sha256):
+        parser.error("Supply both reviewed App/Core SHA256 hashes")
+    for digest in (args.reviewed_app_sha256, args.reviewed_core_sha256):
+        if digest is not None and (len(digest) != 64 or any(c not in "0123456789abcdef" for c in digest)):
+            parser.error("Reviewed SHA256 hashes must be 64 lowercase hex characters")
     if args.min_match is not None and not 0 <= args.min_match <= 100:
         parser.error("--min-match must be in [0, 100]")
     out = output_path(args.out)
@@ -279,8 +298,9 @@ def main():
     native = (args.native_dir or out / "native").resolve()
     app, renderer = args.app.resolve(), args.renderer.resolve()
     if args.run_wpf:
-        run_wpf(app, output_path(wpf), out / "wpf-smoke.log")
-    states = prepare_states(wpf, out) if args.run_native or not args.pair else {}
+        run_wpf(app, output_path(wpf), out / "wpf-smoke.log", args.tag_mode,
+                args.reviewed_app_sha256, args.reviewed_core_sha256)
+    states = prepare_states(wpf, out, args.ambient_dir.resolve() if args.ambient_dir else None) if args.run_native or not args.pair else {}
     if args.run_native:
         native = output_path(native)
         if renderer.name.lower() != "renderer_tests.exe":
@@ -288,15 +308,22 @@ def main():
         renderer_bytes = renderer.read_bytes()
         if b"--render-only" not in renderer_bytes and "--render-only".encode("utf-16le") not in renderer_bytes:
             raise ValueError("Existing harness lacks --render-only; use the updated existing binary after its owner's build completes. No regression tests were run.")
+        if b"--tags" not in renderer_bytes and "--tags".encode("utf-16le") not in renderer_bytes:
+            raise ValueError("Existing harness lacks --tags; compile the v5 standalone harness first")
         renderer_hash = hashlib.sha256(renderer_bytes).hexdigest()
         for scenario, state in states.items():
             destination = native / scenario
             destination.mkdir(parents=True, exist_ok=True)
             print(f"Offscreen native replay: {scenario}", flush=True)
-            run_hidden([renderer, Path(state["nativeInput"]), wpf, destination, "--render-only"], out / f"{scenario}-native.log")
+            mode = "hover" if scenario.startswith("ambient-") else args.tag_mode
+            run_hidden([renderer, Path(state["nativeInput"]), wpf, destination, "--render-only", "--tags", mode], out / f"{scenario}-native.log")
         if sha256(renderer) != renderer_hash:
             raise ValueError("Native binary changed during replay; rerun after compilation completes")
     pairs = args.pair or [(name, wpf / wp, native / scenario / cpp) for name, scenario, wp, cpp in CASES]
+    if args.ambient_dir and not args.pair:
+        pairs += [(f"ambient-{name}", args.ambient_dir / f"{name}.png",
+                   native / f"ambient-{name}" / "windhawk-2x.png")
+                  for name in ("day", "night", "rain", "snow")]
     results = []
     for name, reference, candidate in pairs:
         if not name or any(c not in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_" for c in name):
@@ -310,7 +337,7 @@ def main():
                 "office-2x": 4, "transparent": 5, "office-auto": 6}
     inspection = [r["inspectionImage"] for r in sorted(results, key=lambda r: priority.get(r["case"], 7)) if "inspectionImage" in r][:6]
     report = {"comparison": "Exact decoded straight RGBA; every channel must match, including zero-alpha RGB",
-              "states": states, "results": results,
+              "states": states, "results": results, "tagMode": args.tag_mode,
               "inspectionPlan": {"images": inspection, "maxImages": 6,
                                  "panels": "Left WPF, middle C++, right opaque absolute error x4; alpha error is magenta",
                                  "viewedByTool": False},

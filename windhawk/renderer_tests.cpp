@@ -104,7 +104,7 @@ void AdditiveSchemaTests(const std::string& bytes,const Snapshot& original){
     for(const std::string& version:std::vector<std::string>{"0","2","6","2147483647","2147483648","3.5","\"3\"","null","true"})for(const Snapshot* previous:{static_cast<const Snapshot*>(nullptr),&original})Reject([&]{ParseSnapshot(RootField(bytes,"schemaVersion",version),previous);});
 }
 Snapshot RegressionScene(const Snapshot& original){
-    auto s=original;s.schema=4;s.w=8;s.h=8;s.doorX=0;s.doorY=7;s.cozy=true;s.zones.clear();s.furniture.clear();s.agents.clear();
+    auto s=original;s.schema=4;s.w=8;s.h=8;s.doorX=0;s.doorY=7;s.cozy=true;s.zones.clear();s.furniture.clear();s.agents.clear();s.pets.clear();s.hasAmbient=false;
     auto floor=std::find_if(s.types.begin(),s.types.end(),[](const auto& t){return t.second.kind=="floor";});Require(floor!=s.types.end(),"Regression floor tile");s.tiles.assign(64,floor->first);
     s.staticKey=Hash("windhawk-regression-room"+s.rawAssets);return s;
 }
@@ -142,6 +142,9 @@ void NameTagModeTests(Renderer& renderer,const Snapshot& original){
     Check(CompactName(L"123456789012345")==L"12345678901234\u2026","Fourteen elements plus ellipsis");
     Check(CompactName(L"1234567890123e\u0301x")==L"1234567890123e\u0301\u2026","Combining mark remains with final element");
     Check(CompactName(L"1234567890123\U0001F600x")==L"1234567890123\U0001F600\u2026","Surrogate pair remains complete");
+    Check(CompactName(L"1234567890123\u1100\u1161\u11A8x")==L"1234567890123\u1100\u1161\u11A8\u2026","Decomposed Hangul remains one text element");
+    Check(CompactName(L"\u030112345678901234")==L"\u03011234567890123\u2026","Leading combining mark counts as its own element");
+    Check(CompactName(L"1234567890123\U0001F469\u200D\U0001F4BBx")==L"1234567890123\U0001F469\u200D\U0001F4BB\u2026","ZWJ emoji remains one text element");
     TagHover fade;auto key=TagKey(a.id);fade.Update(key,0);Check(fade.Opacity(key)==0,"Hover starts transparent");fade.Advance(60);Check(fade.Opacity(key)==.5,"120ms fade in midpoint");fade.Advance(120);Check(fade.Opacity(key)==1,"120ms fade in complete");fade.Update(0,120);fade.Advance(180);Check(fade.Opacity(key)==1,"60ms leave grace");fade.Advance(280);Check(std::abs(fade.Opacity(key)-.5)<1e-6,"200ms fade out midpoint");fade.Advance(380);Check(fade.Opacity(key)==0&&!fade.Animating(),"Fade expires without storage growth");
     renderer.tagMode=TagMode::Hover;renderer.hover.Clear();auto hidden=renderer.Render(s,160,160,1,false,false,0);Check(renderer.tagHits.empty(),"Default hover has no idle plates");
     renderer.tagMode=TagMode::Icon;auto icon=renderer.Render(s,160,160,1,false,false,0);Check(Different(*hidden,*icon)&&renderer.tagHits.size()==2,"Icon mode renders two provider anchors");
@@ -157,6 +160,34 @@ void V5ContractTests(const std::string& bytes,const Snapshot& original){
     for(const Snapshot* previous:{static_cast<const Snapshot*>(nullptr),&original}){auto s=ParseSnapshot(input,previous);auto& a=s.agents.front();Check(a.seat&&a.seatX==40&&a.seatY==80&&a.seatPhase=="raise"&&a.seatPhaseFrame==1&&a.activitySpot=="lounge-demo"&&a.activityPartner=="partner-demo","V5 optional metadata reads cold and cached");Check(a.frame.ox==original.agents.front().frame.ox&&a.frame.oy==original.agents.front().frame.oy,"Supplied seated offsets are not reapplied");}
     for(const auto& bad:{"2","-1","1.5","\"1\""})Reject([&]{ParseSnapshot(PoseField(bytes,"seatPhaseFrame",bad),&original);});
     Reject([&]{ParseSnapshot(PoseField(bytes,"seatPhase","\"future\""));});Reject([&]{ParseSnapshot(PoseField(bytes,"seatAnchor","{\"x\":1e99,\"y\":0}"));});
+}
+void AmbientContractTests(const std::string& bytes,const Snapshot& original){
+    const std::string ambient="{\"windowView\":\"snow\",\"weather\":\"snow\",\"stringLightsOn\":true,\"winterDecor\":true,\"localTime\":\"2026-12-12T22:34:56+09:00\"}";
+    auto root=Parser(bytes).Parse();const auto& frame=root.At("agents").array.front().At("pose").At("sprite");auto sprite=bytes.substr(frame.begin,frame.end-frame.begin);
+    auto pet="[{\"id\":\"test-pet\",\"sheetId\":\""+original.agents.front().frame.sheet+"\",\"x\":3,\"y\":4,\"action\":\"idle\",\"facing\":\"down\",\"sprite\":"+sprite+"}]";
+    auto input=RootField(RootField(bytes,"ambient",ambient),"pets",pet);
+    for(const Snapshot* previous:{static_cast<const Snapshot*>(nullptr),&original}){auto s=ParseSnapshot(input,previous);Check(s.hasAmbient&&s.ambient.view=="snow"&&s.ambient.local.wHour==22&&s.ambient.local.wMinute==34&&s.ambient.lights&&s.ambient.winter,"Ambient uses supplied civil time with UTC offset");Check(s.pets.size()==1&&s.pets[0].id=="test-pet"&&s.pets[0].frame.x==original.agents.front().frame.x,"Supplied pet frame is authoritative");auto absent=ParseSnapshot(RootField(RootField(bytes,"ambient","null"),"pets","null"),&s);Check(!absent.hasAmbient&&absent.pets.empty(),"Omitted optional ambient/pets never leak from cached state");}
+    for(const auto& view:{"day","sunset","night","rain","snow"})Check(ParseSnapshot(RootField(bytes,"ambient",Replace(ambient,"snow",view))).ambient.view==view,"Five ambient views accepted");
+    Reject([&]{ParseSnapshot(RootField(bytes,"ambient",Replace(ambient,"snow","future")));});
+    Reject([&]{ParseSnapshot(RootField(bytes,"ambient",Replace(ambient,"true","3")));});
+    Reject([&]{ParseSnapshot(RootField(bytes,"ambient",Replace(ambient,"2026-12-12","2026-02-30")));});
+    Reject([&]{ParseSnapshot(RootField(bytes,"pets",Replace(pet,"\"x\":3","\"x\":1e99")));});
+    Reject([&]{ParseSnapshot(RootField(bytes,"pets","{}"));});
+    Reject([&]{ParseSnapshot(RootField(bytes,"pets",Replace(pet,"\"sheetId\":\""+original.agents.front().frame.sheet+"\"","\"sheetId\":\"missing\"")));});
+    for(int hour:{6,7,16,17,18,19,22}){SYSTEMTIME local{2026,12,0,12,static_cast<WORD>(hour),34,56,0},utc{};FILETIME ft{};Require(TzSpecificLocalTimeToSystemTime(nullptr,&local,&utc)&&SystemTimeToFileTime(&utc,&ft),"Synthetic civil clock");ULARGE_INTEGER ticks{};ticks.LowPart=ft.dwLowDateTime;ticks.HighPart=ft.dwHighDateTime;double time=ticks.QuadPart/1e7-11644473600.0;auto sample=SampleAmbient(time);
+        Check(sample.view==(hour>=7&&hour<17?"day":hour>=17&&hour<19?"sunset":"night")&&sample.lights==(hour>=17||hour<7),"Local day/sunset/night and light boundaries");sample=SampleAmbient(time,"auto",true);Check(sample.view=="snow"&&sample.winter,"Local December weather/decor without network");}
+}
+void LifeVisualTests(Renderer& renderer,const Snapshot& original){
+    auto s=RegressionScene(original);s.schema=5;auto a=RegressionAgent(s,"life",3,4);s.agents={a};renderer.tagMode=TagMode::Hover;renderer.hover.Clear();
+    auto standing=renderer.HitBoxes(s,160,160,1,false,0).front().first;s.agents[0].action="beanbag";auto reclining=renderer.HitBoxes(s,160,160,1,false,0).front().first;
+    Check(reclining.w==standing.h&&reclining.h==standing.w,"Reclining opaque hit bounds rotate ninety degrees");Check(std::abs(reclining.x+reclining.w/2-(a.x+.5)*16-16)<.51&&std::abs(reclining.y+reclining.h/2-((a.y+1)*16-4)-16)<.51,"Reclining centre uses supplied contact plus camera");
+    auto lying=renderer.Render(s,160,160,1,false,false,0);s.agents[0].action="idle";auto idle=renderer.Render(s,160,160,1,false,false,0);Check(Different(*lying,*idle),"Beanbag body pixels rotate with the hit bounds");
+    s.agents[0].action="reading";auto reading=renderer.Render(s,160,160,1,false,false,0);Check(Different(*reading,*idle),"Reading has a visible book prop");
+    s.agents[0]=a;s.agents[0].state="gone";s.agents[0].action="walking";s.agents[0].opacity=.5;auto walking=renderer.Render(s,160,160,1,false,false,0);Check(renderer.HitBoxes(s,160,160,1,false,0).size()==1&&Different(*walking,*idle),"Gone still renders the supplied walk/fade");
+    s.agents[0].opacity=0;Check(renderer.HitBoxes(s,160,160,1,false,0).empty(),"Completed fade has no hover body");s.agents[0].visible=false;renderer.tagMode=TagMode::Always;renderer.Render(s,160,160,1,false,false,0);Check(renderer.tagHits.empty(),"Invisible departed agent has no plate");renderer.tagMode=TagMode::Hover;
+    s.agents.clear();Pet p;p.id="life-pet";p.ordinal=Wide(p.id);p.x=3;p.y=4;p.frame=a.frame;s.pets={p};auto pets=renderer.Render(s,160,160,1,false,false,0);auto key=VisualKey(s,false,0);s.pets.clear();auto empty=renderer.Render(s,160,160,1,false,false,0);Check(Different(*pets,*empty)&&key!=VisualKey(s,false,0),"Pet pixels and repaint key follow supplied frames");Check(renderer.HitBoxes(s,160,160,1,false,0).empty(),"Pets never create agent hover targets");
+    auto transparent=renderer.Render(s,160,160,1,true,false,0);Color tile,margin;GdiCheck(transparent->GetPixel(24,100,&tile));GdiCheck(transparent->GetPixel(0,0,&margin));Check(tile.GetA()==255&&margin.GetA()==0,"V5 transparent view retains opaque nonvoid tiles and clears margins");
+    s.agents={a};s.agents[0].action="darts";Check(VisualKey(s,false,0)!=VisualKey(s,false,.125),"Flight overlays repaint at their bounded 125ms cadence");
 }
 void AlphaHitBoxTests(const Snapshot& original,const std::wstring& output){
     auto sprite=MakeGdi<Bitmap>(16,24,PixelFormat32bppPARGB);
@@ -339,7 +370,7 @@ int wmain(int argc,wchar_t** argv){
         }
         Reject([&]{ParseSnapshot(RootField(PoseField(v4,"desk","{\"x\":-1,\"y\":-1}"),"schemaVersion","3"),&s);});
         Reject([&]{ParseSnapshot(PoseField(v4,"desk","{\"x\":-2,\"y\":-1}"),&s);});
-        StateOnlyVisualTests(renderer,s);DeskNameplateTests(renderer,s);NameTagModeTests(renderer,s);V5ContractTests(bytes,s);AlphaHitBoxTests(s,output);
+        StateOnlyVisualTests(renderer,s);DeskNameplateTests(renderer,s);NameTagModeTests(renderer,s);V5ContractTests(bytes,s);AmbientContractTests(bytes,s);LifeVisualTests(renderer,s);AlphaHitBoxTests(s,output);
         WriteStandardRenders(renderer,s,output);
         auto first=s.agents.front();auto camera=ViewCamera(s,700,480,0);auto box=AgentBounds(first,first.frame);if(first.visible)Check(renderer.Hit(s,700,480,0,camera.x+(box.x+box.w/2)*camera.zoom,camera.y+(box.y+box.h/2)*camera.zoom,false,0)!=nullptr,"Sprite hover geometry");
         auto wrong=s;wrong.rawAssets.clear();wrong.sheets.begin()->second.sha=std::string(64,'0');Reject([&]{renderer.Load(wrong,root);});

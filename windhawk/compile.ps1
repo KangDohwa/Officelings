@@ -29,5 +29,5 @@ if ($Tests) {
         [IO.File]::WriteAllBytes($windhawkResourcePath, $windhawkResStream.ToArray())
     } finally { $windhawkResWriter.Dispose() }
     $windhawkQuotedResource = '"' + $windhawkResourcePath.Replace('\', '/') + '"'
-    & "$PSScriptRoot\poc\compile.ps1" -Source "$PSScriptRoot\..\tests\windhawk\host_tests.cpp" -OutputDirectory $windhawkOut -OutputName 'host_tests' -Executable -AdditionalOptions ($windhawkOptions + @('-municode', '-lcomctl32', $windhawkQuotedResource))
+    & "$PSScriptRoot\poc\compile.ps1" -Source "$PSScriptRoot\host_tests.cpp" -OutputDirectory $windhawkOut -OutputName 'host_tests' -Executable -AdditionalOptions ($windhawkOptions + @('-municode', '-lcomctl32', $windhawkQuotedResource))
 }
