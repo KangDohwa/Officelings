@@ -9,6 +9,10 @@ namespace Vibedotcom.Tests;
 
 internal static class IsoSeatAssemblyRender
 {
+    // Effects are drawn by WPF too: omitting the thinking bulb assigns its ink
+    // to the desk underneath and creates a false desk-pixel mismatch.
+    internal static IsoDrawItem[] QueueItems(IsoScene scene) => scene.Items
+        .Where(i=>i.Layer is not (IsoLayer.Floor or IsoLayer.Wall or IsoLayer.Shadow)).ToArray();
     private sealed class Snapshot(IsoScene scene) : IIsoOffice
     {
         public double NextChangeSeconds => double.PositiveInfinity;
@@ -50,7 +54,7 @@ internal static class IsoSeatAssemblyRender
                 scene=scene with { Width=96,Height=96,Items=scene.Items.Select(i=>i with {X=i.X-left,Y=i.Y-top}).ToArray() };
                 var name=design.Id.Split('/')[^1]+"-"+seat.Facing+"-"+action+"-"+phase+"-4x";
                 Save(scene,name,4);
-                var visible=scene.Items.Where(i=>i.Layer is not (IsoLayer.Floor or IsoLayer.Wall or IsoLayer.Shadow)).ToArray();
+                var visible=QueueItems(scene);
                 queues.Add(new { name, scene=scene with {Items=visible},
                     frames=visible.Select(i=>new {i.InstanceId,frame=pack.Frame(i),file=pack.Sheet(i.SheetId).File,
                         runtimeFile=runtimeFiles.GetValueOrDefault(i.SheetId)}) });

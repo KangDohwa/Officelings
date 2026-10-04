@@ -1,5 +1,13 @@
 # ISO v3 착석 가림 수정 기록
 
+## NE thinking 책상 픽셀 비교 원인 (lane/polish)
+
+`main 210c9fd`의 변경 없는 WPF 렌더 768크롭은 전체 큐 비교에서 **2,120,194 native opaque texels**가 정확히 일치했다. 당시 불일치 좌표인 `dev-hoodie-v2-ne-thinking-0-4x`의 native (66,25)는 책상 `desk/desk__rear__sw__14` 위에 그린 **전구 효과 `actor/effect`**가 소유한다. 책상 RGBA는 (199,130,81,255), 전구 외곽선과 실제 WPF RGBA는 (25,30,30,255)다.
+
+원인은 이전 exporter(`f229d6e`)의 기대 큐가 `Character`와 `Furniture`만 포함해 `Overlay`를 누락한 것이다. WPF는 효과까지 그렸으므로 책상의 색을 기대한 비교가 실패했다. compiled item queue나 책상 깊이 오류가 아니다. main의 exporter는 이미 효과와 runtime sheet를 포함한다. 이번 변경은 같은 선택 규칙을 `QueueItems`에 명시하고, 문제 좌표의 최종 소유자와 실제 4×4 픽셀 블록을 검사하는 회귀 테스트를 추가한다. 전체 비교와 `--seated-only`의 기존 마스크·허용 오차는 유지한다.
+
+PNG와 큐: `artifacts/polish/seated-before/dev-hoodie-v2-ne-thinking-0-4x.png`, `artifacts/polish/seated-before/queue.json`. 전구가 있는 크롭을 직접 열어 확인했다. 아래의 ‘원인 미확인’은 이전 작업 당시의 기록이며 이 항목은 해결됐다.
+
 ## 방석 확대와 책상 아래 하체 가림 (lane/chairfix2)
 
 기준은 `main 1fd86d0`이다. 방석을 등받이 폭과 같은 5.5×5.5로 늘리고 베이스를 줄였다. 책상 구조물을 착석 인물과 같은 z-buffer에 넣어, 카메라 쪽 책상이 허벅지·치마·무릎·발을 가리도록 프레임별 책상 파트를 추가했다. 캐릭터와 블링크 원본 픽셀은 바꾸지 않았다. **SW 방석 돌출은 최대 5px로 요청한 4px 기준을 아직 충족하지 못한다. 검사 기준은 4px를 유지했다.**

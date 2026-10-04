@@ -346,3 +346,29 @@ Release build는 오류 0개, 기존 iso xUnit 분석기 경고 17개다. deadli
 
 커밋은 승인된 lane branch에서 시도했지만 공유 Git 메타데이터 `C:/Codex-Workspace/Vibedotcom/.git/worktrees/perf/index.lock` 생성이 **Permission denied**로 실패했다. 차단 시 중단하라는 lane 규칙에 따라 staging/commit을 다시 시도하거나 다른 방식으로 우회하지 않았다. 변경은 이 워크트리에 unstaged 상태로 남아 있다.
 
+## ISO CPU — main 210c9fd, lane/polish
+
+2026-10-04~05 KST, Release/.NET 10, 18 logical processors. 수정 전에 보존한 main App/Core DLL을 `tools/perf/IsoHarness.csproj`의 `AppBin` 참조로 사용했다. 기존 `collect-external.ps1` 수집기를 재사용해 각 조건을 새 프로세스에서 순차 실행했다. 720×480 비활성 offscreen 창, 합성 TEMP/home/brand, tags=hover, 기본 TV·펫을 유지했다. 빈 방/작업 입력은 30 logical seconds 정착 후 30초 live warmup을 버렸다. demo epoch는 warmup 길이만큼 늦춰 약 0초부터의 **24초 live interval**을 측정했다. 각 조건은 한 번이며, 아래 CPU는 native process CPU delta / 실제 약 24초 wall time의 **평균, 한 코어 %**다. 머신 %는 18로 나눈다. 측정 중 자체 빌드·테스트는 멈췄으며 다른 lane은 계속 실행됐다.
+
+| 입력 / zoom | normal 평균 % | transparent 평균 % | 한 코어 목표 / 결과 |
+|---|---:|---:|---|
+| empty, 1x | 14.309 | 12.982 | ≤1 / 미달 |
+| empty, 2x | 15.421 | 18.068 | ≤1 / 미달 |
+| 12 working, 1x | 16.531 | 22.962 | ≤4 / 미달 |
+| 12 working, 2x | 24.379 | 21.597 | ≤4 / 미달 |
+| 24초 demo, 1x | 62.318 | 55.938 | ≤10 / 미달 |
+| 24초 demo, 2x | 53.303 | 66.680 | ≤10 / 미달 |
+
+1x 작업의 transparent/normal 비율은 1.389로 1.3×를 넘었다. 다른 짧은 조건의 비율이나 quantized 1초 중앙값만으로 모드 예산 충족을 인증하지 않는다. 첫 transparent/12/2x는 종료 표식 뒤 WPF 종료 대기 10초를 넘겨 제외했다. 하네스가 측정 표식을 기록한 뒤 자기 프로세스만 종료하도록 바꾼 재실행을 채택했다. 제품 DLL은 그대로다. 원시 결과와 DLL SHA/MVID는 `tools/perf/results/polish-main/`에만 보존하며 커밋하지 않는다(`transparent-working-2x-retry`가 채택본).
+
+가구·펫 프레임마다 빈 태그 그림까지 다시 열던 경로를 없앴다. 위치·이름·인물 경계가 그대로면 태그를 재사용한다. 아래 after는 `b7bf802` App/Core의 별도 새 프로세스이며 1x empty만 다시 측정했다. 마지막 always-only 글리프 clipping 보강은 이 CPU cohort에 포함되지 않는다.
+
+| 1x empty | CPU 평균 전→후 % | 관리 할당 전→후 KiB/s | 태그 redraw 전→후, 24초 |
+|---|---:|---:|---:|
+| normal | 14.309→16.588 | 244.49→243.97 | 125→0 |
+| transparent | 12.982→17.902 | 255.48→226.99 | 132→0 |
+
+불필요한 태그 redraw 제거는 확인했지만 CPU 감소는 측정하지 못했다. idle ≤1%, 할당 ≤100 KiB/s는 여전히 미달이다. after app callback은 normal 6.286/s, transparent 6.039/s이며 OS wakeup 수는 아니다. 기본 펫의 보행과 TV가 포함된 빈 방을 정적 scene으로 취급하지 않는다. 정지 revision와 warmed 배치 1,000회는 각각 0B이며, 인물·태그·viewport 충돌 검사와 hover/icon 전후 PNG 0 changed pixels를 확인했다. PNG 계측은 WPF 태그 outline과 원본 인물 alpha>0 texels의 교차를 센다. 가구에 가려진 인물 texel도 포함하는 보수적 수치다. 도착 2초 **497→0**, 4초 **229→0**이고 0.5/2/4/20초의 태그 교차·화면 밖 픽셀은 모두 0이다. 최종 always-only 글리프 경계 보강 후 관련 기존/새 렌더 검사 **39개**가 통과했다.
+
+전체 Release build는 경고/오류 0개. 최종 전체 .NET은 **573 pass / 0 fail / 86 skip**다. 첫 전체 실행은 572 pass / 1 fail / 86 skip였고, 실패한 기존 `TrackerPerfTests.LockedPublicationRetriesWithAFreshTimestampAndIncreasingSequence`는 기준/현재 바이너리의 단독 실행에서 각각 1 pass였다. 최종 전체 실행에서도 통과했다. 새 회귀 12개, Python unittest 91개와 별도 parity 9개/animation normalize fixture가 통과했다. 새 PNG 계측기의 파일 핸들 경고를 수정한 뒤 관련 Python 3개도 ResourceWarning=error로 통과했다. before/after 좌석 WPF 768크롭은 각각 2,120,194 opaque texels가 전체 큐와 일치했다. 실제 화면/compositor, 다른 DPI의 live 실행, 장기 soak와 수정 후 작업/demo CPU는 검증하지 않았다.
+
