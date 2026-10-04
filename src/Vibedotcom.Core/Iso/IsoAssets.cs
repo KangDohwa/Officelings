@@ -1,4 +1,4 @@
-﻿namespace Vibedotcom.Core.Iso;
+namespace Vibedotcom.Core.Iso;
 
 public sealed record IsoAnchorCheck(int X, int Y, int Radius = 0);
 public sealed record IsoPhaseContact(PixelPoint SeatAnchor, PixelPoint ContactOffset, int FootY);
@@ -43,8 +43,12 @@ public sealed record IsoFurnitureAsset(string Id, IReadOnlyList<IsoFurnitureVari
 public sealed record IsoWallModule(string Id, string Face, PixelPoint EdgeAnchor, IReadOnlyList<IsoPart> Parts);
 public sealed record IsoPet(string Id, string SheetId, IsoPart? Shadow = null);
 public sealed record IsoCarriedProp(string Id, string SheetId, string Animation, PixelPoint SourceGrip);
+public sealed record IsoTileSpec(int Width, int Height, PixelPoint? Anchor = null);
+public sealed record IsoCellSize(int Width, int Height);
 public sealed record IsoManifest(int Version, string Projection, IReadOnlyList<IsoSheet> Sheets,
     IReadOnlyList<IsoFurnitureAsset>? Furniture = null, IReadOnlyList<CharacterDesign>? Characters = null,
     IReadOnlyList<TileType>? TileTypes = null, IReadOnlyList<IsoWallModule>? WallModules = null,
     IReadOnlyList<IsoPet>? Pets = null, IReadOnlyList<IsoCarriedProp>? CarriedProps = null,
-    IReadOnlyList<string>? RequiredCapabilities = null);
+    IReadOnlyList<string>? RequiredCapabilities = null, IsoTileSpec? Tile = null, int? WallRise = null, int? WallHeight = null,
+    IsoCellSize? CharacterCell = null, PixelPoint? FootAnchor = null, PixelPoint? SeatAnchor = null,
+    int? StandingHeight = null, int? DeskHeight = null, int? SeatHeight = null, IReadOnlyList<string>? Facings = null);

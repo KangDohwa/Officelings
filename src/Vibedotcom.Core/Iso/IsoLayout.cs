@@ -1,18 +1,31 @@
-﻿using System.Text.Json;
+using System.Text.Json;
 
 namespace Vibedotcom.Core.Iso;
 
 public sealed record IsoPlacement(string Id, string AssetId, int X, int Y, int Rotation = 0, string State = "default",
-    string? DeskId = null, string SeatProfile = "front", string? Orientation = null);
+    string? DeskId = null, string SeatProfile = "front", string? Orientation = null, int? Width = null, int? Height = null);
 public sealed record IsoWallSegment(string Id, string Face, IsoGridPoint Edge, string AssetId, string State = "default", string? HostId = null);
 public sealed record IsoLayout(int WidthTiles, int HeightTiles, Tile Door, IReadOnlyList<IsoPlacement> Furniture,
     IReadOnlyList<int>? Tiles = null, IReadOnlyList<Zone>? Zones = null, IReadOnlyList<IsoWallSegment>? WallSegments = null,
     int Version = 1, string View = "iso", string Projection = "iso2to1", int TileSize = 16,
-    string Cutaway = "rear-two-walls", IReadOnlyList<string>? RequiredCapabilities = null);
+    string Cutaway = "rear-two-walls", IReadOnlyList<string>? RequiredCapabilities = null, IsoTileSpec? Tile = null, int? WallRise = null, int? WallHeight = null);
 
 public static class IsoLayoutLoader
 {
-    public static IsoLayout Load(string file, IsoPack pack) => Validate(AssetPack.Read<IsoLayout>(file), pack);
+    public static IsoLayout Load(string file, IsoPack pack)
+    {
+        if (new FileInfo(file).Length > 4 * 1024 * 1024) throw new InvalidDataException("JSON exceeds 4 MiB.");
+        using var input = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+        return Read(input, pack);
+    }
+    internal static IsoLayout Read(Stream input, IsoPack pack)
+    {
+        using var doc = JsonDocument.Parse(input); var root = doc.RootElement;
+        if (!root.TryGetProperty("view", out var view) || view.GetString() != "iso" ||
+            !root.TryGetProperty("projection", out var projection) || projection.GetString() != "iso2to1")
+            throw new InvalidDataException("An iso layout must explicitly declare view/projection; missing view means flat.");
+        return Validate(root.Deserialize<IsoLayout>(StateJson.Options) ?? throw new InvalidDataException("Empty iso layout."), pack);
+    }
     public static IsoLayout Default(IsoPack pack)
     {
         IsoPlacement[] furniture = [
@@ -48,7 +61,7 @@ public static class IsoLayoutLoader
     public static IsoLayout Validate(IsoLayout layout, IsoPack pack)
     {
         if (layout.Version != 1 || layout.View != "iso" || layout.Projection != "iso2to1" || layout.TileSize != 16 ||
-            layout.WidthTiles is < 8 or > 128 || layout.HeightTiles is < 8 or > 128 || layout.Furniture == null || layout.Furniture.Count > 1024 ||
+            layout.Tile is {} tile && (tile.Width != 64 || tile.Height != 32 || tile.Anchor != null && tile.Anchor != new PixelPoint(32, 16)) || layout.WallRise is not (null or 16) || layout.WallHeight is not (null or 48) || layout.WidthTiles is < 8 or > 128 || layout.HeightTiles is < 8 or > 128 || layout.Furniture == null || layout.Furniture.Count > 1024 ||
             layout.Tiles != null && (layout.Tiles.Count != layout.WidthTiles * layout.HeightTiles || layout.Tiles.Any(t => t is not (0 or 1 or 2 or 255))) ||
             layout.RequiredCapabilities?.Any(c => c is not ("iso2to1" or "renderItemsV1")) == true)
             throw new InvalidDataException("Unsupported iso layout/capabilities.");
@@ -58,7 +71,7 @@ public static class IsoLayoutLoader
             var v = pack.Variant(f.AssetId, f.Rotation, f.State);
             if (string.IsNullOrWhiteSpace(f.Id) || !ids.Add(f.Id) || f.X < 0 || f.Y < 0 ||
                 f.X + v.FootprintW > layout.WidthTiles || f.Y + v.FootprintH > layout.HeightTiles ||
-                f.Orientation != null && f.Orientation != v.Orientation || f.SeatProfile != "front") throw new InvalidDataException("Invalid iso placement: " + f.Id);
+                f.Orientation != null && f.Orientation != v.Orientation || f.Width != null && f.Width != v.FootprintW || f.Height != null && f.Height != v.FootprintH || f.SeatProfile != "front") throw new InvalidDataException("Invalid iso placement: " + f.Id);
             foreach (var t in Cells(f, v)) if (!occupied.Add(t)) throw new InvalidDataException("Overlapping blocked iso furniture.");
             foreach (var s in v.SeatProfiles?.Where(s => s.Id == "front") ?? [])
                 if (!seats.Add(new(f.X + s.Approach.X, f.Y + s.Approach.Y))) throw new InvalidDataException("Duplicate iso work seat.");
@@ -80,7 +93,7 @@ public static class IsoLayoutLoader
         foreach (var w in layout.WallSegments ?? [])
         {
             if (!wallIds.Add(w.Id) || w.Face is not ("left" or "right") || !double.IsFinite(w.Edge.I) || !double.IsFinite(w.Edge.J) ||
-                !(pack.Manifest.WallModules ?? []).Any(m => m.Id == w.AssetId && m.Face == w.Face)) throw new InvalidDataException("Invalid iso wall.");
+                !(pack.Manifest.WallModules ?? []).Any(m => m.Id == w.AssetId && m.Face == w.Face) || w.HostId != null && !(layout.WallSegments ?? []).Any(h => h.Id == w.HostId && h.HostId == null)) throw new InvalidDataException("Invalid iso wall.");
         }
         return layout;
     }

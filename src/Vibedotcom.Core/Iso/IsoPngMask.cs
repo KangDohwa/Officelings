@@ -1,4 +1,4 @@
-﻿using System.Buffers.Binary;
+using System.Buffers.Binary;
 using System.IO.Compression;
 
 namespace Vibedotcom.Core.Iso;
@@ -12,9 +12,21 @@ internal sealed class IsoPngMask(int width, int height, byte[] rgba)
     {
         if (rowA == rowB && colA == colB) return true;
         for (var y = 0; y < h; y++)
-            if (!rgba.AsSpan(((rowA * h + y) * width + colA * w) * 4, w * 4).SequenceEqual(
-                rgba.AsSpan(((rowB * h + y) * width + colB * w) * 4, w * 4))) return false;
+        {
+            var a = rgba.AsSpan(((rowA * h + y) * width + colA * w) * 4, w * 4);
+            var b = rgba.AsSpan(((rowB * h + y) * width + colB * w) * 4, w * 4);
+            if (a.SequenceEqual(b)) continue;
+            for (var x = 0; x < w * 4; x += 4)
+                if (a[x + 3] != b[x + 3] || a[x + 3] != 0 && !a.Slice(x, 3).SequenceEqual(b.Slice(x, 3))) return false;
+        }
         return true;
+    }
+    public byte[] CopyCell(int x, int y, int w, int h)
+    {
+        if (x < 0 || y < 0 || w <= 0 || h <= 0 || x + w > width || y + h > height) throw new InvalidDataException("UI cell bounds.");
+        var cell = new byte[w * h * 4];
+        for (var row = 0; row < h; row++) rgba.AsSpan(((y + row) * width + x) * 4, w * 4).CopyTo(cell.AsSpan(row * w * 4));
+        return cell;
     }
     public static IsoPngMask Read(byte[] bytes)
     {

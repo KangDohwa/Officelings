@@ -1,9 +1,10 @@
-﻿using Vibedotcom.Core;
+using Vibedotcom.Core;
 using Vibedotcom.Core.Iso;
 using Xunit;
 
 namespace Vibedotcom.Tests;
 
+[Collection("Iso assets")]
 public class IsoPackTests
 {
     internal static string SourceRoot => Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "../../../../../assets/art/iso"));
@@ -13,7 +14,7 @@ public class IsoPackTests
     public void LoadsActualProductionSheetsAndEveryPhysicalAnchor()
     {
         var p = Source.Value;
-        Assert.Equal(37, p.Manifest.Sheets.Count(s => s.Id != "iso/core-contact-shadow"));
+        Assert.Equal(37, p.Manifest.Sheets.Count(s => s.Id is not ("iso/core-contact-shadow" or "iso/shared-bubbles" or "iso/shared-speech")));
         Assert.Equal(12, p.Manifest.Furniture!.Count);
         Assert.Equal(3, p.Characters.Count);
         Assert.Single(p.Manifest.Pets!);
@@ -58,6 +59,21 @@ public class IsoPackTests
         }
     }
 
+    [Theory]
+    [InlineData("{\"version\":1,\"projection\":\"flat\",\"sheets\":[]}")]
+    [InlineData("{\"version\":1,\"projection\":\"iso2to1\",\"requiredCapabilities\":[\"unknown\"],\"sheets\":[]}")]
+    [InlineData("{\"version\":1,\"projection\":\"iso2to1\",\"tile\":{\"width\":32,\"height\":16},\"sheets\":[]}")]
+    public void RejectsUnsupportedManifestBeforeReadingImages(string json)
+    {
+        var root = Path.GetFullPath(Path.Combine(SourceRoot, "../../../artifacts/iso-invalid-" + Guid.NewGuid().ToString("N")));
+        Directory.CreateDirectory(root);
+        try
+        {
+            File.WriteAllText(Path.Combine(root, "assets.json"), json);
+            Assert.Throws<InvalidDataException>(() => IsoPack.Load(root));
+        }
+        finally { File.Delete(Path.Combine(root, "assets.json")); Directory.Delete(root); }
+    }
     [Fact]
     public void FramesRetainClipAnchorsAndDisjointDeskRanks()
     {
@@ -77,4 +93,3 @@ public class IsoPackTests
         Assert.Equal(32, left.AnchorX); Assert.Equal(0, right.AnchorX); Assert.Equal(48, right.AnchorY);
     }
 }
-

@@ -81,3 +81,20 @@ public static class IsoContacts
         _ => throw new ArgumentOutOfRangeException(nameof(phase))
     };
 }
+
+public sealed record IsoSofaContact(Tile Approach, IsoGridPoint SeatGround, string ApproachFacing, string SeatedFacing, IsoPixel Pelvis);
+public static class IsoSofaContacts
+{
+    public static IsoSofaContact Resolve(int x, int y, int rotation)
+    {
+        var (a, into, seated) = rotation switch
+        {
+            0 => (new Tile(1, 1), "nw", "se"), 90 => (new Tile(1, 1), "ne", "sw"),
+            180 => (new Tile(-1, 1), "se", "nw"), 270 => (new Tile(1, -1), "sw", "ne"),
+            _ => throw new ArgumentException("Invalid sofa rotation.")
+        };
+        var f = IsoGeometry.Step(into); var seat = new IsoGridPoint(x + a.X + .75 * f.I, y + a.Y + .75 * f.J);
+        var ground = IsoGeometry.Ground(seat.I, seat.J);
+        return new(new(x + a.X, y + a.Y), seat, into, seated, new(ground.X, ground.Y - 12));
+    }
+}

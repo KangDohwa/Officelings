@@ -1,4 +1,4 @@
-﻿using Vibedotcom.Core;
+using Vibedotcom.Core;
 using Vibedotcom.Core.Iso;
 using Xunit;
 
@@ -73,6 +73,18 @@ public class IsoGeometryTests
         Assert.Throws<InvalidDataException>(() => IsoContacts.Desk(0, 0, 0, "end"));
     }
 
+    [Theory]
+    [InlineData(0, 1, 1, .25, 1, -24, 8, "nw", "se")]
+    [InlineData(90, 1, 1, 1, .25, 24, 8, "ne", "sw")]
+    [InlineData(180, -1, 1, -.25, 1, -40, 0, "se", "nw")]
+    [InlineData(270, 1, -1, 1, -.25, 40, 0, "sw", "ne")]
+    public void SofaContactUsesApproachVectorInsteadOfFinalFacing(int rotation, int ax, int ay, double si, double sj,
+        int px, int py, string approach, string seated)
+    {
+        var contact = IsoSofaContacts.Resolve(0, 0, rotation);
+        Assert.Equal(new Tile(ax, ay), contact.Approach); Assert.Equal(new IsoGridPoint(si, sj), contact.SeatGround);
+        Assert.Equal(new IsoPixel(px, py), contact.Pelvis); Assert.Equal(approach, contact.ApproachFacing); Assert.Equal(seated, contact.SeatedFacing);
+    }
     [Fact]
     public void DepthUsesGroundThenRankThenOrdinalIds()
     {
@@ -82,6 +94,7 @@ public class IsoGeometryTests
         Array.Sort(keys);
         Assert.Equal(new[] { "walker", "chair", "actor", "desk", "chair" }, keys.Select(k => k.InstanceId));
         Assert.True(keys.Zip(keys.Skip(1)).All(p => p.First.Encoded < p.Second.Encoded));
+        Assert.True(new IsoDepthKey(IsoPass.Scene, 2, 20, "front", "body").CompareTo(new(IsoPass.Scene, 2.00000001, 0, "walker", "body")) < 0);
         Assert.Equal(6, IsoDepthKey.Coarse(2, 2, 1, 2));
         Assert.True(new IsoDepthKey(IsoPass.Scene, 2, 0, "a", "z").CompareTo(new(IsoPass.Scene, 2, 0, "b", "a")) < 0);
     }
@@ -101,4 +114,3 @@ public class IsoGeometryTests
         Assert.Empty(new IsoNavigation(3, 3, [new(1, 0), new(1, 1), new(1, 2)]).FindPath(new(0, 0), new(2, 0)));
     }
 }
-

@@ -1,4 +1,4 @@
-﻿namespace Vibedotcom.Core.Iso;
+namespace Vibedotcom.Core.Iso;
 
 public sealed record IsoActorPose(string AgentId, string CharacterId, string Name, Position Position,
     string Facing, string Action, double ElapsedSeconds, string? DeskId = null, string? SeatPhase = null,
@@ -29,13 +29,13 @@ public sealed class IsoSceneBuilder
         foreach (var f in layout.Furniture)
         {
             var v = pack.Variant(f.AssetId, f.Rotation, f.State);
-            if (v.SeatProfiles?.FirstOrDefault(s => s.Id == "front") is {} s) seats.Add(f.Id, (f, s));
+            if (v.SeatProfiles?.FirstOrDefault(s => s.Id is "front" or "lounge") is {} s) seats.Add(f.Id, (f, s));
             hitKinds[f.Id] = f.AssetId == "iso/desk" ? "desk" : "furniture";
         }
         AddFloors(); AddWalls(); AddFurniture();
         var bounds = IsoGeometry.GroundBounds(layout.WidthTiles, layout.HeightTiles);
         // Standing heads and horizontal labels on every reachable edge fit a fixed camera extent.
-        bounds = bounds.Include(new(bounds.Left - 96, -96, bounds.Right + 96, bounds.Bottom + 32));
+        bounds = bounds.Include(new(bounds.Left - 96, -96, bounds.Right + 96, bounds.Bottom + 64));
         foreach (var e in staticItems)
         {
             var s = pack.Sheet(e.Item.SheetId);
@@ -58,7 +58,7 @@ public sealed class IsoSceneBuilder
             foreach (var (di, dj, edge) in new[] { (1, 0, "pos-i"), (0, 1, "pos-j"), (-1, 0, "neg-i"), (0, -1, "neg-j") })
                 if (Checker(i + di, j + dj)) AddStatic("tile-" + i + "-" + j, IsoLayer.Floor, floor.Id,
                     pack.Clip(floor.Id, "wood-checker-edge-" + edge, "any"), i, j, IsoPass.Floor, 1, edge);
-            // Source corner patches cover authored diagonal material junctions inside the same diamond.
+            // Source transitionRule: repair each pair of adjacent active edges, after the edges.
             foreach (var c in floor.Rows!.Where(c => c.Transition && c.Name.Contains("corner")))
             {
                 var (di, dj) = c.Name switch
@@ -67,7 +67,7 @@ public sealed class IsoSceneBuilder
                     "wood-checker-corner-2-3" => (-1, -1), "wood-checker-corner-3-0" => (1, -1),
                     _ => throw new InvalidDataException("Unknown floor corner patch.")
                 };
-                if (Checker(i + di, j + dj) && !Checker(i + di, j) && !Checker(i, j + dj))
+                if (Checker(i + di, j) && Checker(i, j + dj))
                     AddStatic("tile-" + i + "-" + j, IsoLayer.Floor, floor.Id, c, i, j, IsoPass.Floor, 2, c.Name);
             }
         }
@@ -76,11 +76,13 @@ public sealed class IsoSceneBuilder
     {
         foreach (var w in layout.WallSegments ?? [])
         {
+            var host = w.HostId == null ? w : layout.WallSegments!.Single(h => h.Id == w.HostId);
+            var hostDepth = host.Edge.I + host.Edge.J;
             var module = pack.Manifest.WallModules!.First(m => m.Id == w.AssetId);
             for (var k = 0; k < module.Parts.Count; k++)
             {
                 var p = module.Parts[k]; var c = pack.Clip(p.SheetId, p.Animation ?? p.Clip!, p.Direction);
-                AddStatic(w.Id, IsoLayer.Wall, p.SheetId, c, w.Edge.I, w.Edge.J, IsoPass.RearWalls, k, k.ToString("D2"),
+                AddStatic(w.Id, IsoLayer.Wall, p.SheetId, c, w.Edge.I, w.Edge.J, IsoPass.RearWalls, (w.HostId == null ? 0 : 128) + k, k.ToString("D2"), hostDepth,
                     sourceAnchor: c.Anchor ?? c.EdgeAnchor ?? module.EdgeAnchor);
             }
         }
@@ -204,6 +206,12 @@ public sealed class IsoSceneBuilder
                 ground, depth, 0, 0, null, actor.Alpha, pass: IsoPass.Shadows);
         AddDynamic(actor.AgentId, "body", IsoLayer.Character, sheetId, clip, ground, depth, 0, actor.ElapsedSeconds, actor.AgentId,
             actor.Alpha, dest, actor.SeatPhase is "lower" or "raise" ? frame : null);
+        if (clip.Effect == "speech-bubble")
+            AddDynamic(actor.AgentId, "effect", IsoLayer.Overlay, IsoSharedUi.SpeechSheetId, pack.Clip(IsoSharedUi.SpeechSheetId, "speech", "any"),
+                ground, depth, 0, 0, actor.AgentId, actor.Alpha, new(dest.X + 30, dest.Y + pack.HeadTop(sheetId, clip, frame) - 2), pass: IsoPass.Overlay);
+        else if (IsoSharedUi.Glyph(clip.Effect) is {} glyph)
+            AddDynamic(actor.AgentId, "effect", IsoLayer.Overlay, IsoSharedUi.SheetId, pack.Clip(IsoSharedUi.SheetId, glyph, "any"),
+                ground, depth, 0, 0, actor.AgentId, actor.Alpha, new(dest.X + 30, dest.Y + pack.HeadTop(sheetId, clip, frame) - 2), pass: IsoPass.Overlay);
         labels.Add(new(actor.AgentId, actor.Name, dest.X + 16 + camera.X, dest.Y + pack.HeadTop(sheetId, clip, frame) - 6 + camera.Y));
         if (actor.CarryingPaper || clip.Prop != null)
         {
@@ -248,6 +256,3 @@ public sealed class IsoSceneBuilder
         return null;
     }
 }
-
-
-

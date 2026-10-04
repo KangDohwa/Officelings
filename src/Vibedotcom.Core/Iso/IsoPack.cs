@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text.Json;
 
@@ -19,7 +19,7 @@ public sealed class IsoPack
     public IReadOnlyList<CharacterDesign> Characters => Manifest.Characters ?? [];
     public static IsoPack Load(string dir)
     {
-        dir = Path.GetFullPath(dir);
+        dir = Path.TrimEndingDirectorySeparator(Path.GetFullPath(dir));
         var manifest = Path.Combine(dir, "assets.json");
         if (File.Exists(manifest))
         {
@@ -55,7 +55,7 @@ public sealed class IsoPack
             using var buffer = new MemoryStream(); png.CopyTo(buffer); return buffer.ToArray();
         });
         using var layout = assembly.GetManifestResourceStream("Vibedotcom.Core.IsoPack.layout.json");
-        if (layout != null) result.Layout = IsoLayoutLoader.Validate(JsonSerializer.Deserialize<IsoLayout>(layout, StateJson.Options) ?? throw new InvalidDataException("Empty iso layout."), result);
+        if (layout != null) result.Layout = IsoLayoutLoader.Read(layout, result);
         return result;
     }
     private static IsoManifest Read(string file) => AssetPack.Read<IsoManifest>(file);
@@ -76,6 +76,13 @@ public sealed class IsoPack
             if (m.Version != 1 || m.Projection != "iso2to1" || m.Sheets == null ||
                 m.RequiredCapabilities?.Any(c => c is not ("iso2to1" or "renderItemsV1")) == true)
                 throw new InvalidDataException("Unsupported iso manifest/capability.");
+            if (m.Tile is {} tile && (tile.Width != 64 || tile.Height != 32 || tile.Anchor != null && tile.Anchor != new PixelPoint(32, 16)) ||
+                m.WallRise is not (null or 16) || m.WallHeight is not (null or 48) ||
+                m.CharacterCell is {} cell && (cell.Width != 32 || cell.Height != 64) ||
+                m.FootAnchor != null && m.FootAnchor != new PixelPoint(16, 60) || m.SeatAnchor != null && m.SeatAnchor != new PixelPoint(16, 44) ||
+                m.StandingHeight is not (null or 40) || m.DeskHeight is not (null or 18) || m.SeatHeight is not (null or 12) ||
+                m.Facings != null && !m.Facings.SequenceEqual(new[] { "se", "sw", "ne", "nw" }))
+                throw new InvalidDataException("Manifest geometry differs from strict 2:1 S0.");
             foreach (var raw in m.Sheets)
             {
                 var s = raw with { Rows = raw.Rows ?? raw.Clips ?? [] };
@@ -103,23 +110,30 @@ public sealed class IsoPack
             walls.AddRange(m.WallModules ?? []); pets.AddRange(m.Pets ?? []); props.AddRange(m.CarriedProps ?? []);
             tiles.AddRange(m.TileTypes ?? []);
         }
-        if (loaded.Count is 0 or > 128 || furniture.Count > 512 || characters.Count > 512 || tiles.Count > 512)
+        if (loaded.Count is 0 or > 128 || furniture.Count > 512 || characters.Count is 0 or > 512 || tiles.Count > 512)
             throw new InvalidDataException("Iso asset limits exceeded.");
         foreach (var s in loaded) pack.ExpandAliases(s);
         foreach (var s in loaded) pack.ExpandBlinkAliases(s);
         RequireUnique(furniture.Select(f => f.Id)); RequireUnique(characters.Select(c => c.Id));
         foreach (var c in characters)
-            if (!pack.sheets.TryGetValue(c.SheetId, out var s) || s.Kind != "character") throw new InvalidDataException("Invalid character sheet.");
+            if (c.Provider is not (null or "codex" or "claude" or "antigravity") || c.Role is not (null or "worker" or "supervisor") || !pack.sheets.TryGetValue(c.SheetId, out var s) || s.Kind != "character") throw new InvalidDataException("Invalid character sheet.");
         foreach (var asset in furniture) pack.ValidateFurniture(asset);
         foreach (var wall in walls) foreach (var p in wall.Parts) pack.ValidatePart(p);
         foreach (var p in props) pack.Clip(p.SheetId, p.Animation, "se");
         foreach (var pet in pets) pack.Sheet(pet.SheetId);
         // Runtime-only ground art is kept in the same sheet API; it is never written into the I1 pack.
         var shadowBytes = IsoActorShadow.Png();
-        var shadow = new IsoSheet(IsoActorShadow.SheetId, "shadow", "core-contact-shadow.png", 32, 32, new(16, 20),
-            [new("contact", "any", 0, 1, 1)], Width: 32, Height: 32, Sha256: Convert.ToHexString(SHA256.HashData(shadowBytes)).ToLowerInvariant());
+        var shadow = new IsoSheet(IsoActorShadow.SheetId, "shadow", "core-contact-shadow.png", 128, 128, new(64, 64),
+            [new("contact", "any", 0, 1, 1)], Width: 128, Height: 128, Sha256: Convert.ToHexString(SHA256.HashData(shadowBytes)).ToLowerInvariant());
         pack.sheets.Add(shadow.Id, shadow); pack.images.Add(shadow.Id, shadowBytes); pack.masks.Add(shadow.Id, IsoPngMask.Read(shadowBytes));
         pack.clips.Add((shadow.Id, "contact/any"), shadow.Rows![0]); loaded.Add(shadow);
+        foreach (var (ui, uiImage) in new[] { IsoSharedUi.Load(), IsoSharedUi.LoadSpeech() })
+        {
+            pack.sheets.Add(ui.Id, ui); pack.images.Add(ui.Id, uiImage); pack.masks.Add(ui.Id, IsoPngMask.Read(uiImage));
+            foreach (var c in ui.Rows!) pack.clips.Add((ui.Id, c.Key), c);
+            loaded.Add(ui);
+        }
+        if (loaded.Count > 128) throw new InvalidDataException("Iso sheets including Core/shared UI exceed 128.");
         pack.Manifest = new(1, "iso2to1", loaded.AsReadOnly(), furniture.AsReadOnly(), characters.AsReadOnly(),
             tiles.AsReadOnly(), walls.AsReadOnly(), pets.AsReadOnly(), props.AsReadOnly(), ["iso2to1", "renderItemsV1"]);
         pack.Layout = IsoLayoutLoader.Default(pack);
@@ -143,23 +157,44 @@ public sealed class IsoPack
         foreach (var c in s.Rows)
         {
             if (string.IsNullOrWhiteSpace(c.Name) || c.Direction is not ("se" or "sw" or "ne" or "nw" or "any") ||
-                c.Row < 0 || c.Column < 0 || c.Frames is < 1 or > 256 || !double.IsFinite(c.Fps) || c.Fps is <= 0 or > 60 ||
+                !IsoSharedUi.Supports(c.Effect) || c.Row < 0 || c.Column < 0 || c.Frames is < 1 or > 256 || !double.IsFinite(c.Fps) || c.Fps is <= 0 or > 60 ||
                 c.SeatProfile is not (null or "front") || c.IsoZOrder is < -512 or > 511 ||
                 new[] { c.Anchor, c.FootOffset, c.SeatAnchor, c.EdgeAnchor }.Any(p => p != null && !Integer(p)) ||
                 c.DepthAnchor is {} d && (!double.IsFinite(d.I) || !double.IsFinite(d.J)))
                 throw new InvalidDataException("Invalid iso clip: " + c.Key);
+            if (s.Kind == "character" && c.Name is "sit-down" or "stand-up")
+            {
+                if (c.PhaseContacts == null || c.PhaseContacts.Count != 4) throw new InvalidDataException("Transitions require four phaseContacts.");
+                for (var k = 0; k < 4; k++)
+                {
+                    var expected = IsoContacts.Lowering(c.Name == "sit-down" ? k : 3 - k); var actual = c.PhaseContacts[k];
+                    if (actual.SeatAnchor != new PixelPoint(expected.Anchor.X, expected.Anchor.Y) ||
+                        actual.ContactOffset != new PixelPoint(expected.Offset.X, expected.Offset.Y) || actual.FootY != expected.FootY)
+                        throw new InvalidDataException("Transition differs from the frozen planted-sole schedule.");
+                }
+            }
+            if (s.Kind == "character" && c.Name == "seated-typing-front")
+            {
+                var expected = IsoContacts.Desk(0, 0, IsoGeometry.Rotation(c.DeskOrientation ?? throw new InvalidDataException("Typing needs deskOrientation.")));
+                var ground = expected.Pelvis; var left = new PixelPoint(expected.HandLeft.X - ground.X + 16, expected.HandLeft.Y - ground.Y + 44);
+                var right = new PixelPoint(expected.HandRight.X - ground.X + 16, expected.HandRight.Y - ground.Y + 44);
+                if (c.Direction != expected.Facing || c.SeatAnchor != new PixelPoint(16, 44) || c.HandAnchors == null || !c.HandAnchors.SequenceEqual(new[] { left, right }))
+                    throw new InvalidDataException("Typing contact differs from frozen S0.");
+            }
             if (c.PhaseContacts is {} phases && (phases.Count != 4 || phases.Any(p => !Integer(p.SeatAnchor) || !Integer(p.ContactOffset))))
                 throw new InvalidDataException("Invalid transition contacts.");
         }
     }
     private void ExpandAliases(IsoSheet sheet)
     {
+        if ((sheet.Aliases ?? []).Any(a => a == null || a.Target == null || string.IsNullOrWhiteSpace(a.Name) || clips.ContainsKey((sheet.Id, a.Name + "/" + a.Direction))))
+            throw new InvalidDataException("Alias must have a distinct name and a valid target.");
         var aliases = (sheet.Aliases ?? []).ToDictionary(a => a.Name + "/" + a.Direction, StringComparer.Ordinal);
         var visiting = new HashSet<string>(StringComparer.Ordinal);
         IsoClip Resolve(string key)
         {
             if (clips.TryGetValue((sheet.Id, key), out var c)) return c;
-            if (!aliases.TryGetValue(key, out var a) || !visiting.Add(key) || a.Target.Direction != a.Direction || a.SeatProfile is not (null or "front"))
+            if (!aliases.TryGetValue(key, out var a) || !visiting.Add(key) || a.Target.Direction != a.Direction || a.SeatProfile is not (null or "front") || !IsoSharedUi.Supports(a.Effect))
                 throw new InvalidDataException("Invalid/cyclic iso alias: " + key);
             var target = Resolve(a.Target.Name + "/" + a.Target.Direction);
             if (a.Frame is {} f && (f < 0 || f >= target.Frames)) throw new InvalidDataException("Alias frame outside target.");
@@ -197,6 +232,10 @@ public sealed class IsoPack
                 v.Parts == null || v.Parts.Count == 0 || v.BlockedCells?.Any(t => t.X < 0 || t.Y < 0 || t.X >= v.FootprintW || t.Y >= v.FootprintH) == true ||
                 v.SeatProfiles?.Any(s => s.Id == "end" || asset.Id == "iso/desk" && s.Id != "front") == true)
                 throw new InvalidDataException("Invalid furniture geometry/profile: " + asset.Id);
+            if (v.Points?.Select(p => p.Id).Distinct(StringComparer.Ordinal).Count() != v.Points?.Count ||
+                v.Points?.Any(p => p.Facing is not ("right" or "down" or "up" or "left") ||
+                    p.IsoFacing != null && p.IsoFacing != IsoGeometry.Facing(p.Facing) || p.SeatProfile is not (null or "front")) == true)
+                throw new InvalidDataException("Invalid iso interaction facing/profile.");
             foreach (var p in v.Parts) ValidatePart(p);
             if (v.Shadow != null) ValidatePart(v.Shadow);
             if (v.Screen != null) ValidatePart(v.Screen);
@@ -235,6 +274,15 @@ public sealed class IsoPack
                 if (!found) throw new InvalidDataException("Unresolved physical anchor: " + s.Id + "/" + c.Key);
             }
         }
+    }
+    internal CharacterDesign Assign(AgentInfo agent, IEnumerable<string> used)
+    {
+        var eligible = Characters.Where(c => (c.Provider == null || c.Provider == agent.Provider.ToString().ToLowerInvariant()) &&
+            (c.Role == null || c.Role == (agent.IsSubagent ? "worker" : "supervisor"))).ToArray();
+        if (eligible.Length == 0) throw new InvalidDataException("No iso character is eligible for this agent.");
+        var start = (int)(SpriteAtlas.Hash(agent.Id) % eligible.Length); var assigned = used.ToHashSet(StringComparer.Ordinal);
+        for (var k = 0; k < eligible.Length; k++) if (!assigned.Contains(eligible[(start + k) % eligible.Length].Id)) return eligible[(start + k) % eligible.Length];
+        return eligible[start];
     }
     public IsoSheet Sheet(string id) => sheets.TryGetValue(id, out var s) ? s : throw new InvalidDataException("Unknown iso sheet: " + id);
     public IsoClip Clip(string sheetId, string key) => clips.TryGetValue((sheetId, key), out var c) ? c :
@@ -292,5 +340,3 @@ public sealed class IsoPack
         return 21;
     }
 }
-
-

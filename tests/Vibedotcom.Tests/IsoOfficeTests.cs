@@ -1,14 +1,16 @@
-﻿using Vibedotcom.Core;
+using Vibedotcom.Core;
 using Vibedotcom.Core.Iso;
 using Xunit;
 
 namespace Vibedotcom.Tests;
 
+[Collection("Iso assets")]
 public class IsoOfficeTests
 {
     private static readonly DateTimeOffset Epoch = DateTimeOffset.Parse("2026-10-04T00:00:00Z");
     private static AgentInfo Agent(string id, AgentState state = AgentState.Working, string? parent = null) =>
         new(id, Provider.Codex, parent, parent != null, id, null, null, null, "synthetic", null, null, state, Epoch, Epoch, false);
+    private static string NormalSheet(IsoPack p, string id) => p.Manifest.Sheets.FirstOrDefault(s => s.Blink?.SheetId == id)?.Id ?? id;
     private static IsoScene Advance(IsoOffice office, AgentInfo[] agents, double seconds)
     {
         var scene = office.Update(agents, Epoch, 0);
@@ -30,21 +32,21 @@ public class IsoOfficeTests
     [Fact]
     public void StableDesignSeatAssignmentsAndOverflowUseStandingPoses()
     {
-        var pack = IsoPackTests.Source.Value; var office = new IsoOffice(pack, 42);
+        var pack = IsoPackTests.Source.Value; var office = new IsoOffice(pack, 42, pack.Layout);
         var agents = Enumerable.Range(0, 14).Select(i => Agent("a" + i.ToString("D2"))).Reverse().ToArray();
         var first = Advance(office, agents, 12);
         var bodies = first.Items.Where(i => i.Layer == IsoLayer.Character).ToArray();
         Assert.Equal(14, bodies.Length); Assert.Equal(3, bodies.Count(i => i.Clip.StartsWith("typing/")));
-        Assert.Equal(3, bodies.Where(i => i.HitTargetId is "a00" or "a01" or "a02").Select(i => i.SheetId).Distinct().Count());
-        var mapping = bodies.ToDictionary(i => i.HitTargetId!, i => i.SheetId);
+        Assert.Equal(3, bodies.Where(i => i.HitTargetId is "a00" or "a01" or "a02").Select(i => NormalSheet(pack, i.SheetId)).Distinct().Count());
+        var mapping = bodies.ToDictionary(i => i.HitTargetId!, i => NormalSheet(pack, i.SheetId));
         var second = Advance(office, agents.Reverse().ToArray(), 1);
-        Assert.All(second.Items.Where(i => i.Layer == IsoLayer.Character), i => Assert.Equal(mapping[i.HitTargetId!], i.SheetId));
+        Assert.All(second.Items.Where(i => i.Layer == IsoLayer.Character), i => Assert.Equal(mapping[i.HitTargetId!], NormalSheet(pack, i.SheetId)));
         Assert.Equal(16, office.Layout.Furniture.Count);
     }
     [Fact]
     public void TurnLowerSeatAndRaiseContactScheduleUsesFourAuthoredFrames()
     {
-        var pack = IsoPackTests.Source.Value; var office = new IsoOffice(pack, 42); var agents = new[] { Agent("solo") };
+        var pack = IsoPackTests.Source.Value; var office = new IsoOffice(pack, 42, pack.Layout); var agents = new[] { Agent("solo") };
         var scene = office.Update(agents, Epoch, .8);
         var turn = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character)); Assert.Equal("idle/se", turn.Clip);
         scene = office.Update(agents, Epoch, .12);
@@ -72,7 +74,7 @@ public class IsoOfficeTests
     [Fact]
     public void WaitingAndRestHoldNeutralSeatedFrameWhileThinkingRunsItsLoop()
     {
-        var office = new IsoOffice(IsoPackTests.Source.Value, 42); var agent = Agent("solo");
+        var office = new IsoOffice(IsoPackTests.Source.Value, 42, IsoPackTests.Source.Value.Layout); var agent = Agent("solo");
         Advance(office, [agent], 4);
         var waiting = office.Update([agent with { State = AgentState.Waiting }], Epoch, 0);
         Assert.Equal("seated-waiting/se", Assert.Single(waiting.Items.Where(i => i.Layer == IsoLayer.Character)).Clip);
@@ -86,7 +88,7 @@ public class IsoOfficeTests
     [Fact]
     public void MonitorStateAndLabelsFollowVisibleActorsAndExitRemovesThem()
     {
-        var office = new IsoOffice(IsoPackTests.Source.Value, 42); var agent = Agent("solo"); var scene = Advance(office, [agent], 5);
+        var office = new IsoOffice(IsoPackTests.Source.Value, 42, IsoPackTests.Source.Value.Layout); var agent = Agent("solo"); var scene = Advance(office, [agent], 5);
         Assert.Contains(scene.Items, i => i.InstanceId == "desk-1/screen" && i.Clip.StartsWith("screen-working/"));
         var label = Assert.Single(scene.Labels); var body = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Character));
         Assert.Equal(agent.Name, label.Text); Assert.Equal(body.X + 16, label.X); Assert.True(label.Y < body.Y + 44);
@@ -99,7 +101,7 @@ public class IsoOfficeTests
     [Fact]
     public void CatWalksOnUnblockedGridAndSleepsAgain()
     {
-        var pack = IsoPackTests.Source.Value; var office = new IsoOffice(pack, 42);
+        var pack = IsoPackTests.Source.Value; var office = new IsoOffice(pack, 42, pack.Layout);
         var first = office.Update([], Epoch, 0); Assert.StartsWith("sleep/", Assert.Single(first.Items.Where(i => i.Layer == IsoLayer.Pet)).Clip);
         var sawWalk = false; var sawSleepAgain = false; var nav = IsoLayoutLoader.Navigation(office.Layout, pack);
         for (var t = 0d; t < 90; t += .1)
@@ -107,6 +109,7 @@ public class IsoOfficeTests
             var scene = office.Update([], Epoch.AddSeconds(t), .1); var pet = Assert.Single(scene.Items.Where(i => i.Layer == IsoLayer.Pet));
             var anchor = pack.Frame(pet); var tile = IsoGeometry.Pick(pet.X + anchor.AnchorX - office.Camera.X, pet.Y + anchor.AnchorY - office.Camera.Y);
             Assert.True(nav.Walkable(tile));
+            Assert.DoesNotContain(tile, office.Layout.Furniture.Where(f => f.AssetId == "iso/desk").Select(f => IsoContacts.Desk(f.X, f.Y, f.Rotation).Approach));
             if (pet.Clip.StartsWith("walk/")) sawWalk = true;
             if (sawWalk && pet.Clip.StartsWith("sleep/")) sawSleepAgain = true;
         }
@@ -115,7 +118,7 @@ public class IsoOfficeTests
     [Fact]
     public void RevisionIsStableBeforeNextVisibleChangeAndNewNameInvalidatesIt()
     {
-        var office = new IsoOffice(IsoPackTests.Source.Value, 42); var agents = new[] { Agent("solo", AgentState.Waiting) };
+        var office = new IsoOffice(IsoPackTests.Source.Value, 42, IsoPackTests.Source.Value.Layout); var agents = new[] { Agent("solo", AgentState.Waiting) };
         var first = Advance(office, agents, 2);
         var next = office.NextChangeSeconds;
         var unchanged = office.Update(agents, Epoch, Math.Min(.0001, next / 2));
@@ -124,9 +127,32 @@ public class IsoOfficeTests
         Assert.True(renamed.Revision > unchanged.Revision); Assert.Equal("changed", Assert.Single(renamed.Labels).Text);
     }
     [Fact]
+    public void DefaultOfficeHasTwelveReachableSeatsAndStandingOverflow()
+    {
+        var p = IsoPackTests.Source.Value; var layout = IsoTwelveSeatFixture.Create(p);
+        Assert.Equal(12, layout.Furniture.Count(f => f.AssetId == "iso/desk"));
+        Assert.Equal(63, IsoLayoutLoader.Navigation(layout, p).Reachable(layout.Door).Count);
+        var office = new IsoOffice(p, 42);
+        var agents = Enumerable.Range(0, 15).Select(i => Agent("a" + i.ToString("D2"))).ToArray();
+        var scene = Advance(office, agents, 20);
+        Assert.Equal(12, scene.Items.Count(i => i.Layer == IsoLayer.Character && i.Clip.StartsWith("typing/")));
+        Assert.Equal(15, scene.Labels.Count);
+    }
+    [Fact]
+    public void ReturnDuringRaisingFinishesRaiseAndReseatsWithoutReport()
+    {
+        var office = new IsoOffice(IsoPackTests.Source.Value, 42, IsoPackTests.Source.Value.Layout); var a = Agent("solo"); var first = Advance(office, [a], 2);
+        var design = first.Items.Single(i => i.Layer == IsoLayer.Character).SheetId;
+        office.Update([a with { State = AgentState.Gone }], Epoch, .2);
+        var returned = office.Update([a], Epoch, .2);
+        Assert.DoesNotContain(returned.Items, i => i.Layer == IsoLayer.Prop);
+        var final = Advance(office, [a], 2);
+        Assert.Contains(final.Items, i => i.Layer == IsoLayer.Character && i.SheetId == design && i.Clip.StartsWith("typing/"));
+    }
+    [Fact]
     public void ReportLifecycleUsesPaperAndReturnsToSeat()
     {
-        var office = new IsoOffice(IsoPackTests.Source.Value, 42); var parent = Agent("a-parent"); var child = Agent("b-child", parent: parent.Id);
+        var office = new IsoOffice(IsoPackTests.Source.Value, 42, IsoPackTests.Source.Value.Layout); var parent = Agent("a-parent"); var child = Agent("b-child", parent: parent.Id);
         Advance(office, [parent, child], 5); child = child with { State = AgentState.Reporting };
         var paper = false; var handover = false;
         for (var t = 0; t < 400; t++)
@@ -140,4 +166,3 @@ public class IsoOfficeTests
         Assert.Contains(last.Items, i => i.HitTargetId == child.Id && i.Layer == IsoLayer.Character && i.Clip.StartsWith("seated-idle/"));
     }
 }
-

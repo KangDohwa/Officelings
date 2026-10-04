@@ -12,6 +12,7 @@ public sealed class IsoNavigation
         if (width is < 1 or > 128 || height is < 1 or > 128) throw new ArgumentException("Invalid grid dimensions.");
         Width = width; Height = height; this.blocked = blocked.ToHashSet();
     }
+    public IsoNavigation WithBlocked(IEnumerable<Tile> cells) => new(Width, Height, blocked.Concat(cells));
     public bool Walkable(Tile tile) => tile.X >= 0 && tile.X < Width && tile.Y >= 0 && tile.Y < Height && !blocked.Contains(tile);
     public HashSet<Tile> Reachable(Tile start)
     {

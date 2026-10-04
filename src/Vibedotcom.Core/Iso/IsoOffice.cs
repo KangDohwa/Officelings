@@ -1,4 +1,4 @@
-﻿namespace Vibedotcom.Core.Iso;
+namespace Vibedotcom.Core.Iso;
 
 /// Desk-only seating simulation for AgentInfo inputs. Flat OfficeAnimator remains untouched.
 public sealed class IsoOffice : IIsoOffice
@@ -30,6 +30,8 @@ public sealed class IsoOffice : IIsoOffice
     private readonly IsoPack pack;
     private readonly IsoSceneBuilder builder;
     private readonly IsoNavigation nav;
+    private readonly IsoNavigation catNavigation;
+    private readonly Tile[] catTargets;
     private readonly Dictionary<string, Actor> actors = new(StringComparer.Ordinal);
     private readonly List<Actor> ordered = [];
     private readonly HashSet<string> present = new(StringComparer.Ordinal);
@@ -43,7 +45,7 @@ public sealed class IsoOffice : IIsoOffice
     private double time, simulatedTime, nextDue;
     public IsoLayout Layout { get; }
     public double NextChangeSeconds { get; private set; }
-    public IsoOffice(IsoPack pack, int seed) : this(pack, seed, pack.Layout) { }
+    public IsoOffice(IsoPack pack, int seed) : this(pack, seed, IsoTwelveSeatFixture.OfficeLayout(pack)) { }
     public IsoOffice(IsoPack pack, int seed, IsoLayout layout)
     {
         this.pack = pack; random = new(seed); Layout = IsoLayoutLoader.Validate(layout, pack);
@@ -53,8 +55,9 @@ public sealed class IsoOffice : IIsoOffice
         var reserved = seats.Values.Select(s => s.Approach).ToHashSet();
         queueTiles.AddRange(nav.Reachable(layout.Door).Where(t => !reserved.Contains(t) && t != layout.Door)
             .OrderBy(t => Math.Abs(t.X - layout.Door.X) + Math.Abs(t.Y - layout.Door.Y)).ThenBy(t => t.X).ThenBy(t => t.Y));
-        var catTile = queueTiles.FirstOrDefault(t => t.X >= 2 && t.Y >= 6);
-        if (!nav.Walkable(catTile)) catTile = layout.Door;
+        catNavigation = nav.WithBlocked(reserved);
+        var catTile = queueTiles.FirstOrDefault(t => t.X >= 2 && t.Y >= 6 && catNavigation.Walkable(t), layout.Door);
+        catTargets = catNavigation.Reachable(catTile).OrderBy(t => t.X).ThenBy(t => t.Y).ToArray();
         cat = new(new(catTile.X, catTile.Y));
         scene = builder.Build([], new(cat.Position, cat.Facing, cat.Action, 0));
         NextChangeSeconds = Math.Min(builder.NextChangeSeconds, cat.Remaining); nextDue = NextChangeSeconds;
@@ -98,7 +101,14 @@ public sealed class IsoOffice : IIsoOffice
             if (!present.Add(info.Id)) throw new ArgumentException("Duplicate agent ID.");
             if (!actors.TryGetValue(info.Id, out var a)) { changed = true; continue; }
             if (a.Info.State != info.State || a.Info.Name != info.Name || a.Info.ParentId != info.ParentId || a.Gone != (info.State == AgentState.Gone)) changed = true;
+            var returning = a.Gone && info.State != AgentState.Gone;
             a.Info = info; a.Gone = info.State == AgentState.Gone;
+            if (returning && a.Phase is Phase.Exit or Phase.Fade or Phase.Hidden)
+            {
+                a.Destination = a.DeskId != null ? seats[a.DeskId].Approach : a.Destination;
+                if (a.Phase == Phase.Hidden) a.Position = new(Layout.Door.X, Layout.Door.Y);
+                SetPhase(a, Phase.WalkToSeat); SetAction(a, "walk"); a.PathTarget = null;
+            }
             if (a.LastState != info.State) { a.ReportDone = false; a.LastState = info.State; }
         }
         // Ordinal newcomer order + uint32 FNV-1a and unused-design probing match the flat roster.
@@ -106,12 +116,7 @@ public sealed class IsoOffice : IIsoOffice
         {
             foreach (var info in incoming.Where(i => !actors.ContainsKey(i.Id) && i.State != AgentState.Gone).OrderBy(i => i.Id, StringComparer.Ordinal))
             {
-                var start = (int)(SpriteAtlas.Hash(info.Id) % pack.Characters.Count); var design = pack.Characters[start];
-                for (var k = 0; k < pack.Characters.Count; k++)
-                {
-                    var candidate = pack.Characters[(start + k) % pack.Characters.Count];
-                    if (ordered.All(a => a.Phase == Phase.Hidden || a.Design.Id != candidate.Id)) { design = candidate; break; }
-                }
+                var design = pack.Assign(info, ordered.Where(a => a.Phase != Phase.Hidden).Select(a => a.Design.Id));
                 var a = new Actor(info, design, new(Layout.Door.X, Layout.Door.Y));
                 a.NextBlink = time + 3 + a.BlinkRandom.NextDouble() * 3;
                 actors.Add(info.Id, a); ordered.Add(a);
@@ -178,7 +183,8 @@ public sealed class IsoOffice : IIsoOffice
                     case Phase.Lower: SetPhase(a, Phase.Seated); SetAction(a, SeatAction(a.Info.State)); break;
                     case Phase.Raise:
                         if (a.Gone) { SetPhase(a, Phase.Exit); SetAction(a, "walk"); }
-                        else { SetPhase(a, Phase.Pickup); SetAction(a, "pickup"); }
+                        else if (a.Info.State == AgentState.Reporting && !a.ReportDone) { SetPhase(a, Phase.Pickup); SetAction(a, "pickup"); }
+                        else { a.Destination = a.DeskId != null ? seats[a.DeskId].Approach : a.Destination; SetPhase(a, Phase.WalkToSeat); SetAction(a, "walk"); a.PathTarget = null; }
                         break;
                     case Phase.Fade: SetPhase(a, Phase.Hidden); a.DeskId = null; a.Path.Clear(); a.PathTarget = null; break;
                     case Phase.Pickup:
@@ -269,11 +275,11 @@ public sealed class IsoOffice : IIsoOffice
             {
                 var consume = Math.Min(remaining, cat.Remaining); cat.ActionTime += consume; cat.Remaining -= consume; remaining -= consume;
                 if (cat.Remaining > 1e-9) break;
-                var reserved = seats.Values.Select(s => s.Approach).ToHashSet();
-                var choices = queueTiles.Where(t => !reserved.Contains(t) && t != new Tile(IsoGeometry.Snap(cat.Position.X), IsoGeometry.Snap(cat.Position.Y))).ToArray();
-                if (choices.Length == 0) { cat.Remaining = 8; continue; }
-                var target = choices[random.Next(choices.Length)];
-                foreach (var t in nav.FindPath(new(IsoGeometry.Snap(cat.Position.X), IsoGeometry.Snap(cat.Position.Y)), target)) cat.Path.Enqueue(t);
+                if (catTargets.Length < 2) { cat.Remaining = 8; continue; }
+                var index = random.Next(catTargets.Length); var current = new Tile(IsoGeometry.Snap(cat.Position.X), IsoGeometry.Snap(cat.Position.Y));
+                if (catTargets[index] == current) index = (index + 1) % catTargets.Length;
+                var target = catTargets[index];
+                foreach (var t in catNavigation.FindPath(current, target)) cat.Path.Enqueue(t);
                 cat.Action = "walk"; cat.ActionTime = 0;
             }
         }
@@ -282,5 +288,3 @@ public sealed class IsoOffice : IIsoOffice
     public Tile? PickTile(int sceneX, int sceneY) => builder.PickTile(sceneX, sceneY);
     public IsoPixel Camera => builder.Camera;
 }
-
-

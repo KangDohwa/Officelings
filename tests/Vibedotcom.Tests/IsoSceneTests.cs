@@ -1,9 +1,10 @@
-﻿using Vibedotcom.Core;
+using Vibedotcom.Core;
 using Vibedotcom.Core.Iso;
 using Xunit;
 
 namespace Vibedotcom.Tests;
 
+[Collection("Iso assets")]
 public class IsoSceneTests
 {
     private static IsoLayout FacingFixture(IsoPack pack, int rotation)
@@ -64,6 +65,25 @@ public class IsoSceneTests
         }
     }
     [Fact]
+    public void EveryAuthoredAliasEffectUsesExistingSharedUiInEveryFacing()
+    {
+        var pack = IsoPackTests.Source.Value; var builder = new IsoSceneBuilder(pack, pack.Layout);
+        var effects = new HashSet<string>();
+        foreach (var design in pack.Characters)
+        foreach (var alias in pack.Sheet(design.SheetId).Aliases!.Where(a => a.Effect != null))
+        {
+            var clip = pack.Clip(design.SheetId, alias.Name, alias.Direction); effects.Add(clip.Effect!);
+            var scene = builder.Build([new("actor", design.Id, "Name", new(3, 4), alias.Direction, alias.Name, 0)]);
+            var effect = Assert.Single(scene.Items.Where(i => i.InstanceId == "actor/effect"));
+            Assert.Equal(IsoLayer.Overlay, effect.Layer);
+            Assert.StartsWith("iso/shared-", effect.SheetId);
+            Assert.Contains(Enumerable.Range(0, pack.Sheet(effect.SheetId).CellH), y =>
+                Enumerable.Range(0, pack.Sheet(effect.SheetId).CellW).Any(x => pack.Opaque(effect, x, y)));
+        }
+        Assert.Equal(6, effects.Count);
+        Assert.DoesNotContain(pack.Manifest.Sheets, s => s.Kind == "character" && s.Projection == "any");
+    }
+    [Fact]
     public void ReverseAlphaPickingMatchesOpaqueOccludersAndIgnoresSpritePadding()
     {
         var p = IsoPackTests.Source.Value; var b = new IsoSceneBuilder(p, IsoLayoutLoader.Default(p));
@@ -91,6 +111,34 @@ public class IsoSceneTests
         var scene = b.Build([new("faded", p.Characters[0].Id, "Faded", new(3, 4), "se", "idle", 0, Alpha: 31)]);
         var body = scene.Items.Single(i => i.Layer == IsoLayer.Character);
         for (var y = 0; y < 64; y++) for (var x = 0; x < 32; x++) Assert.NotEqual("faded", b.HitTest(body.X + x, body.Y + y)?.TargetId);
+    }
+    [Fact]
+    public void FloorTransitionsFollowAllSixteenCardinalNeighborMasks()
+    {
+        var pack = IsoPackTests.Source.Value;
+        Tile[] directions = [new(1, 0), new(0, 1), new(-1, 0), new(0, -1)];
+        for (var mask = 0; mask < 16; mask++)
+        {
+            var tiles = Enumerable.Repeat(1, 100).ToArray();
+            for (var k = 0; k < 4; k++) if ((mask & (1 << k)) != 0) tiles[(3 + directions[k].Y) * 10 + 3 + directions[k].X] = 2;
+            var layout = IsoLayoutLoader.Default(pack) with { Tiles = tiles }; var builder = new IsoSceneBuilder(pack, layout);
+            var scene = builder.Build([]); var parts = scene.Items.Where(i => i.InstanceId.StartsWith("tile-3-3/")).ToArray();
+            var edges = Enumerable.Range(0, 4).Count(k => (mask & (1 << k)) != 0);
+            var corners = Enumerable.Range(0, 4).Count(k => (mask & (1 << k)) != 0 && (mask & (1 << ((k + 1) % 4))) != 0);
+            Assert.Equal(1 + edges + corners, parts.Length);
+            Assert.Equal(corners, parts.Count(i => i.Clip.Contains("corner")));
+        }
+    }
+    [Fact]
+    public void DeskEditMovesRotatesLinkedChairTogetherAndPreservesOriginalForUndo()
+    {
+        var pack = IsoPackTests.Source.Value; var source = IsoLayoutLoader.Default(pack);
+        var edited = IsoPlacementEditor.MoveRotate(source, pack, "desk-1", 2, 4, 90);
+        var desk = edited.Furniture.Single(f => f.Id == "desk-1"); var chair = edited.Furniture.Single(f => f.Id == "chair-1");
+        Assert.Equal((2, 4, 90), (desk.X, desk.Y, desk.Rotation));
+        Assert.Equal((3, 5, 270), (chair.X, chair.Y, chair.Rotation));
+        Assert.Equal((2, 2, 180), (source.Furniture[0].X, source.Furniture[0].Y, source.Furniture[0].Rotation));
+        Assert.Equal(source.Furniture.Select(f => f.Id), edited.Furniture.Select(f => f.Id));
     }
     [Fact]
     public void LayoutRejectsOverlapUnreachableDoorAndEndProfileBeforePlayback()
