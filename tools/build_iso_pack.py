@@ -24,7 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "assets/art/iso"
 FACINGS = ("se", "sw", "ne", "nw")
 ROTATIONS = {"se": 0, "sw": 90, "nw": 180, "ne": 270}
-CHARACTERS = ("dev-hoodie-v2", "punk-girl", "professor", "glasses-bun", "hanbok-modern", "red-braid")
+CHARACTERS = ("dev-hoodie-v2", "punk-girl", "professor", "glasses-bun", "hanbok-modern", "red-braid",
+              "cap-teen", "labcoat-tall")
 OPTIONAL_CHARACTERS = ("cap-teen", "labcoat-tall")
 FURNITURE_KINDS = {"desk": "desk", "chair": "chair", "sofa": "sofa", "plant": "plant", "shelf": "bookshelf",
                    "tv-cabinet": "tv", "coffee-machine": "pantry", "fridge": "cabinet", "water-cooler": "water",

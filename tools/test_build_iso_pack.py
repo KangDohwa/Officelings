@@ -311,7 +311,11 @@ class RealPackTests(unittest.TestCase):
             box = contact.getbbox()
             self.assertEqual((box[2] - box[0], box[3] - box[1]), (16, 6))
             self.assertEqual(set(image.getchannel("A").get_flattened_data()), {0, 48, 96})
-        self.assertEqual(len(self.manifest["pets"]), 1)
+        expected_pets = [pet["id"] for path in pack.source_paths(pack.ART)
+                         for pet in json.loads(path.read_text(encoding="utf-8-sig")).get("pets", [])]
+        self.assertEqual([pet["id"] for pet in self.manifest["pets"]], expected_pets)
+        for pet in self.manifest["pets"]:
+            self.assertIn(pet["shadow"]["sheetId"], self.sheets)
         self.assertEqual(len(self.manifest["carriedProps"]), 4)
         for s in self.sheets.values():
             if s["kind"] == "character":

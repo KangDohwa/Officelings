@@ -13,12 +13,11 @@ public class IsoPackV4Tests
         new(id, Provider.Codex, null, false, id, null, null, null, "synthetic", null, null, AgentState.Working, Epoch, Epoch, false);
 
     [Fact]
-    public void EmbeddedAndLoosePacksContainAllSixDesignsAndV3Decor()
+    public void EmbeddedAndLoosePacksContainEveryAuthoredDesignAndV3Decor()
     {
         var embedded = IsoPack.LoadDefault(); var loose = IsoPack.Load(Path.Combine(IsoPackTests.SourceRoot, "pack"));
         Assert.Equal(loose.Characters, embedded.Characters);
-        foreach (var id in new[] { "dev-hoodie-v2", "punk-girl", "professor", "glasses-bun", "hanbok-modern", "red-braid" })
-            Assert.Contains(embedded.Characters, c => c.Id == "iso/character/" + id);
+        Assert.Equal(embedded.Manifest.Sheets.Count(s => s.Kind == "character"), embedded.Characters.Count);
         Assert.Equal(10, embedded.Layout.WallSegments!.Count(w => w.HostId != null));
         Assert.All(embedded.Images, p => Assert.Equal(loose.Images[p.Key], p.Value));
         var scene = new IsoOffice(embedded, 42).Update([], Epoch, 0);
@@ -31,7 +30,8 @@ public class IsoPackV4Tests
     public void RosterUsesFlatUtf16HashAndProbesAllAvailableDesigns()
     {
         var pack = IsoPack.LoadDefault(); var used = new HashSet<string>();
-        foreach (var id in new[] { "a", "b", "한글", "emoji-🧑", "repeat", "six", "overflow" })
+        foreach (var id in new[] { "a", "b", "한글", "emoji-🧑" }.Concat(
+            Enumerable.Range(0, pack.Characters.Count + 1).Select(i => $"roster:{i}")))
         {
             var start = (int)(SpriteAtlas.Hash(id) % pack.Characters.Count);
             var expected = Enumerable.Range(0, pack.Characters.Count).Select(k => pack.Characters[(start + k) % pack.Characters.Count])
@@ -68,7 +68,7 @@ public class IsoPackV4Tests
     [Fact]
     public void SyntheticPetPoolSelectsAtMostTwoBySeedAndAvoidsFurniture()
     {
-        // Real dog/rabbit exports are absent from this checkout; reuse cat pixels only in a disposable synthetic pool.
+        // Extend the real pool with synthetic copies to exercise arbitrary pool sizes.
         var root = Path.Combine(IsoPackTests.SourceRoot, "../../../artifacts/iso-v4-pets-" + Guid.NewGuid().ToString("N"));
         root = Path.GetFullPath(root); Directory.CreateDirectory(Path.Combine(root, "sheets"));
         try

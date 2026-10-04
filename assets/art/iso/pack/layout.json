@@ -1283,7 +1283,7 @@
         "provider": "codex",
         "role": "worker",
         "parentId": "iso-demo-supervisor",
-        "characterId": "iso/character/punk-girl",
+        "characterId": "iso/character/red-braid",
         "deskId": "desk-1",
         "action": "reporting"
       },
@@ -1291,7 +1291,7 @@
         "id": "iso-demo-supervisor",
         "provider": "claude",
         "role": "supervisor",
-        "characterId": "iso/character/professor",
+        "characterId": "iso/character/labcoat-tall",
         "deskId": "desk-10",
         "action": "typing"
       },
@@ -1299,7 +1299,7 @@
         "id": "iso-demo-worker",
         "provider": "antigravity",
         "role": "worker",
-        "characterId": "iso/character/red-braid",
+        "characterId": "iso/character/dev-hoodie-v2",
         "deskId": "desk-11",
         "action": "typing"
       }
