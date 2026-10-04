@@ -1,0 +1,168 @@
+{
+  "sourceIdentityColorsExact": true,
+  "rows": [
+    {
+      "row": 0,
+      "distinctFrames": 1,
+      "cyclicPixelDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "legRoiCyclicDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grounded": true,
+      "connected": true
+    },
+    {
+      "row": 1,
+      "distinctFrames": 1,
+      "cyclicPixelDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "legRoiCyclicDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grounded": true,
+      "connected": true
+    },
+    {
+      "row": 2,
+      "distinctFrames": 1,
+      "cyclicPixelDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "legRoiCyclicDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grounded": true,
+      "connected": true
+    },
+    {
+      "row": 3,
+      "distinctFrames": 1,
+      "cyclicPixelDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "legRoiCyclicDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grounded": true,
+      "connected": true
+    },
+    {
+      "row": 4,
+      "distinctFrames": 4,
+      "cyclicPixelDeltas": [
+        103,
+        100,
+        100,
+        107
+      ],
+      "legRoiCyclicDeltas": [
+        30,
+        31,
+        31,
+        34
+      ],
+      "grounded": true,
+      "connected": true
+    },
+    {
+      "row": 5,
+      "distinctFrames": 4,
+      "cyclicPixelDeltas": [
+        108,
+        105,
+        105,
+        112
+      ],
+      "legRoiCyclicDeltas": [
+        30,
+        31,
+        31,
+        34
+      ],
+      "grounded": true,
+      "connected": true
+    },
+    {
+      "row": 6,
+      "distinctFrames": 4,
+      "cyclicPixelDeltas": [
+        87,
+        88,
+        83,
+        87
+      ],
+      "legRoiCyclicDeltas": [
+        30,
+        29,
+        25,
+        30
+      ],
+      "grounded": true,
+      "connected": true
+    },
+    {
+      "row": 7,
+      "distinctFrames": 4,
+      "cyclicPixelDeltas": [
+        89,
+        90,
+        85,
+        89
+      ],
+      "legRoiCyclicDeltas": [
+        30,
+        29,
+        25,
+        30
+      ],
+      "grounded": true,
+      "connected": true
+    },
+    {
+      "row": 8,
+      "distinctFrames": 2,
+      "cyclicPixelDeltas": [
+        18,
+        0,
+        18,
+        0
+      ],
+      "legRoiCyclicDeltas": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "grounded": true,
+      "connected": true
+    }
+  ],
+  "scope": "Pixel geometry, palette provenance, lower-leg phase changes, cyclic image continuity. Does not certify live renderer playback."
+}

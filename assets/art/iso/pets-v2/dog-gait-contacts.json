@@ -1,0 +1,1220 @@
+{
+  "phaseOrder": [
+    "A-extension",
+    "A-passing",
+    "B-extension",
+    "B-passing"
+  ],
+  "walkFps": 8,
+  "screenAxis": [
+    2,
+    1
+  ],
+  "rows": [
+    {
+      "direction": "se",
+      "phases": [
+        {
+          "phase": 0,
+          "bodyBobY": 0,
+          "legs": [
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                11,
+                22
+              ],
+              "knee": [
+                12,
+                23
+              ],
+              "toe": [
+                13,
+                25
+              ],
+              "planted": true
+            },
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                21,
+                24
+              ],
+              "knee": [
+                20,
+                24
+              ],
+              "toe": [
+                19,
+                26
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                9,
+                22
+              ],
+              "knee": [
+                8,
+                22
+              ],
+              "toe": [
+                7,
+                23
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                18,
+                24
+              ],
+              "knee": [
+                19,
+                25
+              ],
+              "toe": [
+                20,
+                28
+              ],
+              "planted": true
+            }
+          ]
+        },
+        {
+          "phase": 1,
+          "bodyBobY": -1,
+          "legs": [
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                11,
+                21
+              ],
+              "knee": [
+                11,
+                22
+              ],
+              "toe": [
+                11,
+                25
+              ],
+              "planted": true
+            },
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                21,
+                23
+              ],
+              "knee": [
+                21,
+                23
+              ],
+              "toe": [
+                21,
+                26
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                9,
+                21
+              ],
+              "knee": [
+                9,
+                21
+              ],
+              "toe": [
+                9,
+                23
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                18,
+                23
+              ],
+              "knee": [
+                18,
+                24
+              ],
+              "toe": [
+                19,
+                28
+              ],
+              "planted": true
+            }
+          ]
+        },
+        {
+          "phase": 2,
+          "bodyBobY": 0,
+          "legs": [
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                11,
+                22
+              ],
+              "knee": [
+                10,
+                22
+              ],
+              "toe": [
+                9,
+                23
+              ],
+              "planted": false
+            },
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                21,
+                24
+              ],
+              "knee": [
+                21,
+                25
+              ],
+              "toe": [
+                22,
+                28
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                9,
+                22
+              ],
+              "knee": [
+                10,
+                23
+              ],
+              "toe": [
+                11,
+                25
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                18,
+                24
+              ],
+              "knee": [
+                17,
+                24
+              ],
+              "toe": [
+                16,
+                26
+              ],
+              "planted": false
+            }
+          ]
+        },
+        {
+          "phase": 3,
+          "bodyBobY": -1,
+          "legs": [
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                11,
+                21
+              ],
+              "knee": [
+                11,
+                21
+              ],
+              "toe": [
+                11,
+                23
+              ],
+              "planted": false
+            },
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                21,
+                23
+              ],
+              "knee": [
+                21,
+                24
+              ],
+              "toe": [
+                21,
+                28
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                9,
+                21
+              ],
+              "knee": [
+                9,
+                22
+              ],
+              "toe": [
+                9,
+                25
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                18,
+                23
+              ],
+              "knee": [
+                18,
+                23
+              ],
+              "toe": [
+                18,
+                26
+              ],
+              "planted": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "sw",
+      "phases": [
+        {
+          "phase": 0,
+          "bodyBobY": 0,
+          "legs": [
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                21,
+                22
+              ],
+              "knee": [
+                20,
+                23
+              ],
+              "toe": [
+                19,
+                25
+              ],
+              "planted": true
+            },
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                11,
+                24
+              ],
+              "knee": [
+                12,
+                24
+              ],
+              "toe": [
+                13,
+                26
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                23,
+                22
+              ],
+              "knee": [
+                24,
+                22
+              ],
+              "toe": [
+                25,
+                23
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                14,
+                24
+              ],
+              "knee": [
+                13,
+                25
+              ],
+              "toe": [
+                12,
+                28
+              ],
+              "planted": true
+            }
+          ]
+        },
+        {
+          "phase": 1,
+          "bodyBobY": -1,
+          "legs": [
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                21,
+                21
+              ],
+              "knee": [
+                21,
+                22
+              ],
+              "toe": [
+                21,
+                25
+              ],
+              "planted": true
+            },
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                11,
+                23
+              ],
+              "knee": [
+                11,
+                23
+              ],
+              "toe": [
+                11,
+                26
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                23,
+                21
+              ],
+              "knee": [
+                23,
+                21
+              ],
+              "toe": [
+                23,
+                23
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                14,
+                23
+              ],
+              "knee": [
+                14,
+                24
+              ],
+              "toe": [
+                13,
+                28
+              ],
+              "planted": true
+            }
+          ]
+        },
+        {
+          "phase": 2,
+          "bodyBobY": 0,
+          "legs": [
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                21,
+                22
+              ],
+              "knee": [
+                22,
+                22
+              ],
+              "toe": [
+                23,
+                23
+              ],
+              "planted": false
+            },
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                11,
+                24
+              ],
+              "knee": [
+                11,
+                25
+              ],
+              "toe": [
+                10,
+                28
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                23,
+                22
+              ],
+              "knee": [
+                22,
+                23
+              ],
+              "toe": [
+                21,
+                25
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                14,
+                24
+              ],
+              "knee": [
+                15,
+                24
+              ],
+              "toe": [
+                16,
+                26
+              ],
+              "planted": false
+            }
+          ]
+        },
+        {
+          "phase": 3,
+          "bodyBobY": -1,
+          "legs": [
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                21,
+                21
+              ],
+              "knee": [
+                21,
+                21
+              ],
+              "toe": [
+                21,
+                23
+              ],
+              "planted": false
+            },
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                11,
+                23
+              ],
+              "knee": [
+                11,
+                24
+              ],
+              "toe": [
+                11,
+                28
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                23,
+                21
+              ],
+              "knee": [
+                23,
+                22
+              ],
+              "toe": [
+                23,
+                25
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                14,
+                23
+              ],
+              "knee": [
+                14,
+                23
+              ],
+              "toe": [
+                14,
+                26
+              ],
+              "planted": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "ne",
+      "phases": [
+        {
+          "phase": 0,
+          "bodyBobY": 0,
+          "legs": [
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                20,
+                20
+              ],
+              "knee": [
+                19,
+                20
+              ],
+              "toe": [
+                18,
+                21
+              ],
+              "planted": false
+            },
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                14,
+                24
+              ],
+              "knee": [
+                14,
+                25
+              ],
+              "toe": [
+                15,
+                28
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                23,
+                21
+              ],
+              "knee": [
+                24,
+                22
+              ],
+              "toe": [
+                25,
+                24
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                11,
+                24
+              ],
+              "knee": [
+                10,
+                24
+              ],
+              "toe": [
+                9,
+                26
+              ],
+              "planted": false
+            }
+          ]
+        },
+        {
+          "phase": 1,
+          "bodyBobY": -1,
+          "legs": [
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                20,
+                19
+              ],
+              "knee": [
+                20,
+                19
+              ],
+              "toe": [
+                20,
+                21
+              ],
+              "planted": false
+            },
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                14,
+                23
+              ],
+              "knee": [
+                14,
+                24
+              ],
+              "toe": [
+                14,
+                28
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                23,
+                20
+              ],
+              "knee": [
+                23,
+                21
+              ],
+              "toe": [
+                23,
+                24
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                11,
+                23
+              ],
+              "knee": [
+                11,
+                23
+              ],
+              "toe": [
+                11,
+                26
+              ],
+              "planted": false
+            }
+          ]
+        },
+        {
+          "phase": 2,
+          "bodyBobY": 0,
+          "legs": [
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                20,
+                20
+              ],
+              "knee": [
+                21,
+                21
+              ],
+              "toe": [
+                22,
+                23
+              ],
+              "planted": true
+            },
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                14,
+                24
+              ],
+              "knee": [
+                13,
+                24
+              ],
+              "toe": [
+                12,
+                26
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                23,
+                21
+              ],
+              "knee": [
+                22,
+                21
+              ],
+              "toe": [
+                21,
+                22
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                11,
+                24
+              ],
+              "knee": [
+                12,
+                25
+              ],
+              "toe": [
+                13,
+                28
+              ],
+              "planted": true
+            }
+          ]
+        },
+        {
+          "phase": 3,
+          "bodyBobY": -1,
+          "legs": [
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                20,
+                19
+              ],
+              "knee": [
+                20,
+                20
+              ],
+              "toe": [
+                20,
+                23
+              ],
+              "planted": true
+            },
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                14,
+                23
+              ],
+              "knee": [
+                14,
+                23
+              ],
+              "toe": [
+                14,
+                26
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                23,
+                20
+              ],
+              "knee": [
+                23,
+                20
+              ],
+              "toe": [
+                23,
+                22
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                11,
+                23
+              ],
+              "knee": [
+                11,
+                24
+              ],
+              "toe": [
+                12,
+                28
+              ],
+              "planted": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "direction": "nw",
+      "phases": [
+        {
+          "phase": 0,
+          "bodyBobY": 0,
+          "legs": [
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                12,
+                20
+              ],
+              "knee": [
+                13,
+                20
+              ],
+              "toe": [
+                14,
+                21
+              ],
+              "planted": false
+            },
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                18,
+                24
+              ],
+              "knee": [
+                18,
+                25
+              ],
+              "toe": [
+                17,
+                28
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                9,
+                21
+              ],
+              "knee": [
+                8,
+                22
+              ],
+              "toe": [
+                7,
+                24
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                21,
+                24
+              ],
+              "knee": [
+                22,
+                24
+              ],
+              "toe": [
+                23,
+                26
+              ],
+              "planted": false
+            }
+          ]
+        },
+        {
+          "phase": 1,
+          "bodyBobY": -1,
+          "legs": [
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                12,
+                19
+              ],
+              "knee": [
+                12,
+                19
+              ],
+              "toe": [
+                12,
+                21
+              ],
+              "planted": false
+            },
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                18,
+                23
+              ],
+              "knee": [
+                18,
+                24
+              ],
+              "toe": [
+                18,
+                28
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                9,
+                20
+              ],
+              "knee": [
+                9,
+                21
+              ],
+              "toe": [
+                9,
+                24
+              ],
+              "planted": true
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                21,
+                23
+              ],
+              "knee": [
+                21,
+                23
+              ],
+              "toe": [
+                21,
+                26
+              ],
+              "planted": false
+            }
+          ]
+        },
+        {
+          "phase": 2,
+          "bodyBobY": 0,
+          "legs": [
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                12,
+                20
+              ],
+              "knee": [
+                11,
+                21
+              ],
+              "toe": [
+                10,
+                23
+              ],
+              "planted": true
+            },
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                18,
+                24
+              ],
+              "knee": [
+                19,
+                24
+              ],
+              "toe": [
+                20,
+                26
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                9,
+                21
+              ],
+              "knee": [
+                10,
+                21
+              ],
+              "toe": [
+                11,
+                22
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                21,
+                24
+              ],
+              "knee": [
+                20,
+                25
+              ],
+              "toe": [
+                19,
+                28
+              ],
+              "planted": true
+            }
+          ]
+        },
+        {
+          "phase": 3,
+          "bodyBobY": -1,
+          "legs": [
+            {
+              "leg": "far-front",
+              "pair": "B",
+              "hip": [
+                12,
+                19
+              ],
+              "knee": [
+                12,
+                20
+              ],
+              "toe": [
+                12,
+                23
+              ],
+              "planted": true
+            },
+            {
+              "leg": "far-rear",
+              "pair": "A",
+              "hip": [
+                18,
+                23
+              ],
+              "knee": [
+                18,
+                23
+              ],
+              "toe": [
+                18,
+                26
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-front",
+              "pair": "A",
+              "hip": [
+                9,
+                20
+              ],
+              "knee": [
+                9,
+                20
+              ],
+              "toe": [
+                9,
+                22
+              ],
+              "planted": false
+            },
+            {
+              "leg": "near-rear",
+              "pair": "B",
+              "hip": [
+                21,
+                23
+              ],
+              "knee": [
+                21,
+                24
+              ],
+              "toe": [
+                20,
+                28
+              ],
+              "planted": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "limits": "Authored root/toe schedule, image continuity and cyclic replay. No runtime movement/stride velocity claim."
+}

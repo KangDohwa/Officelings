@@ -1,0 +1,10 @@
+{
+  "assets/art/pets/shiba/shiba.png": "e0a4472c8a21195a710fc98708b13610e37916ee952a4ce16c054d75e63cb5b8",
+  "assets/art/pets/hamster-ball/hamster-ball.png": "ba6e597959b85a725631dd64331498c6ba05a99e771b6848619a532403a5514f",
+  "assets/art/iso/pets/cat-normal.png": "2d7d1287415ed4e1297c25e27160071a9b1025c0740c62c434183ce32b55be19",
+  "assets/art/iso/pets/cat.iso.json": "57bdfca3e39f6019a2edfdc2afa3f6e687800221c1493c27e781e7fc3e2a7018",
+  "assets/art/iso/pets/cat-shadow.png": "22e9fda0f12017b31f69810254447b79fcb33213fba25b61384b70fa51702233",
+  "assets/art/iso-concept/iso-office-hero.png": "a16ceeda68bd40e8a25cfbe723e9432ecf95167896bcfd1b9517e54b3593f468",
+  "docs/iso-slice-s0.md": "ef8fdba980e1c66ab79dc966644dfec8351bedf2e4ecac751c61f507317d3f81",
+  "tools/iso_check.py": "d0811f39bc77edf648cd33597f3a59ec3222edef01f6b2669de2a81e677833c1"
+}

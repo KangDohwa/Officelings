@@ -1,0 +1,35 @@
+﻿| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| dog.iso.json:iso-dog-normal | cell sizes | PASS | 128×288, 32×32 cells |
+| dog.iso.json:iso-dog-normal | transparency | PASS | straight alpha and guards |
+| dog.iso.json:iso-dog-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| dog.iso.json:iso-dog-normal | palette | PASS | 7 colors; RGB max-channel tolerance 0 |
+| dog.iso.json:iso-dog-normal | row contract | PASS | 9 rows / 36 cells |
+| dog.iso.json:iso-dog-normal | 6×6 seams | SKIP | floor sheets only |
+| dog.iso.json:iso-dog-normal | depth-part names | SKIP | furniture sheets only |
+| dog.iso.json:iso-dog-normal | face-lock / blink | SKIP | checked from normal character sheet |
+| dog.iso.json:iso-dog-shadow | cell sizes | PASS | 512×1152, 128×128 cells |
+| dog.iso.json:iso-dog-shadow | transparency | PASS | straight alpha and guards |
+| dog.iso.json:iso-dog-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| dog.iso.json:iso-dog-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| dog.iso.json:iso-dog-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| dog.iso.json:iso-dog-shadow | 6×6 seams | SKIP | floor sheets only |
+| dog.iso.json:iso-dog-shadow | depth-part names | SKIP | furniture sheets only |
+| dog.iso.json:iso-dog-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| hamster.iso.json:iso-hamster-normal | cell sizes | PASS | 128×288, 32×32 cells |
+| hamster.iso.json:iso-hamster-normal | transparency | PASS | straight alpha and guards |
+| hamster.iso.json:iso-hamster-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| hamster.iso.json:iso-hamster-normal | palette | PASS | 8 colors; RGB max-channel tolerance 0 |
+| hamster.iso.json:iso-hamster-normal | row contract | PASS | 9 rows / 36 cells |
+| hamster.iso.json:iso-hamster-normal | 6×6 seams | SKIP | floor sheets only |
+| hamster.iso.json:iso-hamster-normal | depth-part names | SKIP | furniture sheets only |
+| hamster.iso.json:iso-hamster-normal | face-lock / blink | SKIP | checked from normal character sheet |
+| hamster.iso.json:iso-hamster-shadow | cell sizes | PASS | 512×1152, 128×128 cells |
+| hamster.iso.json:iso-hamster-shadow | transparency | PASS | straight alpha and guards |
+| hamster.iso.json:iso-hamster-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| hamster.iso.json:iso-hamster-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| hamster.iso.json:iso-hamster-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| hamster.iso.json:iso-hamster-shadow | 6×6 seams | SKIP | floor sheets only |
+| hamster.iso.json:iso-hamster-shadow | depth-part names | SKIP | furniture sheets only |
+| hamster.iso.json:iso-hamster-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+32 checks; 0 failed

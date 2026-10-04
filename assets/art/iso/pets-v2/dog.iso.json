@@ -1,0 +1,430 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1"
+  ],
+  "sheets": [
+    {
+      "id": "iso-dog-normal",
+      "kind": "pet",
+      "file": "dog-normal.png",
+      "cellW": 32,
+      "cellH": 32,
+      "anchor": {
+        "x": 16,
+        "y": 28
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "identityPalette": [
+        "#191E1E",
+        "#724029",
+        "#B58043",
+        "#ECA662",
+        "#FAECC9",
+        "#E7D1AC",
+        "#BF6554"
+      ],
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "se",
+          "row": 0,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 18,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "grounded-paw"
+        },
+        {
+          "name": "idle",
+          "direction": "sw",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 14,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "grounded-paw",
+          "mirrorOf": {
+            "direction": "se",
+            "operation": "xPrime=32-x",
+            "integerCorrectionX": 1,
+            "lightRepaint": "fixed screen-upper-left"
+          }
+        },
+        {
+          "name": "idle",
+          "direction": "ne",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "grounded-paw"
+        },
+        {
+          "name": "idle",
+          "direction": "nw",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "grounded-paw",
+          "mirrorOf": {
+            "direction": "ne",
+            "operation": "xPrime=32-x",
+            "integerCorrectionX": 1,
+            "lightRepaint": "fixed screen-upper-left"
+          }
+        },
+        {
+          "name": "walk",
+          "direction": "se",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 21,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "grounded-paw"
+        },
+        {
+          "name": "walk",
+          "direction": "sw",
+          "row": 5,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 11,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "grounded-paw",
+          "mirrorOf": {
+            "direction": "se",
+            "operation": "xPrime=32-x",
+            "integerCorrectionX": 1,
+            "lightRepaint": "fixed screen-upper-left"
+          }
+        },
+        {
+          "name": "walk",
+          "direction": "ne",
+          "row": 6,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 14,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "grounded-paw"
+        },
+        {
+          "name": "walk",
+          "direction": "nw",
+          "row": 7,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 18,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "grounded-paw",
+          "mirrorOf": {
+            "direction": "ne",
+            "operation": "xPrime=32-x",
+            "integerCorrectionX": 1,
+            "lightRepaint": "fixed screen-upper-left"
+          }
+        },
+        {
+          "name": "sleep",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 16,
+              "y": 28,
+              "radius": 1
+            }
+          ],
+          "contactKind": "curled-ground-contact"
+        }
+      ]
+    },
+    {
+      "id": "iso-dog-shadow",
+      "kind": "shadow",
+      "file": "dog-shadow.png",
+      "cellW": 128,
+      "cellH": 128,
+      "anchor": {
+        "x": 64,
+        "y": 80
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "se",
+          "row": 0,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "idle",
+          "direction": "sw",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "idle",
+          "direction": "ne",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "idle",
+          "direction": "nw",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "walk",
+          "direction": "se",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "walk",
+          "direction": "sw",
+          "row": 5,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "walk",
+          "direction": "ne",
+          "row": 6,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "walk",
+          "direction": "nw",
+          "row": 7,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        },
+        {
+          "name": "sleep",
+          "direction": "any",
+          "row": 8,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "anchorChecks": [
+            {
+              "x": 64,
+              "y": 80,
+              "radius": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pets": [
+    {
+      "id": "iso/dog",
+      "name": "Office Shiba",
+      "sheetId": "iso-dog-normal",
+      "footAnchor": {
+        "x": 16,
+        "y": 28
+      },
+      "blockedCells": [],
+      "blocking": false,
+      "depth": {
+        "source": "own ground i+j",
+        "isoZOrder": 0,
+        "seatGroupId": null
+      },
+      "shadow": {
+        "sheetId": "iso-dog-shadow",
+        "matchingClip": true,
+        "renderPass": "shadows"
+      },
+      "animations": {
+        "idle": [
+          "se",
+          "sw",
+          "ne",
+          "nw"
+        ],
+        "walk": [
+          "se",
+          "sw",
+          "ne",
+          "nw"
+        ],
+        "sleep": [
+          "any"
+        ]
+      },
+      "bubbleBindings": {
+        "normal": null,
+        "sleep": {
+          "sharedArt": "env4/bubbles/zzz.png",
+          "binding": "sleep-bubble"
+        },
+        "reaction": {
+          "sharedArt": "env4/bubbles/exclamation-error.png",
+          "binding": "surprised-bubble"
+        }
+      }
+    }
+  ],
+  "provenance": {
+    "identity": "assets/art/pets/shiba/shiba.png",
+    "generation": "1 sequential built-in image_gen master, attempt 1, 4x3 transparent poses",
+    "master": "dog-master.png",
+    "extraction": "dog-extraction.json",
+    "derivation": "Native grid quantization; canonical generated head/torso; authored bent-leg diagonal-pair gait, bob 0/-1/0/-1; 2:1 ground vectors; reflected SW/NW with fixed screen-upper-left repaint; curled sleep upper-back breathing.",
+    "identityDifference": null,
+    "runtimeVerified": false
+  }
+}

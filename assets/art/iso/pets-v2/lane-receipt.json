@@ -1,0 +1,26 @@
+{
+  "startUtc": "2026-10-04T07:43:48+00:00",
+  "endUtc": "2026-10-04T08:00:50+00:00",
+  "elapsedSeconds": 1022.0,
+  "laneCount": 1,
+  "laneHours": 0.283889,
+  "scope": "Observed single lane: reference reads, sequential built-in generation waits, grid/palette cleanup, articulated paw cycles, review, validation, NOTES. Initial work before first UTC observation excluded.",
+  "generationConcurrency": 1,
+  "generationCalls": 2,
+  "attemptsPerMaster": 1,
+  "viewedImageOutputs": 11,
+  "checker": {
+    "command": "tools/iso_check.py assets/art/iso/pets-v2 --tolerance 0",
+    "pass": 20,
+    "skip": 12,
+    "fail": 0
+  },
+  "productionHashes": {
+    "dog-normal.png": "05480013174934d1aef0960ca847eb8d9b4f0b57bbcdb8f91e8212e11b8a0c96",
+    "dog-shadow.png": "67300199945499f485ac6c771a71a3b21f2f3a5a3c413e5e5af3d95081a2eb3d",
+    "dog.iso.json": "b5f46ceb1a28161b84af50064ef896de57b92fc2abdfaf3f07f47ae027965f7e",
+    "hamster-normal.png": "1688e99960a2bb731ddc2c4713652b75e0f8c0b09b4026eb227aa454eb9d7ce7",
+    "hamster-shadow.png": "6e2b503694f32a99f7175e545e84769a611d899120db6594a50e82d7c8397508",
+    "hamster.iso.json": "3cf90a7411d8b6b5f3cec06d34053bab20a68b0e53a47050bd7946cd977d2a4a"
+  }
+}

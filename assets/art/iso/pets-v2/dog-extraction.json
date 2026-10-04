@@ -1,0 +1,242 @@
+[
+  {
+    "row": 0,
+    "phase": 0,
+    "tileBox": [
+      0,
+      0,
+      362,
+      362
+    ],
+    "componentBoxInTile": [
+      59,
+      83,
+      318,
+      362
+    ],
+    "targetSize": [
+      16,
+      17
+    ]
+  },
+  {
+    "row": 0,
+    "phase": 1,
+    "tileBox": [
+      362,
+      0,
+      724,
+      362
+    ],
+    "componentBoxInTile": [
+      68,
+      83,
+      317,
+      355
+    ],
+    "targetSize": [
+      16,
+      17
+    ]
+  },
+  {
+    "row": 0,
+    "phase": 2,
+    "tileBox": [
+      724,
+      0,
+      1086,
+      362
+    ],
+    "componentBoxInTile": [
+      63,
+      86,
+      317,
+      353
+    ],
+    "targetSize": [
+      16,
+      17
+    ]
+  },
+  {
+    "row": 0,
+    "phase": 3,
+    "tileBox": [
+      1086,
+      0,
+      1448,
+      362
+    ],
+    "componentBoxInTile": [
+      68,
+      83,
+      315,
+      355
+    ],
+    "targetSize": [
+      15,
+      17
+    ]
+  },
+  {
+    "row": 1,
+    "phase": 0,
+    "tileBox": [
+      0,
+      362,
+      362,
+      724
+    ],
+    "componentBoxInTile": [
+      67,
+      71,
+      321,
+      339
+    ],
+    "targetSize": [
+      16,
+      17
+    ]
+  },
+  {
+    "row": 1,
+    "phase": 1,
+    "tileBox": [
+      362,
+      362,
+      724,
+      724
+    ],
+    "componentBoxInTile": [
+      63,
+      69,
+      315,
+      346
+    ],
+    "targetSize": [
+      15,
+      17
+    ]
+  },
+  {
+    "row": 1,
+    "phase": 2,
+    "tileBox": [
+      724,
+      362,
+      1086,
+      724
+    ],
+    "componentBoxInTile": [
+      65,
+      70,
+      321,
+      360
+    ],
+    "targetSize": [
+      15,
+      17
+    ]
+  },
+  {
+    "row": 1,
+    "phase": 3,
+    "tileBox": [
+      1086,
+      362,
+      1448,
+      724
+    ],
+    "componentBoxInTile": [
+      62,
+      69,
+      315,
+      346
+    ],
+    "targetSize": [
+      16,
+      17
+    ]
+  },
+  {
+    "row": 2,
+    "phase": 0,
+    "tileBox": [
+      0,
+      724,
+      362,
+      1086
+    ],
+    "componentBoxInTile": [
+      59,
+      90,
+      326,
+      292
+    ],
+    "targetSize": [
+      15,
+      11
+    ]
+  },
+  {
+    "row": 2,
+    "phase": 1,
+    "tileBox": [
+      362,
+      724,
+      724,
+      1086
+    ],
+    "componentBoxInTile": [
+      57,
+      82,
+      324,
+      292
+    ],
+    "targetSize": [
+      14,
+      11
+    ]
+  },
+  {
+    "row": 2,
+    "phase": 2,
+    "tileBox": [
+      724,
+      724,
+      1086,
+      1086
+    ],
+    "componentBoxInTile": [
+      58,
+      90,
+      326,
+      292
+    ],
+    "targetSize": [
+      15,
+      11
+    ]
+  },
+  {
+    "row": 2,
+    "phase": 3,
+    "tileBox": [
+      1086,
+      724,
+      1448,
+      1086
+    ],
+    "componentBoxInTile": [
+      53,
+      82,
+      323,
+      292
+    ],
+    "targetSize": [
+      14,
+      11
+    ]
+  }
+]

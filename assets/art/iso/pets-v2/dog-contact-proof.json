@@ -1,0 +1,181 @@
+{
+  "all16WalkPhasesGrounded": true,
+  "phases": [
+    {
+      "facing": "se",
+      "phase": 0,
+      "plantedGroundSoles": [
+        [
+          20,
+          28
+        ]
+      ],
+      "bodyBobY": 0
+    },
+    {
+      "facing": "se",
+      "phase": 1,
+      "plantedGroundSoles": [
+        [
+          19,
+          28
+        ]
+      ],
+      "bodyBobY": -1
+    },
+    {
+      "facing": "se",
+      "phase": 2,
+      "plantedGroundSoles": [
+        [
+          22,
+          28
+        ]
+      ],
+      "bodyBobY": 0
+    },
+    {
+      "facing": "se",
+      "phase": 3,
+      "plantedGroundSoles": [
+        [
+          21,
+          28
+        ]
+      ],
+      "bodyBobY": -1
+    },
+    {
+      "facing": "sw",
+      "phase": 0,
+      "plantedGroundSoles": [
+        [
+          12,
+          28
+        ]
+      ],
+      "bodyBobY": 0
+    },
+    {
+      "facing": "sw",
+      "phase": 1,
+      "plantedGroundSoles": [
+        [
+          13,
+          28
+        ]
+      ],
+      "bodyBobY": -1
+    },
+    {
+      "facing": "sw",
+      "phase": 2,
+      "plantedGroundSoles": [
+        [
+          10,
+          28
+        ]
+      ],
+      "bodyBobY": 0
+    },
+    {
+      "facing": "sw",
+      "phase": 3,
+      "plantedGroundSoles": [
+        [
+          11,
+          28
+        ]
+      ],
+      "bodyBobY": -1
+    },
+    {
+      "facing": "ne",
+      "phase": 0,
+      "plantedGroundSoles": [
+        [
+          15,
+          28
+        ]
+      ],
+      "bodyBobY": 0
+    },
+    {
+      "facing": "ne",
+      "phase": 1,
+      "plantedGroundSoles": [
+        [
+          14,
+          28
+        ]
+      ],
+      "bodyBobY": -1
+    },
+    {
+      "facing": "ne",
+      "phase": 2,
+      "plantedGroundSoles": [
+        [
+          13,
+          28
+        ]
+      ],
+      "bodyBobY": 0
+    },
+    {
+      "facing": "ne",
+      "phase": 3,
+      "plantedGroundSoles": [
+        [
+          12,
+          28
+        ]
+      ],
+      "bodyBobY": -1
+    },
+    {
+      "facing": "nw",
+      "phase": 0,
+      "plantedGroundSoles": [
+        [
+          17,
+          28
+        ]
+      ],
+      "bodyBobY": 0
+    },
+    {
+      "facing": "nw",
+      "phase": 1,
+      "plantedGroundSoles": [
+        [
+          18,
+          28
+        ]
+      ],
+      "bodyBobY": -1
+    },
+    {
+      "facing": "nw",
+      "phase": 2,
+      "plantedGroundSoles": [
+        [
+          19,
+          28
+        ]
+      ],
+      "bodyBobY": 0
+    },
+    {
+      "facing": "nw",
+      "phase": 3,
+      "plantedGroundSoles": [
+        [
+          20,
+          28
+        ]
+      ],
+      "bodyBobY": -1
+    }
+  ]
+}
