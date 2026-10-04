@@ -20,6 +20,7 @@ namespace Vibedotcom.App;
 
 internal sealed partial record Settings
 {
+    public string View { get; init; } = "flat";
     public string Mode { get; init; } = "normal";
     public string TagMode { get; init; } = "hover";
     public AmbientSettings Ambient { get; init; } = new();
@@ -46,7 +47,7 @@ internal sealed partial record Settings
         static double Number(double value, double fallback, double min, double max) => double.IsFinite(value) ? Math.Clamp(value, min, max) : fallback;
         var working = Number(WorkingSeconds, 120, 1, 86400);
         var waiting = Math.Max(Number(LeaveAfterWaitingMinutes, 30, 1, 10080), (working + 1) / 60);
-        return (this with { Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
+        return (this with { View = View == "iso" ? "iso" : "flat", Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
             TagMode = NameTagHover.Normalize(TagMode),
             PrivacyMode = PrivacyModes.Value(PrivacyModes.Resolve(null, PrivacyMode, Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY"))),
             Ambient = (Ambient ?? new()).Normalize(), SeasonDecor = SeasonDecor == "auto" ? "auto" : "off",
@@ -80,7 +81,7 @@ internal static partial class Program
         try
         {
             var demo = args.Contains("--demo"); Settings? initial = null;
-            string? smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null, home = null, stateSource = null, privacyOption = null; double quitAfter = 0; var qa = false; var smokeTags=false; var smokeAmbient=false;
+            string? viewOverride = null, smoke = null, assetDirectory = null, layoutFile = null, profile = null, verifyOpacity = null, home = null, stateSource = null, privacyOption = null; double quitAfter = 0; var qa = false; var smokeTags=false; var smokeAmbient=false;
             for (var i = 0; i < args.Length; i++)
             {
                 string Value() => ++i < args.Length ? args[i] : throw new ArgumentException("Missing option value.");
@@ -89,6 +90,7 @@ internal static partial class Program
                 switch (args[i])
                 {
                     case "--demo": break;
+                    case "--view": viewOverride = ParseView(Value()); break;
                     case "--smoke-test": smoke = Value(); break;
                     case "--smoke-tags": smokeTags = true; break;
                     case "--smoke-ambient": smokeAmbient = true; break;
@@ -116,7 +118,7 @@ internal static partial class Program
                     case "--leave-after-waiting-minutes": initial = (initial ?? new()) with { LeaveAfterWaitingMinutes = Positive() }; break;
                     case "--gone-minutes": initial = (initial ?? new()) with { GoneMinutes = Positive() }; break;
                     case "--quit-after": quitAfter = Number(); break;
-                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--privacy off|tasks|full] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated)] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
+                    default: throw new ArgumentException("Usage: Vibedotcom.App [--demo] [--view iso|flat] [--privacy off|tasks|full] [--asset-dir DIR] [--layout FILE] [--zoom 0..6] [--mode normal|topmost|desktop] [--tags hover|icon|always] [--click-through] [--borderless] [--transparent] [--opacity .25..1] [--working-seconds N] [--leave-after-idle-minutes N] [--leave-after-waiting-minutes N] [--gone-minutes N (deprecated)] [--qa --quit-after SECONDS] [--smoke-test OUTPUT_DIR [--smoke-tags]] [--verify-opacity OUTPUT_DIR] [--profile-idle OUTPUT_DIR]");
                 }
             }
             using var storage = new AppStorage(demo || qa || profile != null || smoke != null || verifyOpacity != null);
@@ -131,8 +133,12 @@ internal static partial class Program
             storage.CheckInput(layoutFile); storage.CheckInput(assetDirectory);
             storage.CheckInput(stateSource);
             if (stateSource != null && assetDirectory == null) assetDirectory = Path.GetDirectoryName(stateSource);
+            if (viewOverride != null) initial = (initial ?? (storage.Isolated ? new Settings() : Settings.Read(storage.SettingsPath))) with { View = viewOverride };
+            else if (initial != null && !storage.Isolated) initial = initial with { View = Settings.Read(storage.SettingsPath).View };
             var app = new Application();
             if (verifyOpacity != null) return OpacityVerification.Run(verifyOpacity);
+            if (initial?.View == "iso" || initial == null && !storage.Isolated && Settings.Read(storage.SettingsPath).View == "iso")
+                return IsoApplication.Run(app,demo,initial,quitAfter,qa,storage,home,assetDirectory,smoke,smokeTags,layoutFile,stateSource,profile);
             (AssetPack Assets, OfficeLayout Layout) LoadOffice()
             {
                 var assets = stateSource != null && assetDirectory != null ? AssetPack.LoadExported(assetDirectory)
@@ -163,6 +169,7 @@ internal static partial class Program
         }
     }
 
+    internal static string ParseView(string value) => value is "iso" or "flat" ? value : throw new ArgumentException("--view must be iso or flat.");
     internal static string ParseTags(string value) => value is "hover" or "icon" or "always" ? value : throw new ArgumentException("--tags must be hover, icon or always.");
     private static int TagRenders(string output,AssetPack assets,OfficeLayout layout)
     {
@@ -323,6 +330,7 @@ internal static partial class Program
     }
     internal static BitmapSource RenderBitmap(FrameworkElement view,int width,int height)
     {
+        if (view is IsoView iso) return IsoOffscreenRenderer.RenderBitmap(iso,width,height);
         // A hidden, owned presentation source makes WPF process visual invalidation
         // even for repeated renders at the same size. It is never shown/activated.
         using var source=new HwndSource(new HwndSourceParameters("Vibedotcom offscreen render")
