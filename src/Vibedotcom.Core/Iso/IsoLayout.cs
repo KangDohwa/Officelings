@@ -96,6 +96,32 @@ public static class IsoLayoutLoader
         }
         var nav = Navigation(layout, pack); var reachable = nav.Reachable(layout.Door);
         if (reachable.Count == 0) throw new InvalidDataException("Iso door must be walkable.");
+        // Work chairs remain walkable for arrival, but their physical cells cannot share furniture.
+        var chairCells = new HashSet<Tile>();
+        foreach (var chair in layout.Furniture.Where(f => f.AssetId == "iso/chair"))
+        {
+            var chairTile = new Tile(chair.X, chair.Y);
+            if (occupied.Contains(chairTile) || !chairCells.Add(chairTile)) throw new InvalidDataException("Overlapping iso chair: " + chair.Id);
+            if (chair.DeskId != null)
+            {
+                var desk = layout.Furniture.SingleOrDefault(f => f.Id == chair.DeskId && f.AssetId == "iso/desk")
+                    ?? throw new InvalidDataException("Unknown chair owner.");
+                var contact = IsoContacts.Desk(desk.X, desk.Y, desk.Rotation, desk.SeatProfile);
+                if (chairTile != contact.Approach || IsoGeometry.Orientation(chair.Rotation) != contact.Facing)
+                    throw new InvalidDataException("Misaligned iso chair: " + chair.Id);
+            }
+        }
+        foreach (var rug in layout.Furniture.Where(f => f.AssetId == "iso/rug"))
+        {
+            var v = pack.Variant(rug.AssetId, rug.Rotation, rug.State);
+            foreach (var desk in layout.Furniture.Where(f => f.AssetId == "iso/desk"))
+            {
+                var contact = IsoContacts.Desk(desk.X, desk.Y, desk.Rotation, desk.SeatProfile);
+                var cells = Cells(desk, pack.Variant(desk.AssetId, desk.Rotation, desk.State)).Append(contact.Approach);
+                if (cells.Any(t => t.X >= rug.X && t.X < rug.X + v.FootprintW && t.Y >= rug.Y && t.Y < rug.Y + v.FootprintH))
+                    throw new InvalidDataException("Workstation overlaps iso lounge rug: " + desk.Id);
+            }
+        }
         foreach (var f in layout.Furniture)
         {
             var v = pack.Variant(f.AssetId, f.Rotation, f.State);

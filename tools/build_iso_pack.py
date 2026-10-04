@@ -358,14 +358,19 @@ def verify_references(manifest):
 
 
 PLACEMENTS = (
-    ("desk-1", "desk", 2, 2, "nw"), ("chair-1", "chair", 1, 3, "se"),
-    ("desk-2", "desk", 5, 2, "ne"), ("chair-2", "chair", 5, 1, "sw"),
-    ("desk-3", "desk", 4, 5, "sw"), ("chair-3", "chair", 5, 6, "ne"),
-    ("sofa-1", "sofa", 6, 8, "ne"), ("plant-1", "plant", 0, 6, "se"),
-    ("bookshelf-1", "shelf", 0, 0, "se"), ("tv-1", "tv-cabinet", 0, 8, "se"),
-    ("coffee-1", "coffee-machine", 9, 1, "nw"), ("fridge-1", "fridge", 9, 3, "nw"),
-    ("water-1", "water-cooler", 9, 5, "nw"), ("rug-1", "rug", 6, 7, "sw"),
-    ("side-table-1", "side-table", 3, 8, "se"), ("lamp-1", "floor-lamp", 4, 8, "se"),
+    # Six intentional back-to-back pairs; fronts/monitors face the surrounding aisles.
+    # The original three contact examples remain in IsoLayoutLoader.Default, not this production room.
+    ("desk-1", "desk", 2, 1, "ne"), ("desk-2", "desk", 2, 2, "sw"),
+    ("desk-3", "desk", 7, 1, "nw"), ("desk-4", "desk", 8, 1, "se"),
+    ("desk-5", "desk", 2, 4, "ne"), ("desk-6", "desk", 2, 5, "sw"),
+    ("desk-7", "desk", 6, 4, "nw"), ("desk-8", "desk", 7, 4, "se"),
+    ("desk-9", "desk", 5, 7, "nw"), ("desk-10", "desk", 6, 7, "se"),
+    ("desk-11", "desk", 8, 7, "ne"), ("desk-12", "desk", 8, 8, "sw"),
+    ("sofa-1", "sofa", 0, 9, "ne"), ("plant-1", "plant", 0, 2, "se"),
+    ("bookshelf-1", "shelf", 0, 0, "se"), ("tv-1", "tv-cabinet", 0, 7, "se"),
+    ("coffee-1", "coffee-machine", 1, 0, "sw"), ("fridge-1", "fridge", 0, 5, "se"),
+    ("water-1", "water-cooler", 5, 0, "sw"), ("rug-1", "rug", 0, 7, "sw"),
+    ("side-table-1", "side-table", 2, 7, "se"), ("lamp-1", "floor-lamp", 0, 3, "se"),
 )
 
 
@@ -383,11 +388,21 @@ def make_layout(manifest):
             item.update(seatGroupId=f"desk-{number}/seat", seatOwnerId=f"desk-{number}")
             item["chairId" if family == "desk" else "deskId"] = f"{'chair' if family == 'desk' else 'desk'}-{number}"
         instances.append(item)
+        if family == "desk":
+            seat = next(p for p in v["seatProfiles"] if p["id"] == "front")
+            facing = seat["isoFacing"]
+            chair = next(c for c in families["iso/chair"]["variants"] if c["orientation"] == facing and c["state"] == "default")
+            chair_id = f"chair-{number}"
+            instances.append(dict(id=chair_id, kind="chair", assetId="iso/chair",
+                x=i + seat["approach"]["x"], y=j + seat["approach"]["y"],
+                width=chair["footprintW"], height=chair["footprintH"], rotation=ROTATIONS[facing],
+                orientation=facing, state="default", hitTargetId=chair_id,
+                seatGroupId=f"desk-{number}/seat", seatOwnerId=ident, deskId=ident))
     floor_sheet = next(s for s in manifest["sheets"] if s["id"] == "iso-env-floors")
     manifest["tileTypes"] = [dict(id=n, kind="floor", projection="iso2to1", family=c["family"],
                                   sheetId=floor_sheet["id"], animation=c["name"], direction="any",
                                   **{k: c[k] for k in ("axis", "phase") if k in c}) for n, c in enumerate(floor_sheet["rows"][:3], 1)]
-    tiles = [2 + (i + j) % 2 if i >= 8 and j <= 5 else 1 for j in range(10) for i in range(10)]
+    tiles = [2 + (i + j) % 2 if j == 0 or i == 0 and j <= 2 else 1 for j in range(10) for i in range(10)]
     transitions = []
     steps = {"+i": (1, 0), "+j": (0, 1), "-i": (-1, 0), "-j": (0, -1)}
     for j in range(10):
@@ -409,24 +424,24 @@ def make_layout(manifest):
     layout = dict(version=1, view="iso", projection="iso2to1", requiredCapabilities=manifest["requiredCapabilities"],
                   widthTiles=10, heightTiles=10, tileSize=16, tile=manifest["tile"], wallRise=16, wallHeight=48,
                   tiles=tiles, floorTransitions=transitions, door=dict(x=0, y=4), furniture=instances,
-                  zones=[dict(name="workspace", x=0, y=0, width=8, height=7), dict(name="pantry", x=8, y=0, width=2, height=6),
-                         dict(name="lounge", x=0, y=7, width=10, height=3), dict(name="door", x=0, y=4, width=1, height=1)],
+                  zones=[dict(name="workspace", x=1, y=1, width=9, height=9), dict(name="pantry", x=0, y=0, width=10, height=1),
+                         dict(name="lounge", x=0, y=6, width=3, height=4), dict(name="door", x=0, y=4, width=1, height=1)],
                   wallSegments=walls, wallJoins=[dict(id="rear-corner", moduleId="iso/wall-inner-rear-corner", ground=dict(i=-0.5, j=-0.5)),
                       dict(id="end-left", moduleId="iso/wall-end-cap-l", ground=dict(i=-0.5, j=8.5)),
                       dict(id="end-right", moduleId="iso/wall-end-cap-r", ground=dict(i=8.5, j=-0.5))],
                   cutaway=dict(front="hidden", rear="visible"))
     if manifest["pets"]:
-        layout["pets"] = [dict(id="cat-1", assetId="iso/cat", x=2, y=4,
-            demonstrationPath=[dict(x=i, y=j) for i, j in ((2, 4), (3, 4), (3, 5), (3, 6), (2, 6), (2, 5), (2, 4))])]
+        layout["pets"] = [dict(id="cat-1", assetId="iso/cat", x=2, y=6,
+            demonstrationPath=[dict(x=i, y=j) for i, j in ((2, 6), (1, 6), (1, 5), (1, 4), (1, 5), (1, 6), (2, 6))])]
     if len(manifest["characters"]) == 3:
         # Frozen synthetic IDs follow the flat UTF-16 FNV-1a + ordinal/probing rule.
         layout["acceptanceFixture"] = dict(seed=20261004, agents=[
             dict(id="iso-demo-child", provider="codex", role="worker", parentId="iso-demo-supervisor",
-                 characterId="iso/character/punk-girl", deskId="desk-2", action="reporting"),
+                 characterId="iso/character/punk-girl", deskId="desk-1", action="reporting"),
             dict(id="iso-demo-supervisor", provider="claude", role="supervisor",
-                 characterId="iso/character/professor", deskId="desk-3", action="typing"),
+                 characterId="iso/character/professor", deskId="desk-10", action="typing"),
             dict(id="iso-demo-worker", provider="antigravity", role="worker",
-                 characterId="iso/character/dev-hoodie-v2", deskId="desk-1", action="typing")])
+                 characterId="iso/character/dev-hoodie-v2", deskId="desk-11", action="typing")])
     validate_layout(layout, manifest)
     return layout
 
@@ -434,17 +449,50 @@ def make_layout(manifest):
 def validate_layout(layout, manifest):
     families = {f["id"]: f for f in manifest["furniture"]}
     blocked = set()
+    physical = set()
+    seats = set()
     approaches = []
+    variants = {}
     for item in layout["furniture"]:
         v = next(v for v in families[item["assetId"]]["variants"] if v["orientation"] == item["orientation"] and v["state"] == item["state"])
+        variants[item["id"]] = v
         if (item["width"], item["height"]) != (v["footprintW"], v["footprintH"]):
             raise ValueError(f"{item['id']}: footprint mismatch")
+        cells = {(item["x"] + x, item["y"] + y) for x in range(item["width"]) for y in range(item["height"])}
+        if any(not all(0 <= n < 10 for n in p) for p in cells):
+            raise ValueError(f"{item['id']}: outside footprint")
+        if item["assetId"] != "iso/rug":
+            if physical & cells:
+                raise ValueError(f"{item['id']}: overlapping physical footprint")
+            physical.update(cells)
+        for seat in v.get("seatProfiles", []):
+            point = item["x"] + seat["approach"]["x"], item["y"] + seat["approach"]["y"]
+            if item["assetId"] == "iso/desk":
+                if point in seats:
+                    raise ValueError(f"{item['id']}: duplicate work seat")
+                seats.add(point)
+            approaches.append((item["id"], point))
         for cell in v["blockedCells"]:
             point = item["x"] + cell["x"], item["y"] + cell["y"]
             if point in blocked or not all(0 <= n < 10 for n in point):
                 raise ValueError(f"{item['id']}: overlapping/outside blocked cell {point}")
             blocked.add(point)
         approaches.extend((item["id"], (item["x"] + p["x"], item["y"] + p["y"])) for p in v["points"])
+    for item in layout["furniture"]:
+        if item["assetId"] == "iso/chair" and item.get("deskId"):
+            desk = next((d for d in layout["furniture"] if d["id"] == item["deskId"] and d["assetId"] == "iso/desk"), None)
+            if desk is None:
+                raise ValueError(f"{item['id']}: unknown chair owner")
+            seat = next(s for s in variants[desk["id"]]["seatProfiles"] if s["id"] == "front")
+            if (item["x"], item["y"], item["orientation"]) != (desk["x"] + seat["approach"]["x"], desk["y"] + seat["approach"]["y"], seat["isoFacing"]):
+                raise ValueError(f"{item['id']}: misaligned chair")
+        if item["assetId"] == "iso/rug":
+            rug = {(item["x"] + x, item["y"] + y) for x in range(item["width"]) for y in range(item["height"])}
+            for desk in (d for d in layout["furniture"] if d["assetId"] == "iso/desk"):
+                cells = {(desk["x"] + x, desk["y"] + y) for x in range(desk["width"]) for y in range(desk["height"])}
+                if rug & (cells | seats):
+                    raise ValueError(f"{desk['id']}: workstation overlaps lounge rug")
+    approaches = list(dict.fromkeys(approaches))
     start = layout["door"]["x"], layout["door"]["y"]
     reached, queue = {start}, deque([start])
     if start in blocked:
@@ -515,9 +563,18 @@ def main():
     parser.add_argument("--art-dir", type=Path, default=ART)
     parser.add_argument("--output", type=Path, default=ART / "pack")
     parser.add_argument("--pilot", action="store_true", help="floors, walls, furniture-v2 and dev-hoodie-v2 only")
+    parser.add_argument("--layout-only", action="store_true", help="rewrite layout.json from the existing pack; leave assets.json and all art unchanged")
     args = parser.parse_args()
     try:
-        print(json.dumps(build_iso_pack(args.art_dir, args.output, pilot=args.pilot), indent=2))
+        if args.layout_only:
+            manifest = json.loads((args.output / "assets.json").read_text(encoding="utf-8"))
+            layout = make_layout(manifest)
+            data = json_bytes(layout)
+            atomic_write(args.output / "layout.json", data)
+            print(json.dumps(dict(layout=str(args.output / "layout.json"), sha256=hashlib.sha256(data).hexdigest(),
+                layoutChecks=validate_layout(layout, manifest), manifestFileIndexUnchanged=True), indent=2))
+        else:
+            print(json.dumps(build_iso_pack(args.art_dir, args.output, pilot=args.pilot), indent=2))
     except (OSError, ValueError, KeyError, TypeError, StopIteration) as error:
         print(f"build_iso_pack: {error}", file=sys.stderr)
         return 1
