@@ -187,17 +187,19 @@ class RealPackTests(unittest.TestCase):
     def test_exact_layout_and_reachable_seats(self):
         self.assertEqual((self.layout["widthTiles"], self.layout["heightTiles"], len(self.layout["tiles"])), (10, 10, 100))
         self.assertEqual(self.layout["door"], dict(x=0, y=4))
-        self.assertEqual(len(self.layout["furniture"]), 16)
-        expected = {"desk-1": (2, 2, "nw"), "chair-1": (1, 3, "se"), "desk-2": (5, 2, "ne"), "chair-2": (5, 1, "sw"),
-                    "desk-3": (4, 5, "sw"), "chair-3": (5, 6, "ne"), "sofa-1": (6, 8, "ne"), "plant-1": (0, 6, "se"),
-                    "bookshelf-1": (0, 0, "se"), "tv-1": (0, 8, "se"), "coffee-1": (9, 1, "nw"), "fridge-1": (9, 3, "nw"),
-                    "water-1": (9, 5, "nw"), "rug-1": (6, 7, "sw"), "side-table-1": (3, 8, "se"), "lamp-1": (4, 8, "se")}
-        self.assertEqual({f["id"]: (f["x"], f["y"], f["orientation"]) for f in self.layout["furniture"]}, expected)
+        self.assertEqual(len(self.layout["furniture"]), 34)
+        desks = [f for f in self.layout["furniture"] if f["assetId"] == "iso/desk"]
+        self.assertEqual([(f["x"], f["y"], f["orientation"]) for f in desks], [
+            (2, 1, "ne"), (2, 2, "sw"), (7, 1, "nw"), (8, 1, "se"),
+            (2, 4, "ne"), (2, 5, "sw"), (6, 4, "nw"), (7, 4, "se"),
+            (5, 7, "nw"), (6, 7, "se"), (8, 7, "ne"), (8, 8, "sw")])
+        self.assertEqual(len({f["id"] for f in self.layout["furniture"]}), 34)
         for j in range(10):
             for i in range(10):
-                expected = 2 + (i + j) % 2 if i in (8, 9) and j <= 5 else 1
+                expected = 2 + (i + j) % 2 if j == 0 or i == 0 and j <= 2 else 1
                 self.assertEqual(self.layout["tiles"][j * 10 + i], expected)
-        self.assertEqual(pack.validate_layout(self.layout, self.manifest)["reachableApproaches"], 7)
+        self.assertEqual(pack.validate_layout(self.layout, self.manifest),
+                         dict(blockedCells=37, reachableCells=63, reachableApproaches=16))
         self.assertEqual(len(self.layout["wallSegments"]), 20)
         door = next(w for w in self.layout["wallSegments"] if "door" in w["moduleId"])
         window = next(w for w in self.layout["wallSegments"] if "window" in w["moduleId"])
@@ -279,7 +281,7 @@ class RealPackTests(unittest.TestCase):
         child = next(a for a in agents if "parentId" in a)
         parent = next(a for a in agents if a["id"] == child["parentId"])
         self.assertEqual((child["action"], parent["role"]), ("reporting", "supervisor"))
-        self.assertEqual(self.layout["pets"][0]["demonstrationPath"][0], dict(x=2, y=4))
+        self.assertEqual(self.layout["pets"][0]["demonstrationPath"][0], dict(x=2, y=6))
         pack.validate_layout(self.layout, self.manifest)
 
     def test_pack_final_checker(self):
@@ -287,6 +289,27 @@ class RealPackTests(unittest.TestCase):
         iso_check.validate(self.output / "assets.json", checks, 3, 8, "final")
         failed = [row for row in checks.results if row[2] == "FAIL"]
         self.assertEqual(failed, [])
+
+    def test_layout_generation_is_deterministic_and_matches_committed_layout(self):
+        first = pack.json_bytes(pack.make_layout(self.manifest))
+        self.assertEqual(first, pack.json_bytes(pack.make_layout(self.manifest)))
+        self.assertEqual(first, (pack.ART / "pack/layout.json").read_bytes())
+
+    def test_invalid_chair_contacts_and_physical_overlaps_are_rejected(self):
+        import copy
+        for change, message in ((dict(x=2, y=1), "physical"), (dict(x=0, y=4), "misaligned"),
+                                (dict(orientation="nw", rotation=180), "misaligned")):
+            layout = copy.deepcopy(self.layout)
+            next(f for f in layout["furniture"] if f["id"] == "chair-1").update(change)
+            with self.subTest(change=change), self.assertRaisesRegex(ValueError, message):
+                pack.validate_layout(layout, self.manifest)
+
+    def test_lounge_rug_cannot_extend_under_workstations(self):
+        import copy
+        layout = copy.deepcopy(self.layout)
+        next(f for f in layout["furniture"] if f["assetId"] == "iso/rug").update(x=5, y=7)
+        with self.assertRaisesRegex(ValueError, "lounge rug"):
+            pack.validate_layout(layout, self.manifest)
 
 
 if __name__ == "__main__":

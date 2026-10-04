@@ -89,7 +89,8 @@ public sealed class IsoIntegrationTests
         Assert.Equal(office.Camera.X-320,left.X);
         Assert.Equal(office.Camera.X+319,right.X+pack.Sheet(right.SheetId).CellW-1);
         Assert.InRange(scene.Width,640,720);
-        Assert.InRange(scene.Height,384,440);
+        // The authored chair canvas at (9,9) adds padding below the unchanged floor envelope.
+        Assert.Equal(448,scene.Height);
     }
 
     [Fact]
