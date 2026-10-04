@@ -19,7 +19,7 @@ namespace Vibedotcom.App;
 internal sealed partial class IsoWindow : Window
 {
     private readonly IIsoOffice office;
-    private readonly IIsoSheetSource sheets;
+    private IIsoSheetSource sheets;
     private readonly AppStorage storage;
     private readonly bool demo,qa,preview;
     private readonly string? trackerHome;
@@ -39,27 +39,30 @@ internal sealed partial class IsoWindow : Window
     internal WindowModes Modes => modes;
 
     internal IsoWindow(IIsoOffice office,IIsoSheetSource sheets,Settings settings,bool demo,bool qa,double quitAfter,
-        AppStorage storage,string? trackerHome,bool preview,IReadOnlyList<AgentInfo>? currentAgents=null,DateTimeOffset? demoEpoch=null)
+        AppStorage storage,string? trackerHome,bool preview,IReadOnlyList<AgentInfo>? currentAgents=null,DateTimeOffset? demoEpoch=null,
+        IsoEditorSession? editorSession=null,AgentTracker? retainedTracker=null)
     {
         this.office=office; this.sheets=sheets; this.settings=settings.Normalize();
         this.demo=demo; this.qa=qa; this.storage=storage; this.trackerHome=trackerHome; this.preview=preview;
+        this.editorSession=editorSession; editorSession?.BindRuntime(office as Vibedotcom.Core.Iso.Editing.IIsoEditorRuntime);
+        if (editorSession!=null) editorSession.Privacy=PrivacyModes.Parse(this.settings.PrivacyMode ?? "off");
         epoch=demoEpoch ?? DateTimeOffset.UtcNow;
         if(office is IsoOffice engine) engine.PetsEnabled=settings.Pets=="on";
         view=new(office,sheets,storage.Isolated ? Path.Combine(storage.Home,"brand") : null)
         { TagMode=settings.TagMode,TransparentBackground=settings.TransparentBackground };
         modes=new(this,qa);
         view.Pointer=()=>qa || closed || suspended ? null : modes.Cursor(view);
-        tracker=new(new() { Home=trackerHome ?? (storage.Isolated ? storage.Home : new TrackerOptions().Home),
+        tracker=retainedTracker ?? new(new() { Home=trackerHome ?? (storage.Isolated ? storage.Home : new TrackerOptions().Home),
             PrivacyMode=demo ? PrivacyMode.Off : PrivacyModes.Parse(settings.PrivacyMode ?? "off"),
             WorkingWindow=TimeSpan.FromSeconds(settings.WorkingSeconds),LeaveAfterIdle=TimeSpan.FromMinutes(settings.LeaveAfterIdleMinutes),
             LeaveAfterWaiting=TimeSpan.FromMinutes(settings.LeaveAfterWaitingMinutes) });
         Title=demo ? "Vibedotcom — ISO demo office" : "Vibedotcom — ISO agent office";
         Width=settings.Width; Height=settings.Height; MinWidth=400; MinHeight=300;
-        AllowsTransparency=settings.Mode=="desktop" || settings.TransparentBackground;
-        WindowStyle=AllowsTransparency || settings.Borderless ? WindowStyle.None : WindowStyle.SingleBorderWindow;
+        AllowsTransparency=EditorSettings.Mode=="desktop" || EditorSettings.TransparentBackground;
+        WindowStyle=AllowsTransparency || EditorSettings.Borderless ? WindowStyle.None : WindowStyle.SingleBorderWindow;
         Background=AllowsTransparency ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor);
-        ShowActivated=!qa && settings.Mode!="desktop" && !settings.ClickThrough;
-        ShowInTaskbar=!qa && settings.Mode!="desktop"; Topmost=!qa && settings.Mode=="topmost";
+        ShowActivated=!qa && EditorSettings.Mode!="desktop" && !EditorSettings.ClickThrough;
+        ShowInTaskbar=!qa && EditorSettings.Mode!="desktop"; Topmost=!qa && EditorSettings.Mode=="topmost";
         WindowStartupLocation=WindowStartupLocation.CenterScreen;
         if (settings.Left is {} left && settings.Top is {} top)
         { WindowStartupLocation=WindowStartupLocation.Manual; Place(WindowPlacement.Clamp(new(left,top,Width,Height),WorkingAreas())); }
@@ -68,6 +71,7 @@ internal sealed partial class IsoWindow : Window
         var title=new TextBlock { Text=demo ? "Vibedotcom  ·  ISO demo" : "Vibedotcom  ·  ISO",Margin=new(16,9,16,9),FontSize=17,FontWeight=FontWeights.SemiBold,Foreground=Brushes.Wheat };
         DockPanel.SetDock(title,Dock.Top); root.Children.Add(title);
         DockPanel.SetDock(status,Dock.Bottom); root.Children.Add(status); root.Children.Add(view); Content=root;
+        if (editorSession?.Editing==true) AttachEditorPanel();
         agents=currentAgents ?? Array.Empty<AgentInfo>();
         view.SetZoom((int)Math.Round(settings.Zoom));
         if (demo && currentAgents==null)
@@ -75,9 +79,10 @@ internal sealed partial class IsoWindow : Window
             { var t=-18+frame*.1; agents=DemoScenario.Agents(epoch,t); view.Update(agents,epoch.AddSeconds(t),.1); }
         view.AdvanceTo(agents,DateTimeOffset.UtcNow);
         ContextMenu=BuildContextMenu();
-        PreviewMouseWheel+=(_,e)=> { Zoom(e.Delta>0 ? 1 : -1); e.Handled=true; };
+        PreviewMouseWheel+=(_,e)=> { if (editorPanel?.IsMouseOver==true) return; Zoom(e.Delta>0 ? 1 : -1); e.Handled=true; };
         PreviewKeyDown+=(_,e)=>
         {
+            if (HandleEditorShortcut(e) || IsoView.IsTextInput(e.OriginalSource as DependencyObject)) return;
             if (e.Key is Key.Add or Key.OemPlus) { Zoom(1); e.Handled=true; }
             if (e.Key is Key.Subtract or Key.OemMinus) { Zoom(-1); e.Handled=true; }
         };
@@ -101,15 +106,17 @@ internal sealed partial class IsoWindow : Window
         }
         Closed+=(_,_)=>
         {
+            DetachEditorPanel();
             closed=true; maintenance.Stop(); view.SetAnimationEnabled(false); view.HideTooltip();
             if (tray!=null) { tray.Visible=false; tray.Dispose(); }
-            if (!polling) tracker.Dispose(); Save();
+            if (!polling && ownsTracker) tracker.Dispose(); Save();
         };
     }
     private void ApplyModes()
     {
-        view.TransparentBackground=settings.TransparentBackground;
-        modes.Apply(settings.Mode,settings.ClickThrough,settings.Borderless,settings.TransparentBackground,settings.Opacity);
+        var effective=EditorSettings;
+        view.TransparentBackground=effective.TransparentBackground;
+        modes.Apply(effective.Mode,effective.ClickThrough,effective.Borderless,effective.TransparentBackground,effective.Opacity);
         view.HideTooltip();
     }
     private void Save()
@@ -133,7 +140,7 @@ internal sealed partial class IsoWindow : Window
     private void Change(Settings next)
     {
         settings=next;
-        if (AllowsTransparency!=(settings.Mode=="desktop" || settings.TransparentBackground)) Reopen();
+        if (AllowsTransparency!=(EditorSettings.Mode=="desktop" || EditorSettings.TransparentBackground)) Reopen();
         else
         {
             if (Content is Panel root) root.Background=settings.TransparentBackground ? Brushes.Transparent : new SolidColorBrush(OfficeView.BackgroundColor);
@@ -144,7 +151,9 @@ internal sealed partial class IsoWindow : Window
     {
         var bounds=recovered ?? modes.ScreenBounds;
         var next=settings with { Left=bounds.Left,Top=bounds.Top,Width=bounds.Width,Height=bounds.Height,Zoom=view.PreferredZoom };
-        var replacement=new IsoWindow(office,sheets,next,demo,qa,0,storage,trackerHome,preview,agents,epoch);
+        DetachEditorPanel();
+        ownsTracker=false;
+        var replacement=new IsoWindow(office,sheets,next,demo,qa,0,storage,trackerHome,preview,agents,epoch,editorSession,tracker);
         Application.Current.MainWindow=replacement; replacement.Show(); Close();
     }
     private void Recover()
@@ -164,6 +173,8 @@ internal sealed partial class IsoWindow : Window
     private (string Title,Action Action,Func<bool>? Check)[] MenuItems() =>
     [
         ("Isometric view",SwitchFlat,()=>true),
+        ("Edit office",EnterEditing,()=>editorSession?.Editing==true),
+        ("Done editing",DoneEditing,null),
         ("Normal",()=>Change(settings with { Mode="normal" }),()=>settings.Mode=="normal"),
         ("Always on top",()=>Change(settings with { Mode="topmost" }),()=>settings.Mode=="topmost"),
         ("Desktop level",()=>Change(settings with { Mode="desktop" }),()=>settings.Mode=="desktop"),
@@ -212,7 +223,7 @@ internal sealed partial class IsoWindow : Window
     }
     private void RefreshHover()
     {
-        if (qa || closed || suspended) return;
+        if (qa || closed || suspended || view.Editing) return;
         view.PollHover(modes.Cursor(view),DateTimeOffset.UtcNow);
     }
     private void Maintain()
@@ -240,7 +251,7 @@ internal sealed partial class IsoWindow : Window
         polling=true;
         try
         {
-            var current=await Task.Run(()=>tracker.Poll(DateTimeOffset.UtcNow));
+            var current=await Task.Run(()=> { lock(tracker) return tracker.Poll(DateTimeOffset.UtcNow); });
             if (closed) return;
             if (!agents.SequenceEqual(current))
             {
@@ -250,6 +261,6 @@ internal sealed partial class IsoWindow : Window
             warning=tracker.Warnings.Count>0 ? string.Join("  ",PrivacyModes.Diagnostics(tracker.Warnings,tracker.PrivacyMode)) : "";
         }
         catch(Exception e) { warning="Reading logs failed: "+PrivacyModes.Diagnostic(e,tracker.PrivacyMode); }
-        finally { polling=false; if (closed) tracker.Dispose(); }
+        finally { polling=false; if (closed && ownsTracker) tracker.Dispose(); }
     }
 }

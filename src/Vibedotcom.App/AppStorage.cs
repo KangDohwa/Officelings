@@ -10,6 +10,7 @@ internal sealed class AppStorage : IDisposable
     internal string Home { get; }
     internal string SettingsPath => Path.Combine(Home, "settings.json");
     internal string LayoutPath => Path.Combine(Home, "layout.json");
+    internal string IsoLayoutPath => Path.Combine(Home, "iso-layout.json");
     private readonly string personalHome;
 
     internal AppStorage(bool isolated, string? personalHome = null)
