@@ -22,6 +22,16 @@ def clip(name="idle", direction="se", row=0, frames=4):
     return dict(name=name, direction=direction, row=row, frames=frames, fps=6, loop=True)
 
 
+
+def _without_depth_anchor(value):
+    """depthAnchor may be corrected and supportRank is added by the builder when a source anchor lies outside the footprint
+    (docs/iso-depth-order-fix.md); everything else in a sheet must be preserved byte for byte."""
+    if isinstance(value, dict):
+        return {k: _without_depth_anchor(v) for k, v in value.items() if k not in ("depthAnchor", "supportRank")}
+    if isinstance(value, list):
+        return [_without_depth_anchor(v) for v in value]
+    return value
+
 class AliasTests(unittest.TestCase):
     def setUp(self):
         self.sheet = dict(id="mini", rows=[dict(clip(), seatAnchor=dict(x=16, y=44))], aliases=[])
@@ -284,7 +294,7 @@ class RealPackTests(unittest.TestCase):
                 self.assertEqual((self.output / published["file"]).read_bytes(), (source_path.parent / original["file"]).read_bytes())
                 for key in ("cellW", "cellH", "anchor", "scale", "rows", "identityPalette", "footAnchor"):
                     if key in original:
-                        self.assertEqual(published[key], original[key])
+                        self.assertEqual(_without_depth_anchor(published[key]), _without_depth_anchor(original[key]))
                 for facing, mask in original.get("faceLock", {}).items():
                     self.assertEqual((self.output / published["faceLock"][facing]["eyeMask"]).read_bytes(), (source_path.parent / mask["eyeMask"]).read_bytes())
             for family in source.get("furniture", []):
@@ -292,6 +302,10 @@ class RealPackTests(unittest.TestCase):
                 for a, b in zip(family["variants"], published["variants"]):
                     for original, part in zip(a["parts"], b["parts"]):
                         for key, value in original.items():
+                            # depthAnchor is intentionally corrected by the builder when the source anchor lies outside
+                            # the object's footprint (docs/iso-depth-order-fix.md); everything else must be preserved.
+                            if key == "depthAnchor":
+                                continue
                             self.assertEqual(part[key], value)
 
     def test_frozen_contacts_and_wall_anchors(self):
