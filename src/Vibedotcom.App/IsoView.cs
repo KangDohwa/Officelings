@@ -15,7 +15,7 @@ namespace Vibedotcom.App;
 internal sealed partial class IsoView : FrameworkElement
 {
     private readonly IIsoOffice office;
-    private readonly IIsoSheetSource sheets;
+    private IIsoSheetSource sheets;
     private readonly TimeProvider clock;
     private readonly ContainerVisual root = new(), sceneVisual = new();
     private readonly DrawingVisual tagsVisual = new();
@@ -86,15 +86,16 @@ internal sealed partial class IsoView : FrameworkElement
             if (Pointer!=null && HasHoverTarget) PollHover(Pointer(),now);
             AdvanceHover(now); ScheduleAnimation(now);
         };
-        SizeChanged+=(_,_)=> { UpdateCamera(); InvalidateVisual(); };
-        MouseLeftButtonDown+=(_,e)=> { drag=e.GetPosition(this); CaptureMouse(); HideTooltip(); };
+        SizeChanged+=(_,_)=> { if (Editing && IsMouseCaptured) CancelEditorCapture(); UpdateCamera(); InvalidateVisual(); };
+        MouseLeftButtonDown+=(_,e)=> { if (Editing) return; drag=e.GetPosition(this); CaptureMouse(); HideTooltip(); };
         MouseMove+=(_,e)=>
         {
+            if (Editing) return;
             var point=e.GetPosition(this);
             if (drag is {} old) { PanBy(point-old); drag=point; }
             else PollHover(point,this.clock.GetUtcNow());
         };
-        MouseLeftButtonUp+=(_,_)=> { drag=null; ReleaseMouseCapture(); };
+        MouseLeftButtonUp+=(_,_)=> { if (Editing) return; drag=null; ReleaseMouseCapture(); };
         LostMouseCapture+=(_,_)=>drag=null;
         MouseLeave+=(_,_)=>PollHover(null,this.clock.GetUtcNow());
         Unloaded+=(_,_)=> { SetAnimationEnabled(false); HideTooltip(); };
@@ -121,6 +122,7 @@ internal sealed partial class IsoView : FrameworkElement
         var geometryChanged=next.Width!=scene.Width || next.Height!=scene.Height;
         var tagsChanged=metadataChanged || TagGeometryChanged(next);
         scene=next;
+        if (Editing && office is IsoOffice live) editorSession!.LiveApplied(live.Layout);
         if (people!=null) agents=people;
         RebuildScene(); if(tagsChanged) RebuildTags();
         if (geometryChanged) { UpdateCamera(); InvalidateVisual(); }
@@ -228,15 +230,23 @@ internal sealed partial class IsoView : FrameworkElement
     private void UpdateCamera()
     {
         var dpi=VisualTreeHelper.GetDpi(this);
-        var desired=preferredZoom==0 ? Math.Clamp((int)Math.Floor(Math.Min(ActualWidth*dpi.DpiScaleX/scene.Width,ActualHeight*dpi.DpiScaleY/scene.Height)),1,6) : preferredZoom;
+        var bounds=Editing ? EditorRenderBounds() : new Rect(0,0,scene.Width,scene.Height);
+        var desired=preferredZoom==0 ? Math.Clamp((int)Math.Floor(Math.Min(ActualWidth*dpi.DpiScaleX/bounds.Width,ActualHeight*dpi.DpiScaleY/bounds.Height)),1,6) : preferredZoom;
         if (zoom!=desired) { zoom=desired; RebuildScene(); RebuildTags(); }
-        var next=PhysicalCamera(scene.Width,scene.Height,ActualWidth,ActualHeight,dpi.DpiScaleX,dpi.DpiScaleY,zoom,physicalPan);
+        if (Editing)
+        {
+            var limitX=Math.Max(0,(bounds.Width*zoom+ActualWidth*dpi.DpiScaleX)/2-32);
+            var limitY=Math.Max(0,(bounds.Height*zoom+ActualHeight*dpi.DpiScaleY)/2-32);
+            physicalPan=new(Math.Clamp(physicalPan.X,-limitX,limitX),Math.Clamp(physicalPan.Y,-limitY,limitY));
+        }
+        var next=PhysicalCamera((int)bounds.Width,(int)bounds.Height,ActualWidth,ActualHeight,dpi.DpiScaleX,dpi.DpiScaleY,zoom,physicalPan);
+        next.OffsetX-=bounds.Left*zoom/dpi.DpiScaleX; next.OffsetY-=bounds.Top*zoom/dpi.DpiScaleY;
         if (next==camera) return;
         camera=next; var transform=new MatrixTransform(camera); transform.Freeze(); root.Transform=transform;
         if(tagMode=="always") RenderTags();
     }
     protected override void OnDpiChanged(DpiScale oldDpi,DpiScale newDpi)
-    { base.OnDpiChanged(oldDpi,newDpi); UpdateCamera(); InvalidateVisual(); }
+    { base.OnDpiChanged(oldDpi,newDpi); if (Editing && IsMouseCaptured) CancelEditorCapture(); UpdateCamera(); InvalidateVisual(); }
     protected override void OnRender(DrawingContext dc)
     {
         UpdateCamera();

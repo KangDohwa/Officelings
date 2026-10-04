@@ -1,0 +1,346 @@
+{
+    "schema":  1,
+    "fakes":  true,
+    "seed":  42,
+    "epoch":  "2026-10-04T00:00:00+00:00",
+    "nativeCamera":  {
+                         "x":  360,
+                         "y":  104
+                     },
+    "packHashes":  [
+                       {
+                           "id":  "cap-teen-blink",
+                           "sha256":  "040f4e6eb274f65d5c5d9e951d13c4b30fd7bfb234fd71d4da2e7c12dc1d53e0"
+                       },
+                       {
+                           "id":  "cap-teen-normal",
+                           "sha256":  "6dc3a813d38eac0b7865dc2266a1baf2ce9d36f8f1a8ec583165ce03b4b784c4"
+                       },
+                       {
+                           "id":  "dev-hoodie-v2-blink",
+                           "sha256":  "2a8c12925773268719a8205e0ed2ef3240ec2b52ea4e1386b3bc24f154695ff3"
+                       },
+                       {
+                           "id":  "dev-hoodie-v2-normal",
+                           "sha256":  "7f145a031f2942858d806eded412277acfc8cd093cd603033726a4e39f94c866"
+                       },
+                       {
+                           "id":  "glasses-bun-blink",
+                           "sha256":  "171385f451f9e12b16b9a30f8ee3346d0e18e8d4aedcf638abdc2cc7083a1b6e"
+                       },
+                       {
+                           "id":  "glasses-bun-normal",
+                           "sha256":  "88c85f2f4af90abd651db665e519aa955460fffa1c12897300665b9c8e9500de"
+                       },
+                       {
+                           "id":  "hanbok-modern-blink",
+                           "sha256":  "123c3a1bf6bbd5082edde01fd6713e1e60444e00fa4d465d463a22f6af170574"
+                       },
+                       {
+                           "id":  "hanbok-modern-normal",
+                           "sha256":  "7c9337a2977a4333e22e216bd7cfc5ca9af9f59fcb5a7748aff37d168b94ce0c"
+                       },
+                       {
+                           "id":  "iso-carried-props",
+                           "sha256":  "8e5a6b5b6b85d9c58531bd10c721d3838adf41093acd3ad33c9efb0672e6f959"
+                       },
+                       {
+                           "id":  "iso-cat-normal",
+                           "sha256":  "2d7d1287415ed4e1297c25e27160071a9b1025c0740c62c434183ce32b55be19"
+                       },
+                       {
+                           "id":  "iso-cat-shadow",
+                           "sha256":  "22e9fda0f12017b31f69810254447b79fcb33213fba25b61384b70fa51702233"
+                       },
+                       {
+                           "id":  "iso-chair-parts",
+                           "sha256":  "8beb04d38d5abe97ba9f7ecdca004a2e37e00f87870b6a9bbe3ce94f91bbfa36"
+                       },
+                       {
+                           "id":  "iso-chair-sandwich",
+                           "sha256":  "9dc07abb8cbb25c3d9cb21fdd079792c87cf088119b765d038c6c55991708725"
+                       },
+                       {
+                           "id":  "iso-chair-shadow",
+                           "sha256":  "11454e564feee048dd4b6b18a812c5b7e69712e98da72ad94140669e6c957c17"
+                       },
+                       {
+                           "id":  "iso-character-shadow",
+                           "sha256":  "eb2f977efc595918d9520bc4c5a2a8dd00e5ffd586fc2e6ade48b921d42ae85f"
+                       },
+                       {
+                           "id":  "iso-coffee-machine-parts",
+                           "sha256":  "30ae271e32f0aeb0811de52ae53aee1911d1bd8dd009397b3888f14c6c9f36b2"
+                       },
+                       {
+                           "id":  "iso-coffee-machine-shadow",
+                           "sha256":  "7a73cfd99f7ecdcb64554509b78ea825906e073d89f04aebc28832e9ef3c5c97"
+                       },
+                       {
+                           "id":  "iso-desk-parts",
+                           "sha256":  "aad79960bfcabc14590b1fa4c1377f415f2c8d290ec48903b4a98e78386f1524"
+                       },
+                       {
+                           "id":  "iso-desk-sandwich",
+                           "sha256":  "845e8ae505dde55ef83ad58dcb6b0a8b9325bbe13cfd0730f98dd27301d519ab"
+                       },
+                       {
+                           "id":  "iso-desk-screen",
+                           "sha256":  "7759582fdffd76020276a8a2d07a8f6d01a1c9b9db60dd39f97a05bf7884c4bc"
+                       },
+                       {
+                           "id":  "iso-desk-shadow",
+                           "sha256":  "4903f3f747ccb7c393cc4d9afc29e53e9db582dbb4b6470c87a96fa4a1f5d733"
+                       },
+                       {
+                           "id":  "iso-dog-normal",
+                           "sha256":  "05480013174934d1aef0960ca847eb8d9b4f0b57bbcdb8f91e8212e11b8a0c96"
+                       },
+                       {
+                           "id":  "iso-dog-shadow",
+                           "sha256":  "67300199945499f485ac6c771a71a3b21f2f3a5a3c413e5e5af3d95081a2eb3d"
+                       },
+                       {
+                           "id":  "iso-env-checker-border",
+                           "sha256":  "e90765fec0d55496fb99eda4017840766e4d7675c2b8049dea0282051010eb68"
+                       },
+                       {
+                           "id":  "iso-env-floors",
+                           "sha256":  "548ec9e7ef2e758294892c5d043b781b4aa183935874f467470997a199fefbf9"
+                       },
+                       {
+                           "id":  "iso-env-v3-decor",
+                           "sha256":  "a4ece6315723d0c4c737b31f38b1e61c996a5334e2fec46c539a8e754f5098ef"
+                       },
+                       {
+                           "id":  "iso-env-v3-glow",
+                           "sha256":  "46fa1ece86f3a7b348d451e41b297d63b7fd91b800977793aa375e1c404d3eaa"
+                       },
+                       {
+                           "id":  "iso-env-wall-contact",
+                           "sha256":  "7fce0258aac7c21ecfcf3957a1ecafc1c11211232e430927e45fb91532c9e82f"
+                       },
+                       {
+                           "id":  "iso-env-wall-corner",
+                           "sha256":  "a2f24b588df4a533d278ddae4bb99a2f8e0448999cd549cb1c14c3022146f3c5"
+                       },
+                       {
+                           "id":  "iso-env-wall-corner-v3",
+                           "sha256":  "a2f24b588df4a533d278ddae4bb99a2f8e0448999cd549cb1c14c3022146f3c5"
+                       },
+                       {
+                           "id":  "iso-env-wall-decor",
+                           "sha256":  "67a8ad23bd0eafeb4141832c955a1907f1cbaa71441323098e25f805836549c1"
+                       },
+                       {
+                           "id":  "iso-env-walls",
+                           "sha256":  "317ffa15dfb9661060f9e7dbc9c72a263e5b65b8244ca11026b8edd154c5b3d5"
+                       },
+                       {
+                           "id":  "iso-env-walls-v3",
+                           "sha256":  "10b3497aeadd09cc38559ea582e4de3cc553a18a72990823d763ba6b169936b1"
+                       },
+                       {
+                           "id":  "iso-env-wood-variants",
+                           "sha256":  "25450b524333da677ed4328abfe6ac773fcf92a80070be533bb9cbd61ae93abe"
+                       },
+                       {
+                           "id":  "iso-floor-lamp-parts",
+                           "sha256":  "d3c7242a92760e53e7cfb3722a2fc9d437537a686d9f16bb08979babe8dd9957"
+                       },
+                       {
+                           "id":  "iso-floor-lamp-shadow",
+                           "sha256":  "8dd2dd5474eed1cc352cdc3efdfddabd3a8a2283bbc80c999bc55e4d9c98a3fc"
+                       },
+                       {
+                           "id":  "iso-fridge-parts",
+                           "sha256":  "904dddcd0c971f43a5deb2a4b2950f94e7ea896677e20e00d1f1f284a5cd3d80"
+                       },
+                       {
+                           "id":  "iso-fridge-shadow",
+                           "sha256":  "7a73cfd99f7ecdcb64554509b78ea825906e073d89f04aebc28832e9ef3c5c97"
+                       },
+                       {
+                           "id":  "iso-hamster-normal",
+                           "sha256":  "1688e99960a2bb731ddc2c4713652b75e0f8c0b09b4026eb227aa454eb9d7ce7"
+                       },
+                       {
+                           "id":  "iso-hamster-shadow",
+                           "sha256":  "6e2b503694f32a99f7175e545e84769a611d899120db6594a50e82d7c8397508"
+                       },
+                       {
+                           "id":  "iso-plant-parts",
+                           "sha256":  "b04abdc0955096312818380a9262e2508976deac88f21e59e6967e3e758a4ebf"
+                       },
+                       {
+                           "id":  "iso-plant-shadow",
+                           "sha256":  "8dd2dd5474eed1cc352cdc3efdfddabd3a8a2283bbc80c999bc55e4d9c98a3fc"
+                       },
+                       {
+                           "id":  "iso-rug-parts",
+                           "sha256":  "c5a8d9151b43dfe1c8e1632a52051ce781c6907806a3e9e58c5be4aaafa256a0"
+                       },
+                       {
+                           "id":  "iso-shelf-parts",
+                           "sha256":  "f3b5a5e0488df06d99c9008e1a247c9efc888d96d82cb3004989d486fd8b40c2"
+                       },
+                       {
+                           "id":  "iso-shelf-shadow",
+                           "sha256":  "004006c66ed5a58524b03e435f714a8c4bd5638443c5096c45fc0040dccef6a3"
+                       },
+                       {
+                           "id":  "iso-side-table-parts",
+                           "sha256":  "f7d1d5111cb4cf9aad739486316b4db73fafccd117cd29d9c202d0d3c443eb7a"
+                       },
+                       {
+                           "id":  "iso-side-table-shadow",
+                           "sha256":  "fc9a385c7e0732762f416220cc30e9edcc0e892f56252bf16670a46b4d98a858"
+                       },
+                       {
+                           "id":  "iso-sofa-parts",
+                           "sha256":  "7fd9c9c0be8173b73a6ccd379538a2882a510730617ad2c3addc8d1216e55ced"
+                       },
+                       {
+                           "id":  "iso-sofa-shadow",
+                           "sha256":  "3bd2c3f77d1b9990d149a1e8619c75127778a2bf58f12080e1a895043c3741bd"
+                       },
+                       {
+                           "id":  "iso-tv-cabinet-v3-glow",
+                           "sha256":  "b4fa14f434693526220a47ed6e5350978329b0731f7cc56f84f5145b67bd33d6"
+                       },
+                       {
+                           "id":  "iso-tv-cabinet-v3-parts",
+                           "sha256":  "ae46343c01118205aba7e9bacff059bd4cd0254bb1a3100c5ffc185b2dee0a07"
+                       },
+                       {
+                           "id":  "iso-tv-cabinet-v3-screen",
+                           "sha256":  "9928cbd3a9230b9ae6bf36d0df2248cd4405474c1224af897d06f245b644211e"
+                       },
+                       {
+                           "id":  "iso-tv-cabinet-v3-shadow",
+                           "sha256":  "91b2eae6bb575e56c2709262c460a01b14431ba33583d78dfa70e246ad8f9523"
+                       },
+                       {
+                           "id":  "iso-water-cooler-parts",
+                           "sha256":  "db9e94c0d3e5ba6a75ada3a92dc88fdbc8d1136b7b3d2f1ab639a8124f3eb989"
+                       },
+                       {
+                           "id":  "iso-water-cooler-shadow",
+                           "sha256":  "7a73cfd99f7ecdcb64554509b78ea825906e073d89f04aebc28832e9ef3c5c97"
+                       },
+                       {
+                           "id":  "iso/core-contact-shadow",
+                           "sha256":  "72630f5ec368b5e98f048eafaf0c9c42536399174fda671383d83f5cf235da00"
+                       },
+                       {
+                           "id":  "iso/shared-bubbles",
+                           "sha256":  "7918250c55daa757fafe9acaf1ae1492959c70441c3c4e99fd6f16e79721c707"
+                       },
+                       {
+                           "id":  "iso/shared-speech",
+                           "sha256":  "10add539f9b26509596db87846c143f661ab34674016592c7da5d9c9a77ac3db"
+                       },
+                       {
+                           "id":  "labcoat-tall-blink",
+                           "sha256":  "d40c2e13985dda4ef829c4a1f6fee265e302b9e23f317dce1818e87329ecaf4d"
+                       },
+                       {
+                           "id":  "labcoat-tall-normal",
+                           "sha256":  "50f6b86d33c4ddf2483e7e83fc101a5cb0d2f91a8a1fc99d6c032d4105d22cd5"
+                       },
+                       {
+                           "id":  "professor-blink",
+                           "sha256":  "7a0a4d56a51508429b9e8623bb4d2e4676ac83b945b6c8c8da97f91723c04d9c"
+                       },
+                       {
+                           "id":  "professor-normal",
+                           "sha256":  "066c946208bf11239c0ccde40d4b65616a2cb257951e92dfffd8ec236b284d3c"
+                       },
+                       {
+                           "id":  "punk-girl-blink",
+                           "sha256":  "169841bff54c8d3dbe471c19b3f31e9afe71b355a566ffe73a486398563e22b7"
+                       },
+                       {
+                           "id":  "punk-girl-normal",
+                           "sha256":  "3317d5f8a69629210049dccf7319856f0e7fa0159d27c0398e694424eaaa3ac0"
+                       },
+                       {
+                           "id":  "red-braid-blink",
+                           "sha256":  "c554a095652414a58cef4e1e6ab205f3158f15268d0bb7f5b5ec05d90cbb1c69"
+                       },
+                       {
+                           "id":  "red-braid-normal",
+                           "sha256":  "95de70e056bc93f1309c7fe24a9a0c62ecffed3ae0b078bcdb31837832c8c05e"
+                       }
+                   ],
+    "worldScaling":  [
+                         {
+                             "scale":  2,
+                             "comparedPixels":  1290240,
+                             "differentPixels":  0
+                         },
+                         {
+                             "scale":  3,
+                             "comparedPixels":  2903040,
+                             "differentPixels":  0
+                         }
+                     ],
+    "files":  [
+                  {
+                      "file":  "default-twelve-1x.png",
+                      "sha256":  "1b4f34ac00e7ee4565cb6e4c88675157d0fb413277eb9e706fe0f40aaaff5c16"
+                  },
+                  {
+                      "file":  "default-twelve-controls.png",
+                      "sha256":  "7a3a20b2d6f70de96aa1ac203cc82797d10c34d0eea20fc1428b0c1abccdb454"
+                  },
+                  {
+                      "file":  "selected-desk-0-crop.png",
+                      "sha256":  "45bace13b162d31b19cde9c22e080abf4d5ecfaa0c5874ff897608c6c6fff98d"
+                  },
+                  {
+                      "file":  "selected-desk-90-crop.png",
+                      "sha256":  "cd13fe5a9572dfcc905f71b8b89a2abc696e66898a6b1f6425c5b6c5eed8425b"
+                  },
+                  {
+                      "file":  "selected-desk-180-crop.png",
+                      "sha256":  "505c00e9d7048bdeb5559af1746e5a3c538e493645d77ed1e1e89821457c8d3c"
+                  },
+                  {
+                      "file":  "selected-desk-270-crop.png",
+                      "sha256":  "b08aabc1b7a9b765e7436534ed6c113ef126400791912c2e7bf15c92fcbc5ff4"
+                  },
+                  {
+                      "file":  "valid-ghost-crop.png",
+                      "sha256":  "0deb91d17e1c898c13bdd88e94e582e5461dce8c87fa55671645adae594cc826"
+                  },
+                  {
+                      "file":  "invalid-ghost-crop.png",
+                      "sha256":  "7e4b121ebdf2b9475bc84d9a30a023dda2ebb6aba0eca73824816c192c329509"
+                  },
+                  {
+                      "file":  "two-edge-wall-crop.png",
+                      "sha256":  "4bb6df570f9fbcad9587d2545558692089fd8a6a5eb7ad1f3479e1c12a35dd9b"
+                  },
+                  {
+                      "file":  "controls-text-200.png",
+                      "sha256":  "419461c22b9af36f2c8953aba02ad99d1a9b0cabe358592e18ea614ed88b47e3"
+                  },
+                  {
+                      "file":  "controls-text-200-bottom.png",
+                      "sha256":  "1d5e8c24e6ff0a90b543a1fefcc5eb1174ceea1d09ae88426136519781b1357b"
+                  },
+                  {
+                      "file":  "grouped-validation-controls.png",
+                      "sha256":  "76f10816e97f267ebb22acae9a9fc2d1a74b30075e25cc859e1a3698b399d7e8"
+                  },
+                  {
+                      "file":  "import-dialog-success-ui-fake.png",
+                      "sha256":  "d1d257800d3fdaef844c349a6e19d86d2c45905f618ce0dbee834ddb57887fc0"
+                  },
+                  {
+                      "file":  "import-dialog-failure.png",
+                      "sha256":  "3e7c6db98401b4aef75329d8c33de83bf3b0689529e64d662a2699ea243cf58f"
+                  }
+              ]
+}

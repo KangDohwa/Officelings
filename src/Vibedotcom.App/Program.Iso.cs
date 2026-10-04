@@ -11,10 +11,10 @@ internal sealed partial class OfficeWindow
 {
     internal void SwitchIso()
     {
-        var runtime=IsoApplication.Prepare(null,false);
+        var runtime=IsoApplication.Prepare(null,false,storage,IsoEditorSessions.Get(storage));
         var bounds=modes.ScreenBounds;
         settings=settings with { View="iso",Left=bounds.Left,Top=bounds.Top,Width=bounds.Width,Height=bounds.Height,Zoom=view.PreferredZoom };
-        var replacement=new IsoWindow(runtime.Create(0),runtime.Sheets,settings,demo,qa,0,storage,trackerHome,false,agents,epoch);
+        var replacement=new IsoWindow(runtime.Create(0),runtime.Sheets,settings,demo,qa,0,storage,trackerHome,false,agents,epoch,runtime.Session);
         Application.Current.MainWindow=replacement; replacement.Show(); Close();
     }
 }
@@ -23,11 +23,13 @@ internal sealed partial class IsoWindow
 {
     internal void SwitchFlat()
     {
+        if (editorSession?.Editing==true) { DetachEditorPanel(); settings=editorSession.Leave(settings); }
         var assets=AssetPack.LoadDefault(useUserPack:!storage.Isolated);
         var layout=LayoutLoader.Load(assets,storage.LayoutPath,assets.Warnings);
         var bounds=modes.ScreenBounds;
         settings=settings with { View="flat",Left=bounds.Left,Top=bounds.Top,Width=bounds.Width,Height=bounds.Height,Zoom=view.PreferredZoom };
         var replacement=new OfficeWindow(demo,settings,0,assets,layout,qa,liveAgents:agents,demoEpoch:epoch,storage:storage,trackerHome:trackerHome);
+        IsoEditorSessions.Remember(storage,editorSession);
         Application.Current.MainWindow=replacement; replacement.Show(); Close();
     }
 
@@ -36,14 +38,16 @@ internal sealed partial class IsoWindow
         settings=settings with { PrivacyMode=PrivacyModes.Value(mode) };
         if (!demo && mode!=tracker.PrivacyMode)
         {
-            tracker.SetPrivacy(mode); agents=tracker.Redact(agents);
+            lock(tracker) { tracker.SetPrivacy(mode); agents=tracker.Redact(agents); }
             var bounds=modes.ScreenBounds;
             settings=settings with {Left=bounds.Left,Top=bounds.Top,Width=bounds.Width,Height=bounds.Height,Zoom=view.PreferredZoom};
             // Replace the scene and text caches together so old details never
             // remain visible during an exit animation after privacy changes.
             var pack=sheets is PackIsoSheetSource source ? source.RuntimePack : null;
-            var nextOffice=pack!=null && office is IsoOffice current ? new IsoOffice(pack,42,current.Layout) : office;
-            var replacement=new IsoWindow(nextOffice,sheets,settings,demo,qa,0,storage,trackerHome,false,agents,epoch);
+            var nextOffice=pack!=null && office is IsoOffice current ? new IsoOffice(pack,42,editorSession?.LastValidLayout ?? current.Layout) : office;
+            DetachEditorPanel();
+            ownsTracker=false;
+            var replacement=new IsoWindow(nextOffice,sheets,settings,demo,qa,0,storage,trackerHome,false,agents,epoch,editorSession,tracker);
             Application.Current.MainWindow=replacement; replacement.Show(); Close();
         }
         else Save();
