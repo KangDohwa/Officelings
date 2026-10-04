@@ -23186,8 +23186,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -23214,7 +23214,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -23241,7 +23241,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -23295,7 +23295,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -23349,7 +23349,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -23375,8 +23375,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -23413,7 +23413,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-flat-base"
+          "contactKind": "monitor-flat-base",
+          "supportRank": 2
         },
         {
           "name": "monitor-01",
@@ -23440,7 +23441,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-neck-join"
+          "contactKind": "monitor-neck-join",
+          "supportRank": 2
         },
         {
           "name": "monitor-02",
@@ -23467,7 +23469,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-panel-shell-join"
+          "contactKind": "monitor-panel-shell-join",
+          "supportRank": 2
         },
         {
           "name": "monitor-03",
@@ -23494,7 +23497,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-panel-shell-join"
+          "contactKind": "monitor-panel-shell-join",
+          "supportRank": 2
         },
         {
           "name": "rear-00",
@@ -23726,7 +23730,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -23753,7 +23757,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -23809,7 +23813,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -23890,7 +23894,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -23916,7 +23920,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -23943,7 +23947,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -23981,7 +23985,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-flat-base"
+          "contactKind": "monitor-flat-base",
+          "supportRank": 2
         },
         {
           "name": "monitor-01",
@@ -24008,7 +24013,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-neck-join"
+          "contactKind": "monitor-neck-join",
+          "supportRank": 2
         },
         {
           "name": "monitor-02",
@@ -24035,7 +24041,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-panel-shell-join"
+          "contactKind": "monitor-panel-shell-join",
+          "supportRank": 2
         },
         {
           "name": "monitor-03",
@@ -24062,7 +24069,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-panel-shell-join"
+          "contactKind": "monitor-panel-shell-join",
+          "supportRank": 2
         },
         {
           "name": "rear-00",
@@ -24294,7 +24302,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -24321,7 +24329,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -24348,8 +24356,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
-            "j": 1.5
+            "i": 1.5,
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -24376,7 +24384,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -24403,7 +24411,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -24430,7 +24438,7 @@
           },
           "depthAnchor": {
             "i": 1.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -24485,7 +24493,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -24512,7 +24520,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -24539,7 +24547,7 @@
           },
           "depthAnchor": {
             "i": 1.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -24565,7 +24573,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -24592,7 +24600,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -24619,8 +24627,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
-            "j": 1.5
+            "i": 1.5,
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -24657,7 +24665,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-flat-base"
+          "contactKind": "monitor-flat-base",
+          "supportRank": 2
         },
         {
           "name": "monitor-01",
@@ -24684,7 +24693,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-neck-join"
+          "contactKind": "monitor-neck-join",
+          "supportRank": 2
         },
         {
           "name": "monitor-02",
@@ -24711,7 +24721,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-panel-shell-join"
+          "contactKind": "monitor-panel-shell-join",
+          "supportRank": 2
         },
         {
           "name": "rear-00",
@@ -24943,7 +24954,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -24970,7 +24981,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -24997,7 +25008,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 1.5
           },
           "isoZOrder": 10,
@@ -25024,8 +25035,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -25080,7 +25091,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -25161,7 +25172,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -25187,7 +25198,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -25214,7 +25225,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -25241,7 +25252,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 1.5
           },
           "isoZOrder": 0,
@@ -25268,8 +25279,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -25306,7 +25317,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-flat-base"
+          "contactKind": "monitor-flat-base",
+          "supportRank": 2
         },
         {
           "name": "monitor-01",
@@ -25333,7 +25345,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-neck-join"
+          "contactKind": "monitor-neck-join",
+          "supportRank": 2
         },
         {
           "name": "monitor-02",
@@ -25360,7 +25373,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "monitor-panel-shell-join"
+          "contactKind": "monitor-panel-shell-join",
+          "supportRank": 2
         },
         {
           "name": "rear-14",
@@ -25388,7 +25402,8 @@
             }
           ],
           "contactKind": "horizontal-desktop-keyboard-and-right-mouse",
-          "seatGroupId": "seat"
+          "seatGroupId": "seat",
+          "supportRank": 1
         },
         {
           "name": "rear-14",
@@ -25416,7 +25431,8 @@
             }
           ],
           "contactKind": "horizontal-desktop-keyboard-and-right-mouse",
-          "seatGroupId": "seat"
+          "seatGroupId": "seat",
+          "supportRank": 1
         },
         {
           "name": "rear-15",
@@ -25443,7 +25459,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "desktop-mug-base"
+          "contactKind": "desktop-mug-base",
+          "supportRank": 2
         },
         {
           "name": "rear-16",
@@ -25470,7 +25487,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "desktop-paper-surface"
+          "contactKind": "desktop-paper-surface",
+          "supportRank": 2
         },
         {
           "name": "rear-15",
@@ -25497,7 +25515,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "desktop-mug-base"
+          "contactKind": "desktop-mug-base",
+          "supportRank": 2
         },
         {
           "name": "rear-16",
@@ -25524,7 +25543,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "desktop-paper-surface"
+          "contactKind": "desktop-paper-surface",
+          "supportRank": 2
         },
         {
           "name": "rear-15",
@@ -25551,7 +25571,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "desktop-mug-base"
+          "contactKind": "desktop-mug-base",
+          "supportRank": 2
         },
         {
           "name": "rear-16",
@@ -25578,7 +25599,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "desktop-paper-surface"
+          "contactKind": "desktop-paper-surface",
+          "supportRank": 2
         },
         {
           "name": "rear-14",
@@ -25606,7 +25628,8 @@
             }
           ],
           "contactKind": "horizontal-desktop-keyboard-and-right-mouse",
-          "seatGroupId": "seat"
+          "seatGroupId": "seat",
+          "supportRank": 1
         },
         {
           "name": "rear-15",
@@ -25633,7 +25656,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "desktop-mug-base"
+          "contactKind": "desktop-mug-base",
+          "supportRank": 2
         },
         {
           "name": "rear-16",
@@ -25660,7 +25684,8 @@
               "radius": 0
             }
           ],
-          "contactKind": "desktop-paper-surface"
+          "contactKind": "desktop-paper-surface",
+          "supportRank": 2
         },
         {
           "name": "rear-14",
@@ -25688,7 +25713,8 @@
             }
           ],
           "contactKind": "horizontal-desktop-keyboard-and-right-mouse",
-          "seatGroupId": "seat"
+          "seatGroupId": "seat",
+          "supportRank": 1
         }
       ],
       "width": 512,
@@ -25989,8 +26015,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -26021,7 +26047,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -26052,7 +26078,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -26114,7 +26140,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -26176,7 +26202,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -26206,8 +26232,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -26252,7 +26278,8 @@
           "sourceClip": {
             "name": "monitor-00",
             "direction": "se"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-01",
@@ -26283,7 +26310,8 @@
           "sourceClip": {
             "name": "monitor-01",
             "direction": "se"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-02",
@@ -26314,7 +26342,8 @@
           "sourceClip": {
             "name": "monitor-02",
             "direction": "se"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-03",
@@ -26345,7 +26374,8 @@
           "sourceClip": {
             "name": "monitor-03",
             "direction": "se"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-00",
@@ -26609,7 +26639,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -26640,7 +26670,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -26704,7 +26734,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -26797,7 +26827,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -26827,7 +26857,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -26858,7 +26888,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -26904,7 +26934,8 @@
           "sourceClip": {
             "name": "monitor-00",
             "direction": "sw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-01",
@@ -26935,7 +26966,8 @@
           "sourceClip": {
             "name": "monitor-01",
             "direction": "sw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-02",
@@ -26966,7 +26998,8 @@
           "sourceClip": {
             "name": "monitor-02",
             "direction": "sw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-03",
@@ -26997,7 +27030,8 @@
           "sourceClip": {
             "name": "monitor-03",
             "direction": "sw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-00",
@@ -27261,7 +27295,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -27292,7 +27326,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -27323,8 +27357,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
-            "j": 1.5
+            "i": 1.5,
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -27355,7 +27389,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -27386,7 +27420,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -27417,7 +27451,7 @@
           },
           "depthAnchor": {
             "i": 1.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -27480,7 +27514,7 @@
           },
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -27511,7 +27545,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -27542,7 +27576,7 @@
           },
           "depthAnchor": {
             "i": 1.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -27572,7 +27606,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -27603,7 +27637,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -27634,8 +27668,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 2.5,
-            "j": 1.5
+            "i": 1.5,
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -27680,7 +27714,8 @@
           "sourceClip": {
             "name": "monitor-00",
             "direction": "ne"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-01",
@@ -27711,7 +27746,8 @@
           "sourceClip": {
             "name": "monitor-01",
             "direction": "ne"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-02",
@@ -27742,7 +27778,8 @@
           "sourceClip": {
             "name": "monitor-02",
             "direction": "ne"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-00",
@@ -28006,7 +28043,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -28037,7 +28074,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -28068,7 +28105,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 1.5
           },
           "isoZOrder": 10,
@@ -28099,8 +28136,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -28163,7 +28200,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchorChecks": [
@@ -28256,7 +28293,7 @@
           },
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -28286,7 +28323,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -28317,7 +28354,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -28348,7 +28385,7 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 1.5
           },
           "isoZOrder": 0,
@@ -28379,8 +28416,8 @@
             "y": 72
           },
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchorChecks": [
@@ -28425,7 +28462,8 @@
           "sourceClip": {
             "name": "monitor-00",
             "direction": "nw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-01",
@@ -28456,7 +28494,8 @@
           "sourceClip": {
             "name": "monitor-01",
             "direction": "nw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "monitor-02",
@@ -28487,7 +28526,8 @@
           "sourceClip": {
             "name": "monitor-02",
             "direction": "nw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-14",
@@ -28519,7 +28559,8 @@
           "sourceClip": {
             "name": "rear-14",
             "direction": "se"
-          }
+          },
+          "supportRank": 1
         },
         {
           "name": "rear-14",
@@ -28551,7 +28592,8 @@
           "sourceClip": {
             "name": "rear-14",
             "direction": "sw"
-          }
+          },
+          "supportRank": 1
         },
         {
           "name": "rear-15",
@@ -28582,7 +28624,8 @@
           "sourceClip": {
             "name": "rear-15",
             "direction": "se"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-16",
@@ -28613,7 +28656,8 @@
           "sourceClip": {
             "name": "rear-16",
             "direction": "se"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-15",
@@ -28644,7 +28688,8 @@
           "sourceClip": {
             "name": "rear-15",
             "direction": "sw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-16",
@@ -28675,7 +28720,8 @@
           "sourceClip": {
             "name": "rear-16",
             "direction": "sw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-15",
@@ -28706,7 +28752,8 @@
           "sourceClip": {
             "name": "rear-15",
             "direction": "ne"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-16",
@@ -28737,7 +28784,8 @@
           "sourceClip": {
             "name": "rear-16",
             "direction": "ne"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-14",
@@ -28769,7 +28817,8 @@
           "sourceClip": {
             "name": "rear-14",
             "direction": "ne"
-          }
+          },
+          "supportRank": 1
         },
         {
           "name": "rear-15",
@@ -28800,7 +28849,8 @@
           "sourceClip": {
             "name": "rear-15",
             "direction": "nw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-16",
@@ -28831,7 +28881,8 @@
           "sourceClip": {
             "name": "rear-16",
             "direction": "nw"
-          }
+          },
+          "supportRank": 2
         },
         {
           "name": "rear-14",
@@ -28863,7 +28914,8 @@
           "sourceClip": {
             "name": "rear-14",
             "direction": "nw"
-          }
+          },
+          "supportRank": 1
         }
       ],
       "parts": [
@@ -29071,8 +29123,8 @@
           "name": "front-01",
           "direction": "se",
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -29094,7 +29146,7 @@
           "direction": "se",
           "depthAnchor": {
             "i": -0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -29116,7 +29168,7 @@
           "direction": "se",
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -29160,7 +29212,7 @@
           "direction": "se",
           "depthAnchor": {
             "i": -0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -29204,7 +29256,7 @@
           "direction": "se",
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -29225,8 +29277,8 @@
           "name": "rear-13",
           "direction": "se",
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -29262,7 +29314,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__se__01",
@@ -29284,7 +29337,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__se__02",
@@ -29306,7 +29360,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__se__03",
@@ -29328,7 +29383,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__sw__00",
@@ -29511,7 +29567,7 @@
           "name": "front-00",
           "direction": "sw",
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -29533,7 +29589,7 @@
           "name": "front-01",
           "direction": "sw",
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -29579,7 +29635,7 @@
           "direction": "sw",
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -29645,7 +29701,7 @@
           "direction": "sw",
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -29666,7 +29722,7 @@
           "name": "rear-12",
           "direction": "sw",
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -29688,7 +29744,7 @@
           "name": "rear-13",
           "direction": "sw",
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -29725,7 +29781,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__sw__01",
@@ -29747,7 +29804,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__sw__02",
@@ -29769,7 +29827,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__sw__03",
@@ -29791,7 +29850,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__ne__00",
@@ -29974,7 +30034,7 @@
           "name": "front-00",
           "direction": "ne",
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -29996,7 +30056,7 @@
           "name": "front-01",
           "direction": "ne",
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -30018,8 +30078,8 @@
           "name": "front-02",
           "direction": "ne",
           "depthAnchor": {
-            "i": 2.5,
-            "j": 1.5
+            "i": 1.5,
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -30041,7 +30101,7 @@
           "direction": "ne",
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -30063,7 +30123,7 @@
           "direction": "ne",
           "depthAnchor": {
             "i": 0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -30085,7 +30145,7 @@
           "direction": "ne",
           "depthAnchor": {
             "i": 1.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -30130,7 +30190,7 @@
           "direction": "ne",
           "depthAnchor": {
             "i": -0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -30152,7 +30212,7 @@
           "direction": "ne",
           "depthAnchor": {
             "i": 0.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -30174,7 +30234,7 @@
           "direction": "ne",
           "depthAnchor": {
             "i": 1.5,
-            "j": 1.5
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -30195,7 +30255,7 @@
           "name": "rear-11",
           "direction": "ne",
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -30217,7 +30277,7 @@
           "name": "rear-12",
           "direction": "ne",
           "depthAnchor": {
-            "i": 2.5,
+            "i": 1.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -30239,8 +30299,8 @@
           "name": "rear-13",
           "direction": "ne",
           "depthAnchor": {
-            "i": 2.5,
-            "j": 1.5
+            "i": 1.5,
+            "j": 0.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -30276,7 +30336,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__ne__01",
@@ -30298,7 +30359,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__ne__02",
@@ -30320,7 +30382,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__nw__00",
@@ -30503,7 +30566,7 @@
           "name": "front-00",
           "direction": "nw",
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": -0.5
           },
           "isoZOrder": 10,
@@ -30525,7 +30588,7 @@
           "name": "front-01",
           "direction": "nw",
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 0.5
           },
           "isoZOrder": 10,
@@ -30547,7 +30610,7 @@
           "name": "front-02",
           "direction": "nw",
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 1.5
           },
           "isoZOrder": 10,
@@ -30569,8 +30632,8 @@
           "name": "front-03",
           "direction": "nw",
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -30615,7 +30678,7 @@
           "direction": "nw",
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 10,
           "anchor": {
@@ -30681,7 +30744,7 @@
           "direction": "nw",
           "depthAnchor": {
             "i": 0.5,
-            "j": 2.5
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -30702,7 +30765,7 @@
           "name": "rear-10",
           "direction": "nw",
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": -0.5
           },
           "isoZOrder": 0,
@@ -30724,7 +30787,7 @@
           "name": "rear-11",
           "direction": "nw",
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 0.5
           },
           "isoZOrder": 0,
@@ -30746,7 +30809,7 @@
           "name": "rear-12",
           "direction": "nw",
           "depthAnchor": {
-            "i": 1.5,
+            "i": 0.5,
             "j": 1.5
           },
           "isoZOrder": 0,
@@ -30768,8 +30831,8 @@
           "name": "rear-13",
           "direction": "nw",
           "depthAnchor": {
-            "i": 1.5,
-            "j": 2.5
+            "i": 0.5,
+            "j": 1.5
           },
           "isoZOrder": 0,
           "anchor": {
@@ -30805,7 +30868,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__nw__01",
@@ -30827,7 +30891,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__monitor__nw__02",
@@ -30849,7 +30914,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__se__14",
@@ -30872,7 +30938,8 @@
             }
           ],
           "hitTargetId": "owner",
-          "seatGroupId": "seat"
+          "seatGroupId": "seat",
+          "supportRank": 1
         },
         {
           "partId": "desk__rear__sw__14",
@@ -30895,7 +30962,8 @@
             }
           ],
           "hitTargetId": "owner",
-          "seatGroupId": "seat"
+          "seatGroupId": "seat",
+          "supportRank": 1
         },
         {
           "partId": "desk__rear__se__15",
@@ -30917,7 +30985,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__se__16",
@@ -30939,7 +31008,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__sw__15",
@@ -30961,7 +31031,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__sw__16",
@@ -30983,7 +31054,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__ne__15",
@@ -31005,7 +31077,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__ne__16",
@@ -31027,7 +31100,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__ne__14",
@@ -31050,7 +31124,8 @@
             }
           ],
           "hitTargetId": "owner",
-          "seatGroupId": "seat"
+          "seatGroupId": "seat",
+          "supportRank": 1
         },
         {
           "partId": "desk__rear__nw__15",
@@ -31072,7 +31147,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__nw__16",
@@ -31094,7 +31170,8 @@
               "radius": 0
             }
           ],
-          "hitTargetId": "owner"
+          "hitTargetId": "owner",
+          "supportRank": 2
         },
         {
           "partId": "desk__rear__nw__14",
@@ -31117,7 +31194,8 @@
             }
           ],
           "hitTargetId": "owner",
-          "seatGroupId": "seat"
+          "seatGroupId": "seat",
+          "supportRank": 1
         }
       ]
     },
@@ -64431,7 +64509,7 @@
               }
             }
           ],
-          "heightPx": 12
+          "heightPx": 26
         },
         {
           "rotation": 90,
@@ -64648,7 +64726,7 @@
               }
             }
           ],
-          "heightPx": 12
+          "heightPx": 26
         },
         {
           "rotation": 270,
@@ -64865,7 +64943,7 @@
               }
             }
           ],
-          "heightPx": 12
+          "heightPx": 26
         },
         {
           "rotation": 180,
@@ -65082,7 +65160,7 @@
               }
             }
           ],
-          "heightPx": 12
+          "heightPx": 26
         }
       ]
     },
@@ -65405,7 +65483,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-default",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -65423,7 +65502,8 @@
             "animation": "glow-default",
             "direction": "se",
             "opacity": 0.18,
-            "isoZOrder": 2
+            "isoZOrder": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -65456,7 +65536,7 @@
           "emptyReference": "tv-cabinet-empty-se.png",
           "screenMask": "tv-cabinet-screen-mask-se.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 90,
@@ -65750,7 +65830,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-default",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -65768,7 +65849,8 @@
             "animation": "glow-default",
             "direction": "sw",
             "opacity": 0.18,
-            "isoZOrder": 2
+            "isoZOrder": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -65801,7 +65883,7 @@
           "emptyReference": "tv-cabinet-empty-sw.png",
           "screenMask": "tv-cabinet-screen-mask-sw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 270,
@@ -66049,7 +66131,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-default",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -66067,7 +66150,8 @@
             "animation": "glow-default",
             "direction": "ne",
             "opacity": 0.18,
-            "isoZOrder": 2
+            "isoZOrder": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -66100,7 +66184,7 @@
           "emptyReference": "tv-cabinet-empty-ne.png",
           "screenMask": "tv-cabinet-screen-mask-ne.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 180,
@@ -66348,7 +66432,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-default",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -66366,7 +66451,8 @@
             "animation": "glow-default",
             "direction": "nw",
             "opacity": 0.18,
-            "isoZOrder": 2
+            "isoZOrder": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -66399,7 +66485,7 @@
           "emptyReference": "tv-cabinet-empty-nw.png",
           "screenMask": "tv-cabinet-screen-mask-nw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 0,
@@ -66716,7 +66802,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-idle",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -66735,7 +66822,8 @@
             "direction": "se",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -66768,7 +66856,7 @@
           "emptyReference": "tv-cabinet-empty-se.png",
           "screenMask": "tv-cabinet-screen-mask-se.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 0,
@@ -67085,7 +67173,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-playing",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -67103,7 +67192,8 @@
             "animation": "glow-default",
             "direction": "se",
             "opacity": 0.18,
-            "isoZOrder": 2
+            "isoZOrder": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -67136,7 +67226,7 @@
           "emptyReference": "tv-cabinet-empty-se.png",
           "screenMask": "tv-cabinet-screen-mask-se.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 0,
@@ -67453,7 +67543,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-static",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -67472,7 +67563,8 @@
             "direction": "se",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -67505,7 +67597,7 @@
           "emptyReference": "tv-cabinet-empty-se.png",
           "screenMask": "tv-cabinet-screen-mask-se.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 0,
@@ -67822,7 +67914,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-00",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -67841,7 +67934,8 @@
             "direction": "se",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -67874,7 +67968,7 @@
           "emptyReference": "tv-cabinet-empty-se.png",
           "screenMask": "tv-cabinet-screen-mask-se.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 0,
@@ -68191,7 +68285,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-01",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -68210,7 +68305,8 @@
             "direction": "se",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 1
+            "frame": 1,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -68243,7 +68339,7 @@
           "emptyReference": "tv-cabinet-empty-se.png",
           "screenMask": "tv-cabinet-screen-mask-se.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 0,
@@ -68560,7 +68656,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-02",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -68579,7 +68676,8 @@
             "direction": "se",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 2
+            "frame": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -68612,7 +68710,7 @@
           "emptyReference": "tv-cabinet-empty-se.png",
           "screenMask": "tv-cabinet-screen-mask-se.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 0,
@@ -68929,7 +69027,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-03",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -68948,7 +69047,8 @@
             "direction": "se",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 3
+            "frame": 3,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -68981,7 +69081,7 @@
           "emptyReference": "tv-cabinet-empty-se.png",
           "screenMask": "tv-cabinet-screen-mask-se.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 90,
@@ -69275,7 +69375,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-idle",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -69294,7 +69395,8 @@
             "direction": "sw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -69327,7 +69429,7 @@
           "emptyReference": "tv-cabinet-empty-sw.png",
           "screenMask": "tv-cabinet-screen-mask-sw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 90,
@@ -69621,7 +69723,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-playing",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -69639,7 +69742,8 @@
             "animation": "glow-default",
             "direction": "sw",
             "opacity": 0.18,
-            "isoZOrder": 2
+            "isoZOrder": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -69672,7 +69776,7 @@
           "emptyReference": "tv-cabinet-empty-sw.png",
           "screenMask": "tv-cabinet-screen-mask-sw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 90,
@@ -69966,7 +70070,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-static",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -69985,7 +70090,8 @@
             "direction": "sw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -70018,7 +70124,7 @@
           "emptyReference": "tv-cabinet-empty-sw.png",
           "screenMask": "tv-cabinet-screen-mask-sw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 90,
@@ -70312,7 +70418,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-00",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -70331,7 +70438,8 @@
             "direction": "sw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -70364,7 +70472,7 @@
           "emptyReference": "tv-cabinet-empty-sw.png",
           "screenMask": "tv-cabinet-screen-mask-sw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 90,
@@ -70658,7 +70766,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-01",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -70677,7 +70786,8 @@
             "direction": "sw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 1
+            "frame": 1,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -70710,7 +70820,7 @@
           "emptyReference": "tv-cabinet-empty-sw.png",
           "screenMask": "tv-cabinet-screen-mask-sw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 90,
@@ -71004,7 +71114,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-02",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -71023,7 +71134,8 @@
             "direction": "sw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 2
+            "frame": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -71056,7 +71168,7 @@
           "emptyReference": "tv-cabinet-empty-sw.png",
           "screenMask": "tv-cabinet-screen-mask-sw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 90,
@@ -71350,7 +71462,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-03",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -71369,7 +71482,8 @@
             "direction": "sw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 3
+            "frame": 3,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -71402,7 +71516,7 @@
           "emptyReference": "tv-cabinet-empty-sw.png",
           "screenMask": "tv-cabinet-screen-mask-sw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 270,
@@ -71650,7 +71764,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-idle",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -71669,7 +71784,8 @@
             "direction": "ne",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -71702,7 +71818,7 @@
           "emptyReference": "tv-cabinet-empty-ne.png",
           "screenMask": "tv-cabinet-screen-mask-ne.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 270,
@@ -71950,7 +72066,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-playing",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -71968,7 +72085,8 @@
             "animation": "glow-default",
             "direction": "ne",
             "opacity": 0.18,
-            "isoZOrder": 2
+            "isoZOrder": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -72001,7 +72119,7 @@
           "emptyReference": "tv-cabinet-empty-ne.png",
           "screenMask": "tv-cabinet-screen-mask-ne.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 270,
@@ -72249,7 +72367,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-static",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -72268,7 +72387,8 @@
             "direction": "ne",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -72301,7 +72421,7 @@
           "emptyReference": "tv-cabinet-empty-ne.png",
           "screenMask": "tv-cabinet-screen-mask-ne.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 270,
@@ -72549,7 +72669,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-00",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -72568,7 +72689,8 @@
             "direction": "ne",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -72601,7 +72723,7 @@
           "emptyReference": "tv-cabinet-empty-ne.png",
           "screenMask": "tv-cabinet-screen-mask-ne.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 270,
@@ -72849,7 +72971,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-01",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -72868,7 +72991,8 @@
             "direction": "ne",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 1
+            "frame": 1,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -72901,7 +73025,7 @@
           "emptyReference": "tv-cabinet-empty-ne.png",
           "screenMask": "tv-cabinet-screen-mask-ne.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 270,
@@ -73149,7 +73273,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-02",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -73168,7 +73293,8 @@
             "direction": "ne",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 2
+            "frame": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -73201,7 +73327,7 @@
           "emptyReference": "tv-cabinet-empty-ne.png",
           "screenMask": "tv-cabinet-screen-mask-ne.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 270,
@@ -73449,7 +73575,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-03",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -73468,7 +73595,8 @@
             "direction": "ne",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 3
+            "frame": 3,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -73501,7 +73629,7 @@
           "emptyReference": "tv-cabinet-empty-ne.png",
           "screenMask": "tv-cabinet-screen-mask-ne.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 180,
@@ -73749,7 +73877,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-idle",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -73768,7 +73897,8 @@
             "direction": "nw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -73801,7 +73931,7 @@
           "emptyReference": "tv-cabinet-empty-nw.png",
           "screenMask": "tv-cabinet-screen-mask-nw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 180,
@@ -74049,7 +74179,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-playing",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -74067,7 +74198,8 @@
             "animation": "glow-default",
             "direction": "nw",
             "opacity": 0.18,
-            "isoZOrder": 2
+            "isoZOrder": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -74100,7 +74232,7 @@
           "emptyReference": "tv-cabinet-empty-nw.png",
           "screenMask": "tv-cabinet-screen-mask-nw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 180,
@@ -74348,7 +74480,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-static",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -74367,7 +74500,8 @@
             "direction": "nw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -74400,7 +74534,7 @@
           "emptyReference": "tv-cabinet-empty-nw.png",
           "screenMask": "tv-cabinet-screen-mask-nw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 180,
@@ -74648,7 +74782,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-00",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -74667,7 +74802,8 @@
             "direction": "nw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 0
+            "frame": 0,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -74700,7 +74836,7 @@
           "emptyReference": "tv-cabinet-empty-nw.png",
           "screenMask": "tv-cabinet-screen-mask-nw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 180,
@@ -74948,7 +75084,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-01",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -74967,7 +75104,8 @@
             "direction": "nw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 1
+            "frame": 1,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -75000,7 +75138,7 @@
           "emptyReference": "tv-cabinet-empty-nw.png",
           "screenMask": "tv-cabinet-screen-mask-nw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 180,
@@ -75248,7 +75386,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-02",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -75267,7 +75406,8 @@
             "direction": "nw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 2
+            "frame": 2,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -75300,7 +75440,7 @@
           "emptyReference": "tv-cabinet-empty-nw.png",
           "screenMask": "tv-cabinet-screen-mask-nw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         },
         {
           "rotation": 180,
@@ -75548,7 +75688,8 @@
           "screen": {
             "sheetId": "iso-tv-cabinet-v3-screen",
             "animation": "screen-frame-03",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {},
           "screenStates": {
@@ -75567,7 +75708,8 @@
             "direction": "nw",
             "opacity": 0.18,
             "isoZOrder": 2,
-            "frame": 3
+            "frame": 3,
+            "supportRank": 4
           },
           "glowStates": {
             "default": "glow-default",
@@ -75600,7 +75742,7 @@
           "emptyReference": "tv-cabinet-empty-nw.png",
           "screenMask": "tv-cabinet-screen-mask-nw.png",
           "tvTop": 48,
-          "heightPx": 16
+          "heightPx": 48
         }
       ]
     },
@@ -78302,7 +78444,7 @@
           },
           "seatFacing": "se",
           "backHeight": 21,
-          "heightPx": 12
+          "heightPx": 21
         },
         {
           "rotation": 90,
@@ -78380,7 +78522,7 @@
           },
           "seatFacing": "sw",
           "backHeight": 21,
-          "heightPx": 12
+          "heightPx": 21
         },
         {
           "rotation": 270,
@@ -78458,7 +78600,7 @@
           },
           "seatFacing": "ne",
           "backHeight": 21,
-          "heightPx": 12
+          "heightPx": 21
         },
         {
           "rotation": 180,
@@ -78536,7 +78678,7 @@
           },
           "seatFacing": "nw",
           "backHeight": 21,
-          "heightPx": 12
+          "heightPx": 21
         }
       ]
     },
@@ -78768,7 +78910,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -78800,8 +78943,8 @@
               "direction": "se",
               "partId": "desk__front__se__01",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -78824,7 +78967,7 @@
               "partId": "desk__front__se__02",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -78847,7 +78990,7 @@
               "partId": "desk__front__se__03",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -78893,7 +79036,7 @@
               "partId": "desk__rear__se__10",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -78939,7 +79082,7 @@
               "partId": "desk__rear__se__12",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -78961,8 +79104,8 @@
               "direction": "se",
               "partId": "desk__rear__se__13",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -78999,7 +79142,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79022,7 +79166,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79045,7 +79190,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79068,7 +79214,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79091,7 +79238,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79114,7 +79262,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -79184,7 +79333,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-off",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -79290,7 +79440,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 0,
@@ -79516,7 +79666,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79548,8 +79699,8 @@
               "direction": "se",
               "partId": "desk__front__se__01",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -79572,7 +79723,7 @@
               "partId": "desk__front__se__02",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -79595,7 +79746,7 @@
               "partId": "desk__front__se__03",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -79641,7 +79792,7 @@
               "partId": "desk__rear__se__10",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -79687,7 +79838,7 @@
               "partId": "desk__rear__se__12",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -79709,8 +79860,8 @@
               "direction": "se",
               "partId": "desk__rear__se__13",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -79747,7 +79898,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79770,7 +79922,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79793,7 +79946,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79816,7 +79970,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79839,7 +79994,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -79862,7 +80018,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -79932,7 +80089,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-off",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -80038,7 +80196,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 0,
@@ -80264,7 +80422,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -80296,8 +80455,8 @@
               "direction": "se",
               "partId": "desk__front__se__01",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -80320,7 +80479,7 @@
               "partId": "desk__front__se__02",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -80343,7 +80502,7 @@
               "partId": "desk__front__se__03",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -80389,7 +80548,7 @@
               "partId": "desk__rear__se__10",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -80435,7 +80594,7 @@
               "partId": "desk__rear__se__12",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -80457,8 +80616,8 @@
               "direction": "se",
               "partId": "desk__rear__se__13",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -80495,7 +80654,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -80518,7 +80678,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -80541,7 +80702,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -80564,7 +80726,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -80587,7 +80750,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -80610,7 +80774,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -80680,7 +80845,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-working",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -80786,7 +80952,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 0,
@@ -81012,7 +81178,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -81044,8 +81211,8 @@
               "direction": "se",
               "partId": "desk__front__se__01",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -81068,7 +81235,7 @@
               "partId": "desk__front__se__02",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -81091,7 +81258,7 @@
               "partId": "desk__front__se__03",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -81137,7 +81304,7 @@
               "partId": "desk__rear__se__10",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -81183,7 +81350,7 @@
               "partId": "desk__rear__se__12",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -81205,8 +81372,8 @@
               "direction": "se",
               "partId": "desk__rear__se__13",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -81243,7 +81410,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -81266,7 +81434,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -81289,7 +81458,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -81312,7 +81482,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -81335,7 +81506,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -81358,7 +81530,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -81428,7 +81601,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-screensaver",
-            "direction": "se"
+            "direction": "se",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -81534,7 +81708,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 90,
@@ -81744,7 +81918,7 @@
               "direction": "sw",
               "partId": "desk__front__sw__00",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -81767,7 +81941,7 @@
               "direction": "sw",
               "partId": "desk__front__sw__01",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -81806,7 +81980,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -81839,7 +82014,7 @@
               "partId": "desk__front__sw__03",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -81908,7 +82083,7 @@
               "partId": "desk__rear__sw__09",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -81930,7 +82105,7 @@
               "direction": "sw",
               "partId": "desk__rear__sw__12",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -81953,7 +82128,7 @@
               "direction": "sw",
               "partId": "desk__rear__sw__13",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -81991,7 +82166,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82014,7 +82190,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82037,7 +82214,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82060,7 +82238,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82083,7 +82262,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82106,7 +82286,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -82176,7 +82357,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-off",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -82282,7 +82464,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 90,
@@ -82492,7 +82674,7 @@
               "direction": "sw",
               "partId": "desk__front__sw__00",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -82515,7 +82697,7 @@
               "direction": "sw",
               "partId": "desk__front__sw__01",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -82554,7 +82736,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82587,7 +82770,7 @@
               "partId": "desk__front__sw__03",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -82656,7 +82839,7 @@
               "partId": "desk__rear__sw__09",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -82678,7 +82861,7 @@
               "direction": "sw",
               "partId": "desk__rear__sw__12",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -82701,7 +82884,7 @@
               "direction": "sw",
               "partId": "desk__rear__sw__13",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -82739,7 +82922,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82762,7 +82946,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82785,7 +82970,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82808,7 +82994,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82831,7 +83018,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -82854,7 +83042,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -82924,7 +83113,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-off",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -83030,7 +83220,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 90,
@@ -83240,7 +83430,7 @@
               "direction": "sw",
               "partId": "desk__front__sw__00",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -83263,7 +83453,7 @@
               "direction": "sw",
               "partId": "desk__front__sw__01",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -83302,7 +83492,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -83335,7 +83526,7 @@
               "partId": "desk__front__sw__03",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -83404,7 +83595,7 @@
               "partId": "desk__rear__sw__09",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -83426,7 +83617,7 @@
               "direction": "sw",
               "partId": "desk__rear__sw__12",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -83449,7 +83640,7 @@
               "direction": "sw",
               "partId": "desk__rear__sw__13",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -83487,7 +83678,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -83510,7 +83702,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -83533,7 +83726,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -83556,7 +83750,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -83579,7 +83774,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -83602,7 +83798,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -83672,7 +83869,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-working",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -83778,7 +83976,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 90,
@@ -83988,7 +84186,7 @@
               "direction": "sw",
               "partId": "desk__front__sw__00",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -84011,7 +84209,7 @@
               "direction": "sw",
               "partId": "desk__front__sw__01",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -84050,7 +84248,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -84083,7 +84282,7 @@
               "partId": "desk__front__sw__03",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -84152,7 +84351,7 @@
               "partId": "desk__rear__sw__09",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -84174,7 +84373,7 @@
               "direction": "sw",
               "partId": "desk__rear__sw__12",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -84197,7 +84396,7 @@
               "direction": "sw",
               "partId": "desk__rear__sw__13",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -84235,7 +84434,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -84258,7 +84458,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -84281,7 +84482,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -84304,7 +84506,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -84327,7 +84530,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -84350,7 +84554,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -84420,7 +84625,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-screensaver",
-            "direction": "sw"
+            "direction": "sw",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -84526,7 +84732,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 270,
@@ -84736,7 +84942,7 @@
               "direction": "ne",
               "partId": "desk__front__ne__00",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -84759,7 +84965,7 @@
               "direction": "ne",
               "partId": "desk__front__ne__01",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -84782,8 +84988,8 @@
               "direction": "ne",
               "partId": "desk__front__ne__02",
               "depthAnchor": {
-                "i": 2.5,
-                "j": 1.5
+                "i": 1.5,
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -84806,7 +85012,7 @@
               "partId": "desk__front__ne__03",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -84829,7 +85035,7 @@
               "partId": "desk__front__ne__04",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -84852,7 +85058,7 @@
               "partId": "desk__front__ne__05",
               "depthAnchor": {
                 "i": 1.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -84890,7 +85096,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -84923,7 +85130,7 @@
               "partId": "desk__rear__ne__08",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -84946,7 +85153,7 @@
               "partId": "desk__rear__ne__09",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -84969,7 +85176,7 @@
               "partId": "desk__rear__ne__10",
               "depthAnchor": {
                 "i": 1.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -84991,7 +85198,7 @@
               "direction": "ne",
               "partId": "desk__rear__ne__11",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -85014,7 +85221,7 @@
               "direction": "ne",
               "partId": "desk__rear__ne__12",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -85037,8 +85244,8 @@
               "direction": "ne",
               "partId": "desk__rear__ne__13",
               "depthAnchor": {
-                "i": 2.5,
-                "j": 1.5
+                "i": 1.5,
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -85075,7 +85282,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85098,7 +85306,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85121,7 +85330,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85144,7 +85354,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85167,7 +85378,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -85237,7 +85449,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-off",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -85343,7 +85556,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 270,
@@ -85553,7 +85766,7 @@
               "direction": "ne",
               "partId": "desk__front__ne__00",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -85576,7 +85789,7 @@
               "direction": "ne",
               "partId": "desk__front__ne__01",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -85599,8 +85812,8 @@
               "direction": "ne",
               "partId": "desk__front__ne__02",
               "depthAnchor": {
-                "i": 2.5,
-                "j": 1.5
+                "i": 1.5,
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -85623,7 +85836,7 @@
               "partId": "desk__front__ne__03",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -85646,7 +85859,7 @@
               "partId": "desk__front__ne__04",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -85669,7 +85882,7 @@
               "partId": "desk__front__ne__05",
               "depthAnchor": {
                 "i": 1.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -85707,7 +85920,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85740,7 +85954,7 @@
               "partId": "desk__rear__ne__08",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -85763,7 +85977,7 @@
               "partId": "desk__rear__ne__09",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -85786,7 +86000,7 @@
               "partId": "desk__rear__ne__10",
               "depthAnchor": {
                 "i": 1.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -85808,7 +86022,7 @@
               "direction": "ne",
               "partId": "desk__rear__ne__11",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -85831,7 +86045,7 @@
               "direction": "ne",
               "partId": "desk__rear__ne__12",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -85854,8 +86068,8 @@
               "direction": "ne",
               "partId": "desk__rear__ne__13",
               "depthAnchor": {
-                "i": 2.5,
-                "j": 1.5
+                "i": 1.5,
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -85892,7 +86106,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85915,7 +86130,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85938,7 +86154,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85961,7 +86178,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -85984,7 +86202,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -86054,7 +86273,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-off",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -86160,7 +86380,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 270,
@@ -86370,7 +86590,7 @@
               "direction": "ne",
               "partId": "desk__front__ne__00",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -86393,7 +86613,7 @@
               "direction": "ne",
               "partId": "desk__front__ne__01",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -86416,8 +86636,8 @@
               "direction": "ne",
               "partId": "desk__front__ne__02",
               "depthAnchor": {
-                "i": 2.5,
-                "j": 1.5
+                "i": 1.5,
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -86440,7 +86660,7 @@
               "partId": "desk__front__ne__03",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -86463,7 +86683,7 @@
               "partId": "desk__front__ne__04",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -86486,7 +86706,7 @@
               "partId": "desk__front__ne__05",
               "depthAnchor": {
                 "i": 1.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -86524,7 +86744,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -86557,7 +86778,7 @@
               "partId": "desk__rear__ne__08",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -86580,7 +86801,7 @@
               "partId": "desk__rear__ne__09",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -86603,7 +86824,7 @@
               "partId": "desk__rear__ne__10",
               "depthAnchor": {
                 "i": 1.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -86625,7 +86846,7 @@
               "direction": "ne",
               "partId": "desk__rear__ne__11",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -86648,7 +86869,7 @@
               "direction": "ne",
               "partId": "desk__rear__ne__12",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -86671,8 +86892,8 @@
               "direction": "ne",
               "partId": "desk__rear__ne__13",
               "depthAnchor": {
-                "i": 2.5,
-                "j": 1.5
+                "i": 1.5,
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -86709,7 +86930,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -86732,7 +86954,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -86755,7 +86978,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -86778,7 +87002,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -86801,7 +87026,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -86871,7 +87097,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-working",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -86977,7 +87204,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 270,
@@ -87187,7 +87414,7 @@
               "direction": "ne",
               "partId": "desk__front__ne__00",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -87210,7 +87437,7 @@
               "direction": "ne",
               "partId": "desk__front__ne__01",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -87233,8 +87460,8 @@
               "direction": "ne",
               "partId": "desk__front__ne__02",
               "depthAnchor": {
-                "i": 2.5,
-                "j": 1.5
+                "i": 1.5,
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -87257,7 +87484,7 @@
               "partId": "desk__front__ne__03",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -87280,7 +87507,7 @@
               "partId": "desk__front__ne__04",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -87303,7 +87530,7 @@
               "partId": "desk__front__ne__05",
               "depthAnchor": {
                 "i": 1.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -87341,7 +87568,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -87374,7 +87602,7 @@
               "partId": "desk__rear__ne__08",
               "depthAnchor": {
                 "i": -0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -87397,7 +87625,7 @@
               "partId": "desk__rear__ne__09",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -87420,7 +87648,7 @@
               "partId": "desk__rear__ne__10",
               "depthAnchor": {
                 "i": 1.5,
-                "j": 1.5
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -87442,7 +87670,7 @@
               "direction": "ne",
               "partId": "desk__rear__ne__11",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -87465,7 +87693,7 @@
               "direction": "ne",
               "partId": "desk__rear__ne__12",
               "depthAnchor": {
-                "i": 2.5,
+                "i": 1.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -87488,8 +87716,8 @@
               "direction": "ne",
               "partId": "desk__rear__ne__13",
               "depthAnchor": {
-                "i": 2.5,
-                "j": 1.5
+                "i": 1.5,
+                "j": 0.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -87526,7 +87754,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -87549,7 +87778,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -87572,7 +87802,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -87595,7 +87826,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -87618,7 +87850,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -87688,7 +87921,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-screensaver",
-            "direction": "ne"
+            "direction": "ne",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -87794,7 +88028,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 180,
@@ -88004,7 +88238,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__00",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -88027,7 +88261,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__01",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -88050,7 +88284,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__02",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 1.5
               },
               "isoZOrder": 10,
@@ -88073,8 +88307,8 @@
               "direction": "nw",
               "partId": "desk__front__nw__03",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -88112,7 +88346,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -88145,7 +88380,7 @@
               "partId": "desk__front__nw__05",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -88214,7 +88449,7 @@
               "partId": "desk__rear__nw__09",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -88236,7 +88471,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__10",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -88259,7 +88494,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__11",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -88282,7 +88517,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__12",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 1.5
               },
               "isoZOrder": 0,
@@ -88305,8 +88540,8 @@
               "direction": "nw",
               "partId": "desk__rear__nw__13",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -88343,7 +88578,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -88366,7 +88602,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -88389,7 +88626,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -88412,7 +88650,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -88435,7 +88674,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -88505,7 +88745,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-off",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -88611,7 +88852,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 180,
@@ -88821,7 +89062,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__00",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -88844,7 +89085,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__01",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -88867,7 +89108,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__02",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 1.5
               },
               "isoZOrder": 10,
@@ -88890,8 +89131,8 @@
               "direction": "nw",
               "partId": "desk__front__nw__03",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -88929,7 +89170,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -88962,7 +89204,7 @@
               "partId": "desk__front__nw__05",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -89031,7 +89273,7 @@
               "partId": "desk__rear__nw__09",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -89053,7 +89295,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__10",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -89076,7 +89318,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__11",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -89099,7 +89341,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__12",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 1.5
               },
               "isoZOrder": 0,
@@ -89122,8 +89364,8 @@
               "direction": "nw",
               "partId": "desk__rear__nw__13",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -89160,7 +89402,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -89183,7 +89426,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -89206,7 +89450,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -89229,7 +89474,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -89252,7 +89498,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -89322,7 +89569,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-off",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -89428,7 +89676,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 180,
@@ -89638,7 +89886,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__00",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -89661,7 +89909,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__01",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -89684,7 +89932,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__02",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 1.5
               },
               "isoZOrder": 10,
@@ -89707,8 +89955,8 @@
               "direction": "nw",
               "partId": "desk__front__nw__03",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -89746,7 +89994,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -89779,7 +90028,7 @@
               "partId": "desk__front__nw__05",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -89848,7 +90097,7 @@
               "partId": "desk__rear__nw__09",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -89870,7 +90119,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__10",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -89893,7 +90142,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__11",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -89916,7 +90165,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__12",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 1.5
               },
               "isoZOrder": 0,
@@ -89939,8 +90188,8 @@
               "direction": "nw",
               "partId": "desk__rear__nw__13",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -89977,7 +90226,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90000,7 +90250,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90023,7 +90274,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90046,7 +90298,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90069,7 +90322,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -90139,7 +90393,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-working",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -90245,7 +90500,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         },
         {
           "rotation": 180,
@@ -90455,7 +90710,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__00",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": -0.5
               },
               "isoZOrder": 10,
@@ -90478,7 +90733,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__01",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 0.5
               },
               "isoZOrder": 10,
@@ -90501,7 +90756,7 @@
               "direction": "nw",
               "partId": "desk__front__nw__02",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 1.5
               },
               "isoZOrder": 10,
@@ -90524,8 +90779,8 @@
               "direction": "nw",
               "partId": "desk__front__nw__03",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -90563,7 +90818,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 1
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90596,7 +90852,7 @@
               "partId": "desk__front__nw__05",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 10,
               "anchor": {
@@ -90665,7 +90921,7 @@
               "partId": "desk__rear__nw__09",
               "depthAnchor": {
                 "i": 0.5,
-                "j": 2.5
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -90687,7 +90943,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__10",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": -0.5
               },
               "isoZOrder": 0,
@@ -90710,7 +90966,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__11",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 0.5
               },
               "isoZOrder": 0,
@@ -90733,7 +90989,7 @@
               "direction": "nw",
               "partId": "desk__rear__nw__12",
               "depthAnchor": {
-                "i": 1.5,
+                "i": 0.5,
                 "j": 1.5
               },
               "isoZOrder": 0,
@@ -90756,8 +91012,8 @@
               "direction": "nw",
               "partId": "desk__rear__nw__13",
               "depthAnchor": {
-                "i": 1.5,
-                "j": 2.5
+                "i": 0.5,
+                "j": 1.5
               },
               "isoZOrder": 0,
               "anchor": {
@@ -90794,7 +91050,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90817,7 +91074,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90840,7 +91098,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90863,7 +91122,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             },
             {
               "sheetId": "iso-desk-parts",
@@ -90886,7 +91146,8 @@
                   "radius": 0
                 }
               ],
-              "hitTargetId": "owner"
+              "hitTargetId": "owner",
+              "supportRank": 2
             }
           ],
           "points": [
@@ -90956,7 +91217,8 @@
           "screen": {
             "sheetId": "iso-desk-screen",
             "animation": "screen-screensaver",
-            "direction": "nw"
+            "direction": "nw",
+            "supportRank": 3
           },
           "stateAliases": {
             "default": "off"
@@ -91062,7 +91324,7 @@
               "userSide": "right"
             }
           },
-          "heightPx": 18
+          "heightPx": 40
         }
       ]
     }

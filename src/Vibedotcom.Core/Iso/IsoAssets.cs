@@ -29,7 +29,7 @@ public sealed record IsoSheet(string Id, string Kind, string File, int CellW, in
 public sealed record IsoPart(string SheetId, string? Animation = null, string Direction = "any", string? PartId = null,
     IsoGridPoint? DepthAnchor = null, int IsoZOrder = 0, string? SeatGroupId = null, string? HitTargetId = null,
     PixelPoint? Anchor = null, IReadOnlyList<IsoAnchorCheck>? AnchorChecks = null, string? Clip = null,
-    bool HoverPassthrough = false, double Opacity = 1, int? Frame = null);
+    bool HoverPassthrough = false, double Opacity = 1, int? Frame = null, int SupportRank = 0);
 public sealed record IsoInteraction(string Id, int X, int Y, string Action, string Facing = "up",
     string? IsoFacing = null, string? SeatProfile = null, IsoGridPoint? SeatGround = null,
     PixelPoint? ContactOffset = null, IReadOnlyList<PixelPoint>? HandContacts = null, string? SeatedFacing = null);
@@ -38,7 +38,8 @@ public sealed record IsoSeatProfile(string Id, Tile Approach, string IsoFacing, 
 public sealed record IsoFurnitureVariant(int Rotation, string Orientation, string State, int FootprintW, int FootprintH,
     IReadOnlyList<IsoPart> Parts, IReadOnlyList<IsoInteraction>? Points = null, IReadOnlyList<Tile>? BlockedCells = null,
     IReadOnlyList<IsoSeatProfile>? SeatProfiles = null, int Layer = 1, IsoPart? Shadow = null, IsoPart? Screen = null,
-    PixelPoint? ChairSeatAnchor = null, IsoGridPoint? SeatGround = null, string? SeatFacing = null, IsoPart? Glow = null);
+    PixelPoint? ChairSeatAnchor = null, IsoGridPoint? SeatGround = null, string? SeatFacing = null, IsoPart? Glow = null,
+    double HeightPx = 0);
 public sealed record IsoFurnitureAsset(string Id, IReadOnlyList<IsoFurnitureVariant> Variants, string? Kind = null);
 public sealed record IsoWallModule(string Id, string Face, PixelPoint EdgeAnchor, IReadOnlyList<IsoPart> Parts);
 public sealed record IsoPet(string Id, string SheetId, IsoPart? Shadow = null);

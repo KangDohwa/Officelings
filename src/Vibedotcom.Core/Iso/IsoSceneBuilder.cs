@@ -8,7 +8,7 @@ public sealed record IsoCatPose(Position Position, string Facing, string Action,
 /// Resolves pixels/contacts and orders the complete scene once. Consumers draw the returned list verbatim.
 public sealed class IsoSceneBuilder
 {
-    private sealed record Entry(IsoDrawItem Item, IsoDepthKey Key, bool Passthrough = false);
+    internal sealed record Entry(IsoDrawItem Item, IsoDepthKey Key, bool Passthrough = false);
     private readonly IsoPack pack;
     private readonly IsoLayout layout;
     private readonly List<Entry> staticItems = [];
@@ -22,11 +22,13 @@ public sealed class IsoSceneBuilder
     private Entry[] hitItems = [];
     private readonly IsoPixel camera;
     private readonly int width, height;
+    private readonly IsoFurnitureOrder furnitureOrder;
     public double NextChangeSeconds { get; private set; } = double.PositiveInfinity;
     public IsoPixel Camera => camera;
     public IsoSceneBuilder(IsoPack pack, IsoLayout layout)
     {
         this.pack = pack; this.layout = IsoLayoutLoader.Validate(layout, pack);
+        furnitureOrder = new(pack, layout);
         foreach (var f in layout.Furniture)
         {
             var v = pack.Variant(f.AssetId, f.Rotation, f.State);
@@ -158,6 +160,7 @@ public sealed class IsoSceneBuilder
         foreach (var actor in actors) AddActor(actor);
         if (cat != null) AddCat(cat);
         work.Sort((a, b) => a.Key.CompareTo(b.Key));
+        furnitureOrder.Sort(work, actors, cat);
         var changed = previous == null || previous.Items.Count != work.Count || previous.Labels.Count != labels.Count;
         if (!changed)
         {
