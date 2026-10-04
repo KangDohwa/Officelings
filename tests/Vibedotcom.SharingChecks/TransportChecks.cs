@@ -180,6 +180,7 @@ internal static partial class Program
         });
         Check("DPAPI roundtrip, binding, deletion and corruption use synthetic credentials", () =>
         {
+            DpapiTestContext.RequireCurrentUser();
             var directory = Path.Combine(Path.GetTempPath(), "vibedotcom-sharing-token-" + Guid.NewGuid().ToString("N"));
             try
             {

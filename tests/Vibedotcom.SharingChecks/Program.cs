@@ -22,6 +22,7 @@ internal static partial class Program
     internal static void Check(string name, Action action)
     {
         try { action(); passed++; Console.WriteLine("PASS " + name); }
+        catch (DpapiTestContextException e) { failed++; Console.WriteLine("FAIL " + name + ": " + e.Message); }
         catch (Exception e) { failed++; Console.WriteLine("FAIL " + name + ": " + e.GetType().Name); }
     }
     internal static void Require(bool valid) { if (!valid) throw new InvalidOperationException("Check failed."); }
