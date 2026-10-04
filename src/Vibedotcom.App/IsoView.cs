@@ -18,9 +18,10 @@ internal sealed partial class IsoView : FrameworkElement
     private readonly IIsoSheetSource sheets;
     private readonly ContainerVisual root = new(), sceneVisual = new();
     private readonly DrawingVisual tagsVisual = new();
-    private readonly Dictionary<string, Segment> retained = new(StringComparer.Ordinal);
+    private readonly Dictionary<(bool Static,string Id,int Occurrence), Segment> retained = new();
     private readonly List<Segment> order = new();
-    private readonly List<string> expired = new();
+    private readonly List<(bool Static,string Id,int Occurrence)> expired = new();
+    private readonly Dictionary<(bool,string),int> occurrences = new();
     private readonly DispatcherTimer animation;
     private IsoScene scene = new(1,1,Array.Empty<IsoDrawItem>(),Array.Empty<IsoLabel>(),long.MinValue);
     private IReadOnlyList<AgentInfo> agents = Array.Empty<AgentInfo>();
@@ -32,9 +33,9 @@ internal sealed partial class IsoView : FrameworkElement
     private Matrix camera = Matrix.Identity;
     private readonly SolidColorBrush background = new(OfficeView.BackgroundColor);
 
-    private sealed class Segment(string key)
+    private sealed class Segment((bool Static,string Id,int Occurrence) key)
     {
-        internal readonly string Key = key;
+        internal readonly (bool Static,string Id,int Occurrence) Key = key;
         internal readonly DrawingVisual Visual = new();
         internal IsoDrawItem[] Items = Array.Empty<IsoDrawItem>();
         internal BitmapSource? Bitmap;
@@ -126,12 +127,14 @@ internal sealed partial class IsoView : FrameworkElement
     {
         SceneRenderCount++;
         foreach (var value in retained.Values) value.Used=false;
-        order.Clear();
+        order.Clear(); occurrences.Clear();
         for (var start=0;start<scene.Items.Count;)
         {
             var isStatic=Static(scene.Items[start]); var end=start+1;
             if (isStatic) while (end<scene.Items.Count && Static(scene.Items[end])) end++;
-            var key=(isStatic ? "s:" : "d:")+scene.Items[start].InstanceId;
+            var identity=(isStatic,scene.Items[start].InstanceId);
+            var occurrence=occurrences.GetValueOrDefault(identity); occurrences[identity]=occurrence+1;
+            var key=(isStatic,scene.Items[start].InstanceId,occurrence);
             if (!retained.TryGetValue(key,out var segment))
             {
                 retained[key]=segment=new(key);

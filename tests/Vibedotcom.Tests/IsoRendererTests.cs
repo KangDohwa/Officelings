@@ -160,4 +160,13 @@ public sealed class IsoRendererTests
         Assert.DoesNotContain("C:/Synthetic/Office",view.DebugTooltipText);
         Assert.Equal(draws,view.SceneRenderCount);
     });
+    [Fact]
+    public void RepeatedInstanceIdsKeepEverySplitFurniturePartInQueueOrder() => Sta(()=>
+    {
+        var (view,_,_,agents)=Fixture(); var original=Pixels(Render(view));
+        var scene=view.Scene;
+        var repeated=scene.Items.Select(i=>i.Layer==IsoLayer.Furniture ? i with { InstanceId="shared-furniture" } : i).ToArray();
+        view.Present(scene with { Items=repeated,Revision=scene.Revision+1 },agents);
+        Assert.Equal(original,Pixels(Render(view)));
+    });
 }
