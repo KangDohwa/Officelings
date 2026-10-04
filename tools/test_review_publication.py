@@ -67,17 +67,37 @@ class ReviewPublicationTests(unittest.TestCase):
             shutil.copyfile(sheets / "codex-worker-01.manifest.json", roster / "manifest.json")
         output = self.root / "pack"
         processes = []
+        # Announce the actual staging checkpoint and wait for the parent. Pack
+        # construction must not consume the publication lock's contention timeout.
+        script = """
+from contextlib import contextmanager
+from pathlib import Path
+import build_pack, sys
+original_lock = build_pack.writer_lock
+@contextmanager
+def ready_lock(output):
+    print("staged", flush=True)
+    if sys.stdin.readline().strip() != "publish":
+        raise RuntimeError("publication rendezvous closed")
+    with original_lock(output):
+        yield
+build_pack.writer_lock = ready_lock
+build_pack.build_pack(Path(sys.argv[1]), Path(sys.argv[2]))
+"""
         try:
             with publication.writer_lock(output):
                 for directory in (art, other):
-                    processes.append(subprocess.Popen([sys.executable, "-B", str(Path(build_pack.__file__)), "--art-dir", str(directory), "--output", str(output)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True))
-                deadline = time.monotonic() + 15
-                while len(list(output.glob(".build-pack-*/assets.json"))) < 2:
-                    self.assertTrue(all(p.poll() is None for p in processes), "a writer failed before staging")
-                    if time.monotonic() > deadline:
-                        self.fail("both writers did not reach the publish lock")
-                    time.sleep(.02)
+                    processes.append(subprocess.Popen([sys.executable, "-B", "-c", script, str(directory), str(output)],
+                        cwd=Path(build_pack.__file__).parent, stdin=subprocess.PIPE,
+                        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True))
+                for p in processes:
+                    self.assertEqual("staged\n", p.stdout.readline(), "writer failed before the publication checkpoint")
+                    self.assertIsNone(p.poll())
+                self.assertEqual(2, len(list(output.glob(".build-pack-*/assets.json"))))
                 self.assertFalse((output / "assets.json").exists())
+            for p in processes:
+                p.stdin.write("publish\n")
+                p.stdin.flush()
             for p in processes:
                 out, err = p.communicate(timeout=30)
                 self.assertEqual(0, p.returncode, out + err)
