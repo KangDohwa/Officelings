@@ -7,6 +7,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" PrivateAssets="all" />
     <ProjectReference Include="../../src/Vibedotcom.Core/Vibedotcom.Core.csproj" />
     <ProjectReference Include="../../src/Vibedotcom.App/Vibedotcom.App.csproj" />
+    <ProjectReference Include="../../src/Vibedotcom.Tracker/Vibedotcom.Tracker.csproj" ReferenceOutputAssembly="false" />
     <None Update="Fixtures/*.jsonl" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

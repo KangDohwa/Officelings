@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Text.Json;
+using System.Threading.Channels;
 using Vibedotcom.Core;
 using Xunit;
 
@@ -32,7 +33,9 @@ public sealed class PrivacyCliTests : IDisposable
         var start=new ProcessStartInfo("dotnet") { UseShellExecute=false,CreateNoWindow=true,RedirectStandardOutput=true,RedirectStandardError=true };
         start.ArgumentList.Add(TrackerDll);
         foreach(var argument in new[] { "--home",Path.Combine(root,"home"),"--output",output,"--scan-seconds","0.1" }) start.ArgumentList.Add(argument);
-        if(once) start.ArgumentList.Add("--once"); else { start.ArgumentList.Add("--seconds"); start.ArgumentList.Add("12"); }
+        // Runtime tests own the child's lifetime. A wall-clock exit races the
+        // assertions when other parallel tests delay this test's continuation.
+        if(once) start.ArgumentList.Add("--once");
         if(option!=null) { start.ArgumentList.Add("--privacy"); start.ArgumentList.Add(option); }
         if(environment==null) start.Environment.Remove("VIBEDOTCOM_PRIVACY"); else start.Environment["VIBEDOTCOM_PRIVACY"]=environment;
         return Process.Start(start)!;
@@ -41,21 +44,37 @@ public sealed class PrivacyCliTests : IDisposable
     { using var file=new FileStream(path,FileMode.Open,FileAccess.Read,FileShare.ReadWrite | FileShare.Delete); using var reader=new StreamReader(file); return reader.ReadToEnd(); }
     private static void Safe(string text)
     { Assert.DoesNotContain(Secret,text); Assert.DoesNotContain(PrivatePath,text); Assert.DoesNotContain(JsonEncodedText.Encode(PrivatePath).ToString(),text); }
-    private static void WaitFor(string output,PrivacyMode mode)
+    private static async Task<JsonDocument> WaitForState(string output,Process process,Func<JsonElement,bool> ready)
     {
-        var clock=Stopwatch.StartNew();
-        while(clock.Elapsed<TimeSpan.FromSeconds(15))
+        var changes=Channel.CreateUnbounded<bool>();
+        using var watcher=new FileSystemWatcher(output,"state.json") { NotifyFilter=NotifyFilters.FileName | NotifyFilters.LastWrite };
+        watcher.Created+=(_,_)=>changes.Writer.TryWrite(true);
+        watcher.Changed+=(_,_)=>changes.Writer.TryWrite(true);
+        watcher.Renamed+=(_,_)=>changes.Writer.TryWrite(true);
+        watcher.Error+=(_,e)=>changes.Writer.TryComplete(e.GetException());
+        void Exited(object? sender,EventArgs args) => changes.Writer.TryComplete(new InvalidOperationException("Tracker exited before publishing the requested state."));
+        process.EnableRaisingEvents=true;
+        process.Exited+=Exited;
+        using var deadline=new CancellationTokenSource(TimeSpan.FromSeconds(30));
+        watcher.EnableRaisingEvents=true;
+        changes.Writer.TryWrite(true); // Subscribe before reading, including an already-published state.
+        try
         {
-            try
+            while(await changes.Reader.ReadAsync(deadline.Token))
             {
-                using var state=JsonDocument.Parse(Read(Path.Combine(output,"state.json")));
-                if(state.RootElement.GetProperty("privacy").GetString()==PrivacyModes.Value(mode)) return;
+                if(process.HasExited) throw new InvalidOperationException("Tracker exited before publishing the requested state.");
+                JsonDocument state;
+                try { state=JsonDocument.Parse(Read(Path.Combine(output,"state.json"))); }
+                catch(FileNotFoundException) { continue; }
+                if(ready(state.RootElement)) return state;
+                state.Dispose();
             }
-            catch(Exception e) when(e is IOException or JsonException) { }
-            Thread.Sleep(20);
         }
-        Assert.Fail("Tracker did not publish the requested privacy level.");
+        finally { process.Exited-=Exited; }
+        throw new InvalidOperationException("Tracker state watcher stopped.");
     }
+    private static async Task WaitFor(string output,Process process,PrivacyMode mode)
+    { using var state=await WaitForState(output,process,state=>state.GetProperty("privacy").GetString()==PrivacyModes.Value(mode)); }
 
     [Theory]
     [InlineData("off")]
@@ -110,27 +129,22 @@ public sealed class PrivacyCliTests : IDisposable
         var stdout=process.StandardOutput.ReadToEndAsync(); var stderr=process.StandardError.ReadToEndAsync();
         try
         {
-            WaitFor(output,PrivacyMode.Off); Assert.Contains(Secret,Read(Path.Combine(output,"state.json")));
+            await WaitFor(output,process,PrivacyMode.Off); Assert.Contains(Secret,Read(Path.Combine(output,"state.json")));
             foreach(var mode in new[] { PrivacyMode.Tasks,PrivacyMode.Full })
             {
                 StateJson.WriteAtomic(settings,JsonSerializer.SerializeToUtf8Bytes(new { privacyMode=PrivacyModes.Value(mode) }));
-                WaitFor(output,mode); Safe(Read(Path.Combine(output,"state.json"))); Safe(Read(Path.Combine(output,"runtime-layout.json")));
+                await WaitFor(output,process,mode); Safe(Read(Path.Combine(output,"state.json"))); Safe(Read(Path.Combine(output,"runtime-layout.json")));
             }
             using var before=JsonDocument.Parse(Read(Path.Combine(output,"state.json")));
             var sequence=before.RootElement.GetProperty("sequence").GetInt64();
             StateJson.WriteAtomic(settings,"{"u8.ToArray());
-            var clock=Stopwatch.StartNew();
-            var sawHeartbeat=false;
-            while(clock.Elapsed<TimeSpan.FromSeconds(5))
-            {
-                using var state=JsonDocument.Parse(Read(Path.Combine(output,"state.json")));
-                if(state.RootElement.GetProperty("sequence").GetInt64()>sequence)
-                { Assert.Equal("full",state.RootElement.GetProperty("privacy").GetString()); sawHeartbeat=true; break; }
-                Thread.Sleep(20);
-            }
-            Assert.True(sawHeartbeat,"Tracker did not publish a heartbeat with malformed settings.");
+            // One publication may already be in flight when settings are replaced.
+            // Two later publications prove a new tracker loop read the malformed file.
+            using var heartbeat=await WaitForState(output,process,state=>state.GetProperty("sequence").GetInt64()>sequence+1);
+            Assert.Equal("full",heartbeat.RootElement.GetProperty("privacy").GetString());
+            Safe(heartbeat.RootElement.GetRawText());
             StateJson.WriteAtomic(settings,JsonSerializer.SerializeToUtf8Bytes(new { privacyMode="off" }));
-            WaitFor(output,PrivacyMode.Off); Safe(Read(Path.Combine(output,"state.json")));
+            await WaitFor(output,process,PrivacyMode.Off); Safe(Read(Path.Combine(output,"state.json")));
         }
         finally { if(!process.HasExited) { process.Kill(); process.WaitForExit(); } }
         await stdout; await stderr;
