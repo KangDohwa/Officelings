@@ -1,0 +1,67 @@
+"""Capture final checker output, deterministic blink evidence, measured lane time."""
+from pathlib import Path
+from datetime import datetime,timezone
+import hashlib,json,os,subprocess,sys
+import numpy as np
+from PIL import Image
+OUT=Path(__file__).resolve().parent;ROOT=OUT.parents[4];CID='labcoat-tall'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+    env={**os.environ,'PYTHONIOENCODING':'utf-8','PYTHONDONTWRITEBYTECODE':'1'}
+    cmd=[sys.executable,'-B',str(ROOT/'tools/iso_check.py'),str(OUT/(CID+'.iso.json')),'--stage','final','--tolerance','0']
+    r=subprocess.run(cmd,capture_output=True,encoding='utf-8',env=env)
+    (OUT/'validation.txt').write_text(r.stdout+r.stderr,encoding='utf-8');assert r.returncode==0,r.stdout+r.stderr
+    count={k:r.stdout.count('| '+k.upper()+' |') for k in ['pass','skip','fail']}
+    files=[OUT/(CID+'-iso-blink.png'),OUT/(CID+'-eyes-se.png'),OUT/(CID+'-eyes-sw.png')]
+    before={p.name:sha(p) for p in files};normalBefore=sha(OUT/(CID+'-iso.png'))
+    again=subprocess.run([sys.executable,'-B',str(OUT/'blink_resync.py')],capture_output=True,encoding='utf-8',env=env);assert again.returncode==0,again.stderr
+    assert before=={p.name:sha(p) for p in files};assert normalBefore==sha(OUT/(CID+'-iso.png'))
+    assert (OUT/(CID+'.iso.json')).read_bytes()==(OUT/(CID+'-iso.manifest.json')).read_bytes()
+    gifs={}
+    for f in ['se','sw','ne','nw']:
+        with Image.open(OUT/('walk-'+f+'-3x.gif')) as im:
+            assert im.size==(96,192) and im.n_frames==4 and im.info['loop']==0
+            durations=[]
+            for p in range(4):im.seek(p);durations.append(im.info['duration'])
+            assert durations==[120,130,120,130]
+            gifs[f]=dict(size=[96,192],frames=4,durationsMs=durations,cycleMs=sum(durations),loop=0)
+    v=json.loads((OUT/'visibility-proof.json').read_text());s=json.loads((OUT/(CID+'.iso.json')).read_text())['sheets'][0];a=np.array(Image.open(OUT/s['file']))
+    heights={};headheight={};fallback=[]
+    for k,f in enumerate(['se','sw','ne','nw']):
+        spr=a[k*64:k*64+64,0:32];yy,xx=np.where(spr[:,:,3]>0);heights[f]=int(yy.max()-yy.min()+1)
+        h=np.array(Image.open(OUT/('head-'+f+'.png')));hy,hx=np.where(h[:,:,3]>0);headheight[f]=int(hy.max()-hy.min()+1);assert headheight[f]>=heights[f]/3
+        anchor=s['standingHandAnchors'][f];mask=np.zeros((64,32),bool)
+        for col in ['EB9D5C','E28E4D','F0A463','E9B07F']:mask|=np.all(spr[:,:,:3]==tuple(bytes.fromhex(col)),axis=2)&(spr[:,:,3]>0)
+        mask&=~(h[:,:,3]>0);yy,xx=np.indices(mask.shape);dist=int(np.maximum(abs(xx-anchor['x']),abs(yy-anchor['y']))[mask].min());assert dist<=1;fallback.append(dict(facing=f,grip=anchor,skinErrorPx=dist))
+    assert v['checks']['connectedBodyCells']==152 and v['checks']['headCellsByteIdentical']==152 and v['checks']['hands100']
+    finish=datetime.now(timezone.utc);start=datetime.fromisoformat(json.loads((OUT/'started.json').read_text())['startUTC'].replace('Z','+00:00'));seconds=(finish-start).total_seconds()
+    result=dict(checker=count,checkerExitCode=r.returncode,checkerCommand=cmd,blinkDeterministicSHA256=before,normalUnmodifiedByBlinkRebuild=True,gifs=gifs,standingHeight=heights,canonicalHeadHeight=headheight,standingFallbackSkinGrips=fallback,localChecks=v['checks'],visibility=v['aggregate'],visibilityAcceptance='FAIL: front-facing head visibility below 90%; furniture not modified',builtinGenerationCalls=3,selectedMasters={'identity':1,'walk':2},generationsSerial=True,explicitImageViews=14,startedUTC=start.isoformat(),finishedUTC=finish.isoformat(),laneSeconds=seconds,laneHours=seconds/3600,outputOnly=str(OUT))
+    (OUT/'validation-summary.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    (OUT/'timing.json').write_text(json.dumps({k:result[k] for k in ['startedUTC','finishedUTC','laneSeconds','laneHours']},indent=2)+'\n',encoding='utf-8')
+    lines=['# labcoat-tall ISO 제작 기록','',
+        f'파일 계약은 완료했다. 최종 체커 **PASS {count["pass"]} / SKIP {count["skip"]} / FAIL {count["fail"]}**, exit 0. **v3 착석의 앞면 머리 가시율은 기준 미달**이므로 시각 승인 완료로 볼 수 없다. [체커 원문](validation.txt), [가시율 원시 근거](visibility-proof.json), [최종 요약](validation-summary.json).','',
+        '일반 아틀라스 `labcoat-tall-iso.png`는 128×2432, 38행×4셀이다. Blink는 128×1536, SE/SW 전용 24행×4셀이다. 두 눈 마스크는 128×2432이며 NE/NW에는 눈이나 blink가 없다. manifest 두 파일은 같은 내용이다. iso-contact / iso-rows-review / iso-seated-review / iso-vs-flat PNG와 네 방향 3× walk GIF를 내보냈다.','',
+        '잠금 원본의 긴 검은 생머리와 앞머리, 하이라이트가 있는 호박색 눈, 흰 실험복, 청록 원피스, 갈색 플랫슈즈를 따랐다. 기준 실루엣은 42px, 고정 머리 영역은 20px다. 셀 32×64, 발 (16,60), 착석 골반 (16,44), 전환 일정은 S0 그대로다.','',
+        '내장 image generation을 한 번에 하나씩 총 3회 사용했다. 기준 자세·착석 8포즈 마스터는 1회, SE/NE 보행 8포즈 마스터는 2회 중 두 번째를 선택했다. 첫 보행 마스터는 팔 스윙과 위상 차이가 약해 거절했다. [기준 자세 프롬프트](generation-prompts.json), [보행 1차](walk-master-prompt.txt), [보행 2차](walk-master-attempt2-prompt.txt), `master-*-attempt*.png`에 원본을 보관했다. 생성 도구의 자동 캐시는 CODEX_HOME/generated_images에 남고, 프로젝트에서 쓰는 사본과 모든 직접 작성 파일은 이 lane 안에 있다.','',
+        '생성 마스터를 행별 공통 배율로 한 번 축소하고 원본 정체성 색과 S0 색으로 스냅했다. 최종 알파는 0/255, 실제 색은 체커 기준 18색이다. 네 방향 머리는 별도로 생성한 그림에서 고정했다. 보행·동작에서 머리를 다시 피팅하지 않으며 선언된 이동은 최대 1px다. SW/NW 몸만 x′=32−x로 파생하고 좌상단 명암과 해부학적 전화 손을 보정했다. 원본 평면 얼굴을 붙이지 않았다.','',
+        '생성된 몸통·실험복·원피스·머리카락 덩어리를 사용하고 팔꿈치·손·무릎·신발 접점을 네이티브 픽셀로 보정했다. 보행은 contact/down/passing/up, 몸과 머리 bob 0/+1/0/−1px, 반대 팔·다리 스윙과 y60 지지발을 넣었다. 3→0 변경 픽셀 수는 네 방향 모두 내부 전환 최대치 이하이며, 수치가 자연스러운 재생 승인을 뜻하지는 않는다. 컵·전화·종이·말풍선은 별도 prop/effect 바인딩이며 몸에 굽지 않았다.','',
+        '`blink_resync.py`는 최종 normal 셀을 복사하고 눈 마스크 픽셀만 닫힌 눈으로 교체한다. 96셀 non-eye RGBA 동일성, 반복 실행 시 blink·눈 마스크 SHA 동일성, normal 파일 불변을 확인했다. 152셀 canonical head 바이트·연결 실루엣, 방향마다 서로 다른 네 보행/typing 위상, sit/stand 정확한 역순, 실제 피부 그립과 손 접점도 검사했다.','',
+        '## v3 책상·의자 가시율','',
+        'v3 workstation과 v3 chair의 실제 PNG·manifest·part queue를 함께 합성했다. 머리는 고정된 cranial head alpha, 몸통은 x11..22 / pelvis 위에서 머리·손을 제외한 ROI, 손은 frozen H 반경2의 실제 피부다. 전체 장면 픽셀 소유권과 뒤 레이어 alpha 합집합을 교차 확인했다. 아래 수치는 네 typing phase 합산이며 모든 phase의 머리 비율은 같다. 몸통은 해부학 전체 비율이 아닌 ROI 값이다.','',
+        '| 작업자 | 머리 | 몸통 ROI | 손 ROI |','|---|---:|---:|---:|']
+    for f in ['se','sw','ne','nw']:
+        vals=v['aggregate'][f];lines.append('| '+f.upper()+' | '+' | '.join(f'{100*vals[k]["fraction"]:.2f}% ({vals[k]["visible"]}/{vals[k]["total"]})' for k in ['head','torso','hands'])+' |')
+    lines += ['',
+        'NE/NW 머리는 85% 기준을 통과했다. **SE 78.03%, SW 76.66%는 90% 기준을 통과하지 못했다.** `chair__front__se__00` / `chair__front__sw__00`가 phase마다 머리 67px을 덮는다. 현재 v3 두 가구를 같은 방식으로 합성한 기존 punk-girl·professor에서도 앞면 머리 약 80–82%가 관찰됐다. 이 비교는 현재 입력에 대한 진단이며 파일럿의 이전 승인 상태를 대체하지 않는다. 가구 파일은 읽기 전용으로 사용했고 입력 SHA를 기록했다.','',
+        '두 앞면 손은 source y43에 피부를 배치해 선언된 y44 접점과 1px 차이를 유지했다. 뒤쪽 손은 선언된 y32와 일치한다. **16 typing frame의 손 ROI는 모두 100%**, 골반/키보드 메타데이터 오차는 0px, 실제 손 피부 오차는 0 또는 1px다.','',
+        '## 검수와 한계','',
+        '참조·생성본·전체 38행과 24 blink행·눈·루프·가구를 합쳐 명시적 이미지 열람 14회로 검수했다. 일반/눈 감기 셀은 native 1×와 NEAREST 3× 검수판에 모두 배치했고 hero 원본 크롭과 세 파일럿을 나란히 비교했다. GIF는 4셀, 96×192, 120/130/120/130ms, 500ms 루프를 파일 구조로 확인했다.','',
+        '긴 머리와 의상은 읽히지만 작은 눈은 원본 큰 그림보다 덜 풍부하고, 짧은 네 프레임 보행은 팔 교차와 가는 다리의 각짐이 남는다. 타이핑 손은 몇 픽셀로 단순하며 sleep은 제한된 착석 doze다. 앞면 머리 가림이 가장 큰 남은 문제다. Hero와 같은 볼륨·매력을 달성했다고 판단하지 않는다.','',
+        '실제 GIF 시간 재생의 자연스러움, 독립 사람의 정체성·모션 승인, WPF/런타임 depth·이동 보폭·DPI·picking·blink 전환, sofa sleep 접촉과 실제 컵·종이·전화 장착은 검증하지 않았다. src/tests/docs/tools/다른 lane/pack을 수정하지 않았고 git 변경 명령·앱 빌드·전체 dotnet 테스트는 실행하지 않았다.','',
+        '## 실측 lane 시간','',
+        f'{start.isoformat()} → {finish.isoformat()}: **{seconds/3600:.4f} lane-hours ({seconds/60:.2f}분)**. 최초 시계 관측 이후 조사·생성 대기·보정·검수·체커·기록을 포함한다. 다른 lane 시간은 합산하지 않았고 provider 대기를 이중 계산하지 않았다. 최종 이미지 확인과 채팅 보고 시간은 이 계측 뒤에 포함되지 않는다. 처리량 승인치로 일반화할 수 없다.','',
+        '재구성 순서: 같은 Pillow/numpy Python으로 `-B normalize_labcoat_lane.py` → `-B build_labcoat_lane.py` → `-B blink_resync.py` → `-B review_measure_labcoat_lane.py` → `-B finalize_labcoat_lane.py`. 공유 checker는 `tools/iso_check.py <labcoat-tall.iso.json> --stage final --tolerance 0`. 마지막 기록 스크립트는 재실행 시 시간 기록을 갱신한다.']
+    text='\n'.join(lines)+'\n'
+    (OUT/'NOTES-C1-C2-C3.md').write_text(text,encoding='utf-8')
+    print(json.dumps(dict(checker=count,visibilityAcceptance=result['visibilityAcceptance'],laneHours=result['laneHours'],gifs=gifs),ensure_ascii=False,indent=2))
+if __name__=='__main__':main()

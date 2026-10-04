@@ -1,0 +1,3134 @@
+{
+  "version": 1,
+  "projection": "iso2to1",
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1"
+  ],
+  "facings": [
+    "se",
+    "sw",
+    "ne",
+    "nw"
+  ],
+  "characterCell": {
+    "width": 32,
+    "height": 64
+  },
+  "footAnchor": {
+    "x": 16,
+    "y": 60
+  },
+  "seatAnchor": {
+    "x": 16,
+    "y": 44
+  },
+  "standingHeight": 42,
+  "sheets": [
+    {
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "footAnchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "identityPalette": [
+        "#1D1311",
+        "#342520",
+        "#34322E",
+        "#5D5149",
+        "#463C36",
+        "#FBF4E9",
+        "#F6ECDE",
+        "#E9DED1",
+        "#D6C5B7",
+        "#ADA098",
+        "#EB9D5C",
+        "#E28E4D",
+        "#F0A463",
+        "#E9B07F",
+        "#9F5626",
+        "#296267",
+        "#2E656A"
+      ],
+      "id": "labcoat-tall-normal",
+      "kind": "character",
+      "file": "labcoat-tall-iso.png",
+      "rows": [
+        {
+          "name": "idle",
+          "direction": "se",
+          "row": 0,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png"
+        },
+        {
+          "name": "idle",
+          "direction": "sw",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "idle",
+          "direction": "ne",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png"
+        },
+        {
+          "name": "idle",
+          "direction": "nw",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "mirrorOf": {
+            "direction": "ne",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "walk",
+          "direction": "se",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "sourceMaster": "master-walk-attempt2.png",
+          "phases": [
+            "contact",
+            "down",
+            "passing",
+            "up"
+          ],
+          "bodyBobByPhase": [
+            0,
+            1,
+            0,
+            -1
+          ]
+        },
+        {
+          "name": "walk",
+          "direction": "sw",
+          "row": 5,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "sourceMaster": "master-walk-attempt2.png",
+          "phases": [
+            "contact",
+            "down",
+            "passing",
+            "up"
+          ],
+          "bodyBobByPhase": [
+            0,
+            1,
+            0,
+            -1
+          ],
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "walk",
+          "direction": "ne",
+          "row": 6,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "sourceMaster": "master-walk-attempt2.png",
+          "phases": [
+            "contact",
+            "down",
+            "passing",
+            "up"
+          ],
+          "bodyBobByPhase": [
+            0,
+            1,
+            0,
+            -1
+          ]
+        },
+        {
+          "name": "walk",
+          "direction": "nw",
+          "row": 7,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true,
+          "sourceMaster": "master-walk-attempt2.png",
+          "phases": [
+            "contact",
+            "down",
+            "passing",
+            "up"
+          ],
+          "bodyBobByPhase": [
+            0,
+            1,
+            0,
+            -1
+          ],
+          "mirrorOf": {
+            "direction": "ne",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "seated-typing-front",
+          "direction": "se",
+          "row": 8,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          },
+          "deskOrientation": "nw",
+          "seatProfile": "front",
+          "handAnchors": [
+            {
+              "x": 27,
+              "y": 44
+            },
+            {
+              "x": 29,
+              "y": 44
+            }
+          ]
+        },
+        {
+          "name": "seated-typing-front",
+          "direction": "sw",
+          "row": 9,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          },
+          "deskOrientation": "ne",
+          "seatProfile": "front",
+          "handAnchors": [
+            {
+              "x": 3,
+              "y": 44
+            },
+            {
+              "x": 5,
+              "y": 44
+            }
+          ],
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "seated-typing-front",
+          "direction": "ne",
+          "row": 10,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          },
+          "deskOrientation": "sw",
+          "seatProfile": "front",
+          "handAnchors": [
+            {
+              "x": 27,
+              "y": 32
+            },
+            {
+              "x": 29,
+              "y": 32
+            }
+          ]
+        },
+        {
+          "name": "seated-typing-front",
+          "direction": "nw",
+          "row": 11,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          },
+          "deskOrientation": "se",
+          "seatProfile": "front",
+          "handAnchors": [
+            {
+              "x": 3,
+              "y": 32
+            },
+            {
+              "x": 5,
+              "y": 32
+            }
+          ],
+          "mirrorOf": {
+            "direction": "ne",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "seated-thinking",
+          "direction": "se",
+          "row": 12,
+          "column": 0,
+          "frames": 4,
+          "fps": 2,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          }
+        },
+        {
+          "name": "seated-thinking",
+          "direction": "sw",
+          "row": 13,
+          "column": 0,
+          "frames": 4,
+          "fps": 2,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          },
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "seated-thinking",
+          "direction": "ne",
+          "row": 14,
+          "column": 0,
+          "frames": 4,
+          "fps": 2,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          }
+        },
+        {
+          "name": "seated-thinking",
+          "direction": "nw",
+          "row": 15,
+          "column": 0,
+          "frames": 4,
+          "fps": 2,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          },
+          "mirrorOf": {
+            "direction": "ne",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "sit-down",
+          "direction": "se",
+          "row": 16,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "phaseContacts": [
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 40
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -20
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 42
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -18
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 43
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -15
+              },
+              "footY": 58
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 44
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -12
+              },
+              "footY": 56
+            }
+          ]
+        },
+        {
+          "name": "sit-down",
+          "direction": "sw",
+          "row": 17,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "phaseContacts": [
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 40
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -20
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 42
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -18
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 43
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -15
+              },
+              "footY": 58
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 44
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -12
+              },
+              "footY": 56
+            }
+          ],
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "sit-down",
+          "direction": "ne",
+          "row": 18,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "phaseContacts": [
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 40
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -20
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 42
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -18
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 43
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -15
+              },
+              "footY": 58
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 44
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -12
+              },
+              "footY": 56
+            }
+          ]
+        },
+        {
+          "name": "sit-down",
+          "direction": "nw",
+          "row": 19,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "phaseContacts": [
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 40
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -20
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 42
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -18
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 43
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -15
+              },
+              "footY": 58
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 44
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -12
+              },
+              "footY": 56
+            }
+          ],
+          "mirrorOf": {
+            "direction": "ne",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "stand-up",
+          "direction": "se",
+          "row": 20,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "phaseContacts": [
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 44
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -12
+              },
+              "footY": 56
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 43
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -15
+              },
+              "footY": 58
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 42
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -18
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 40
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -20
+              },
+              "footY": 60
+            }
+          ]
+        },
+        {
+          "name": "stand-up",
+          "direction": "sw",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "phaseContacts": [
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 44
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -12
+              },
+              "footY": 56
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 43
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -15
+              },
+              "footY": 58
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 42
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -18
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 40
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -20
+              },
+              "footY": 60
+            }
+          ],
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "stand-up",
+          "direction": "ne",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "phaseContacts": [
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 44
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -12
+              },
+              "footY": 56
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 43
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -15
+              },
+              "footY": 58
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 42
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -18
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 40
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -20
+              },
+              "footY": 60
+            }
+          ]
+        },
+        {
+          "name": "stand-up",
+          "direction": "nw",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "phaseContacts": [
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 44
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -12
+              },
+              "footY": 56
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 43
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -15
+              },
+              "footY": 58
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 42
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -18
+              },
+              "footY": 60
+            },
+            {
+              "seatAnchor": {
+                "x": 16,
+                "y": 40
+              },
+              "contactOffset": {
+                "x": 0,
+                "y": -20
+              },
+              "footY": 60
+            }
+          ],
+          "mirrorOf": {
+            "direction": "ne",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "pickup",
+          "direction": "se",
+          "row": 24,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 24,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 26,
+                "y": 47
+              }
+            ],
+            [
+              {
+                "x": 27,
+                "y": 45
+              }
+            ],
+            [
+              {
+                "x": 24,
+                "y": 43
+              }
+            ]
+          ],
+          "prop": "report-paper"
+        },
+        {
+          "name": "pickup",
+          "direction": "sw",
+          "row": 25,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 8,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 6,
+                "y": 47
+              }
+            ],
+            [
+              {
+                "x": 5,
+                "y": 45
+              }
+            ],
+            [
+              {
+                "x": 8,
+                "y": 43
+              }
+            ]
+          ],
+          "prop": "report-paper",
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "report-handover",
+          "direction": "se",
+          "row": 26,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 24,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 26,
+                "y": 43
+              }
+            ],
+            [
+              {
+                "x": 28,
+                "y": 42
+              }
+            ],
+            [
+              {
+                "x": 27,
+                "y": 42
+              }
+            ]
+          ],
+          "prop": "report-paper"
+        },
+        {
+          "name": "report-handover",
+          "direction": "sw",
+          "row": 27,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 8,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 6,
+                "y": 43
+              }
+            ],
+            [
+              {
+                "x": 4,
+                "y": 42
+              }
+            ],
+            [
+              {
+                "x": 5,
+                "y": 42
+              }
+            ]
+          ],
+          "prop": "report-paper",
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "coffee",
+          "direction": "se",
+          "row": 28,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 24,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 25,
+                "y": 41
+              }
+            ],
+            [
+              {
+                "x": 25,
+                "y": 39
+              }
+            ],
+            [
+              {
+                "x": 24,
+                "y": 42
+              }
+            ]
+          ],
+          "prop": "cup"
+        },
+        {
+          "name": "coffee",
+          "direction": "sw",
+          "row": 29,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 8,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 7,
+                "y": 41
+              }
+            ],
+            [
+              {
+                "x": 7,
+                "y": 39
+              }
+            ],
+            [
+              {
+                "x": 8,
+                "y": 42
+              }
+            ]
+          ],
+          "prop": "cup",
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "phone",
+          "direction": "se",
+          "row": 30,
+          "column": 0,
+          "frames": 4,
+          "fps": 3,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 10,
+                "y": 43
+              }
+            ],
+            [
+              {
+                "x": 11,
+                "y": 40
+              }
+            ],
+            [
+              {
+                "x": 11,
+                "y": 41
+              }
+            ],
+            [
+              {
+                "x": 10,
+                "y": 42
+              }
+            ]
+          ],
+          "prop": "phone"
+        },
+        {
+          "name": "phone",
+          "direction": "sw",
+          "row": 31,
+          "column": 0,
+          "frames": 4,
+          "fps": 3,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 22,
+                "y": 43
+              }
+            ],
+            [
+              {
+                "x": 21,
+                "y": 40
+              }
+            ],
+            [
+              {
+                "x": 21,
+                "y": 41
+              }
+            ],
+            [
+              {
+                "x": 22,
+                "y": 42
+              }
+            ]
+          ],
+          "prop": "phone",
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "sleep",
+          "direction": "ne",
+          "row": 32,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          }
+        },
+        {
+          "name": "sleep",
+          "direction": "nw",
+          "row": 33,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "seatAnchor": {
+            "x": 16,
+            "y": 44
+          },
+          "mirrorOf": {
+            "direction": "ne",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "talk",
+          "direction": "se",
+          "row": 34,
+          "column": 0,
+          "frames": 4,
+          "fps": 3,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 24,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 26,
+                "y": 42
+              }
+            ],
+            [
+              {
+                "x": 25,
+                "y": 40
+              }
+            ],
+            [
+              {
+                "x": 24,
+                "y": 43
+              }
+            ]
+          ]
+        },
+        {
+          "name": "talk",
+          "direction": "sw",
+          "row": 35,
+          "column": 0,
+          "frames": 4,
+          "fps": 3,
+          "loop": true,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 8,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 6,
+                "y": 42
+              }
+            ],
+            [
+              {
+                "x": 7,
+                "y": 40
+              }
+            ],
+            [
+              {
+                "x": 8,
+                "y": 43
+              }
+            ]
+          ],
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        },
+        {
+          "name": "surprised",
+          "direction": "se",
+          "row": 36,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 24,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 27,
+                "y": 41
+              }
+            ],
+            [
+              {
+                "x": 27,
+                "y": 39
+              }
+            ],
+            [
+              {
+                "x": 26,
+                "y": 40
+              }
+            ]
+          ]
+        },
+        {
+          "name": "surprised",
+          "direction": "sw",
+          "row": 37,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false,
+          "sourceMaster": "master-identity-attempt1.png",
+          "handAnchorsByPhase": [
+            [
+              {
+                "x": 8,
+                "y": 44
+              }
+            ],
+            [
+              {
+                "x": 5,
+                "y": 41
+              }
+            ],
+            [
+              {
+                "x": 5,
+                "y": 39
+              }
+            ],
+            [
+              {
+                "x": 6,
+                "y": 40
+              }
+            ]
+          ],
+          "mirrorOf": {
+            "direction": "se",
+            "axis": "x=16",
+            "integerCorrection": 1,
+            "scope": "body only; independent unmirrored canonical head; upper-left lighting repaired; phone anatomical hand retained"
+          }
+        }
+      ],
+      "aliases": [
+        {
+          "name": "seated-idle",
+          "direction": "se",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "se"
+          },
+          "seatProfile": "front",
+          "frame": 0
+        },
+        {
+          "name": "seated-waiting",
+          "direction": "se",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "se"
+          },
+          "seatProfile": "front",
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "waiting",
+          "direction": "se",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "se"
+          },
+          "seatProfile": "front",
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "typing",
+          "direction": "se",
+          "target": {
+            "name": "seated-typing-front",
+            "direction": "se"
+          },
+          "seatProfile": "front"
+        },
+        {
+          "name": "thinking",
+          "direction": "se",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "se"
+          },
+          "seatProfile": "front",
+          "effect": "thinking-bubble"
+        },
+        {
+          "name": "standing-thinking",
+          "direction": "se",
+          "target": {
+            "name": "idle",
+            "direction": "se"
+          },
+          "effect": "thinking-bubble",
+          "frame": 0
+        },
+        {
+          "name": "standing-waiting",
+          "direction": "se",
+          "target": {
+            "name": "idle",
+            "direction": "se"
+          },
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "sleep",
+          "direction": "se",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "se"
+          },
+          "effect": "sleep-indicator",
+          "seatProfile": "front",
+          "frame": 0
+        },
+        {
+          "name": "napping",
+          "direction": "se",
+          "target": {
+            "name": "sleep",
+            "direction": "se"
+          },
+          "effect": "sleep-indicator"
+        },
+        {
+          "name": "reporting",
+          "direction": "se",
+          "target": {
+            "name": "report-handover",
+            "direction": "se"
+          },
+          "prop": "report-paper",
+          "durationMs": 667
+        },
+        {
+          "name": "chatting",
+          "direction": "se",
+          "target": {
+            "name": "talk",
+            "direction": "se"
+          },
+          "effect": "speech-bubble"
+        },
+        {
+          "name": "tv",
+          "direction": "se",
+          "target": {
+            "name": "idle",
+            "direction": "se"
+          },
+          "frame": 0
+        },
+        {
+          "name": "water",
+          "direction": "se",
+          "target": {
+            "name": "coffee",
+            "direction": "se"
+          },
+          "prop": "water-cup"
+        },
+        {
+          "name": "darts",
+          "direction": "se",
+          "target": {
+            "name": "idle",
+            "direction": "se"
+          },
+          "prop": "held-dart",
+          "frame": 0
+        },
+        {
+          "name": "wave",
+          "direction": "se",
+          "target": {
+            "name": "talk",
+            "direction": "se"
+          },
+          "effect": "speech-bubble"
+        },
+        {
+          "name": "celebrate",
+          "direction": "se",
+          "target": {
+            "name": "talk",
+            "direction": "se"
+          },
+          "effect": "celebration-bubble"
+        },
+        {
+          "name": "seated-idle",
+          "direction": "sw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "sw"
+          },
+          "seatProfile": "front",
+          "frame": 0
+        },
+        {
+          "name": "seated-waiting",
+          "direction": "sw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "sw"
+          },
+          "seatProfile": "front",
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "waiting",
+          "direction": "sw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "sw"
+          },
+          "seatProfile": "front",
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "typing",
+          "direction": "sw",
+          "target": {
+            "name": "seated-typing-front",
+            "direction": "sw"
+          },
+          "seatProfile": "front"
+        },
+        {
+          "name": "thinking",
+          "direction": "sw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "sw"
+          },
+          "seatProfile": "front",
+          "effect": "thinking-bubble"
+        },
+        {
+          "name": "standing-thinking",
+          "direction": "sw",
+          "target": {
+            "name": "idle",
+            "direction": "sw"
+          },
+          "effect": "thinking-bubble",
+          "frame": 0
+        },
+        {
+          "name": "standing-waiting",
+          "direction": "sw",
+          "target": {
+            "name": "idle",
+            "direction": "sw"
+          },
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "sleep",
+          "direction": "sw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "sw"
+          },
+          "effect": "sleep-indicator",
+          "seatProfile": "front",
+          "frame": 0
+        },
+        {
+          "name": "napping",
+          "direction": "sw",
+          "target": {
+            "name": "sleep",
+            "direction": "sw"
+          },
+          "effect": "sleep-indicator"
+        },
+        {
+          "name": "reporting",
+          "direction": "sw",
+          "target": {
+            "name": "report-handover",
+            "direction": "sw"
+          },
+          "prop": "report-paper",
+          "durationMs": 667
+        },
+        {
+          "name": "chatting",
+          "direction": "sw",
+          "target": {
+            "name": "talk",
+            "direction": "sw"
+          },
+          "effect": "speech-bubble"
+        },
+        {
+          "name": "tv",
+          "direction": "sw",
+          "target": {
+            "name": "idle",
+            "direction": "sw"
+          },
+          "frame": 0
+        },
+        {
+          "name": "water",
+          "direction": "sw",
+          "target": {
+            "name": "coffee",
+            "direction": "sw"
+          },
+          "prop": "water-cup"
+        },
+        {
+          "name": "darts",
+          "direction": "sw",
+          "target": {
+            "name": "idle",
+            "direction": "sw"
+          },
+          "prop": "held-dart",
+          "frame": 0
+        },
+        {
+          "name": "wave",
+          "direction": "sw",
+          "target": {
+            "name": "talk",
+            "direction": "sw"
+          },
+          "effect": "speech-bubble"
+        },
+        {
+          "name": "celebrate",
+          "direction": "sw",
+          "target": {
+            "name": "talk",
+            "direction": "sw"
+          },
+          "effect": "celebration-bubble"
+        },
+        {
+          "name": "seated-idle",
+          "direction": "ne",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "ne"
+          },
+          "seatProfile": "front",
+          "frame": 0
+        },
+        {
+          "name": "seated-waiting",
+          "direction": "ne",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "ne"
+          },
+          "seatProfile": "front",
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "waiting",
+          "direction": "ne",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "ne"
+          },
+          "seatProfile": "front",
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "typing",
+          "direction": "ne",
+          "target": {
+            "name": "seated-typing-front",
+            "direction": "ne"
+          },
+          "seatProfile": "front"
+        },
+        {
+          "name": "thinking",
+          "direction": "ne",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "ne"
+          },
+          "seatProfile": "front",
+          "effect": "thinking-bubble"
+        },
+        {
+          "name": "standing-thinking",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "effect": "thinking-bubble",
+          "frame": 0
+        },
+        {
+          "name": "standing-waiting",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "pickup",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "prop": "report-paper",
+          "durationMs": 667,
+          "frame": 0
+        },
+        {
+          "name": "report-handover",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "prop": "report-paper",
+          "durationMs": 667,
+          "frame": 0
+        },
+        {
+          "name": "coffee",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "prop": "cup",
+          "frame": 0
+        },
+        {
+          "name": "phone",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "prop": "phone",
+          "frame": 0
+        },
+        {
+          "name": "talk",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "effect": "speech-bubble",
+          "frame": 0
+        },
+        {
+          "name": "surprised",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "effect": "exclamation-bubble",
+          "frame": 0
+        },
+        {
+          "name": "napping",
+          "direction": "ne",
+          "target": {
+            "name": "sleep",
+            "direction": "ne"
+          },
+          "effect": "sleep-indicator"
+        },
+        {
+          "name": "reporting",
+          "direction": "ne",
+          "target": {
+            "name": "report-handover",
+            "direction": "ne"
+          },
+          "prop": "report-paper",
+          "durationMs": 667
+        },
+        {
+          "name": "chatting",
+          "direction": "ne",
+          "target": {
+            "name": "talk",
+            "direction": "ne"
+          },
+          "effect": "speech-bubble"
+        },
+        {
+          "name": "tv",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "frame": 0
+        },
+        {
+          "name": "water",
+          "direction": "ne",
+          "target": {
+            "name": "coffee",
+            "direction": "ne"
+          },
+          "prop": "water-cup"
+        },
+        {
+          "name": "darts",
+          "direction": "ne",
+          "target": {
+            "name": "idle",
+            "direction": "ne"
+          },
+          "prop": "held-dart",
+          "frame": 0
+        },
+        {
+          "name": "wave",
+          "direction": "ne",
+          "target": {
+            "name": "talk",
+            "direction": "ne"
+          },
+          "effect": "speech-bubble"
+        },
+        {
+          "name": "celebrate",
+          "direction": "ne",
+          "target": {
+            "name": "talk",
+            "direction": "ne"
+          },
+          "effect": "celebration-bubble"
+        },
+        {
+          "name": "seated-idle",
+          "direction": "nw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "nw"
+          },
+          "seatProfile": "front",
+          "frame": 0
+        },
+        {
+          "name": "seated-waiting",
+          "direction": "nw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "nw"
+          },
+          "seatProfile": "front",
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "waiting",
+          "direction": "nw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "nw"
+          },
+          "seatProfile": "front",
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "typing",
+          "direction": "nw",
+          "target": {
+            "name": "seated-typing-front",
+            "direction": "nw"
+          },
+          "seatProfile": "front"
+        },
+        {
+          "name": "thinking",
+          "direction": "nw",
+          "target": {
+            "name": "seated-thinking",
+            "direction": "nw"
+          },
+          "seatProfile": "front",
+          "effect": "thinking-bubble"
+        },
+        {
+          "name": "standing-thinking",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "effect": "thinking-bubble",
+          "frame": 0
+        },
+        {
+          "name": "standing-waiting",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "effect": "waiting-bubble",
+          "frame": 0
+        },
+        {
+          "name": "pickup",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "prop": "report-paper",
+          "durationMs": 667,
+          "frame": 0
+        },
+        {
+          "name": "report-handover",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "prop": "report-paper",
+          "durationMs": 667,
+          "frame": 0
+        },
+        {
+          "name": "coffee",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "prop": "cup",
+          "frame": 0
+        },
+        {
+          "name": "phone",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "prop": "phone",
+          "frame": 0
+        },
+        {
+          "name": "talk",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "effect": "speech-bubble",
+          "frame": 0
+        },
+        {
+          "name": "surprised",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "effect": "exclamation-bubble",
+          "frame": 0
+        },
+        {
+          "name": "napping",
+          "direction": "nw",
+          "target": {
+            "name": "sleep",
+            "direction": "nw"
+          },
+          "effect": "sleep-indicator"
+        },
+        {
+          "name": "reporting",
+          "direction": "nw",
+          "target": {
+            "name": "report-handover",
+            "direction": "nw"
+          },
+          "prop": "report-paper",
+          "durationMs": 667
+        },
+        {
+          "name": "chatting",
+          "direction": "nw",
+          "target": {
+            "name": "talk",
+            "direction": "nw"
+          },
+          "effect": "speech-bubble"
+        },
+        {
+          "name": "tv",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "frame": 0
+        },
+        {
+          "name": "water",
+          "direction": "nw",
+          "target": {
+            "name": "coffee",
+            "direction": "nw"
+          },
+          "prop": "water-cup"
+        },
+        {
+          "name": "darts",
+          "direction": "nw",
+          "target": {
+            "name": "idle",
+            "direction": "nw"
+          },
+          "prop": "held-dart",
+          "frame": 0
+        },
+        {
+          "name": "wave",
+          "direction": "nw",
+          "target": {
+            "name": "talk",
+            "direction": "nw"
+          },
+          "effect": "speech-bubble"
+        },
+        {
+          "name": "celebrate",
+          "direction": "nw",
+          "target": {
+            "name": "talk",
+            "direction": "nw"
+          },
+          "effect": "celebration-bubble"
+        }
+      ],
+      "headOffsetsByClip": {
+        "idle/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "idle/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "idle/ne": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "idle/nw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "walk/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "walk/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "walk/ne": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "walk/nw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "seated-typing-front/se": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "seated-typing-front/sw": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "seated-typing-front/ne": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "seated-typing-front/nw": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "seated-thinking/se": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "seated-thinking/sw": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "seated-thinking/ne": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "seated-thinking/nw": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "sit-down/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "sit-down/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "sit-down/ne": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "sit-down/nw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          }
+        ],
+        "stand-up/se": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "stand-up/sw": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "stand-up/ne": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "stand-up/nw": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "pickup/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "pickup/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "report-handover/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "report-handover/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "coffee/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "coffee/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "phone/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "phone/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "sleep/ne": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "sleep/nw": [
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": -1
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "talk/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "talk/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "surprised/se": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ],
+        "surprised/sw": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 0,
+            "y": 0
+          }
+        ]
+      },
+      "headLayers": {
+        "se": "head-se.png",
+        "sw": "head-sw.png",
+        "ne": "head-ne.png",
+        "nw": "head-nw.png"
+      },
+      "headRegionDescription": "Generated cranial head, face, neck and upper hair through source y38; long trailing hair below is carried by generated torso.",
+      "faceLock": {
+        "se": {
+          "eyeMask": "labcoat-tall-eyes-se.png"
+        },
+        "sw": {
+          "eyeMask": "labcoat-tall-eyes-sw.png"
+        }
+      },
+      "blink": {
+        "sheetId": "labcoat-tall-blink",
+        "normalRows": [
+          0,
+          1,
+          4,
+          5,
+          8,
+          9,
+          12,
+          13,
+          16,
+          17,
+          20,
+          21,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          34,
+          35,
+          36,
+          37
+        ],
+        "durationMs": 100
+      },
+      "standingHandAnchors": {
+        "se": {
+          "x": 24,
+          "y": 44
+        },
+        "sw": {
+          "x": 8,
+          "y": 44
+        },
+        "ne": {
+          "x": 24,
+          "y": 40
+        },
+        "nw": {
+          "x": 8,
+          "y": 40
+        }
+      }
+    },
+    {
+      "cellW": 32,
+      "cellH": 64,
+      "anchor": {
+        "x": 16,
+        "y": 60
+      },
+      "footAnchor": {
+        "x": 16,
+        "y": 60
+      },
+      "scale": 1,
+      "projection": "iso2to1",
+      "identityPalette": [
+        "#1D1311",
+        "#342520",
+        "#34322E",
+        "#5D5149",
+        "#463C36",
+        "#FBF4E9",
+        "#F6ECDE",
+        "#E9DED1",
+        "#D6C5B7",
+        "#ADA098",
+        "#EB9D5C",
+        "#E28E4D",
+        "#F0A463",
+        "#E9B07F",
+        "#9F5626",
+        "#296267",
+        "#2E656A"
+      ],
+      "id": "labcoat-tall-blink",
+      "kind": "blink",
+      "file": "labcoat-tall-iso-blink.png",
+      "rows": [
+        {
+          "name": "blink-idle",
+          "direction": "se",
+          "row": 0,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true
+        },
+        {
+          "name": "blink-idle",
+          "direction": "sw",
+          "row": 1,
+          "column": 0,
+          "frames": 4,
+          "fps": 1,
+          "loop": true
+        },
+        {
+          "name": "blink-walk",
+          "direction": "se",
+          "row": 2,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true
+        },
+        {
+          "name": "blink-walk",
+          "direction": "sw",
+          "row": 3,
+          "column": 0,
+          "frames": 4,
+          "fps": 8,
+          "loop": true
+        },
+        {
+          "name": "blink-seated-typing-front",
+          "direction": "se",
+          "row": 4,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": true
+        },
+        {
+          "name": "blink-seated-typing-front",
+          "direction": "sw",
+          "row": 5,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": true
+        },
+        {
+          "name": "blink-seated-thinking",
+          "direction": "se",
+          "row": 6,
+          "column": 0,
+          "frames": 4,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "blink-seated-thinking",
+          "direction": "sw",
+          "row": 7,
+          "column": 0,
+          "frames": 4,
+          "fps": 2,
+          "loop": true
+        },
+        {
+          "name": "blink-sit-down",
+          "direction": "se",
+          "row": 8,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false
+        },
+        {
+          "name": "blink-sit-down",
+          "direction": "sw",
+          "row": 9,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false
+        },
+        {
+          "name": "blink-stand-up",
+          "direction": "se",
+          "row": 10,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false
+        },
+        {
+          "name": "blink-stand-up",
+          "direction": "sw",
+          "row": 11,
+          "column": 0,
+          "frames": 4,
+          "fps": 10,
+          "loop": false
+        },
+        {
+          "name": "blink-pickup",
+          "direction": "se",
+          "row": 12,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false
+        },
+        {
+          "name": "blink-pickup",
+          "direction": "sw",
+          "row": 13,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false
+        },
+        {
+          "name": "blink-report-handover",
+          "direction": "se",
+          "row": 14,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false
+        },
+        {
+          "name": "blink-report-handover",
+          "direction": "sw",
+          "row": 15,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "se",
+          "row": 16,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-coffee",
+          "direction": "sw",
+          "row": 17,
+          "column": 0,
+          "frames": 4,
+          "fps": 4,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "se",
+          "row": 18,
+          "column": 0,
+          "frames": 4,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-phone",
+          "direction": "sw",
+          "row": 19,
+          "column": 0,
+          "frames": 4,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-talk",
+          "direction": "se",
+          "row": 20,
+          "column": 0,
+          "frames": 4,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-talk",
+          "direction": "sw",
+          "row": 21,
+          "column": 0,
+          "frames": 4,
+          "fps": 3,
+          "loop": true
+        },
+        {
+          "name": "blink-surprised",
+          "direction": "se",
+          "row": 22,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false
+        },
+        {
+          "name": "blink-surprised",
+          "direction": "sw",
+          "row": 23,
+          "column": 0,
+          "frames": 4,
+          "fps": 6,
+          "loop": false
+        }
+      ]
+    }
+  ],
+  "characters": [
+    {
+      "id": "iso/character/labcoat-tall",
+      "sheetId": "labcoat-tall-normal",
+      "seatProfiles": [
+        "front"
+      ]
+    }
+  ],
+  "production": {
+    "method": "Built-in image generation; identity master attempt1; selected gait master attempt2; exact palette snap and binary alpha; native articulated limb/contact repair and deterministic derivation. Props separate.",
+    "headMotion": "All canonical heads byte-identical at declared integer offsets; maximal source head displacement 1px. Four independent head facings; only bodies mirrored.",
+    "limitations": [
+      "Four-frame compressed gait requires human playback approval",
+      "Sleep is restrained seated doze",
+      "WPF/runtime, real prop and sofa integration unverified"
+    ]
+  }
+}

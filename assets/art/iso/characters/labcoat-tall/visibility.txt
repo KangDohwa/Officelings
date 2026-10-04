@@ -1,0 +1,4 @@
+SE: head 78.03% (952/1220), min phase 78.03%, torso 100.00% (280/280), min phase 100.00%, hands 100.00% (20/20), min phase 100.00%
+SW: head 76.66% (880/1148), min phase 76.66%, torso 100.00% (280/280), min phase 100.00%, hands 100.00% (20/20), min phase 100.00%
+NE: head 97.79% (1064/1088), min phase 97.79%, torso 75.00% (216/288), min phase 75.00%, hands 100.00% (24/24), min phase 100.00%
+NW: head 92.39% (1020/1104), min phase 92.39%, torso 61.11% (176/288), min phase 61.11%, hands 100.00% (24/24), min phase 100.00%

@@ -1,0 +1,411 @@
+{
+  "identityPalette": [
+    "#1D1311",
+    "#342520",
+    "#34322E",
+    "#5D5149",
+    "#463C36",
+    "#FBF4E9",
+    "#F6ECDE",
+    "#E9DED1",
+    "#D6C5B7",
+    "#ADA098",
+    "#EB9D5C",
+    "#E28E4D",
+    "#F0A463",
+    "#E9B07F",
+    "#9F5626",
+    "#296267",
+    "#2E656A",
+    "#10282C",
+    "#235E5C",
+    "#3C9F96"
+  ],
+  "operations": [
+    {
+      "label": "se-idle",
+      "sourceSlot": [
+        0,
+        0,
+        335,
+        586
+      ],
+      "opaqueCrop": [
+        81,
+        95,
+        277,
+        564
+      ],
+      "scale": 0.08955223880597014,
+      "nativeSize": [
+        18,
+        42
+      ],
+      "nativePlacement": [
+        7,
+        19
+      ]
+    },
+    {
+      "label": "sw-idle",
+      "sourceSlot": [
+        335,
+        0,
+        670,
+        586
+      ],
+      "opaqueCrop": [
+        77,
+        95,
+        272,
+        564
+      ],
+      "scale": 0.08955223880597014,
+      "nativeSize": [
+        17,
+        42
+      ],
+      "nativePlacement": [
+        8,
+        19
+      ]
+    },
+    {
+      "label": "nw-idle",
+      "sourceSlot": [
+        670,
+        0,
+        1006,
+        586
+      ],
+      "opaqueCrop": [
+        72,
+        95,
+        265,
+        564
+      ],
+      "scale": 0.08955223880597014,
+      "nativeSize": [
+        17,
+        42
+      ],
+      "nativePlacement": [
+        8,
+        19
+      ]
+    },
+    {
+      "label": "ne-idle",
+      "sourceSlot": [
+        1006,
+        0,
+        1341,
+        586
+      ],
+      "opaqueCrop": [
+        48,
+        95,
+        240,
+        564
+      ],
+      "scale": 0.08955223880597014,
+      "nativeSize": [
+        17,
+        42
+      ],
+      "nativePlacement": [
+        8,
+        19
+      ]
+    },
+    {
+      "label": "se-seat",
+      "sourceSlot": [
+        0,
+        586,
+        335,
+        1173
+      ],
+      "opaqueCrop": [
+        74,
+        45,
+        297,
+        480
+      ],
+      "scale": 0.08955223880597014,
+      "nativeSize": [
+        20,
+        39
+      ],
+      "nativePlacement": [
+        6,
+        18
+      ]
+    },
+    {
+      "label": "sw-seat",
+      "sourceSlot": [
+        335,
+        586,
+        670,
+        1173
+      ],
+      "opaqueCrop": [
+        57,
+        45,
+        278,
+        480
+      ],
+      "scale": 0.08955223880597014,
+      "nativeSize": [
+        20,
+        39
+      ],
+      "nativePlacement": [
+        6,
+        18
+      ]
+    },
+    {
+      "label": "nw-seat",
+      "sourceSlot": [
+        670,
+        586,
+        1006,
+        1173
+      ],
+      "opaqueCrop": [
+        34,
+        45,
+        265,
+        465
+      ],
+      "scale": 0.08955223880597014,
+      "nativeSize": [
+        21,
+        38
+      ],
+      "nativePlacement": [
+        6,
+        19
+      ]
+    },
+    {
+      "label": "ne-seat",
+      "sourceSlot": [
+        1006,
+        586,
+        1341,
+        1173
+      ],
+      "opaqueCrop": [
+        46,
+        45,
+        278,
+        465
+      ],
+      "scale": 0.08955223880597014,
+      "nativeSize": [
+        21,
+        38
+      ],
+      "nativePlacement": [
+        6,
+        19
+      ]
+    },
+    {
+      "label": "se-walk-0",
+      "sourceSlot": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "opaqueCrop": [
+        140,
+        6,
+        381,
+        439
+      ],
+      "scale": 0.09699769053117784,
+      "nativeSize": [
+        23,
+        42
+      ],
+      "nativePlacement": [
+        5,
+        19
+      ]
+    },
+    {
+      "label": "se-walk-1",
+      "sourceSlot": [
+        444,
+        0,
+        887,
+        444
+      ],
+      "opaqueCrop": [
+        120,
+        6,
+        328,
+        423
+      ],
+      "scale": 0.09699769053117784,
+      "nativeSize": [
+        20,
+        40
+      ],
+      "nativePlacement": [
+        6,
+        21
+      ]
+    },
+    {
+      "label": "se-walk-2",
+      "sourceSlot": [
+        887,
+        0,
+        1330,
+        444
+      ],
+      "opaqueCrop": [
+        99,
+        6,
+        318,
+        439
+      ],
+      "scale": 0.09699769053117784,
+      "nativeSize": [
+        21,
+        42
+      ],
+      "nativePlacement": [
+        6,
+        19
+      ]
+    },
+    {
+      "label": "se-walk-3",
+      "sourceSlot": [
+        1330,
+        0,
+        1774,
+        444
+      ],
+      "opaqueCrop": [
+        92,
+        6,
+        323,
+        439
+      ],
+      "scale": 0.09699769053117784,
+      "nativeSize": [
+        22,
+        42
+      ],
+      "nativePlacement": [
+        5,
+        19
+      ]
+    },
+    {
+      "label": "ne-walk-0",
+      "sourceSlot": [
+        0,
+        444,
+        444,
+        887
+      ],
+      "opaqueCrop": [
+        140,
+        7,
+        375,
+        423
+      ],
+      "scale": 0.09699769053117784,
+      "nativeSize": [
+        23,
+        40
+      ],
+      "nativePlacement": [
+        5,
+        21
+      ]
+    },
+    {
+      "label": "ne-walk-1",
+      "sourceSlot": [
+        444,
+        444,
+        887,
+        887
+      ],
+      "opaqueCrop": [
+        120,
+        6,
+        341,
+        415
+      ],
+      "scale": 0.09699769053117784,
+      "nativeSize": [
+        21,
+        40
+      ],
+      "nativePlacement": [
+        6,
+        21
+      ]
+    },
+    {
+      "label": "ne-walk-2",
+      "sourceSlot": [
+        887,
+        444,
+        1330,
+        887
+      ],
+      "opaqueCrop": [
+        100,
+        7,
+        335,
+        409
+      ],
+      "scale": 0.09699769053117784,
+      "nativeSize": [
+        23,
+        39
+      ],
+      "nativePlacement": [
+        5,
+        22
+      ]
+    },
+    {
+      "label": "ne-walk-3",
+      "sourceSlot": [
+        1330,
+        444,
+        1774,
+        887
+      ],
+      "opaqueCrop": [
+        94,
+        7,
+        337,
+        421
+      ],
+      "scale": 0.09699769053117784,
+      "nativeSize": [
+        24,
+        40
+      ],
+      "nativePlacement": [
+        4,
+        21
+      ]
+    }
+  ],
+  "method": "One common nearest-neighbor scale for all identity poses, one common scale for all gait poses. Per-master integer initial placement; no resizing/recentering during derived motion."
+}

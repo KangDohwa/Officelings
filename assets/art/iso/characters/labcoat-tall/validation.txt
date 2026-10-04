@@ -1,0 +1,20 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| labcoat-tall.iso.json:labcoat-tall-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| labcoat-tall.iso.json:labcoat-tall-normal | transparency | PASS | straight alpha and guards |
+| labcoat-tall.iso.json:labcoat-tall-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| labcoat-tall.iso.json:labcoat-tall-normal | palette | PASS | 18 colors; RGB max-channel tolerance 0 |
+| labcoat-tall.iso.json:labcoat-tall-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| labcoat-tall.iso.json:labcoat-tall-normal | 6×6 seams | SKIP | floor sheets only |
+| labcoat-tall.iso.json:labcoat-tall-normal | depth-part names | SKIP | furniture sheets only |
+| labcoat-tall.iso.json:labcoat-tall-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| labcoat-tall.iso.json:labcoat-tall-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| labcoat-tall.iso.json:labcoat-tall-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| labcoat-tall.iso.json:labcoat-tall-blink | transparency | PASS | straight alpha and guards |
+| labcoat-tall.iso.json:labcoat-tall-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| labcoat-tall.iso.json:labcoat-tall-blink | palette | PASS | 18 colors; RGB max-channel tolerance 0 |
+| labcoat-tall.iso.json:labcoat-tall-blink | row contract | PASS | 24 rows / 96 cells |
+| labcoat-tall.iso.json:labcoat-tall-blink | 6×6 seams | SKIP | floor sheets only |
+| labcoat-tall.iso.json:labcoat-tall-blink | depth-part names | SKIP | furniture sheets only |
+| labcoat-tall.iso.json:labcoat-tall-blink | face-lock / blink | SKIP | checked from normal character sheet |
+17 checks; 0 failed

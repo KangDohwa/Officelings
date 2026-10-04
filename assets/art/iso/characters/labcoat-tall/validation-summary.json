@@ -1,0 +1,239 @@
+{
+  "checker": {
+    "pass": 12,
+    "skip": 5,
+    "fail": 0
+  },
+  "checkerExitCode": 0,
+  "checkerCommand": [
+    "C:\\Users\\myori\\.agents\\skills\\sprite-gen\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Codex-Workspace\\Vibedotcom\\tools\\iso_check.py",
+    "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\characters\\labcoat-tall\\labcoat-tall.iso.json",
+    "--stage",
+    "final",
+    "--tolerance",
+    "0"
+  ],
+  "blinkDeterministicSHA256": {
+    "labcoat-tall-iso-blink.png": "d40c2e13985dda4ef829c4a1f6fee265e302b9e23f317dce1818e87329ecaf4d",
+    "labcoat-tall-eyes-se.png": "8c80b43e2e234344dc660b85bc469c6d72be42c202d0fef2ffcd19ce6d3307a6",
+    "labcoat-tall-eyes-sw.png": "92ed3a6440d06f86cb5a825eae190db2bfe8d5176ed17d32e016992537ce2e54"
+  },
+  "normalUnmodifiedByBlinkRebuild": true,
+  "gifs": {
+    "se": {
+      "size": [
+        96,
+        192
+      ],
+      "frames": 4,
+      "durationsMs": [
+        120,
+        130,
+        120,
+        130
+      ],
+      "cycleMs": 500,
+      "loop": 0
+    },
+    "sw": {
+      "size": [
+        96,
+        192
+      ],
+      "frames": 4,
+      "durationsMs": [
+        120,
+        130,
+        120,
+        130
+      ],
+      "cycleMs": 500,
+      "loop": 0
+    },
+    "ne": {
+      "size": [
+        96,
+        192
+      ],
+      "frames": 4,
+      "durationsMs": [
+        120,
+        130,
+        120,
+        130
+      ],
+      "cycleMs": 500,
+      "loop": 0
+    },
+    "nw": {
+      "size": [
+        96,
+        192
+      ],
+      "frames": 4,
+      "durationsMs": [
+        120,
+        130,
+        120,
+        130
+      ],
+      "cycleMs": 500,
+      "loop": 0
+    }
+  },
+  "standingHeight": {
+    "se": 42,
+    "sw": 42,
+    "ne": 42,
+    "nw": 42
+  },
+  "canonicalHeadHeight": {
+    "se": 20,
+    "sw": 20,
+    "ne": 20,
+    "nw": 20
+  },
+  "standingFallbackSkinGrips": [
+    {
+      "facing": "se",
+      "grip": {
+        "x": 24,
+        "y": 44
+      },
+      "skinErrorPx": 0
+    },
+    {
+      "facing": "sw",
+      "grip": {
+        "x": 8,
+        "y": 44
+      },
+      "skinErrorPx": 0
+    },
+    {
+      "facing": "ne",
+      "grip": {
+        "x": 24,
+        "y": 40
+      },
+      "skinErrorPx": 0
+    },
+    {
+      "facing": "nw",
+      "grip": {
+        "x": 8,
+        "y": 40
+      },
+      "skinErrorPx": 0
+    }
+  ],
+  "localChecks": {
+    "headGates": false,
+    "hands100": true,
+    "headCellsByteIdentical": 152,
+    "allGaitsDistinct": true,
+    "allTypingDistinct": true,
+    "sitStandExactReverse": true,
+    "connectedBodyCells": 152,
+    "disconnected": [],
+    "propSkinGripCount": 48,
+    "maxPropGripError": 0
+  },
+  "visibility": {
+    "se": {
+      "head": {
+        "total": 1220,
+        "visible": 952,
+        "fraction": 0.780327868852459,
+        "minPhaseFraction": 0.780327868852459
+      },
+      "torso": {
+        "total": 280,
+        "visible": 280,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      },
+      "hands": {
+        "total": 20,
+        "visible": 20,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      }
+    },
+    "sw": {
+      "head": {
+        "total": 1148,
+        "visible": 880,
+        "fraction": 0.7665505226480837,
+        "minPhaseFraction": 0.7665505226480837
+      },
+      "torso": {
+        "total": 280,
+        "visible": 280,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      },
+      "hands": {
+        "total": 20,
+        "visible": 20,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      }
+    },
+    "ne": {
+      "head": {
+        "total": 1088,
+        "visible": 1064,
+        "fraction": 0.9779411764705882,
+        "minPhaseFraction": 0.9779411764705882
+      },
+      "torso": {
+        "total": 288,
+        "visible": 216,
+        "fraction": 0.75,
+        "minPhaseFraction": 0.75
+      },
+      "hands": {
+        "total": 24,
+        "visible": 24,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      }
+    },
+    "nw": {
+      "head": {
+        "total": 1104,
+        "visible": 1020,
+        "fraction": 0.9239130434782609,
+        "minPhaseFraction": 0.9239130434782609
+      },
+      "torso": {
+        "total": 288,
+        "visible": 176,
+        "fraction": 0.6111111111111112,
+        "minPhaseFraction": 0.6111111111111112
+      },
+      "hands": {
+        "total": 24,
+        "visible": 24,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      }
+    }
+  },
+  "visibilityAcceptance": "FAIL: front-facing head visibility below 90%; furniture not modified",
+  "builtinGenerationCalls": 3,
+  "selectedMasters": {
+    "identity": 1,
+    "walk": 2
+  },
+  "generationsSerial": true,
+  "explicitImageViews": 14,
+  "startedUTC": "2026-10-04T07:10:21+00:00",
+  "finishedUTC": "2026-10-04T07:40:53.905444+00:00",
+  "laneSeconds": 1832.905444,
+  "laneHours": 0.5091404011111111,
+  "outputOnly": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\characters\\labcoat-tall"
+}

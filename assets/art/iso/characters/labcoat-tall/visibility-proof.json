@@ -1,0 +1,2283 @@
+{
+  "measuredUTC": "2026-10-04T07:42:49.160123+00:00",
+  "method": "Same v3 measurement approach: declared cranial-head alpha; central torso ROI x11..22 above pelvis excluding head/hand skin; hands = actual skin within Chebyshev radius2 of both frozen H points. Full-scene ownership cross-checked with later-layer alpha union; original part depth queue.",
+  "sourcesSHA256": {
+    "assets\\art\\iso\\furniture-v3\\workstations\\desk.iso.json": "2cd01e5588449c6b0b3278c29bbf8dcc4266908251a742b1e7e851406d14b4aa",
+    "assets\\art\\iso\\furniture-v3\\chair\\chair.iso.json": "5b2ad98cbfe481d296e8749dabb338e653f41344407a89791b624f15d40a79fd",
+    "assets\\art\\iso\\furniture-v3\\workstations\\desk-parts.png": "aad79960bfcabc14590b1fa4c1377f415f2c8d290ec48903b4a98e78386f1524",
+    "assets\\art\\iso\\furniture-v3\\workstations\\desk-screen.png": "7759582fdffd76020276a8a2d07a8f6d01a1c9b9db60dd39f97a05bf7884c4bc",
+    "assets\\art\\iso\\furniture-v3\\chair\\chair-parts.png": "55c4fa71895a89b75556865479bea04f243e4fd964e796c661c30b1c20b99ebb"
+  },
+  "records": [
+    {
+      "desk": "se",
+      "worker": "nw",
+      "phase": 0,
+      "handContactError": [
+        0,
+        0
+      ],
+      "head": {
+        "visible": 255,
+        "total": 276,
+        "fraction": 0.9239130434782609,
+        "chairHidden": 0,
+        "deskHidden": 21,
+        "occluders": {
+          "desk__front__se__00": 21
+        }
+      },
+      "torso": {
+        "visible": 44,
+        "total": 72,
+        "fraction": 0.6111111111111112,
+        "chairHidden": 28,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__nw__00": 28
+        }
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "se",
+      "worker": "nw",
+      "phase": 1,
+      "handContactError": [
+        0,
+        0
+      ],
+      "head": {
+        "visible": 255,
+        "total": 276,
+        "fraction": 0.9239130434782609,
+        "chairHidden": 0,
+        "deskHidden": 21,
+        "occluders": {
+          "desk__front__se__00": 21
+        }
+      },
+      "torso": {
+        "visible": 44,
+        "total": 72,
+        "fraction": 0.6111111111111112,
+        "chairHidden": 28,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__nw__00": 28
+        }
+      },
+      "hands": {
+        "visible": 7,
+        "total": 7,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "se",
+      "worker": "nw",
+      "phase": 2,
+      "handContactError": [
+        0,
+        0
+      ],
+      "head": {
+        "visible": 255,
+        "total": 276,
+        "fraction": 0.9239130434782609,
+        "chairHidden": 0,
+        "deskHidden": 21,
+        "occluders": {
+          "desk__front__se__00": 21
+        }
+      },
+      "torso": {
+        "visible": 44,
+        "total": 72,
+        "fraction": 0.6111111111111112,
+        "chairHidden": 28,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__nw__00": 28
+        }
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "se",
+      "worker": "nw",
+      "phase": 3,
+      "handContactError": [
+        0,
+        0
+      ],
+      "head": {
+        "visible": 255,
+        "total": 276,
+        "fraction": 0.9239130434782609,
+        "chairHidden": 0,
+        "deskHidden": 21,
+        "occluders": {
+          "desk__front__se__00": 21
+        }
+      },
+      "torso": {
+        "visible": 44,
+        "total": 72,
+        "fraction": 0.6111111111111112,
+        "chairHidden": 28,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__nw__00": 28
+        }
+      },
+      "hands": {
+        "visible": 7,
+        "total": 7,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "phase": 0,
+      "handContactError": [
+        0,
+        0
+      ],
+      "head": {
+        "visible": 266,
+        "total": 272,
+        "fraction": 0.9779411764705882,
+        "chairHidden": 0,
+        "deskHidden": 6,
+        "occluders": {
+          "desk__front__sw__02": 6
+        }
+      },
+      "torso": {
+        "visible": 54,
+        "total": 72,
+        "fraction": 0.75,
+        "chairHidden": 18,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__ne__00": 18
+        }
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "phase": 1,
+      "handContactError": [
+        0,
+        0
+      ],
+      "head": {
+        "visible": 266,
+        "total": 272,
+        "fraction": 0.9779411764705882,
+        "chairHidden": 0,
+        "deskHidden": 6,
+        "occluders": {
+          "desk__front__sw__02": 6
+        }
+      },
+      "torso": {
+        "visible": 54,
+        "total": 72,
+        "fraction": 0.75,
+        "chairHidden": 18,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__ne__00": 18
+        }
+      },
+      "hands": {
+        "visible": 7,
+        "total": 7,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "phase": 2,
+      "handContactError": [
+        0,
+        0
+      ],
+      "head": {
+        "visible": 266,
+        "total": 272,
+        "fraction": 0.9779411764705882,
+        "chairHidden": 0,
+        "deskHidden": 6,
+        "occluders": {
+          "desk__front__sw__02": 6
+        }
+      },
+      "torso": {
+        "visible": 54,
+        "total": 72,
+        "fraction": 0.75,
+        "chairHidden": 18,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__ne__00": 18
+        }
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "phase": 3,
+      "handContactError": [
+        0,
+        0
+      ],
+      "head": {
+        "visible": 266,
+        "total": 272,
+        "fraction": 0.9779411764705882,
+        "chairHidden": 0,
+        "deskHidden": 6,
+        "occluders": {
+          "desk__front__sw__02": 6
+        }
+      },
+      "torso": {
+        "visible": 54,
+        "total": 72,
+        "fraction": 0.75,
+        "chairHidden": 18,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__ne__00": 18
+        }
+      },
+      "hands": {
+        "visible": 7,
+        "total": 7,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "phase": 0,
+      "handContactError": [
+        1,
+        1
+      ],
+      "head": {
+        "visible": 220,
+        "total": 287,
+        "fraction": 0.7665505226480837,
+        "chairHidden": 67,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__sw__00": 67
+        }
+      },
+      "torso": {
+        "visible": 70,
+        "total": 70,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "phase": 1,
+      "handContactError": [
+        1,
+        1
+      ],
+      "head": {
+        "visible": 220,
+        "total": 287,
+        "fraction": 0.7665505226480837,
+        "chairHidden": 67,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__sw__00": 67
+        }
+      },
+      "torso": {
+        "visible": 70,
+        "total": 70,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "phase": 2,
+      "handContactError": [
+        1,
+        1
+      ],
+      "head": {
+        "visible": 220,
+        "total": 287,
+        "fraction": 0.7665505226480837,
+        "chairHidden": 67,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__sw__00": 67
+        }
+      },
+      "torso": {
+        "visible": 70,
+        "total": 70,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "phase": 3,
+      "handContactError": [
+        1,
+        1
+      ],
+      "head": {
+        "visible": 220,
+        "total": 287,
+        "fraction": 0.7665505226480837,
+        "chairHidden": 67,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__sw__00": 67
+        }
+      },
+      "torso": {
+        "visible": 70,
+        "total": 70,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "phase": 0,
+      "handContactError": [
+        1,
+        1
+      ],
+      "head": {
+        "visible": 238,
+        "total": 305,
+        "fraction": 0.780327868852459,
+        "chairHidden": 67,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__se__00": 67
+        }
+      },
+      "torso": {
+        "visible": 70,
+        "total": 70,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "phase": 1,
+      "handContactError": [
+        1,
+        1
+      ],
+      "head": {
+        "visible": 238,
+        "total": 305,
+        "fraction": 0.780327868852459,
+        "chairHidden": 67,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__se__00": 67
+        }
+      },
+      "torso": {
+        "visible": 70,
+        "total": 70,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "phase": 2,
+      "handContactError": [
+        1,
+        1
+      ],
+      "head": {
+        "visible": 238,
+        "total": 305,
+        "fraction": 0.780327868852459,
+        "chairHidden": 67,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__se__00": 67
+        }
+      },
+      "torso": {
+        "visible": 70,
+        "total": 70,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "phase": 3,
+      "handContactError": [
+        1,
+        1
+      ],
+      "head": {
+        "visible": 238,
+        "total": 305,
+        "fraction": 0.780327868852459,
+        "chairHidden": 67,
+        "deskHidden": 0,
+        "occluders": {
+          "chair__front__se__00": 67
+        }
+      },
+      "torso": {
+        "visible": 70,
+        "total": 70,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      },
+      "hands": {
+        "visible": 5,
+        "total": 5,
+        "fraction": 1.0,
+        "chairHidden": 0,
+        "deskHidden": 0,
+        "occluders": {}
+      }
+    }
+  ],
+  "aggregate": {
+    "se": {
+      "head": {
+        "total": 1220,
+        "visible": 952,
+        "fraction": 0.780327868852459,
+        "minPhaseFraction": 0.780327868852459
+      },
+      "torso": {
+        "total": 280,
+        "visible": 280,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      },
+      "hands": {
+        "total": 20,
+        "visible": 20,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      }
+    },
+    "sw": {
+      "head": {
+        "total": 1148,
+        "visible": 880,
+        "fraction": 0.7665505226480837,
+        "minPhaseFraction": 0.7665505226480837
+      },
+      "torso": {
+        "total": 280,
+        "visible": 280,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      },
+      "hands": {
+        "total": 20,
+        "visible": 20,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      }
+    },
+    "ne": {
+      "head": {
+        "total": 1088,
+        "visible": 1064,
+        "fraction": 0.9779411764705882,
+        "minPhaseFraction": 0.9779411764705882
+      },
+      "torso": {
+        "total": 288,
+        "visible": 216,
+        "fraction": 0.75,
+        "minPhaseFraction": 0.75
+      },
+      "hands": {
+        "total": 24,
+        "visible": 24,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      }
+    },
+    "nw": {
+      "head": {
+        "total": 1104,
+        "visible": 1020,
+        "fraction": 0.9239130434782609,
+        "minPhaseFraction": 0.9239130434782609
+      },
+      "torso": {
+        "total": 288,
+        "visible": 176,
+        "fraction": 0.6111111111111112,
+        "minPhaseFraction": 0.6111111111111112
+      },
+      "hands": {
+        "total": 24,
+        "visible": 24,
+        "fraction": 1.0,
+        "minPhaseFraction": 1.0
+      }
+    }
+  },
+  "queues": [
+    {
+      "desk": "se",
+      "worker": "nw",
+      "actorDestination": [
+        112,
+        48
+      ],
+      "actorKey": [
+        1,
+        0,
+        "actor",
+        "labcoat-tall"
+      ],
+      "items": [
+        {
+          "id": "desk__monitor__se__03",
+          "key": [
+            -0.71875,
+            0,
+            "desk",
+            "desk__monitor__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__se__00",
+          "key": [
+            -0.21875,
+            0,
+            "desk",
+            "desk__monitor__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__se__01",
+          "key": [
+            -0.21875,
+            0,
+            "desk",
+            "desk__monitor__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__se__02",
+          "key": [
+            -0.1875,
+            0,
+            "desk",
+            "desk__monitor__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__screen__se__00",
+          "key": [
+            -0.1875,
+            1,
+            "desk",
+            "desk__screen__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__11",
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__se__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__00",
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__01",
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "chair__rear__nw__00",
+          "key": [
+            1,
+            -20,
+            "chair",
+            "chair__rear__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "id": "desk__rear__se__14",
+          "key": [
+            1,
+            -20,
+            "desk",
+            "desk__rear__se__14"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__09",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__se__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__se__00",
+          "key": [
+            1,
+            10,
+            "desk",
+            "desk__front__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "chair__front__nw__00",
+          "key": [
+            1,
+            20,
+            "chair",
+            "chair__front__nw__00"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "id": "chair__front__nw__01",
+          "key": [
+            1,
+            20,
+            "chair",
+            "chair__front__nw__01"
+          ],
+          "destination": [
+            64,
+            24
+          ]
+        },
+        {
+          "id": "desk__rear__se__03",
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__02",
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__16",
+          "key": [
+            1.125,
+            0,
+            "desk",
+            "desk__rear__se__16"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__15",
+          "key": [
+            1.375,
+            0,
+            "desk",
+            "desk__rear__se__15"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__05",
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__06",
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__se__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__04",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__10",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__se__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__side__se__00",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__se__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__se__02",
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__se__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__12",
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__se__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__se__03",
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__se__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__se__13",
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__se__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__se__01",
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__se__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "actorDestination": [
+        80,
+        64
+      ],
+      "actorKey": [
+        2,
+        0,
+        "actor",
+        "labcoat-tall"
+      ],
+      "items": [
+        {
+          "id": "desk__rear__sw__07",
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__sw__07"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__08",
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__16",
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__sw__16"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__00",
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__01",
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__sw__03",
+          "key": [
+            0.28125,
+            0,
+            "desk",
+            "desk__monitor__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__15",
+          "key": [
+            0.75,
+            0,
+            "desk",
+            "desk__rear__sw__15"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__sw__00",
+          "key": [
+            0.78125,
+            0,
+            "desk",
+            "desk__monitor__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__sw__01",
+          "key": [
+            0.78125,
+            0,
+            "desk",
+            "desk__monitor__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__sw__02",
+          "key": [
+            0.8125,
+            0,
+            "desk",
+            "desk__monitor__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__screen__sw__00",
+          "key": [
+            0.8125,
+            1,
+            "desk",
+            "desk__screen__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__02",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__09",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__sw__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__side__sw__00",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__sw__03",
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__03",
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__sw__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__04",
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__sw__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__05",
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__06",
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__sw__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "chair__rear__ne__00",
+          "key": [
+            2,
+            -20,
+            "chair",
+            "chair__rear__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "id": "desk__rear__sw__14",
+          "key": [
+            2,
+            -20,
+            "desk",
+            "desk__rear__sw__14"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__sw__12",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__sw__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__sw__00",
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__sw__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__sw__02",
+          "key": [
+            2,
+            10,
+            "desk",
+            "desk__front__sw__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "chair__front__ne__00",
+          "key": [
+            2,
+            20,
+            "chair",
+            "chair__front__ne__00"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "id": "chair__front__ne__01",
+          "key": [
+            2,
+            20,
+            "chair",
+            "chair__front__ne__01"
+          ],
+          "destination": [
+            32,
+            40
+          ]
+        },
+        {
+          "id": "desk__rear__sw__13",
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__sw__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__sw__01",
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__sw__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "actorDestination": [
+        112,
+        16
+      ],
+      "actorKey": [
+        -1,
+        0,
+        "actor",
+        "labcoat-tall"
+      ],
+      "items": [
+        {
+          "id": "chair__rear__sw__00",
+          "key": [
+            -1,
+            -20,
+            "chair",
+            "chair__rear__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "id": "desk__rear__ne__14",
+          "key": [
+            -1,
+            -20,
+            "desk",
+            "desk__rear__ne__14"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__ne__06",
+          "key": [
+            -1,
+            10,
+            "desk",
+            "desk__front__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "chair__front__sw__00",
+          "key": [
+            -1,
+            20,
+            "chair",
+            "chair__front__sw__00"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "id": "chair__front__sw__01",
+          "key": [
+            -1,
+            20,
+            "chair",
+            "chair__front__sw__01"
+          ],
+          "destination": [
+            64,
+            -8
+          ]
+        },
+        {
+          "id": "desk__rear__ne__00",
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__01",
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__ne__00",
+          "key": [
+            0.21875,
+            0,
+            "desk",
+            "desk__monitor__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__ne__01",
+          "key": [
+            0.21875,
+            0,
+            "desk",
+            "desk__monitor__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__ne__02",
+          "key": [
+            0.25,
+            0,
+            "desk",
+            "desk__monitor__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__15",
+          "key": [
+            0.25,
+            0,
+            "desk",
+            "desk__rear__ne__15"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__screen__ne__00",
+          "key": [
+            0.25,
+            1,
+            "desk",
+            "desk__screen__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__08",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__ne__08"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__16",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__ne__16"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__ne__03",
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__02",
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__03",
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__ne__03"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__05",
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__06",
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__ne__06"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__04",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__09",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__09"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__11",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__ne__11"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__side__ne__00",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__side__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__ne__00",
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__00"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__ne__04",
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__ne__04"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__10",
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__10"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__12",
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__ne__12"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__ne__01",
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__01"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__ne__05",
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__ne__05"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__ne__13",
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__ne__13"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__ne__02",
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__ne__02"
+          ],
+          "destination": [
+            44,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "actorDestination": [
+        16,
+        32
+      ],
+      "actorKey": [
+        0,
+        0,
+        "actor",
+        "labcoat-tall"
+      ],
+      "items": [
+        {
+          "id": "desk__rear__nw__07",
+          "key": [
+            -1.0,
+            0,
+            "desk",
+            "desk__rear__nw__07"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__15",
+          "key": [
+            -0.375,
+            0,
+            "desk",
+            "desk__rear__nw__15"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__16",
+          "key": [
+            -0.125,
+            0,
+            "desk",
+            "desk__rear__nw__16"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "chair__rear__se__00",
+          "key": [
+            0,
+            -20,
+            "chair",
+            "chair__rear__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "id": "desk__rear__nw__14",
+          "key": [
+            0,
+            -20,
+            "desk",
+            "desk__rear__nw__14"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__08",
+          "key": [
+            0.0,
+            0,
+            "desk",
+            "desk__rear__nw__08"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__nw__04",
+          "key": [
+            0,
+            10,
+            "desk",
+            "desk__front__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "chair__front__se__00",
+          "key": [
+            0,
+            20,
+            "chair",
+            "chair__front__se__00"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "id": "chair__front__se__01",
+          "key": [
+            0,
+            20,
+            "chair",
+            "chair__front__se__01"
+          ],
+          "destination": [
+            -32,
+            8
+          ]
+        },
+        {
+          "id": "desk__rear__nw__00",
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__01",
+          "key": [
+            0.07,
+            0,
+            "desk",
+            "desk__rear__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__02",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__10",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__rear__nw__10"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__side__nw__00",
+          "key": [
+            1.0,
+            0,
+            "desk",
+            "desk__side__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__nw__00",
+          "key": [
+            1.0,
+            10,
+            "desk",
+            "desk__front__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__04",
+          "key": [
+            1.0699999999999998,
+            0,
+            "desk",
+            "desk__rear__nw__04"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__03",
+          "key": [
+            1.07,
+            0,
+            "desk",
+            "desk__rear__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__nw__00",
+          "key": [
+            1.21875,
+            0,
+            "desk",
+            "desk__monitor__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__nw__01",
+          "key": [
+            1.21875,
+            0,
+            "desk",
+            "desk__monitor__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__monitor__nw__02",
+          "key": [
+            1.25,
+            0,
+            "desk",
+            "desk__monitor__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__screen__nw__00",
+          "key": [
+            1.25,
+            1,
+            "desk",
+            "desk__screen__nw__00"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__05",
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__06",
+          "key": [
+            1.79,
+            0,
+            "desk",
+            "desk__rear__nw__06"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__11",
+          "key": [
+            2.0,
+            0,
+            "desk",
+            "desk__rear__nw__11"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__nw__01",
+          "key": [
+            2.0,
+            10,
+            "desk",
+            "desk__front__nw__01"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__09",
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__09"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__12",
+          "key": [
+            3.0,
+            0,
+            "desk",
+            "desk__rear__nw__12"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__nw__02",
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__02"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__nw__05",
+          "key": [
+            3.0,
+            10,
+            "desk",
+            "desk__front__nw__05"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__rear__nw__13",
+          "key": [
+            4.0,
+            0,
+            "desk",
+            "desk__rear__nw__13"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        },
+        {
+          "id": "desk__front__nw__03",
+          "key": [
+            4.0,
+            10,
+            "desk",
+            "desk__front__nw__03"
+          ],
+          "destination": [
+            20,
+            16
+          ]
+        }
+      ]
+    }
+  ],
+  "checks": {
+    "headGates": false,
+    "hands100": true,
+    "headCellsByteIdentical": 152,
+    "allGaitsDistinct": true,
+    "allTypingDistinct": true,
+    "sitStandExactReverse": true,
+    "connectedBodyCells": 152,
+    "disconnected": [],
+    "propSkinGripCount": 48,
+    "maxPropGripError": 0
+  }
+}

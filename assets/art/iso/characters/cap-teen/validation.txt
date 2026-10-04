@@ -1,0 +1,20 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| cap-teen.iso.json:cap-teen-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| cap-teen.iso.json:cap-teen-normal | transparency | PASS | straight alpha and guards |
+| cap-teen.iso.json:cap-teen-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| cap-teen.iso.json:cap-teen-normal | palette | PASS | 32 colors; RGB max-channel tolerance 0 |
+| cap-teen.iso.json:cap-teen-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| cap-teen.iso.json:cap-teen-normal | 6×6 seams | SKIP | floor sheets only |
+| cap-teen.iso.json:cap-teen-normal | depth-part names | SKIP | furniture sheets only |
+| cap-teen.iso.json:cap-teen-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| cap-teen.iso.json:cap-teen-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| cap-teen.iso.json:cap-teen-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| cap-teen.iso.json:cap-teen-blink | transparency | PASS | straight alpha and guards |
+| cap-teen.iso.json:cap-teen-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| cap-teen.iso.json:cap-teen-blink | palette | PASS | 32 colors; RGB max-channel tolerance 0 |
+| cap-teen.iso.json:cap-teen-blink | row contract | PASS | 24 rows / 96 cells |
+| cap-teen.iso.json:cap-teen-blink | 6×6 seams | SKIP | floor sheets only |
+| cap-teen.iso.json:cap-teen-blink | depth-part names | SKIP | furniture sheets only |
+| cap-teen.iso.json:cap-teen-blink | face-lock / blink | SKIP | checked from normal character sheet |
+17 checks; 0 failed
