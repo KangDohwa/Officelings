@@ -24,7 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "assets/art/iso"
 FACINGS = ("se", "sw", "ne", "nw")
 ROTATIONS = {"se": 0, "sw": 90, "nw": 180, "ne": 270}
-CHARACTERS = ("dev-hoodie-v2", "punk-girl", "professor")
+CHARACTERS = ("dev-hoodie-v2", "punk-girl", "professor", "glasses-bun", "hanbok-modern", "red-braid")
+OPTIONAL_CHARACTERS = ("cap-teen", "labcoat-tall")
 FURNITURE_KINDS = {"desk": "desk", "chair": "chair", "sofa": "sofa", "plant": "plant", "shelf": "bookshelf",
                    "tv-cabinet": "tv", "coffee-machine": "pantry", "fridge": "cabinet", "water-cooler": "water",
                    "rug": "rug", "side-table": "table", "floor-lamp": "lamp"}
@@ -48,8 +49,9 @@ FURNITURE_V3 = {
 }
 
 
-def json_bytes(data):
-    result = (json.dumps(data, ensure_ascii=False, indent=2, allow_nan=False) + "\n").encode("utf-8")
+def json_bytes(data, *, compact=False):
+    result = (json.dumps(data, ensure_ascii=False, indent=None if compact else 2,
+                         separators=(",", ":") if compact else None, allow_nan=False) + "\n").encode("utf-8")
     if len(result) > MAX_JSON:
         raise ValueError("JSON exceeds the 4 MiB limit")
     return result
@@ -254,6 +256,13 @@ def source_paths(art_dir, characters=CHARACTERS, extras=True):
     if extras:
         paths.extend([art_dir / "pets/cat.iso.json", art_dir / "props/carried-props.iso.json"])
         paths.extend(sorted((art_dir / "env").glob("*.iso.json")))
+        for identity in OPTIONAL_CHARACTERS:
+            path = art_dir / f"characters/{identity}/{identity}.iso.json"
+            if path.is_file() and identity not in characters:
+                paths.append(path)
+        # Only final exports are candidates; a present failing export stops publication.
+        paths.extend(sorted((art_dir / "pets-v2").rglob("*.iso.json")))
+        paths.extend(sorted((art_dir / "env-v3").glob("*.iso.json")))
     return paths
 
 
@@ -261,7 +270,7 @@ def check_sources(paths):
     import iso_check
     checks = iso_check.Checks()
     for path in paths:
-        iso_check.validate(path, checks, 3, 8, "final")
+        iso_check.validate(path, checks, 0, 8, "final")
     counts = Counter(row[2] for row in checks.results)
     failed = [row for row in checks.results if row[2] == "FAIL"]
     if failed:
@@ -319,11 +328,29 @@ def assemble(paths):
                 if any(item["id"] == existing["id"] for existing in manifest[key]):
                     raise ValueError(f"duplicate {key} ID: {item['id']}")
                 manifest[key].append(item)
+        if not source.get("characters"):
+            normals = [s for s in source["sheets"] if s["kind"] == "character"]
+            if len(normals) == 1:
+                # glasses-bun exports the complete checker-approved rig without a design entry.
+                manifest["characters"].append(dict(id=f"iso/character/{path.parent.name}", sheetId=normals[0]["id"]))
         for key in METADATA:
             if key in source:
                 if key in manifest and manifest[key] != source[key]:
                     raise ValueError(f"conflicting source metadata: {key}")
                 manifest[key] = deepcopy(source[key])
+        for assembly in source.get("decorAssemblies", []):
+            manifest.setdefault("decorAssemblies", []).append(deepcopy(assembly))
+            for edge in range(assembly["spanEdges"]):
+                parts = [dict(sheetId=p["sheetId"], animation=p["clip"], direction="any")
+                         for p in assembly["parts"] + assembly.get("overlays", []) if p["edgeIndex"] == edge]
+                manifest["wallModules"].append(dict(id=f"{assembly['id']}-edge-{edge}", face=assembly["face"],
+                    edgeAnchor=dict(x=32 if assembly["face"] == "left" else 0, y=48), parts=parts,
+                    slot=assembly.get("slot", "window"), **({"hostModule": assembly["hostModule"]} if "hostModule" in assembly else {})))
+    # Nameplate belongs to the closed leaf; the runtime door stays open for agents.
+    for assembly in manifest.get("decorAssemblies", []):
+        if assembly.get("visibleWhen") == "closed":
+            host = next(m for m in manifest["wallModules"] if m["id"] == assembly["hostModule"])
+            host["parts"].extend(dict(sheetId=p["sheetId"], animation=p["clip"], direction="any") for p in assembly["parts"])
     shadow, data = character_shadow()
     if shadow["id"] in sheets:
         raise ValueError("reserved iso-character-shadow sheet ID")
@@ -460,13 +487,27 @@ def make_layout(manifest):
                 if (clip.get("edge") in active or (clip.get("edges") and set(clip["edges"]) <= active)):
                     transitions.append(dict(x=i, y=j, sheetId=floor_sheet["id"], animation=clip["name"], direction="any"))
     walls = []
+    v3 = any(m["id"] == "iso/wall-plain-l-v3" for m in manifest["wallModules"])
+    wall_suffix = "-v3" if v3 else ""
     for face, suffix in (("left", "l"), ("right", "r")):
         for n in range(10):
-            module = "open-door" if face == "left" and n == 4 else "window" if face == "right" and n == 4 else "plain"
+            module = "open-door" if face == "left" and n == 4 else "window" if not v3 and face == "right" and n == 4 else "plain"
             a = dict(i=-0.5, j=n - 0.5) if face == "left" else dict(i=n - 0.5, j=-0.5)
             b = dict(i=-0.5, j=n + 0.5) if face == "left" else dict(i=n + 0.5, j=-0.5)
-            walls.append(dict(id=f"wall-{suffix}-{n:02d}", face=face, moduleId=f"iso/wall-{module}-{suffix}", start=a, end=b, heightPx=48, rise=16,
-                              **(dict(closedModuleId="iso/wall-closed-door-l") if module == "open-door" else {})))
+            walls.append(dict(id=f"wall-{suffix}-{n:02d}", face=face, moduleId=f"iso/wall-{module}-{suffix}{wall_suffix}", start=a, end=b, heightPx=48, rise=16,
+                              **(dict(closedModuleId="iso/wall-closed-door-l" + wall_suffix) if module == "open-door" else {})))
+    if manifest.get("decorAssemblies"):
+        # Keep the door clear and reserve both window hosts. Sparse upper wall accents.
+        choices = (("left", 2, "whiteboard"), ("left", 3, "clock"), ("left", 6, "corkboard"),
+                   ("left", 8, "city-picture"), ("right", 1, "abstract-art"), ("right", 3, "string-lights"),
+                   ("right", 4, "large-window-day"), ("right", 7, "plant-shelf"), ("right", 9, "wall-lamp"))
+        for face, n, name in choices:
+            suffix = "l" if face == "left" else "r"
+            assembly = next(a for a in manifest["decorAssemblies"] if a["id"] == f"iso/env-v3/{name}-{suffix}")
+            for edge in range(assembly["spanEdges"]):
+                host = next(w for w in walls if w["id"] == f"wall-{suffix}-{n+edge:02d}")
+                walls.append(dict(id=f"decor-{suffix}-{n:02d}-{edge}", face=face, hostId=host["id"],
+                    moduleId=f"{assembly['id']}-edge-{edge}", start=deepcopy(host["start"]), end=deepcopy(host["end"])))
     layout = dict(version=1, view="iso", projection="iso2to1", requiredCapabilities=manifest["requiredCapabilities"],
                   widthTiles=10, heightTiles=10, tileSize=16, tile=manifest["tile"], wallRise=16, wallHeight=48,
                   tiles=tiles, floorTransitions=transitions, door=dict(x=0, y=4), furniture=instances,
@@ -479,7 +520,7 @@ def make_layout(manifest):
     if manifest["pets"]:
         layout["pets"] = [dict(id="cat-1", assetId="iso/cat", x=2, y=6,
             demonstrationPath=[dict(x=i, y=j) for i, j in ((2, 6), (1, 6), (1, 5), (1, 4), (1, 5), (1, 6), (2, 6))])]
-    if len(manifest["characters"]) == 3:
+    if len(manifest["characters"]) >= 3:
         # Frozen synthetic IDs follow the flat UTF-16 FNV-1a + ordinal/probing rule.
         layout["acceptanceFixture"] = dict(seed=20261004, agents=[
             dict(id="iso-demo-child", provider="codex", role="worker", parentId="iso-demo-supervisor",
@@ -488,11 +529,40 @@ def make_layout(manifest):
                  characterId="iso/character/professor", deskId="desk-10", action="typing"),
             dict(id="iso-demo-worker", provider="antigravity", role="worker",
                  characterId="iso/character/dev-hoodie-v2", deskId="desk-11", action="typing")])
+        used = set()
+        roster = [c["id"] for c in manifest["characters"]]
+        for agent in sorted(layout["acceptanceFixture"]["agents"], key=lambda a: a["id"]):
+            value = 2166136261
+            units = agent["id"].encode("utf-16-le")
+            for n in range(0, len(units), 2):
+                value = ((value ^ (units[n] + (units[n+1] << 8))) * 16777619) & 0xffffffff
+            start = value % len(roster)
+            agent["characterId"] = next((roster[(start+k) % len(roster)] for k in range(len(roster))
+                                          if roster[(start+k) % len(roster)] not in used), roster[start])
+            used.add(agent["characterId"])
     validate_layout(layout, manifest)
     return layout
 
 
 def validate_layout(layout, manifest):
+    modules = {m["id"]: m for m in manifest["wallModules"]}
+    walls = {w["id"]: w for w in layout["wallSegments"]}
+    decorated = set()
+    if len(walls) != len(layout["wallSegments"]):
+        raise ValueError("duplicate wall ID")
+    for wall in walls.values():
+        module = modules[wall["moduleId"]]
+        if module["face"] != wall["face"]:
+            raise ValueError("wall face mismatch")
+        if "hostId" in wall:
+            host = walls.get(wall["hostId"])
+            if not host or "hostId" in host or host["face"] != wall["face"] or host["start"] != wall["start"]:
+                raise ValueError("invalid decor host/anchor")
+            if host["id"] in decorated:
+                raise ValueError("overlapping wall decor slots")
+            decorated.add(host["id"])
+            if module.get("hostModule", host["moduleId"]) != host["moduleId"] or not module.get("hostModule") and "plain" not in host["moduleId"]:
+                raise ValueError("decor overlaps a door/window")
     families = {f["id"]: f for f in manifest["furniture"]}
     blocked = set()
     physical = set()
@@ -586,11 +656,11 @@ def build_iso_pack(art_dir=ART, output=ART / "pack", *, pilot=False):
     manifest["sourceChecks"] = checks
     manifest["generatedBy"] = "tools/build_iso_pack.py"
     manifest["complete"] = not pilot
-    manifest["deferredContent"] = ["punk-girl", "professor", "pets", "carriedProps", "environment-polish"] if pilot else []
+    manifest["deferredContent"] = [*CHARACTERS[1:], "pets", "carriedProps", "environment-polish", "env-v3"] if pilot else []
     layout_data = json_bytes(layout)
     manifest["files"] = [dict(file=name, bytes=len(data), sha256=hashlib.sha256(data).hexdigest()) for name, data in sorted(files.items())]
     manifest["files"].append(dict(file="layout.json", bytes=len(layout_data), sha256=hashlib.sha256(layout_data).hexdigest()))
-    manifest_data = json_bytes(manifest)
+    manifest_data = json_bytes(manifest, compact=True)
     # Immutable PNGs first, assets.json last. Older referenced hashes are retained.
     for filename, data in sorted(files.items()):
         path = output / filename
@@ -600,7 +670,8 @@ def build_iso_pack(art_dir=ART, output=ART / "pack", *, pilot=False):
     atomic_write(output / "layout.json", layout_data)
     atomic_write(output / "assets.json", manifest_data)
     return dict(manifest=str(output / "assets.json"), characters=len(manifest["characters"]), sheets=len(manifest["sheets"]),
-                pngs=len(files), furniture=len(manifest["furniture"]), sourceChecks=checks,
+                pngs=len(files), furniture=len(manifest["furniture"]), pets=len(manifest["pets"]), sourceChecks=checks,
+                pngBytes=sum(map(len, files.values())), manifestBytes=len(manifest_data), layoutBytes=len(layout_data),
                 layoutChecks=validate_layout(layout, manifest), bytes=sum(map(len, files.values())) + len(manifest_data) + len(layout_data))
 
 

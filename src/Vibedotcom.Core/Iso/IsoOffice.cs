@@ -20,8 +20,10 @@ public sealed class IsoOffice : IIsoOffice
         public AgentState LastState = info.State;
         public readonly Random BlinkRandom = new(unchecked((int)SpriteAtlas.Hash(info.Id)));
     }
-    private sealed class Cat(Position position)
+    private sealed class Pet(string assetId, Position position, int seed)
     {
+        public readonly string AssetId = assetId;
+        public readonly Random Random = new(seed);
         public Position Position = position;
         public Queue<Tile> Path = new();
         public string Facing = "sw", Action = "sleep";
@@ -39,8 +41,8 @@ public sealed class IsoOffice : IIsoOffice
     private readonly List<string> seatOrder = [];
     private readonly List<Tile> queueTiles = [];
     private readonly List<IsoActorPose> poses = [];
-    private readonly Random random;
-    private readonly Cat cat;
+    private readonly List<Pet> pets = [];
+    private readonly List<IsoPetPose> petPoses = [];
     private IsoScene scene;
     private double time, simulatedTime, nextDue;
     private double nextEntrance;
@@ -55,7 +57,7 @@ public sealed class IsoOffice : IIsoOffice
     public IsoOffice(IsoPack pack, int seed) : this(pack, seed, IsoTwelveSeatFixture.OfficeLayout(pack)) { }
     public IsoOffice(IsoPack pack, int seed, IsoLayout layout)
     {
-        this.pack = pack; random = new(seed); Layout = IsoLayoutLoader.Validate(layout, pack);
+        this.pack = pack; Layout = IsoLayoutLoader.Validate(layout, pack);
         nav = IsoLayoutLoader.Navigation(layout, pack); builder = new(pack, layout);
         foreach (var f in layout.Furniture.Where(f => f.AssetId == "iso/desk").OrderBy(f => f.Id, StringComparer.Ordinal))
         { seats.Add(f.Id, IsoContacts.Desk(f.X, f.Y, f.Rotation, f.SeatProfile)); seatOrder.Add(f.Id); }
@@ -65,9 +67,16 @@ public sealed class IsoOffice : IIsoOffice
         catNavigation = nav.WithBlocked(reserved);
         var catTile = queueTiles.FirstOrDefault(t => t.X >= 2 && t.Y >= 6 && catNavigation.Walkable(t), layout.Door);
         catTargets = catNavigation.Reachable(catTile).OrderBy(t => t.X).ThenBy(t => t.Y).ToArray();
-        cat = new(new(catTile.X, catTile.Y));
-        scene = builder.Build([], new(cat.Position, cat.Facing, cat.Action, 0));
-        NextChangeSeconds = Math.Min(builder.NextChangeSeconds, cat.Remaining); nextDue = NextChangeSeconds;
+        var pool = (pack.Manifest.Pets ?? []).OrderBy(p => p.Id, StringComparer.Ordinal).ToList();
+        var selection = new Random(seed);
+        while (pool.Count > 0 && pets.Count < 2 && catTargets.Length > pets.Count)
+        {
+            var index = selection.Next(pool.Count); var asset = pool[index]; pool.RemoveAt(index);
+            var tile = pets.Count == 0 ? catTile : catTargets.First(t => t != catTile);
+            pets.Add(new(asset.Id, new(tile.X, tile.Y), seed ^ unchecked((int)SpriteAtlas.Hash(asset.Id))));
+        }
+        RefreshPetPoses(); scene = builder.BuildWithPets([], petPoses);
+        NextChangeSeconds = Math.Min(builder.NextChangeSeconds, pets.Count == 0 ? double.PositiveInfinity : 8); nextDue = NextChangeSeconds;
     }
     public IsoScene Update(IReadOnlyList<AgentInfo> agents, DateTimeOffset now, double deltaSeconds)
     {
@@ -81,7 +90,7 @@ public sealed class IsoOffice : IIsoOffice
         AssignSeats();
         foreach (var actor in ordered) Advance(actor, elapsed);
         AssignSeats();
-        if(petsEnabled) AdvanceCat(elapsed);
+        if(petsEnabled) foreach (var pet in pets) AdvancePet(pet, elapsed);
         poses.Clear(); var next = double.PositiveInfinity;
         foreach (var a in ordered)
         {
@@ -96,9 +105,9 @@ public sealed class IsoOffice : IIsoOffice
                 a.DeskId, phase, phaseFrame, blink, a.Phase is Phase.Carry or Phase.Handover, alpha));
             next = Math.Min(next, NextActorChange(a));
         }
-        scene = builder.Build(poses, petsEnabled ? new(cat.Position, cat.Facing, cat.Action, cat.ActionTime) : null, time);
+        RefreshPetPoses(); scene = builder.BuildWithPets(poses, petPoses, time);
         next = Math.Min(next, builder.NextChangeSeconds);
-        if(petsEnabled) next = Math.Min(next,cat.Action == "walk" ? 1d / 30 : cat.Remaining);
+        if(petsEnabled) foreach (var pet in pets) next = Math.Min(next,pet.Action == "walk" ? 1d / 30 : pet.Remaining);
         NextChangeSeconds = Math.Max(0, next); nextDue = time + NextChangeSeconds;
         return scene;
     }
@@ -278,7 +287,12 @@ public sealed class IsoOffice : IIsoOffice
             next = Math.Min(next, Math.Max(0, time < a.BlinkUntil ? a.BlinkUntil - time : a.NextBlink - time));
         return next;
     }
-    private void AdvanceCat(double dt)
+    private void RefreshPetPoses()
+    {
+        petPoses.Clear();
+        if (petsEnabled) foreach (var pet in pets) petPoses.Add(new(pet.AssetId, pet.Position, pet.Facing, pet.Action, pet.ActionTime));
+    }
+    private void AdvancePet(Pet cat, double dt)
     {
         var remaining = dt; var loops = 0;
         while (remaining > 0 && ++loops < 64)
@@ -286,7 +300,7 @@ public sealed class IsoOffice : IIsoOffice
             if (cat.Action == "walk")
             {
                 if (!cat.Path.TryPeek(out var next))
-                { cat.Action = "sleep"; cat.ActionTime = 0; cat.Remaining = 8 + random.NextDouble() * 12; continue; }
+                { cat.Action = "sleep"; cat.ActionTime = 0; cat.Remaining = 8 + cat.Random.NextDouble() * 12; continue; }
                 var dx = next.X - cat.Position.X; var dy = next.Y - cat.Position.Y; var distance = Math.Abs(dx) + Math.Abs(dy);
                 if (distance < 1e-9) { cat.Path.Dequeue(); continue; }
                 cat.Facing = IsoGeometry.Facing(dx == 0 ? 0 : Math.Sign(dx), dy == 0 ? 0 : Math.Sign(dy));
@@ -299,7 +313,7 @@ public sealed class IsoOffice : IIsoOffice
                 var consume = Math.Min(remaining, cat.Remaining); cat.ActionTime += consume; cat.Remaining -= consume; remaining -= consume;
                 if (cat.Remaining > 1e-9) break;
                 if (catTargets.Length < 2) { cat.Remaining = 8; continue; }
-                var index = random.Next(catTargets.Length); var current = new Tile(IsoGeometry.Snap(cat.Position.X), IsoGeometry.Snap(cat.Position.Y));
+                var index = cat.Random.Next(catTargets.Length); var current = new Tile(IsoGeometry.Snap(cat.Position.X), IsoGeometry.Snap(cat.Position.Y));
                 if (catTargets[index] == current) index = (index + 1) % catTargets.Length;
                 var target = catTargets[index];
                 foreach (var t in catNavigation.FindPath(current, target)) cat.Path.Enqueue(t);

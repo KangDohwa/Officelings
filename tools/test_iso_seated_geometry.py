@@ -15,7 +15,7 @@ from PIL import Image
 import build_iso_pack as pack
 import iso_seated_geometry as geometry
 
-PILOTS=(*pack.CHARACTERS,"glasses-bun","hanbok-modern")
+PILOTS=(*pack.CHARACTERS[:3],"glasses-bun","hanbok-modern")
 OUTPUT=pack.ROOT/"artifacts/seatfix/five-pilots"
 
 

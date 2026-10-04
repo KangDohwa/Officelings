@@ -104,7 +104,8 @@ public sealed class IsoIntegrationTests
             try
             {
                 var pack=IsoPack.LoadDefault();
-                Assert.Equal(20,pack.Layout.WallSegments!.Count);
+                Assert.Equal(20,pack.Layout.WallSegments!.Count(w=>w.HostId==null));
+                Assert.Equal(10,pack.Layout.WallSegments!.Count(w=>w.HostId!=null));
                 Assert.Equal(12,pack.Layout.Tiles!.Count(t=>t==2));
                 Assert.Equal("rear-two-walls",pack.Layout.Cutaway);
                 var office=new IsoOffice(pack,42); var source=new PackIsoSheetSource(pack);

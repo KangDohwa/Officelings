@@ -43,7 +43,8 @@ public sealed record IsoFurnitureVariant(int Rotation, string Orientation, strin
     PixelPoint? ChairSeatAnchor = null, IsoGridPoint? SeatGround = null, string? SeatFacing = null, IsoPart? Glow = null,
     double HeightPx = 0);
 public sealed record IsoFurnitureAsset(string Id, IReadOnlyList<IsoFurnitureVariant> Variants, string? Kind = null);
-public sealed record IsoWallModule(string Id, string Face, PixelPoint EdgeAnchor, IReadOnlyList<IsoPart> Parts);
+public sealed record IsoWallModule(string Id, string Face, PixelPoint EdgeAnchor, IReadOnlyList<IsoPart> Parts,
+    string? Slot = null, string? HostModule = null);
 public sealed record IsoPet(string Id, string SheetId, IsoPart? Shadow = null);
 public sealed record IsoCarriedProp(string Id, string SheetId, string Animation, PixelPoint SourceGrip);
 public sealed record IsoTileSpec(int Width, int Height, PixelPoint? Anchor = null);
