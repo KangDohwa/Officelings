@@ -12,7 +12,7 @@ Vibedotcom은 Windows에서 최근 Codex, Claude Code, Antigravity 세션을 작
 - **평면 사무실의 생활.** 고정 책상 12개와 추가 좌석, 사무실 편집기, 다트·탁구·독서 같은 휴식 활동, 돌아다니는 반려동물이 있다. 창밖, 시계와 조명은 컴퓨터의 현지 시간을 따른다. 비·눈·12월 장식은 선택 사항이며 인터넷 없이 동작한다.
 - **도구 아이콘과 개인정보 모드.** 프로젝트에서 만든 도구 아이콘에 관리자·하위 에이전트 표시를 붙인다. 이름표는 Hover, Icon, Always 모드가 있다. `off|tasks|full` 개인정보 모드는 Core에서 정보를 지운 뒤 상태에 저장한다.
 - **선택적 활동 공유.** 평면 앱이나 대화형 트래커에서 전송할 JSON을 미리 보고 동의해야 공유를 시작한다. 별칭, 도구, 축약 상태와 관계만 전송한다. 저장 토큰은 Windows DPAPI로 보호하며 **Stop sharing**으로 전송을 멈춘다. 연결 대상 호스팅 서비스는 [vibe-com.rayd.cc](https://vibe-com.rayd.cc)다.
-- **Windhawk v5 동기화.** 네이티브 평면 렌더러는 현재 좌석·도구 아이콘·휴식 자세·분위기 필드·전달된 반려동물을 읽는다. 일반 트래커는 반려동물을 시뮬레이션하지 않는다. Explorer 주입과 [수동 셸 점검](windhawk/README.md#manual-test-checklist--user-performs-later)은 아직 검증하지 않았다.
+- **Windhawk v5 동기화(동결, 실험적).** 네이티브 평면 렌더러는 현재 좌석·도구 아이콘·휴식 자세·분위기 필드·전달된 반려동물을 읽는다. 일반 트래커는 반려동물을 시뮬레이션하지 않는다. Explorer 주입과 [수동 셸 점검](windhawk/README.md#manual-test-checklist--user-performs-later)은 아직 검증하지 않았다.
 - **입력 제한.** 강화된 파일 입력 경로는 링크·reparse point, 안전하지 않은 상대 경로, UNC 경로와 대체 데이터 스트림을 거부한다. JSON·PNG·파일 탐색·파싱에는 크기와 작업량 제한이 있다. 보안 검토가 모두 끝났다는 뜻은 아니다. [개인정보](docs/privacy.md)와 [제한](docs/limits.md)을 참고한다.
 
 아이소 기능은 아직 제한적이다. 쉬는 캐릭터는 좌석에 머물며, 평면의 휴식·분위기·편집기·공유 UI는 연결되지 않았다. `--layout`과 `--profile-idle`은 flat에서만 쓴다. 트래커 출력은 여전히 **평면 v5**이고, 계획된 v6 아이소 교환 형식과 네이티브 렌더러는 제공하지 않는다. [화면별 차이](docs/app-usage.md#flat-and-isometric-views)와 [아이소 계약](docs/iso-integration-contract.md)에 정리했다.

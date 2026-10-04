@@ -1,5 +1,7 @@
 # Vibedotcom — Windhawk Variant B
 
+> **Status: frozen and experimental (decided 2026-10-04).** This mod renders the flat scene only; the isometric mode and later app changes are not mirrored here, and it has been verified offscreen only, never in a real Explorer session. It is kept as-is, without further synchronization, and is planned to move to an archive branch before the repository becomes public. The standalone app is the supported way to run Vibedotcom.
+
 `vibedotcom.wh.cpp` hosts a passive pixel office in the **shell instance of explorer.exe**. It consumes the [v5 state contract](../docs/state-schema.md), PNG [asset contract](../docs/asset-format.md), and the resolved fixed office. Core supplies seats, stable desk IDs, overflow/queue destinations, monitor frames, animation and collision geometry. The renderer never creates desks or grows the office as membership changes.
 
 Versions **3, 4 and 5** are readable. Unknown fields within those versions are ignored; unknown versions, invalid required types, asset/layout formats other than 1 and fallback atlas formats other than 2 are rejected while the last valid scene remains available. Supplied frames, authored rotation/state variants, anchors and offsets remain authoritative. V5 seat phases use the published contact and linked chair depth, clip below the seat, and do not apply alignment twice.
