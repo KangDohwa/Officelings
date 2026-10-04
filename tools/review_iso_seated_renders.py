@@ -23,7 +23,9 @@ def review(directory,pack_directory,seated_only=False):
             pixels=np.array(cell.crop((left-x,top-y,right-x,bottom-y)))
             mask=pixels[:,:,3]==255
             expected[top:bottom,left:right][mask]=pixels[mask]
-            seated[top:bottom,left:right][mask]=item['InstanceId']=='actor/body' or item['InstanceId'].startswith('chair/')
+            seated[top:bottom,left:right][mask]=(item['InstanceId'] in ('actor','actor/body') or
+                item['InstanceId'].startswith('chair/') or
+                item['InstanceId'].startswith('desk/') and item['InstanceId'].endswith('__17'))
         actual=np.array(Image.open(directory/(record["name"]+".png")).convert("RGBA"))
         # Both ownership and every 4x nearest-neighbor block must match the queue.
         scaled=np.repeat(np.repeat(expected,4,axis=0),4,axis=1);mask=scaled[:,:,3]==255

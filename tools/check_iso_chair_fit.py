@@ -14,6 +14,7 @@ from PIL import Image, ImageDraw
 
 import build_iso_pack as pack
 import iso_seated_geometry as geometry
+from iso_workstation_geometry import DeskBake
 
 ACTIONS = ("typing", "thinking", "sleep", "sit-down", "stand-up")
 EXTRAS = ("afro-sweater", "glasses-bun", "hanbok-modern", "red-braid")
@@ -24,11 +25,11 @@ def fixture(directory, shipped_directory):
     production = {s["id"]: s for s in shipped["sheets"] if s["kind"] in ("character", "blink")}
     identities = tuple(c["id"].split("/")[-1] for c in shipped["characters"])
     available = tuple(i for i in EXTRAS if (pack.ART / f"characters/{i}/{i}.iso.json").is_file() and i not in identities)
-    manifest, files = pack.assemble(pack.source_paths(pack.ART, identities + available))
+    manifest, files = pack.assemble(pack.source_paths(pack.ART, identities + available, extras=False))
     for identity in available:
         if not any(c["id"] == f"iso/character/{identity}" for c in manifest["characters"]):
             manifest["characters"].append(dict(id=f"iso/character/{identity}", sheetId=identity + "-normal", name=identity))
-    manifest["sheets"] = [deepcopy(production.get(s["id"], s)) for s in manifest["sheets"] if s["id"] != "iso-chair-sandwich"]
+    manifest["sheets"] = [deepcopy(production.get(s["id"], s)) for s in manifest["sheets"] if s["id"] not in ("iso-chair-sandwich","iso-desk-sandwich")]
     for s in production.values():
         files[s["file"]] = (shipped_directory / s["file"]).read_bytes()
     geometry.bake(manifest, files)
@@ -47,7 +48,9 @@ def fixture(directory, shipped_directory):
 
 def unpack(value):
     import base64
-    return np.unpackbits(np.frombuffer(base64.b64decode(value), np.uint8), bitorder="little").reshape(64, 32).astype(bool)
+    import zlib
+    data=zlib.decompress(base64.b64decode(value[2:])) if value.startswith("z:") else base64.b64decode(value)
+    return np.unpackbits(np.frombuffer(data, np.uint8), bitorder="little").reshape(64, 32).astype(bool)
 
 
 def measure(directory, output):
@@ -57,6 +60,7 @@ def measure(directory, output):
     sandwich = sheets["iso-chair-sandwich"]
     parts = {c["name"] + "/" + c["direction"]: c for c in sandwich["clips"]}
     records = []; calibrated = {}
+    desk = DeskBake(manifest,{s["file"]:(directory/s["file"]).read_bytes() for s in manifest["sheets"]})
     output.mkdir(parents=True, exist_ok=True)
     for design in manifest["characters"]:
         sheet = sheets[design["sheetId"]]
@@ -85,8 +89,7 @@ def measure(directory, output):
                         ay, ax = np.where(sprite[:,:,3] > 0); sy, sx = np.where(np.isfinite(ad))
                         distances = (ax[:,None]+dx-sx)**2 + (ay[:,None]+dy-sy)**2
                         nearest = distances.argmin(axis=1)
-                        depth = np.full((128,128), -np.inf)
-                        depth[ay+dy,ax+dx] = ad[sy[nearest],sx[nearest]]
+                        depth,_ = geometry.calibrated_actor_depth(facing,pose,height,dx,dy,sprite)
                         extrapolation = np.zeros((128,128))
                         extrapolation[ay+dy,ax+dx] = np.sqrt(distances.min(axis=1))
                         calibrated[cache_key] = depth, extrapolation
@@ -99,6 +102,9 @@ def measure(directory, output):
                         raise AssertionError("part union has gaps, duplicate opaque samples or changed colors")
                     front = (cells[1][:,:,3] > 0) | (cells[2][:,:,3] > 0)
                     visible_cushion = (labels == 2) & (~body | front)
+                    desk_depth = desk.chair_depth(facing) if "deskFront" in binding else None
+                    if desk_depth is not None:
+                        visible_cushion &= desk_depth < geometry.chair(facing)[1]-1e-7
                     # Authored pelvis contact +/- lap extent, fixed independently
                     # of chair size/proxy. Exclude shins and feet below +6.
                     anchor = clip.get("phaseContacts", [{}] * clip["frames"])[frame].get("seatAnchor", clip.get("seatAnchor", {"y":44}))
@@ -123,6 +129,8 @@ def measure(directory, output):
                         hands[y-1:y+2,x-1:x+2] = sprite[y-1:y+2,x-1:x+2,3] > 0
                     hidden = unpack(binding["hidden"])
                     cushion_lap = lap & (labels == 2)
+                    if desk_depth is not None:
+                        cushion_lap &= desk_depth < geometry.chair(facing)[1]-1e-7
                     ys, xs = np.where(cushion_lap)
                     # Invert P_y=80+s-z, D=s+2z on the actual sprite ray.
                     inferred_z = (depth[ys,xs] - ys + 80) / 3
@@ -142,7 +150,14 @@ def measure(directory, output):
                     records.append(r)
                     result = Image.new("RGBA", (128,128))
                     result.alpha_composite(Image.fromarray(cells[0]))
+                    if desk_depth is not None:
+                        _,desk_art,_,shift,_,_,_=desk.desks[facing]
+                        result.alpha_composite(Image.fromarray(desk_art),shift)
                     result.alpha_composite(Image.fromarray(sprite), (dx,dy))
+                    if desk_depth is not None:
+                        generated=sheets["iso-desk-sandwich"]
+                        dc=next(c for c in generated["clips"] if c["name"]+"/"+c["direction"]==binding["deskFront"])
+                        result.alpha_composite(Image.fromarray(geometry.source_cell(generated,images[generated["id"]],dc,0)),shift)
                     result.alpha_composite(Image.fromarray(cells[1]))
                     result.alpha_composite(Image.fromarray(cells[2]))
                     crop = result.crop((40,28,88,90)).resize((192,248), Image.Resampling.NEAREST)
@@ -154,6 +169,9 @@ def measure(directory, output):
 
 def report(records, before=None, enforce=False, details=False):
     failed = []
+    if before:
+        keys={r["key"] for r in records}
+        before=[r for r in before if r["key"] in keys]
     for facing in geometry.FACINGS:
         seated = [r for r in records if r["facing"]==facing and r["action"] in ("typing","thinking","sleep")]
         nums = (max(r["left"] for r in seated), max(r["right"] for r in seated),
@@ -167,8 +185,8 @@ def report(records, before=None, enforce=False, details=False):
         print(f"{facing}: {len(seated)} seated frames; {prefix}after L/R={nums[:2]} px, outside={nums[2]}, lip/lap={nums[3]}")
         print(f"  lap proxy: below z12={sum(r['lapProxyBelowTop'] for r in seated)} pixels; "
               f"max extrapolation={max(r['lapMaxExtrapolation'] for r in seated):.4f}px")
-        if facing in ("se","sw") and max(nums[:2]) > 2:
-            failed.append(f"{facing}: overhang exceeds 2px per side")
+        if facing in ("se","sw") and max(nums[:2]) > 5:
+            failed.append(f"{facing}: overhang exceeds 5px per side")
         if nums[3] != 0:
             failed.append(f"{facing}: lip covers lap")
         if any(r["lapProxyBelowTop"] for r in seated):

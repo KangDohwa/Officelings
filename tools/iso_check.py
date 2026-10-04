@@ -413,11 +413,37 @@ def seated_assemblies(manifest, arrays, verified_empty):
         expected[facing] = sum(parts)
         assert (expected[facing][:,:,3] <= 255).all(), 'duplicate static chair pixels'
     used = set(); seen = set(); empty = set(); frames = 0
+    desk_seen=set();desk_used=set()
+    if 'iso-desk-sandwich' in arrays:
+        desk_arr,desk_sheet=arrays['iso-desk-sandwich'];source_arr,source_sheet=arrays['iso-desk-parts']
+        desk_clips={c['name']+'/'+c['direction']:c for c in desk_sheet['clips']}
+        desk_sources={c['name']+'/'+c['direction']:c for c in source_sheet['clips']
+                      if not c['name'].startswith('monitor-') and c['name'] not in ('rear-15','rear-16')}
     for _, actor in arrays.values():
         if actor['kind'] not in ('character', 'blink'):
             continue
         for clip in actor.get('clips', []):
             for binding in clip.get('chairFrames', []):
+                if binding.get('deskFront'):
+                    replacements=binding['deskClips'];assert len(replacements)%2==0,'desk replacement pairs'
+                    desk_used.update(replacements[1::2]);desk_used.add(binding['deskFront'])
+                    desk_key=tuple(replacements)+(binding['deskFront'],)
+                    if desk_key not in desk_seen:
+                        desk_seen.add(desk_key);front=desk_clips[binding['deskFront']];df=front['direction']
+                        assert front['partId']==f'desk__front__{df}__17' and front['isoZOrder']==10 and front['seatGroupId']=='seat','desk front id/rank'
+                        pairs=dict(zip(replacements[::2],replacements[1::2]))
+                        union=cells(desk_arr,desk_sheet,front)[0].astype(np.uint16);original=np.zeros_like(union)
+                        for key,c in desk_sources.items():
+                            if c['direction']!=df:continue
+                            pixels=cells(source_arr,source_sheet,c)[0];original+=pixels
+                            if key in pairs:
+                                replacement=desk_clips[pairs[key]]
+                                assert replacement['partId']==c['partId'] and replacement['isoZOrder']==c['isoZOrder'] and replacement.get('seatGroupId')==c.get('seatGroupId'),'desk source identity/rank'
+                                pixels=cells(desk_arr,desk_sheet,replacement)[0]
+                                if not pixels[:,:,3].any():empty.add((desk_sheet['id'],replacement['name'],df))
+                            union+=pixels.astype(np.uint16)
+                        assert (original[:,:,3]<=255).all() and np.array_equal(union,original),'desk union has gaps/duplicates/changed colors'
+                        if not cells(desk_arr,desk_sheet,front)[0][:,:,3].any():empty.add((desk_sheet['id'],front['name'],df))
                 facing = clip['direction']; keys = tuple(binding['clips']); frames += 1
                 assert len(keys)==3, 'three assembly chair parts required'
                 used.update(keys)
@@ -434,6 +460,7 @@ def seated_assemblies(manifest, arrays, verified_empty):
                     union += pixels.astype(np.uint16)
                 assert np.array_equal(union, expected[facing]), 'assembly union has gaps, duplicate pixels or changed colors'
     assert frames and used==set(clips), 'unreferenced generated assembly cells'
+    if desk_used:assert desk_used==set(desk_clips),'unreferenced desk assembly cells'
     verified_empty.update(empty)
     return f'{frames} bindings / {len(seen)} exact unions / {len(empty)} proven transparent parts'
 

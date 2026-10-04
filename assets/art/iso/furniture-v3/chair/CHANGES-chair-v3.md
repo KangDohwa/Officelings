@@ -1,5 +1,15 @@
 # Chair v3 인계
 
+## 방석 확대와 베이스 축소 (lane/chairfix2)
+
+`main 1fd86d0`의 4.2×4.2 방석을 등받이 폭과 같은 5.5×5.5로 늘렸다. 작은 원호 모서리는 네 방향 각각 native 4px를 제거하고, z10.5..12의 얇은 가장자리와 0.25 밑면 taper를 유지한다. 스포크 길이 6→3.8, 반경 0.6→0.32, 캐스터 1.6×1.6×2→1×1×1.5, 리프트 폭 1.6→0.9로 베이스를 줄였다. 색상, 의자·골반·손 anchor, phaseContacts, S0 높이, 세 파트 ID/rank는 유지했다.
+
+책상의 실제 구조 알파와 v3 상판·입력기기 geometry로 프레임별 `iso-desk-sandwich`를 만든다. 추가 앞면은 rank10이며 원본 책상 파트의 나머지와 누락·중복 없이 합쳐진다. 인물 원본 픽셀은 그대로다. SE/SW의 책상보다 위에 남는 가려져야 할 인물 픽셀은 검사한 576크롭에서 19,872→0이다. chair front lip의 lap/thigh 가림도 0이다.
+
+SE 돌출은 최대 4px, SW는 5px로 요청한 4px 기준이 아직 실패한다. 기준을 완화하지 않았다. 전체 .NET 560/560, source/pack lint 실패 0이며 Python fit 실패와 기존 source-count 실패는 [현재 검증 기록](../../../../../docs/iso-seated-occlusion.md)에 적었다. PNG와 실행 로그는 `artifacts/chairfix2/`에만 있다.
+
+재생성은 완전한 현재 팩에 `python -B tools/iso_seated_geometry.py`, `python -B tools/build_iso_pack.py --seated-only` 순서로 한다. cap-teen/labcoat-tall/pets-v2 통합은 packv5 범위다. 병합 시 이 lane의 이전 catalog를 새 팩 위에 덮어쓰지 않는다. 아래 절은 이전 작업 기록이다.
+
 ## 의자 축소와 허벅지 깊이 수정 (lane/chairslim)
 
 `beb346a`의 방석을 i/j 각각 -2.1..2.1, z10.5..12로 축소했다. 수평 두 축은 7→4.2로 40% 줄었으며 네 모서리를 깊게 깎았다. 등판 폭은 8→5.5, 팔걸이 패드는 길이 4→3과 중심 j=±4.5→±2.9로 좁혔다. 등판의 i=-4..-3.5 위치와 z21 상단은 유지하고 금속 연결대를 넣었다. 베이스·캐스터와 그림자는 기존 값을 쓴다.

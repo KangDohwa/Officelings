@@ -3,9 +3,9 @@ namespace Vibedotcom.Core.Iso;
 public sealed partial class IsoSceneBuilder
 {
     // Layout-time entries retain the static slots, ID, depth, hit target and
-    // destination. Playback is one dictionary lookup plus three assignments.
+    // destination. Playback selects cached chair/desk entries with one lookup.
     private readonly Dictionary<(string Desk, string Sheet, int Row, int Column),
-        (int[] Slots, Entry[] Entries)> seatChairs = [];
+        (int[] Slots, Entry[] Entries, Entry? DeskFront)> seatChairs = [];
 
     private void CacheSeatChairs()
     {
@@ -34,7 +34,35 @@ public sealed partial class IsoSceneBuilder
                         entries[k] = original with { Item = original.Item with
                         { SheetId = "iso-chair-sandwich", Clip = c.Key, Frame = 0 } };
                     }
-                    seatChairs.TryAdd((chair.DeskId!, design.SheetId, clip.Row, clip.Column + frame), (slots, entries));
+                    var selectedSlots = slots.ToList(); var selectedEntries = entries.ToList(); Entry? deskFront = null;
+                    if (binding.DeskFront != null)
+                    {
+                        var replacements = binding.DeskClips ?? throw new InvalidDataException("Desk partition lacks replacements.");
+                        if (replacements.Count % 2 != 0) throw new InvalidDataException("Invalid desk replacement pairs.");
+                        for (var k = 0; k < replacements.Count; k += 2)
+                        {
+                            var source = pack.Clip("iso-desk-parts", replacements[k]);
+                            var replacement = pack.Clip("iso-desk-sandwich", replacements[k + 1]);
+                            if (source.PartId != replacement.PartId || source.Direction != replacement.Direction ||
+                                source.IsoZOrder != replacement.IsoZOrder || source.SeatGroupId != replacement.SeatGroupId)
+                                throw new InvalidDataException("Desk partition changes identity/depth.");
+                            var slot = staticItems.FindIndex(e => e.Item.InstanceId == chair.DeskId + "/" + source.PartId);
+                            if (slot < 0) throw new InvalidDataException("Missing desk partition source.");
+                            var original = staticItems[slot]; selectedSlots.Add(slot);
+                            selectedEntries.Add(original with { Item = original.Item with
+                                { SheetId = "iso-desk-sandwich", Clip = replacement.Key, Frame = 0 } });
+                        }
+                        var c = pack.Clip("iso-desk-sandwich", binding.DeskFront);
+                        var surface = staticItems.First(e => e.Key.InstanceId == chair.DeskId &&
+                            pack.Clip(e.Item.SheetId, e.Item.Clip).SeatGroupId == "seat");
+                        if (c.IsoZOrder != 10 || c.SeatGroupId != "seat" || c.Direction != IsoGeometry.Orientation(layout.Furniture.Single(f => f.Id == chair.DeskId).Rotation))
+                            throw new InvalidDataException("Invalid desk front contact/rank.");
+                        var key = new IsoDepthKey(surface.Key.Pass, surface.Key.GroundDepth, 10, chair.DeskId!, c.PartId!);
+                        deskFront = new(surface.Item with { InstanceId = chair.DeskId + "/" + c.PartId,
+                            SheetId = "iso-desk-sandwich", Clip = c.Key, Frame = 0, Depth = key.Encoded }, key);
+                    }
+                    seatChairs.TryAdd((chair.DeskId!, design.SheetId, clip.Row, clip.Column + frame),
+                        (selectedSlots.ToArray(), selectedEntries.ToArray(), deskFront));
                 }
             }
         }
@@ -45,6 +73,7 @@ public sealed partial class IsoSceneBuilder
         if (actor.SeatPhase == null || actor.DeskId == null ||
             !seatChairs.TryGetValue((actor.DeskId, sheet, clip.Row, clip.Column + frame), out var choice)) return;
         for (var k = 0; k < choice.Slots.Length; k++) work[choice.Slots[k]] = choice.Entries[k];
+        if (choice.DeskFront != null) work.Add(choice.DeskFront);
     }
 
     private void SortWithSeatChairs()

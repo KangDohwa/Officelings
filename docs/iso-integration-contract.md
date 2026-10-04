@@ -15,6 +15,14 @@ Version remains 1. V3 keeps part IDs, source anchors, seat groups, hit targets a
 
 ### Pack v4 additions (historical)
 
+### Chairfix2 seated desk partition
+
+The three chair part IDs and ranks remain unchanged. Optional `chairFrames.deskClips` contains flat source/remainder clip pairs, `deskFront` selects a generated `iso-desk-sandwich` clip, and `deskHidden`/`deskOverlap` carry diagnostic coverage. Remainders retain original desk IDs/ranks/anchors; the extra part is `desk__front__<orientation>__17`, seatGroupId `seat`, rank10. Its disjoint union with remainders exactly reproduces the original structural desk pixels. Monitors, mugs and paper retain their existing parts. Empty seats use the original static desk. Core caches replacements at layout creation and selects them per pose frame; no new Scene API fields or global depth offsets are used. Ties remain chair-back -20, actor 0, desk-front 10, chair-front 20.
+
+`seatedOracle.version` is 2; pack version stays 1. Diagnostic bitsets use `z:` plus base64 zlib little-endian bytes, and checkers accept legacy raw base64. Compact JSON is 2,483,086 bytes, below 4 MiB; referenced PNG growth is 56,459 bytes. Keep runtime and generated pack changes together. Apply the two seated regeneration commands to packv5's complete merged pack, preserving its catalog/layout/pets. At base `1fd86d0`, committed cap-teen/labcoat-tall/pets-v2 sources remain outside this lane's shipped pack; the full-source builder would include them. [Current measurements and failures](iso-seated-occlusion.md) supersede the historical v4 validation below: desk-over-body violations are 0 in tested crops, but SW cushion overhang remains 5px against the requested 4px gate.
+
+### Pack v4 additions
+
 `env-v3/walls.iso.json` supplies the wall panels and integrated trim. `wall-decor.iso.json` retains all day/night/blinds window assemblies, boards, clock, pictures, shelf and lights. The builder compiles each assembly edge into a wall module and preserves `decorAssemblies`. Optional module fields `slot` and `hostModule` describe mounting restrictions; layout attachments use `hostId`, the host's first endpoint and its ground depth. Both Python and Core reject mismatched faces/anchors, duplicate slots and decorations mounted over doors or existing windows. The default room uses ten attachment edges: nine accents including the two-edge day window on right hosts 04/05. The open door remains left host 04. LAB nameplates are appended only to the closed v3 door modules. Night/blinds variants are available art, with no automatic time switching.
 
 glasses-bun's source omits a `characters` entry; the adapter creates its design from the single approved normal sheet. Pixel data, contacts, blink sheets and eye masks are preserved. Chair sandwich masks are rebuilt for all six designs.

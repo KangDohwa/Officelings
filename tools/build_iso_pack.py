@@ -686,7 +686,8 @@ def refresh_seated_pack(art_dir=ART, output=ART / "pack"):
     if output.resolve().is_relative_to((ROOT/"assets/pack").resolve()):
         raise ValueError("the flat runtime pack is not an iso output directory")
     manifest=json.loads((output/"assets.json").read_text(encoding="utf-8"))
-    files={s["file"]:(output/s["file"]).read_bytes() for s in manifest["sheets"] if s["id"]!="iso-chair-sandwich"}
+    generated={"iso-chair-sandwich","iso-desk-sandwich"}
+    files={s["file"]:(output/s["file"]).read_bytes() for s in manifest["sheets"] if s["id"] not in generated}
     for s in manifest["sheets"]:
         for mask in s.get("faceLock",{}).values(): files[mask["eyeMask"]]=(output/mask["eyeMask"]).read_bytes()
     path=art_dir/"furniture-v3/chair/chair.iso.json"
@@ -694,7 +695,7 @@ def refresh_seated_pack(art_dir=ART, output=ART / "pack"):
     data=local_file(path.parent,sheet["file"]).read_bytes();info=png_info(data)
     sheet.update(file=f"sheets/pack-{info['sha256']}.png",**info);sheet["clips"]=expand_aliases(sheet)
     files[sheet["file"]]=data
-    manifest["sheets"]=[sheet if s["id"]==sheet["id"] else s for s in manifest["sheets"] if s["id"]!="iso-chair-sandwich"]
+    manifest["sheets"]=[sheet if s["id"]==sheet["id"] else s for s in manifest["sheets"] if s["id"] not in generated]
     manifest["furniture"]=[deepcopy(source["furniture"][0]) if f["id"]=="iso/chair" else f for f in manifest["furniture"]]
     for p in manifest.get("sourceManifests",[]):
         if p["file"]=="furniture-v3/chair/chair.iso.json":p["sha256"]=hashlib.sha256(path.read_bytes()).hexdigest()
