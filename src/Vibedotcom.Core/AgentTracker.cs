@@ -24,6 +24,8 @@ public sealed class AgentTracker : IDisposable
     private readonly ClosedSessions closedSessions;
     private DateTimeOffset nextScan, nextDiscovery, lastPoll;
     private int overflow;
+    private int remainingBytes;
+    private int remainingRecords;
     public long BytesRead => sources.Values.Sum(s => s.Tail.BytesRead);
     public IReadOnlyList<string> Warnings => warnings.Order().ToArray();
     internal long DiscoveryFilesVisited { get; private set; }
@@ -46,6 +48,8 @@ public sealed class AgentTracker : IDisposable
         {
             nextScan = now + options.ScanInterval;
             warnings.Clear();
+            remainingBytes = InputLimits.PollBytes;
+            remainingRecords = InputLimits.Records;
             var discover = now >= nextDiscovery || Interlocked.Exchange(ref overflow, 0) != 0;
             foreach (var (provider, root, pattern) in new[]
             {
@@ -63,20 +67,32 @@ public sealed class AgentTracker : IDisposable
                     {
                         DiscoveryFilesVisited++;
                         if (Recent(file.LastWriteTimeUtc, now) || sources.ContainsKey(file.FullName)) candidates.Add(file.FullName);
+                        if (candidates.Count >= InputLimits.Sources) { warnings.Add("Provider discovery budget exceeded."); break; }
                     }
-                foreach (var path in candidates)
+                foreach (var path in candidates.Take(InputLimits.Sources))
                 {
                     if (provider == Provider.Claude && path.Contains(Path.DirectorySeparatorChar + "tool-results" + Path.DirectorySeparatorChar)) continue;
-                    var file = new FileInfo(path);
-                    if (file.Exists && (Recent(file.LastWriteTimeUtc, now) || sources.ContainsKey(path))) Read(provider, file);
+                    try
+                    {
+                        if (!FileBoundary.Exists(path)) continue;
+                        using var ancestors = FileBoundary.LockAncestors(path);
+                        var file = new FileInfo(path);
+                        if (Recent(file.LastWriteTimeUtc, now) || sources.ContainsKey(path)) Read(provider, file);
+                    }
+                    catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
+                    { warnings.Add("Provider file boundary rejected: " + e.GetType().Name); }
                 }
             }
             if (Watch(Path.Combine(options.Home, ".gemini"))) discover = true;
             var changed = dirty.Keys.Where(p => p.StartsWith(Path.Combine(options.Home, ".gemini") + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)).ToArray();
             foreach (var path in changed) dirty.TryRemove(path, out _);
-            antigravity.Poll(now, discover, changed, agents, warnings, Read);
-            closedSessions.Poll(now, agents, warnings, sources.Where(s => s.Value.Provider == Provider.Codex)
-                .Select(s => (s.Key, s.Value.Cached.Keys.ToArray())));
+            try { antigravity.Poll(now, discover, changed, agents, warnings, Read); }
+            catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
+            { warnings.Add("Antigravity file boundary rejected: " + e.GetType().Name); }
+            try { closedSessions.Poll(now, agents, warnings, sources.Where(s => s.Value.Provider == Provider.Codex)
+                .Select(s => (s.Key, s.Value.Cached.Keys.ToArray()))); }
+            catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
+            { warnings.Add("Session registry boundary rejected: " + e.GetType().Name); }
             if (discover) nextDiscovery = now + TimeSpan.FromMinutes(1);
         }
         var activeParents = new HashSet<string>(StringComparer.Ordinal);
@@ -84,7 +100,7 @@ public sealed class AgentTracker : IDisposable
         {
             var parent = child.ParentId;
             var visited = new HashSet<string>(StringComparer.Ordinal) { child.Id };
-            while (parent != null && visited.Add(parent))
+            while (parent != null && visited.Count <= 64 && visited.Add(parent))
             {
                 activeParents.Add(parent);
                 parent = agents.TryGetValue(parent, out var a) ? a.ParentId : null;
@@ -103,9 +119,12 @@ public sealed class AgentTracker : IDisposable
 
     private bool Watch(string root)
     {
-        if (watchers.ContainsKey(root) || !Directory.Exists(root)) return false;
+        if (watchers.ContainsKey(root)) return false;
         try
         {
+            FileBoundary.Check(root);
+            if (!FileBoundary.Exists(root, directory: true)) return false;
+            using var ancestors = FileBoundary.LockAncestors(Path.Combine(root, ".boundary"));
             var watcher = new FileSystemWatcher(root)
             {
                 IncludeSubdirectories = true,
@@ -115,39 +134,37 @@ public sealed class AgentTracker : IDisposable
             {
                 if (e.FullPath.EndsWith(".jsonl", StringComparison.OrdinalIgnoreCase) || e.FullPath.EndsWith(".db", StringComparison.OrdinalIgnoreCase) ||
                     e.FullPath.EndsWith("-wal", StringComparison.OrdinalIgnoreCase) || e.FullPath.EndsWith("-journal", StringComparison.OrdinalIgnoreCase))
-                    dirty[e.FullPath] = 0;
-                else if (e.ChangeType is WatcherChangeTypes.Created or WatcherChangeTypes.Renamed && Directory.Exists(e.FullPath))
+                    { if (dirty.Count < 4096) dirty[e.FullPath] = 0; else Interlocked.Exchange(ref overflow, 1); }
+                else if (e.ChangeType is WatcherChangeTypes.Created or WatcherChangeTypes.Renamed)
                     Interlocked.Exchange(ref overflow, 1);
             }
             watcher.Changed += Changed; watcher.Created += Changed; watcher.Deleted += Changed;
-            watcher.Renamed += (sender, e) => { Changed(sender, e); dirty[e.OldFullPath] = 0; };
+            watcher.Renamed += (sender, e) => { Changed(sender, e); if (dirty.Count < 4096) dirty[e.OldFullPath] = 0; else Interlocked.Exchange(ref overflow, 1); };
             watcher.Error += (_, _) => Interlocked.Exchange(ref overflow, 1);
             watcher.EnableRaisingEvents = true;
             watchers[root] = watcher;
             return true;
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
         { warnings.Add($"Cannot watch provider files: {e.GetType().Name}"); return false; }
     }
 
     private IEnumerable<FileInfo> Files(string root, string pattern, bool recursive)
     {
-        if (!Directory.Exists(root)) yield break;
         IEnumerator<FileInfo>? iterator = null;
         try
         {
-            iterator = new DirectoryInfo(root).EnumerateFiles(pattern, new EnumerationOptions
-            { RecurseSubdirectories = recursive, IgnoreInaccessible = true, AttributesToSkip = FileAttributes.ReparsePoint }).GetEnumerator();
+            iterator = FileBoundary.Files(root, pattern, recursive).GetEnumerator();
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
         { warnings.Add($"Cannot enumerate provider files: {e.GetType().Name}"); }
         if (iterator == null) yield break;
         using (iterator)
-            while (true)
+            for (var visited = 0; visited < 4096; visited++)
             {
                 FileInfo file;
                 try { if (!iterator.MoveNext()) break; file = iterator.Current; }
-                catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+                catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
                 { warnings.Add($"Cannot enumerate provider files: {e.GetType().Name}"); break; }
                 yield return file;
             }
@@ -155,7 +172,12 @@ public sealed class AgentTracker : IDisposable
 
     private void Read(Provider provider, FileInfo file)
     {
-        if (!sources.TryGetValue(file.FullName, out var source)) sources[file.FullName] = source = new(provider);
+        if (remainingBytes <= 0) { warnings.Add("JSONL poll byte budget exceeded."); return; }
+        if (!sources.TryGetValue(file.FullName, out var source))
+        {
+            if (sources.Count >= InputLimits.Sources) { warnings.Add("JSONL source budget exceeded."); return; }
+            sources[file.FullName] = source = new(provider);
+        }
         void Liveness()
         {
             var seen = new DateTimeOffset(file.LastWriteTimeUtc, TimeSpan.Zero);
@@ -165,8 +187,12 @@ public sealed class AgentTracker : IDisposable
         }
         try
         {
+            FileBoundary.Check(file.FullName);
+            using var ancestors = FileBoundary.LockAncestors(file.FullName);
             Liveness();
-            var lines = source.Tail.Read(file.FullName); // Always check handle identity and bounded content probes.
+            var before = source.Tail.BytesRead;
+            var lines = source.Tail.Read(file.FullName, Math.Min(1024 * 1024, remainingBytes));
+            remainingBytes -= (int)(source.Tail.BytesRead - before);
             file.Refresh();
             if (!file.Exists) return;
             if (source.Tail.WasReset)
@@ -178,6 +204,7 @@ public sealed class AgentTracker : IDisposable
             source.Modified = file.LastWriteTimeUtc;
             foreach (var line in lines)
             {
+                if (remainingRecords-- <= 0) { warnings.Add("JSONL poll record budget exceeded."); break; }
                 try
                 {
                     using var doc = JsonDocument.Parse(line);
@@ -195,6 +222,9 @@ public sealed class AgentTracker : IDisposable
                     var id = provider == Provider.Claude || provider == Provider.Codex && type == "session_meta" ? LogParser.Identity(provider, file.FullName, root)
                         : source.AgentId ??= LogParser.Identity(provider, file.FullName, root);
                     if (provider == Provider.Codex && type == "session_meta") source.AgentId = id;
+                    if (id.Length > 512 || (!source.Cached.ContainsKey(id) && source.Cached.Count >= InputLimits.AgentsPerSource) ||
+                        (!agents.ContainsKey(id) && agents.Count >= InputLimits.Agents))
+                    { warnings.Add("JSONL agent budget exceeded."); continue; }
                     if (!agents.TryGetValue(id, out var a))
                     {
                         if (!source.Cached.TryGetValue(id, out a)) a = new(id, provider);
@@ -208,7 +238,7 @@ public sealed class AgentTracker : IDisposable
             Liveness();
             if (source.Tail.DroppedLines > 0) warnings.Add($"Oversize JSONL records skipped ({provider}; >2 MiB).");
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
         { warnings.Add($"Cannot read {provider} log: {e.GetType().Name}"); }
     }
 

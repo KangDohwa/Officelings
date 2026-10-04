@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 
 namespace Vibedotcom.Core.Providers;
 
@@ -7,34 +8,48 @@ internal sealed class SqliteSnapshot : IDisposable
 {
     private readonly string directory;
     private IntPtr database;
+    internal const long MaximumCopyBytes = 64 * 1024 * 1024;
+    private readonly Native.Progress progress;
+    private long queryDeadline;
+    private int progressCalls;
     internal static string Stamp(string path, bool includeShm = false) => string.Join("|",
         (includeShm ? new[] { "", "-wal", "-shm", "-journal" } : new[] { "", "-wal", "-journal" })
         .Select(suffix =>
         {
+            FileBoundary.Check(path + suffix);
+            using var ancestors = FileBoundary.LockAncestors(path + suffix);
             var file = new FileInfo(path + suffix);
             return file.Exists ? $"{suffix}:{file.Length}:{file.LastWriteTimeUtc.Ticks}" : suffix + ":missing";
         }));
 
     internal SqliteSnapshot(string source)
     {
+        progress = _ => Stopwatch.GetTimestamp() >= queryDeadline || ++progressCalls > 2000 ? 1 : 0;
         directory = Path.Combine(Path.GetTempPath(), "Vibedotcom-sqlite-" + Guid.NewGuid().ToString("N"));
-        Directory.CreateDirectory(directory);
+        FileBoundary.CreateDirectory(directory);
         try
         {
             var copy = Path.Combine(directory, Path.GetFileName(source));
             var stable = false;
+            var deadline = Stopwatch.GetTimestamp() + Stopwatch.Frequency * 2;
             for (var attempt = 0; attempt < 3; attempt++)
             {
                 var before = Stamp(source, true);
+                long total = 0;
                 foreach (var suffix in new[] { "", "-wal", "-shm", "-journal" })
                 {
-                    if (!File.Exists(source + suffix)) { File.Delete(copy + suffix); continue; }
-                    using var input = new FileStream(source + suffix, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+                    FileBoundary.Check(source + suffix);
+                    using var ancestors = FileBoundary.LockAncestors(source + suffix);
+                    if (!FileBoundary.Exists(source + suffix)) { File.Delete(copy + suffix); continue; }
+                    using var input = FileBoundary.OpenRead(source + suffix, FileShare.ReadWrite | FileShare.Delete);
                     using var output = new FileStream(copy + suffix, FileMode.Create, FileAccess.Write, FileShare.None);
                     var length = input.Length;
+                    total += length;
+                    if (total > MaximumCopyBytes) throw new IOException("Antigravity snapshot exceeds 64 MiB copy budget.");
                     var buffer = new byte[64 * 1024];
                     while (length > 0)
                     {
+                        if (Stopwatch.GetTimestamp() >= deadline) throw new IOException("Antigravity snapshot copy deadline exceeded.");
                         var read = input.Read(buffer, 0, (int)Math.Min(length, buffer.Length));
                         if (read == 0) throw new IOException("Antigravity snapshot changed while copying.");
                         output.Write(buffer, 0, read); length -= read;
@@ -45,6 +60,13 @@ internal sealed class SqliteSnapshot : IDisposable
             }
             if (!stable) throw new IOException("Antigravity snapshot remained unstable.");
             Check(Native.sqlite3_open_v2(copy, out database, 1, IntPtr.Zero)); // SQLITE_OPEN_READONLY
+            Native.sqlite3_limit(database, 0, 65536); // SQLITE_LIMIT_LENGTH
+            Native.sqlite3_limit(database, 1, 65536); // SQLITE_LIMIT_SQL_LENGTH
+            Native.sqlite3_limit(database, 2, 32); // SQLITE_LIMIT_COLUMN
+            Native.sqlite3_limit(database, 3, 32); // SQLITE_LIMIT_EXPR_DEPTH
+            Native.sqlite3_limit(database, 4, 16); // SQLITE_LIMIT_COMPOUND_SELECT
+            Native.sqlite3_progress_handler(database, 1000, progress, IntPtr.Zero);
+            Query("PRAGMA trusted_schema=OFF");
             if (Query("PRAGMA quick_check").SingleOrDefault()?[0] != "ok") throw new IOException("Antigravity snapshot failed integrity check.");
             // ponytail: stable sequential copies are best-effort, not an atomic backup; live summaries win.
         }
@@ -53,22 +75,40 @@ internal sealed class SqliteSnapshot : IDisposable
 
     internal List<string?[]> Query(string sql)
     {
+        queryDeadline = Stopwatch.GetTimestamp() + Stopwatch.Frequency;
+        progressCalls = 0;
         IntPtr statement = IntPtr.Zero;
         try
         {
             Check(Native.sqlite3_prepare_v2(database, sql, -1, out statement, IntPtr.Zero));
             var rows = new List<string?[]>();
+            long total = 0;
             int result;
             while ((result = Native.sqlite3_step(statement)) == 100)
             {
+                if (rows.Count >= InputLimits.Agents) throw new IOException("SQLite row budget exceeded.");
                 var row = new string?[Native.sqlite3_column_count(statement)];
-                for (var i = 0; i < row.Length; i++) row[i] = Marshal.PtrToStringUTF8(Native.sqlite3_column_text(statement, i));
+                for (var i = 0; i < row.Length; i++)
+                {
+                    var text = Native.sqlite3_column_text(statement, i);
+                    var count = Native.sqlite3_column_bytes(statement, i);
+                    total += count;
+                    if (count > 4096 || total > 8 * 1024 * 1024) throw new IOException("SQLite text budget exceeded.");
+                    row[i] = text == IntPtr.Zero ? null : Marshal.PtrToStringUTF8(text, count);
+                }
                 rows.Add(row);
             }
             if (result != 101) Check(result);
             return rows;
         }
         finally { if (statement != IntPtr.Zero) Native.sqlite3_finalize(statement); }
+    }
+
+    internal void RequireTable(string name)
+    {
+        if (name is not ("steps" or "conversation_summaries") ||
+            Query("SELECT type FROM sqlite_master WHERE name='" + name + "'").SingleOrDefault()?[0] != "table")
+            throw new IOException("Expected a stored Antigravity table, not a view.");
     }
 
     private static void Check(int code)
@@ -85,18 +125,36 @@ internal sealed class SqliteSnapshot : IDisposable
 
     internal static class Native
     {
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        internal delegate int Progress(IntPtr context);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+        [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int sqlite3_limit(IntPtr database, int category, int value);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+        [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void sqlite3_progress_handler(IntPtr database, int instructions, Progress callback, IntPtr context);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+        [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int sqlite3_column_bytes(IntPtr statement, int column);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int sqlite3_open_v2([MarshalAs(UnmanagedType.LPUTF8Str)] string path, out IntPtr database, int flags, IntPtr vfs);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int sqlite3_close(IntPtr database);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int sqlite3_prepare_v2(IntPtr database, [MarshalAs(UnmanagedType.LPUTF8Str)] string sql, int bytes, out IntPtr statement, IntPtr tail);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int sqlite3_step(IntPtr statement);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int sqlite3_finalize(IntPtr statement);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern int sqlite3_column_count(IntPtr statement);
+        [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
         [DllImport("winsqlite3.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr sqlite3_column_text(IntPtr statement, int column);
     }

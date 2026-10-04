@@ -43,13 +43,19 @@ public sealed class AssetPack
     public static string DefaultDirectory => Path.Combine(TrackerOptions.OutputDirectory, "assets");
 
     public static AssetPack LoadDefault(string? directory = null, bool useUserPack = true) =>
-        directory != null ? new(directory) : useUserPack && ManifestFile(DefaultDirectory) != null
+        directory != null ? new(directory) : useUserPack && HasManifestFile(DefaultDirectory)
             ? new(DefaultDirectory) : new(null, bundled: true);
 
     public static AssetPack LoadExported(string directory) => new(directory, exported: true);
 
     private static string? ManifestFile(string directory) => new[] { "assets.json", "manifest.json" }
-        .Select(name => Path.Combine(directory, name)).FirstOrDefault(File.Exists);
+        .Select(name => Path.Combine(directory, name)).FirstOrDefault(path => FileBoundary.Exists(path));
+
+    private static bool HasManifestFile(string directory)
+    {
+        try { return ManifestFile(directory) != null; }
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException) { return false; }
+    }
 
     public AssetPack(string? directory = null, bool bundled = false, bool exported = false)
     {
@@ -59,7 +65,10 @@ public sealed class AssetPack
         Manifest = Manifest with { Furniture = Manifest.Furniture.Append(new FurnitureAsset("chair", "chair",
             [new(0, "default", 3, 2, [], [])])).ToArray() };
         Images["fallback"] = SpriteAtlas.CreatePng();
-        var file = directory == null ? null : ManifestFile(directory);
+        string? file = null;
+        try { file = directory == null ? null : ManifestFile(directory); }
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
+        { Warnings.Add("Asset pack boundary rejected; using fallback: " + e.GetType().Name); }
         if (bundled || file != null)
         {
             try
@@ -71,6 +80,9 @@ public sealed class AssetPack
                 Validate(custom, exported);
                 var images = new Dictionary<string, byte[]>();
                 var sheets = new List<Sheet>();
+                var fallback = Images["fallback"];
+                long totalBytes = fallback.Length, totalPixels = (long)BinaryPrimitives.ReadInt32BigEndian(fallback.AsSpan(16))
+                    * BinaryPrimitives.ReadInt32BigEndian(fallback.AsSpan(20));
                 foreach (var sheet in custom.Sheets)
                 {
                     byte[] bytes;
@@ -80,7 +92,14 @@ public sealed class AssetPack
                             ?? throw new InvalidDataException("Bundled sheet missing: " + sheet.File);
                         using var buffer = new MemoryStream(); png.CopyTo(buffer); bytes = buffer.ToArray();
                     }
-                    else bytes = File.ReadAllBytes(LocalFile(directory!, sheet.File));
+                    else bytes = FileBoundary.ReadBytes(LocalFile(directory!, sheet.File),
+                        (int)Math.Min(32 * 1024 * 1024, 64 * 1024 * 1024 - totalBytes));
+                    totalBytes += bytes.Length;
+                    if (totalBytes > 64 * 1024 * 1024) throw new InvalidDataException("Pack exceeds 64 MiB compressed budget.");
+                    // Check aggregate work before inflating this sheet.
+                    if (bytes.Length < 24) throw new InvalidDataException("Truncated PNG.");
+                    totalPixels += (long)BinaryPrimitives.ReadInt32BigEndian(bytes.AsSpan(16)) * BinaryPrimitives.ReadInt32BigEndian(bytes.AsSpan(20));
+                    if (totalPixels > 32 * 1024 * 1024) throw new InvalidDataException("Pack exceeds 32M pixel budget.");
                     var (width, height) = PngSize(bytes);
                     var sha = Convert.ToHexString(SHA256.HashData(bytes)).ToLowerInvariant();
                     if (exported && (width != sheet.Width || height != sheet.Height || !sha.Equals(sheet.Sha256,StringComparison.OrdinalIgnoreCase) ||
@@ -126,16 +145,13 @@ public sealed class AssetPack
 
     internal static T Read<T>(string file)
     {
-        if (new FileInfo(file).Length > 4 * 1024 * 1024) throw new InvalidDataException("JSON exceeds 4 MiB.");
-        using var input = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
-        return JsonSerializer.Deserialize<T>(input, StateJson.Options) ?? throw new InvalidDataException("Empty JSON.");
+        return JsonSerializer.Deserialize<T>(FileBoundary.ReadBytes(file, 4 * 1024 * 1024), StateJson.Options)
+            ?? throw new InvalidDataException("Empty JSON.");
     }
     internal static string LocalFile(string root, string file)
     {
-        var folder = Path.GetFullPath(root) + Path.DirectorySeparatorChar;
-        var path = Path.GetFullPath(Path.Combine(root, file));
-        if (Path.IsPathRooted(file) || !path.StartsWith(folder, StringComparison.OrdinalIgnoreCase) || path.StartsWith(@"\\", StringComparison.Ordinal))
-            throw new InvalidDataException("Sheet must be a local relative file.");
+        var path = FileBoundary.UnderRoot(root, file);
+        using var ancestors = FileBoundary.LockAncestors(path);
         if (new FileInfo(path).Length > 32 * 1024 * 1024) throw new InvalidDataException("Sheet exceeds 32 MiB.");
         return path;
     }
@@ -380,10 +396,11 @@ public sealed class AssetPack
     // Hashed sheet names keep old snapshots valid while another tracker publishes a new pack.
     public AssetManifest Export(string output)
     {
+        output = StateJson.OutputPath(output);
         var sheets = Manifest.Sheets.Select(s =>
         {
             var file = "sheets/" + s.Sha256 + ".png";
-            var target = Path.Combine(output, file);
+            var target = FileBoundary.UnderRoot(output, file);
             if (!File.Exists(target)) StateJson.WriteAtomic(target, Images[s.Id]);
             return s with { File = file };
         }).ToArray();

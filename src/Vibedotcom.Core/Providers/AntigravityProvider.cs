@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Diagnostics;
 using System.Text.Json;
 
 namespace Vibedotcom.Core.Providers;
@@ -11,7 +12,9 @@ internal sealed class AntigravityProvider : IDisposable
     private sealed record Steps(string Stamp, AgentState? State, int Count, DateTimeOffset Activity);
     private sealed record Saved(AgentState State, DateTimeOffset Time, string Revision);
     private readonly TrackerOptions options;
-    private readonly AntigravityRuntime? runtime;
+    // Port/productName/CSRF do not prove endpoint ownership. Until that can be
+    // verified, read the bounded saved files instead of trusting a loopback peer.
+    private readonly AntigravityRuntime? runtime = null;
     private readonly Dictionary<string, Catalog> catalogs = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, Steps> steps = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, Saved> applied = new(StringComparer.Ordinal);
@@ -24,13 +27,18 @@ internal sealed class AntigravityProvider : IDisposable
     internal AntigravityProvider(TrackerOptions options)
     {
         this.options = options;
-        if (Path.GetFullPath(options.Home).Equals(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), StringComparison.OrdinalIgnoreCase))
-            runtime = new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Antigravity", "logs"));
     }
 
     internal void Poll(DateTimeOffset now, bool discover, string[] dirty, Dictionary<string, TrackedAgent> agents,
         HashSet<string> warnings, Action<Provider, FileInfo> read)
     {
+        var deadline = Stopwatch.GetTimestamp() + Stopwatch.Frequency * 2;
+        bool WithinBudget()
+        {
+            if (Stopwatch.GetTimestamp() < deadline) return true;
+            warnings.Add("Antigravity poll time budget exceeded; retaining cached state.");
+            return false;
+        }
         if (now >= nextRuntime || now < receipt)
         {
             nextRuntime = now.AddSeconds(5);
@@ -46,7 +54,7 @@ internal sealed class AntigravityProvider : IDisposable
         {
             var root = Path.Combine(options.Home, ".gemini", storage);
             var summaryPath = Path.Combine(root, "conversation_summaries.db");
-            if (File.Exists(summaryPath)) ReadCatalog(summaryPath, warnings);
+            if (FileBoundary.Exists(summaryPath)) ReadCatalog(summaryPath, warnings);
             if (discover)
             {
                 Discover(Path.Combine(root, "conversations"), "*.db", false, databases, warnings, now);
@@ -54,20 +62,21 @@ internal sealed class AntigravityProvider : IDisposable
             }
             foreach (var id in loaded.Keys)
             {
+                if (!InputLimits.ConversationId(id)) continue;
                 var path = Path.Combine(root, "conversations", id + ".db");
-                if (File.Exists(path)) databases.Add(path);
+                if (FileBoundary.Exists(path)) databases.Add(path);
                 foreach (var filename in new[] { "transcript_full.jsonl", "transcript.jsonl" })
                 {
                     path = Path.Combine(root, "brain", id, ".system_generated", "logs", filename);
-                    if (File.Exists(path)) transcripts.Add(path);
+                    if (FileBoundary.Exists(path)) transcripts.Add(path);
                 }
             }
             foreach (var path in dirty.Where(p => p.StartsWith(root + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase)))
             {
                 var database = path.EndsWith("-wal", StringComparison.OrdinalIgnoreCase) ? path[..^4]
                     : path.EndsWith("-journal", StringComparison.OrdinalIgnoreCase) ? path[..^8] : path;
-                if (database.EndsWith(".db", StringComparison.OrdinalIgnoreCase) && Path.GetFileName(Path.GetDirectoryName(database)) == "conversations") databases.Add(database);
-                if (IsTranscript(path)) transcripts.Add(path);
+                if (databases.Count < InputLimits.Sources && database.EndsWith(".db", StringComparison.OrdinalIgnoreCase) && Path.GetFileName(Path.GetDirectoryName(database)) == "conversations") databases.Add(database);
+                if (transcripts.Count < InputLimits.Sources && IsTranscript(path)) transcripts.Add(path);
             }
         }
         var summaries = catalogs.Values.SelectMany(c => c.Rows).GroupBy(s => s.Id)
@@ -75,9 +84,11 @@ internal sealed class AntigravityProvider : IDisposable
 
         foreach (var path in transcripts.ToArray())
         {
-            if (!File.Exists(path)) { transcripts.Remove(path); continue; }
+            if (!WithinBudget()) break;
+            if (!FileBoundary.Exists(path)) { transcripts.Remove(path); continue; }
+            using var ancestors = FileBoundary.LockAncestors(path);
             if (!IsTranscript(path)) continue;
-            if (Path.GetFileName(path) == "transcript.jsonl" && File.Exists(Path.Combine(Path.GetDirectoryName(path)!, "transcript_full.jsonl"))) continue;
+            if (Path.GetFileName(path) == "transcript.jsonl" && FileBoundary.Exists(Path.Combine(Path.GetDirectoryName(path)!, "transcript_full.jsonl"))) continue;
             var file = new FileInfo(path);
             var id = LogParser.Identity(Provider.Antigravity, path, default)["antigravity:".Length..];
             var age = now - new DateTimeOffset(file.LastWriteTimeUtc, TimeSpan.Zero);
@@ -87,21 +98,29 @@ internal sealed class AntigravityProvider : IDisposable
 
         foreach (var path in databases.ToArray())
         {
+            if (!WithinBudget()) break;
+            if (!FileBoundary.Exists(path)) { databases.Remove(path); steps.Remove(path); continue; }
+            using var ancestors = FileBoundary.LockAncestors(path);
             var file = new FileInfo(path);
             if (!file.Exists) { databases.Remove(path); steps.Remove(path); continue; }
             var id = Path.GetFileNameWithoutExtension(path);
+            if (!InputLimits.ConversationId(id)) continue;
             var key = LogParser.Key(Provider.Antigravity, id);
             if (departed.Contains(id) && !agents.ContainsKey(key)) continue;
             summaries.TryGetValue(id, out var summary);
             var modified = file.LastWriteTimeUtc;
             var wal = new FileInfo(path + "-wal");
-            if (wal.Exists && wal.Length > 0 && wal.LastWriteTimeUtc > modified) modified = wal.LastWriteTimeUtc;
+            if (FileBoundary.Exists(wal.FullName) && wal.Length > 0 && wal.LastWriteTimeUtc > modified) modified = wal.LastWriteTimeUtc;
             var time = new DateTimeOffset(modified, TimeSpan.Zero);
             var activity = summary?.Activity ?? time;
             if (now - activity >= options.GoneAfter && !loaded.ContainsKey(id) && !agents.ContainsKey(key))
             { databases.Remove(path); steps.Remove(path); continue; }
             ReadSteps(path, warnings);
-            if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity);
+            if (!agents.TryGetValue(key, out var a))
+            {
+                if (agents.Count >= InputLimits.Agents) { warnings.Add("Antigravity agent budget exceeded."); continue; }
+                agents[key] = a = new(key, Provider.Antigravity);
+            }
             if (summary != null) ApplySummary(a, summary);
             var explicitState = summary == null ? null : SavedState(summary.Status, summary.Busy, summary.Killed);
             var revision = "summary";
@@ -122,7 +141,11 @@ internal sealed class AntigravityProvider : IDisposable
             var key = LogParser.Key(Provider.Antigravity, summary.Id);
             if (departed.Contains(summary.Id) && !agents.ContainsKey(key)) continue;
             if (!loaded.ContainsKey(summary.Id) && now - summary.Activity >= options.GoneAfter && !agents.ContainsKey(key)) continue;
-            if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity);
+            if (!agents.TryGetValue(key, out var a))
+            {
+                if (agents.Count >= InputLimits.Agents) { warnings.Add("Antigravity agent budget exceeded."); continue; }
+                agents[key] = a = new(key, Provider.Antigravity);
+            }
             ApplySummary(a, summary);
             if (summary.Activity > a.LastSeen) a.LastSeen = summary.Activity;
             if (SavedState(summary.Status, summary.Busy, summary.Killed) is { } state &&
@@ -132,7 +155,12 @@ internal sealed class AntigravityProvider : IDisposable
             foreach (var (id, value) in loaded)
             {
                 var key = LogParser.Key(Provider.Antigravity, id);
-                if (!agents.TryGetValue(key, out var a)) agents[key] = a = new(key, Provider.Antigravity);
+                if (!InputLimits.ConversationId(id)) continue;
+                if (!agents.TryGetValue(key, out var a))
+                {
+                    if (agents.Count >= InputLimits.Agents) { warnings.Add("Antigravity agent budget exceeded."); continue; }
+                    agents[key] = a = new(key, Provider.Antigravity);
+                }
                 ApplyLiveMetadata(a, value);
                 if (LiveState(value) is { } state)
                 {
@@ -158,11 +186,12 @@ internal sealed class AntigravityProvider : IDisposable
             if (catalogs.TryGetValue(path, out var old) && old.Stamp == stamp) return;
             using var db = new SqliteSnapshot(path);
             if (db.Query("PRAGMA user_version").Single()[0] != "3") throw new IOException("Unknown Antigravity summary schema.");
+            db.RequireTable("conversation_summaries");
             var rows = db.Query("SELECT conversation_id,title,parent_conversation_id,nesting_depth,agent_name,workspace_uris,status,not_fully_idle,killed,last_modified_time,last_user_input_time,step_count FROM conversation_summaries");
             var result = new List<Summary>();
             foreach (var r in rows)
             {
-                if (string.IsNullOrEmpty(r[0])) continue;
+                if (!InputLimits.ConversationId(r[0])) continue;
                 var modified = LogParser.ParseTime(r[9]) ?? DateTimeOffset.MinValue;
                 var input = LogParser.ParseTime(r[10]) ?? DateTimeOffset.MinValue;
                 result.Add(new(r[0]!, r[1] ?? "", Empty(r[2]), Number(r[3]), Empty(r[4]),
@@ -171,7 +200,7 @@ internal sealed class AntigravityProvider : IDisposable
             }
             catalogs[path] = new(stamp, result); // Preserve the previous good catalog after any copy/query failure.
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or JsonException or DllNotFoundException)
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException or DllNotFoundException)
         { warnings.Add($"Antigravity summary unavailable; retaining cached metadata ({e.GetType().Name})."); }
     }
 
@@ -183,6 +212,7 @@ internal sealed class AntigravityProvider : IDisposable
             if (steps.TryGetValue(path, out var old) && old.Stamp == stamp) return;
             using var db = new SqliteSnapshot(path);
             if (db.Query("PRAGMA user_version").Single()[0] != "1") throw new IOException("Unknown Antigravity step schema.");
+            db.RequireTable("steps");
             var rows = db.Query("SELECT idx,step_type,status FROM steps WHERE idx IN (SELECT idx FROM steps ORDER BY idx DESC LIMIT 8) OR status IN (1,2,8,9,11) ORDER BY idx DESC LIMIT 24");
             AgentState? state = null;
             if (rows.Count > 0)
@@ -199,7 +229,7 @@ internal sealed class AntigravityProvider : IDisposable
             var activity = old != null && old.State == state && old.Count == count ? old.Activity : new DateTimeOffset(modified, TimeSpan.Zero);
             steps[path] = new(stamp, state, count, activity);
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException or DllNotFoundException)
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or DllNotFoundException)
         { warnings.Add($"Antigravity steps unavailable; using summary/transcript fallback ({e.GetType().Name})."); }
     }
 
@@ -267,7 +297,7 @@ internal sealed class AntigravityProvider : IDisposable
         // An encoded drive colon is parsed as a Unix file URI even on Windows.
         if (OperatingSystem.IsWindows() && path.Length >= 4 && path[0] == '/' && char.IsAsciiLetter(path[1]) && path[2] == ':' && path[3] == '/')
             path = path[1..].Replace('/', '\\');
-        return path;
+        return path.Length <= 1024 ? path : null;
     }
     private static string? Empty(string? value) => string.IsNullOrEmpty(value) ? null : value;
     private static int Number(string? value) => int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var n) ? n : 0;
@@ -280,22 +310,26 @@ internal sealed class AntigravityProvider : IDisposable
 
     private void Discover(string root, string pattern, bool recursive, HashSet<string> paths, HashSet<string> warnings, DateTimeOffset now)
     {
-        if (!Directory.Exists(root)) return;
         try
         {
-            foreach (var path in Directory.EnumerateFiles(root, pattern, new EnumerationOptions
-            { RecurseSubdirectories = recursive, IgnoreInaccessible = true, AttributesToSkip = FileAttributes.ReparsePoint }))
+            FileBoundary.Check(root);
+            if (!FileBoundary.Exists(root, directory: true)) return;
+            using var ancestors = FileBoundary.LockAncestors(Path.Combine(root, ".boundary"));
+            foreach (var file in FileBoundary.Files(root, pattern, recursive).Take(InputLimits.Sources))
             {
+                var path = file.FullName;
+                if (!FileBoundary.Exists(path)) continue;
+                using var fileAncestors = FileBoundary.LockAncestors(path);
                 var modified = File.GetLastWriteTimeUtc(path);
                 if (path.EndsWith(".db", StringComparison.OrdinalIgnoreCase))
                 {
                     var wal = new FileInfo(path + "-wal");
-                    if (wal.Exists && wal.Length > 0 && wal.LastWriteTimeUtc > modified) modified = wal.LastWriteTimeUtc;
+                    if (FileBoundary.Exists(wal.FullName) && wal.Length > 0 && wal.LastWriteTimeUtc > modified) modified = wal.LastWriteTimeUtc;
                 }
-                if (now - new DateTimeOffset(modified, TimeSpan.Zero) < options.GoneAfter) paths.Add(path);
+                if (now - new DateTimeOffset(modified, TimeSpan.Zero) < options.GoneAfter && paths.Count < InputLimits.Sources) paths.Add(path);
             }
         }
-        catch (Exception e) when (e is IOException or UnauthorizedAccessException)
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException)
         { warnings.Add($"Cannot discover Antigravity files ({e.GetType().Name})."); }
     }
 

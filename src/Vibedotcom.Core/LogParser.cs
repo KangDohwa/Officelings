@@ -13,15 +13,20 @@ internal static class LogParser
         public readonly HashSet<string> Questions = [];
     }
     private static readonly ConditionalWeakTable<TrackedAgent, Context> contexts = new();
-    internal static string? String(JsonElement value, string key) =>
-        value.ValueKind == JsonValueKind.Object && value.TryGetProperty(key, out var item) && item.ValueKind == JsonValueKind.String
-            ? item.GetString() : null;
+    internal static string? String(JsonElement value, string key)
+    {
+        if (value.ValueKind != JsonValueKind.Object || !value.TryGetProperty(key, out var item) || item.ValueKind != JsonValueKind.String) return null;
+        var text = item.GetString()!;
+        var maximum = key switch { "id" or "session_id" or "sessionId" or "agentId" or "parent_thread_id" or "parentConversationId" => 128,
+            "agent_nickname" or "agent_role" or "agent_type" or "model" or "name" => 128, "cwd" => 1024, _ => 4096 };
+        return text[..Math.Min(text.Length, maximum)];
+    }
     private static JsonElement Get(JsonElement value, string key) =>
         value.ValueKind == JsonValueKind.Object && value.TryGetProperty(key, out var item) ? item : default;
     private static IEnumerable<JsonElement> Items(JsonElement value) =>
         value.ValueKind == JsonValueKind.Array ? value.EnumerateArray() : [];
     internal static string Key(Provider provider, string id) => provider.ToString().ToLowerInvariant() + ":" + id;
-    internal static string Clip(string? text) => Regex.Replace(text ?? "", @"\s+", " ").Trim() is var clean
+    internal static string Clip(string? text) => Regex.Replace(text == null ? "" : text[..Math.Min(text.Length, 4096)], @"\s+", " ").Trim() is var clean
         ? clean[..Math.Min(clean.Length, 240)] : "";
     private static string Text(JsonElement content) => content.ValueKind == JsonValueKind.String ? content.GetString()! :
         string.Join(" ", Items(content).Where(b => String(b, "type") is "text" or "input_text" or "output_text")
@@ -202,7 +207,7 @@ internal static class LogParser
         var tools = Items(content).Where(b => String(b, "type") == "tool_use").ToArray();
         foreach (var tool in tools)
             if ((String(tool, "name") ?? "").Contains("AskUserQuestion", StringComparison.OrdinalIgnoreCase))
-                questions.Add(String(tool, "id") ?? "unknown-question");
+                { if (questions.Count < 64) questions.Add(String(tool, "id") ?? "unknown-question"); }
         if (questions.Count > 0) SetState(a, AgentState.Waiting, time);
         else if (tools.Length > 0) Tool(a, String(tools[^1], "name") ?? "tool", time);
         else if (String(message, "stop_reason") == "end_turn") Complete(a, time);

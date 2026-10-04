@@ -426,12 +426,15 @@ public sealed class OfficeEditor
         var persisted = Layout with { Furniture = Layout.Furniture.Select(f => f with { AgentId = null }).ToArray() };
         var bytes = JsonSerializer.SerializeToUtf8Bytes(persisted, StateJson.Options);
         if (bytes.Length > 4 * 1024 * 1024) throw new InvalidDataException("Layout exceeds the loader's 4 MiB limit; remove excess furniture or interaction points.");
-        Directory.CreateDirectory(Path.GetDirectoryName(destination)!);
+        FileBoundary.CreateDirectory(Path.GetDirectoryName(destination)!);
+        using var ancestors = FileBoundary.LockWriteParent(destination);
         var temporary = destination + "." + Guid.NewGuid().ToString("N") + ".tmp";
         try
         {
             using (var stream = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             { stream.Write(bytes); stream.Flush(true); }
+            FileBoundary.Check(destination);
+            FileBoundary.Check(destination + ".bak");
             if (File.Exists(destination)) File.Replace(temporary, destination, destination + ".bak");
             else File.Move(temporary, destination);
         }

@@ -21,21 +21,24 @@ public sealed class JsonlTail
     private readonly MemoryStream pending = new();
     internal int RetainedBytes => pending.Capacity;
 
-    public IReadOnlyList<string> Read(string path)
+    public IReadOnlyList<string> Read(string path, int maximumBytes = 4 * MaxLineBytes + BootstrapBytes)
     {
-        using var file = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+        FileBoundary.Check(path);
+        using var ancestors = FileBoundary.LockAncestors(path);
+        using var file = FileBoundary.OpenRead(path, FileShare.ReadWrite | FileShare.Delete);
         var currentIdentity = FileIdentity(file);
         WasReset = initialized && (file.Length < Offset || currentIdentity != identity ||
             !Matches(file, 0, prefix) || !Matches(file, checkpointPosition, checkpoint));
         if (WasReset) { Offset = 0; ClearPending(); initialized = skipping = false; }
         identity = currentIdentity;
         var lines = new List<string>();
+        var startBytes = BytesRead;
         var end = file.Length; // Don't chase a writer indefinitely.
         if (!initialized)
         {
             initialized = true;
             file.Position = Offset;
-            ReadUntil(file, Math.Min(end, BootstrapBytes), lines);
+            ReadUntil(file, Math.Min(end, Math.Min(BootstrapBytes, maximumBytes)), lines);
             if (end > BootstrapBytes * 2L)
             {
                 // Metadata prefix + recent suffix, without reading the intervening history.
@@ -47,7 +50,7 @@ public sealed class JsonlTail
             }
         }
         file.Position = Offset;
-        ReadUntil(file, Math.Min(end, Offset + 4L * MaxLineBytes), lines);
+        ReadUntil(file, Math.Min(end, Offset + Math.Max(0, maximumBytes - (BytesRead - startBytes))), lines);
         // Bounded probes detect overwrites and shrink/regrowth between polls. They cannot
         // detect arbitrary edits outside these windows; BytesRead counts tailed payload only.
         prefix = Probe(file, 0, (int)Math.Min(Offset, 256));
@@ -95,6 +98,7 @@ public sealed class JsonlTail
         public uint Volume, SizeHigh, SizeLow, Links, IndexHigh, IndexLow;
     }
 
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
     [DllImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static extern bool GetFileInformationByHandle(SafeFileHandle handle, out HandleInfo info);
@@ -114,8 +118,9 @@ public sealed class JsonlTail
                 var b = buffer[i];
                 if (b == '\n')
                 {
-                    if (!skipping && pending.Length > 0)
+                    if (!skipping && pending.Length > 0 && lines.Count < InputLimits.Records)
                         lines.Add(Encoding.UTF8.GetString(pending.GetBuffer(), 0, (int)pending.Length).TrimEnd('\r').TrimStart('\uFEFF'));
+                    else if (!skipping && pending.Length > 0) DroppedLines++;
                     ClearPending();
                     skipping = false;
                 }

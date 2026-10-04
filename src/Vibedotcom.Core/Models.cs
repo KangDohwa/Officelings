@@ -60,8 +60,9 @@ internal sealed class TrackedAgent(string id, Provider provider)
     {
         var next = StateAt(now, options, hasActiveChildren);
         if (DisplayState != next) { DisplayState = next; StateSince = now; }
-        return new(Id, Provider, ParentId, IsSubagent, Name, Role, Model, Cwd, Task,
-            next == AgentState.Working ? Tool : null, next == AgentState.Working ? ToolKind : null,
+        static string? Limit(string? text, int maximum) => text?[..Math.Min(text.Length, maximum)];
+        return new(Id, Provider, Limit(ParentId, 512), IsSubagent, Limit(Name, 128)!, Limit(Role, 128), Limit(Model, 128), Limit(Cwd, 1024), Limit(Task, 240)!,
+            next == AgentState.Working ? Limit(Tool, 128) : null, next == AgentState.Working ? ToolKind : null,
             next, LastSeen, StateSince, Provider == Provider.Antigravity);
     }
 
@@ -122,7 +123,7 @@ public static class StateJson
                 if (output.Equals(protectedRoot, StringComparison.OrdinalIgnoreCase) || output.StartsWith(protectedRoot + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase))
                     throw new ArgumentException("Output must be outside provider directories.");
             }
-        return output;
+        return FileBoundary.Check(output);
     }
 
     public static readonly JsonSerializerOptions Options = new()
@@ -136,15 +137,18 @@ public static class StateJson
 
     public static void WriteAtomic(string path, ReadOnlySpan<byte> bytes)
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path))!);
+        path = FileBoundary.Check(path);
+        FileBoundary.CreateDirectory(Path.GetDirectoryName(path)!);
+        using var ancestors = FileBoundary.LockWriteParent(path);
         var temporary = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
         try
         {
             using (var stream = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None))
             { stream.Write(bytes); stream.Flush(true); }
+            FileBoundary.Check(path);
             File.Move(temporary, path, true);
         }
-        finally { if (File.Exists(temporary)) File.Delete(temporary); }
+        finally { if (FileBoundary.Exists(temporary)) File.Delete(temporary); }
     }
 
     public static async Task PublishWithRetryAsync(Action publish, Action<string> log, CancellationToken cancellation = default)
@@ -162,6 +166,11 @@ public static class StateJson
         }
     }
 
-    public static void WriteAtomic(string path, StateSnapshot snapshot) =>
-        WriteAtomic(path, JsonSerializer.SerializeToUtf8Bytes(snapshot, Options));
+    public static void WriteAtomic(string path, StateSnapshot snapshot)
+    {
+        if (snapshot.Agents.Count > 2048) throw new InvalidDataException("State exceeds 2048 agents.");
+        var bytes = JsonSerializer.SerializeToUtf8Bytes(snapshot, Options);
+        if (bytes.Length > 4 * 1024 * 1024) throw new InvalidDataException("State exceeds 4 MiB.");
+        WriteAtomic(path, bytes);
+    }
 }
