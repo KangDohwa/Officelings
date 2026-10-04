@@ -156,8 +156,11 @@ internal sealed partial class IsoView
                 dc.PushOpacity(opacity);
                 dc.DrawRectangle(agent?.IsSubagent==true ? childEdge : leadEdge,null,outline);
                 dc.DrawRectangle(plateFill,null,rect);
+                if(tagMode=="always") dc.PushClip(new RectangleGeometry(rect));
                 DrawProviderIcon(dc,agent,new Rect(rect.X+1,rect.Y+1,12,12));
-                dc.DrawText(text,new Point(rect.X+15,rect.Y+4)); dc.Pop(); RenderedAgentTags++;
+                dc.DrawText(text,new Point(rect.X+15,rect.Y+4));
+                if(tagMode=="always") dc.Pop();
+                dc.Pop(); RenderedAgentTags++;
             }
             if (tagMode=="icon" && opacity<1)
             {

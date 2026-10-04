@@ -34,6 +34,21 @@ public sealed class IsoTagRetentionTests
                     Assert.True(screen.X>=2 && screen.Y>=2 && screen.Right<=198 && screen.Bottom<=118);
                     view.PanBy(new(20,10)); screen=view.AgentTagRect("a");
                     Assert.True(screen.X>=2 && screen.Y>=2 && screen.Right<=198 && screen.Bottom<=118);
+                    // A grapheme can contain several fallback glyphs. The
+                    // capped plate must also bound the actual painted text.
+                    view.SetZoom(1);
+                    var name=string.Concat(Enumerable.Repeat("👨‍👩‍👧‍👦",14));
+                    view.Present(scene with {Revision=4,Labels=[new("a",name,100,100)]});
+                    var bitmap=Vibedotcom.App.Program.RenderBitmap(view,300,200);
+                    var pixels=new byte[300*200*4]; bitmap.CopyPixels(pixels,300*4,0);
+                    var plate=view.AgentTagRect("a"); Assert.False(plate.IsEmpty); plate.Inflate(1,1);
+                    var background=OfficeView.BackgroundColor;
+                    for(var y=0;y<200;y++) for(var x=0;x<300;x++)
+                    {
+                        var p=(y*300+x)*4;
+                        if(pixels[p]!=background.B || pixels[p+1]!=background.G || pixels[p+2]!=background.R)
+                            Assert.True(plate.Contains(new System.Windows.Point(x+.5,y+.5)),"Text painted outside the collision box.");
+                    }
                 }
             }
             catch(Exception e) {error=e;}
