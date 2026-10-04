@@ -1,0 +1,35 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| tv-cabinet-shadow.iso.json:iso-tv-cabinet-v3-shadow | cell sizes | PASS | 128×512, 128×128 cells |
+| tv-cabinet-shadow.iso.json:iso-tv-cabinet-v3-shadow | transparency | PASS | straight alpha and guards |
+| tv-cabinet-shadow.iso.json:iso-tv-cabinet-v3-shadow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| tv-cabinet-shadow.iso.json:iso-tv-cabinet-v3-shadow | palette | PASS | 1 colors; RGB max-channel tolerance 0 |
+| tv-cabinet-shadow.iso.json:iso-tv-cabinet-v3-shadow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| tv-cabinet-shadow.iso.json:iso-tv-cabinet-v3-shadow | 6×6 seams | SKIP | floor sheets only |
+| tv-cabinet-shadow.iso.json:iso-tv-cabinet-v3-shadow | depth-part names | SKIP | furniture sheets only |
+| tv-cabinet-shadow.iso.json:iso-tv-cabinet-v3-shadow | face-lock / blink | SKIP | checked from normal character sheet |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-parts | cell sizes | PASS | 512×1408, 128×128 cells |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-parts | transparency | PASS | straight alpha and guards |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-parts | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-parts | palette | PASS | 9 colors; RGB max-channel tolerance 0 |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-parts | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-parts | 6×6 seams | SKIP | floor sheets only |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-parts | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-parts | face-lock / blink | SKIP | checked from normal character sheet |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-screen | cell sizes | PASS | 512×4096, 128×128 cells |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-screen | transparency | PASS | straight alpha and guards |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-screen | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-screen | palette | PASS | 5 colors; RGB max-channel tolerance 0 |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-screen | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-screen | 6×6 seams | SKIP | floor sheets only |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-screen | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-screen | face-lock / blink | SKIP | checked from normal character sheet |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-glow | cell sizes | PASS | 512×512, 128×128 cells |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-glow | transparency | PASS | straight alpha and guards |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-glow | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-glow | palette | PASS | 3 colors; RGB max-channel tolerance 0 |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-glow | row contract | PASS | clip bounds checked; asset counts remain task acceptance |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-glow | 6×6 seams | SKIP | floor sheets only |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-glow | depth-part names | PASS | depth-part names / facing / ground anchors / tie ranks |
+| tv-cabinet.iso.json:iso-tv-cabinet-v3-glow | face-lock / blink | SKIP | checked from normal character sheet |
+32 checks; 0 failed

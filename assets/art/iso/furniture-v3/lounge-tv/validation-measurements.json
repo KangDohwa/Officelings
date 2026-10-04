@@ -1,0 +1,143 @@
+{
+  "TVTop": {
+    "v2": 38,
+    "v3": 48
+  },
+  "modelAttemptsPerFacing": 2,
+  "facings": {
+    "se": {
+      "staticParts": 12,
+      "staticDuplicateTexels": 0,
+      "emptyRGBAReconstructionMismatch": 0,
+      "screenFramesMaskMismatch": 0,
+      "screenV2MaskTexels": 480,
+      "screenV3MaskTexels": 1512,
+      "defaultFrameSHA256": [
+        "f318b42592cc90a28ae346741e0add367e82c2d210a29fd711c5c0d57bf4d1b2",
+        "c4bd90ffb1c75a32960ce97e561b80b7902b0db4d15f8bfc71610f780ef280e9",
+        "ecdbed1585fd97e672e8036be848409e59e12379b2f1dc77548b3c527c29c148",
+        "6e831e1d412e9be973acb6ea5353b35b7bdcd8dab897fa789a75f35ecd20dcbf"
+      ],
+      "distinctDefaultFrames": 4,
+      "glowMaskTexels": 81,
+      "emptyBBoxExclusive": [
+        24,
+        19,
+        100,
+        99
+      ],
+      "sourceAnchor": [
+        76,
+        72
+      ],
+      "checkedProjectedModelEdges": 244
+    },
+    "sw": {
+      "staticParts": 11,
+      "staticDuplicateTexels": 0,
+      "emptyRGBAReconstructionMismatch": 0,
+      "screenFramesMaskMismatch": 0,
+      "screenV2MaskTexels": 480,
+      "screenV3MaskTexels": 1512,
+      "defaultFrameSHA256": [
+        "f9a288675a300e9fd271217e9b850a12e8b3d11673cf4f78ec1c1d2ffc79f141",
+        "698d796e353319d77b7e3d66d52cf723dc0d0dc1ea58300e535a3ada95e8ead5",
+        "9d644cfe06445296245a285031515fee601d2e4140b6b93a1de9ff6c9b335f27",
+        "6f95fb19d062b8a110b3b5a86d7b055db9bdecdc1dad016af36bcf65226dd33f"
+      ],
+      "distinctDefaultFrames": 4,
+      "glowMaskTexels": 81,
+      "emptyBBoxExclusive": [
+        28,
+        19,
+        104,
+        98
+      ],
+      "sourceAnchor": [
+        52,
+        72
+      ],
+      "checkedProjectedModelEdges": 244
+    },
+    "ne": {
+      "staticParts": 9,
+      "staticDuplicateTexels": 0,
+      "emptyRGBAReconstructionMismatch": 0,
+      "screenFramesMaskMismatch": 0,
+      "screenV2MaskTexels": 1,
+      "screenV3MaskTexels": 2,
+      "defaultFrameSHA256": [
+        "97a5c37156f24bcc28106dbc227a57f3344ea53d9ff7a4a9854ffaa56213dd3d",
+        "67d2fbf53cc92fe9ac181998d12f5c2f74bd71acfaa2be3f668b3ff3f7a7dd15",
+        "1a66a5f5014fba3b21da7011fbcf1ad88cec06fbcb9026b503448e6b6f0d6abb",
+        "ed485fa8ee338981d8ea57f10eee239b4a1d63184f980b73168b0bf85b16e8a7"
+      ],
+      "distinctDefaultFrames": 4,
+      "glowMaskTexels": 2,
+      "emptyBBoxExclusive": [
+        32,
+        16,
+        108,
+        97
+      ],
+      "sourceAnchor": [
+        52,
+        72
+      ],
+      "checkedProjectedModelEdges": 244
+    },
+    "nw": {
+      "staticParts": 9,
+      "staticDuplicateTexels": 0,
+      "emptyRGBAReconstructionMismatch": 0,
+      "screenFramesMaskMismatch": 0,
+      "screenV2MaskTexels": 1,
+      "screenV3MaskTexels": 2,
+      "defaultFrameSHA256": [
+        "1715390781775dd3e5db5f0e7004c3af8d39175ba646658287204b16802f9e32",
+        "26ddf7718fa29b7837694375c7c136fb111568c9d44e46ed81e8da7d49e5afc8",
+        "77af9d1f21e882ec164d45b924c2075606654be1b100d8b051aa65d99c9c6611",
+        "47494a3a10abd17e69e8d09b751cf7d1432c66e20ba2cf63ad60cf633001811a"
+      ],
+      "distinctDefaultFrames": 4,
+      "glowMaskTexels": 2,
+      "emptyBBoxExclusive": [
+        20,
+        16,
+        96,
+        96
+      ],
+      "sourceAnchor": [
+        76,
+        72
+      ],
+      "checkedProjectedModelEdges": 244
+    }
+  },
+  "sourceV2FilesHashVerified": 13,
+  "exactS0TextDiffVerified": true,
+  "activePanel": {
+    "horizontalSpan": 54,
+    "verticalPanelHeight": 28,
+    "maskTexels": 1512,
+    "v2HorizontalSpan": 32,
+    "v2VerticalPanelHeight": 15,
+    "v2MaskTexels": 480,
+    "widthIncreasePercent": 68.75,
+    "heightIncreasePercent": 86.6667,
+    "rectifiedAspect": 1.9285714285714286,
+    "mainPanelThicknessProjection": [
+      2,
+      1
+    ],
+    "lowerRearElectronicsMaxThicknessProjection": [
+      6,
+      3
+    ]
+  },
+  "isoCheck": {
+    "tolerance": 0,
+    "exitCode": 0,
+    "summary": "32 checks; 0 failed"
+  }
+}
