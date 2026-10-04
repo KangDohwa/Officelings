@@ -19,10 +19,15 @@ internal sealed partial class OfficeView
     private readonly Dictionary<string, FurnitureSprite> ambientFrames = new(StringComparer.Ordinal);
     private IReadOnlyList<FurnitureSprite> resolvedFrames = Array.Empty<FurnitureSprite>();
     private bool hasClock;
+    private OfficeLayout? ambientLayout;
+    private IReadOnlyList<FurnitureSprite>? suppliedFrames;
+    private readonly List<(Furniture Furniture, Sheet Sheet, bool Strings)> ambientSources = new();
     internal IReadOnlyList<PetView> Pets => petViews;
     internal AmbientState? AmbientState => ambientState;
     internal IReadOnlyList<FurnitureSprite> ResolvedFurnitureSprites => furnitureSprites;
-    internal TimeSpan AnimationInterval => pets.AnimationInterval;
+    internal TimeSpan AnimationInterval => Program.MinimumInterval(pets.AnimationInterval, ambientInterval);
+    internal DateTimeOffset NextUpdateAt => pets.NextUpdateAt;
+    private TimeSpan ambientInterval;
     public bool PetsEnabled { get => pets.Enabled; set { pets.Enabled = value; } }
     public AmbientSettings AmbientSettings { get => environment.Settings; set => environment.Settings = value; }
     public string SeasonDecor { get => environment.SeasonDecor; set => environment.SeasonDecor = value; }
@@ -32,25 +37,47 @@ internal sealed partial class OfficeView
     {
         var localTime = localClock?.Invoke() ?? now.ToLocalTime();
         ambientState = environment.Sample(localTime);
-        var frames = ambientFrames; frames.Clear(); hasClock = false;
-        foreach (var frame in supplied) frames[frame.Id] = frame;
-        foreach (var furniture in layout.Furniture)
+        var frames = ambientFrames;
+        if (!ReferenceEquals(ambientLayout, layout))
         {
-            var strings = furniture.AssetId?.Contains("string-lights", StringComparison.Ordinal) == true;
-            if (furniture.Kind is not ("window" or "clock") && !strings) continue;
-            var variant = assets.Variant(furniture);
-            if (variant.SheetId == null || variant.Animation == null) continue;
-            var sheet = assets.Manifest.Sheets.First(s => s.Id == variant.SheetId);
-            string? clip = null;
-            if (furniture.Kind == "window" && sheet.Rows.Any(r => r.Name == ambientState.WindowView)) clip = ambientState.WindowView;
-            if (furniture.Kind == "clock" && sheet.Rows.Any(r => r.Name == "tick")) { clip = "tick"; hasClock = true; }
-            if (strings)
-                clip = ambientState.StringLightsOn ? "twinkle" : "off";
-            if (clip != null && sheet.Rows.Any(r => r.Name == clip))
-                frames[furniture.Id] = new(furniture.Id, assets.Frame(sheet.Id, clip, "any",
-                    furniture.Kind == "clock" ? 0 : localTime.ToUnixTimeMilliseconds()));
+            ambientLayout = layout; ambientSources.Clear(); suppliedFrames = null;
+            foreach (var furniture in layout.Furniture)
+            {
+                var strings = furniture.AssetId?.Contains("string-lights", StringComparison.Ordinal) == true;
+                if (furniture.Kind is not ("window" or "clock") && !strings) continue;
+                var variant = assets.Variant(furniture);
+                if (variant.SheetId == null || variant.Animation == null) continue;
+                ambientSources.Add((furniture, assets.Manifest.Sheets.First(s => s.Id == variant.SheetId), strings));
+            }
         }
-        if (!resolvedFrames.SequenceEqual(frames.Values)) resolvedFrames = frames.Values.ToArray();
+        if (!ReferenceEquals(suppliedFrames, supplied))
+        {
+            frames.Clear(); foreach (var frame in supplied) frames[frame.Id] = frame;
+            suppliedFrames = supplied;
+        }
+        hasClock = false; ambientInterval = TimeSpan.Zero;
+        foreach (var (furniture, sheet, strings) in ambientSources)
+        {
+            var clip = furniture.Kind == "window" ? ambientState.WindowView : furniture.Kind == "clock" ? "tick" :
+                strings ? ambientState.StringLightsOn ? "twinkle" : "off" : null;
+            AnimationRow? row = null;
+            if (clip != null) foreach (var candidate in sheet.Rows) if (candidate.Name == clip) { row = candidate; break; }
+            if (row == null)
+            {
+                frames.Remove(furniture.Id);
+                foreach (var suppliedFrame in supplied) if (suppliedFrame.Id == furniture.Id) { frames[furniture.Id] = suppliedFrame; break; }
+                continue;
+            }
+            hasClock |= furniture.Kind == "clock";
+            var sprite = assets.Frame(sheet.Id, clip!, "any", furniture.Kind == "clock" ? 0 : localTime.ToUnixTimeMilliseconds());
+            if (!frames.TryGetValue(furniture.Id, out var old) || old.Sprite != sprite) frames[furniture.Id] = new(furniture.Id, sprite);
+            var interval = furniture.Kind == "clock" ? TimeSpan.FromSeconds(1) :
+                row.Frames > 1 && row.Fps > 0 ? TimeSpan.FromSeconds(1 / row.Fps) : TimeSpan.Zero;
+            ambientInterval = Program.MinimumInterval(ambientInterval, interval);
+        }
+        var equal = resolvedFrames.Count == frames.Count; var index = 0;
+        foreach (var frame in frames.Values) if (!equal || resolvedFrames[index++] != frame) { equal = false; break; }
+        if (!equal) resolvedFrames = frames.Values.ToArray();
         return resolvedFrames;
     }
 

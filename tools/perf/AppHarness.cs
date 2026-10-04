@@ -106,7 +106,7 @@ internal static class Entry
             if (args[0] == "changing-tv") return ChangingTv(output);
             if (args[0] == "startup") return Startup(app, output);
             if (args[0] == "live" || args[0] == "observer") return Live(app, output, int.Parse(args[2]), args[3], double.Parse(args[4], System.Globalization.CultureInfo.InvariantCulture), double.Parse(args[5], System.Globalization.CultureInfo.InvariantCulture), observer: args[0] == "observer", threadCpu: args.Length > 6 && args[6] == "threads");
-            if (args[0].StartsWith("external-",StringComparison.Ordinal)) return Live(app, output, int.Parse(args[2]), args[3], double.Parse(args[4], System.Globalization.CultureInfo.InvariantCulture), double.Parse(args[5], System.Globalization.CultureInfo.InvariantCulture), activities: args[0]=="external-activities", pollEnabled: args[0]=="external-poll", observer: args[0]=="external-observer", external:true);
+            if (args[0].StartsWith("external-",StringComparison.Ordinal)) return Live(app, output, int.Parse(args[2]), args[3], double.Parse(args[4], System.Globalization.CultureInfo.InvariantCulture), double.Parse(args[5], System.Globalization.CultureInfo.InvariantCulture), activities: args[0]=="external-activities", pollEnabled: args[0]=="external-poll", observer: args[0]=="external-observer", external:true, scene36:args[0]=="external-p36");
             if (args[0] == "activities") return Live(app, output, int.Parse(args[2]), args[3], double.Parse(args[4], System.Globalization.CultureInfo.InvariantCulture), double.Parse(args[5], System.Globalization.CultureInfo.InvariantCulture), activities: true);
             if (args[0] == "live-poll") return Live(app, output, int.Parse(args[2]), args[3], double.Parse(args[4], System.Globalization.CultureInfo.InvariantCulture), double.Parse(args[5], System.Globalization.CultureInfo.InvariantCulture), pollEnabled: true);
             if (args[0] == "paths") { Write(Path.Combine(output, "paths.json"), new { userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), cwd = Environment.CurrentDirectory }); return 0; }
@@ -397,7 +397,7 @@ internal static class Entry
         int result = app.Run(window);
         return rendered ? result : 1;
     }
-    static int Live(Application app, string output, int count, string mode, double warmupSeconds, double sampleSeconds, bool activities = false, bool pollEnabled = false, bool observer = false, bool threadCpu = false, bool external = false)
+    static int Live(Application app, string output, int count, string mode, double warmupSeconds, double sampleSeconds, bool activities = false, bool pollEnabled = false, bool observer = false, bool threadCpu = false, bool external = false, bool scene36 = false)
     {
         if (mode is not ("normal" or "topmost" or "transparent") || count < 0 || count > 24 || warmupSeconds < 0 || sampleSeconds < 5 || warmupSeconds + sampleSeconds > 660)
             throw new ArgumentException("Bounded owned offscreen windows only.");
@@ -405,7 +405,18 @@ internal static class Entry
         if (observer && (count != 0 || activities || pollEnabled)) throw new ArgumentException("Observer control requires zero agents and no polling.");
         var (assets, layout) = Load(); var now = DateTimeOffset.UtcNow;
         var office = RetryLayoutBudget(() => new OfficeAnimator(42, assets, layout)); var agents = Agents(count, now, activities ? AgentState.Idle : AgentState.Working);
-        if (activities)
+        if (scene36)
+        {
+            var epoch = now.AddSeconds(-36);
+            for (int i = 0; i <= 540; i++)
+            {
+                var seconds = -18 + i * .1;
+                agents = DemoScenario.Agents(epoch, seconds).ToArray();
+                office.Update(agents, epoch.AddSeconds(seconds), .1);
+            }
+            count = agents.Length;
+        }
+        else if (activities)
             for (int i = 0; i <= 900; i++) office.Update(agents, now.AddSeconds(-90 + i * .1), .1);
         else _ = Settle(office, agents, now);
         var settings = new Settings { Mode = mode == "topmost" ? "topmost" : "normal", TransparentBackground = mode == "transparent", Borderless = true, Zoom = 1, Width = 720, Height = 480 };
@@ -433,7 +444,7 @@ internal static class Entry
         var productTimers = window.GetType().GetFields(BindingFlags.Instance | BindingFlags.NonPublic)
             .Where(f => f.FieldType == typeof(DispatcherTimer) && f.GetValue(window) is DispatcherTimer).ToArray();
         foreach (var productTimer in productTimers.Select(f => (DispatcherTimer)f.GetValue(window)!).Distinct())
-            productTimer.Tick += (_, _) => { ticks++; if (external && activities) { int moving=0; foreach(var agent in view.Agents) if(agent.Pose.Visible && agent.Pose.Action is "walking" or "entering" or "exiting") moving++; if(moving>0) movingTicks++; maximumMoving=Math.Max(maximumMoving,moving); } };
+            productTimer.Tick += (_, _) => { ticks++; if (external && (activities || scene36)) { int moving=0; foreach(var agent in view.Agents) if(agent.Pose.Visible && agent.Pose.Action is "walking" or "entering" or "exiting") moving++; if(moving>0) movingTicks++; maximumMoving=Math.Max(maximumMoving,moving); } };
         var clock = new Stopwatch(); var samples = new List<object>(); var sampleTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
         var startupDeadline = new DispatcherTimer { Interval = TimeSpan.FromSeconds(60) };
         startupDeadline.Tick += (_, _) =>
@@ -450,7 +461,7 @@ internal static class Entry
         var warmTimer=new DispatcherTimer { Interval=TimeSpan.FromSeconds(Math.Max(.001,warmupSeconds)) };
         var endTimer=new DispatcherTimer { Interval=TimeSpan.FromSeconds(sampleSeconds) };
         double? externalUiStart=null; long externalMovingStart=0;
-        string fixture=observer ? "observer-only-blank" : pollEnabled ? "empty-home-real-polling" : activities ? "native-idle-activities" : "default-office-including-animated-TV";
+        string fixture=observer ? "observer-only-blank" : pollEnabled ? "empty-home-real-polling" : scene36 ? "demo-p36-fixed-inputs" : activities ? "native-idle-activities" : "default-office-including-animated-TV";
         warmTimer.Tick += (_,_) =>
         {
             warmTimer.Stop(); started=true; lastCounters=Counters(window,view,office); lastTicks=ticks; externalMovingStart=movingTicks; maximumMoving=0;

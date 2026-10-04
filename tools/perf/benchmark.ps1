@@ -3,7 +3,7 @@ param(
     [string]$AppBin,
     [Parameter(Mandatory=$true)][string]$Output,
     [string]$Harness,
-    [ValidateSet('Phases','Counts','Live','Pixels','Startup','Activities','Polling','Observer')][string[]]$Suite = @('Startup','Phases','Counts','Live','Pixels','Activities','Polling'),
+    [ValidateSet('Phases','Counts','Live','Pixels','Startup','Activities','Polling','Observer','P36')][string[]]$Suite = @('Startup','Phases','Counts','Live','Pixels','Activities','Polling'),
     [switch]$Resume,
     [ValidateRange(0,60)][int]$WarmupSeconds = 10,
     [ValidateRange(5,600)][int]$SampleSeconds = 15,
@@ -109,4 +109,9 @@ if ($Suite -contains 'Polling') {
     foreach ($repeat in 1..3) { RunHarness 'external-poll' "polling-normal-0-repeat-$repeat" @('0','normal',[string]$WarmupSeconds,[string]$SampleSeconds) }
 }
 if ($Suite -contains 'Observer') { foreach ($repeat in 1..3) { RunHarness 'observer' "observer-normal-0-repeat-$repeat" @('0','normal',[string]$WarmupSeconds,[string]$SampleSeconds) } }
+if ($Suite -contains 'P36') {
+    foreach ($windowMode in $Modes) {
+        foreach ($repeat in 1..3) { RunHarness 'external-p36' "p36-$windowMode-repeat-$repeat" @('0',$windowMode,[string]$WarmupSeconds,[string]$SampleSeconds) }
+    }
+}
 Write-Output "Results ready: $Output. Summarize with tools/perf/summarize.py."

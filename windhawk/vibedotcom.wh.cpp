@@ -677,6 +677,8 @@ private:
     std::array<Frame,12> providerFrames;
     uint64_t cropWork=0;
     unsigned newCrops=0;
+    GdiPtr<Bitmap> roomPixels;
+    uint64_t roomKey=0;
     double NameWidth(const std::wstring& name) {
         Require(name.size()<=128,"Name measurement length budget");
         if(auto it=nameWidths.find(name);it!=nameWidths.end())return it->second;
@@ -883,15 +885,29 @@ public:
         const bool newFrames=s.rawAssets!=loadedManifest;std::array<Frame,12> icons;
         if(newFrames)for(size_t size=0;size<2;++size){auto sheet=size==0?"provider-icons-10":"provider-icons";if(!s.sheets.contains(sheet))continue;const auto& sh=s.sheets.at(sheet);const char* providers[]{"codex","claude","antigravity"};for(size_t provider=0;provider<3;++provider)for(size_t sub=0;sub<2;++sub){std::string role=std::string(providers[provider])+(sub?"-sub-agent":"-supervisor");bool has=std::any_of(sh.clips.begin(),sh.clips.end(),[&](const Clip& c){return c.name==role;});icons[size*6+provider*2+sub]=SelectFrame(sh,has?role:providers[provider],"any",0);}}
         changed|=images.size()!=s.sheets.size();auto manifest=s.rawAssets;auto nextRoot=root;images.swap(candidate);if(newFrames)providerFrames.swap(icons);
-        if(changed){crops.clear();tops.clear();content.clear();cropBytes=0;}
+        if(changed){crops.clear();tops.clear();content.clear();cropBytes=0;roomPixels.reset();}
         loadedManifest.swap(manifest);loadedRoot.swap(nextRoot);
     }
+    bool cacheRoom=true;
+    unsigned roomBuildCount=0;
     GdiPtr<Bitmap> Render(const Snapshot& s,int width,int height,int zoom,bool transparent,bool offline,double time,const std::string& hovered={}) {
         cropWork=0;newCrops=0;
         Require(width>=1&&height>=1&&width<=4096&&height<=4096&&int64_t(width)*height<=8388608,"Viewport bounds");
-        auto output=MakeGdi<Bitmap>(width,height,PixelFormat32bppPARGB);
-        SafeGdi<Graphics> owner(output.get());auto& g=owner.get();Configure(g);if(s.schema>=4)GdiCheck(g.SetTextRenderingHint(TextRenderingHintSingleBitPerPixelGridFit));GdiCheck(g.Clear(transparent?Color(0,0,0,0):HexColor(s.schema>=4?"#10282b":"#302d2b")));
-        tagHits.clear();const auto ambient=s.hasAmbient?s.ambient:SampleAmbient(time,weather,seasonal);const auto camera=ViewCamera(s,width,height,zoom);GdiCheck(g.TranslateTransform(static_cast<REAL>(camera.x),static_cast<REAL>(camera.y)));GdiCheck(g.ScaleTransform(static_cast<REAL>(camera.zoom),static_cast<REAL>(camera.zoom)));Room(g,s,transparent);
+        const auto camera=ViewCamera(s,width,height,zoom);
+        uint64_t nextRoomKey=s.staticKey;auto addRoom=[&](const auto& value){const auto* bytes=reinterpret_cast<const unsigned char*>(&value);for(size_t i=0;i<sizeof(value);++i){nextRoomKey^=bytes[i];nextRoomKey*=1099511628211ULL;}};
+        addRoom(width);addRoom(height);addRoom(camera.x);addRoom(camera.y);addRoom(camera.zoom);addRoom(transparent);addRoom(s.schema);addRoom(s.cozy);addRoom(s.doorX);addRoom(s.doorY);
+        const bool door=std::any_of(s.furniture.begin(),s.furniture.end(),[](const Furniture& f){return f.kind=="door";});addRoom(door);
+        for(int tile:s.tiles)addRoom(tile);
+        for(const auto& [id,type]:s.types){addRoom(id);addRoom(Hash(type.kind+"|"+type.color+"|"+type.sheet+"|"+type.animation));}
+        if(!cacheRoom||!roomPixels||roomKey!=nextRoomKey){
+            auto next=MakeGdi<Bitmap>(width,height,PixelFormat32bppPARGB);
+            {SafeGdi<Graphics> base(next.get());auto& draw=base.get();Configure(draw);if(s.schema>=4)GdiCheck(draw.SetTextRenderingHint(TextRenderingHintSingleBitPerPixelGridFit));GdiCheck(draw.Clear(transparent?Color(0,0,0,0):HexColor(s.schema>=4?"#10282b":"#302d2b")));GdiCheck(draw.TranslateTransform(static_cast<REAL>(camera.x),static_cast<REAL>(camera.y)));GdiCheck(draw.ScaleTransform(static_cast<REAL>(camera.zoom),static_cast<REAL>(camera.zoom)));Room(draw,s,transparent);}
+            roomPixels=std::move(next);roomKey=nextRoomKey;++roomBuildCount;
+        }
+        // Copy exact final-density pixels; no second image interpolation or camera rounding.
+        auto output=CopyBitmap(*roomPixels,0,0,width,height);
+        SafeGdi<Graphics> owner(output.get());auto& g=owner.get();Configure(g);if(s.schema>=4)GdiCheck(g.SetTextRenderingHint(TextRenderingHintSingleBitPerPixelGridFit));
+        tagHits.clear();const auto ambient=s.hasAmbient?s.ambient:SampleAmbient(time,weather,seasonal);GdiCheck(g.TranslateTransform(static_cast<REAL>(camera.x),static_cast<REAL>(camera.y)));GdiCheck(g.ScaleTransform(static_cast<REAL>(camera.zoom),static_cast<REAL>(camera.zoom)));
         std::map<std::string,const Agent*> byId;for(const auto& a:s.agents)byId.emplace(a.id,&a);
         SafeGdi<Pen> lineOwner(s.schema>=4?HexColor("#5cbbb5",64):HexColor("#9bab9e"),s.schema>=4?.6f:.7f);auto& line=lineOwner.get();GdiCheck(line.SetDashStyle(DashStyleDot));
         if(!offline)for(const auto& a:s.agents)if(a.visible&&byId.contains(a.parent)) {

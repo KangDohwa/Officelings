@@ -703,7 +703,7 @@ public sealed partial class OfficeAnimator
                     c.SeatedFacing, elapsed, now < c.BlinkUntil) :
                     assets.CharacterAnimationFps(c.Agent, c.Design, c.Action, c.Facing, elapsed, now < c.BlinkUntil);
                 if (c.Action == "reading" && c.Spot?.Contact != null && assets.SeatedVariant(c.Design, c.Facing) != null) animation = 0;
-                if (animation > 0) fps = Math.Max(fps, Math.Clamp(animation, 4, 8));
+                if (animation > 0) fps = Math.Max(fps, Math.Min(animation, 8));
             }
             if (c.HasLeisure && c.LeisureArrived && c.Action is "darts" or "pingpong") fps = Math.Max(fps, 8);
             if (c.FadeSince != default)

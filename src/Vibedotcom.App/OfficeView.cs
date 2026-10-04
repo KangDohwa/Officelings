@@ -196,6 +196,8 @@ internal sealed partial class OfficeView : FrameworkElement
             if (geometryChanged) { room = null; roomBitmap = null; if (autoFit) Fit(); }
             furnitureCache.Clear();
             furnitureDepths.Clear();
+            overflowSeatHosts.Clear();
+            foreach (var seat in layout.OverflowSeats ?? []) if (seat.FurnitureId != null) overflowSeatHosts[seat.Id] = seat.FurnitureId;
         }
         furnitureFrames ??= Array.Empty<FurnitureSprite>();
         furnitureFrames = AmbientFrames(layout, views, now, furnitureFrames);
@@ -212,19 +214,24 @@ internal sealed partial class OfficeView : FrameworkElement
         changed |= hasClock && ambientState?.LocalTime != previousLocalTime;
         previousLocalTime = ambientState?.LocalTime; activityStamp = stamp;
         var phase = (int)(now.ToUnixTimeMilliseconds() / 500 % 120);
-        changed |= agents.Count != views.Count;
+        var agentsChanged = agents.Count != views.Count;
         // Only the primitive coffee bubble depends on this clock.
         if (!assets.Images.ContainsKey("icons") && phase != ambient)
             changed |= views.Any(a => a.Pose.Visible && a.Pose.Action == "coffee");
-        if (!changed)
+        if (!agentsChanged)
             for (var i = 0; i < views.Count; i++)
-                if (views[i] != agents[i]) { changed = true; break; }
+                if (views[i] != agents[i]) { agentsChanged = true; break; }
+        changed |= agentsChanged;
         ambient = phase; agents = views;
-        byId.Clear(); foreach (var agent in agents) byId[agent.Agent.Id] = agent;
+        if (agentsChanged) { byId.Clear(); foreach (var agent in agents) byId[agent.Agent.Id] = agent; }
         if (changed)
         {
             sceneDirty = true;
-            if (ActualWidth > 0 && ActualHeight > 0) RenderScene();
+            if (ActualWidth > 0 && ActualHeight > 0)
+            {
+                if (!layoutChanged && !agentsChanged && layersDrawn && assets.Images.ContainsKey("icons")) RenderAmbientChanges();
+                else RenderScene();
+            }
         }
     }
 
@@ -557,28 +564,21 @@ internal sealed partial class OfficeView : FrameworkElement
     {
         if (!furnitureDepths.TryGetValue(f.Id,out var cached))
         {
-            var v = assets.Variant(f);
-            var host = office.Furniture.FirstOrDefault(h => h.Id != f.Id && assets.Variant(h).ChairSeatAnchor != null &&
-                (f.DeskId != null && f.DeskId == (h.DeskId ?? h.Id) || f.Id.StartsWith(h.Id + "-chair", StringComparison.Ordinal)));
-            if (host != null)
-            {
-                var chair = assets.Variant(host);
-                cached = (host.Y * 16 + chair.ChairSeatAnchor!.Y + 12 + (f.AssetId == chair.ChairBackId ? -.2 : .2),false);
-            }
-            else if (v.ChairSeatAnchor != null && (v.Points.Any(p => p.Facing is "left" or "right") || f.Kind == "table"))
-                cached = (f.Y * 16 + v.ChairSeatAnchor.Y + 12 + .1,false);
-            else cached = ((f.Y + f.Height) * 16 + v.ZOrder,true);
+            cached = CacheFurnitureDepth(f);
             furnitureDepths[f.Id]=cached;
         }
         if (!cached.Lounge || agents.Count==0) return cached.Depth;
         // Unsplit lounge seats can change depth when somebody sits down. Keep
         // that small live dependency while retaining geometry/host calculations.
         var seatedDepth=double.NegativeInfinity;
-        foreach (var a in agents)
+        for (var i = 0; i < agents.Count; i++)
+        {
+            var a = agents[i];
             if (a.Pose.Visible && a.Pose.SeatAnchor != null && a.Pose.SeatPhase != "turn" &&
                 a.Pose.ChairFrontId == null && a.Pose.OverflowSeatId != null &&
-                office.OverflowSeats?.Any(s => s.Id == a.Pose.OverflowSeatId && s.FurnitureId == f.Id) == true)
+                overflowSeatHosts.TryGetValue(a.Pose.OverflowSeatId, out var host) && host == f.Id)
                 seatedDepth=Math.Max(seatedDepth,AgentDepth(a.Pose));
+        }
         return double.IsNegativeInfinity(seatedDepth) ? cached.Depth : seatedDepth+.2;
     }
     private void RenderOverlays()

@@ -14,6 +14,7 @@ internal sealed class PetAnimator
         public readonly Random Random = new(unchecked((int)SpriteAtlas.Hash(sheet.Id)));
         public readonly Queue<Tile> Path = new();
         public readonly Dictionary<(string Action, string Facing), AnimationRow?> Clips = new();
+        public readonly Dictionary<string, SpriteFrame> IdleFrames = new();
         public PetView? View;
         public double X, Y;
         public bool Placed;
@@ -40,6 +41,7 @@ internal sealed class PetAnimator
 
     public bool Enabled { get; set; } = true;
     public TimeSpan AnimationInterval { get; private set; }
+    public DateTimeOffset NextUpdateAt { get; private set; } = DateTimeOffset.MaxValue;
 
     public PetAnimator(AssetPack assets)
     {
@@ -60,6 +62,7 @@ internal sealed class PetAnimator
         var seconds = lastUpdate is {} previous ? Math.Clamp((now - previous).TotalSeconds, 0, 1) : 0;
         lastUpdate = now; lastAgents = agents; wasEnabled = Enabled;
         AnimationInterval = TimeSpan.Zero;
+        NextUpdateAt = DateTimeOffset.MaxValue;
         if (!Enabled || pets.Length == 0) return views = [];
         if (!sameGeometry || !sameSeats) RebuildNavigation(layout, agents);
         else geometry = layout;
@@ -110,14 +113,18 @@ internal sealed class PetAnimator
             if (clip.Name == "idle" && clip.Direction == "any" && clip.Frames == 4)
             {
                 var column = clip.Column + (pet.Facing switch { "left" => 1, "right" => 2, "up" => 3, _ => 0 });
-                sprite = sprite with { Column = column, X = column * pet.Sheet.CellW };
+                if (!pet.IdleFrames.TryGetValue(pet.Facing, out var facingFrame))
+                    pet.IdleFrames[pet.Facing] = facingFrame = sprite with { Column = column, X = column * pet.Sheet.CellW };
+                sprite = facingFrame;
             }
             if (pet.Action == "napping" && pet.Nap is {} nap)
             {
                 var contact = clip.SeatAnchor ?? new PixelPoint(16, 27);
-                sprite = sprite with {
-                    OffsetX = nap.Cushion.X - (pet.X + .5) * layout.TileSize + (sprite.AnchorX - contact.X) * sprite.Scale,
-                    OffsetY = nap.Cushion.Y - (pet.Y + 1) * layout.TileSize + (sprite.AnchorY - contact.Y) * sprite.Scale };
+                var offsetX = nap.Cushion.X - (pet.X + .5) * layout.TileSize + (sprite.AnchorX - contact.X) * sprite.Scale;
+                var offsetY = nap.Cushion.Y - (pet.Y + 1) * layout.TileSize + (sprite.AnchorY - contact.Y) * sprite.Scale;
+                sprite = pet.View?.Sprite is {} cached && cached.SheetId == sprite.SheetId && cached.Row == sprite.Row &&
+                    cached.Column == sprite.Column && cached.OffsetX == offsetX && cached.OffsetY == offsetY ? cached :
+                    sprite with { OffsetX = offsetX, OffsetY = offsetY };
             }
             var previousView = pet.View;
             if (previousView != null && previousView.X == pet.X && previousView.Y == pet.Y &&
@@ -127,9 +134,13 @@ internal sealed class PetAnimator
             else
                 nextViews.Add(pet.View = new("office-" + pet.Sheet.Id, pet.Sheet.Id, pet.X, pet.Y, pet.Action, pet.Facing,
                     sprite, pet.FollowingId, pet.Nap?.FurnitureId));
+            var fps = pet.Action == "walking" ? 8 :
+                clip.Frames > 1 && !(clip.Name == "idle" && clip.Direction == "any" && clip.Frames == 4) ? clip.Fps : 0;
+            if (fps > 0) AnimationInterval = Program.MinimumInterval(AnimationInterval, TimeSpan.FromSeconds(1 / fps));
+            var due = pet.FollowingId != null ? (pet.RefreshAt < pet.FollowUntil ? pet.RefreshAt : pet.FollowUntil) : pet.RestUntil;
+            if (due < NextUpdateAt) NextUpdateAt = due;
         }
         if (views.Count != nextViews.Count || !views.SequenceEqual(nextViews)) views = nextViews.ToArray();
-        if (views.Count != 0) AnimationInterval = TimeSpan.FromSeconds(views.Any(p => p.Action == "walking") ? 1d / 8 : 1d / 2);
         return views;
     }
 

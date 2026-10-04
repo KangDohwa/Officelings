@@ -265,3 +265,84 @@ The slowest five tests in the final complete run (busy-machine elapsed durations
 
 Do not reuse a result directory. Before trusting another CPU result, use the external collector, retain both minimum medians and aggregate means, and establish a matching warmup protocol from observed settling rather than discard a favorable suffix. Next priorities are uninstrumented actual-loop Tracker phase attribution (including background CPU), a complete latest-code long-soak/quiet rerun, and supported native CPU stacks on a machine whose recording policy permits them. Then verify visible startup/compositor performance, OS wakeups and matched mode ratios on a quiet normal machine. Runtime/tiered-compilation alternatives need comparative evidence before a product change. These are future tasks, not claims of work completed here.
 
+## Idle CPU 후속 측정 — perf lane, 2026-10-04
+
+이번 기준은 `8a68730`의 Release App/Core/Tracker이며, 앞의 p43 측정과 별도 캠페인이다. 수정 전 DLL과 apphost를 `tools/perf/results/followup-before/`에 복사한 뒤 사용했다. 최종 수정본은 `followup-final/`에 따로 보존했다. App/Core의 `assemblies.json`과 `runtime.json`에 실제 DLL SHA-256/MVID가 있고, 최종 Tracker는 `tracker-bin/`과 `tracker-assemblies.json`에 보존했다. 마지막 solution build 뒤의 App/Core DLL도 측정용 복사본과 SHA-256이 같았다. iso 소스는 수정하지 않았다.
+
+CPU는 모두 **코어 하나의 사용률**이다. `100 × 프로세스 CPU 초 / 실제 측정 초`로 계산하고, 18개 논리 프로세서 전체의 비율로 바꾸지 않았다. CPU·메모리·스레드 조회는 별도 PowerShell 수집기가 실행한다. WPF 대상에는 시작/종료 콜백 두 개만 있고, 주기적인 내부 계측기나 observer 비용 차감은 없다. ETW는 앞서 확인된 OS 정책 차단 때문에 사용하지 않았다.
+
+각 조건을 새 프로세스로 순차 3회 실행했다. 30초의 실시간 warmup을 버리고 empty-room은 30초, p36은 20초, tracker quiet와 Windhawk는 30초, tracker long-soak은 270초를 측정한다. CPU 중앙값은 각 실행의 1초 표본 중앙값 3개 중 최솟값이다. 전체 구간 평균 3개의 평균과 범위도 함께 남긴다. Windows CPU 시간의 양자화로 중앙값이 0이어도 실제 CPU가 0이라는 뜻은 아니다.
+
+p36 fixture는 seed 42의 demo를 -18초부터 36초까지 진행시킨 다음 8명의 합성 입력을 고정한다. 이후 실제 OfficeWindow/Core/View가 계속 움직인다. warmup 뒤에도 최대 2명이 걷는 **p36 시작 장면**이며, 완전히 정지한 8명이나 계속 입력이 바뀌는 CLI demo와 같다고 주장하지 않는다. empty-room도 TV·steam·로컬 시계·펫을 포함한다. WPF 창은 720×480, 1x, (-30000,-30000)의 비활성 창이다. 이 결과로 화면에 보이는 compositor나 Explorer 성능을 추정하지 않는다.
+
+CPU 캠페인 원본은 `followup-before`, `followup-before-p36`, `followup-final`, `tracker-before-{quiet-settled,long}`, `tracker-after-cadence-{quiet,long}`, `windhawk-{before,after}`에 있다. `tracker-after-{quiet-settled,long}`은 deadline 수정 전 중간 결과로 별도 보존했다. 다음 표에서 중앙값은 요청한 **3회 중앙값 중 최솟값**, 평균은 전체 측정 구간 평균 3개의 산술평균이며 괄호는 그 범위다.
+
+Tracker는 기존 E2E와 같이 scenario의 working/idle/waiting 만료 시간을 simulator speed로 나누고 source scan은 제품 기본 3초를 유지한다. 처음 `tracker-*-quiet`에서 기본 만료 시간을 쓴 측정에는 idle 3명이 남아 있었으므로 0명 quiet gate에서 제외했다. baseline 0명 조건은 `tracker-before-quiet-settled`, 최종 수정본은 `tracker-after-cadence-quiet`에서 별도로 측정하고 마지막 state의 live 수를 검사한다.
+
+| 조건 | 수정 전 중앙값 % | 최종 중앙값 % | 수정 전 평균 % (범위) | 최종 평균 % (범위) | 목표 |
+|---|---:|---:|---:|---:|---:|
+| WPF empty-room normal | 0.000 | 0.000 | 2.146 (1.924–2.337) | 1.439 (1.300–1.665) | ≤1% |
+| WPF empty-room transparent | 1.512 | 0.000 | 2.495 (1.925–3.378) | 1.890 (1.249–2.290) | normal의 ≤1.3배 |
+| WPF p36 normal | 5.535 | 1.538 | 7.749 (5.845–9.575) | 5.501 (4.190–7.885) | ≤2% |
+| WPF p36 transparent | 4.538 | 3.058 | 6.304 (5.147–7.683) | 4.985 (4.291–5.907) | normal의 ≤1.3배 |
+| Tracker quiet, live 0명 | 1.541 | 1.371 | 2.547 (2.101–2.869) | 2.050 (1.823–2.345) | ≤0.5% |
+| Tracker long-soak, 20× | 15.314 | 12.345 | 28.739 (25.309–32.335) | 23.956 (23.900–24.051) | ≤3% |
+| Windhawk local-clock | 10.635 | 5.361 | 10.892 (10.160–11.540) | 8.115 (5.517–12.805) | 기존 15% 비용 축소 |
+
+empty-room은 평균이 1%를 넘고, 중앙값 0은 CPU 시간 양자화 때문에 합격 근거로 쓰지 않는다. p36 normal의 중앙값은 2% 아래로 내려갔지만 전체 구간 평균은 여전히 높다. transparent/normal은 p36 중앙값 기준 **1.99배**이고, empty-room은 두 중앙값이 0이어서 비율을 계산할 수 없다. empty-room 평균 비율도 **1.31배**다. 따라서 transparent의 1.3배 조건은 충족하지 못했다.
+
+Windhawk는 타일 raster를 보존해 중앙값을 약 절반으로 줄였지만, 기존 순서의 동적 가구/캐릭터/태그 GDI+ 렌더와 viewport 복사는 남는다. 전체 평균의 실행별 범위가 넓어 모든 실행에서 같은 개선을 보였다고 주장하지 않는다. 이 표의 첫 before/after부터 별도 프로세스 3회이며, 앞의 15% 기록은 이 조건의 baseline으로 혼용하지 않았다.
+
+Tracker quiet는 **0.5% 목표에 미달**이다. deadline 수정 전 중간 결과는 전체 평균 2.839%로 개선하지 못했지만, 최종 수정 후 2.050%로 baseline보다 약 20% 감소했다. 만료된 파일은 discovery 구간 밖이므로 시작 로그부터 live/total/bytesRead가 모두 0이며, 활성 log tail 부하를 줄인 효과로 설명하지 않는다. long-soak은 최종 중앙값 약 19%, 전체 평균 약 17% 감소했지만 **3% 목표에 미달**이다. 입력은 provider별 live 4↔5명, 전체 33↔36명으로 반복 churn하며, simulator/수집기 CPU는 포함하지 않았다. 이번 최신 장면과 속도별 만료 조건의 결과를 앞의 p43 단일 실행 12.99%와 직접 비교하지 않았다.
+
+WPF empty-room normal 할당은 115–126에서 **57–60 KiB/s**, p36 normal은 644–664에서 **383–389 KiB/s**로 줄었다. 최종 세 번의 p36 normal에서 callback은 15.1–15.5/s, UI thread는 1.47–3.25%, `wpfgfx_cor3.dll`에서 시작한 render thread는 약 1.2–2.5%를 사용했다. empty-room callback도 펫 이동 때문에 5.1–5.5/s였다. 모든 실행에서 root scene/room raster 재생성은 0회였다. GC는 empty-room에서 0회, p36 normal에서 세 번 모두 gen0/gen1/gen2가 2/1/1회였으며 transparent는 1/0/0 또는 2/1/1회였다. 유지된 scene 안의 실제 걷기·펫·가구 갱신과 할당, WPF native render 비용이 남아 있으며, start module만으로 그 native 함수까지 특정할 수는 없다. 보이지 않는 창의 비용도 최종 숫자에 포함했다.
+
+### 확인한 비용과 수정
+
+기존 WPF는 이미 가구별 retained visual을 사용했다. 이번 수정은 ambient만 바뀔 때 깊이·링크·태그·정적 오버레이를 다시 계산하던 경로를 줄인다. 변경된 clock/TV/steam/window/pet visual만 갱신하고, 펫의 깊이가 바뀔 때만 순서를 조정한다. 방 타일은 유지한다. ambient 가구와 sheet 목록을 보관하고 같은 초의 환경 상태, 같은 방향의 펫 idle frame, 같은 수면 접촉 offset도 재사용한다.
+
+가구 깊이 캐시 적중 경로에는 캡처된 LINQ 조건식과 인터페이스 열거자 할당이 남아 있었다. 이를 캐시 miss 전용 메서드와 좌석 host 사전 조회로 옮겼다. 아래는 기존 changing-TV 계측기의 30 frame warmup 후 300회 결과다. Reflection/boxing 비용을 포함하며, 마지막 두 행은 같은 전체 가구 수와 재사용 인자 배열을 쓰는 control과 함께 비교한다. elapsed 시간은 혼잡한 머신의 단일 진단이며 CPU 최종 수치를 대신하지 않는다.
+
+| 조건 / 단계 | 수정 전 중앙값 ms / B | 최종 중앙값 ms / B |
+|---|---:|---:|
+| 0명 / View.Update | 0.4540 / 23,208 | 0.17835 / 10,200 |
+| 12명 / View.Update | 1.1966 / 73,016 | 0.5764 / 47,896 |
+| 12명 / Core.Update | 0.29605 / 6,112 | 0.1273 / 6,112 |
+| 12명 / 가구 전체 FurnitureDepth | 0.0221 / 22,008 | 0.0360 / 1,880 |
+| 12명 / 같은 횟수의 reflection control | 0.0085 / 1,880 | 0.00385 / 1,880 |
+
+따라서 최종 FurnitureDepth 진단의 할당은 control과 같지만, elapsed 시간의 개선까지 입증한 결과는 아니다. Core의 0명 TV/steam 갱신 할당은 frame당 1,752B로 남았다. 새 동작과 관련 없는 Core 구조를 바꾸지 않았다.
+
+펫의 한 셀 idle에는 visual tick을 예약하지 않고 다음 행동/추적 갱신 시각을 사용한다. 수면 등 느린 클립은 실제 authored FPS, 걷기는 기존 8 FPS를 사용한다. Core도 정지 클립에 최소 4 FPS를 강제하지 않는다. clock만 있는 장면은 1 FPS이며, 일반 창의 animation/maintenance 예약은 기존 방식으로 합친다. 이로써 모든 펫과 TV가 있는 실제 방의 callback 수가 무조건 3/s 미만이라고 주장하지 않는다.
+
+Tracker는 움직이는 frame과 입력 분류를 분리해 live 입력 분류를 최대 2 Hz, quiet 분류를 1 Hz로 실행하고 settings 읽기는 1 Hz로 제한한다. 기존 3초 source scan, watcher, 주기적 reconciliation과 atomic publication/3초 freshness heartbeat는 유지했다. `JsonlTail`은 16 KiB 읽기 버퍼와 두 probe 버퍼를 재사용하며 줄바꿈을 span으로 찾는다. 파일 identity, shrink/regrowth, 같은 크기/mtime overwrite와 partial UTF-8 검사를 유지했다. 2 KiB 합성 append 100회의 warmed allocation은 수정 전 **3,575,200B**, 수정 후 **1,710,400B**였고, payload byte/record 수는 동일하다. buffer 재사용으로 입력 source당 최대 16 KiB가 추가로 남는다.
+
+최종 tracker 복사본의 synchronous 단계 진단은 별도로 30초 warmup을 버렸다. quiet에서 Poll/Core는 각 45회인데 바깥 루프는 44.69초 동안 **1,291회**였다. `Task.Delay(TimeSpan)`의 밀리초 절삭으로 미래 deadline의 1ms 미만 잔여 시간이 즉시 완료되는 경로를 확인했다. [.NET 10의 ValidateTimeout/Delay 구현](https://github.com/dotnet/runtime/blob/v10.0.0/src/libraries/System.Private.CoreLib/src/System/Threading/Tasks/Task.cs#L5316-L5329)도 이 동작을 확인해 준다. `TrackerCadence.Delay`가 양수 대기 시간을 밀리초 단위로 올림하도록 고쳤고, 같은 진단의 44.70초에서 루프 **46회**, Poll/Core 각 **45회**가 됐다. 논리 30초를 native delay의 절삭과 작은 작업 시간으로 시뮬레이션하는 회귀 검사도 정확히 30회 호출을 확인한다. 이것은 루프 호출 수이며 OS wakeup 수는 아니다.
+
+수정 후 quiet 단계의 thread CPU는 publication 390.625ms, Poll 218.75ms로 약 0.87% / 0.49%에 해당했다. GC는 0회, 전체 진단 할당은 약 101 KiB/s였다. 별도 churn 진단 44.96초에서는 Poll **6,750ms / 73,895,704B**, publication **1,328.125ms / 6,869,728B**였고 GC는 13/1/1회였다. 각각 약 15.0% / 3.0%의 thread CPU로, 남은 주된 비용은 source 조회·검증·파싱을 포함한 Poll과 atomic publication이다. Core stage CPU는 15.625ms였다. Poll 안의 개별 native 함수까지 분리하지 않았고 파일 경계·overwrite 검사를 완화하지 않았다. 이 throwaway 진단은 계측/delegate 비용과 Windows thread CPU 양자화를 포함하고, async retry·대기·background 작업은 단계 밖이므로 최종 프로세스 CPU나 모든 잔여 비용의 설명을 대신하지 않는다. 원본은 `tracker-probe/`와 `tracker-probe-cadence/`다.
+
+Windhawk는 clock만 바뀔 때 다시 그리던 타일을 최종 camera density의 viewport bitmap으로 보관한다. camera/크기/투명 모드/검증된 layout·pack/타일 내용이 바뀌면 다시 만든다. 픽셀을 그대로 복사하므로 두 번째 보간을 추가하지 않는다. 동적 가구·캐릭터·태그는 기존 순서로 그린다. 추가로 viewport 한 장의 PARGB 메모리가 필요하며, 이번 720×520 조건은 약 1.43 MiB다. native start-address 모듈 조회는 스레드의 시작 모듈을 확인할 뿐, 실행 중인 함수나 CPU stack은 아니다.
+
+### 회귀 검증과 제한
+
+검토된 ambient flat golden 9개는 그대로 통과했다. 수정 전후의 독립적인 PNG capture를 decoded Pbgra32 SHA-256으로 비교해 **9/9 동일**했다. 추가 incremental clock/weather/lights 검사는 1/2/3x에서 fresh render와 모든 픽셀을 비교한다. Windhawk의 기존 normal/auto/offline/small/transparent PNG **5개는 파일 바이트까지 동일**했다. native renderer **427개**, owned hidden host/metadata **69개** 검사가 통과했다.
+
+새 count 검사는 같은 civil second의 환경 상태 1,000회에 0B 할당, clock의 30 logical seconds에 정확히 30 visual redraw와 작은 redraw area, authored empty room의 30 logical seconds에 80 KiB/s 이하 할당과 root/room 보존, JsonlTail의 합성 append당 20 KiB 이하를 확인한다. 실제 경과 시간이나 머신 CPU를 테스트 gate로 쓰지 않는다. 펫 테스트의 고정 500ms 기대값은 한 셀 idle의 예약 없음/미래 행동 시각과 1 FPS sleep의 1초 주기로 바꿨다. 픽셀 기대값은 바꾸지 않았다.
+
+Release build는 오류 0개, 기존 iso xUnit 분석기 경고 17개다. deadline 수정 전 전체 494개 실행은 **492 통과 / 2 실패 / 0 skip**였다. `IsoPresentationModesTests.MovingBodyAndLabelArePickedAgainAtTheStationaryPointer`는 수정 전 App/Core DLL로도 같은 줄에서 재현됐고 iso 소스는 그대로 두었다. 같은 전체 실행의 locked-publication timestamp 검사는 단독 관련 검사에서 통과했다. App/Core 관련 검사는 **16/16 통과**, 마지막 deadline 변경 후 Tracker 관련 검사는 새 호출 수 검사까지 **8/8 통과**다. 마지막 변경 후 전체 suite를 반복하지 않았다. 기본 Windows TEMP에서 발생한 파일 경계 잠금 실패는 합성 TEMP를 이 워크트리 안으로 옮겨 재검증했다. 이 실패를 제품 경계 검사 완화로 해결하지 않았다.
+
+공유 파일의 변경 위치는 다음과 같다. `Models.cs`, Settings, Core/Iso와 App/Iso*는 수정하지 않았다.
+
+| 공유 파일 | 위치 / 변경 |
+|---|---|
+| `src/Vibedotcom.App/OfficeView.cs` | Update 196–244: overflow host 갱신, agent 변경 분리, ambient 전용 경로 선택. FurnitureDepth 564–591: cold cache 메서드와 indexed occupancy 조회. |
+| `src/Vibedotcom.App/Program.cs` | ScheduleAnimation 757–763: Office와 Pet의 다음 갱신 시각 중 빠른 값 선택. |
+| `src/Vibedotcom.Core/Office.cs` | RefreshCadence 706: 정지 clip의 authored FPS 유지. |
+| `src/Vibedotcom.Tracker/Program.cs` | ReadPrivacy 44–56, main loop 87–104: settings 읽기·입력 분류 주기 분리. 148: 미래 deadline 대기의 밀리초 올림. |
+
+합칠 때 `OfficeView.Perf.cs`의 새 partial과 Ambient의 `NextUpdateAt`, `TrackerCadence.cs`도 함께 반영해야 한다. authored 낮은 FPS의 표시 간격과 tracker 입력 분류의 최대 0.5–1초 지연은 의도한 변화다. Windhawk에는 viewport 한 장, JsonlTail에는 source별 읽기 버퍼가 추가된다. 실제 화면·Explorer 주입·OS wakeup, 10분 이상의 메모리 안정성은 이번 offscreen CPU/픽셀 검사로 확인하지 않았다. native/managed 함수별 전체 CPU stack도 확보하지 못했다.
+
+`dotnet-counters`는 워크트리 안의 tool/cache와 공개 NuGet source만 지정해 설치를 한 번 시도했지만 `https://api.nuget.org/v3/index.json` 서비스 인덱스 로드에 실패했다. 설치를 다시 시도하거나 권한·네트워크 설정을 바꾸지 않았다. 별도의 tracker 복사본 진단은 stopwatch/current-thread allocation/Windows thread CPU/GC counts를 사용하며 최종 CPU 표와 분리한다.
+
+커밋은 승인된 lane branch에서 시도했지만 공유 Git 메타데이터 `C:/Codex-Workspace/Vibedotcom/.git/worktrees/perf/index.lock` 생성이 **Permission denied**로 실패했다. 차단 시 중단하라는 lane 규칙에 따라 staging/commit을 다시 시도하거나 다른 방식으로 우회하지 않았다. 변경은 이 워크트리에 unstaged 상태로 남아 있다.
+
