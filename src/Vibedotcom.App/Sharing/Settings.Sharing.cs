@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using Vibedotcom.Core;
 using Vibedotcom.Core.Sharing;
 
@@ -19,10 +18,11 @@ internal sealed partial record Settings
         Sharing = Sharing == "on" ? "on" : "off", SharingOfficeId = SharingOfficeId ?? "",
         SharingServer = SharingServer ?? "", SharingAliases = SharingAliases ?? new()
     };
-    // Read the shared settings contract, including a privacy key when that feature is merged.
-    // No local session/state object or credential is involved in this conversion.
-    internal SharingConfiguration SharingConfiguration() =>
-        JsonSerializer.Deserialize<SharingConfiguration>(JsonSerializer.SerializeToUtf8Bytes(this, StateJson.Options), StateJson.Options) ?? new();
+    internal SharingConfiguration SharingConfiguration() => new()
+    {
+        Sharing = Sharing, SharingOfficeId = SharingOfficeId, SharingServer = SharingServer,
+        SharingAliases = new(SharingAliases ?? new()), PrivacyMode = PrivacyModes.SharingValue(PrivacyMode)
+    };
 }
 
 /// <summary>Alias dictionary with value equality, so Settings record comparison stays meaningful.</summary>

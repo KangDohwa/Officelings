@@ -49,7 +49,9 @@ internal sealed partial record Settings
         var waiting = Math.Max(Number(LeaveAfterWaitingMinutes, 30, 1, 10080), (working + 1) / 60);
         return (this with { View = View == "iso" ? "iso" : "flat", Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
             TagMode = NameTagHover.Normalize(TagMode),
-            PrivacyMode = PrivacyModes.Value(PrivacyModes.Resolve(null, PrivacyMode, Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY"))),
+            PrivacyMode = PrivacyMode == null
+                ? PrivacyModes.Value(PrivacyModes.Resolve(null, null, Environment.GetEnvironmentVariable("VIBEDOTCOM_PRIVACY")))
+                : PrivacyModes.SharingValue(PrivacyMode),
             Ambient = (Ambient ?? new()).Normalize(), SeasonDecor = SeasonDecor == "auto" ? "auto" : "off",
             Pets = Pets == "off" ? "off" : "on",
             Zoom = Number(Zoom, 0, 0, 6), Width = Number(Width, 720, 400, 3000), Height = Number(Height, 480, 300, 2000),
@@ -65,9 +67,12 @@ internal sealed partial record Settings
         try
         {
             using var file = new MemoryStream(FileBoundary.ReadBytes(path, 65536));
-            return (JsonSerializer.Deserialize<Settings>(file, StateJson.Options) ?? new()).Normalize();
+            using var json = JsonDocument.Parse(file);
+            return ((JsonSerializer.Deserialize<Settings>(json, StateJson.Options) ?? new()) with
+                { PrivacyMode = PrivacyModes.ReadSetting(json.RootElement) ?? "full" }).Normalize();
         }
-        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException) { return new Settings().Normalize(); }
+        catch (Exception e) when (e is IOException or InvalidDataException or UnauthorizedAccessException or JsonException)
+        { return new Settings { PrivacyMode = e is FileNotFoundException or DirectoryNotFoundException ? null : "full" }.Normalize(); }
     }
     internal void Write(string path) => StateJson.WriteAtomic(path,JsonSerializer.SerializeToUtf8Bytes(Normalize(),StateJson.Options));
 }

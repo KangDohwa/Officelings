@@ -26,7 +26,7 @@ Default size is 720×480. Wheel (with or without Ctrl), `+` and `-` select integ
 
 Right-click the office or tray for normal/topmost/desktop mode, click-through, border, background, opacity, **Name tags**, **Privacy**, **Pets** and view switching. Flat also has **Edit office** and **Sharing**. Double-click the tray or choose **Show normal, clickable office** to recover. Closing exits and removes the icon.
 
-**Privacy** offers **Off**, **Hide tasks** (`tasks`) and **Hide all details** (`full`). Core discards sensitive text before state is stored and clears retained local metadata when the mode changes. `tasks` keeps names/models and the project leaf; `full` uses generic provider labels and removes models/projects. Antigravity prompt-derived names are hidden at either enabled level. Demo text remains fabricated and unredacted. See [privacy](privacy.md), including the separate sharing-setting limitation.
+**Privacy** offers **Off**, **Hide tasks** (`tasks`) and **Hide all details** (`full`). Core discards sensitive text before state is stored and clears retained local metadata when the mode changes. `tasks` keeps names/models and the project leaf; `full` uses generic provider labels and removes models/projects. Antigravity prompt-derived names are hidden at either enabled level. Changing the level also stops sharing and requires a fresh preview and consent; `full` replaces shared aliases with generic provider labels. Demo text remains fabricated and unredacted. See [privacy](privacy.md).
 
 **Name tags** defaults to Hover. Icon keeps provider/role icons visible and reveals a full plate on hover; Always keeps full plates. In flat, an away owner's reserved desk can reveal its plate too. Bundled icons are 10px at 1× and 12px from 2×; local brand overrides have precedence. Flat hover fades use 120ms in, 60ms leave grace and 200ms out; body, plate and gap keep the same target. Detail tooltips wait 420ms and avoid visible plates. Iso uses the same mode names and bundled provider art with its own hit tests.
 
@@ -41,7 +41,7 @@ Normal app runs atomically write `%LOCALAPPDATA%\Vibedotcom\settings.json`. Clos
 | `view` | `flat`; also `iso`. Unknown values normalize to flat. |
 | `mode` | `normal`; also `topmost`, `desktop`. |
 | `tagMode` | `hover`; also `icon`, `always`. Null/unknown values use hover. Not stored in Tracker state. |
-| `privacyMode` | `off`; also `tasks`, `full`. Valid CLI override → valid saved key → `VIBEDOTCOM_PRIVACY` → off. |
+| `privacyMode` | `off` with no settings file; also `tasks`, `full`. CLI override → saved level → `VIBEDOTCOM_PRIVACY` → off. Missing/invalid saved level uses `full`; legacy `privacy` migrates without lowering the saved level. |
 | `ambient` | Object with `weather`; missing/null uses `{"weather":"off"}`. Flat only. |
 | `ambient.weather` | `off`; also `rain`, `snow`, `auto`. Auto selects snow in December, clear otherwise. No weather service. |
 | `seasonDecor` | `off`; `auto` adds December window decoration. Flat only. |
@@ -64,7 +64,7 @@ Normal app runs atomically write `%LOCALAPPDATA%\Vibedotcom\settings.json`. Clos
 
 Booleans use JSON true/false. Invalid/nonfinite numeric values normalize where supported. Normal app menu changes save immediately; startup overrides save on close. Options that create a settings override (zoom, window, tags, atmosphere, timeouts) start from defaults rather than merging all saved fields. Saved `view` is retained unless explicitly overridden; privacy is resolved separately. A lone `--view` or `--privacy` can preserve the other saved settings. Demo/QA/profiling/smoke/opacity checks use disposable storage.
 
-**Sharing adapter detail:** its separate configuration reader recognizes `privacy`, default off; that is not an additional supported App Settings key. App Settings stores `privacyMode` and does not map it to that field. The local Privacy menu therefore does not currently guarantee generic sharing aliases or stop-on-privacy-change behavior. See [sharing privacy limits](privacy.md#optional-presence-sharing).
+**Sharing privacy:** App Settings and sharing use `privacyMode`. The legacy settings key `privacy` is accepted on read; if both keys exist, the stricter level wins. The next app save writes only `privacyMode`. Missing or malformed saved levels fail closed to generic sharing labels. See [sharing privacy](privacy.md#optional-presence-sharing).
 
 Quiet Working/Thinking becomes Idle after `workingSeconds`. Finished workers can complete report delivery before flat breaks; departure uses time since real activity. Active descendants keep parents present. Closed-session observations can cause earlier departure; otherwise timeouts apply. Core handles raising, walking to the door, fading and re-entry. See [source inference](sources-and-inference.md#closed-sessions).
 
@@ -74,7 +74,7 @@ Sharing starts **off**. In flat, open **Sharing** from the office or tray menu. 
 
 Enter one alias per line as `platform:slot=alias`, e.g. `codex:1=Nova`. Slots belong to the current platform snapshot (supervisors before workers), may shift as membership changes, and are not persistent session identities. Missing aliases use `Agent N`. NFC normalization precedes the 24-Unicode-scalar limit; only letters, digits, ASCII spaces, `_`, `-` and `.` remain and spaces collapse. Sanitization does not identify private information.
 
-Click **Preview exact JSON**, review the entire invented-agent example, check **I reviewed this JSON and agree to share presence**, then **Enable sharing**. The first POST sends exactly the displayed UTF-8 bytes. Later heartbeats send complete live presence. Editing server, office or aliases invalidates consent; previews expire after 90 seconds. Tokens are masked and never appear in the body.
+Click **Preview exact JSON**, review the entire invented-agent example, check **I reviewed this JSON and agree to share presence**, then **Enable sharing**. The first POST sends exactly the displayed UTF-8 bytes. Later heartbeats send complete live presence. `off` and `tasks` use chosen aliases; `full` uses provider/slot labels (`Codex`, `Codex #2`, `Claude`, `Antigravity`) in both preview and live presence, while platform stays visible. Editing server, office or aliases, or changing any privacy level, invalidates consent; previews expire after 90 seconds. Tokens are masked and never appear in the body.
 
 Body fields are `v`, `officeId`, `agents` and `ts`; each agent has `platform`, `alias`, `state`, `role`, optional `parentIndex`. Working/thinking → working, explicit wait → waiting, reporting/idle → idle; gone is omitted. Parents refer to earlier supervisors in that array. Names, prompts, tasks/tools, paths, projects/models and local IDs are excluded. Exceeding 64 agents or 8192 UTF-8 bytes stops sharing instead of sending a partial office.
 
@@ -84,7 +84,7 @@ By default, Windows DPAPI **CurrentUser** stores the token in `%LOCALAPPDATA%\Vi
 
 Use **Stop sharing** to cancel the sender. **Also delete the stored token** removes the DPAPI file. Neither action revokes the server token nor unpublishes an office. The intended server contract expires presence within 90 seconds and clears it on revocation/unpublish; that behavior was not verified against the hosted service. Downloaded public data cannot be recalled.
 
-Demo/QA disable sharing. A new process or replacement window (view/transparency changes) requires fresh consent. The protocol supports generic aliases for its `privacy:"full"` input and stop-on-change, but the current `privacyMode` adapter mismatch described above prevents relying on the app menu for this. Stop explicitly before changing privacy.
+Demo/QA disable sharing. A new process or replacement window (view/transparency changes) requires fresh consent. Any privacy level change immediately stops that window's sender and clears an open consent preview, including `off` ↔ `tasks`. Review and confirm again to resume; no restart is needed. Tracker sharing checks the current saved level and its active local level before sending and uses the stricter one.
 
 For headless sharing, enable it and store the token in flat, then close the app. Put its saved sharing configuration in the Tracker output directory's `settings.json`. Run Tracker with `--sharing` interactively, review the complete invented JSON and type `ENABLE`. No flag or redirected input means no uploads. Ctrl+C cancels. The app's Stop sharing saves `sharing:"off"`, which a Tracker reading the same file observes. See [Tracker flags](tracker.md#options).
 

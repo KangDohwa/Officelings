@@ -44,7 +44,9 @@ internal sealed partial class OfficeWindow
     internal OfficeView PrivacyView => view;
     internal void SetPrivacy(PrivacyMode mode)
     {
+        var previous = settings.SharingConfiguration().PrivacyMode;
         settings = settings with { PrivacyMode=PrivacyModes.Value(mode) };
+        if (previous != settings.PrivacyMode) InvalidateSharingConsent();
         if (!demo && mode != view.PrivacyMode)
         {
             privacyRevision++;

@@ -19,10 +19,20 @@ internal sealed class SharingDialog : Window
     private readonly TextBlock error = new() { Foreground = Brushes.Firebrick, TextWrapping = TextWrapping.Wrap };
     private readonly Button enable = new() { Content = "Enable sharing", IsEnabled = false, Padding = new(12, 5, 12, 5) };
     private SharingPreview? preview;
+    private readonly Func<string?> currentPrivacy;
+    private string privacy;
+    private readonly TextBlock privacyNotice = new() { TextWrapping = TextWrapping.Wrap };
+    private Action invalidatePreview = () => { };
 
     internal SharingDialog(SharingConfiguration configuration, bool active,
         Func<SharingPreview, string?, bool, Task> start, Func<bool, Task> stop)
+        : this(configuration, active, start, stop, () => configuration.PrivacyMode) { }
+
+    internal SharingDialog(SharingConfiguration configuration, bool active,
+        Func<SharingPreview, string?, bool, Task> start, Func<bool, Task> stop, Func<string?> currentPrivacy)
     {
+        this.currentPrivacy = currentPrivacy;
+        privacy = Vibedotcom.Core.PrivacyModes.SharingValue(currentPrivacy());
         Title = "Sharing"; Width = 720; Height = 800; MinWidth = 540; MinHeight = 500;
         WindowStartupLocation = WindowStartupLocation.CenterScreen;
         var body = new StackPanel { Margin = new(18) };
@@ -43,7 +53,7 @@ internal sealed class SharingDialog : Window
         Field(body, "Server origin (HTTPS; loopback HTTP allowed for development)", server);
         Field(body, "Office ID (UUID from the server)", office);
         Field(body, "Aliases: one platform:slot=alias per line, e.g. codex:1=Nova. Platforms: codex, claude, antigravity, other. Unlisted slots use Agent N.", aliases);
-        if (configuration.Privacy == "full") body.Children.Add(new TextBlock { Text = "Full privacy mode forces Agent N aliases, including this preview.", TextWrapping = TextWrapping.Wrap });
+        body.Children.Add(privacyNotice); UpdatePrivacyNotice();
         Field(body, "Bearer token (leave blank to use the stored token bound to this server and office)", token);
         body.Children.Add(remember);
         var review = new Button { Content = "Preview exact JSON", HorizontalAlignment = HorizontalAlignment.Left, Margin = new(0, 10, 0, 5), Padding = new(12, 5, 12, 5) };
@@ -53,18 +63,19 @@ internal sealed class SharingDialog : Window
         Field(body, "Complete UTF-8 request body (bearer token is sent only in the Authorization header)", json);
         body.Children.Add(consent); body.Children.Add(enable); body.Children.Add(error);
         void Invalidate() { preview = null; json.Clear(); consent.IsChecked = false; enable.IsEnabled = false; }
+        invalidatePreview = Invalidate;
         server.TextChanged += (_, _) => Invalidate(); office.TextChanged += (_, _) => Invalidate(); aliases.TextChanged += (_, _) => Invalidate();
-        consent.Checked += (_, _) => enable.IsEnabled = preview != null;
+        consent.Checked += (_, _) => { RefreshPrivacy(); enable.IsEnabled = preview != null && consent.IsChecked == true; };
         consent.Unchecked += (_, _) => enable.IsEnabled = false;
         review.Click += (_, _) =>
         {
-            Invalidate(); error.Text = "";
+            RefreshPrivacy(); Invalidate(); error.Text = "";
             try
             {
                 preview = SharingPreview.Create(new()
                 {
                     SharingServer = server.Text.Trim(), SharingOfficeId = office.Text.Trim(),
-                    SharingAliases = ParseAliases(aliases.Text), Privacy = configuration.Privacy
+                    SharingAliases = ParseAliases(aliases.Text), PrivacyMode = privacy
                 }, DateTimeOffset.UtcNow);
                 json.Text = preview.Payload.Json;
             }
@@ -72,6 +83,7 @@ internal sealed class SharingDialog : Window
         };
         enable.Click += async (_, _) =>
         {
+            RefreshPrivacy();
             if (preview == null || consent.IsChecked != true) return;
             enable.IsEnabled = false; error.Text = "";
             try { await start(preview, token.Password.Length == 0 ? null : token.Password, remember.IsChecked == true); token.Clear(); Close(); }
@@ -82,6 +94,16 @@ internal sealed class SharingDialog : Window
         if (active) { server.IsEnabled = office.IsEnabled = aliases.IsEnabled = token.IsEnabled = review.IsEnabled = consent.IsEnabled = false; }
         Closed += (_, _) => token.Clear();
     }
+    internal void RefreshPrivacy()
+    {
+        var value = Vibedotcom.Core.PrivacyModes.SharingValue(currentPrivacy());
+        if (value == privacy) return;
+        privacy = value; invalidatePreview(); UpdatePrivacyNotice();
+        error.Text = "Privacy mode changed. Review a fresh preview.";
+    }
+    private void UpdatePrivacyNotice() => privacyNotice.Text = privacy == "full"
+        ? "Privacy: full. Stable provider labels (Codex, Codex #2, Claude, Antigravity) replace chosen aliases, including this preview."
+        : $"Privacy: {privacy}. Chosen aliases are shared; task-derived fields are never sent.";
     private static void Field(Panel panel, string title, FrameworkElement input)
     {
         panel.Children.Add(new TextBlock { Text = title, TextWrapping = TextWrapping.Wrap, Margin = new(0, 9, 0, 3) });

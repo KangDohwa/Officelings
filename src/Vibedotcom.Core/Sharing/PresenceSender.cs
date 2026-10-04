@@ -10,6 +10,7 @@ public sealed class PresenceSender : IAsyncDisposable
     private readonly Func<SharingPreview, DateTimeOffset, PresencePayload> snapshot;
     private readonly TimeProvider time;
     private readonly Func<double> random;
+    private readonly Func<string?>? privacyMode;
     private readonly SemaphoreSlim sending = new(1, 1);
     private CancellationTokenSource cancellation = new();
     private SharingPreview? preview;
@@ -22,15 +23,18 @@ public sealed class PresenceSender : IAsyncDisposable
     public TimeSpan Remaining => TimeSpan.FromSeconds(Math.Max(0, (nextAttempt - time.GetTimestamp()) / (double)time.TimestampFrequency));
 
     public PresenceSender(IPresenceTransport transport, ISharingTokenStore store, IPresenceAttemptGate attempts,
-        Func<SharingPreview, DateTimeOffset, PresencePayload> snapshot, TimeProvider? time = null, Func<double>? random = null)
+        Func<SharingPreview, DateTimeOffset, PresencePayload> snapshot, TimeProvider? time = null, Func<double>? random = null,
+        Func<string?>? privacyMode = null)
     {
         this.transport = transport; this.store = store; this.attempts = attempts; this.snapshot = snapshot;
         this.time = time ?? TimeProvider.System; this.random = random ?? Random.Shared.NextDouble;
+        this.privacyMode = privacyMode;
     }
     public bool Enable(SharingPreview consent, bool confirmed, string? suppliedToken, bool rememberToken)
     {
         if (!confirmed || Enabled || sending.CurrentCount == 0) return false;
         consent.RequireFresh(time.GetUtcNow());
+        consent.RequirePrivacy(privacyMode == null ? consent.PrivacyMode : privacyMode());
         string? value;
         try { value = string.IsNullOrEmpty(suppliedToken) ? store.Read(consent.Endpoint, consent.OfficeId) : suppliedToken; }
         catch (Exception) { throw new SharingCredentialException(); }
@@ -54,6 +58,8 @@ public sealed class PresenceSender : IAsyncDisposable
             var activeToken = token;
             PresencePayload payload;
             var now = time.GetUtcNow();
+            try { preview.RequirePrivacy(privacyMode == null ? preview.PrivacyMode : privacyMode()); }
+            catch (Exception) { Halt(SharingStatus.ConsentExpired); return; }
             try
             {
                 if (first) preview.RequireFresh(now);
@@ -66,6 +72,8 @@ public sealed class PresenceSender : IAsyncDisposable
             if (wait > TimeSpan.Zero) { Schedule(wait); Status = SharingStatus.Backoff; return; }
             Schedule(TimeSpan.FromSeconds(10)); // Every attempted request, including failures, consumes a slot.
             if (!Enabled || cancellation.IsCancellationRequested) return;
+            try { preview.RequirePrivacy(privacyMode == null ? preview.PrivacyMode : privacyMode()); }
+            catch (Exception) { Halt(SharingStatus.ConsentExpired); return; }
             var attemptedAt = time.GetTimestamp();
             first = false; Status = SharingStatus.Sending;
             PresenceResponse response;

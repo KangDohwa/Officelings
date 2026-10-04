@@ -14,7 +14,7 @@ internal static partial class Program
         var start = type.GetMethod("Start", BindingFlags.Static | BindingFlags.Public)!;
         await CheckAsync("headless tracker off by default creates no transport or credential store", async () =>
         {
-            var sharing = start.Invoke(null, [false, Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"), "settings.json"), CancellationToken.None])!;
+            var sharing = start.Invoke(null, [false, Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString("N"), "settings.json"), CancellationToken.None, null])!;
             Require(type.GetField("sender", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(sharing) == null);
             Require(type.GetField("client", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(sharing) == null);
             await ((IAsyncDisposable)sharing).DisposeAsync();
@@ -28,7 +28,7 @@ internal static partial class Program
                     var path = Path.Combine(directory, "settings.json");
                     StateJson.WriteAtomic(path, JsonSerializer.SerializeToUtf8Bytes(new SharingConfiguration
                     { Sharing = "on", SharingServer = "https://presence.example", SharingOfficeId = Office }, StateJson.Options));
-                    var sharing = start.Invoke(null, [true, path, CancellationToken.None])!;
+                    var sharing = start.Invoke(null, [true, path, CancellationToken.None, null])!;
                     Require(type.GetField("sender", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(sharing) == null);
                     Require(type.GetField("client", BindingFlags.Instance | BindingFlags.NonPublic)!.GetValue(sharing) == null);
                     await ((IAsyncDisposable)sharing).DisposeAsync();

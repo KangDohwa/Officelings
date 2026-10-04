@@ -15,7 +15,7 @@ internal sealed partial class OfficeWindow
     private PresenceSender? sharingSender;
     private HttpClient? sharingClient;
     private DispatcherTimer? sharingTimer;
-    private string sharingPrivacy = "off";
+    private SharingDialog? sharingDialog;
     private readonly TextBlock sharingIndicator = new() { Margin = new(16, 3, 16, 5), Foreground = Brushes.LightGray, Text = "Sharing: off" };
 
     private void InitializeSharing()
@@ -27,8 +27,6 @@ internal sealed partial class OfficeWindow
         sharingTimer.Tick += async (_, _) =>
         {
             if (closed || sharingSender == null) return;
-            if (sharingSender.Enabled && settings.SharingConfiguration().Privacy != sharingPrivacy)
-            { sharingSender.Stop(); settings = settings with { Sharing = "off" }; Save(); }
             await sharingSender.TrySendAsync();
             RefreshSharingIndicator();
             if (!sharingSender.Enabled && sharingSender.Status is not SharingStatus.Off && settings.Sharing != "off")
@@ -48,25 +46,31 @@ internal sealed partial class OfficeWindow
         sharingClient = PresenceTransport.CreateClient();
         sharingSender = new(new PresenceTransport(sharingClient), new WindowsSharingTokenStore(WindowsSharingTokenStore.DefaultDirectory),
             new FilePresenceAttemptGate(WindowsSharingTokenStore.DefaultDirectory), (preview, now) =>
-                PresencePayload.Create(preview.OfficeId, PresenceProjection.FromLocal(agents, preview.Aliases, settings.SharingConfiguration().Privacy), now, now));
+                PresencePayload.Create(preview.OfficeId, PresenceProjection.FromLocal(agents, preview.Aliases, settings.SharingConfiguration().PrivacyMode), now, now),
+            privacyMode: () => settings.SharingConfiguration().PrivacyMode);
     }
     private void ShowSharing()
     {
         if (demo || qa || storage.Isolated)
         { MessageBox.Show(this, "Sharing is disabled in demo and QA runs.", "Sharing"); return; }
-        var dialog = new SharingDialog(settings.SharingConfiguration(), sharingSender?.Enabled == true, EnableSharingAsync, StopSharingAsync);
+        var dialog = new SharingDialog(settings.SharingConfiguration(), sharingSender?.Enabled == true, EnableSharingAsync, StopSharingAsync,
+            () => settings.SharingConfiguration().PrivacyMode);
         if (settings.Mode != "desktop") dialog.Owner = this;
-        dialog.ShowDialog();
+        sharingDialog = dialog;
+        try { dialog.ShowDialog(); }
+        finally { sharingDialog = null; }
+    }
+    private void InvalidateSharingConsent()
+    {
+        sharingSender?.Stop(); settings = settings with { Sharing = "off" };
+        sharingDialog?.RefreshPrivacy(); RefreshSharingIndicator();
     }
     private async Task EnableSharingAsync(SharingPreview preview, string? token, bool remember)
     {
         if (demo || qa || storage.Isolated || closed) throw new ArgumentException("Sharing is unavailable in this window.");
-        if (settings.SharingConfiguration().Privacy != preview.PrivacyMode &&
-            (settings.SharingConfiguration().Privacy == "full" || preview.PrivacyMode == "full"))
-            throw new ArgumentException("Privacy mode changed. Review a fresh preview.");
+        preview.RequirePrivacy(settings.SharingConfiguration().PrivacyMode);
         EnsureSharingSender();
         if (!sharingSender!.Enable(preview, confirmed: true, token, remember)) throw new ArgumentException("Stop sharing before enabling it again.");
-        sharingPrivacy = settings.SharingConfiguration().Privacy;
         settings = settings with { Sharing = "on", SharingServer = preview.Endpoint.Origin.AbsoluteUri, SharingOfficeId = preview.OfficeId,
             SharingAliases = new AliasMap(preview.Aliases) };
         Save(); await sharingSender.TrySendAsync(); RefreshSharingIndicator();

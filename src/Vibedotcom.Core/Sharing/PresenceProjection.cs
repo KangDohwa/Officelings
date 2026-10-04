@@ -20,7 +20,8 @@ public static class PresenceProjection
             var local = live[i];
             var platform = Platform(local.Provider);
             var slot = slots.GetValueOrDefault(platform) + 1; slots[platform] = slot;
-            var alias = privacyMode == "full" ? $"Agent {i + 1}" : aliases.GetValueOrDefault($"{platform}:{slot}") ?? $"Agent {i + 1}";
+            var alias = PrivacyModes.SharingValue(privacyMode) == "full" ? GenericLabel(platform, slot)
+                : aliases.GetValueOrDefault($"{platform}:{slot}") ?? $"Agent {i + 1}";
             int? parent = local.IsSubagent && local.ParentId != null && parents.TryGetValue(local.ParentId, out var p) ? p : null;
             result.Add(new(platform, alias, local.State switch
             { AgentState.Working or AgentState.Thinking => "working", AgentState.Waiting => "waiting", _ => "idle" },
@@ -39,10 +40,21 @@ public static class PresenceProjection
         foreach (var entry in entries.OrderBy(e => e.Key, StringComparer.Ordinal))
         {
             var platform = ValidateAliasKey(entry.Key);
-            result.Add(new(platform, privacyMode == "full" ? $"Agent {result.Count + 1}" : entry.Value,
+            var slot = int.Parse(entry.Key[(entry.Key.IndexOf(':') + 1)..], System.Globalization.CultureInfo.InvariantCulture);
+            result.Add(new(platform, PrivacyModes.SharingValue(privacyMode) == "full" ? GenericLabel(platform, slot) : entry.Value,
                 result.Count == 0 ? "working" : "waiting", result.Count == 0 ? "supervisor" : "sub", result.Count == 0 ? null : 0));
         }
         return result;
+    }
+
+    private static string GenericLabel(string platform, int slot) => (platform switch
+    { "codex" => "Codex", "claude" => "Claude", "antigravity" => "Antigravity", _ => "Other" }) + (slot == 1 ? "" : $" #{slot}");
+
+    internal static bool IsGenericLabel(string platform, string alias)
+    {
+        var prefix = GenericLabel(platform, 1) + " #";
+        return alias.StartsWith(prefix, StringComparison.Ordinal) && int.TryParse(alias[prefix.Length..], out var slot)
+            && slot is >= 2 and <= 64 && alias == GenericLabel(platform, slot);
     }
 
     public static string ValidateAliasKey(string key)
