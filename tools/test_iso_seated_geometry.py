@@ -1,7 +1,7 @@
-"""Geometry and compiled partition regression; emits a synthetic five-pilot pack.
+"""Geometry and compiled partition regression; emits all available designs.
 
 python -B tools/test_iso_seated_geometry.py
-dotnet run --project tests/Vibedotcom.IsoChecks -- --seated-pack artifacts/seatfix/five-pilots
+dotnet run --project tests/Vibedotcom.IsoChecks -- --seated-pack artifacts/seatfix/all-designs
 """
 import base64
 from io import BytesIO
@@ -17,8 +17,8 @@ import iso_seated_geometry as geometry
 import check_iso_chair_fit as fit
 import iso_check
 
-PILOTS=(*pack.CHARACTERS[:3],"glasses-bun","hanbok-modern")
-OUTPUT=pack.ROOT/"artifacts/seatfix/five-pilots"
+PILOTS=pack.CHARACTERS
+OUTPUT=pack.ROOT/"artifacts/seatfix/all-designs"
 
 
 class SeatedGeometryTests(unittest.TestCase):
@@ -29,8 +29,7 @@ class SeatedGeometryTests(unittest.TestCase):
         for identity in PILOTS:
             if not any(c["id"]==f"iso/character/{identity}" for c in cls.manifest["characters"]):
                 cls.manifest["characters"].append(dict(id=f"iso/character/{identity}",sheetId=identity+"-normal",name=identity))
-        # The production pilots use their shipped art, matching before/after
-        # comparisons; two additional pilots use their existing source exports.
+        # Use shipped pixels for every design, matching the runtime pack.
         shipped=json.loads((pack.ART/"pack/assets.json").read_text(encoding="utf-8"))
         production={s["id"]:s for s in shipped["sheets"] if s["kind"] in ("character","blink")}
         cls.manifest["sheets"]=[production.get(s["id"],s) for s in cls.manifest["sheets"] if s["id"]!="iso-chair-sandwich"]
@@ -43,7 +42,7 @@ class SeatedGeometryTests(unittest.TestCase):
         OUTPUT.mkdir(parents=True,exist_ok=True)
         for name,data in cls.files.items(): pack.atomic_write(OUTPUT/name,data)
         compact=(json.dumps(cls.manifest,ensure_ascii=False,separators=(",",":"))+"\n").encode("utf-8")
-        if len(compact)>pack.MAX_JSON: raise ValueError("Five-pilot fixture exceeds runtime manifest limit")
+        if len(compact)>pack.MAX_JSON: raise ValueError("All-design fixture exceeds runtime manifest limit")
         pack.atomic_write(OUTPUT/"assets.json",compact)
         pack.atomic_write(OUTPUT/"layout.json",pack.json_bytes(pack.make_layout(cls.manifest)))
 
@@ -71,7 +70,7 @@ class SeatedGeometryTests(unittest.TestCase):
             self.assertTrue(np.isfinite(depth[art[:,:,3]>0]).all())
             self.assertTrue(np.any(labels==3),"Backrest lost")
 
-    def test_all_five_pilots_pose_frames_match_fresh_z_buffer(self):
+    def test_all_available_designs_pose_frames_match_fresh_z_buffer(self):
         cases=0;intersections=0;changes=0
         s=self.sheets["iso-chair-sandwich"]
         clips={c["name"]+"/"+c["direction"]:c for c in s["clips"]}
@@ -98,7 +97,8 @@ class SeatedGeometryTests(unittest.TestCase):
                     intersections+=int(overlap.sum());changes+=int((overlap&~hidden).sum());cases+=1
         expected=sum(c["frames"] for s in self.manifest["sheets"] if s["kind"]=="character" for c in s["clips"] if c["name"] in geometry.POSES)
         self.assertEqual(cases,expected)
-        self.assertEqual(len(self.manifest["characters"]),5)
+        self.assertEqual([c["id"] for c in self.manifest["characters"]],
+                         [f"iso/character/{identity}" for identity in PILOTS])
         self.assertGreater(changes,0)
         print(f"\nFresh z-buffer: {cases} frames / {intersections} intersections / {changes} must-show pixels")
 

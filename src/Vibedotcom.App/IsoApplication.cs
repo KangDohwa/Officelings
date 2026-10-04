@@ -26,7 +26,7 @@ internal static class IsoApplication
     internal static (IIsoSheetSource Sheets,Func<int,IIsoOffice> Create,bool Preview) Prepare(string? assets,bool allowPreview)
     {
         var pack=assets==null ? IsoPack.LoadDefault() : IsoPack.Load(assets);
-        return (new PackIsoSheetSource(pack),_=>new IsoOffice(pack,42),false);
+        return (new PackIsoSheetSource(pack),seed=>new IsoOffice(pack,42+seed),false);
     }
     internal static void Render(FrameworkElement view,int width,int height,string file)
     {

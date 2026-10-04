@@ -175,10 +175,12 @@ internal static class IsoSeatedOcclusionChecks
                 // overlap. Include the neck boundary for a conservative head ROI.
                 var glasses = design.Id.EndsWith("glasses-bun"); var hanbok = design.Id.EndsWith("hanbok-modern");
                 var braid = design.Id.EndsWith("red-braid");
-                var headEnd = glasses || hanbok || braid ? 40 : hoodie ? (back ? 39 : 41) : punk || !back ? 38 : 36;
+                var cap = design.Id.EndsWith("cap-teen"); var labcoat = design.Id.EndsWith("labcoat-tall");
+                var headEnd = cap ? 38 : labcoat ? 39 : glasses || hanbok || braid ? 40 : hoodie ? (back ? 39 : 41) : punk || !back ? 38 : 36;
                 var idle = new IsoDrawItem("head", IsoLayer.Character, design.SheetId, "idle/" + seat.Facing, 0, 0, 0, 0);
                 var idlePixels = Pixels(pack, idle);
-                int[] skin = glasses ? [0xDBAA72, 0xF4BC7B, 0xF7CD94, 0xFCEAC7] :
+                int[] skin = cap ? [0xBD6C3D, 0xDC7C3D, 0xE8944B, 0xEE9E51, 0xECA661] :
+                    labcoat ? [0xEB9D5C, 0xE28E4D, 0xF0A463, 0xE9B07F] : glasses ? [0xDBAA72, 0xF4BC7B, 0xF7CD94, 0xFCEAC7] :
                     hanbok ? [0xC9896A, 0xFBD3A8, 0xFBDDBC] : braid ? [0xF39E62, 0xF6DEB8, 0xFBC68D] :
                     hoodie ? [0x6D3713, 0x8B4D15, 0xAC5F2D, 0xBA672C, 0xC97E32] :
                     punk ? [0xE36854, 0xF19B5B, 0xFBC186, 0xF7C4B7] : [0x744B31, 0xC49F7C, 0xEFA763, 0xF3B06B, 0xF6AD62];
@@ -191,6 +193,8 @@ internal static class IsoSeatedOcclusionChecks
                     var shift = glasses || braid ? 0 : transition ? (punk || hanbok ? (action == "sit-down" ? (phase == 0 ? 0 : 1) : (phase == 3 ? 0 : 1)) :
                         action == "sit-down" ? phase : 3 - phase) : punk ? 1 : 3;
                     if (!transition && hanbok) shift = 1;
+                    if (cap || labcoat) shift = transition ?
+                        (action == "sit-down" ? (phase >= (cap ? 2 : 1) ? 1 : 0) : (phase < (cap ? 2 : 3) ? 1 : 0)) : 1;
                     var visibleHead = 0; var totalHead = 0; var hands = 0;
                     var clip = pack.Clip(body.SheetId, body.Clip);
                     for (var y = 0; y < 64; y++) for (var x = 0; x < 32; x++)
