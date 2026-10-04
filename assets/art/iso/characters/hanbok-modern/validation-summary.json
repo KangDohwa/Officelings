@@ -1,0 +1,22 @@
+{
+  "command": [
+    "C:\\Users\\myori\\.codex\\skills\\sprite-gen\\.venv\\Scripts\\python.exe",
+    "-B",
+    "C:\\Codex-Workspace\\Vibedotcom\\tools\\iso_check.py",
+    "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\characters\\hanbok-modern",
+    "--stage",
+    "final",
+    "--tolerance",
+    "0"
+  ],
+  "exitCode": 0,
+  "PASS": 12,
+  "SKIP": 5,
+  "FAIL": 0,
+  "normalRows": 38,
+  "blinkRows": 24,
+  "normalCells": 152,
+  "blinkCells": 96,
+  "gifSerializedProof": "runs/walk-gif-proof.json",
+  "visibility": "seated-visibility.json"
+}
