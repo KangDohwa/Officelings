@@ -6,7 +6,7 @@ public sealed record IsoActorPose(string AgentId, string CharacterId, string Nam
 public sealed record IsoCatPose(Position Position, string Facing, string Action, double ElapsedSeconds);
 
 /// Resolves pixels/contacts and orders the complete scene once. Consumers draw the returned list verbatim.
-public sealed class IsoSceneBuilder
+public sealed partial class IsoSceneBuilder
 {
     internal sealed record Entry(IsoDrawItem Item, IsoDepthKey Key, bool Passthrough = false);
     private readonly IsoPack pack;
@@ -47,6 +47,7 @@ public sealed class IsoSceneBuilder
         camera = new(8 - bounds.Left, 8 - bounds.Top); width = bounds.Width + 16; height = bounds.Height + 16;
         for (var k = 0; k < staticItems.Count; k++) staticItems[k] = staticItems[k] with
         { Item = staticItems[k].Item with { X = staticItems[k].Item.X + camera.X, Y = staticItems[k].Item.Y + camera.Y } };
+        CacheSeatChairs();
     }
     private void AddFloors()
     {
@@ -159,7 +160,7 @@ public sealed class IsoSceneBuilder
         }
         foreach (var actor in actors) AddActor(actor);
         if (cat != null) AddCat(cat);
-        work.Sort((a, b) => a.Key.CompareTo(b.Key));
+        SortWithSeatChairs();
         furnitureOrder.Sort(work, actors, cat);
         var changed = previous == null || previous.Items.Count != work.Count || previous.Labels.Count != labels.Count;
         if (!changed)
@@ -197,6 +198,7 @@ public sealed class IsoSceneBuilder
         hitKinds[actor.AgentId] = "agent";
         var design = pack.Characters.First(c => c.Id == actor.CharacterId); var normal = pack.Sheet(design.SheetId);
         var clip = pack.Clip(normal.Id, actor.Action, actor.Facing); var frame = FrameAt(clip, actor.ElapsedSeconds);
+        var normalClip = clip;
         var sheetId = normal.Id;
         if (actor.Blink && actor.Facing is "se" or "sw" && normal.Blink is {} blink &&
             pack.Sheet(blink.SheetId).Rows!.Any(c => blink.NormalRows[c.Row] == clip.Row))
@@ -225,6 +227,7 @@ public sealed class IsoSceneBuilder
         if (!hasSeat || actor.SeatPhase is null or "turn")
             AddDynamic(actor.AgentId, "contact-shadow", IsoLayer.Shadow, IsoActorShadow.SheetId, pack.Clip(IsoActorShadow.SheetId, "contact/any"),
                 ground, depth, 0, 0, null, actor.Alpha, pass: IsoPass.Shadows);
+        SelectSeatChair(actor, normal.Id, normalClip, frame);
         AddDynamic(actor.AgentId, "body", IsoLayer.Character, sheetId, clip, ground, depth, 0, actor.ElapsedSeconds, actor.AgentId,
             actor.Alpha, dest, actor.SeatPhase is "lower" or "raise" ? frame : null);
         if (clip.Effect == "speech-bubble")

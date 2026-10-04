@@ -115,6 +115,16 @@ public sealed class IsoPack
         if (loaded.Count is 0 or > 128 || furniture.Count > 512 || characters.Count is 0 or > 512 || tiles.Count > 512)
             throw new InvalidDataException("Iso asset limits exceeded.");
         foreach (var s in loaded) pack.ExpandAliases(s);
+        // Compiled assembly bindings augment resolved source clips; unrelated
+        // pack-only actions/effects retain the existing runtime adapter.
+        foreach (var s in loaded.Where(s => s.Kind == "character")) foreach (var c in s.Clips ?? [])
+            if (c.ChairFrames != null)
+            {
+                var original = pack.Clip(s.Id, c.Key);
+                if (original.Row != c.Row || original.Column != c.Column || original.Frames != c.Frames)
+                    throw new InvalidDataException("Chair binding differs from source playback.");
+                pack.clips[(s.Id, c.Key)] = original with { ChairFrames = c.ChairFrames };
+            }
         foreach (var s in loaded) pack.ExpandBlinkAliases(s);
         RequireUnique(furniture.Select(f => f.Id)); RequireUnique(characters.Select(c => c.Id));
         foreach (var c in characters)

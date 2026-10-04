@@ -333,6 +333,8 @@ def assemble(paths):
     for character in manifest["characters"]:
         character["shadow"] = dict(sheetId=shadow["id"], animation="standing", direction="any", renderPass="shadows", seated=False)
     bind_character_actions(manifest)
+    from iso_seated_geometry import bake
+    bake(manifest, files)
     link_blinks(sheets)
     for s in sheets.values():
         validate_clips(s)
@@ -602,15 +604,56 @@ def build_iso_pack(art_dir=ART, output=ART / "pack", *, pilot=False):
                 layoutChecks=validate_layout(layout, manifest), bytes=sum(map(len, files.values())) + len(manifest_data) + len(layout_data))
 
 
+def refresh_seated_pack(art_dir=ART, output=ART / "pack"):
+    """Rebuild the chair sandwich against the shipped actor pixels.
+
+    Source character exports currently differ from the shipped pack. A chair
+    repair must not also replace their six animation sheets. Other lanes can
+    use the normal full source build when intentionally integrating that art.
+    """
+    if output.resolve().is_relative_to((ROOT/"assets/pack").resolve()):
+        raise ValueError("the flat runtime pack is not an iso output directory")
+    manifest=json.loads((output/"assets.json").read_text(encoding="utf-8"))
+    files={s["file"]:(output/s["file"]).read_bytes() for s in manifest["sheets"] if s["id"]!="iso-chair-sandwich"}
+    for s in manifest["sheets"]:
+        for mask in s.get("faceLock",{}).values(): files[mask["eyeMask"]]=(output/mask["eyeMask"]).read_bytes()
+    path=art_dir/"furniture-v3/chair/chair.iso.json"
+    source=json.loads(path.read_text(encoding="utf-8")); sheet=deepcopy(source["sheets"][0])
+    data=local_file(path.parent,sheet["file"]).read_bytes();info=png_info(data)
+    sheet.update(file=f"sheets/pack-{info['sha256']}.png",**info);sheet["clips"]=expand_aliases(sheet)
+    files[sheet["file"]]=data
+    manifest["sheets"]=[sheet if s["id"]==sheet["id"] else s for s in manifest["sheets"] if s["id"]!="iso-chair-sandwich"]
+    manifest["furniture"]=[deepcopy(source["furniture"][0]) if f["id"]=="iso/chair" else f for f in manifest["furniture"]]
+    for p in manifest.get("sourceManifests",[]):
+        if p["file"]=="furniture-v3/chair/chair.iso.json":p["sha256"]=hashlib.sha256(path.read_bytes()).hexdigest()
+    from iso_seated_geometry import bake
+    bake(manifest,files)
+    link_blinks({s["id"]:s for s in manifest["sheets"]})
+    for s in manifest["sheets"]:validate_clips(s)
+    verify_references(manifest)
+    referenced={s["file"] for s in manifest["sheets"]}
+    referenced.update(m["eyeMask"] for s in manifest["sheets"] for m in s.get("faceLock",{}).values())
+    files={name:data for name,data in files.items() if name in referenced}
+    manifest["files"]=[dict(file=n,bytes=len(d),sha256=hashlib.sha256(d).hexdigest()) for n,d in sorted(files.items())]
+    layout=(output/"layout.json").read_bytes()
+    manifest["files"].append(dict(file="layout.json",bytes=len(layout),sha256=hashlib.sha256(layout).hexdigest()))
+    for name,data in files.items():atomic_write(output/name,data)
+    atomic_write(output/"assets.json",json_bytes(manifest))
+    return manifest["seatedOracle"]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--art-dir", type=Path, default=ART)
     parser.add_argument("--output", type=Path, default=ART / "pack")
     parser.add_argument("--pilot", action="store_true", help="floors, walls, furniture-v2 and dev-hoodie-v2 only")
     parser.add_argument("--layout-only", action="store_true", help="rewrite layout.json from the existing pack; leave assets.json and all art unchanged")
+    parser.add_argument("--seated-only", action="store_true", help="rebuild chair masks against shipped actor pixels, preserving all other art")
     args = parser.parse_args()
     try:
-        if args.layout_only:
+        if args.seated_only:
+            print(json.dumps(refresh_seated_pack(args.art_dir,args.output),indent=2))
+        elif args.layout_only:
             manifest = json.loads((args.output / "assets.json").read_text(encoding="utf-8"))
             layout = make_layout(manifest)
             data = json_bytes(layout)

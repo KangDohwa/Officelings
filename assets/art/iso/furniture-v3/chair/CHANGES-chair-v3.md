@@ -1,5 +1,15 @@
 # Chair v3 인계
 
+## 현재 좌석 조립 수정 (lane/seatfix)
+
+`tools/iso_seated_geometry.py`로 방석을 z10..12의 얇은 둥근 앞면 박스로 다시 그렸다. 등판은 z12..21의 메쉬 슬래브이며 골반·손·앵커·팔레트·S0 높이는 유지한다. 원본 atlas는 방향당 rear-00 / front-01(방석) / front-00의 세 파트다. 팩은 3D 깊이 비교로 만든 프레임별 마스크를 저장하고 레이아웃에서 캐시한다. 빈 의자 RGBA를 정확히 재구성하며 중복 불투명 픽셀은 없다.
+
+현재 재생성은 `python -B tools/iso_seated_geometry.py` 다음 `python -B tools/build_iso_pack.py --seated-only`다. 이전 `split_iso_chair_occlusion.py` 진입점도 새 모델을 사용한다. 배포 캐릭터 픽셀을 보존해야 하므로 기존 전체 팩을 준비한 뒤 실행한다.
+
+기하, 검사 결과, PNG 위치와 병합 조건은 [현재 착석 가림 기록](../../../../../docs/iso-seated-occlusion.md)에 있다. 아래의 최초 제작 기록과 기존 geometry/measurements/비교 PNG는 이전 5px 방석의 자료다. 현재 모델이나 마스크 검증 결과로 사용하지 않는다.
+
+## 최초 v3 제작 기록
+
 ## S0 변경 없음
 
 **정확한 S0 텍스트 diff는 빈 diff다. docs/iso-slice-s0.md를 수정하지 않았다.**
