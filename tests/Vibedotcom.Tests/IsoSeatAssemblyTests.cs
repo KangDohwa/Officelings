@@ -17,4 +17,5 @@ public sealed class IsoSeatAssemblyTests
     [Fact] public void TwelveAgentIdleKeepsZeroAllocationFastPath() => IsoSeatAssemblyChecks.IdlePerformance();
     [Fact] public void WrongWholeChairRanksFailBothDirections() => IsoSeatAssemblyChecks.RejectInvertedOwnership();
     [Fact] public void PassingWalkersKeepOrdinaryGroundDepthPixels() => IsoSeatAssemblyChecks.Walkers();
+    [Fact] public void OccupiedDefaultAndSourceLayoutsPreserveAssemblyAndFurnitureOrder() => IsoSeatOrderChecks.OccupiedLayouts();
 }

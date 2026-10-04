@@ -31,11 +31,11 @@ internal static class IsoSeatAssemblyRender
         {
             var seat=IsoContacts.Desk(3,3,rotation);var builder=IsoSeatedOcclusionChecks.Fixture(pack,rotation);
             foreach(var design in pack.Characters)
-            foreach(var action in new[]{"typing","sit-down","stand-up"})for(var phase=0;phase<4;phase++)
+            foreach(var action in new[]{"typing","sit-down","stand-up","idle"})for(var phase=0;phase<4;phase++)
             {
                 var clip=pack.Clip(design.SheetId,action,seat.Facing);
                 var scene=builder.Build([new("actor",design.Id,"Synthetic",new(seat.Approach.X,seat.Approach.Y),seat.Facing,action,
-                    phase/clip.Fps,"desk",action=="typing"?"seated":action=="sit-down"?"lower":"raise",phase)]);
+                    phase/clip.Fps,"desk",action=="typing"?"seated":action=="idle"?"turn":action=="sit-down"?"lower":"raise",phase)]);
                 var ground=IsoGeometry.Ground(seat.Approach.X,seat.Approach.Y);
                 var left=builder.Camera.X+ground.X-48;var top=builder.Camera.Y+ground.Y-64;
                 scene=scene with { Width=96,Height=96,Items=scene.Items.Select(i=>i with {X=i.X-left,Y=i.Y-top}).ToArray() };

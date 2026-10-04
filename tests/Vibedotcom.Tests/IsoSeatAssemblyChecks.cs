@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.IO;
 using Vibedotcom.Core;
 using Vibedotcom.Core.Iso;
 
@@ -159,7 +160,7 @@ internal static class IsoSeatAssemblyChecks
 
     internal static void ComparePerformance(string beforeDirectory,string afterDirectory)
     {
-        static (double Ms,long Bytes,int Items) Measure(IsoPack pack)
+        static (double Ms,double CpuMs,long Bytes,int Items) Measure(IsoPack pack)
         {
             var builder=new IsoSceneBuilder(pack,pack.Layout);var actors=pack.Layout.Furniture.Where(f=>f.AssetId=="iso/desk").Select((f,n)=>
             {
@@ -167,16 +168,25 @@ internal static class IsoSeatAssemblyChecks
                     "Synthetic",new(seat.Approach.X,seat.Approach.Y),seat.Facing,"typing",0,f.Id,"seated");
             }).ToArray();
             var scene=builder.Build(actors);for(var k=0;k<100;k++)builder.Build(actors);
-            var samples=new double[15];long bytes=0;
+            var samples=new double[15];var cpuSamples=new double[15];long bytes=0;
+            using var process=Process.GetCurrentProcess();
             for(var run=0;run<samples.Length;run++)
             {
-                var watch=new Stopwatch();var start=GC.GetAllocatedBytesForCurrentThread();watch.Start();
+                var watch=new Stopwatch();var cpuStart=process.TotalProcessorTime;
+                var start=GC.GetAllocatedBytesForCurrentThread();watch.Start();
                 for(var k=0;k<500;k++)builder.Build(actors);
                 watch.Stop();bytes=GC.GetAllocatedBytesForCurrentThread()-start;samples[run]=watch.Elapsed.TotalMilliseconds;
+                cpuSamples[run]=(process.TotalProcessorTime-cpuStart).TotalMilliseconds;
             }
-            Array.Sort(samples);return(samples[samples.Length/2],bytes,scene.Items.Count);
+            Array.Sort(samples);Array.Sort(cpuSamples);return(samples[samples.Length/2],cpuSamples[cpuSamples.Length/2],bytes,scene.Items.Count);
         }
-        var before=Measure(IsoPack.Load(beforeDirectory));var after=Measure(IsoPack.Load(afterDirectory));
-        Console.WriteLine($"12-agent composition / 500 builds (15-run median): before {before.Ms:F3} ms, {before.Bytes} B, {before.Items} items; after {after.Ms:F3} ms, {after.Bytes} B, {after.Items} items");
+        var before=Measure(IsoPack.Load(beforeDirectory));
+        if(Path.GetFullPath(beforeDirectory)==Path.GetFullPath(afterDirectory))
+        {
+            Console.WriteLine($"12-agent composition / 500 builds (15-run medians): wall {before.Ms:F3} ms, CPU {before.CpuMs:F3} ms, {before.Bytes} B, {before.Items} items");
+            return;
+        }
+        var after=Measure(IsoPack.Load(afterDirectory));
+        Console.WriteLine($"12-agent composition / 500 builds (15-run medians): before wall {before.Ms:F3} ms, CPU {before.CpuMs:F3} ms, {before.Bytes} B, {before.Items} items; after wall {after.Ms:F3} ms, CPU {after.CpuMs:F3} ms, {after.Bytes} B, {after.Items} items");
     }
 }

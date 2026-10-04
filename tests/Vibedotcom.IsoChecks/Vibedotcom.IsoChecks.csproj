@@ -11,5 +11,7 @@
     <Compile Include="../Vibedotcom.Tests/IsoSeatedOcclusionChecks.cs" Link="IsoSeatedOcclusionChecks.cs" />
     <Compile Include="../Vibedotcom.Tests/IsoSeatAssemblyChecks.cs" Link="IsoSeatAssemblyChecks.cs" />
     <Compile Include="../Vibedotcom.Tests/IsoSeatAssemblyRender.cs" Link="IsoSeatAssemblyRender.cs" />
+    <Compile Include="../Vibedotcom.Tests/IsoSeatOrderChecks.cs" Link="IsoSeatOrderChecks.cs" />
+    <Compile Include="../Vibedotcom.DepthChecks/DepthOracle.cs" Link="DepthOracle.cs" />
   </ItemGroup>
 </Project>

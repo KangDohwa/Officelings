@@ -629,6 +629,7 @@ def refresh_seated_pack(art_dir=ART, output=ART / "pack"):
     from iso_seated_geometry import bake
     bake(manifest,files)
     link_blinks({s["id"]:s for s in manifest["sheets"]})
+    refine_depth(manifest)
     for s in manifest["sheets"]:validate_clips(s)
     verify_references(manifest)
     referenced={s["file"] for s in manifest["sheets"]}
