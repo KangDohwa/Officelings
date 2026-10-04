@@ -1,0 +1,16 @@
+{
+  "red-braid-iso.png": "95de70e056bc93f1309c7fe24a9a0c62ecffed3ae0b078bcdb31837832c8c05e",
+  "red-braid-iso-blink.png": "c554a095652414a58cef4e1e6ab205f3158f15268d0bb7f5b5ec05d90cbb1c69",
+  "red-braid.iso.json": "b4327c784504b3ea94733747d0d9f818a92c53cb83cd118bd323d97f7df0730e",
+  "red-braid-iso.manifest.json": "b4327c784504b3ea94733747d0d9f818a92c53cb83cd118bd323d97f7df0730e",
+  "red-braid-eyes-se.png": "f8802d7433c1e90a0f8fb6e82ce0f47cb12f7d3993304ceb046f9e21c981acec",
+  "red-braid-eyes-sw.png": "fc434265ee1f994905a9000d57121359ab1260c84cfe3e818cc0791b76ec184a",
+  "head-se.png": "704341c056337fd71b1026781914a06db2e61fd629d3f94e50b63ebfff8c7981",
+  "head-sw.png": "950ca3136f2079f34f9ba82b3630c19ea80d16d3ecbbb3dbc6e5005011b6009f",
+  "head-ne.png": "d62db48b96c9cb54701729ae999f18991b4389b9edcec329489289afe019920c",
+  "head-nw.png": "7bcb5d75b3865d7fcce26c17a25528be3fe39843646ca07198eff9bcb22eb84e",
+  "walk-se-3x.gif": "6613a888e1c2a66074a4ccac571f3d8806f81d9947f4cad0b2d7f5b5c0124aab",
+  "walk-sw-3x.gif": "8e5295b65f1134f0352ee0e59e7894ea40248c48e64a36c81d1a7ecc80fb5360",
+  "walk-ne-3x.gif": "4bafc88c368f6c3d5d91ae3e666a34693425fe102cfdadafd370b672cc9b917a",
+  "walk-nw-3x.gif": "e07bc3d0965a6af8eccff07c16c7c6f62581cd26c104038795dca6a2aacd9b1f"
+}

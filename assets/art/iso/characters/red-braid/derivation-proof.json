@@ -1,0 +1,857 @@
+{
+  "canonicalHeadRGBAComparisons": 152,
+  "connectedBodyCells": 152,
+  "standingHeights": {
+    "se": 40,
+    "sw": 40,
+    "ne": 40,
+    "nw": 40
+  },
+  "distinctMotionPhases": {
+    "walk/se": 4,
+    "walk/sw": 4,
+    "walk/ne": 4,
+    "walk/nw": 4,
+    "seated-typing-front/se": 4,
+    "seated-typing-front/sw": 4,
+    "seated-typing-front/ne": 4,
+    "seated-typing-front/nw": 4
+  },
+  "grips": [
+    {
+      "row": 0,
+      "phase": 0,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 0,
+      "phase": 1,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 0,
+      "phase": 2,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 0,
+      "phase": 3,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 1,
+      "phase": 0,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 1,
+      "phase": 1,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 1,
+      "phase": 2,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 1,
+      "phase": 3,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 2,
+      "phase": 0,
+      "hand": {
+        "x": 24,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 2,
+      "phase": 1,
+      "hand": {
+        "x": 24,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 2,
+      "phase": 2,
+      "hand": {
+        "x": 24,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 2,
+      "phase": 3,
+      "hand": {
+        "x": 24,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 3,
+      "phase": 0,
+      "hand": {
+        "x": 8,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 3,
+      "phase": 1,
+      "hand": {
+        "x": 8,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 3,
+      "phase": 2,
+      "hand": {
+        "x": 8,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 3,
+      "phase": 3,
+      "hand": {
+        "x": 8,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 8,
+      "phase": 0,
+      "hand": {
+        "x": 27,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 8,
+      "phase": 0,
+      "hand": {
+        "x": 29,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 8,
+      "phase": 1,
+      "hand": {
+        "x": 27,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 8,
+      "phase": 1,
+      "hand": {
+        "x": 29,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 8,
+      "phase": 2,
+      "hand": {
+        "x": 27,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 8,
+      "phase": 2,
+      "hand": {
+        "x": 29,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 8,
+      "phase": 3,
+      "hand": {
+        "x": 27,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 8,
+      "phase": 3,
+      "hand": {
+        "x": 29,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 9,
+      "phase": 0,
+      "hand": {
+        "x": 3,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 9,
+      "phase": 0,
+      "hand": {
+        "x": 5,
+        "y": 44
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 9,
+      "phase": 1,
+      "hand": {
+        "x": 3,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 9,
+      "phase": 1,
+      "hand": {
+        "x": 5,
+        "y": 44
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 9,
+      "phase": 2,
+      "hand": {
+        "x": 3,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 9,
+      "phase": 2,
+      "hand": {
+        "x": 5,
+        "y": 44
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 9,
+      "phase": 3,
+      "hand": {
+        "x": 3,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 9,
+      "phase": 3,
+      "hand": {
+        "x": 5,
+        "y": 44
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 10,
+      "phase": 0,
+      "hand": {
+        "x": 27,
+        "y": 32
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 10,
+      "phase": 0,
+      "hand": {
+        "x": 29,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 10,
+      "phase": 1,
+      "hand": {
+        "x": 27,
+        "y": 32
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 10,
+      "phase": 1,
+      "hand": {
+        "x": 29,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 10,
+      "phase": 2,
+      "hand": {
+        "x": 27,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 10,
+      "phase": 2,
+      "hand": {
+        "x": 29,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 10,
+      "phase": 3,
+      "hand": {
+        "x": 27,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 10,
+      "phase": 3,
+      "hand": {
+        "x": 29,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 11,
+      "phase": 0,
+      "hand": {
+        "x": 3,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 11,
+      "phase": 0,
+      "hand": {
+        "x": 5,
+        "y": 32
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 11,
+      "phase": 1,
+      "hand": {
+        "x": 3,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 11,
+      "phase": 1,
+      "hand": {
+        "x": 5,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 11,
+      "phase": 2,
+      "hand": {
+        "x": 3,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 11,
+      "phase": 2,
+      "hand": {
+        "x": 5,
+        "y": 32
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 11,
+      "phase": 3,
+      "hand": {
+        "x": 3,
+        "y": 32
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 11,
+      "phase": 3,
+      "hand": {
+        "x": 5,
+        "y": 32
+      },
+      "skinDistance": 1
+    },
+    {
+      "row": 24,
+      "phase": 0,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 24,
+      "phase": 1,
+      "hand": {
+        "x": 26,
+        "y": 47
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 24,
+      "phase": 2,
+      "hand": {
+        "x": 26,
+        "y": 50
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 24,
+      "phase": 3,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 25,
+      "phase": 0,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 25,
+      "phase": 1,
+      "hand": {
+        "x": 6,
+        "y": 47
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 25,
+      "phase": 2,
+      "hand": {
+        "x": 6,
+        "y": 50
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 25,
+      "phase": 3,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 26,
+      "phase": 0,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 26,
+      "phase": 1,
+      "hand": {
+        "x": 27,
+        "y": 43
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 26,
+      "phase": 2,
+      "hand": {
+        "x": 28,
+        "y": 42
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 26,
+      "phase": 3,
+      "hand": {
+        "x": 27,
+        "y": 43
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 27,
+      "phase": 0,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 27,
+      "phase": 1,
+      "hand": {
+        "x": 5,
+        "y": 43
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 27,
+      "phase": 2,
+      "hand": {
+        "x": 4,
+        "y": 42
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 27,
+      "phase": 3,
+      "hand": {
+        "x": 5,
+        "y": 43
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 28,
+      "phase": 0,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 28,
+      "phase": 1,
+      "hand": {
+        "x": 26,
+        "y": 41
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 28,
+      "phase": 2,
+      "hand": {
+        "x": 26,
+        "y": 37
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 28,
+      "phase": 3,
+      "hand": {
+        "x": 24,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 29,
+      "phase": 0,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 29,
+      "phase": 1,
+      "hand": {
+        "x": 6,
+        "y": 41
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 29,
+      "phase": 2,
+      "hand": {
+        "x": 6,
+        "y": 37
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 29,
+      "phase": 3,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 30,
+      "phase": 0,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 30,
+      "phase": 1,
+      "hand": {
+        "x": 7,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 30,
+      "phase": 2,
+      "hand": {
+        "x": 6,
+        "y": 36
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 30,
+      "phase": 3,
+      "hand": {
+        "x": 6,
+        "y": 36
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 31,
+      "phase": 0,
+      "hand": {
+        "x": 8,
+        "y": 44
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 31,
+      "phase": 1,
+      "hand": {
+        "x": 7,
+        "y": 40
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 31,
+      "phase": 2,
+      "hand": {
+        "x": 6,
+        "y": 36
+      },
+      "skinDistance": 0
+    },
+    {
+      "row": 31,
+      "phase": 3,
+      "hand": {
+        "x": 6,
+        "y": 36
+      },
+      "skinDistance": 0
+    }
+  ],
+  "transitions": {
+    "se": {
+      "reverseExact": true,
+      "idleAndNeutralSeatEndpointsExact": true,
+      "allPhaseSolesWorldGrounded": true
+    },
+    "sw": {
+      "reverseExact": true,
+      "idleAndNeutralSeatEndpointsExact": true,
+      "allPhaseSolesWorldGrounded": true
+    },
+    "ne": {
+      "reverseExact": true,
+      "idleAndNeutralSeatEndpointsExact": true,
+      "allPhaseSolesWorldGrounded": true
+    },
+    "nw": {
+      "reverseExact": true,
+      "idleAndNeutralSeatEndpointsExact": true,
+      "allPhaseSolesWorldGrounded": true
+    }
+  },
+  "walkLoopPixelEvidence": {
+    "se": {
+      "adjacentChangesIncluding3to0": [
+        483,
+        483,
+        223,
+        244
+      ],
+      "wrapAtMostInternalMaximum": true,
+      "humanPlaybackAcceptance": false
+    },
+    "sw": {
+      "adjacentChangesIncluding3to0": [
+        482,
+        484,
+        235,
+        254
+      ],
+      "wrapAtMostInternalMaximum": true,
+      "humanPlaybackAcceptance": false
+    },
+    "ne": {
+      "adjacentChangesIncluding3to0": [
+        446,
+        437,
+        219,
+        241
+      ],
+      "wrapAtMostInternalMaximum": true,
+      "humanPlaybackAcceptance": false
+    },
+    "nw": {
+      "adjacentChangesIncluding3to0": [
+        426,
+        424,
+        225,
+        253
+      ],
+      "wrapAtMostInternalMaximum": true,
+      "humanPlaybackAcceptance": false
+    }
+  },
+  "gifSerializedFrames": {
+    "se": {
+      "opaquePixelsAndAlphaExact": true,
+      "frames": 4,
+      "durationsMs": [
+        120,
+        130,
+        120,
+        130
+      ],
+      "actualPlaybackVerified": false
+    },
+    "sw": {
+      "opaquePixelsAndAlphaExact": true,
+      "frames": 4,
+      "durationsMs": [
+        120,
+        130,
+        120,
+        130
+      ],
+      "actualPlaybackVerified": false
+    },
+    "ne": {
+      "opaquePixelsAndAlphaExact": true,
+      "frames": 4,
+      "durationsMs": [
+        120,
+        130,
+        120,
+        130
+      ],
+      "actualPlaybackVerified": false
+    },
+    "nw": {
+      "opaquePixelsAndAlphaExact": true,
+      "frames": 4,
+      "durationsMs": [
+        120,
+        130,
+        120,
+        130
+      ],
+      "actualPlaybackVerified": false
+    }
+  },
+  "headAndBraidFacingDrawingsIndependent": true,
+  "limits": [
+    "4-phase timing and pixel-change metrics do not prove natural playback.",
+    "Runtime motion speed, WPF draw order, sofa and prop compositing not verified."
+  ]
+}

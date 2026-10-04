@@ -1,0 +1,20 @@
+| Export | Check | Result | Detail |
+| --- | --- | --- | --- |
+| red-braid.iso.json:red-braid-normal | cell sizes | PASS | 128×2432, 32×64 cells |
+| red-braid.iso.json:red-braid-normal | transparency | PASS | straight alpha and guards |
+| red-braid.iso.json:red-braid-normal | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| red-braid.iso.json:red-braid-normal | palette | PASS | 31 colors; RGB max-channel tolerance 0 |
+| red-braid.iso.json:red-braid-normal | row contract | PASS | 38 rows / 152 cells (final) |
+| red-braid.iso.json:red-braid-normal | 6×6 seams | SKIP | floor sheets only |
+| red-braid.iso.json:red-braid-normal | depth-part names | SKIP | furniture sheets only |
+| red-braid.iso.json:red-braid-normal | action aliases | PASS | all action/facing aliases resolve without cycles |
+| red-braid.iso.json:red-braid-normal | face-lock / blink | PASS | SE/SW masks and all 96 phase-matched non-eye comparisons |
+| red-braid.iso.json:red-braid-blink | cell sizes | PASS | 128×1536, 32×64 cells |
+| red-braid.iso.json:red-braid-blink | transparency | PASS | straight alpha and guards |
+| red-braid.iso.json:red-braid-blink | anchor pixels | PASS | physical contacts checked; transparent pivots allowed |
+| red-braid.iso.json:red-braid-blink | palette | PASS | 27 colors; RGB max-channel tolerance 0 |
+| red-braid.iso.json:red-braid-blink | row contract | PASS | 24 rows / 96 cells |
+| red-braid.iso.json:red-braid-blink | 6×6 seams | SKIP | floor sheets only |
+| red-braid.iso.json:red-braid-blink | depth-part names | SKIP | furniture sheets only |
+| red-braid.iso.json:red-braid-blink | face-lock / blink | SKIP | checked from normal character sheet |
+17 checks; 0 failed

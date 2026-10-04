@@ -1,0 +1,28 @@
+{
+  "locked": "assets/art/roster/red-braid/locked/red-braid.png",
+  "greenEyeReference": "assets/art/roster/red-braid/base.png",
+  "baseCrop": [
+    240,
+    320,
+    780,
+    740
+  ],
+  "greenSamples": [
+    {
+      "rgb": [
+        114,
+        146,
+        64
+      ],
+      "count": 14
+    },
+    {
+      "rgb": [
+        106,
+        139,
+        64
+      ],
+      "count": 14
+    }
+  ]
+}

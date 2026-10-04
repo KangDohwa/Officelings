@@ -1,0 +1,66 @@
+{
+  "se": {
+    "frames": 4,
+    "size": [
+      96,
+      192
+    ],
+    "durationsMs": [
+      120,
+      130,
+      120,
+      130
+    ],
+    "loopMs": 500,
+    "fpsEquivalent": 8,
+    "actualPlaybackVerified": false
+  },
+  "sw": {
+    "frames": 4,
+    "size": [
+      96,
+      192
+    ],
+    "durationsMs": [
+      120,
+      130,
+      120,
+      130
+    ],
+    "loopMs": 500,
+    "fpsEquivalent": 8,
+    "actualPlaybackVerified": false
+  },
+  "ne": {
+    "frames": 4,
+    "size": [
+      96,
+      192
+    ],
+    "durationsMs": [
+      120,
+      130,
+      120,
+      130
+    ],
+    "loopMs": 500,
+    "fpsEquivalent": 8,
+    "actualPlaybackVerified": false
+  },
+  "nw": {
+    "frames": 4,
+    "size": [
+      96,
+      192
+    ],
+    "durationsMs": [
+      120,
+      130,
+      120,
+      130
+    ],
+    "loopMs": 500,
+    "fpsEquivalent": 8,
+    "actualPlaybackVerified": false
+  }
+}

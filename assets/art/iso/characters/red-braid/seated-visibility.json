@@ -1,0 +1,851 @@
+{
+  "method": "v3 verify-desk-rig-v3-lane.py parts queue; independent alpha cover and serialized final ownership agree",
+  "roi": {
+    "head": "Exact independent canonical head layer alpha at headOffsetsByClip; y<40, including outline and face; braid extension is separately preserved below head. No denominator shrink against furniture.",
+    "torso": "Opaque actor excluding canonical head and hands, source x11..22 inclusive and y<44; identical central torso proxy to measure-A3-rev2.py.",
+    "hands": "Opaque skin/ivory hand pixels outside head within Chebyshev radius2 of either frozen contact; same contact ROI approach as measure-A3-rev2.py."
+  },
+  "inputHashes": {
+    "assets/art/iso/furniture-v3/workstations/desk.iso.json": "2cd01e5588449c6b0b3278c29bbf8dcc4266908251a742b1e7e851406d14b4aa",
+    "assets/art/iso/furniture-v3/workstations/desk-parts.png": "aad79960bfcabc14590b1fa4c1377f415f2c8d290ec48903b4a98e78386f1524",
+    "assets/art/iso/furniture-v3/workstations/desk-screen.png": "7759582fdffd76020276a8a2d07a8f6d01a1c9b9db60dd39f97a05bf7884c4bc",
+    "assets/art/iso/furniture-v3/chair/chair.iso.json": "cec6ebf62eb9aa91c6cbfead58eb8eb472e5fb6e939d892e5ec64bce943d0652",
+    "assets/art/iso/furniture-v3/chair/chair-parts.png": "a2f2aefe9dee6da719e8c7974b1c8a7ef83dc6169d9fbbce4928095914ea7f3d"
+  },
+  "originalInputsUnchangedAtEnd": true,
+  "records": [
+    {
+      "desk": "se",
+      "worker": "nw",
+      "phase": 0,
+      "actorDestination": [
+        176,
+        88
+      ],
+      "handDistances": [
+        0,
+        1
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 245,
+        "total": 276,
+        "fraction": 0.8876811594202898,
+        "coveringParts": {
+          "desk__front__se__00": 21,
+          "chair__front__nw__00": 10
+        }
+      },
+      "torso": {
+        "visible": 2,
+        "total": 49,
+        "fraction": 0.04081632653061224,
+        "coveringParts": {
+          "chair__front__nw__00": 47
+        }
+      },
+      "hands": {
+        "visible": 12,
+        "total": 12,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "se",
+      "worker": "nw",
+      "phase": 1,
+      "actorDestination": [
+        176,
+        88
+      ],
+      "handDistances": [
+        0,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 245,
+        "total": 276,
+        "fraction": 0.8876811594202898,
+        "coveringParts": {
+          "desk__front__se__00": 21,
+          "chair__front__nw__00": 10
+        }
+      },
+      "torso": {
+        "visible": 2,
+        "total": 49,
+        "fraction": 0.04081632653061224,
+        "coveringParts": {
+          "chair__front__nw__00": 47
+        }
+      },
+      "hands": {
+        "visible": 12,
+        "total": 12,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "se",
+      "worker": "nw",
+      "phase": 2,
+      "actorDestination": [
+        176,
+        88
+      ],
+      "handDistances": [
+        0,
+        1
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 245,
+        "total": 276,
+        "fraction": 0.8876811594202898,
+        "coveringParts": {
+          "desk__front__se__00": 21,
+          "chair__front__nw__00": 10
+        }
+      },
+      "torso": {
+        "visible": 2,
+        "total": 49,
+        "fraction": 0.04081632653061224,
+        "coveringParts": {
+          "chair__front__nw__00": 47
+        }
+      },
+      "hands": {
+        "visible": 14,
+        "total": 14,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "se",
+      "worker": "nw",
+      "phase": 3,
+      "actorDestination": [
+        176,
+        88
+      ],
+      "handDistances": [
+        0,
+        1
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 245,
+        "total": 276,
+        "fraction": 0.8876811594202898,
+        "coveringParts": {
+          "desk__front__se__00": 21,
+          "chair__front__nw__00": 10
+        }
+      },
+      "torso": {
+        "visible": 2,
+        "total": 49,
+        "fraction": 0.04081632653061224,
+        "coveringParts": {
+          "chair__front__nw__00": 47
+        }
+      },
+      "hands": {
+        "visible": 10,
+        "total": 10,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "phase": 0,
+      "actorDestination": [
+        144,
+        104
+      ],
+      "handDistances": [
+        1,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 260,
+        "total": 278,
+        "fraction": 0.935251798561151,
+        "coveringParts": {
+          "desk__front__sw__02": 8,
+          "chair__front__ne__00": 10
+        }
+      },
+      "torso": {
+        "visible": 9,
+        "total": 56,
+        "fraction": 0.16071428571428573,
+        "coveringParts": {
+          "chair__front__ne__00": 47
+        }
+      },
+      "hands": {
+        "visible": 14,
+        "total": 14,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "phase": 1,
+      "actorDestination": [
+        144,
+        104
+      ],
+      "handDistances": [
+        1,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 260,
+        "total": 278,
+        "fraction": 0.935251798561151,
+        "coveringParts": {
+          "desk__front__sw__02": 8,
+          "chair__front__ne__00": 10
+        }
+      },
+      "torso": {
+        "visible": 10,
+        "total": 57,
+        "fraction": 0.17543859649122806,
+        "coveringParts": {
+          "chair__front__ne__00": 47
+        }
+      },
+      "hands": {
+        "visible": 16,
+        "total": 16,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "phase": 2,
+      "actorDestination": [
+        144,
+        104
+      ],
+      "handDistances": [
+        0,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 260,
+        "total": 278,
+        "fraction": 0.935251798561151,
+        "coveringParts": {
+          "desk__front__sw__02": 8,
+          "chair__front__ne__00": 10
+        }
+      },
+      "torso": {
+        "visible": 9,
+        "total": 56,
+        "fraction": 0.16071428571428573,
+        "coveringParts": {
+          "chair__front__ne__00": 47
+        }
+      },
+      "hands": {
+        "visible": 12,
+        "total": 12,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "sw",
+      "worker": "ne",
+      "phase": 3,
+      "actorDestination": [
+        144,
+        104
+      ],
+      "handDistances": [
+        0,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 260,
+        "total": 278,
+        "fraction": 0.935251798561151,
+        "coveringParts": {
+          "desk__front__sw__02": 8,
+          "chair__front__ne__00": 10
+        }
+      },
+      "torso": {
+        "visible": 9,
+        "total": 56,
+        "fraction": 0.16071428571428573,
+        "coveringParts": {
+          "chair__front__ne__00": 47
+        }
+      },
+      "hands": {
+        "visible": 12,
+        "total": 12,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "phase": 0,
+      "actorDestination": [
+        176,
+        56
+      ],
+      "handDistances": [
+        0,
+        1
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 291,
+        "total": 291,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "torso": {
+        "visible": 49,
+        "total": 49,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "hands": {
+        "visible": 11,
+        "total": 11,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "phase": 1,
+      "actorDestination": [
+        176,
+        56
+      ],
+      "handDistances": [
+        0,
+        1
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 291,
+        "total": 291,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "torso": {
+        "visible": 49,
+        "total": 49,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "hands": {
+        "visible": 13,
+        "total": 13,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "phase": 2,
+      "actorDestination": [
+        176,
+        56
+      ],
+      "handDistances": [
+        0,
+        1
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 291,
+        "total": 291,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "torso": {
+        "visible": 49,
+        "total": 49,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "hands": {
+        "visible": 10,
+        "total": 10,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "ne",
+      "worker": "sw",
+      "phase": 3,
+      "actorDestination": [
+        176,
+        56
+      ],
+      "handDistances": [
+        0,
+        1
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 291,
+        "total": 291,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "torso": {
+        "visible": 49,
+        "total": 49,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "hands": {
+        "visible": 13,
+        "total": 13,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "phase": 0,
+      "actorDestination": [
+        80,
+        72
+      ],
+      "handDistances": [
+        0,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 282,
+        "total": 282,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "torso": {
+        "visible": 49,
+        "total": 49,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "hands": {
+        "visible": 12,
+        "total": 12,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "phase": 1,
+      "actorDestination": [
+        80,
+        72
+      ],
+      "handDistances": [
+        0,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 282,
+        "total": 282,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "torso": {
+        "visible": 49,
+        "total": 49,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "hands": {
+        "visible": 13,
+        "total": 13,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "phase": 2,
+      "actorDestination": [
+        80,
+        72
+      ],
+      "handDistances": [
+        0,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 282,
+        "total": 282,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "torso": {
+        "visible": 49,
+        "total": 49,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "hands": {
+        "visible": 13,
+        "total": 13,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    },
+    {
+      "desk": "nw",
+      "worker": "se",
+      "phase": 3,
+      "actorDestination": [
+        80,
+        72
+      ],
+      "handDistances": [
+        0,
+        0
+      ],
+      "contactsErrorPx": 0,
+      "head": {
+        "visible": 282,
+        "total": 282,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "torso": {
+        "visible": 49,
+        "total": 49,
+        "fraction": 1.0,
+        "coveringParts": {}
+      },
+      "hands": {
+        "visible": 13,
+        "total": 13,
+        "fraction": 1.0,
+        "coveringParts": {}
+      }
+    }
+  ],
+  "summary": {
+    "se": {
+      "head": {
+        "minimumPct": 100.0,
+        "maximumPct": 100.0,
+        "counts": [
+          [
+            282,
+            282
+          ],
+          [
+            282,
+            282
+          ],
+          [
+            282,
+            282
+          ],
+          [
+            282,
+            282
+          ]
+        ]
+      },
+      "torso": {
+        "minimumPct": 100.0,
+        "maximumPct": 100.0,
+        "counts": [
+          [
+            49,
+            49
+          ],
+          [
+            49,
+            49
+          ],
+          [
+            49,
+            49
+          ],
+          [
+            49,
+            49
+          ]
+        ]
+      },
+      "hands": {
+        "minimumPct": 100.0,
+        "maximumPct": 100.0,
+        "counts": [
+          [
+            12,
+            12
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            13,
+            13
+          ]
+        ]
+      }
+    },
+    "sw": {
+      "head": {
+        "minimumPct": 100.0,
+        "maximumPct": 100.0,
+        "counts": [
+          [
+            291,
+            291
+          ],
+          [
+            291,
+            291
+          ],
+          [
+            291,
+            291
+          ],
+          [
+            291,
+            291
+          ]
+        ]
+      },
+      "torso": {
+        "minimumPct": 100.0,
+        "maximumPct": 100.0,
+        "counts": [
+          [
+            49,
+            49
+          ],
+          [
+            49,
+            49
+          ],
+          [
+            49,
+            49
+          ],
+          [
+            49,
+            49
+          ]
+        ]
+      },
+      "hands": {
+        "minimumPct": 100.0,
+        "maximumPct": 100.0,
+        "counts": [
+          [
+            11,
+            11
+          ],
+          [
+            13,
+            13
+          ],
+          [
+            10,
+            10
+          ],
+          [
+            13,
+            13
+          ]
+        ]
+      }
+    },
+    "ne": {
+      "head": {
+        "minimumPct": 93.525,
+        "maximumPct": 93.525,
+        "counts": [
+          [
+            260,
+            278
+          ],
+          [
+            260,
+            278
+          ],
+          [
+            260,
+            278
+          ],
+          [
+            260,
+            278
+          ]
+        ]
+      },
+      "torso": {
+        "minimumPct": 16.071,
+        "maximumPct": 17.544,
+        "counts": [
+          [
+            9,
+            56
+          ],
+          [
+            10,
+            57
+          ],
+          [
+            9,
+            56
+          ],
+          [
+            9,
+            56
+          ]
+        ]
+      },
+      "hands": {
+        "minimumPct": 100.0,
+        "maximumPct": 100.0,
+        "counts": [
+          [
+            14,
+            14
+          ],
+          [
+            16,
+            16
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            12,
+            12
+          ]
+        ]
+      }
+    },
+    "nw": {
+      "head": {
+        "minimumPct": 88.768,
+        "maximumPct": 88.768,
+        "counts": [
+          [
+            245,
+            276
+          ],
+          [
+            245,
+            276
+          ],
+          [
+            245,
+            276
+          ],
+          [
+            245,
+            276
+          ]
+        ]
+      },
+      "torso": {
+        "minimumPct": 4.082,
+        "maximumPct": 4.082,
+        "counts": [
+          [
+            2,
+            49
+          ],
+          [
+            2,
+            49
+          ],
+          [
+            2,
+            49
+          ],
+          [
+            2,
+            49
+          ]
+        ]
+      },
+      "hands": {
+        "minimumPct": 100.0,
+        "maximumPct": 100.0,
+        "counts": [
+          [
+            12,
+            12
+          ],
+          [
+            12,
+            12
+          ],
+          [
+            14,
+            14
+          ],
+          [
+            10,
+            10
+          ]
+        ]
+      }
+    }
+  },
+  "headGates": {
+    "se": true,
+    "sw": true,
+    "ne": true,
+    "nw": true
+  },
+  "handsFullyVisible": true
+}

@@ -1,0 +1,32 @@
+{
+  "startUtc": "2026-10-04T03:57:29+00:00",
+  "endUtc": "2026-10-04T04:29:31.483806+00:00",
+  "measuredLaneSeconds": 1922.483806,
+  "measuredLaneHours": 0.5340232794444444,
+  "activeLanes": 1,
+  "includes": [
+    "reference reading",
+    "three serial generation waits",
+    "native repairs",
+    "visual review",
+    "validation",
+    "notes"
+  ],
+  "excludes": [
+    "initial reading before first clock observation",
+    "later final chat"
+  ],
+  "generationToolWallSeconds": [
+    32.3,
+    38.0,
+    29.7
+  ],
+  "generationWaitAlreadyIncluded": true,
+  "masterAttempts": {
+    "idle": 1,
+    "walk": 1,
+    "seat": 1
+  },
+  "viewedImages": 14,
+  "throughputNotIndependentlyAccepted": true
+}

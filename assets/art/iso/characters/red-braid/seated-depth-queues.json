@@ -1,0 +1,1560 @@
+[
+  {
+    "desk": "se",
+    "worker": "nw",
+    "items": [
+      {
+        "id": "desk__monitor__se__03",
+        "key": [
+          -0.71875,
+          0,
+          "desk",
+          "desk__monitor__se__03"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__se__00",
+        "key": [
+          -0.21875,
+          0,
+          "desk",
+          "desk__monitor__se__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__se__01",
+        "key": [
+          -0.21875,
+          0,
+          "desk",
+          "desk__monitor__se__01"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__se__02",
+        "key": [
+          -0.1875,
+          0,
+          "desk",
+          "desk__monitor__se__02"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__screen__se__00",
+        "key": [
+          -0.1875,
+          1,
+          "desk",
+          "desk__screen__se__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__11",
+        "key": [
+          0.0,
+          0,
+          "desk",
+          "desk__rear__se__11"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__00",
+        "key": [
+          0.07,
+          0,
+          "desk",
+          "desk__rear__se__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__01",
+        "key": [
+          0.07,
+          0,
+          "desk",
+          "desk__rear__se__01"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "chair__rear__nw__00",
+        "key": [
+          1,
+          -20,
+          "chair",
+          "chair__rear__nw__00"
+        ],
+        "destination": [
+          128,
+          64
+        ]
+      },
+      {
+        "id": "desk__rear__se__14",
+        "key": [
+          1,
+          -20,
+          "desk",
+          "desk__rear__se__14"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "actor",
+        "key": [
+          1,
+          0,
+          "actor",
+          "red-braid"
+        ],
+        "destination": [
+          176,
+          88
+        ]
+      },
+      {
+        "id": "desk__rear__se__09",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__rear__se__09"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__se__00",
+        "key": [
+          1,
+          10,
+          "desk",
+          "desk__front__se__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "chair__front__nw__00",
+        "key": [
+          1,
+          20,
+          "chair",
+          "chair__front__nw__00"
+        ],
+        "destination": [
+          128,
+          64
+        ]
+      },
+      {
+        "id": "desk__rear__se__03",
+        "key": [
+          1.0699999999999998,
+          0,
+          "desk",
+          "desk__rear__se__03"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__02",
+        "key": [
+          1.07,
+          0,
+          "desk",
+          "desk__rear__se__02"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__16",
+        "key": [
+          1.125,
+          0,
+          "desk",
+          "desk__rear__se__16"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__15",
+        "key": [
+          1.375,
+          0,
+          "desk",
+          "desk__rear__se__15"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__05",
+        "key": [
+          1.79,
+          0,
+          "desk",
+          "desk__rear__se__05"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__06",
+        "key": [
+          1.79,
+          0,
+          "desk",
+          "desk__rear__se__06"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__04",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__rear__se__04"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__10",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__rear__se__10"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__side__se__00",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__side__se__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__se__02",
+        "key": [
+          2.0,
+          10,
+          "desk",
+          "desk__front__se__02"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__12",
+        "key": [
+          3.0,
+          0,
+          "desk",
+          "desk__rear__se__12"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__se__03",
+        "key": [
+          3.0,
+          10,
+          "desk",
+          "desk__front__se__03"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__se__13",
+        "key": [
+          4.0,
+          0,
+          "desk",
+          "desk__rear__se__13"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__se__01",
+        "key": [
+          4.0,
+          10,
+          "desk",
+          "desk__front__se__01"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      }
+    ]
+  },
+  {
+    "desk": "sw",
+    "worker": "ne",
+    "items": [
+      {
+        "id": "desk__rear__sw__07",
+        "key": [
+          -1.0,
+          0,
+          "desk",
+          "desk__rear__sw__07"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__08",
+        "key": [
+          0.0,
+          0,
+          "desk",
+          "desk__rear__sw__08"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__16",
+        "key": [
+          0.0,
+          0,
+          "desk",
+          "desk__rear__sw__16"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__00",
+        "key": [
+          0.07,
+          0,
+          "desk",
+          "desk__rear__sw__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__01",
+        "key": [
+          0.07,
+          0,
+          "desk",
+          "desk__rear__sw__01"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__sw__03",
+        "key": [
+          0.28125,
+          0,
+          "desk",
+          "desk__monitor__sw__03"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__15",
+        "key": [
+          0.75,
+          0,
+          "desk",
+          "desk__rear__sw__15"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__sw__00",
+        "key": [
+          0.78125,
+          0,
+          "desk",
+          "desk__monitor__sw__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__sw__01",
+        "key": [
+          0.78125,
+          0,
+          "desk",
+          "desk__monitor__sw__01"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__sw__02",
+        "key": [
+          0.8125,
+          0,
+          "desk",
+          "desk__monitor__sw__02"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__screen__sw__00",
+        "key": [
+          0.8125,
+          1,
+          "desk",
+          "desk__screen__sw__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__02",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__rear__sw__02"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__09",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__rear__sw__09"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__side__sw__00",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__side__sw__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__sw__03",
+        "key": [
+          1.0,
+          10,
+          "desk",
+          "desk__front__sw__03"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__03",
+        "key": [
+          1.0699999999999998,
+          0,
+          "desk",
+          "desk__rear__sw__03"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__04",
+        "key": [
+          1.07,
+          0,
+          "desk",
+          "desk__rear__sw__04"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__05",
+        "key": [
+          1.79,
+          0,
+          "desk",
+          "desk__rear__sw__05"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__sw__06",
+        "key": [
+          1.79,
+          0,
+          "desk",
+          "desk__rear__sw__06"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "chair__rear__ne__00",
+        "key": [
+          2,
+          -20,
+          "chair",
+          "chair__rear__ne__00"
+        ],
+        "destination": [
+          96,
+          80
+        ]
+      },
+      {
+        "id": "desk__rear__sw__14",
+        "key": [
+          2,
+          -20,
+          "desk",
+          "desk__rear__sw__14"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "actor",
+        "key": [
+          2,
+          0,
+          "actor",
+          "red-braid"
+        ],
+        "destination": [
+          144,
+          104
+        ]
+      },
+      {
+        "id": "desk__rear__sw__12",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__rear__sw__12"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__sw__00",
+        "key": [
+          2.0,
+          10,
+          "desk",
+          "desk__front__sw__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__sw__02",
+        "key": [
+          2,
+          10,
+          "desk",
+          "desk__front__sw__02"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "chair__front__ne__00",
+        "key": [
+          2,
+          20,
+          "chair",
+          "chair__front__ne__00"
+        ],
+        "destination": [
+          96,
+          80
+        ]
+      },
+      {
+        "id": "desk__rear__sw__13",
+        "key": [
+          3.0,
+          0,
+          "desk",
+          "desk__rear__sw__13"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__sw__01",
+        "key": [
+          3.0,
+          10,
+          "desk",
+          "desk__front__sw__01"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      }
+    ]
+  },
+  {
+    "desk": "ne",
+    "worker": "sw",
+    "items": [
+      {
+        "id": "chair__rear__sw__00",
+        "key": [
+          -1,
+          -20,
+          "chair",
+          "chair__rear__sw__00"
+        ],
+        "destination": [
+          128,
+          32
+        ]
+      },
+      {
+        "id": "desk__rear__ne__14",
+        "key": [
+          -1,
+          -20,
+          "desk",
+          "desk__rear__ne__14"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "actor",
+        "key": [
+          -1,
+          0,
+          "actor",
+          "red-braid"
+        ],
+        "destination": [
+          176,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__ne__06",
+        "key": [
+          -1,
+          10,
+          "desk",
+          "desk__front__ne__06"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "chair__front__sw__00",
+        "key": [
+          -1,
+          20,
+          "chair",
+          "chair__front__sw__00"
+        ],
+        "destination": [
+          128,
+          32
+        ]
+      },
+      {
+        "id": "desk__rear__ne__00",
+        "key": [
+          0.07,
+          0,
+          "desk",
+          "desk__rear__ne__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__01",
+        "key": [
+          0.07,
+          0,
+          "desk",
+          "desk__rear__ne__01"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__ne__00",
+        "key": [
+          0.21875,
+          0,
+          "desk",
+          "desk__monitor__ne__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__ne__01",
+        "key": [
+          0.21875,
+          0,
+          "desk",
+          "desk__monitor__ne__01"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__ne__02",
+        "key": [
+          0.25,
+          0,
+          "desk",
+          "desk__monitor__ne__02"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__15",
+        "key": [
+          0.25,
+          0,
+          "desk",
+          "desk__rear__ne__15"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__screen__ne__00",
+        "key": [
+          0.25,
+          1,
+          "desk",
+          "desk__screen__ne__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__08",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__rear__ne__08"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__16",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__rear__ne__16"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__ne__03",
+        "key": [
+          1.0,
+          10,
+          "desk",
+          "desk__front__ne__03"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__02",
+        "key": [
+          1.0699999999999998,
+          0,
+          "desk",
+          "desk__rear__ne__02"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__03",
+        "key": [
+          1.07,
+          0,
+          "desk",
+          "desk__rear__ne__03"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__05",
+        "key": [
+          1.79,
+          0,
+          "desk",
+          "desk__rear__ne__05"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__06",
+        "key": [
+          1.79,
+          0,
+          "desk",
+          "desk__rear__ne__06"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__04",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__rear__ne__04"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__09",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__rear__ne__09"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__11",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__rear__ne__11"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__side__ne__00",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__side__ne__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__ne__00",
+        "key": [
+          2.0,
+          10,
+          "desk",
+          "desk__front__ne__00"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__ne__04",
+        "key": [
+          2.0,
+          10,
+          "desk",
+          "desk__front__ne__04"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__10",
+        "key": [
+          3.0,
+          0,
+          "desk",
+          "desk__rear__ne__10"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__12",
+        "key": [
+          3.0,
+          0,
+          "desk",
+          "desk__rear__ne__12"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__ne__01",
+        "key": [
+          3.0,
+          10,
+          "desk",
+          "desk__front__ne__01"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__ne__05",
+        "key": [
+          3.0,
+          10,
+          "desk",
+          "desk__front__ne__05"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__ne__13",
+        "key": [
+          4.0,
+          0,
+          "desk",
+          "desk__rear__ne__13"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__ne__02",
+        "key": [
+          4.0,
+          10,
+          "desk",
+          "desk__front__ne__02"
+        ],
+        "destination": [
+          108,
+          56
+        ]
+      }
+    ]
+  },
+  {
+    "desk": "nw",
+    "worker": "se",
+    "items": [
+      {
+        "id": "desk__rear__nw__07",
+        "key": [
+          -1.0,
+          0,
+          "desk",
+          "desk__rear__nw__07"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__15",
+        "key": [
+          -0.375,
+          0,
+          "desk",
+          "desk__rear__nw__15"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__16",
+        "key": [
+          -0.125,
+          0,
+          "desk",
+          "desk__rear__nw__16"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "chair__rear__se__00",
+        "key": [
+          0,
+          -20,
+          "chair",
+          "chair__rear__se__00"
+        ],
+        "destination": [
+          32,
+          48
+        ]
+      },
+      {
+        "id": "desk__rear__nw__14",
+        "key": [
+          0,
+          -20,
+          "desk",
+          "desk__rear__nw__14"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "actor",
+        "key": [
+          0,
+          0,
+          "actor",
+          "red-braid"
+        ],
+        "destination": [
+          80,
+          72
+        ]
+      },
+      {
+        "id": "desk__rear__nw__08",
+        "key": [
+          0.0,
+          0,
+          "desk",
+          "desk__rear__nw__08"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__nw__04",
+        "key": [
+          0,
+          10,
+          "desk",
+          "desk__front__nw__04"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "chair__front__se__00",
+        "key": [
+          0,
+          20,
+          "chair",
+          "chair__front__se__00"
+        ],
+        "destination": [
+          32,
+          48
+        ]
+      },
+      {
+        "id": "desk__rear__nw__00",
+        "key": [
+          0.07,
+          0,
+          "desk",
+          "desk__rear__nw__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__01",
+        "key": [
+          0.07,
+          0,
+          "desk",
+          "desk__rear__nw__01"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__02",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__rear__nw__02"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__10",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__rear__nw__10"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__side__nw__00",
+        "key": [
+          1.0,
+          0,
+          "desk",
+          "desk__side__nw__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__nw__00",
+        "key": [
+          1.0,
+          10,
+          "desk",
+          "desk__front__nw__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__04",
+        "key": [
+          1.0699999999999998,
+          0,
+          "desk",
+          "desk__rear__nw__04"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__03",
+        "key": [
+          1.07,
+          0,
+          "desk",
+          "desk__rear__nw__03"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__nw__00",
+        "key": [
+          1.21875,
+          0,
+          "desk",
+          "desk__monitor__nw__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__nw__01",
+        "key": [
+          1.21875,
+          0,
+          "desk",
+          "desk__monitor__nw__01"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__monitor__nw__02",
+        "key": [
+          1.25,
+          0,
+          "desk",
+          "desk__monitor__nw__02"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__screen__nw__00",
+        "key": [
+          1.25,
+          1,
+          "desk",
+          "desk__screen__nw__00"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__05",
+        "key": [
+          1.79,
+          0,
+          "desk",
+          "desk__rear__nw__05"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__06",
+        "key": [
+          1.79,
+          0,
+          "desk",
+          "desk__rear__nw__06"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__11",
+        "key": [
+          2.0,
+          0,
+          "desk",
+          "desk__rear__nw__11"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__nw__01",
+        "key": [
+          2.0,
+          10,
+          "desk",
+          "desk__front__nw__01"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__09",
+        "key": [
+          3.0,
+          0,
+          "desk",
+          "desk__rear__nw__09"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__12",
+        "key": [
+          3.0,
+          0,
+          "desk",
+          "desk__rear__nw__12"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__nw__02",
+        "key": [
+          3.0,
+          10,
+          "desk",
+          "desk__front__nw__02"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__nw__05",
+        "key": [
+          3.0,
+          10,
+          "desk",
+          "desk__front__nw__05"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__rear__nw__13",
+        "key": [
+          4.0,
+          0,
+          "desk",
+          "desk__rear__nw__13"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      },
+      {
+        "id": "desk__front__nw__03",
+        "key": [
+          4.0,
+          10,
+          "desk",
+          "desk__front__nw__03"
+        ],
+        "destination": [
+          84,
+          56
+        ]
+      }
+    ]
+  }
+]
