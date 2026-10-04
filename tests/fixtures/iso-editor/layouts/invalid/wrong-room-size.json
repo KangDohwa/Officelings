@@ -1,0 +1,401 @@
+{
+  "version": 1,
+  "view": "iso",
+  "projection": "iso2to1",
+  "editorVersion": 1,
+  "requiredCapabilities": [
+    "iso2to1",
+    "renderItemsV1",
+    "isoEditorV1"
+  ],
+  "tileSize": 16,
+  "tile": {
+    "width": 64,
+    "height": 32,
+    "anchor": {
+      "x": 32,
+      "y": 16
+    }
+  },
+  "wallRise": 16,
+  "wallHeight": 48,
+  "cutaway": "rear-two-walls",
+  "widthTiles": 11,
+  "heightTiles": 10,
+  "door": {
+    "x": 0,
+    "y": 4
+  },
+  "tiles": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "zones": [
+    {
+      "name": "workspace",
+      "x": 1,
+      "y": 0,
+      "width": 7,
+      "height": 7
+    },
+    {
+      "name": "pantry",
+      "x": 8,
+      "y": 0,
+      "width": 2,
+      "height": 6
+    },
+    {
+      "name": "lounge",
+      "x": 0,
+      "y": 7,
+      "width": 9,
+      "height": 3
+    },
+    {
+      "name": "door",
+      "x": 0,
+      "y": 4,
+      "width": 1,
+      "height": 1
+    }
+  ],
+  "furniture": [
+    {
+      "id": "desk-a",
+      "assetId": "iso/desk",
+      "x": 4,
+      "y": 4,
+      "rotation": 0,
+      "state": "default"
+    },
+    {
+      "id": "chair-a",
+      "assetId": "iso/chair",
+      "x": 5,
+      "y": 4,
+      "rotation": 180,
+      "state": "default",
+      "deskId": "desk-a"
+    }
+  ],
+  "wallSegments": [
+    {
+      "id": "left-0",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-0",
+      "face": "right",
+      "edge": {
+        "i": -0.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-1",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 0.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-1",
+      "face": "right",
+      "edge": {
+        "i": 0.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-2",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 1.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-2",
+      "face": "right",
+      "edge": {
+        "i": 1.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-3",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 2.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-3",
+      "face": "right",
+      "edge": {
+        "i": 2.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-4",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 3.5
+      },
+      "assetId": "iso/wall-open-door-l-v3",
+      "state": "open"
+    },
+    {
+      "id": "right-4",
+      "face": "right",
+      "edge": {
+        "i": 3.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-5",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 4.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-5",
+      "face": "right",
+      "edge": {
+        "i": 4.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-6",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 5.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-6",
+      "face": "right",
+      "edge": {
+        "i": 5.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-7",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 6.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-7",
+      "face": "right",
+      "edge": {
+        "i": 6.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-8",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 7.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-8",
+      "face": "right",
+      "edge": {
+        "i": 7.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    },
+    {
+      "id": "left-9",
+      "face": "left",
+      "edge": {
+        "i": -0.5,
+        "j": 8.5
+      },
+      "assetId": "iso/wall-plain-l-v3",
+      "state": "default"
+    },
+    {
+      "id": "right-9",
+      "face": "right",
+      "edge": {
+        "i": 8.5,
+        "j": -0.5
+      },
+      "assetId": "iso/wall-plain-r-v3",
+      "state": "default"
+    }
+  ],
+  "workSeats": [
+    {
+      "id": "desk-a",
+      "deskId": "desk-a",
+      "chairId": "chair-a",
+      "computerId": null,
+      "profile": "front"
+    }
+  ]
+}
