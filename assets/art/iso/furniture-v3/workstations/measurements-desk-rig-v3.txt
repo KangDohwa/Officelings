@@ -1,0 +1,45 @@
+DESK RIG v3 — 실제 직렬화된 아틀라스 검증
+
+{
+  "serializedStateFrames": 28,
+  "bodyByteIdenticalAcrossStates": true,
+  "disjointBodyAndScreen": true,
+  "desktopNoHoles": true,
+  "monitorConnected": true,
+  "allPartIdsAndStorageRetained": true,
+  "allFrozenVariantFieldsRetained": true,
+  "pilotTypingFrames": 48,
+  "hands100percent": true,
+  "headGatesAndNonRegression": true,
+  "roiDenominatorsPreserved": true,
+  "contactTexelsKeyboardMouse": true,
+  "walkerCases": 1536,
+  "walkersOwnGroundDepth": true,
+  "ownershipCrossCheck": true,
+  "transitionFrames": 96,
+  "transitionHeadGatesAndNonRegression": true,
+  "transitionFeetAndReverse": true,
+  "readOnlyV2InputsUnchanged": true
+}
+
+고정된 rev2 캐릭터 snapshot·기존 v2 의자 기준. 실제 head alpha/offset, 동일 torso·hand·forearm ROI 분모.
+머리: NE/NW worker 85% 이상, SE/SW worker 90% 이상 및 v2 대비 비감소. 손: 모든 48 typing frame 100%.
+
+| 캐릭터 | worker | 머리 | torso ROI | 손 ROI | forearm/sleeve ROI |
+|---|---|---:|---:|---:|---:|
+| dev-hoodie-v2 | SE | 1136/1136 (100.0%) | 280/280 (100.0%) | 66/66 (100.0%) | 281/293 (95.9%) |
+| dev-hoodie-v2 | SW | 1136/1136 (100.0%) | 256/256 (100.0%) | 66/66 (100.0%) | 281/293 (95.9%) |
+| dev-hoodie-v2 | NE | 992/1072 (92.5%) | 316/368 (85.9%) | 69/69 (100.0%) | 246/246 (100.0%) |
+| dev-hoodie-v2 | NW | 960/1072 (89.6%) | 280/332 (84.3%) | 69/69 (100.0%) | 246/246 (100.0%) |
+| punk-girl | SE | 1048/1048 (100.0%) | 312/312 (100.0%) | 66/66 (100.0%) | 241/277 (87.0%) |
+| punk-girl | SW | 1040/1040 (100.0%) | 308/308 (100.0%) | 58/58 (100.0%) | 257/297 (86.5%) |
+| punk-girl | NE | 996/1068 (93.3%) | 276/340 (81.2%) | 84/84 (100.0%) | 247/247 (100.0%) |
+| punk-girl | NW | 868/952 (91.2%) | 252/332 (75.9%) | 86/86 (100.0%) | 208/208 (100.0%) |
+| professor | SE | 1016/1016 (100.0%) | 380/380 (100.0%) | 51/51 (100.0%) | 304/332 (91.6%) |
+| professor | SW | 1016/1016 (100.0%) | 368/368 (100.0%) | 51/51 (100.0%) | 316/332 (95.2%) |
+| professor | NE | 892/952 (93.7%) | 384/444 (86.5%) | 67/67 (100.0%) | 240/252 (95.2%) |
+| professor | NW | 868/952 (91.2%) | 360/436 (82.6%) | 68/68 (100.0%) | 228/256 (89.1%) |
+
+48개 개별 phase와 보행자 1,536건·sit/stand 96 frame의 원시 분자/분모는 measurements-desk-rig-v3.json에 기록.
+현재 character 원본과 snapshot의 SHA 차이: 0개.
+검증 범위: 정적 직렬화 아틀라스/레이어 queue. WPF 실제 렌더링·DPI·picking·연속 이동은 미실행.

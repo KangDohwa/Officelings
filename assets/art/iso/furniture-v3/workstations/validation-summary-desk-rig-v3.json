@@ -1,0 +1,46 @@
+{
+  "isoCheck": {
+    "passCount": 17,
+    "skipCount": 7,
+    "failCount": 0,
+    "exitCode": 0,
+    "command": [
+      "C:\\Users\\myori\\.codex\\skills\\sprite-gen\\.venv\\Scripts\\python.exe",
+      "-B",
+      "C:\\Codex-Workspace\\Vibedotcom\\tools\\iso_check.py",
+      "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\furniture-v3\\workstations",
+      "--tolerance",
+      "0"
+    ]
+  },
+  "strictNewEdges": 972,
+  "nativeRampColors": {
+    "desk-parts.png": 18,
+    "desk-screen.png": 10
+  },
+  "productionSHA256": {
+    "desk-empty-ne.png": "1a98655ddd5fa787eaa0f032c9b4caf8425891d1b9a9b4c1e56574713ac9e465",
+    "desk-empty-nw.png": "938dc96a91e0a7954501c886bd3570042b43cf06a5c0d0b8bf52e5b19799ec40",
+    "desk-empty-se.png": "afffe1c63fc49707e651f7e8a8d4b1c4fca110a05b3cdad145fa124b7ccdd86a",
+    "desk-empty-sw.png": "c20d074d223031887766b367f244fea958547c349e6e038f40a3b4df2de5c7e6",
+    "desk-parts.png": "aad79960bfcabc14590b1fa4c1377f415f2c8d290ec48903b4a98e78386f1524",
+    "desk-screen-mask-ne.png": "8a4bc9572f4f3d3f333bdf795a8cd511491f976366387eb0d706eb31f8dac93b",
+    "desk-screen-mask-nw.png": "030e0c4e8df615c44210d32544213b6b464fc3c36d7779431fd41859bff34020",
+    "desk-screen-mask-se.png": "35cdae6b1b624ed231ddd6a5181412c4eb1a52e68f04c65f60418f6efce8999c",
+    "desk-screen-mask-sw.png": "7c501facd7ca1d16783ca68c2af47d40847e9cee0d45f849d60e3b75696e4f89",
+    "desk-screen.png": "7759582fdffd76020276a8a2d07a8f6d01a1c9b9db60dd39f97a05bf7884c4bc",
+    "desk-shadow.iso.json": "0841bc8c87df5dc9022d36ed84d81338d4efed0d4040b5a5decaad3db8f1ab31",
+    "desk-shadow.png": "4903f3f747ccb7c393cc4d9afc29e53e9db582dbb4b6470c87a96fa4a1f5d733",
+    "desk.iso.json": "2cd01e5588449c6b0b3278c29bbf8dcc4266908251a742b1e7e851406d14b4aa"
+  },
+  "scopeOutputOnly": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\furniture-v3\\workstations",
+  "s0ReadOnlySHA256": "788e77321f1a5edec5fe9903d21cab0223eb8457bf786fe4a98779e74874fa7c",
+  "masterGenerations": 1,
+  "visualImagesViewed": 9,
+  "remainingWeaknesses": [
+    "NW input 23 texels and mug 2 texels hidden by rear panel; H/hand ROI intact",
+    "native keycaps can read as checker clusters",
+    "wood grain still coarse in retained v2 texture",
+    "runtime/new chair v3 integration untested"
+  ]
+}
