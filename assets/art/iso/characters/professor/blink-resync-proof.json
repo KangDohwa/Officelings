@@ -10,7 +10,7 @@
   "protectedFileSha256": {
     "professor.iso.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
     "professor-iso.manifest.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
-    "professor-iso.png": "066c946208bf11239c0ccde40d4b65616a2cb257951e92dfffd8ec236b284d3c",
+    "professor-iso.png": "4289f9ac9d08a7a81fd39eebe4f3d732a49a09030d2c91b17f7bd0cd5b2c4e51",
     "runs/v1/head-se.png": "29712fca9df58215128b2ed9d077dee01d088ef4bf482017ca897b489960b4bd",
     "runs/v1/head-sw.png": "14c08f17dfa9e6ea996587a6f5104ea4d9cfa0b2b838af634c100824bd2a4dbc",
     "runs/v1/head-ne.png": "17da7eb1aaf6e3009fc10714bcea274c6ae27ee09afba2fda2946ee1f3294469",
@@ -19,9 +19,49 @@
     "professor-eyes-sw.png": "33e5b58ed561f710263a2d143054efa9c5c322e089472ee329a1eb002a638a19"
   },
   "approvedBlinkSha256": "2db2a6032e43662a3afe5ad048561ca07cdfd2349233691d824889f098ea30a4",
-  "resyncedBlinkSha256": "7a0a4d56a51508429b9e8623bb4d2e4676ac83b945b6c8c8da97f91723c04d9c",
+  "resyncedBlinkSha256": "fc459b0491f47c343e784b9e518ace6d0c30c4ab05e6f6a6739349a9d77c8390",
   "changedCellsFromApprovedBlink": [
     {
+      "blinkRow": 0,
+      "normalRow": 0,
+      "phase": 0
+    },
+    {
+      "blinkRow": 0,
+      "normalRow": 0,
+      "phase": 1
+    },
+    {
+      "blinkRow": 0,
+      "normalRow": 0,
+      "phase": 2
+    },
+    {
+      "blinkRow": 0,
+      "normalRow": 0,
+      "phase": 3
+    },
+    {
+      "blinkRow": 1,
+      "normalRow": 1,
+      "phase": 0
+    },
+    {
+      "blinkRow": 1,
+      "normalRow": 1,
+      "phase": 1
+    },
+    {
+      "blinkRow": 1,
+      "normalRow": 1,
+      "phase": 2
+    },
+    {
+      "blinkRow": 1,
+      "normalRow": 1,
+      "phase": 3
+    },
+    {
       "blinkRow": 2,
       "normalRow": 4,
       "phase": 0
@@ -99,6 +139,366 @@
     {
       "blinkRow": 5,
       "normalRow": 9,
+      "phase": 3
+    },
+    {
+      "blinkRow": 6,
+      "normalRow": 12,
+      "phase": 0
+    },
+    {
+      "blinkRow": 6,
+      "normalRow": 12,
+      "phase": 1
+    },
+    {
+      "blinkRow": 6,
+      "normalRow": 12,
+      "phase": 2
+    },
+    {
+      "blinkRow": 6,
+      "normalRow": 12,
+      "phase": 3
+    },
+    {
+      "blinkRow": 7,
+      "normalRow": 13,
+      "phase": 0
+    },
+    {
+      "blinkRow": 7,
+      "normalRow": 13,
+      "phase": 1
+    },
+    {
+      "blinkRow": 7,
+      "normalRow": 13,
+      "phase": 2
+    },
+    {
+      "blinkRow": 7,
+      "normalRow": 13,
+      "phase": 3
+    },
+    {
+      "blinkRow": 8,
+      "normalRow": 16,
+      "phase": 0
+    },
+    {
+      "blinkRow": 8,
+      "normalRow": 16,
+      "phase": 1
+    },
+    {
+      "blinkRow": 8,
+      "normalRow": 16,
+      "phase": 2
+    },
+    {
+      "blinkRow": 8,
+      "normalRow": 16,
+      "phase": 3
+    },
+    {
+      "blinkRow": 9,
+      "normalRow": 17,
+      "phase": 0
+    },
+    {
+      "blinkRow": 9,
+      "normalRow": 17,
+      "phase": 1
+    },
+    {
+      "blinkRow": 9,
+      "normalRow": 17,
+      "phase": 2
+    },
+    {
+      "blinkRow": 9,
+      "normalRow": 17,
+      "phase": 3
+    },
+    {
+      "blinkRow": 10,
+      "normalRow": 20,
+      "phase": 0
+    },
+    {
+      "blinkRow": 10,
+      "normalRow": 20,
+      "phase": 1
+    },
+    {
+      "blinkRow": 10,
+      "normalRow": 20,
+      "phase": 2
+    },
+    {
+      "blinkRow": 10,
+      "normalRow": 20,
+      "phase": 3
+    },
+    {
+      "blinkRow": 11,
+      "normalRow": 21,
+      "phase": 0
+    },
+    {
+      "blinkRow": 11,
+      "normalRow": 21,
+      "phase": 1
+    },
+    {
+      "blinkRow": 11,
+      "normalRow": 21,
+      "phase": 2
+    },
+    {
+      "blinkRow": 11,
+      "normalRow": 21,
+      "phase": 3
+    },
+    {
+      "blinkRow": 12,
+      "normalRow": 24,
+      "phase": 0
+    },
+    {
+      "blinkRow": 12,
+      "normalRow": 24,
+      "phase": 1
+    },
+    {
+      "blinkRow": 12,
+      "normalRow": 24,
+      "phase": 2
+    },
+    {
+      "blinkRow": 12,
+      "normalRow": 24,
+      "phase": 3
+    },
+    {
+      "blinkRow": 13,
+      "normalRow": 25,
+      "phase": 0
+    },
+    {
+      "blinkRow": 13,
+      "normalRow": 25,
+      "phase": 1
+    },
+    {
+      "blinkRow": 13,
+      "normalRow": 25,
+      "phase": 2
+    },
+    {
+      "blinkRow": 13,
+      "normalRow": 25,
+      "phase": 3
+    },
+    {
+      "blinkRow": 14,
+      "normalRow": 26,
+      "phase": 0
+    },
+    {
+      "blinkRow": 14,
+      "normalRow": 26,
+      "phase": 1
+    },
+    {
+      "blinkRow": 14,
+      "normalRow": 26,
+      "phase": 2
+    },
+    {
+      "blinkRow": 14,
+      "normalRow": 26,
+      "phase": 3
+    },
+    {
+      "blinkRow": 15,
+      "normalRow": 27,
+      "phase": 0
+    },
+    {
+      "blinkRow": 15,
+      "normalRow": 27,
+      "phase": 1
+    },
+    {
+      "blinkRow": 15,
+      "normalRow": 27,
+      "phase": 2
+    },
+    {
+      "blinkRow": 15,
+      "normalRow": 27,
+      "phase": 3
+    },
+    {
+      "blinkRow": 16,
+      "normalRow": 28,
+      "phase": 0
+    },
+    {
+      "blinkRow": 16,
+      "normalRow": 28,
+      "phase": 1
+    },
+    {
+      "blinkRow": 16,
+      "normalRow": 28,
+      "phase": 2
+    },
+    {
+      "blinkRow": 16,
+      "normalRow": 28,
+      "phase": 3
+    },
+    {
+      "blinkRow": 17,
+      "normalRow": 29,
+      "phase": 0
+    },
+    {
+      "blinkRow": 17,
+      "normalRow": 29,
+      "phase": 1
+    },
+    {
+      "blinkRow": 17,
+      "normalRow": 29,
+      "phase": 2
+    },
+    {
+      "blinkRow": 17,
+      "normalRow": 29,
+      "phase": 3
+    },
+    {
+      "blinkRow": 18,
+      "normalRow": 30,
+      "phase": 0
+    },
+    {
+      "blinkRow": 18,
+      "normalRow": 30,
+      "phase": 1
+    },
+    {
+      "blinkRow": 18,
+      "normalRow": 30,
+      "phase": 2
+    },
+    {
+      "blinkRow": 18,
+      "normalRow": 30,
+      "phase": 3
+    },
+    {
+      "blinkRow": 19,
+      "normalRow": 31,
+      "phase": 0
+    },
+    {
+      "blinkRow": 19,
+      "normalRow": 31,
+      "phase": 1
+    },
+    {
+      "blinkRow": 19,
+      "normalRow": 31,
+      "phase": 2
+    },
+    {
+      "blinkRow": 19,
+      "normalRow": 31,
+      "phase": 3
+    },
+    {
+      "blinkRow": 20,
+      "normalRow": 34,
+      "phase": 0
+    },
+    {
+      "blinkRow": 20,
+      "normalRow": 34,
+      "phase": 1
+    },
+    {
+      "blinkRow": 20,
+      "normalRow": 34,
+      "phase": 2
+    },
+    {
+      "blinkRow": 20,
+      "normalRow": 34,
+      "phase": 3
+    },
+    {
+      "blinkRow": 21,
+      "normalRow": 35,
+      "phase": 0
+    },
+    {
+      "blinkRow": 21,
+      "normalRow": 35,
+      "phase": 1
+    },
+    {
+      "blinkRow": 21,
+      "normalRow": 35,
+      "phase": 2
+    },
+    {
+      "blinkRow": 21,
+      "normalRow": 35,
+      "phase": 3
+    },
+    {
+      "blinkRow": 22,
+      "normalRow": 36,
+      "phase": 0
+    },
+    {
+      "blinkRow": 22,
+      "normalRow": 36,
+      "phase": 1
+    },
+    {
+      "blinkRow": 22,
+      "normalRow": 36,
+      "phase": 2
+    },
+    {
+      "blinkRow": 22,
+      "normalRow": 36,
+      "phase": 3
+    },
+    {
+      "blinkRow": 23,
+      "normalRow": 37,
+      "phase": 0
+    },
+    {
+      "blinkRow": 23,
+      "normalRow": 37,
+      "phase": 1
+    },
+    {
+      "blinkRow": 23,
+      "normalRow": 37,
+      "phase": 2
+    },
+    {
+      "blinkRow": 23,
+      "normalRow": 37,
       "phase": 3
     }
   ],

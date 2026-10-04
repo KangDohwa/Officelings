@@ -10,7 +10,7 @@
   "protectedFileSha256": {
     "punk-girl.iso.json": "955f7b3b47b4e79f843882269bbe393b40ce47f3b2e32d4027b008082e6bd744",
     "punk-girl-iso.manifest.json": "955f7b3b47b4e79f843882269bbe393b40ce47f3b2e32d4027b008082e6bd744",
-    "punk-girl-iso.png": "3317d5f8a69629210049dccf7319856f0e7fa0159d27c0398e694424eaaa3ac0",
+    "punk-girl-iso.png": "817058b50a755a82da8bd2b6620055131793f8848b1891eb04b70c4727098485",
     "runs/se-idle-native.png": "2409009db17ad99104aa68fe0336c3e7138a25832b9d7ed09758e6ab218504b3",
     "runs/sw-idle-native.png": "ce730f2e188e035bea463e57abf5de97fd247047f08ce570df1902737ce86b51",
     "runs/ne-idle-native.png": "6017359d1cb75bd0ebf62ec04d6af750c5e666a4320c6225aed0728cf1d2e2ed",
@@ -19,9 +19,49 @@
     "punk-girl-eyes-sw.png": "fc74bfe27d7e5238ba1121014f29ec2798351bc5f17f7806e6fe171dcc748d68"
   },
   "approvedBlinkSha256": "2fc6f750083246cf50c3b138d7a51c3d15718d30a8c746643fbeafc0e6b22147",
-  "resyncedBlinkSha256": "169841bff54c8d3dbe471c19b3f31e9afe71b355a566ffe73a486398563e22b7",
+  "resyncedBlinkSha256": "41a317bfefaa70d49e35664903fcd57471953ec85e2b4e529205769f7bc1d670",
   "changedCellsFromApprovedBlink": [
     {
+      "blinkRow": 0,
+      "normalRow": 0,
+      "phase": 0
+    },
+    {
+      "blinkRow": 0,
+      "normalRow": 0,
+      "phase": 1
+    },
+    {
+      "blinkRow": 0,
+      "normalRow": 0,
+      "phase": 2
+    },
+    {
+      "blinkRow": 0,
+      "normalRow": 0,
+      "phase": 3
+    },
+    {
+      "blinkRow": 1,
+      "normalRow": 1,
+      "phase": 0
+    },
+    {
+      "blinkRow": 1,
+      "normalRow": 1,
+      "phase": 1
+    },
+    {
+      "blinkRow": 1,
+      "normalRow": 1,
+      "phase": 2
+    },
+    {
+      "blinkRow": 1,
+      "normalRow": 1,
+      "phase": 3
+    },
+    {
       "blinkRow": 2,
       "normalRow": 4,
       "phase": 0
@@ -99,6 +139,366 @@
     {
       "blinkRow": 5,
       "normalRow": 9,
+      "phase": 3
+    },
+    {
+      "blinkRow": 6,
+      "normalRow": 12,
+      "phase": 0
+    },
+    {
+      "blinkRow": 6,
+      "normalRow": 12,
+      "phase": 1
+    },
+    {
+      "blinkRow": 6,
+      "normalRow": 12,
+      "phase": 2
+    },
+    {
+      "blinkRow": 6,
+      "normalRow": 12,
+      "phase": 3
+    },
+    {
+      "blinkRow": 7,
+      "normalRow": 13,
+      "phase": 0
+    },
+    {
+      "blinkRow": 7,
+      "normalRow": 13,
+      "phase": 1
+    },
+    {
+      "blinkRow": 7,
+      "normalRow": 13,
+      "phase": 2
+    },
+    {
+      "blinkRow": 7,
+      "normalRow": 13,
+      "phase": 3
+    },
+    {
+      "blinkRow": 8,
+      "normalRow": 16,
+      "phase": 0
+    },
+    {
+      "blinkRow": 8,
+      "normalRow": 16,
+      "phase": 1
+    },
+    {
+      "blinkRow": 8,
+      "normalRow": 16,
+      "phase": 2
+    },
+    {
+      "blinkRow": 8,
+      "normalRow": 16,
+      "phase": 3
+    },
+    {
+      "blinkRow": 9,
+      "normalRow": 17,
+      "phase": 0
+    },
+    {
+      "blinkRow": 9,
+      "normalRow": 17,
+      "phase": 1
+    },
+    {
+      "blinkRow": 9,
+      "normalRow": 17,
+      "phase": 2
+    },
+    {
+      "blinkRow": 9,
+      "normalRow": 17,
+      "phase": 3
+    },
+    {
+      "blinkRow": 10,
+      "normalRow": 20,
+      "phase": 0
+    },
+    {
+      "blinkRow": 10,
+      "normalRow": 20,
+      "phase": 1
+    },
+    {
+      "blinkRow": 10,
+      "normalRow": 20,
+      "phase": 2
+    },
+    {
+      "blinkRow": 10,
+      "normalRow": 20,
+      "phase": 3
+    },
+    {
+      "blinkRow": 11,
+      "normalRow": 21,
+      "phase": 0
+    },
+    {
+      "blinkRow": 11,
+      "normalRow": 21,
+      "phase": 1
+    },
+    {
+      "blinkRow": 11,
+      "normalRow": 21,
+      "phase": 2
+    },
+    {
+      "blinkRow": 11,
+      "normalRow": 21,
+      "phase": 3
+    },
+    {
+      "blinkRow": 12,
+      "normalRow": 24,
+      "phase": 0
+    },
+    {
+      "blinkRow": 12,
+      "normalRow": 24,
+      "phase": 1
+    },
+    {
+      "blinkRow": 12,
+      "normalRow": 24,
+      "phase": 2
+    },
+    {
+      "blinkRow": 12,
+      "normalRow": 24,
+      "phase": 3
+    },
+    {
+      "blinkRow": 13,
+      "normalRow": 25,
+      "phase": 0
+    },
+    {
+      "blinkRow": 13,
+      "normalRow": 25,
+      "phase": 1
+    },
+    {
+      "blinkRow": 13,
+      "normalRow": 25,
+      "phase": 2
+    },
+    {
+      "blinkRow": 13,
+      "normalRow": 25,
+      "phase": 3
+    },
+    {
+      "blinkRow": 14,
+      "normalRow": 26,
+      "phase": 0
+    },
+    {
+      "blinkRow": 14,
+      "normalRow": 26,
+      "phase": 1
+    },
+    {
+      "blinkRow": 14,
+      "normalRow": 26,
+      "phase": 2
+    },
+    {
+      "blinkRow": 14,
+      "normalRow": 26,
+      "phase": 3
+    },
+    {
+      "blinkRow": 15,
+      "normalRow": 27,
+      "phase": 0
+    },
+    {
+      "blinkRow": 15,
+      "normalRow": 27,
+      "phase": 1
+    },
+    {
+      "blinkRow": 15,
+      "normalRow": 27,
+      "phase": 2
+    },
+    {
+      "blinkRow": 15,
+      "normalRow": 27,
+      "phase": 3
+    },
+    {
+      "blinkRow": 16,
+      "normalRow": 28,
+      "phase": 0
+    },
+    {
+      "blinkRow": 16,
+      "normalRow": 28,
+      "phase": 1
+    },
+    {
+      "blinkRow": 16,
+      "normalRow": 28,
+      "phase": 2
+    },
+    {
+      "blinkRow": 16,
+      "normalRow": 28,
+      "phase": 3
+    },
+    {
+      "blinkRow": 17,
+      "normalRow": 29,
+      "phase": 0
+    },
+    {
+      "blinkRow": 17,
+      "normalRow": 29,
+      "phase": 1
+    },
+    {
+      "blinkRow": 17,
+      "normalRow": 29,
+      "phase": 2
+    },
+    {
+      "blinkRow": 17,
+      "normalRow": 29,
+      "phase": 3
+    },
+    {
+      "blinkRow": 18,
+      "normalRow": 30,
+      "phase": 0
+    },
+    {
+      "blinkRow": 18,
+      "normalRow": 30,
+      "phase": 1
+    },
+    {
+      "blinkRow": 18,
+      "normalRow": 30,
+      "phase": 2
+    },
+    {
+      "blinkRow": 18,
+      "normalRow": 30,
+      "phase": 3
+    },
+    {
+      "blinkRow": 19,
+      "normalRow": 31,
+      "phase": 0
+    },
+    {
+      "blinkRow": 19,
+      "normalRow": 31,
+      "phase": 1
+    },
+    {
+      "blinkRow": 19,
+      "normalRow": 31,
+      "phase": 2
+    },
+    {
+      "blinkRow": 19,
+      "normalRow": 31,
+      "phase": 3
+    },
+    {
+      "blinkRow": 20,
+      "normalRow": 34,
+      "phase": 0
+    },
+    {
+      "blinkRow": 20,
+      "normalRow": 34,
+      "phase": 1
+    },
+    {
+      "blinkRow": 20,
+      "normalRow": 34,
+      "phase": 2
+    },
+    {
+      "blinkRow": 20,
+      "normalRow": 34,
+      "phase": 3
+    },
+    {
+      "blinkRow": 21,
+      "normalRow": 35,
+      "phase": 0
+    },
+    {
+      "blinkRow": 21,
+      "normalRow": 35,
+      "phase": 1
+    },
+    {
+      "blinkRow": 21,
+      "normalRow": 35,
+      "phase": 2
+    },
+    {
+      "blinkRow": 21,
+      "normalRow": 35,
+      "phase": 3
+    },
+    {
+      "blinkRow": 22,
+      "normalRow": 36,
+      "phase": 0
+    },
+    {
+      "blinkRow": 22,
+      "normalRow": 36,
+      "phase": 1
+    },
+    {
+      "blinkRow": 22,
+      "normalRow": 36,
+      "phase": 2
+    },
+    {
+      "blinkRow": 22,
+      "normalRow": 36,
+      "phase": 3
+    },
+    {
+      "blinkRow": 23,
+      "normalRow": 37,
+      "phase": 0
+    },
+    {
+      "blinkRow": 23,
+      "normalRow": 37,
+      "phase": 1
+    },
+    {
+      "blinkRow": 23,
+      "normalRow": 37,
+      "phase": 2
+    },
+    {
+      "blinkRow": 23,
+      "normalRow": 37,
       "phase": 3
     }
   ],

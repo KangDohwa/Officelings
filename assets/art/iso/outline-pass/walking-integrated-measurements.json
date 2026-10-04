@@ -1,0 +1,56 @@
+{
+  "source": "C:\\Codex-Workspace\\vd-lanes\\packv3\\artifacts\\iso-packv3-final\\iso-arrival-02.0s-1x.png",
+  "cases": [
+    {
+      "character": "dev-hoodie-v2",
+      "facing": "se",
+      "phase": 0,
+      "position": [
+        376,
+        156
+      ],
+      "groundDepth": 7.0,
+      "exactVisibleSourceFraction": 1.0,
+      "changedTexels": 53,
+      "visibleHeadBefore": 287,
+      "visibleHeadAfter": 287,
+      "visibleHandsBefore": 47,
+      "visibleHandsAfter": 47
+    },
+    {
+      "character": "professor",
+      "facing": "ne",
+      "phase": 3,
+      "position": [
+        248,
+        124
+      ],
+      "groundDepth": 5.0,
+      "exactVisibleSourceFraction": 1.0,
+      "changedTexels": 52,
+      "visibleHeadBefore": 238,
+      "visibleHeadAfter": 238,
+      "visibleHandsBefore": 29,
+      "visibleHandsAfter": 29
+    },
+    {
+      "character": "punk-girl",
+      "facing": "sw",
+      "phase": 1,
+      "position": [
+        184,
+        156
+      ],
+      "groundDepth": 7.0,
+      "exactVisibleSourceFraction": 1.0,
+      "changedTexels": 63,
+      "visibleHeadBefore": 260,
+      "visibleHeadAfter": 260,
+      "visibleHandsBefore": 38,
+      "visibleHandsAfter": 38
+    }
+  ],
+  "visibleHeadsAndHandsUnchanged": true,
+  "exactChangedTexelsMatchOriginalAt1xAnd2x": true,
+  "scope": "Exact matched walking atlas cells in actual PNG; other spawn/partly hidden actors are not claimed. Depth from rounded native foot projection; static composite only."
+}

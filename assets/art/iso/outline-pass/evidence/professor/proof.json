@@ -1,0 +1,4716 @@
+{
+  "character": "professor",
+  "applied": true,
+  "parameters": {
+    "exterior": "#111924",
+    "connectivity": 4,
+    "expansion": 0,
+    "skinCollar": 1,
+    "contactRadius": 2,
+    "shadowDelta": 18,
+    "rimBelow": 65,
+    "armLineOffsetY": 1,
+    "interiorOpaqueNeighbors": 8
+  },
+  "profile": {
+    "headFiles": [
+      "runs/v1/head-se.png",
+      "runs/v1/head-sw.png",
+      "runs/v1/head-ne.png",
+      "runs/v1/head-nw.png"
+    ],
+    "headCrop": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "skin": [
+      "744B31",
+      "C49F7C",
+      "EFA763",
+      "F3B06B",
+      "F6AD62"
+    ],
+    "shadow": "#32261E",
+    "rim": "#744B31",
+    "hem": 50,
+    "seatedHem": 45,
+    "armPaths": {
+      "front": [
+        [
+          [
+            11,
+            36
+          ],
+          [
+            17,
+            41
+          ],
+          [
+            26,
+            43
+          ]
+        ],
+        [
+          [
+            21,
+            35
+          ],
+          [
+            25,
+            40
+          ],
+          [
+            29,
+            43
+          ]
+        ]
+      ],
+      "back": [
+        [
+          [
+            11,
+            35
+          ],
+          [
+            17,
+            38
+          ],
+          [
+            26,
+            33
+          ]
+        ],
+        [
+          [
+            21,
+            34
+          ],
+          [
+            25,
+            37
+          ],
+          [
+            29,
+            33
+          ]
+        ]
+      ]
+    }
+  },
+  "normalCells": 152,
+  "blinkCells": 96,
+  "all38RowsChanged": true,
+  "alphaByteIdentical": true,
+  "headRGBAByteIdentical": true,
+  "handRGBAByteIdentical": true,
+  "anchorsAndOffsetsAndPaletteByteIdentical": true,
+  "eyeMaskFilesByteIdentical": true,
+  "closedEyeTexelsByteIdentical": true,
+  "blinkNonEyeCellsEqualNewNormal": 96,
+  "evidenceSHA256": {
+    "headBefore": "5f1a83cbbc8ac5bc6d4750afd51b30f8b1494ffce94c3c9b7c6c0d785328c885",
+    "headAfter": "5f1a83cbbc8ac5bc6d4750afd51b30f8b1494ffce94c3c9b7c6c0d785328c885",
+    "handsBefore": "b01270164697813e56d6345d378bce5cf0337ea5d7e5f0f3cb2a18262713ee5d",
+    "handsAfter": "b01270164697813e56d6345d378bce5cf0337ea5d7e5f0f3cb2a18262713ee5d"
+  },
+  "productionBeforeSHA256": {
+    "professor.iso.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
+    "professor-iso.manifest.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
+    "professor-iso.png": "066c946208bf11239c0ccde40d4b65616a2cb257951e92dfffd8ec236b284d3c",
+    "professor-iso-blink.png": "7a0a4d56a51508429b9e8623bb4d2e4676ac83b945b6c8c8da97f91723c04d9c",
+    "professor-eyes-se.png": "38d95fdf7e3555219585b8dad924530d79901779dfe5907c763f6188feed278f",
+    "professor-eyes-sw.png": "33e5b58ed561f710263a2d143054efa9c5c322e089472ee329a1eb002a638a19",
+    "iso-contact.png": "7ef6ecd3e93e970831da3b630b8767f553dd24eca12986cd19f61ec5fd00e35d",
+    "iso-rows-review.png": "6202a0433d0738d45f7702c48794bae903492cfc475957511e13087b617baee9"
+  },
+  "productionAfterSHA256": {
+    "professor.iso.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
+    "professor-iso.manifest.json": "099e17ada04ace6bbecfb006a5475e7735de2f4cd74a06efd7e5b1793167b11d",
+    "professor-iso.png": "4289f9ac9d08a7a81fd39eebe4f3d732a49a09030d2c91b17f7bd0cd5b2c4e51",
+    "professor-iso-blink.png": "fc459b0491f47c343e784b9e518ace6d0c30c4ab05e6f6a6739349a9d77c8390",
+    "professor-eyes-se.png": "38d95fdf7e3555219585b8dad924530d79901779dfe5907c763f6188feed278f",
+    "professor-eyes-sw.png": "33e5b58ed561f710263a2d143054efa9c5c322e089472ee329a1eb002a638a19",
+    "iso-contact.png": "c4d52e3a10d3fd770f881b649b1205097d720834c5847a82b182ba8d61b88769",
+    "iso-rows-review.png": "b56c01238371056930a0ff6f3645503d07a3a4a2438585f220648d4cacb64756"
+  },
+  "records": [
+    {
+      "row": 0,
+      "phase": 0,
+      "action": "idle",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 0,
+      "phase": 1,
+      "action": "idle",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 0,
+      "phase": 2,
+      "action": "idle",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 0,
+      "phase": 3,
+      "action": "idle",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 1,
+      "phase": 0,
+      "action": "idle",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 1,
+      "phase": 1,
+      "action": "idle",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 1,
+      "phase": 2,
+      "action": "idle",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 1,
+      "phase": 3,
+      "action": "idle",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 2,
+      "phase": 0,
+      "action": "idle",
+      "facing": "ne",
+      "exterior": 38,
+      "rim": 6,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 59.927,
+        "weakOnCream": 5,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 11,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 2,
+      "phase": 1,
+      "action": "idle",
+      "facing": "ne",
+      "exterior": 38,
+      "rim": 6,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 59.927,
+        "weakOnCream": 5,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 11,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 2,
+      "phase": 2,
+      "action": "idle",
+      "facing": "ne",
+      "exterior": 38,
+      "rim": 6,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 59.927,
+        "weakOnCream": 5,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 11,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 2,
+      "phase": 3,
+      "action": "idle",
+      "facing": "ne",
+      "exterior": 38,
+      "rim": 6,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 59.927,
+        "weakOnCream": 5,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 11,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 3,
+      "phase": 0,
+      "action": "idle",
+      "facing": "nw",
+      "exterior": 41,
+      "rim": 3,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 62.23,
+        "weakOnCream": 6,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 3,
+      "phase": 1,
+      "action": "idle",
+      "facing": "nw",
+      "exterior": 41,
+      "rim": 3,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 62.23,
+        "weakOnCream": 6,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 3,
+      "phase": 2,
+      "action": "idle",
+      "facing": "nw",
+      "exterior": 41,
+      "rim": 3,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 62.23,
+        "weakOnCream": 6,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 3,
+      "phase": 3,
+      "action": "idle",
+      "facing": "nw",
+      "exterior": 41,
+      "rim": 3,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 62.23,
+        "weakOnCream": 6,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 4,
+      "phase": 0,
+      "action": "walk",
+      "facing": "se",
+      "exterior": 66,
+      "rim": 17,
+      "interior": 0,
+      "changed": 83,
+      "before": {
+        "editableEdgeTexels": 66,
+        "boundaryTexels": 139,
+        "lockedBoundaryTexels": 73,
+        "edgeLuminanceMean": 24.002,
+        "weakOnCream": 1,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 16,
+        "edgeColorCount": 7
+      },
+      "after": {
+        "editableEdgeTexels": 66,
+        "boundaryTexels": 139,
+        "lockedBoundaryTexels": 73,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 4,
+      "phase": 1,
+      "action": "walk",
+      "facing": "se",
+      "exterior": 66,
+      "rim": 16,
+      "interior": 0,
+      "changed": 82,
+      "before": {
+        "editableEdgeTexels": 66,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 90,
+        "edgeLuminanceMean": 36.374,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 7
+      },
+      "after": {
+        "editableEdgeTexels": 66,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 90,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 4,
+      "phase": 2,
+      "action": "walk",
+      "facing": "se",
+      "exterior": 63,
+      "rim": 10,
+      "interior": 0,
+      "changed": 73,
+      "before": {
+        "editableEdgeTexels": 63,
+        "boundaryTexels": 154,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 32.722,
+        "weakOnCream": 2,
+        "weakOnWood": 2,
+        "weakOnDarkFloor": 15,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 63,
+        "boundaryTexels": 154,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 4,
+      "phase": 3,
+      "action": "walk",
+      "facing": "se",
+      "exterior": 42,
+      "rim": 11,
+      "interior": 0,
+      "changed": 53,
+      "before": {
+        "editableEdgeTexels": 42,
+        "boundaryTexels": 120,
+        "lockedBoundaryTexels": 78,
+        "edgeLuminanceMean": 25.833,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 42,
+        "boundaryTexels": 120,
+        "lockedBoundaryTexels": 78,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 5,
+      "phase": 0,
+      "action": "walk",
+      "facing": "sw",
+      "exterior": 62,
+      "rim": 7,
+      "interior": 0,
+      "changed": 69,
+      "before": {
+        "editableEdgeTexels": 62,
+        "boundaryTexels": 139,
+        "lockedBoundaryTexels": 77,
+        "edgeLuminanceMean": 26.095,
+        "weakOnCream": 1,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 12,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 62,
+        "boundaryTexels": 139,
+        "lockedBoundaryTexels": 77,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 5,
+      "phase": 1,
+      "action": "walk",
+      "facing": "sw",
+      "exterior": 59,
+      "rim": 3,
+      "interior": 0,
+      "changed": 62,
+      "before": {
+        "editableEdgeTexels": 59,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 40.157,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 8,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 59,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 5,
+      "phase": 2,
+      "action": "walk",
+      "facing": "sw",
+      "exterior": 58,
+      "rim": 8,
+      "interior": 0,
+      "changed": 66,
+      "before": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 154,
+        "lockedBoundaryTexels": 96,
+        "edgeLuminanceMean": 31.379,
+        "weakOnCream": 2,
+        "weakOnWood": 2,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 8
+      },
+      "after": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 154,
+        "lockedBoundaryTexels": 96,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 5,
+      "phase": 3,
+      "action": "walk",
+      "facing": "sw",
+      "exterior": 34,
+      "rim": 7,
+      "interior": 0,
+      "changed": 41,
+      "before": {
+        "editableEdgeTexels": 34,
+        "boundaryTexels": 120,
+        "lockedBoundaryTexels": 86,
+        "edgeLuminanceMean": 23.274,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 5
+      },
+      "after": {
+        "editableEdgeTexels": 34,
+        "boundaryTexels": 120,
+        "lockedBoundaryTexels": 86,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 6,
+      "phase": 0,
+      "action": "walk",
+      "facing": "ne",
+      "exterior": 64,
+      "rim": 13,
+      "interior": 0,
+      "changed": 77,
+      "before": {
+        "editableEdgeTexels": 64,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 63,
+        "edgeLuminanceMean": 26.532,
+        "weakOnCream": 1,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 7
+      },
+      "after": {
+        "editableEdgeTexels": 64,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 63,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 6,
+      "phase": 1,
+      "action": "walk",
+      "facing": "ne",
+      "exterior": 76,
+      "rim": 18,
+      "interior": 0,
+      "changed": 94,
+      "before": {
+        "editableEdgeTexels": 76,
+        "boundaryTexels": 148,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 43.166,
+        "weakOnCream": 3,
+        "weakOnWood": 2,
+        "weakOnDarkFloor": 32,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 76,
+        "boundaryTexels": 148,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 6,
+      "phase": 2,
+      "action": "walk",
+      "facing": "ne",
+      "exterior": 66,
+      "rim": 12,
+      "interior": 1,
+      "changed": 79,
+      "before": {
+        "editableEdgeTexels": 66,
+        "boundaryTexels": 141,
+        "lockedBoundaryTexels": 75,
+        "edgeLuminanceMean": 37.519,
+        "weakOnCream": 2,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 28,
+        "edgeColorCount": 8
+      },
+      "after": {
+        "editableEdgeTexels": 66,
+        "boundaryTexels": 141,
+        "lockedBoundaryTexels": 75,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 6,
+      "phase": 3,
+      "action": "walk",
+      "facing": "ne",
+      "exterior": 47,
+      "rim": 5,
+      "interior": 0,
+      "changed": 52,
+      "before": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 115,
+        "lockedBoundaryTexels": 68,
+        "edgeLuminanceMean": 38.831,
+        "weakOnCream": 2,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 21,
+        "edgeColorCount": 7
+      },
+      "after": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 115,
+        "lockedBoundaryTexels": 68,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 7,
+      "phase": 0,
+      "action": "walk",
+      "facing": "nw",
+      "exterior": 60,
+      "rim": 9,
+      "interior": 0,
+      "changed": 69,
+      "before": {
+        "editableEdgeTexels": 60,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 67,
+        "edgeLuminanceMean": 28.171,
+        "weakOnCream": 1,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 15,
+        "edgeColorCount": 7
+      },
+      "after": {
+        "editableEdgeTexels": 60,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 67,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 7,
+      "phase": 1,
+      "action": "walk",
+      "facing": "nw",
+      "exterior": 68,
+      "rim": 13,
+      "interior": 0,
+      "changed": 81,
+      "before": {
+        "editableEdgeTexels": 68,
+        "boundaryTexels": 148,
+        "lockedBoundaryTexels": 80,
+        "edgeLuminanceMean": 44.82,
+        "weakOnCream": 3,
+        "weakOnWood": 3,
+        "weakOnDarkFloor": 25,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 68,
+        "boundaryTexels": 148,
+        "lockedBoundaryTexels": 80,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 7,
+      "phase": 2,
+      "action": "walk",
+      "facing": "nw",
+      "exterior": 63,
+      "rim": 12,
+      "interior": 0,
+      "changed": 75,
+      "before": {
+        "editableEdgeTexels": 63,
+        "boundaryTexels": 141,
+        "lockedBoundaryTexels": 78,
+        "edgeLuminanceMean": 36.025,
+        "weakOnCream": 2,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 27,
+        "edgeColorCount": 7
+      },
+      "after": {
+        "editableEdgeTexels": 63,
+        "boundaryTexels": 141,
+        "lockedBoundaryTexels": 78,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 7,
+      "phase": 3,
+      "action": "walk",
+      "facing": "nw",
+      "exterior": 43,
+      "rim": 9,
+      "interior": 0,
+      "changed": 52,
+      "before": {
+        "editableEdgeTexels": 43,
+        "boundaryTexels": 115,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 39.443,
+        "weakOnCream": 2,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 21,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 43,
+        "boundaryTexels": 115,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 8,
+      "phase": 0,
+      "action": "seated-typing-front",
+      "facing": "se",
+      "exterior": 38,
+      "rim": 2,
+      "interior": 4,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 146,
+        "lockedBoundaryTexels": 108,
+        "edgeLuminanceMean": 56.474,
+        "weakOnCream": 4,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 146,
+        "lockedBoundaryTexels": 108,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 8,
+      "phase": 1,
+      "action": "seated-typing-front",
+      "facing": "se",
+      "exterior": 38,
+      "rim": 2,
+      "interior": 4,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 106,
+        "edgeLuminanceMean": 56.474,
+        "weakOnCream": 4,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 106,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 8,
+      "phase": 2,
+      "action": "seated-typing-front",
+      "facing": "se",
+      "exterior": 38,
+      "rim": 2,
+      "interior": 4,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 146,
+        "lockedBoundaryTexels": 108,
+        "edgeLuminanceMean": 56.474,
+        "weakOnCream": 4,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 146,
+        "lockedBoundaryTexels": 108,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 8,
+      "phase": 3,
+      "action": "seated-typing-front",
+      "facing": "se",
+      "exterior": 38,
+      "rim": 2,
+      "interior": 4,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 106,
+        "edgeLuminanceMean": 56.474,
+        "weakOnCream": 4,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 106,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 9,
+      "phase": 0,
+      "action": "seated-typing-front",
+      "facing": "sw",
+      "exterior": 47,
+      "rim": 4,
+      "interior": 5,
+      "changed": 56,
+      "before": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 146,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 55.54,
+        "weakOnCream": 4,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 15,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 146,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 9,
+      "phase": 1,
+      "action": "seated-typing-front",
+      "facing": "sw",
+      "exterior": 47,
+      "rim": 4,
+      "interior": 5,
+      "changed": 56,
+      "before": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 55.54,
+        "weakOnCream": 4,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 15,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 9,
+      "phase": 2,
+      "action": "seated-typing-front",
+      "facing": "sw",
+      "exterior": 47,
+      "rim": 4,
+      "interior": 5,
+      "changed": 56,
+      "before": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 146,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 55.54,
+        "weakOnCream": 4,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 15,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 146,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 9,
+      "phase": 3,
+      "action": "seated-typing-front",
+      "facing": "sw",
+      "exterior": 47,
+      "rim": 4,
+      "interior": 5,
+      "changed": 56,
+      "before": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 55.54,
+        "weakOnCream": 4,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 15,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 10,
+      "phase": 0,
+      "action": "seated-typing-front",
+      "facing": "ne",
+      "exterior": 58,
+      "rim": 8,
+      "interior": 3,
+      "changed": 69,
+      "before": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 45.43,
+        "weakOnCream": 1,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 10,
+      "phase": 1,
+      "action": "seated-typing-front",
+      "facing": "ne",
+      "exterior": 58,
+      "rim": 8,
+      "interior": 3,
+      "changed": 69,
+      "before": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 155,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 45.43,
+        "weakOnCream": 1,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 155,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 10,
+      "phase": 2,
+      "action": "seated-typing-front",
+      "facing": "ne",
+      "exterior": 58,
+      "rim": 8,
+      "interior": 3,
+      "changed": 69,
+      "before": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 45.43,
+        "weakOnCream": 1,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 10,
+      "phase": 3,
+      "action": "seated-typing-front",
+      "facing": "ne",
+      "exterior": 58,
+      "rim": 8,
+      "interior": 3,
+      "changed": 69,
+      "before": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 45.43,
+        "weakOnCream": 1,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 58,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 11,
+      "phase": 0,
+      "action": "seated-typing-front",
+      "facing": "nw",
+      "exterior": 57,
+      "rim": 3,
+      "interior": 4,
+      "changed": 64,
+      "before": {
+        "editableEdgeTexels": 57,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 45.231,
+        "weakOnCream": 1,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 57,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 11,
+      "phase": 1,
+      "action": "seated-typing-front",
+      "facing": "nw",
+      "exterior": 57,
+      "rim": 3,
+      "interior": 4,
+      "changed": 64,
+      "before": {
+        "editableEdgeTexels": 57,
+        "boundaryTexels": 155,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 45.231,
+        "weakOnCream": 1,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 57,
+        "boundaryTexels": 155,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 11,
+      "phase": 2,
+      "action": "seated-typing-front",
+      "facing": "nw",
+      "exterior": 57,
+      "rim": 3,
+      "interior": 4,
+      "changed": 64,
+      "before": {
+        "editableEdgeTexels": 57,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 45.231,
+        "weakOnCream": 1,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 57,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 11,
+      "phase": 3,
+      "action": "seated-typing-front",
+      "facing": "nw",
+      "exterior": 57,
+      "rim": 3,
+      "interior": 4,
+      "changed": 64,
+      "before": {
+        "editableEdgeTexels": 57,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 45.231,
+        "weakOnCream": 1,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 57,
+        "boundaryTexels": 156,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 12,
+      "phase": 0,
+      "action": "seated-thinking",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 1,
+      "interior": 0,
+      "changed": 36,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 68.148,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 12,
+      "phase": 1,
+      "action": "seated-thinking",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 1,
+      "interior": 0,
+      "changed": 36,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 93,
+        "edgeLuminanceMean": 68.148,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 93,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 12,
+      "phase": 2,
+      "action": "seated-thinking",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 1,
+      "interior": 0,
+      "changed": 36,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 93,
+        "edgeLuminanceMean": 68.148,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 93,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 12,
+      "phase": 3,
+      "action": "seated-thinking",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 1,
+      "interior": 0,
+      "changed": 36,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 68.148,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 13,
+      "phase": 0,
+      "action": "seated-thinking",
+      "facing": "sw",
+      "exterior": 41,
+      "rim": 2,
+      "interior": 0,
+      "changed": 43,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 65.313,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 13,
+      "phase": 1,
+      "action": "seated-thinking",
+      "facing": "sw",
+      "exterior": 41,
+      "rim": 2,
+      "interior": 0,
+      "changed": 43,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 65.313,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 13,
+      "phase": 2,
+      "action": "seated-thinking",
+      "facing": "sw",
+      "exterior": 41,
+      "rim": 1,
+      "interior": 0,
+      "changed": 42,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 65.313,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 13,
+      "phase": 3,
+      "action": "seated-thinking",
+      "facing": "sw",
+      "exterior": 41,
+      "rim": 2,
+      "interior": 0,
+      "changed": 43,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 65.313,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 14,
+      "phase": 0,
+      "action": "seated-thinking",
+      "facing": "ne",
+      "exterior": 49,
+      "rim": 7,
+      "interior": 0,
+      "changed": 56,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 45.271,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 14,
+      "phase": 1,
+      "action": "seated-thinking",
+      "facing": "ne",
+      "exterior": 50,
+      "rim": 7,
+      "interior": 0,
+      "changed": 57,
+      "before": {
+        "editableEdgeTexels": 50,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 44.879,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 50,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 14,
+      "phase": 2,
+      "action": "seated-thinking",
+      "facing": "ne",
+      "exterior": 50,
+      "rim": 7,
+      "interior": 0,
+      "changed": 57,
+      "before": {
+        "editableEdgeTexels": 50,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 44.879,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 50,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 14,
+      "phase": 3,
+      "action": "seated-thinking",
+      "facing": "ne",
+      "exterior": 49,
+      "rim": 7,
+      "interior": 0,
+      "changed": 56,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 45.271,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 15,
+      "phase": 0,
+      "action": "seated-thinking",
+      "facing": "nw",
+      "exterior": 48,
+      "rim": 3,
+      "interior": 0,
+      "changed": 51,
+      "before": {
+        "editableEdgeTexels": 48,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 46.913,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 48,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 15,
+      "phase": 1,
+      "action": "seated-thinking",
+      "facing": "nw",
+      "exterior": 49,
+      "rim": 3,
+      "interior": 0,
+      "changed": 52,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 95,
+        "edgeLuminanceMean": 46.48,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 95,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 15,
+      "phase": 2,
+      "action": "seated-thinking",
+      "facing": "nw",
+      "exterior": 49,
+      "rim": 2,
+      "interior": 0,
+      "changed": 51,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 95,
+        "edgeLuminanceMean": 46.48,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 144,
+        "lockedBoundaryTexels": 95,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 15,
+      "phase": 3,
+      "action": "seated-thinking",
+      "facing": "nw",
+      "exterior": 48,
+      "rim": 3,
+      "interior": 0,
+      "changed": 51,
+      "before": {
+        "editableEdgeTexels": 48,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 46.913,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 48,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 16,
+      "phase": 0,
+      "action": "sit-down",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 16,
+      "phase": 1,
+      "action": "sit-down",
+      "facing": "se",
+      "exterior": 43,
+      "rim": 6,
+      "interior": 4,
+      "changed": 53,
+      "before": {
+        "editableEdgeTexels": 43,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.501,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 22,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 43,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 16,
+      "phase": 2,
+      "action": "sit-down",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 2,
+      "interior": 6,
+      "changed": 43,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 84,
+        "edgeLuminanceMean": 62.364,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 84,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 16,
+      "phase": 3,
+      "action": "sit-down",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 1,
+      "interior": 0,
+      "changed": 36,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 68.148,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 17,
+      "phase": 0,
+      "action": "sit-down",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 17,
+      "phase": 1,
+      "action": "sit-down",
+      "facing": "sw",
+      "exterior": 40,
+      "rim": 7,
+      "interior": 0,
+      "changed": 47,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 86,
+        "edgeLuminanceMean": 61.392,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 19,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 86,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 17,
+      "phase": 2,
+      "action": "sit-down",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 4,
+      "interior": 1,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 80,
+        "edgeLuminanceMean": 60.234,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 80,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 17,
+      "phase": 3,
+      "action": "sit-down",
+      "facing": "sw",
+      "exterior": 41,
+      "rim": 2,
+      "interior": 0,
+      "changed": 43,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 65.313,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 18,
+      "phase": 0,
+      "action": "sit-down",
+      "facing": "ne",
+      "exterior": 38,
+      "rim": 6,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 59.927,
+        "weakOnCream": 5,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 11,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 18,
+      "phase": 1,
+      "action": "sit-down",
+      "facing": "ne",
+      "exterior": 40,
+      "rim": 7,
+      "interior": 4,
+      "changed": 51,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 114,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 59.923,
+        "weakOnCream": 5,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 114,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 18,
+      "phase": 2,
+      "action": "sit-down",
+      "facing": "ne",
+      "exterior": 47,
+      "rim": 7,
+      "interior": 6,
+      "changed": 60,
+      "before": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 50.402,
+        "weakOnCream": 5,
+        "weakOnWood": 2,
+        "weakOnDarkFloor": 12,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 18,
+      "phase": 3,
+      "action": "sit-down",
+      "facing": "ne",
+      "exterior": 49,
+      "rim": 7,
+      "interior": 0,
+      "changed": 56,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 45.271,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 19,
+      "phase": 0,
+      "action": "sit-down",
+      "facing": "nw",
+      "exterior": 41,
+      "rim": 3,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 62.23,
+        "weakOnCream": 6,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 19,
+      "phase": 1,
+      "action": "sit-down",
+      "facing": "nw",
+      "exterior": 42,
+      "rim": 3,
+      "interior": 0,
+      "changed": 45,
+      "before": {
+        "editableEdgeTexels": 42,
+        "boundaryTexels": 114,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 61.818,
+        "weakOnCream": 6,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 14,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 42,
+        "boundaryTexels": 114,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 19,
+      "phase": 2,
+      "action": "sit-down",
+      "facing": "nw",
+      "exterior": 46,
+      "rim": 2,
+      "interior": 0,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 46,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 73,
+        "edgeLuminanceMean": 56.132,
+        "weakOnCream": 6,
+        "weakOnWood": 2,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 46,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 73,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 19,
+      "phase": 3,
+      "action": "sit-down",
+      "facing": "nw",
+      "exterior": 48,
+      "rim": 3,
+      "interior": 0,
+      "changed": 51,
+      "before": {
+        "editableEdgeTexels": 48,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 46.913,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 48,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 20,
+      "phase": 0,
+      "action": "stand-up",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 1,
+      "interior": 0,
+      "changed": 36,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 68.148,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 97,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 20,
+      "phase": 1,
+      "action": "stand-up",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 2,
+      "interior": 6,
+      "changed": 43,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 84,
+        "edgeLuminanceMean": 62.364,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 84,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 20,
+      "phase": 2,
+      "action": "stand-up",
+      "facing": "se",
+      "exterior": 43,
+      "rim": 6,
+      "interior": 4,
+      "changed": 53,
+      "before": {
+        "editableEdgeTexels": 43,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.501,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 22,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 43,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 20,
+      "phase": 3,
+      "action": "stand-up",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 21,
+      "phase": 0,
+      "action": "stand-up",
+      "facing": "sw",
+      "exterior": 41,
+      "rim": 2,
+      "interior": 0,
+      "changed": 43,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 65.313,
+        "weakOnCream": 7,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 11
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 132,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 21,
+      "phase": 1,
+      "action": "stand-up",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 4,
+      "interior": 1,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 80,
+        "edgeLuminanceMean": 60.234,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 80,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 21,
+      "phase": 2,
+      "action": "stand-up",
+      "facing": "sw",
+      "exterior": 40,
+      "rim": 7,
+      "interior": 0,
+      "changed": 47,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 86,
+        "edgeLuminanceMean": 61.392,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 19,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 86,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 21,
+      "phase": 3,
+      "action": "stand-up",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 22,
+      "phase": 0,
+      "action": "stand-up",
+      "facing": "ne",
+      "exterior": 49,
+      "rim": 7,
+      "interior": 0,
+      "changed": 56,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 45.271,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 98,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 22,
+      "phase": 1,
+      "action": "stand-up",
+      "facing": "ne",
+      "exterior": 47,
+      "rim": 7,
+      "interior": 6,
+      "changed": 60,
+      "before": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 50.402,
+        "weakOnCream": 5,
+        "weakOnWood": 2,
+        "weakOnDarkFloor": 12,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 47,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 22,
+      "phase": 2,
+      "action": "stand-up",
+      "facing": "ne",
+      "exterior": 40,
+      "rim": 7,
+      "interior": 4,
+      "changed": 51,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 114,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 59.923,
+        "weakOnCream": 5,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 114,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 22,
+      "phase": 3,
+      "action": "stand-up",
+      "facing": "ne",
+      "exterior": 38,
+      "rim": 6,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 59.927,
+        "weakOnCream": 5,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 11,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 74,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 23,
+      "phase": 0,
+      "action": "stand-up",
+      "facing": "nw",
+      "exterior": 48,
+      "rim": 3,
+      "interior": 0,
+      "changed": 51,
+      "before": {
+        "editableEdgeTexels": 48,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 46.913,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 48,
+        "boundaryTexels": 147,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 23,
+      "phase": 1,
+      "action": "stand-up",
+      "facing": "nw",
+      "exterior": 46,
+      "rim": 2,
+      "interior": 0,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 46,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 73,
+        "edgeLuminanceMean": 56.132,
+        "weakOnCream": 6,
+        "weakOnWood": 2,
+        "weakOnDarkFloor": 10,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 46,
+        "boundaryTexels": 119,
+        "lockedBoundaryTexels": 73,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 23,
+      "phase": 2,
+      "action": "stand-up",
+      "facing": "nw",
+      "exterior": 42,
+      "rim": 3,
+      "interior": 0,
+      "changed": 45,
+      "before": {
+        "editableEdgeTexels": 42,
+        "boundaryTexels": 114,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 61.818,
+        "weakOnCream": 6,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 14,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 42,
+        "boundaryTexels": 114,
+        "lockedBoundaryTexels": 72,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 23,
+      "phase": 3,
+      "action": "stand-up",
+      "facing": "nw",
+      "exterior": 41,
+      "rim": 3,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 62.23,
+        "weakOnCream": 6,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 13,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 112,
+        "lockedBoundaryTexels": 71,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 24,
+      "phase": 0,
+      "action": "pickup",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 24,
+      "phase": 1,
+      "action": "pickup",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 134,
+        "lockedBoundaryTexels": 93,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 134,
+        "lockedBoundaryTexels": 93,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 24,
+      "phase": 2,
+      "action": "pickup",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 130,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 130,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 24,
+      "phase": 3,
+      "action": "pickup",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 25,
+      "phase": 0,
+      "action": "pickup",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 25,
+      "phase": 1,
+      "action": "pickup",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 134,
+        "lockedBoundaryTexels": 95,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 134,
+        "lockedBoundaryTexels": 95,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 25,
+      "phase": 2,
+      "action": "pickup",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 130,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 130,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 25,
+      "phase": 3,
+      "action": "pickup",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 26,
+      "phase": 0,
+      "action": "report-handover",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 26,
+      "phase": 1,
+      "action": "report-handover",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 26,
+      "phase": 2,
+      "action": "report-handover",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 26,
+      "phase": 3,
+      "action": "report-handover",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 27,
+      "phase": 0,
+      "action": "report-handover",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 27,
+      "phase": 1,
+      "action": "report-handover",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 27,
+      "phase": 2,
+      "action": "report-handover",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 128,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 27,
+      "phase": 3,
+      "action": "report-handover",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 28,
+      "phase": 0,
+      "action": "coffee",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 28,
+      "phase": 1,
+      "action": "coffee",
+      "facing": "se",
+      "exterior": 40,
+      "rim": 5,
+      "interior": 2,
+      "changed": 47,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 123,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 65.119,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 123,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 28,
+      "phase": 2,
+      "action": "coffee",
+      "facing": "se",
+      "exterior": 40,
+      "rim": 5,
+      "interior": 2,
+      "changed": 47,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 65.119,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 28,
+      "phase": 3,
+      "action": "coffee",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 29,
+      "phase": 0,
+      "action": "coffee",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 29,
+      "phase": 1,
+      "action": "coffee",
+      "facing": "sw",
+      "exterior": 38,
+      "rim": 7,
+      "interior": 0,
+      "changed": 45,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 123,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 63.283,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 123,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 29,
+      "phase": 2,
+      "action": "coffee",
+      "facing": "sw",
+      "exterior": 38,
+      "rim": 6,
+      "interior": 0,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 63.283,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 29,
+      "phase": 3,
+      "action": "coffee",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 30,
+      "phase": 0,
+      "action": "phone",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 30,
+      "phase": 1,
+      "action": "phone",
+      "facing": "se",
+      "exterior": 40,
+      "rim": 5,
+      "interior": 2,
+      "changed": 47,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 123,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 65.119,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 123,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 30,
+      "phase": 2,
+      "action": "phone",
+      "facing": "se",
+      "exterior": 40,
+      "rim": 5,
+      "interior": 2,
+      "changed": 47,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 65.119,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 30,
+      "phase": 3,
+      "action": "phone",
+      "facing": "se",
+      "exterior": 40,
+      "rim": 5,
+      "interior": 2,
+      "changed": 47,
+      "before": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 65.119,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 40,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 31,
+      "phase": 0,
+      "action": "phone",
+      "facing": "sw",
+      "exterior": 38,
+      "rim": 7,
+      "interior": 0,
+      "changed": 45,
+      "before": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 58.588,
+        "weakOnCream": 4,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 8
+      },
+      "after": {
+        "editableEdgeTexels": 38,
+        "boundaryTexels": 127,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 31,
+      "phase": 1,
+      "action": "phone",
+      "facing": "sw",
+      "exterior": 34,
+      "rim": 7,
+      "interior": 0,
+      "changed": 41,
+      "before": {
+        "editableEdgeTexels": 34,
+        "boundaryTexels": 123,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 41.028,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 34,
+        "boundaryTexels": 123,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 31,
+      "phase": 2,
+      "action": "phone",
+      "facing": "sw",
+      "exterior": 34,
+      "rim": 7,
+      "interior": 0,
+      "changed": 41,
+      "before": {
+        "editableEdgeTexels": 34,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 92,
+        "edgeLuminanceMean": 41.028,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 34,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 92,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 31,
+      "phase": 3,
+      "action": "phone",
+      "facing": "sw",
+      "exterior": 34,
+      "rim": 7,
+      "interior": 0,
+      "changed": 41,
+      "before": {
+        "editableEdgeTexels": 34,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 92,
+        "edgeLuminanceMean": 41.028,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 34,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 92,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 32,
+      "phase": 0,
+      "action": "sleep",
+      "facing": "ne",
+      "exterior": 49,
+      "rim": 6,
+      "interior": 2,
+      "changed": 57,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 45.671,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 32,
+      "phase": 1,
+      "action": "sleep",
+      "facing": "ne",
+      "exterior": 49,
+      "rim": 6,
+      "interior": 2,
+      "changed": 57,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 45.671,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 32,
+      "phase": 2,
+      "action": "sleep",
+      "facing": "ne",
+      "exterior": 49,
+      "rim": 6,
+      "interior": 2,
+      "changed": 57,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 45.671,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 32,
+      "phase": 3,
+      "action": "sleep",
+      "facing": "ne",
+      "exterior": 49,
+      "rim": 6,
+      "interior": 2,
+      "changed": 57,
+      "before": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 45.671,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 49,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 94,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 33,
+      "phase": 0,
+      "action": "sleep",
+      "facing": "nw",
+      "exterior": 44,
+      "rim": 2,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 44,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 47.859,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 44,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 33,
+      "phase": 1,
+      "action": "sleep",
+      "facing": "nw",
+      "exterior": 44,
+      "rim": 2,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 44,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 47.859,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 44,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 33,
+      "phase": 2,
+      "action": "sleep",
+      "facing": "nw",
+      "exterior": 44,
+      "rim": 2,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 44,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 47.859,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 44,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 33,
+      "phase": 3,
+      "action": "sleep",
+      "facing": "nw",
+      "exterior": 44,
+      "rim": 2,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 44,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 47.859,
+        "weakOnCream": 3,
+        "weakOnWood": 1,
+        "weakOnDarkFloor": 9,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 44,
+        "boundaryTexels": 143,
+        "lockedBoundaryTexels": 99,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 34,
+      "phase": 0,
+      "action": "talk",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 34,
+      "phase": 1,
+      "action": "talk",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 34,
+      "phase": 2,
+      "action": "talk",
+      "facing": "se",
+      "exterior": 39,
+      "rim": 5,
+      "interior": 2,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 66.633,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 34,
+      "phase": 3,
+      "action": "talk",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 35,
+      "phase": 0,
+      "action": "talk",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 35,
+      "phase": 1,
+      "action": "talk",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 126,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 35,
+      "phase": 2,
+      "action": "talk",
+      "facing": "sw",
+      "exterior": 37,
+      "rim": 6,
+      "interior": 0,
+      "changed": 43,
+      "before": {
+        "editableEdgeTexels": 37,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 64.829,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 37,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 87,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 35,
+      "phase": 3,
+      "action": "talk",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 36,
+      "phase": 0,
+      "action": "surprised",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 36,
+      "phase": 1,
+      "action": "surprised",
+      "facing": "se",
+      "exterior": 37,
+      "rim": 5,
+      "interior": 2,
+      "changed": 44,
+      "before": {
+        "editableEdgeTexels": 37,
+        "boundaryTexels": 125,
+        "lockedBoundaryTexels": 88,
+        "edgeLuminanceMean": 52.874,
+        "weakOnCream": 2,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 7
+      },
+      "after": {
+        "editableEdgeTexels": 37,
+        "boundaryTexels": 125,
+        "lockedBoundaryTexels": 88,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 36,
+      "phase": 2,
+      "action": "surprised",
+      "facing": "se",
+      "exterior": 35,
+      "rim": 5,
+      "interior": 2,
+      "changed": 42,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 44.577,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 89,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 36,
+      "phase": 3,
+      "action": "surprised",
+      "facing": "se",
+      "exterior": 41,
+      "rim": 5,
+      "interior": 2,
+      "changed": 48,
+      "before": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 63.678,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 20,
+        "edgeColorCount": 10
+      },
+      "after": {
+        "editableEdgeTexels": 41,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 83,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 37,
+      "phase": 0,
+      "action": "surprised",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 37,
+      "phase": 1,
+      "action": "surprised",
+      "facing": "sw",
+      "exterior": 35,
+      "rim": 7,
+      "interior": 0,
+      "changed": 42,
+      "before": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 125,
+        "lockedBoundaryTexels": 90,
+        "edgeLuminanceMean": 51.002,
+        "weakOnCream": 2,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 7
+      },
+      "after": {
+        "editableEdgeTexels": 35,
+        "boundaryTexels": 125,
+        "lockedBoundaryTexels": 90,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 37,
+      "phase": 2,
+      "action": "surprised",
+      "facing": "sw",
+      "exterior": 33,
+      "rim": 7,
+      "interior": 0,
+      "changed": 40,
+      "before": {
+        "editableEdgeTexels": 33,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 42.088,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 6
+      },
+      "after": {
+        "editableEdgeTexels": 33,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 91,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    },
+    {
+      "row": 37,
+      "phase": 3,
+      "action": "surprised",
+      "facing": "sw",
+      "exterior": 39,
+      "rim": 7,
+      "interior": 0,
+      "changed": 46,
+      "before": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 61.815,
+        "weakOnCream": 5,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 18,
+        "edgeColorCount": 9
+      },
+      "after": {
+        "editableEdgeTexels": 39,
+        "boundaryTexels": 124,
+        "lockedBoundaryTexels": 85,
+        "edgeLuminanceMean": 24.093,
+        "weakOnCream": 0,
+        "weakOnWood": 0,
+        "weakOnDarkFloor": 0,
+        "edgeColorCount": 1
+      }
+    }
+  ],
+  "checker": {
+    "command": [
+      "C:\\Users\\myori\\.codex\\skills\\sprite-gen\\.venv\\Scripts\\python.exe",
+      "-B",
+      "C:\\Codex-Workspace\\Vibedotcom\\tools\\iso_check.py",
+      "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\characters\\professor",
+      "--stage",
+      "final",
+      "--tolerance",
+      "0"
+    ],
+    "exitCode": 0,
+    "passCount": 12,
+    "skipCount": 5,
+    "failCount": 0
+  }
+}
