@@ -16,7 +16,7 @@ namespace Vibedotcom.App;
 
 // Separate host keeps the flat host and its rendering/output path untouched.
 // Native modes, passive popup rules, storage and tray recovery are shared.
-internal sealed class IsoWindow : Window
+internal sealed partial class IsoWindow : Window
 {
     private readonly IIsoOffice office;
     private readonly IIsoSheetSource sheets;
@@ -33,20 +33,23 @@ internal sealed class IsoWindow : Window
     private IReadOnlyList<AgentInfo> agents=Array.Empty<AgentInfo>();
     private bool closed,polling,suspended;
     private DateTimeOffset previous=DateTimeOffset.UtcNow,saveAfter;
+    private readonly DateTimeOffset epoch;
     private string warning="";
     internal IsoView View => view;
     internal WindowModes Modes => modes;
 
     internal IsoWindow(IIsoOffice office,IIsoSheetSource sheets,Settings settings,bool demo,bool qa,double quitAfter,
-        AppStorage storage,string? trackerHome,bool preview,IReadOnlyList<AgentInfo>? currentAgents=null)
+        AppStorage storage,string? trackerHome,bool preview,IReadOnlyList<AgentInfo>? currentAgents=null,DateTimeOffset? demoEpoch=null)
     {
         this.office=office; this.sheets=sheets; this.settings=settings.Normalize();
         this.demo=demo; this.qa=qa; this.storage=storage; this.trackerHome=trackerHome; this.preview=preview;
+        epoch=demoEpoch ?? DateTimeOffset.UtcNow;
         view=new(office,sheets,storage.Isolated ? Path.Combine(storage.Home,"brand") : null)
         { TagMode=settings.TagMode,TransparentBackground=settings.TransparentBackground };
         modes=new(this,qa);
         view.Pointer=()=>qa || closed || suspended ? null : modes.Cursor(view);
         tracker=new(new() { Home=trackerHome ?? (storage.Isolated ? storage.Home : new TrackerOptions().Home),
+            PrivacyMode=demo ? PrivacyMode.Off : PrivacyModes.Parse(settings.PrivacyMode ?? "off"),
             WorkingWindow=TimeSpan.FromSeconds(settings.WorkingSeconds),LeaveAfterIdle=TimeSpan.FromMinutes(settings.LeaveAfterIdleMinutes),
             LeaveAfterWaiting=TimeSpan.FromMinutes(settings.LeaveAfterWaitingMinutes) });
         Title=demo ? "Vibedotcom — ISO demo office" : "Vibedotcom — ISO agent office";
@@ -64,8 +67,12 @@ internal sealed class IsoWindow : Window
         var title=new TextBlock { Text=demo ? "Vibedotcom  ·  ISO demo" : "Vibedotcom  ·  ISO",Margin=new(16,9,16,9),FontSize=17,FontWeight=FontWeights.SemiBold,Foreground=Brushes.Wheat };
         DockPanel.SetDock(title,Dock.Top); root.Children.Add(title);
         DockPanel.SetDock(status,Dock.Bottom); root.Children.Add(status); root.Children.Add(view); Content=root;
-        agents=currentAgents ?? (demo ? IsoPreviewOffice.Agents(DateTimeOffset.UtcNow) : Array.Empty<AgentInfo>());
-        view.SetZoom((int)Math.Round(settings.Zoom)); view.Update(agents,DateTimeOffset.UtcNow,0);
+        agents=currentAgents ?? Array.Empty<AgentInfo>();
+        view.SetZoom((int)Math.Round(settings.Zoom));
+        if (demo && currentAgents==null)
+            for (var frame=0;frame<180;frame++)
+            { var t=-18+frame*.1; agents=DemoScenario.Agents(epoch,t); view.Update(agents,epoch.AddSeconds(t),.1); }
+        view.AdvanceTo(agents,DateTimeOffset.UtcNow);
         ContextMenu=BuildContextMenu();
         PreviewMouseWheel+=(_,e)=> { Zoom(e.Delta>0 ? 1 : -1); e.Handled=true; };
         PreviewKeyDown+=(_,e)=>
@@ -130,7 +137,7 @@ internal sealed class IsoWindow : Window
     {
         var bounds=recovered ?? modes.ScreenBounds;
         var next=settings with { Left=bounds.Left,Top=bounds.Top,Width=bounds.Width,Height=bounds.Height,Zoom=view.PreferredZoom };
-        var replacement=new IsoWindow(office,sheets,next,demo,qa,0,storage,trackerHome,preview,agents);
+        var replacement=new IsoWindow(office,sheets,next,demo,qa,0,storage,trackerHome,preview,agents,epoch);
         Application.Current.MainWindow=replacement; replacement.Show(); Close();
     }
     private void Recover()
@@ -189,7 +196,7 @@ internal sealed class IsoWindow : Window
     {
         if (suspended==value || closed) return;
         suspended=value;
-        if (!value) { var now=DateTimeOffset.UtcNow; view.Update(agents,now,Math.Max(0,(now-previous).TotalSeconds)); previous=now; }
+        if (!value) view.AdvanceTo(agents,DateTimeOffset.UtcNow);
         view.SetAnimationEnabled(!value);
     }
     private void RefreshHover()
@@ -204,6 +211,7 @@ internal sealed class IsoWindow : Window
         var hidden=WindowState==WindowState.Minimized || modes.AnimationSuppressed;
         SetSuspended(hidden);
         if (modes.DesktopHostLost) ApplyModes();
+        if (demo && !hidden) { agents=DemoScenario.Agents(epoch,(now-epoch).TotalSeconds); view.AdvanceTo(agents,now); }
         if (!qa && (view.HasHoverTarget || modes.ClickThrough || modes.Mode=="desktop")) RefreshHover();
         var message=warning.Length>0 ? warning : preview ? "Handmade source-art preview · ISO simulation pending · wheel / + / − · drag to pan"
             : $"{agents.Count(a=>a.State!=AgentState.Gone)} agents · {view.Zoom}× · wheel / + / − · drag to pan · right-click for modes";
@@ -221,7 +229,7 @@ internal sealed class IsoWindow : Window
             if (!agents.SequenceEqual(current))
             {
                 agents=current;
-                if (!suspended) { var now=DateTimeOffset.UtcNow; view.Update(agents,now,(now-previous).TotalSeconds); previous=now; }
+                if (!suspended) view.AdvanceTo(agents,DateTimeOffset.UtcNow);
             }
             warning=tracker.Warnings.Count>0 ? string.Join("  ",tracker.Warnings) : "";
         }

@@ -105,6 +105,11 @@ internal sealed partial class IsoView : FrameworkElement
         ScheduleAnimation(now);
     }
 
+    // Input polling and the animation timer share one clock; never advance the
+    // same wall-clock interval once in each host timer.
+    internal void AdvanceTo(IReadOnlyList<AgentInfo> people,DateTimeOffset now) =>
+        Update(people,now,previous==default ? 0 : Math.Max(0,(now-previous).TotalSeconds));
+
     internal bool Present(IsoScene next, IReadOnlyList<AgentInfo>? people = null)
     {
         var metadataChanged=people!=null && !ReferenceEquals(agents,people);

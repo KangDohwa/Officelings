@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Reflection;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -27,26 +26,8 @@ internal static class IsoApplication
 
     internal static (IIsoSheetSource Sheets,Func<int,IIsoOffice> Create,bool Preview) Prepare(string? assets,bool allowPreview)
     {
-        var assembly=typeof(IIsoOffice).Assembly;
-        var officeType=assembly.GetType("Vibedotcom.Core.Iso.IsoOffice");
-        var packType=assembly.GetType("Vibedotcom.Core.Iso.IsoPack");
-        if (officeType!=null && packType!=null)
-        {
-            var directory=assets!=null && File.Exists(Path.Combine(assets,"assets.json")) ? assets : null;
-            var loader=directory==null
-                ? packType.GetMethod("LoadDefault",BindingFlags.Public|BindingFlags.Static,null,Type.EmptyTypes,null)
-                : packType.GetMethod("Load",BindingFlags.Public|BindingFlags.Static,null,new[] {typeof(string)},null);
-            if (loader==null) throw new InvalidOperationException("IsoPack.LoadDefault()/Load(dir) is required by the integration contract.");
-            var pack=loader.Invoke(null,directory==null ? null : new object[] {directory})!;
-            IIsoSheetSource source=directory==null ? PackIsoSheetSource.LoadEmbedded(assembly) : PackIsoSheetSource.LoadDirectory(directory);
-            IIsoOffice Create(int phase) => (IIsoOffice)(Activator.CreateInstance(officeType,pack,42)
-                ?? throw new InvalidOperationException("Cannot construct IsoOffice."));
-            return (source,Create,false);
-        }
-        if (!allowPreview) throw new InvalidOperationException("ISO engine is not integrated yet. --view iso --demo uses an explicitly handmade art preview.");
-        var artRoot=assets ?? SourceManifestIsoSheets.FindSourceDirectory();
-        var sheets=new SourceManifestIsoSheets(artRoot);
-        return (sheets,phase=>new IsoPreviewOffice(sheets,artRoot,phase),true);
+        var pack=assets==null ? IsoPack.LoadDefault() : IsoPack.Load(assets);
+        return (new PackIsoSheetSource(pack),_=>new IsoOffice(pack,42),false);
     }
     internal static int Smoke(string output,IIsoSheetSource source,Func<int,IIsoOffice> create,bool preview,string tagMode,AppStorage storage,bool smokeTags)
     {
