@@ -149,6 +149,8 @@ internal static class IsoEditorValidation
         return child.AssetId == "iso/chair" ? new Tile(child.X, child.Y) == contact.Approach && child.Rotation == IsoGeometry.Rotation(contact.Facing) :
             child.AssetId == "iso/computer" && child.X == desk.X && child.Y == desk.Y && child.Rotation == desk.Rotation;
     }
+    // The open-door module already defines an open door; authored files may label it "open" while the bundled layout says "default".
+    private static string FixedState(IsoWallSegment w) => w.State == "open" && w.AssetId.Contains("open-door", StringComparison.Ordinal) ? "default" : w.State;
     private static void ValidateWalls(IsoLayout l, IsoPack pack, List<IsoValidationIssue> errors)
     {
         var walls = l.WallSegments ?? []; var definitions = IsoEditorWallCatalog.Build(pack);
@@ -171,7 +173,7 @@ internal static class IsoEditorValidation
             if (w.HostId == null)
             {
                 var expected = (pack.Layout.WallSegments ?? []).FirstOrDefault(h => h.HostId == null && h.Face == w.Face && h.Edge == w.Edge);
-                if (expected == null || w.AssetId != expected.AssetId || w.State != expected.State ||
+                if (expected == null || w.AssetId != expected.AssetId || FixedState(w) != FixedState(expected) ||
                     walls.Count(h => h.HostId == null && h.Face == w.Face && h.Edge == w.Edge) > 1) Invalid(w);
                 continue;
             }
