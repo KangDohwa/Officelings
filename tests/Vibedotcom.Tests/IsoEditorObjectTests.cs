@@ -225,17 +225,23 @@ public sealed class IsoEditorObjectTests
             var c = Clip(n).DeepClone(); c["name"] = "body-off"; n["sheets"]![0]!["rows"]!.AsArray().Add(c);
             var v = Variant(n).DeepClone(); v["state"] = "off"; v["parts"]![0]!["animation"] = "body-off";
             n["furniture"]![0]!["variants"]!.AsArray().Add(v);
-            n["sheets"]![0]!["anchor"]!["x"] = int.MinValue;
+            n["sheets"]![0]!["anchor"]!["x"] = -4000;
         });
         Assert.DoesNotContain(Importer.Validate(s.Manifest), i => i.Severity == IsoIssueSeverity.Error);
         var result = s.Import(); Assert.True(result.Succeeded);
         var manifest = result.Object!.Manifest;
         Assert.IsType<ImmutableArray<IsoClip>>(manifest.Sheets[0].Rows);
         Assert.IsType<ImmutableArray<IsoAnchorCheck>>(manifest.Sheets[0].Rows![0].AnchorChecks);
-        Assert.Equal(int.MinValue, manifest.Sheets[0].Anchor.X);
+        Assert.Equal(-4000, manifest.Sheets[0].Anchor.X);
         Assert.Equal(2, manifest.Furniture[0].Variants.Length);
         var pack = Importer.Merge(BuiltIn.Value, result.Catalog).Pack!;
         Assert.Equal(16, pack.Variant("user/test-crate", 0, "off").HeightPx);
+    }
+    [Fact]
+    public void O007_AnchorBeyondTheRenderBudgetIsRejected()
+    {
+        using var s = new Scratch(); s.Change(n => n["sheets"]![0]!["anchor"]!["x"] = int.MinValue);
+        Error(Importer.Validate(s.Manifest), "O007");
     }
     [Fact]
     public void O007_PartsAnchorsDepthAndDisjointMasks()
