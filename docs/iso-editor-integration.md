@@ -41,21 +41,23 @@ E2E test는 네 개 Fact와 mounted rig 네 방향 Theory case를 추가했다. 
 
 ## 렌더와 측정
 
-현재 측정 결과는 `artifacts/edqa5/editor-real/iso-editor-smoke.json`에 있다. 해당 원본 PNG 78개를 contact sheet 10개로 모두 직접 확인했다. Dialog 2x/3x 잘림은 수정 후 확인했다. 방 밖 grouped-validation의 상단 marker 잘림은 `Rect` property 복사본의 Union이 버려지는 것이 원인이었다. Overlay의 경계를 backing field에 누적하고 캡처 크기도 `EditorRenderBounds()`를 사용하도록 고쳤다. U005의 음수 위치 marker/camera assertion과 `artifacts/edqa7/editor-real/grouped-validation-3x.png` 원본 검토를 통과했다. 마지막 실행의 전체 contact sheet와 측정은 아직 진행 중이다.
+최종 결과는 `artifacts/edqa7/editor-real/iso-editor-smoke.json`에 있다. 원본 PNG 78개를 `contact-01.png`부터 `contact-10.png`까지 모두 직접 확인했다. Selected desk 네 방향 3x, invalid ghost 3x, 실제 thumbnail이 있는 import-success dialog 3x와 grouped-validation scene/controls-bottom은 원본 크기로도 확인했다. Dialog 2x/3x 잘림과 방 밖 marker 잘림을 수정했다. 후자는 `Rect` property 복사본의 Union이 버려지는 것이 원인이었다. Overlay의 경계를 backing field에 누적하고 캡처도 `EditorRenderBounds()`를 사용한다. U005의 음수 위치 marker/camera assertion도 통과했다.
 
 | 측정 | 결과 | 기준 |
 | --- | ---: | ---: |
-| command+validation p95 / 100회 | 1991.1957 ms | ≤100 ms, 실패 |
-| preview p95 / 100회 | 1774.2811 ms | ≤16 ms, 실패 |
+| command+validation p95 / 100회 | 2432.5559 ms | ≤100 ms, 실패 |
+| preview p95 / 100회 | 1822.4468 ms | ≤16 ms, 실패 |
 | editor open / closed idle | 각각 0 B/frame | 0 B |
 | 동일 preview cache | 0 B/call | 0 B |
-| fixture import | 4134.1708 ms | 측정 보고 |
+| fixture import | 4947.4441 ms | 측정 보고 |
 
-Smoke는 기능 검증과 PNG/JSON 저장 뒤 지연 기준 실패로 exit 1을 반환했다.
+Smoke는 기능 검증과 PNG/JSON 저장 뒤 `Editor latency budget exceeded.`를 출력해 지연 검증에 실패했다.
 
 PNG와 JSON은 ignored artifacts이며 커밋하지 않는다. 검토 범위는 selected/mounted desk 네 방향, valid/invalid ghost, lone chair/computer, designated/cleared seat, linked duplicate, two-edge wall, invalid draft, grouped validation, 실제 fixture thumbnail이 있는 import 성공과 palette 오류 실패다. 장면·dialog는 1x/2x/3x, panel은 일반 글자와 200% 글자 top/bottom을 캡처한다. Seed 42, epoch `2026-10-04T00:00:00Z`, .NET 10.0.11, 논리 프로세서 18개, Debug build다. Dialog 확대는 native layout을 유지한 96/192/288 DPI offscreen bitmap이며 실제 모니터 DPI 검증은 아니다.
 
 측정은 34-object/12-seat fixture에서 command+Validate 100회와 서로 다른 Move preview 100회다. 마스크/기본 검증을 warmup하고 p95를 계산한다. Idle은 같은 scene Present open/closed 각 1,000회와 같은 preview 1,000회의 thread managed allocation이다. 기존 임계값을 높이거나 검증하는 캐릭터·phase·frame 범위를 줄이지 않았다. 지연의 주요 비용은 장면 순서 검증이며 효과 없는 최적화 실험은 최종 코드에서 제거했다.
+
+재현은 worktree의 TEMP/TMP를 `artifacts/tmp`로 지정하고 `VIBEDOTCOM_ISO_EDITOR_SMOKE=1`로 설정한 뒤 App에 `--demo --view iso --home <synthetic-home> --smoke-test <synthetic-output>`을 전달한다. Seed/epoch/hash와 각 PNG 경로는 결과 JSON에 기록된다. Tracker watcher는 기존 비활성 옵션을 사용했다. Editor 코드에 새 timer/watcher는 없으며 editor open idle에서 overlay rebuild와 animation timer 추가가 없음을 검사했다. OS watcher 수나 minimized 상태의 idle을 계측한 결과는 아니다.
 
 ## 빌드·suite와 미검증 항목
 
@@ -69,12 +71,12 @@ PNG와 JSON은 ignored artifacts이며 커밋하지 않는다. 검토 범위는 
 
 | 파일 | 9cec3a9 대비 변경 member |
 | --- | --- |
-| `src/Vibedotcom.App/AppStorage.cs` | constructor의 trailing isolatedHome과 Home 결정식 |
-| `src/Vibedotcom.App/IsoApplication.cs` | Run의 real editor smoke 및 measurement 경로. Prepare의 기존 resolver는 실제 Composition을 사용한다. |
-| `src/Vibedotcom.App/IsoView.cs` | Present의 editor-only revision ack/status 갱신 한 hunk |
-| `src/Vibedotcom.App/Program.Iso.cs` | IsoWindow.PrivacyOffice helper와 SetPrivacy의 해당 호출 |
-| `src/Vibedotcom.App/IsoView.Editor.cs` | EditorHit/Enter의 authoritative draft scene 호출; 기존 EditorRenderBounds를 internal로 열어 QA도 실제 marker 범위 사용 |
-| `src/Vibedotcom.App/IsoWindow.Editor.cs` | PackChanged에서 사전 decode한 CommittedSheets 사용 |
-| `src/Vibedotcom.Core/Iso/IsoOffice.Editor.cs` | ApplyEditorState/CompleteEditorSwap revision ack, PreviewEditorPack/UpdateEditorPack, GetEditorSeatStatus |
+| `src/Vibedotcom.App/AppStorage.cs` | 16: constructor의 trailing isolatedHome과 Home 결정식 |
+| `src/Vibedotcom.App/IsoApplication.cs` | 24: Run의 real editor smoke 및 measurement 경로. 42: Prepare의 기존 resolver는 실제 Composition을 사용한다. |
+| `src/Vibedotcom.App/IsoView.cs` | 125: Present의 editor-only revision ack/status 갱신 한 hunk |
+| `src/Vibedotcom.App/Program.Iso.cs` | 24: IsoWindow.PrivacyOffice helper; 49: SetPrivacy의 해당 호출 |
+| `src/Vibedotcom.App/IsoView.Editor.cs` | 25: EditorRenderBounds를 internal로 열어 QA도 실제 marker 범위 사용; 64/133: EditorHit/Enter의 authoritative draft scene 호출 |
+| `src/Vibedotcom.App/IsoWindow.Editor.cs` | 75: PackChanged에서 사전 decode한 CommittedSheets 사용 |
+| `src/Vibedotcom.Core/Iso/IsoOffice.Editor.cs` | 23/192: ApplyEditorState/CompleteEditorSwap revision ack; 46/53: UpdateEditorPack/PreviewEditorPack; 67: GetEditorSeatStatus |
 
 Core Editing API·implementation, IsoEditor App 파일, spec/lanes/objects 문서와 editor tests도 함께 합친다. IsoWindow.cs, Models/Office/OfficeView/Settings/Tracker/Program.cs와 shipped art/pack에는 변경이 없다. Interface 추가와 test-only fake 이동을 분리해 합치면 구현체 컴파일 오류가 날 수 있다. 전체 suite 차단과 U008 지연 실패를 해결하기 전 전체 수락이나 출시 가능 상태로 표시하면 안 된다. 긴 synthetic 출력 경로의 초기 smoke는 unused import에서 실패했으며 원인은 확정하지 못했다; 짧은 root의 성공만 증거로 사용했다.
