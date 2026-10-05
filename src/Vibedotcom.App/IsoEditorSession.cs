@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Threading;
 using Vibedotcom.Core;
 using Vibedotcom.Core.Iso;
 using Vibedotcom.Core.Iso.Editing;
@@ -44,8 +45,12 @@ internal sealed class IsoEditorSession
     internal PrivacyMode Privacy { get; set; }
     internal event Action? Changed;
     internal event Action<IsoPack>? PackChanged;
+    internal event Action? SeatStatusChanged;
+    internal ImmutableArray<IsoEditorSeatStatus> SeatStatus { get; private set; } = [];
     // Must preflight and commit editor/runtime/sheets as one transaction. Supplied by the merge composition.
-    internal Func<IsoPack,IsoCustomObjectCatalog,ImmutableArray<IsoValidationIssue>>? CommitPack { get; init; }
+    internal Func<IsoCustomObjectPlan,CancellationToken,IsoCustomObjectResult>? CommitPack { get; init; }
+    internal IIsoSheetSource? CommittedSheets { get; private set; }
+    private long applyingRevision;
     internal Func<IsoLayout,IsoPixel,double,double,Tile?> PickTile { get; init; } = IsoHitTest.PickTile;
     internal Func<IsoPack,IsoLayout,IsoScene,int,int,IsoHit?> HitTest { get; init; } = IsoHitTest.HitTest;
     internal string LayoutPath => Path.Combine(Paths.RootDirectory,"iso-layout.json");
@@ -64,7 +69,22 @@ internal sealed class IsoEditorSession
         documentIssues=Issues.Where(i=>i.RuleId.StartsWith("L",StringComparison.Ordinal)).ToImmutableArray();
     }
 
-    internal void BindRuntime(IIsoEditorRuntime? runtime) => Runtime=runtime;
+    internal void BindRuntime(IIsoEditorRuntime? runtime)
+    {
+        Runtime=runtime;
+        if (runtime!=null && Applying)
+        {
+            var issues=runtime.ApplyEditorState(Editor.State);
+            Applying=!issues.Any(i=>i.Severity==IsoIssueSeverity.Error) && runtime.AppliedEditorRevision<applyingRevision;
+        }
+        RefreshSeatStatus();
+    }
+    internal void RefreshSeatStatus()
+    {
+        var status=Runtime?.GetEditorSeatStatus() ?? [];
+        if (status==SeatStatus) return;
+        SeatStatus=status; SeatStatusChanged?.Invoke();
+    }
     internal Settings Enter(Settings configured)
     {
         if (!Editing) { RestoreSettings=configured; Editing=true; }
@@ -101,8 +121,8 @@ internal sealed class IsoEditorSession
         else PreviewCursor();
     }
     internal IEnumerable<IsoEditableAsset> Search(string query) => Editor.Palette.Where(a=>
-        (Privacy==PrivacyMode.Off || !a.AssetId.StartsWith("user/",StringComparison.Ordinal)) && a.Title.Contains(query,StringComparison.OrdinalIgnoreCase) || a.Kind.Contains(query,StringComparison.OrdinalIgnoreCase) ||
-        a.AssetId.Contains(query,StringComparison.OrdinalIgnoreCase));
+        (Privacy==PrivacyMode.Off || !a.AssetId.StartsWith("user/",StringComparison.Ordinal)) &&
+        (a.Title.Contains(query,StringComparison.OrdinalIgnoreCase) || a.Kind.Contains(query,StringComparison.OrdinalIgnoreCase) || a.AssetId.Contains(query,StringComparison.OrdinalIgnoreCase)));
     internal string IssueText(IsoValidationIssue issue) => Privacy!=PrivacyMode.Off && issue.RuleId is "C009" or "O009" ?
         "Local operation failed; details hidden by privacy." : issue.Message;
     internal IsoPlacement? SelectedFloor => Editor.State.Layout.Furniture.FirstOrDefault(f=>f.Id==Selection);
@@ -163,7 +183,8 @@ internal sealed class IsoEditorSession
             {
                 // Invalid drafts also cancel a pending live swap, through the runtime contract.
                 Issues=Issues.AddRange(Runtime.ApplyEditorState(result.State)).Distinct().ToImmutableArray();
-                Applying=!HasErrors;
+                applyingRevision=result.State.Revision;
+                Applying=!HasErrors && Runtime.AppliedEditorRevision<applyingRevision;
             }
             if (!HasErrors) LastValidLayout=result.State.Layout;
         }
@@ -179,7 +200,7 @@ internal sealed class IsoEditorSession
         if (SeatComputerId!=null && !layout.Furniture.Any(f=>f.Id==SeatComputerId)) SeatComputerId=null;
     }
     internal void LiveApplied(IsoLayout layout)
-    { if (Applying && ReferenceEquals(layout,LastValidLayout)) { Applying=false; Notify(); } }
+    { if (Applying && Runtime?.AppliedEditorRevision>=applyingRevision) { Applying=false; Notify(); } }
     internal void Validate() { Issues=Editor.Validate(); documentIssues=Issues; Notify(); }
     internal void Report(ImmutableArray<IsoValidationIssue> issues) { Issues=issues; Notify(); }
     internal void Undo() => Accept(Editor.Undo());
@@ -267,21 +288,11 @@ internal sealed class IsoEditorSession
             var issue=new IsoValidationIssue("C006",IsoIssueSeverity.Error,"The edit would replace an occupied slot or lose an asset reference.",[id]);
             Report([issue]); return new(false,Catalog,[issue]);
         }
-        var result=Importer.Remove(new(id,Paths,Catalog,references));
-        if (result.Succeeded)
-        {
-            var merge=Importer.Merge(BuiltInPack,result.Catalog);
-            if (merge.Succeeded && merge.Pack!=null)
-            {
-                var issues=CommitPack(merge.Pack,result.Catalog);
-                if (!issues.Any(i=>i.Severity==IsoIssueSeverity.Error)) AdoptPack(merge.Pack,result.Catalog);
-                else result=new(false,Catalog,issues);
-            }
-            else result=new(false,Catalog,merge.Issues);
-        }
+        var plan=Importer.PrepareRemove(new(id,Paths,Catalog,references,BuiltInPack));
+        var result=CommitPack(plan,CancellationToken.None);
         Report(result.Issues); return result;
     }
-    internal void AdoptPack(IsoPack pack,IsoCustomObjectCatalog catalog)
-    { Pack=pack; Catalog=catalog; PackChanged?.Invoke(pack); Notify(); }
+    internal void AdoptPack(IsoPack pack,IsoCustomObjectCatalog catalog,IIsoSheetSource? sheets=null)
+    { Pack=pack; Catalog=catalog; CommittedSheets=sheets; Cancel(false); PackChanged?.Invoke(pack); Notify(); }
     private void Notify() => Changed?.Invoke();
 }

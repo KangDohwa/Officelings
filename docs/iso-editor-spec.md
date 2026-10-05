@@ -1,6 +1,6 @@
 # Isometric office editor contract
 
-Status: implementation handoff, editor contract 1, base `aac0f05`. The API is a compiling stub; skipped tests describe acceptance, not implemented behavior. Section numbers and rule IDs are stable. [Lane ownership](iso-editor-lanes.md) is part of this contract.
+Status: integration contract 1.1, merged implementation base `9cec3a9`. Section numbers and rule IDs are stable. Supervisor-approved additive APIs are listed in §7.5. [Lane ownership](iso-editor-lanes.md) is part of this contract. Skipped tests remain unverified acceptance criteria.
 
 ## 1. Scope and terminology
 
@@ -83,7 +83,7 @@ For an edited occupied desk, finish its authored raise sequence against the curr
 
 ### 4.1 Command semantics
 
-Expected user errors return IsoEditResult/Issue; no expected command error escapes as an exception. The only deliberate exceptions in this lane are `NotImplementedException` from stubs. Result State is always the owned current snapshot. Succeeded means the command was accepted; Changed means document content changed. PrimaryTargetId selects the new/existing root or decor assembly. An accepted navigation-invalid draft has Succeeded=true and Error issues; callers must inspect issues before runtime reload or Save.
+Expected user errors return IsoEditResult/Issue; no expected command error escapes as an exception. Result State is always the owned current snapshot. Succeeded means the command was accepted; Changed means document content changed. PrimaryTargetId selects the new/existing root or decor assembly, including a newly mounted computer's desk root. An accepted navigation-invalid draft has Succeeded=true and Error issues; runtime receives it to cancel pending publication, and Save rejects it.
 
 Every mutation builds one candidate, aggregates §5, rejects structural errors L001–L011, L015–L017, L019 and all C preconditions without altering snapshot/history, and permits only navigation errors **L012–L014, L018** in a draft. Invalid candidate preview is still returned for a red ghost. Validate/Save/runtime reject every Error. Dependent checks on an unknown variant/ID are suppressed rather than throwing; unrelated checks continue. Constructor retains a deep-copied invalid draft for Validate; editing a legacy wrong-size document reports L002.
 
@@ -158,7 +158,7 @@ Nonblocking footprints may overlap blocking footprints unless L007/L008 or a mou
 
 Coordinates passed to Core are **native scene pixels** (same space as IsoDrawItem). UI removes the current physical camera/DPI/zoom transform exactly once. `PickTile` subtracts the builder's native Camera, applies `IsoGeometry.Inverse/Snap/Owns`, rejects out-of-bounds/void; half-open ownership resolves shared edges. Ground placement never inverses an elevated sprite's top pixel.
 
-`IsoHitTest.HitTest` scans the **published scene list in reverse order**, not a re-sort of numeric Depth; footprint/support ordering can make encoded Depth nonmonotonic. Test exact decoded source clip alpha with effective alpha `sourceAlpha*item.Alpha >= 32*255` (same as IsoPack.Opaque). Skip floor/shadow, actor/pet/labels/ghost/handles and authored HoverPassthrough; opaque fixed walls stop a search. Use layout/pack part metadata for passthrough and target ownership, not alpha bounding-box guesses or `InstanceId.Split('/')` heuristics. Linked chair/computer targets resolve to root; wall edges resolve to assemblyId. Foreground furniture without a target blocks lower hits. UI hit handles win before Core selection.
+`IsoHitTest.HitTest` scans the **supplied authoritative scene list in reverse order**, not a re-sort of numeric Depth; footprint/support ordering can make encoded Depth nonmonotonic. Editor UI obtains that scene from `IIsoEditor.GetPickingScene(camera)` for the current draft, including invalid or runtime-pending drafts. It never combines a new draft with stale live furniture. Test exact decoded source clip alpha with effective alpha `sourceAlpha*item.Alpha >= 32*255` (same as IsoPack.Opaque). Skip floor/shadow, actor/pet/labels/ghost/handles and authored HoverPassthrough; opaque fixed walls stop a search. Use layout/pack part metadata for passthrough and target ownership, not alpha bounding-box guesses or `InstanceId.Split('/')` heuristics. Linked chair/computer targets resolve to root; wall edges resolve to assemblyId. Foreground furniture without a target blocks lower hits. UI hit handles win before Core selection.
 
 Preview computes the same candidate and validation as dispatch without committing. Show union of rotated **diamond footprint cells**, blocked cells hatched, approach points, seat ground, pelvis and two hands from canonical contacts and every authored interaction point. Green outline `#2E7D32` plus check and “Valid” for no Errors; red `#B3261E` plus cross and first rule/message for Errors; warnings amber `#8A5A00`. Navigation-invalid candidates are red with “Draft only; live office unchanged”, and can still be committed if only permissive rules fail. UI never relies on color alone. Ghost art uses the selected authored clips at 50% preview opacity without changing source bytes; it is an editor overlay, not a new world depth offset. Current document remains visible until a commit; invalid draft geometry is overlaid on the last valid office. Suppress repeated markers when no pointer/camera/selection/document change occurs.
 
@@ -206,6 +206,18 @@ The objects implementation uses only its public contracts plus existing pack typ
 
 UI combines `ReferencedAssetIds` from editor history/draft with last-valid runtime, saved layout and backup references; inability to read a persisted reference file blocks removal conservatively. Remove atomically drops an unused catalog entry, then cleans only its unreferenced hash directory after handle/readers permit it. Cleanup failure reports an O009 Warning and leaves inert files; never follows a link or deletes source artist files. Built-ins cannot be removed. Undo layout operations do not undo file installation/removal. Import is available while editor is open; serialized importer transactions prevent concurrent writers.
 
+### 7.5 Approved integration additions
+
+`ValidatePreview(path, CancellationToken)` returns immutable `IsoCustomValidationPreview`: validated display name, authored variant count, thumbnail PNG bytes, source identity hash and issues. Its opaque capture retains the exact validated manifest/PNG bytes. The trailing optional `IsoCustomImportRequest.VerifiedPreview` imports those bytes even if the source later changes; the dialog never rereads source art or metadata.
+
+`PrepareImport(request, CancellationToken)` and `PrepareRemove(request)` return opaque `IsoCustomObjectPlan` with proposed catalog, complete pack and issues, without disk writes. Removal's trailing optional `BuiltInPack` is required by integrated callers; legacy Remove wrappers may omit it. `Commit(plan, CancellationToken=default)` verifies the original catalog under the writer lock and publishes only after consumer preflight. Existing Import/Remove remain thin wrappers for local CLI/backwards compatibility. UI always uses the staged transaction.
+
+`IIsoEditor.PreviewPack(pack)` checks current, saved, default and Undo/Redo documents without mutation. `IIsoEditorRuntime.PreviewEditorPack(pack)` checks live/pending layouts and actor/pet assets. The composition point synchronously preflights both consumers and prepares sheet decoding before catalog publication, then adopts the same pack on the owning UI thread. No consumer revision may change between preflight and adoption. Failure or cancellation before publication retains catalog, editor, runtime, palette and selection. Same-hash re-import preserves files and consumer revisions.
+
+`IIsoEditor.GetPickingScene(camera)` supplies the cached authoritative current draft queue/masks, including navigation-invalid or runtime-pending drafts, in the live scene camera coordinates. HitTest never pairs a current draft with the previous published furniture queue. Preview candidates remain separate ghosts until committed.
+
+`IIsoEditorRuntime.GetEditorSeatStatus()` returns only immutable seat ID and `IsoEditorSeatOccupancy` (`Free`, `Assigned`, `Away`); no names or agent IDs. Status is transient and excluded from saved layout/history. `AppliedEditorRevision` acknowledges the last fully applied valid editor revision. UI clears Applying when this acknowledgement reaches its requested revision, independently of layout reference identity. Invalid drafts cancel pending swaps, never publish invalid geometry, leave the live valid layout running and immediately clear Applying.
+
 ## 8. WPF behavior and accessibility
 
 Add **Edit office** and **Done editing** to iso context/tray menus. Enter saves configured mode/click-through/border state, temporarily uses normal clickable mode, and attaches panel/overlay to the same office. Preserve selected name-tag and privacy modes, suppress detail tooltips, keep agents animating through §3.3. A required native window replacement carries office/editor history/decoded sheets into the new window. Exit detaches handlers, releases capture/ghost/selection, restores configured modes and disposes editor-only resources. Privacy-triggered cache replacement keeps the safe document/history but never stale agent text. No edit command changes settings except the existing explicit settings actions.
@@ -214,7 +226,7 @@ Panel order: tool row (Select/move, Place, Work position, Wall decor), search, o
 
 Selected floor assembly shows its diamond footprint, center drag handle and R action; wall shows host outline and edge count. Handle drag commits once on release, Esc cancels with no history; a rejected command leaves selection/document unchanged and lists issues. A linked-part hit selects root. Keyboard canvas cursor uses four grid directions; Enter selects/places, arrows move selected root one cell per keypress (one step), Tab traverses focus, Escape cancels tool/drag. Wall cursor advances host edges; Enter commits MoveWall/PlaceWall. R/Delete/Ctrl+D/Ctrl+Z/Ctrl+Y/Ctrl+S follow flat conventions; Ctrl+D on decor previews the next same-face host run, asks for a target by host cursor if blocked, then calls DuplicateWall. Shortcuts never intercept editable text or open-dialog typing. Expose buttons for every shortcut and editable coordinates for pointer-free placement.
 
-Import dialog selects a local `.iso.json`, previews display name/PNG/variant count, lists all errors/warnings with rule IDs, and enables Import only after successful pure validation. Actual Import validates the captured bytes again. No network picker, code execution or automatic download. Show successful thumbnail in palette; errors keep current catalog/pack/palette/selection. Manage lists user objects and “In use” reasons; removal calls the guarded contract.
+Import dialog selects a local `.iso.json`, previews verified display name/PNG/variant count/hash, lists all errors/warnings with rule IDs, and enables Import only after successful pure validation. PrepareImport consumes the opaque validated capture; staged installed bytes are verified again before publication. No network picker, code execution or automatic download. Show successful thumbnail in palette; errors keep current catalog/pack/palette/selection. Manage lists user objects and “In use” reasons; removal calls the guarded contract.
 
 Status lists all independent issues, navigable to an involved object/host; Save remains disabled for Errors but Validate is always available. Show last-valid versus draft state plainly. Both success and errors have text/icons; normal text contrast ≥4.5:1, control/selection outlines ≥3:1; visible focus outline. Use WPF AutomationProperties.Name/HelpText, accessible list counts and validation announcements. UI text follows system font/text scaling; panel scrolls at 200% text without hiding Save/Done. Art stays native pixels.
 
@@ -222,7 +234,9 @@ DPI/zoom/pan use the current IsoView.PhysicalCamera: integer physical translatio
 
 ## 9. Tests, QA and performance
 
-One skipped skeleton per rule and additional command-precondition cases lives in `IsoEditor*Tests.cs`; reasons name core/objects/ui. Implementation owners replace the body and remove Skip only when meaningful assertions pass. A placeholder throws if accidentally enabled. The fixture index under `tests/fixtures/iso-editor` names expected required issue IDs and how to load data. Valid JSON fixture is a complete editor layout; legacy and explicit-empty cases differ deliberately. Invalid fixtures are full documents, not patch fragments. Custom examples include tiny synthetic PNGs, valid source and invalid traversal/geometry/palette/namespace manifests. Fixture validity is a **future acceptance assertion**; base loader intentionally cannot activate isoEditorV1 until core implementation.
+U005 also asserts that out-of-room preview labels contribute to the editor bounds and remain inside the fitted camera. Offscreen captures use these same bounds, including negative marker coordinates.
+
+Rule assertions and command-precondition cases live in `IsoEditor*Tests.cs`. Implementation owners remove Skip only when meaningful assertions pass. The fixture index under `tests/fixtures/iso-editor` names expected required issue IDs and how to load data. Valid JSON fixtures are complete editor layouts; legacy and explicit-empty cases differ deliberately. Invalid fixtures are full documents, not patch fragments. Custom examples include tiny synthetic PNGs, valid source and invalid traversal/geometry/palette/namespace manifests. Integration 1.1 preserves layout/manifest versions and fixture bytes. The real offscreen runner executes the same U001–U007 assertion bodies as xUnit; U008 remains skipped while its unchanged latency targets fail. Full xUnit compilation/execution still requires a successful dependency restore. Actual integration evidence and remaining gates are recorded in [integration QA](iso-editor-integration.md).
 
 Unit checks cover exact command candidates, atomic groups/failures, input immutability, history branches/cap, every rule, all four front contacts, reserved aisles, safe save failures and corrupted PNG/catalog handling. Golden JSON checks canonical roundtrip, unchanged IDs/links/pixels, legacy inference/explicit-empty semantics and content hashes. No real source profiles are read. Existing flat and seated tests stay enabled; new fixtures never replace current pixel denominators or thresholds.
 
@@ -234,7 +248,7 @@ Performance gates apply to the **editor contribution**: closed editor has no tim
 
 | ID | UI/performance acceptance invariant |
 | --- | --- |
-| U001 | §6 published-mask, reverse-order, occlusion/root/handle hit tests. |
+| U001 | §6 authoritative draft mask, reverse-order, occlusion/root/handle hit tests. |
 | U002 | §6 pure exact-candidate ghosts, contact markers and valid/invalid text/colors. |
 | U003 | §8 entry/exit/replacement/privacy retains safe office/history and restores modes. |
 | U004 | §8 keyboard commands, focus order, text-box immunity and cancel behavior. |
@@ -243,7 +257,9 @@ Performance gates apply to the **editor contribution**: closed editor has no tim
 | U007 | §8 automation names, contrast, focus and 200% text access. |
 | U008 | §9 no editor work when closed, idle allocations/timers and measured latency budgets. |
 
-## 10. Existing differences implementation lanes must preserve
+## 10. Historical handoff differences and preserved constraints
+
+The differences below describe the original handoff. The merged base `9cec3a9` already supplies aggregate editor validation, explicit work seats, custom pack merging and the virtual computer adapter. Integration 1.1 connects them through the real storage resolver and composition; production and demo editor paths have no stub dependency. The legacy navigation, art, tracker and flat-mode constraints below still apply.
 
 The approved historical slice names three desks, while the shipped pack and IsoOffice default now have twelve; Reset uses the shipped pack. IsoLayoutLoader.Default remains a three-seat helper. Root schema stays version1 despite historical “v6” tracker plans; Tracker currently exports flat v5 and has no iso consumer. Do not add iso tracker publication in this editor task.
 

@@ -122,7 +122,7 @@ internal sealed partial class IsoView : FrameworkElement
         var geometryChanged=next.Width!=scene.Width || next.Height!=scene.Height;
         var tagsChanged=metadataChanged || TagGeometryChanged(next);
         scene=next;
-        if (Editing && office is IsoOffice live) editorSession!.LiveApplied(live.Layout);
+        if (Editing && office is IsoOffice live) { editorSession!.LiveApplied(live.Layout); editorSession.RefreshSeatStatus(); }
         if (people!=null) agents=people;
         RebuildScene(); if(tagsChanged) RebuildTags();
         if (geometryChanged) { UpdateCamera(); InvalidateVisual(); }

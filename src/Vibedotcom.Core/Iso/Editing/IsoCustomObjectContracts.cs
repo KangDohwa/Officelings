@@ -27,10 +27,10 @@ public sealed record IsoCustomObjectCatalog(ImmutableArray<IsoCustomObjectEntry>
 
 /// <summary>Spec §7.3: explicit local input/root/catalog and original built-in pack for merge preflight.</summary>
 public sealed record IsoCustomImportRequest(string ManifestPath, IsoEditorPaths Paths,
-    IsoCustomObjectCatalog Catalog, IsoPack BuiltInPack);
+    IsoCustomObjectCatalog Catalog, IsoPack BuiltInPack, IsoCustomValidationPreview? VerifiedPreview = null);
 /// <summary>Spec §7.4: caller supplies union of active, saved, backup, Undo and Redo asset references.</summary>
 public sealed record IsoCustomRemoveRequest(string AssetId, IsoEditorPaths Paths, IsoCustomObjectCatalog Catalog,
-    ImmutableArray<string> ReferencedAssetIds);
+    ImmutableArray<string> ReferencedAssetIds, IsoPack? BuiltInPack = null);
 /// <summary>Spec §7: failure retains original catalog; warnings accompany a successful import.</summary>
 public sealed record IsoCustomObjectResult(bool Succeeded, IsoCustomObjectCatalog Catalog,
     ImmutableArray<IsoValidationIssue> Issues, IsoCustomObjectEntry? Object = null);
@@ -40,6 +40,14 @@ public sealed record IsoPackMergeResult(bool Succeeded, IsoPack? Pack, Immutable
 /// <summary>Objects-lane service boundary; spec §7. Every expected input/I/O failure is a listed issue.</summary>
 public interface IsoCustomObjectImporter
 {
+    /// <summary>Spec §§7.2–7.3: capture once; metadata and thumbnail are derived from validated bytes.</summary>
+    IsoCustomValidationPreview ValidatePreview(string manifestPath, CancellationToken cancellationToken);
+    /// <summary>Spec §7.3: pure staged import; no disk publication or consumer mutation.</summary>
+    IsoCustomObjectPlan PrepareImport(IsoCustomImportRequest request, CancellationToken cancellationToken);
+    /// <summary>Spec §7.4: pure staged removal, with a complete reference union and built-in pack.</summary>
+    IsoCustomObjectPlan PrepareRemove(IsoCustomRemoveRequest request);
+    /// <summary>Spec §§7.3–7.4: publish only after consumer preflight; cancellation before publication fails.</summary>
+    IsoCustomObjectResult Commit(IsoCustomObjectPlan plan, CancellationToken cancellationToken = default);
     /// <summary>Spec §§7.1–7.2: pure bounded validation, with no installation or catalog writes.</summary>
     ImmutableArray<IsoValidationIssue> Validate(string manifestPath);
     /// <summary>Spec §7.3: stage PNG bytes unchanged, publish by content hash, then atomically update catalog.</summary>

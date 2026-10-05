@@ -1,5 +1,7 @@
 # Iso 편집기 UI 구현과 QA
 
+통합 lane은 기준 `9cec3a9`에서 아래 계약 변경 요청을 승인 범위대로 구현했다. 실제 서비스 구성, 현재 QA·측정·suite 결과는 [통합 QA](iso-editor-integration.md)를 따른다. 이 문서의 아래 기록은 통합 전 UI lane의 fake 기반 검증이며, 현재 demo smoke는 실제 서비스를 사용한다.
+
 작업 기준은 `210c9fd`, 브랜치는 `lane/edui`다. 공개 계약, Core/objects 구현, 원본 팩과 다른 lane 파일은 수정하지 않았다. 이 문서는 UI 구현 범위와 통합 전에 남은 작업을 기록한다.
 
 ## 구현 범위

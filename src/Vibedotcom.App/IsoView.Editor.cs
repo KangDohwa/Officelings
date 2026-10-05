@@ -22,7 +22,7 @@ internal sealed partial class IsoView
     internal bool Editing => editorSession!=null;
     internal IsoPixel EditorCamera => editorCameraOverride ?? (office is IsoOffice engine ? engine.Camera : new IsoPixel());
     private IsoPixel? editorCameraOverride;
-    private Rect EditorRenderBounds()
+    internal Rect EditorRenderBounds()
     {
         var bounds=new Rect(0,0,scene.Width,scene.Height);
         if (editorOverlay?.Bounds is {} markers && !markers.IsEmpty) bounds.Union(markers);
@@ -61,7 +61,7 @@ internal sealed partial class IsoView
     {
         var native=ScenePoint(dip);
         if (editorOverlay?.HitHandle(native)==true && editorSession?.Selection is {} selection) return new(selection,"handle");
-        return editorSession!.HitTest(editorSession.Pack,editorSession.Editor.State.Layout,scene,(int)Math.Floor(native.X),(int)Math.Floor(native.Y));
+        return editorSession!.HitTest(editorSession.Pack,editorSession.Editor.State.Layout,editorSession.Editor.GetPickingScene(EditorCamera),(int)Math.Floor(native.X),(int)Math.Floor(native.Y));
     }
     private void EditorMouseDown(object sender,MouseButtonEventArgs e)
     {
@@ -130,7 +130,7 @@ internal sealed partial class IsoView
         if (key==Key.Enter)
         {
             if (session.Pending!=null) session.CommitPreview();
-            else { var point=IsoEditorOverlay.Project(session.Cursor.X,session.Cursor.Y,0,EditorCamera); if (session.HitTest(session.Pack,session.Editor.State.Layout,scene,(int)point.X,(int)point.Y) is {} hit) { if (session.Tool==IsoEditorTool.WorkPosition) session.SeatPick(hit.TargetId); else session.Select(hit.TargetId); } }
+            else { var point=IsoEditorOverlay.Project(session.Cursor.X,session.Cursor.Y,0,EditorCamera); if (session.HitTest(session.Pack,session.Editor.State.Layout,session.Editor.GetPickingScene(EditorCamera),(int)point.X,(int)point.Y) is {} hit) { if (session.Tool==IsoEditorTool.WorkPosition) session.SeatPick(hit.TargetId); else session.Select(hit.TargetId); } }
             return true;
         }
         if (key==Key.R && session.Selection!=null) { session.RotateSelection(); return true; }

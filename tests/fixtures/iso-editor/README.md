@@ -1,5 +1,7 @@
 # Iso editor golden inputs
 
+Integration contract 1.1 keeps fixture JSON schemas and PNG bytes unchanged. Verified preview, staged publication, revision acknowledgement and draft picking are service APIs; they add no persisted fields. The valid test-crate source identity remains `88d16cbb12cbb96f98521eba4389d19d66789cca5395002227cb9d0dd91b1034`. Real-service acceptance uses these same inputs; see [integration QA](../../../docs/iso-editor-integration.md).
+
 `cases.json` is the case index. Paths are relative to this folder. All inputs are synthetic. Local .gitattributes pins JSON to LF and PNGs to binary so the byte-based content-hash golden is stable after Windows checkout. These are source acceptance fixtures for the implementation lanes, not evidence that the stub editor works.
 
 For `kind:layout`, load the embedded iso pack merged with an empty user catalog (including the objects lane's virtual `iso/computer` adapter), then parse the complete JSON using the new Core loader/aggregate validator. A valid file must produce no Error. An invalid file must include every `expectedRules` ID as an Error; additional independent Errors are allowed. Core owns layout files and enables the related skeletons. L019 graph/corrupted-part checks use constructed pack doubles rather than inventing layout part overrides.
