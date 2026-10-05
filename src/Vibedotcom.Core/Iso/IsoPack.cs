@@ -13,7 +13,7 @@ public sealed partial class IsoPack
     private readonly Dictionary<string, IsoPngMask> masks = new(StringComparer.Ordinal);
     private readonly Dictionary<(string Sheet, string Key), bool[]> changedFrames = [];
     private readonly Dictionary<(string Sheet, string Key), IsoBounds> opaqueBounds = [];
-    private readonly Dictionary<(string Sheet, string Key), bool[]> opaquePixels = [];
+    private readonly Dictionary<(string Sheet, string Key), ulong[]> opaquePixels = [];
     public IsoManifest Manifest { get; private set; } = null!;
     public IReadOnlyDictionary<string, byte[]> Images => images;
     private readonly Dictionary<string, byte[]> images = new(StringComparer.Ordinal);
@@ -325,12 +325,12 @@ public sealed partial class IsoPack
         {
             if (opaqueBounds.TryGetValue((sheetId, clipKey), out var bounds)) return bounds;
             var s = Sheet(sheetId); var c = Clip(sheetId, clipKey); var mask = masks[s.Id];
-            var pixels = new bool[s.CellW * s.CellH];
+            var stride = (s.CellW + 63) / 64; var pixels = new ulong[stride * s.CellH];
             var left = s.CellW; var top = s.CellH; var right = 0; var bottom = 0;
             for (var frame = 0; frame < c.Frames; frame++)
                 for (var y = 0; y < s.CellH; y++) for (var x = 0; x < s.CellW; x++)
                     if (mask.Alpha((c.Column + frame) * s.CellW + x, c.Row * s.CellH + y) >= 32)
-                    { pixels[y * s.CellW + x] = true; left = Math.Min(left, x); top = Math.Min(top, y); right = Math.Max(right, x + 1); bottom = Math.Max(bottom, y + 1); }
+                    { pixels[y * stride + x / 64] |= 1UL << (x % 64); left = Math.Min(left, x); top = Math.Min(top, y); right = Math.Max(right, x + 1); bottom = Math.Max(bottom, y + 1); }
             opaquePixels[(sheetId, clipKey)] = pixels;
             return opaqueBounds[(sheetId, clipKey)] = new(left, top, right, bottom);
         }
@@ -341,10 +341,23 @@ public sealed partial class IsoPack
         var l = Math.Max(a.X + ba.Left, b.X + bb.Left); var t = Math.Max(a.Y + ba.Top, b.Y + bb.Top);
         var r = Math.Min(a.X + ba.Right, b.X + bb.Right); var bottom = Math.Min(a.Y + ba.Bottom, b.Y + bb.Bottom);
         var wa = Sheet(a.SheetId).CellW; var wb = Sheet(b.SheetId).CellW;
-        bool[] pa, pb;
+        ulong[] pa, pb;
         lock (opaqueBounds) { pa = opaquePixels[(a.SheetId, a.Clip)]; pb = opaquePixels[(b.SheetId, b.Clip)]; }
-        for (var y = t; y < bottom; y++) for (var x = l; x < r; x++)
-            if (pa[(y - a.Y) * wa + x - a.X] && pb[(y - b.Y) * wb + x - b.X]) return true;
+        var sa = (wa + 63) / 64; var sb = (wb + 63) / 64;
+        static ulong Word(ulong[] pixels, int stride, int row, int x)
+        {
+            var column = x / 64; var shift = x % 64;
+            var bits = pixels[row * stride + column] >> shift;
+            if (shift != 0 && column + 1 < stride) bits |= pixels[row * stride + column + 1] << (64 - shift);
+            return bits;
+        }
+        for (var y = t; y < bottom; y++) for (var x = l; x < r; x += 64)
+        {
+            var bits = Word(pa, sa, y - a.Y, x - a.X) & Word(pb, sb, y - b.Y, x - b.X);
+            var remaining = r - x;
+            if (remaining < 64) bits &= (1UL << remaining) - 1;
+            if (bits != 0) return true;
+        }
         return false;
     }
     /// Pixel-based scheduling avoids redraws for repeated still phases without moving any anchors.
@@ -352,12 +365,16 @@ public sealed partial class IsoPack
     {
         if (clip.Frames == 1) return double.PositiveInfinity;
         var key = (sheetId, clip.Key);
-        if (!changedFrames.TryGetValue(key, out var changes))
+        bool[] changes;
+        lock (changedFrames)
         {
-            var s = Sheet(sheetId); changes = new bool[clip.Frames];
-            for (var k = 0; k < clip.Frames; k++) changes[k] = !masks[s.Id].EqualCells(s.CellW, s.CellH, clip.Row, clip.Column + k,
-                clip.Column + (k + 1) % clip.Frames);
-            changedFrames.Add(key, changes);
+            if (!changedFrames.TryGetValue(key, out changes!))
+            {
+                var s = Sheet(sheetId); changes = new bool[clip.Frames];
+                for (var k = 0; k < clip.Frames; k++) changes[k] = !masks[s.Id].EqualCells(s.CellW, s.CellH, clip.Row, clip.Column + k,
+                    clip.Column + (k + 1) % clip.Frames);
+                changedFrames.Add(key, changes);
+            }
         }
         var tick = Math.Max(0, (long)Math.Floor(elapsed * clip.Fps + 1e-9));
         var current = clip.Loop ? (int)(tick % clip.Frames) : (int)Math.Min(tick, clip.Frames - 1);
@@ -374,11 +391,16 @@ public sealed partial class IsoPack
         var s = Sheet(a.SheetId); var ca = Clip(a.SheetId, a.Clip); var cb = Clip(b.SheetId, b.Clip);
         return masks[s.Id].EqualCells(s.CellW, s.CellH, ca.Row, ca.Column + a.Frame, cb.Row, cb.Column + b.Frame);
     }
+    private readonly Dictionary<(string Sheet, string Clip, int Frame), int> headTops = [];
     internal int HeadTop(string sheetId, IsoClip c, int frame)
     {
-        var s = Sheet(sheetId);
-        for (var y = 0; y < s.CellH; y++) for (var x = 0; x < s.CellW; x++)
-            if (masks[s.Id].Alpha((c.Column + frame) * s.CellW + x, c.Row * s.CellH + y) > 0) return y;
-        return 21;
+        lock (headTops)
+        {
+            if (headTops.TryGetValue((sheetId, c.Key, frame), out var top)) return top;
+            var s = Sheet(sheetId);
+            for (var y = 0; y < s.CellH; y++) for (var x = 0; x < s.CellW; x++)
+                if (masks[s.Id].Alpha((c.Column + frame) * s.CellW + x, c.Row * s.CellH + y) > 0) return headTops[(sheetId, c.Key, frame)] = y;
+            return headTops[(sheetId, c.Key, frame)] = 21;
+        }
     }
 }

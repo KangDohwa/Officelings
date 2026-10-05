@@ -24,6 +24,9 @@ internal static class IsoEditorValidation
     {
         var errors = new List<IsoValidationIssue>();
         var furniture = l.Furniture ?? []; var walls = l.WallSegments ?? [];
+        // Reject resource limits before pairwise diagnostics or any scene/contact work.
+        if (furniture.Count > 1024 || walls.Count > 128 || IsoEditorDocument.Bytes(l).Length > IsoEditorDocument.MaxBytes)
+            return [Issue("L017", "Iso editor layout limits exceeded.")];
         var known = furniture.Select(f => f.Id).Concat(walls.Select(w => w.Id)).Concat(walls.Select(w => w.AssemblyId ?? "")).ToHashSet(StringComparer.Ordinal);
         void Add(string rule, string message, params string[] ids) => errors.Add(Issue(rule, message, ids.Where(known.Contains).ToArray()));
         var editor = l.EditorVersion != null || l.WorkSeats != null || l.RequiredCapabilities?.Contains("isoEditorV1") == true;
@@ -112,8 +115,7 @@ internal static class IsoEditorValidation
             l.Tiles != null && (l.Tiles.Count != 100 || l.Tiles.Any(t => t is not (0 or 1 or 2 or 255))))
             Add("L015", "Invalid iso tiles or required zones.");
         ValidateWalls(l, pack, errors);
-        if (furniture.Count > 1024 || walls.Count > 128 || IsoEditorDocument.Bytes(l).Length > IsoEditorDocument.MaxBytes)
-            Add("L017", "Iso editor layout limits exceeded.");
+
         if (l.WidthTiles == 10 && l.HeightTiles == 10)
         {
             var voids = (l.Tiles ?? []).Select((t, k) => (t, k)).Where(p => p.t is 0 or 255).Select(p => new Tile(p.k % 10, p.k / 10));
@@ -168,7 +170,9 @@ internal static class IsoEditorValidation
             { Invalid(w); continue; }
             if (w.HostId == null)
             {
-                if (walls.Count(h => h.HostId == null && h.Face == w.Face && h.Edge == w.Edge) > 1) Invalid(w);
+                var expected = (pack.Layout.WallSegments ?? []).FirstOrDefault(h => h.HostId == null && h.Face == w.Face && h.Edge == w.Edge);
+                if (expected == null || w.AssetId != expected.AssetId || w.State != expected.State ||
+                    walls.Count(h => h.HostId == null && h.Face == w.Face && h.Edge == w.Edge) > 1) Invalid(w);
                 continue;
             }
             var host = walls.FirstOrDefault(h => h.Id == w.HostId && h.HostId == null);
@@ -195,7 +199,7 @@ internal static class IsoEditorValidation
                 {
                     var clip = pack.Clip(p.SheetId, p.Animation ?? p.Clip!, p.Direction); var sheet = pack.Sheet(p.SheetId);
                     var d = p.DepthAnchor ?? clip.DepthAnchor; var a = p.Anchor ?? clip.Anchor ?? sheet.Anchor;
-                    if (d != null && (!double.IsFinite(d.Value.I) || !double.IsFinite(d.Value.J)) || !double.IsFinite(a.X) || !double.IsFinite(a.Y) ||
+                    if (d != null && (!double.IsFinite(d.Value.I) || !double.IsFinite(d.Value.J)) || !double.IsFinite(a.X) || !double.IsFinite(a.Y) || !IsoRenderBudget.AnchorFits(a, sheet.CellW, sheet.CellH) ||
                         p.IsoZOrder is < -512 or > 511 || p.SupportRank is < 0 or > 4 || !double.IsFinite(p.Opacity) || p.Opacity is < 0 or > 1 ||
                         p.Frame is {} frame && (frame < 0 || frame >= clip.Frames)) throw new InvalidDataException();
                 }
@@ -214,22 +218,8 @@ internal static class IsoEditorValidation
                 errors.Add(Issue("L017", "Iso editor layout limits exceeded."));
                 return;
             }
-            void Count(IsoScene s) { if (s.Items.Count > 4096) errors.Add(Issue("L017", "Iso editor layout limits exceeded.")); }
-            Count(builder.Build([]));
-            var seats = IsoEditorDocument.Seats(l).ToArray();
-            if (seats.Length == 0) return;
-            foreach (var design in pack.Characters)
-            foreach (var phase in new[] { "turn", "lower", "seated", "raise" })
-            for (var frame = 0; frame < (phase is "lower" or "raise" ? 4 : 1); frame++)
-            {
-                var poses = seats.Select(s => l.Furniture.First(f => f.Id == s.DeskId)).Select((f, k) =>
-                {
-                    var c = IsoContacts.Desk(f.X, f.Y, f.Rotation);
-                    return new IsoActorPose("editor-probe-" + k, design.Id, "", new(c.Approach.X, c.Approach.Y), c.Facing,
-                        phase == "lower" ? "sit-down" : phase == "raise" ? "stand-up" : "typing", 0, f.Id, phase, frame);
-                }).ToArray();
-                Count(builder.Build(poses));
-            }
+            var empty = builder.Build([]);
+            IsoEditorSceneValidation.ValidateAssemblies(l, pack, empty.Items.Count, errors);
         }
         catch (Exception e) when (e is InvalidDataException or ArgumentException or KeyNotFoundException or InvalidOperationException or OverflowException)
         {

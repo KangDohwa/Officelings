@@ -7,9 +7,9 @@ using Xunit;
 
 namespace Vibedotcom.Tests;
 
+[Collection("Iso assets")]
 public sealed class IsoEditorUiTests
 {
-    private const string Unverified="Real-service U008 latency exceeds 100ms/16ms; xUnit restore also blocked by NU1301.";
     private static void Sta(Action action)
     {
         Exception? error=null; var thread=new Thread(()=> { try {action();} catch(Exception e) {error=e;} });
@@ -27,7 +27,7 @@ public sealed class IsoEditorUiTests
     [Fact] public void U005_DpiCameraZoomPanAndBounds() => Verify(5);
     [Fact] public void U006_SearchPaletteAndTransactionalImportDialog() => Verify(6);
     [Fact] public void U007_AutomationContrastAndScaledText() => Verify(7);
-    [Fact(Skip=Unverified)]
+    [Fact]
     public void U008_ClosedIdleWorkAndMeasuredBudgets() => Sta(()=>
     {
         using var temp=new IsoEditorCoreFixture.Temp();

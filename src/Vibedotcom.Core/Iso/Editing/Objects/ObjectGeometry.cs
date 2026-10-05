@@ -64,7 +64,7 @@ internal static class ObjectGeometry
     }
     private static bool Depth(IsoGridPoint? d, IsoCustomFurnitureVariant v) => d is {} p && double.IsFinite(p.I) && double.IsFinite(p.J) &&
         p.I >= -.5 && p.I <= v.FootprintW - .5 && p.J >= -.5 && p.J <= v.FootprintH - .5;
-    private static bool Anchor(PixelPoint? a, IsoSheet s) => ObjectSource.Integer(a) && a!.X is >= int.MinValue and <= int.MaxValue && a.Y is >= int.MinValue and <= int.MaxValue;
+    private static bool Anchor(PixelPoint? a, IsoSheet s) => ObjectSource.Integer(a) && a!.X is >= int.MinValue and <= int.MaxValue && a.Y is >= int.MinValue and <= int.MaxValue && IsoRenderBudget.AnchorFits(a, s.CellW, s.CellH);
     private static void ValidatePart(IsoPart p, bool shadow, IsoCustomFurnitureVariant v, Dictionary<string, IsoSheet> sheets,
         IReadOnlyDictionary<string, ObjectPng> pixels, HashSet<(long X, long Y)> occupied, ObjectIssues issues, string asset)
     {
@@ -78,7 +78,7 @@ internal static class ObjectGeometry
             !double.IsFinite(p.Opacity) || p.Opacity is < 0 or > 1 || p.Frame is {} f && (f < 0 || f >= c.Frames) ||
             !Anchor(anchor, s) || p.Anchor != null && c.Anchor != null && p.Anchor != c.Anchor ||
             p.AnchorChecks != null && c.AnchorChecks != null && !p.AnchorChecks.SequenceEqual(c.AnchorChecks)) issues.Add("O007", asset);
-        if (!pixels.TryGetValue(s.Id, out var png) || s.CellW is < 1 or > 512 || s.CellH is < 1 or > 512 || !Bounds(s, c, png) || !Anchor(anchor, s)) return;
+        if (!pixels.TryGetValue(s.Id, out var png) || s.CellW is < 1 or > 512 || s.CellH is < 1 or > 512 || !Bounds(s, c, png) || !Anchor(anchor, s) || p.Frame is {} selected && (selected < 0 || selected >= c.Frames)) return;
         if (!Checks(s, c, png, p.AnchorChecks)) issues.Add("O007", asset);
         if (shadow) return;
         var own = new HashSet<(long X, long Y)>();

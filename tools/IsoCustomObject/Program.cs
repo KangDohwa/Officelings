@@ -2,6 +2,11 @@ using System.Collections.Immutable;
 using Vibedotcom.Core.Iso;
 using Vibedotcom.Core.Iso.Editing;
 
+if (!OperatingSystem.IsWindows())
+{
+    Console.Error.WriteLine("IsoCustomObject requires Windows: local file boundary protection is Windows-only.");
+    return 2;
+}
 // Local-only CLI; no profile lookup, implicit catalog root, pack builder or network input.
 if (args.Length is < 2 or > 3 || args[0] is not ("validate" or "import" or "catalog") ||
     args[0] == "validate" && args.Length != 2 || args[0] == "import" && args.Length != 3 || args[0] == "catalog" && args.Length != 2)

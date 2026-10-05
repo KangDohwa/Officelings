@@ -122,6 +122,7 @@ public sealed partial class IsoOffice : IIsoOffice, Editing.IIsoEditorRuntime
         RefreshPetPoses(); scene = builder.BuildWithPets(poses, petPoses, time);
         if (editorSceneOffset != 0) scene = scene with { Revision = scene.Revision + editorSceneOffset };
         next = Math.Min(next, builder.NextChangeSeconds);
+        if (editorPetRetreats.Count > 0) next = Math.Min(next, 1d / 30);
         if(petsEnabled) foreach (var pet in pets) next = Math.Min(next,pet.Action == "walk" ? 1d / 30 : pet.Remaining);
         NextChangeSeconds = Math.Max(0, next); nextDue = time + NextChangeSeconds;
         return scene;
