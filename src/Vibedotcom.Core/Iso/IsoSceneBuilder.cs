@@ -14,6 +14,7 @@ public sealed partial class IsoSceneBuilder
     private readonly IsoLayout layout;
     private readonly List<Entry> staticItems = [];
     private readonly List<Entry> work = [];
+    private readonly List<int> animatedParts = [];
     private readonly List<IsoLabel> labels = [];
     private readonly Dictionary<string, (IsoPlacement Placement, IsoSeatProfile Profile)> seats = new(StringComparer.Ordinal);
     private readonly List<(IsoPlacement Placement, IsoPart Part)> screens = [];
@@ -31,6 +32,7 @@ public sealed partial class IsoSceneBuilder
     internal IsoSceneBuilder(IsoPack pack, IsoLayout layout, bool validate)
     {
         this.pack = pack; this.layout = validate ? IsoLayoutLoader.Validate(layout, pack) : layout;
+        enabledSeats = layout.WorkSeats?.Select(s => s.DeskId).ToHashSet(StringComparer.Ordinal);
         furnitureOrder = new(pack, layout);
         foreach (var f in layout.Furniture)
         {
@@ -45,9 +47,10 @@ public sealed partial class IsoSceneBuilder
         foreach (var e in staticItems)
         {
             var s = pack.Sheet(e.Item.SheetId);
-            bounds = bounds.Include(new(e.Item.X, e.Item.Y, e.Item.X + s.CellW, e.Item.Y + s.CellH));
+            bounds = bounds.Include(new(e.Item.X, e.Item.Y, checked(e.Item.X + s.CellW), checked(e.Item.Y + s.CellH)));
         }
-        camera = new(8 - bounds.Left, 8 - bounds.Top); width = bounds.Width + 16; height = bounds.Height + 16;
+        IsoRenderBudget.Check(bounds.Left, bounds.Top, (long)bounds.Right + 16, (long)bounds.Bottom + 16);
+        camera = new(checked(8 - bounds.Left), checked(8 - bounds.Top)); width = checked(bounds.Width + 16); height = checked(bounds.Height + 16);
         for (var k = 0; k < staticItems.Count; k++) staticItems[k] = staticItems[k] with
         { Item = staticItems[k].Item with { X = staticItems[k].Item.X + camera.X, Y = staticItems[k].Item.Y + camera.Y } };
         CacheSeatChairs();
@@ -130,21 +133,28 @@ public sealed partial class IsoSceneBuilder
             groundDepth = seat.Placement.X + seat.Placement.Y + seat.Profile.SeatGround.I + seat.Profile.SeatGround.J;
         AddStatic(f.Id, layer, p.SheetId, c, f.X, f.Y, pass, p.IsoZOrder != 0 ? p.IsoZOrder : c.IsoZOrder,
             p.PartId ?? c.PartId ?? c.Key, groundDepth, p.HitTargetId ?? c.HitTargetId ?? (layer == IsoLayer.Furniture ? f.DeskId ?? f.Id : null),
-            p.Anchor, p.HoverPassthrough);
+            p.Anchor, p.HoverPassthrough, p.Frame ?? 0, (byte)Math.Round(p.Opacity * 255));
+        if (p.Frame == null && c.Frames > 1) animatedParts.Add(staticItems.Count - 1);
     }
     private void AddStatic(string id, IsoLayer layer, string sheet, IsoClip clip, double i, double j,
-        IsoPass pass, int rank, string part, double? depth = null, string? target = null, PixelPoint? sourceAnchor = null, bool passthrough = false)
+        IsoPass pass, int rank, string part, double? depth = null, string? target = null, PixelPoint? sourceAnchor = null, bool passthrough = false, int frame = 0, byte alpha = 255)
     {
         var s = pack.Sheet(sheet); var a = sourceAnchor ?? clip.Anchor ?? clip.EdgeAnchor ?? s.Anchor; var ground = IsoGeometry.Ground(i, j);
         var key = new IsoDepthKey(pass, depth ?? i + j, rank, id, part);
-        staticItems.Add(new(new(id + "/" + part, layer, sheet, clip.Key, 0, ground.X - (int)a.X + (int)(clip.FootOffset?.X ?? 0),
-            ground.Y - (int)a.Y + (int)(clip.FootOffset?.Y ?? 0), key.Encoded, target), key, passthrough));
+        staticItems.Add(new(new(id + "/" + part, layer, sheet, clip.Key, frame, checked(ground.X - checked((int)a.X) + checked((int)(clip.FootOffset?.X ?? 0))),
+            checked(ground.Y - checked((int)a.Y) + checked((int)(clip.FootOffset?.Y ?? 0))), key.Encoded, target, alpha), key, passthrough));
     }
     public IsoScene Build(IReadOnlyList<IsoActorPose> actors, IsoCatPose? cat = null, double elapsedSeconds = 0) =>
         BuildWithPets(actors, cat == null ? [] : [new("iso/cat", cat.Position, cat.Facing, cat.Action, cat.ElapsedSeconds)], elapsedSeconds);
     public IsoScene BuildWithPets(IReadOnlyList<IsoActorPose> actors, IReadOnlyList<IsoPetPose> pets, double elapsedSeconds = 0)
     {
         work.Clear(); work.AddRange(staticItems); labels.Clear(); NextChangeSeconds = double.PositiveInfinity;
+        foreach (var slot in animatedParts)
+        {
+            var entry = work[slot]; var item = entry.Item; var clip = pack.Clip(item.SheetId, item.Clip);
+            work[slot] = entry with { Item = item with { Frame = FrameAt(clip, elapsedSeconds) } };
+            NextChangeSeconds = Math.Min(NextChangeSeconds, pack.NextFrameChange(item.SheetId, clip, elapsedSeconds));
+        }
         foreach (var (f, original) in screens)
         {
             var owner = actors.FirstOrDefault(a => a.DeskId == (f.DeskId ?? f.Id));
@@ -196,7 +206,7 @@ public sealed partial class IsoSceneBuilder
     {
         var s = pack.Sheet(sheetId); var a = clip.Anchor ?? clip.EdgeAnchor ?? s.Anchor; var key = new IsoDepthKey(pass, depth, rank, id, part);
         var frame = frameOverride ?? FrameAt(clip, elapsed);
-        var dest = destination ?? new IsoPixel(ground.X - (int)a.X + (int)(clip.FootOffset?.X ?? 0), ground.Y - (int)a.Y + (int)(clip.FootOffset?.Y ?? 0));
+        var dest = destination ?? new IsoPixel(checked(ground.X - checked((int)a.X) + checked((int)(clip.FootOffset?.X ?? 0))), checked(ground.Y - checked((int)a.Y) + checked((int)(clip.FootOffset?.Y ?? 0))));
         work.Add(new(new(id + "/" + part, layer, sheetId, clip.Key, frame, dest.X + camera.X, dest.Y + camera.Y, key.Encoded, target, alpha), key));
         if (frameOverride == null) NextChangeSeconds = Math.Min(NextChangeSeconds, pack.NextFrameChange(sheetId, clip, elapsed));
     }

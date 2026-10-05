@@ -22,6 +22,7 @@ internal sealed partial class IsoView
     internal bool Editing => editorSession!=null;
     internal IsoPixel EditorCamera => editorCameraOverride ?? (office is IsoOffice engine ? engine.Camera : new IsoPixel());
     private IsoPixel? editorCameraOverride;
+    private long editorPresentedRevision = -1;
     internal Rect EditorRenderBounds()
     {
         var bounds=new Rect(0,0,scene.Width,scene.Height);
@@ -39,7 +40,7 @@ internal sealed partial class IsoView
         AutomationProperties.SetName(this,"Iso editor canvas"); AutomationProperties.SetHelpText(this,"Arrows move one grid cell; Enter selects or places; Escape cancels.");
         session.Changed+=RefreshEditor; PreviewMouseDown+=EditorMouseDown; PreviewMouseMove+=EditorMouseMove;
         PreviewMouseUp+=EditorMouseUp; PreviewKeyDown+=EditorKeyDown; LostMouseCapture+=EditorCaptureLost;
-        HideTooltip(); RefreshEditor();
+        editorPresentedRevision = -1; HideTooltip(); RefreshEditor();
     }
     internal void DetachEditor()
     {
@@ -51,7 +52,13 @@ internal sealed partial class IsoView
         editorSession=null; editorOverlay=null; editorCameraOverride=null; Focusable=false;
     }
     private void RefreshEditor()
-    { editorOverlay?.Rebuild(editorSession!,sheets,EditorCamera); UpdateCamera(); }
+    {
+        editorOverlay?.Rebuild(editorSession!,sheets,EditorCamera); UpdateCamera();
+        if (editorSession == null || editorPresentedRevision == editorSession.Editor.State.Revision) return;
+        editorPresentedRevision = editorSession.Editor.State.Revision;
+        if (office.NextChangeSeconds == 0) AdvanceTo(agents,clock.GetUtcNow());
+        else ScheduleAnimation(clock.GetUtcNow());
+    }
     private Tile? EditorTile(Point dip)
     {
         var native=ScenePoint(dip);
@@ -94,12 +101,15 @@ internal sealed partial class IsoView
         else if (editorSession!.Tool==IsoEditorTool.Place && EditorTile(point) is {} cursor && cursor!=editorSession.Cursor) editorSession.SetCursor(cursor);
         else if (editorSession.Tool==IsoEditorTool.WallDecor) PickHost(point);
     }
-    private string? PickHost(Point point)
+    internal string? PickHost(Point point)
     {
-        // Host cursor is ground/edge based; never inverse an elevated wall top pixel.
-        var native=ScenePoint(point); var ground=IsoGeometry.Inverse(native.X-EditorCamera.X,native.Y-EditorCamera.Y);
-        var host=System.Linq.Enumerable.MinBy(System.Linq.Enumerable.Where(editorSession!.Editor.State.Layout.WallSegments ?? [],w=>w.HostId==null),
-            w=>Math.Abs(w.Edge.I-ground.I)+Math.Abs(w.Edge.J-ground.J));
+        // Horizontal projection identifies a fixed rear face and its edge independently of height.
+        var native=ScenePoint(point); var x=native.X-EditorCamera.X;
+        var face=x<=0 ? "left" : "right";
+        var along=(face=="left" ? -x : x)/32-.5;
+        var edge=Math.Floor(along+.5)-.5;
+        var host=System.Linq.Enumerable.FirstOrDefault(editorSession!.Editor.State.Layout.WallSegments ?? [],
+            w=>w.HostId==null && w.Face==face && (face=="left" ? w.Edge.J : w.Edge.I)==edge);
         if (host!=null && editorSession.HostId!=host.Id) editorSession.SetHost(host.Id);
         return host?.Id;
     }

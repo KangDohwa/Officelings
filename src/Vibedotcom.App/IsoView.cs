@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -189,6 +190,8 @@ internal sealed partial class IsoView : FrameworkElement
         }
         // Rasterize at source resolution once. Pre-scaling a cache and drawing
         // it back into native coordinates can filter it before the root zoom.
+        if (bounds.Width<=0 || bounds.Height<=0 || bounds.Width>8192 || bounds.Height>8192 || bounds.Width*bounds.Height>16_777_216)
+            throw new InvalidDataException("Iso static bitmap exceeds the render budget.");
         var bitmap=new RenderTargetBitmap((int)bounds.Width,(int)bounds.Height,96,96,PixelFormats.Pbgra32);
         bitmap.Render(visual); bitmap.Freeze(); segment.Bitmap=bitmap;
         using (var dc=segment.Visual.RenderOpen()) dc.DrawImage(bitmap,bounds);

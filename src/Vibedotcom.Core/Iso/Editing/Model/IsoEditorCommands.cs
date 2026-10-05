@@ -95,6 +95,8 @@ internal sealed class IsoEditorCommands
         if (!duplicate && root.X == origin.X && root.Y == origin.Y && (rotation == null || root.Rotation == rotation)) { target = root.Id; return; }
         var transformed = root with { X = origin.X, Y = origin.Y, Rotation = rotation ?? root.Rotation };
         var v = Variant(root.AssetId, transformed.Rotation, root.State); if (v == null) return;
+        if (origin.X < 0 || origin.Y < 0 || (long)origin.X + v.FootprintW > 10 || (long)origin.Y + v.FootprintH > 10)
+        { Error("L005", $"Object or interaction '{root.Id}' is outside the room.", root.Id); return; }
         transformed = Metadata(transformed, v);
         var group = layout.Furniture.Where(f => f.Id == root.Id || f.DeskId == root.Id).ToArray();
         var remap = group.ToDictionary(f => f.Id, f => duplicate ? Allocate(f.AssetId) : f.Id, StringComparer.Ordinal);

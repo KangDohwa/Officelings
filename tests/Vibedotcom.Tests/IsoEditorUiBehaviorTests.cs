@@ -62,16 +62,7 @@ public sealed class IsoEditorUiBehaviorTests
         Assert.False(view.HandleEditorKey(Key.Tab,ModifierKeys.None,view)); view.DetachEditor();
     });
     [Fact]
-    public void PhysicalCameraIsInvertedOnceAtAllDpis()
-    {
-        foreach (var dpi in new[] {1d,1.25,1.5,2}) foreach (var zoom in new[] {1,2,3,6})
-        {
-            var camera=IsoView.PhysicalCamera(672,416,900,700,dpi,dpi,zoom,new(17.25,-9.6));
-            var native=new Point(123,98); var dip=camera.Transform(native); var inverse=camera; inverse.Invert();
-            Assert.Equal(native.X,inverse.Transform(dip).X,9); Assert.Equal(native.Y,inverse.Transform(dip).Y,9);
-            Assert.Equal(Math.Round(camera.OffsetX*dpi),camera.OffsetX*dpi,9); Assert.Equal(Math.Round(camera.OffsetY*dpi),camera.OffsetY*dpi,9);
-        }
-    }
+    public void PhysicalCameraInputSelectsKnownTilesAndTargets() => Sta(()=>IsoEditorReviewCases.Run("R19"));
     [Fact]
     public void EmptySelectionNeverSelectsLegacyAttachments()
     {

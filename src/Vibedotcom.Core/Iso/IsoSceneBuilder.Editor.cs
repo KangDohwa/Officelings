@@ -4,8 +4,10 @@ namespace Vibedotcom.Core.Iso;
 
 public sealed partial class IsoSceneBuilder
 {
+    internal IReadOnlyList<Entry> EditorEntries => work;
     internal int EditorEmptyItemCount => staticItems.Count + screens.Count + animatedFurniture.Count;
-    private bool EnabledSeat(string id) => layout.WorkSeats == null || layout.WorkSeats.Any(s => s.DeskId == id);
+    private readonly HashSet<string>? enabledSeats;
+    internal bool EnabledSeat(string id) => enabledSeats == null || enabledSeats.Contains(id);
     private HashSet<string> SuppressedComputerParts(IsoPlacement desk)
     {
         var mounted = layout.Furniture.FirstOrDefault(f => f.AssetId == "iso/computer" && f.DeskId == desk.Id);

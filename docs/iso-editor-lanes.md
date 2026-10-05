@@ -4,7 +4,7 @@ This ownership contract accompanies [iso-editor-spec](iso-editor-spec.md). The t
 
 The integration QA uses the editor's accumulated overlay bounds for both the camera and captures; U005 covers negative marker coordinates. This internal rendering correction adds no public contract or fixture fields.
 
-The spec's historical handoff notes are not unresolved service dependencies: edwire uses the merged virtual computer adapter, aggregate validator and real storage resolver. Full-suite restoration and the unchanged U008 latency limits remain outstanding as recorded in the integration QA.
+The spec's historical handoff notes are not unresolved service dependencies: edwire uses the merged virtual computer adapter, aggregate validator and real storage resolver. Full-suite restoration remains outstanding. Edfix meets the unchanged U008 latency limits on the recorded machine; measurements, regression evidence and unavailable checks are recorded in the integration QA and [independent review follow-up](iso-editor-review.md).
 
 ## 1. Exclusive file ownership
 

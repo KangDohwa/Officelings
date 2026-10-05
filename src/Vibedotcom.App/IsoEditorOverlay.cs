@@ -60,7 +60,7 @@ internal sealed class IsoEditorOverlay
         foreach (var f in candidate.Furniture.Where(f=>!session.LastValidLayout.Furniture.Contains(f) || preview!=null &&
             (!session.Editor.State.Layout.Furniture.Contains(f) || f.Id==session.Selection || f.DeskId==session.Selection)))
             Furniture(dc,session,sheets,f,camera,.5,candidate);
-        foreach (var w in (candidate.WallSegments ?? []).Where(w=>w.HostId!=null && !(session.Editor.State.Layout.WallSegments ?? []).Contains(w)))
+        foreach (var w in (candidate.WallSegments ?? []).Where(w=>w.HostId!=null && (!(session.LastValidLayout.WallSegments ?? []).Contains(w) || preview!=null && !(session.Editor.State.Layout.WallSegments ?? []).Contains(w))))
             WallArt(dc,session.Pack,sheets,w,camera,outline);
         if (preview!=null)
         {

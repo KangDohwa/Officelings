@@ -119,7 +119,7 @@ public sealed class IsoEditor : IIsoEditor
         {
             var variants = a.Variants.OrderBy(v => v.State, StringComparer.Ordinal).ThenBy(v => v.Rotation).Select(IsoEditorDocument.Freeze).ToImmutableArray();
             var part = variants.First().Parts.First();
-            return new IsoEditableAsset(a.Id, a.Id, a.Kind ?? "furniture", variants, part.SheetId, part.Animation ?? part.Clip!, a.Id == "iso/desk", a.Id == "iso/computer");
+            return new IsoEditableAsset(a.Id, pack.EditorTitle(a.Id), a.Kind ?? "furniture", variants, part.SheetId, part.Animation ?? part.Clip!, a.Id == "iso/desk", a.Id == "iso/computer");
         }).ToImmutableArray();
         walls = IsoEditorWallCatalog.Build(pack);
     }

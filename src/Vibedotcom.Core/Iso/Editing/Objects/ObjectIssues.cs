@@ -13,7 +13,7 @@ internal sealed class ObjectIssues
     internal void Add(string rule, string id = "", IsoIssueSeverity severity = IsoIssueSeverity.Error, Exception? error = null)
     {
         // Only bounded schema identifiers enter diagnostics; arbitrary source text and paths stay private.
-        id = Regex.IsMatch(id, "^[a-zA-Z0-9/_-]{1,160}$") ? id : "[hidden]";
+        id = id.Length <= 160 && Regex.IsMatch(id, "\\Auser/[a-z0-9][a-z0-9-]{0,47}(?:/[a-z0-9/_-]{1,96})?\\z") ? id : "[hidden]";
         var message = rule switch
         {
             "O001" => "Unsupported custom object manifest.",

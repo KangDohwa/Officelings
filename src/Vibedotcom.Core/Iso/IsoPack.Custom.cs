@@ -7,6 +7,8 @@ namespace Vibedotcom.Core.Iso;
 
 public sealed partial class IsoPack
 {
+    private readonly Dictionary<string, string> customTitles = new(StringComparer.Ordinal);
+    internal string EditorTitle(string id) => customTitles.GetValueOrDefault(id, id);
     internal static readonly JsonSerializerOptions CustomJson = new(StateJson.Options)
         { WriteIndented = false, DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull };
 
@@ -19,6 +21,15 @@ public sealed partial class IsoPack
         foreach (var pair in clips) result.clips.Add(pair.Key, pair.Value);
         foreach (var pair in masks) result.masks.Add(pair.Key, pair.Value);
         foreach (var pair in images) result.images.Add(pair.Key, pair.Value);
+        lock (opaqueBounds)
+        {
+            foreach (var pair in opaqueBounds) result.opaqueBounds.Add(pair.Key, pair.Value);
+            foreach (var pair in opaquePixels) result.opaquePixels.Add(pair.Key, pair.Value);
+        }
+        lock (changedFrames)
+            foreach (var pair in changedFrames) result.changedFrames.Add(pair.Key, pair.Value);
+        lock (headTops)
+            foreach (var pair in headTops) result.headTops.Add(pair.Key, pair.Value);
         var furniture = (Manifest.Furniture ?? []).ToList();
         if (!furniture.Any(f => f.Id == "iso/computer"))
         {
@@ -30,6 +41,7 @@ public sealed partial class IsoPack
         }
         foreach (var source in objects)
         {
+            result.customTitles.Add(source.Manifest.Id, source.Manifest.DisplayName);
             foreach (var raw in source.Manifest.Sheets)
             {
                 var png = source.Pixels[raw.Id]; var bytes = source.Images[raw.Id];
