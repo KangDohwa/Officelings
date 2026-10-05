@@ -78,5 +78,8 @@ PNG와 JSON은 ignored artifacts이며 커밋하지 않는다. 검토 범위는 
 | `src/Vibedotcom.App/IsoView.Editor.cs` | 25: EditorRenderBounds를 internal로 열어 QA도 실제 marker 범위 사용; 64/133: EditorHit/Enter의 authoritative draft scene 호출 |
 | `src/Vibedotcom.App/IsoWindow.Editor.cs` | 75: PackChanged에서 사전 decode한 CommittedSheets 사용 |
 | `src/Vibedotcom.Core/Iso/IsoOffice.Editor.cs` | 23/192: ApplyEditorState/CompleteEditorSwap revision ack; 46/53: UpdateEditorPack/PreviewEditorPack; 67: GetEditorSeatStatus |
+| `src/Vibedotcom.Core/Iso/Editing/IIsoEditor.cs` | 19/21: PreviewPack/GetPickingScene 추가 |
+| `src/Vibedotcom.Core/Iso/Editing/IsoEditorContracts.cs` | 69–73: runtime revision/preflight/status; 이름 없는 seat status record/enum 추가 |
+| `src/Vibedotcom.Core/Iso/Editing/IsoCustomObjectContracts.cs` | 44–50: verified preview/prepare/commit; request trailing 선택 인수 추가 |
 
 Core Editing API·implementation, IsoEditor App 파일, spec/lanes/objects 문서와 editor tests도 함께 합친다. IsoWindow.cs, Models/Office/OfficeView/Settings/Tracker/Program.cs와 shipped art/pack에는 변경이 없다. Interface 추가와 test-only fake 이동을 분리해 합치면 구현체 컴파일 오류가 날 수 있다. 전체 suite 차단과 U008 지연 실패를 해결하기 전 전체 수락이나 출시 가능 상태로 표시하면 안 된다. 긴 synthetic 출력 경로의 초기 smoke는 unused import에서 실패했으며 원인은 확정하지 못했다; 짧은 root의 성공만 증거로 사용했다.

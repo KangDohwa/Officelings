@@ -248,7 +248,7 @@ Performance gates apply to the **editor contribution**: closed editor has no tim
 
 | ID | UI/performance acceptance invariant |
 | --- | --- |
-| U001 | §6 published-mask, reverse-order, occlusion/root/handle hit tests. |
+| U001 | §6 authoritative draft mask, reverse-order, occlusion/root/handle hit tests. |
 | U002 | §6 pure exact-candidate ghosts, contact markers and valid/invalid text/colors. |
 | U003 | §8 entry/exit/replacement/privacy retains safe office/history and restores modes. |
 | U004 | §8 keyboard commands, focus order, text-box immunity and cancel behavior. |
@@ -257,7 +257,9 @@ Performance gates apply to the **editor contribution**: closed editor has no tim
 | U007 | §8 automation names, contrast, focus and 200% text access. |
 | U008 | §9 no editor work when closed, idle allocations/timers and measured latency budgets. |
 
-## 10. Existing differences implementation lanes must preserve
+## 10. Historical handoff differences and preserved constraints
+
+The differences below describe the original handoff. The merged base `9cec3a9` already supplies aggregate editor validation, explicit work seats, custom pack merging and the virtual computer adapter. Integration 1.1 connects them through the real storage resolver and composition; production and demo editor paths have no stub dependency. The legacy navigation, art, tracker and flat-mode constraints below still apply.
 
 The approved historical slice names three desks, while the shipped pack and IsoOffice default now have twelve; Reset uses the shipped pack. IsoLayoutLoader.Default remains a three-seat helper. Root schema stays version1 despite historical “v6” tracker plans; Tracker currently exports flat v5 and has no iso consumer. Do not add iso tracker publication in this editor task.
 
