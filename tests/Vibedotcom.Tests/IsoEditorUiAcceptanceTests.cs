@@ -20,13 +20,13 @@ public sealed class IsoEditorUiTests
     {
         using var temp=new IsoEditorCoreFixture.Temp(); IsoEditorUiAcceptance.Run(rule,IsoPack.LoadDefault(),temp.Root);
     });
-    [Fact(Skip=Unverified)] public void U001_PublishedMaskAndRootHitTesting() => Verify(1);
-    [Fact(Skip=Unverified)] public void U002_PureDiamondGhostAndCanonicalContacts() => Verify(2);
-    [Fact(Skip=Unverified)] public void U003_SameOfficeLifecycleAndModeRestore() => Verify(3);
-    [Fact(Skip=Unverified)] public void U004_KeyboardFocusAndTextBoxImmunity() => Verify(4);
-    [Fact(Skip=Unverified)] public void U005_DpiCameraZoomPanAndBounds() => Verify(5);
-    [Fact(Skip=Unverified)] public void U006_SearchPaletteAndTransactionalImportDialog() => Verify(6);
-    [Fact(Skip=Unverified)] public void U007_AutomationContrastAndScaledText() => Verify(7);
+    [Fact] public void U001_DraftMaskAndRootHitTesting() => Verify(1);
+    [Fact] public void U002_PureDiamondGhostAndCanonicalContacts() => Verify(2);
+    [Fact] public void U003_SameOfficeLifecycleAndModeRestore() => Verify(3);
+    [Fact] public void U004_KeyboardFocusAndTextBoxImmunity() => Verify(4);
+    [Fact] public void U005_DpiCameraZoomPanAndBounds() => Verify(5);
+    [Fact] public void U006_SearchPaletteAndTransactionalImportDialog() => Verify(6);
+    [Fact] public void U007_AutomationContrastAndScaledText() => Verify(7);
     [Fact(Skip=Unverified)]
     public void U008_ClosedIdleWorkAndMeasuredBudgets() => Sta(()=>
     {

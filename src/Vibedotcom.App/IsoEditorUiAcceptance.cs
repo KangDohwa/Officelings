@@ -130,6 +130,7 @@ internal static class IsoEditorUiAcceptance
         Check(panel.FontSize==SystemFonts.MessageFontSize*2 && panel.VerticalScrollBarVisibility==ScrollBarVisibility.Auto,"U007 scaled scroll.");
         Check(panel.Buttons.Any(b=>AutomationProperties.GetName(b)=="Save (Ctrl+S)") && panel.Buttons.Any(b=>AutomationProperties.GetName(b)=="Done editing"),"U007 reachable actions.");
         Check(panel.Buttons.All(b=>!string.IsNullOrWhiteSpace(AutomationProperties.GetName(b))),"U007 automation names.");
-        panel.ScrollToBottom(); panel.UpdateLayout(); Check(panel.ScrollableHeight>0 && Math.Abs(panel.ScrollableHeight-panel.VerticalOffset)<.001,"U007 bottom scroll.");
+        panel.ScrollToBottom(); Program.RenderBitmap(panel,520,900);
+        Check(panel.ScrollableHeight>0 && Math.Abs(panel.ScrollableHeight-panel.VerticalOffset)<.001,"U007 bottom scroll.");
     }
 }

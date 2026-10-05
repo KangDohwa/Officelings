@@ -22,7 +22,7 @@ internal sealed partial class IsoView
     internal bool Editing => editorSession!=null;
     internal IsoPixel EditorCamera => editorCameraOverride ?? (office is IsoOffice engine ? engine.Camera : new IsoPixel());
     private IsoPixel? editorCameraOverride;
-    private Rect EditorRenderBounds()
+    internal Rect EditorRenderBounds()
     {
         var bounds=new Rect(0,0,scene.Width,scene.Height);
         if (editorOverlay?.Bounds is {} markers && !markers.IsEmpty) bounds.Union(markers);

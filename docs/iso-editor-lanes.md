@@ -1,6 +1,6 @@
 # Iso editor implementation lanes
 
-This ownership contract accompanies [iso-editor-spec](iso-editor-spec.md), editor contract 1 at `aac0f05`. All three lanes branch from the supervisor's commit containing this handoff. Work stays in each lane's own worktree; synthetic temporary data only. Do not rebuild or edit bundled production art/packs. Public signatures and numbered rules are frozen; request a supervisor contract revision when an incompatible change is necessary.
+This ownership contract accompanies [iso-editor-spec](iso-editor-spec.md). The three original lanes are merged at `9cec3a9`; integration lane edwire implements only the supervisor-approved additive contract 1.1 revisions in spec §7.5. Work stays in each lane's own worktree; synthetic temporary data only. Do not rebuild or edit bundled production art/packs. All other public signatures and numbered rules remain frozen.
 
 ## 1. Exclusive file ownership
 
@@ -50,6 +50,8 @@ Flow: storage loads local catalog through importer → Merge creates one complet
 Integration lane edwire owns the supervisor-approved additive §7.5 APIs and coordinated spec/caller/test updates after base 9cec3a9. PrepareImport/PrepareRemove make no writes; CommitPack preflights editor/history/live/pending runtime and sheet decoding before importer Commit publishes disk, then all consumers adopt one pack synchronously. Remove receives the union of live/draft/history/saved/backup references. ValidatePreview owns captured validated bytes and immutable metadata/PNG/hash. GetEditorSeatStatus contains only seat ID/status. No second reservation store exists in UI. Production and demo smoke use real services; named doubles are only for UI unit tests.
 
 The three implementations are merged at 9cec3a9. Production and synthetic demo smoke use concrete services. Named UI doubles now live in the test project. Snapshot inputs using older read-only Core records are deep-frozen at service boundaries, not assumed immutable because a record contains IReadOnlyList. AppStorage accepts an explicit isolated synthetic root for reproducible integration checks; production root resolution is unchanged.
+
+The real-service QA runner and xUnit U001–U007 call the same assertion bodies; those seven rules are enabled after offscreen execution passes. U008 retains its original 100 ms/16 ms gates and Skip because latency fails. NuGet restore failures do not count as suite passes. See [integration QA](iso-editor-integration.md) for actual group counts, captures, measurements, shared-file hunks and native cases still unverified.
 
 ## 4. Merge order and verification
 

@@ -77,10 +77,11 @@ internal static class IsoEditorSmoke
         void Capture(string name,IsoEditorSession session)
         {
             var view=View(session);
+            var bounds=view.EditorRenderBounds();
             foreach (var scale in new[] {1,2,3})
             {
                 view.SetZoom(scale); var file=Path.Combine(output,$"{name}-{scale}x.png");
-                IsoApplication.Render(view,view.Scene.Width*scale,view.Scene.Height*scale,file); files.Add(file);
+                IsoApplication.Render(view,(int)bounds.Width*scale,(int)bounds.Height*scale,file); files.Add(file);
                 records.Add(new {file=Path.GetFileName(file),scale,revision=session.Editor.State.Revision,camera=view.EditorCamera,
                     sha256=Convert.ToHexStringLower(SHA256.HashData(File.ReadAllBytes(file)))});
             }
@@ -152,10 +153,18 @@ internal static class IsoEditorSmoke
                     IsoEditorAcceptance.Require(importing.Result?.Succeeded==true,"Real dialog import failed.");
                 }
                 var content=(FrameworkElement)dialog.Content;
+                var native=Program.RenderBitmap(content,540,560);
                 foreach (var scale in new[] {1,2,3})
                 {
-                    content.LayoutTransform=new ScaleTransform(scale,scale);
-                    var file=Path.Combine(output,name+$"-dialog-{scale}x.png"); IsoApplication.Render(content,540*scale,560*scale,file); files.Add(file);
+                    BitmapSource bitmap=native;
+                    if (scale!=1)
+                    {
+                        var scaled=new RenderTargetBitmap(540*scale,560*scale,96*scale,96*scale,PixelFormats.Pbgra32);
+                        scaled.Render(content); scaled.Freeze(); bitmap=scaled;
+                    }
+                    var file=Path.Combine(output,name+$"-dialog-{scale}x.png");
+                    var encoder=new PngBitmapEncoder(); encoder.Frames.Add(BitmapFrame.Create(bitmap));
+                    using (var stream=File.Create(file)) encoder.Save(stream); files.Add(file);
                 }
                 Capture(name,session); dialog.Close();
             }
