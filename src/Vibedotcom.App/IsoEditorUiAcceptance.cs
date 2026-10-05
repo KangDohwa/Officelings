@@ -106,6 +106,12 @@ internal static class IsoEditorUiAcceptance
             Check(IsoHitTest.PickTile(session.Editor.State.Layout,view.EditorCamera,point.X,point.Y)==new Tile(4,4),"U005 inverse camera.");
             Check(Math.Abs(Math.Round(matrix.OffsetX*dpi)-matrix.OffsetX*dpi)<1e-9 && Math.Abs(Math.Round(matrix.OffsetY*dpi)-matrix.OffsetY*dpi)<1e-9,"U005 physical snap.");
         }
+        session.PreviewCommand(new IsoPlaceCommand("iso/desk",new(-1,-1)));
+        var bounds=view.EditorRenderBounds();
+        Check(view.EditorOverlay!.Bounds.Top<0 && bounds.Top<=view.EditorOverlay.Bounds.Top,"U005 out-of-room marker bounds.");
+        view.SetZoom(1); Program.RenderBitmap(view,(int)bounds.Width,(int)bounds.Height);
+        var top=view.ScreenPoint(new(bounds.Left,bounds.Top));
+        Check(top.X>=0 && top.Y>=0,"U005 marker bounds excluded from camera.");
         view.DetachEditor();
     }
     private static void Palette(IsoEditorSession session)

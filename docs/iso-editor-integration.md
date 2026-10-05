@@ -41,7 +41,7 @@ E2E test는 네 개 Fact와 mounted rig 네 방향 Theory case를 추가했다. 
 
 ## 렌더와 측정
 
-현재 검증 결과는 `artifacts/edqa5/editor-real/iso-editor-smoke.json`에 있다. 원본 PNG 78개를 contact sheet 10개로 모두 직접 확인했다. Dialog 2x/3x 잘림은 수정 후 확인했다. 방 밖 grouped-validation의 상단 marker 잘림도 확인해 캡처 크기를 `EditorRenderBounds()`로 바꿨으며, 이 마지막 캡처 수정은 다시 실행해 확인할 예정이다.
+현재 측정 결과는 `artifacts/edqa5/editor-real/iso-editor-smoke.json`에 있다. 해당 원본 PNG 78개를 contact sheet 10개로 모두 직접 확인했다. Dialog 2x/3x 잘림은 수정 후 확인했다. 방 밖 grouped-validation의 상단 marker 잘림은 `Rect` property 복사본의 Union이 버려지는 것이 원인이었다. Overlay의 경계를 backing field에 누적하고 캡처 크기도 `EditorRenderBounds()`를 사용하도록 고쳤다. U005의 음수 위치 marker/camera assertion과 `artifacts/edqa7/editor-real/grouped-validation-3x.png` 원본 검토를 통과했다. 마지막 실행의 전체 contact sheet와 측정은 아직 진행 중이다.
 
 | 측정 | 결과 | 기준 |
 | --- | ---: | ---: |

@@ -234,6 +234,8 @@ DPI/zoom/pan use the current IsoView.PhysicalCamera: integer physical translatio
 
 ## 9. Tests, QA and performance
 
+U005 also asserts that out-of-room preview labels contribute to the editor bounds and remain inside the fitted camera. Offscreen captures use these same bounds, including negative marker coordinates.
+
 Rule assertions and command-precondition cases live in `IsoEditor*Tests.cs`. Implementation owners remove Skip only when meaningful assertions pass. The fixture index under `tests/fixtures/iso-editor` names expected required issue IDs and how to load data. Valid JSON fixtures are complete editor layouts; legacy and explicit-empty cases differ deliberately. Invalid fixtures are full documents, not patch fragments. Custom examples include tiny synthetic PNGs, valid source and invalid traversal/geometry/palette/namespace manifests. Integration 1.1 preserves layout/manifest versions and fixture bytes. The real offscreen runner executes the same U001–U007 assertion bodies as xUnit; U008 remains skipped while its unchanged latency targets fail. Full xUnit compilation/execution still requires a successful dependency restore. Actual integration evidence and remaining gates are recorded in [integration QA](iso-editor-integration.md).
 
 Unit checks cover exact command candidates, atomic groups/failures, input immutability, history branches/cap, every rule, all four front contacts, reserved aisles, safe save failures and corrupted PNG/catalog handling. Golden JSON checks canonical roundtrip, unchanged IDs/links/pixels, legacy inference/explicit-empty semantics and content hashes. No real source profiles are read. Existing flat and seated tests stay enabled; new fixtures never replace current pixel denominators or thresholds.

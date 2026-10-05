@@ -2,6 +2,8 @@
 
 This ownership contract accompanies [iso-editor-spec](iso-editor-spec.md). The three original lanes are merged at `9cec3a9`; integration lane edwire implements only the supervisor-approved additive contract 1.1 revisions in spec §7.5. Work stays in each lane's own worktree; synthetic temporary data only. Do not rebuild or edit bundled production art/packs. All other public signatures and numbered rules remain frozen.
 
+The integration QA uses the editor's accumulated overlay bounds for both the camera and captures; U005 covers negative marker coordinates. This internal rendering correction adds no public contract or fixture fields.
+
 ## 1. Exclusive file ownership
 
 Paths below are relative to the repository. A lane owns only its named files/patterns. New helpers stay in its named folder/prefix. Tests/fixtures follow the same ownership; no other lane removes a Skip or updates an expectation it does not own. Existing flat tests remain enabled.

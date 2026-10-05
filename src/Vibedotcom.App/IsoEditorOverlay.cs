@@ -14,14 +14,15 @@ internal sealed class IsoEditorOverlay
     internal static readonly Color Valid=Color.FromRgb(0x2E,0x7D,0x32), Invalid=Color.FromRgb(0xB3,0x26,0x1E), Warning=Color.FromRgb(0x8A,0x5A,0x00);
     internal DrawingVisual Visual { get; } = new();
     internal Rect Handle { get; private set; } = Rect.Empty;
-    internal Rect Bounds { get; private set; } = Rect.Empty;
+    private Rect bounds = Rect.Empty;
+    internal Rect Bounds => bounds;
     internal int BuildCount { get; private set; }
     internal string PreviewText { get; private set; } = "";
     internal bool HitHandle(Point point) => Handle.Contains(point);
 
     internal void Rebuild(IsoEditorSession session,IIsoSheetSource sheets,IsoPixel camera)
     {
-        BuildCount++; Handle=Rect.Empty; Bounds=Rect.Empty;
+        BuildCount++; Handle=Rect.Empty; bounds=Rect.Empty;
         using var dc=Visual.RenderOpen();
         var selected=session.SelectedFloor;
         if (selected!=null)
@@ -31,14 +32,14 @@ internal sealed class IsoEditorOverlay
             for (var y=0;y<variant.FootprintH;y++) for (var x=0;x<variant.FootprintW;x++)
             { Diamond(dc,selected.X+x,selected.Y+y,camera,null,new Pen(Brushes.White,4)); Diamond(dc,selected.X+x,selected.Y+y,camera,null,pen); }
             var center=Project(selected.X+(variant.FootprintW-1)/2d,selected.Y+(variant.FootprintH-1)/2d,0,camera);
-            Handle=new(center.X-5,center.Y-5,10,10); dc.DrawRectangle(Brushes.White,pen,Handle); Bounds.Union(Handle);
+            Handle=new(center.X-5,center.Y-5,10,10); dc.DrawRectangle(Brushes.White,pen,Handle); bounds.Union(Handle);
         }
         else if (session.SelectedWall is {} wall)
         {
             foreach (var edge in session.Editor.State.Layout.WallSegments!.Where(w=>w.Id==session.Selection || w.AssemblyId==session.Selection))
                 WallOutline(dc,edge,camera,new Pen(new SolidColorBrush(IsoEditorPanel.Accent),2));
             var center=Project(wall.Edge.I,wall.Edge.J,24,camera);
-            Handle=new(center.X-5,center.Y-5,10,10); dc.DrawRectangle(Brushes.White,new Pen(Brushes.DarkBlue,2),Handle); Bounds.Union(Handle);
+            Handle=new(center.X-5,center.Y-5,10,10); dc.DrawRectangle(Brushes.White,new Pen(Brushes.DarkBlue,2),Handle); bounds.Union(Handle);
         }
         var preview=session.Preview;
         var draft=session.DraftInvalid ? session.Editor.State.Layout : null;
@@ -75,7 +76,7 @@ internal sealed class IsoEditorOverlay
             foreach (var marker in preview.Points)
             {
                 var point=Project(marker.Ground.I,marker.Ground.J,marker.Elevation,camera);
-                dc.DrawEllipse(Brushes.White,outline,point,2.5,2.5); Bounds.Union(new Rect(point.X-4,point.Y-4,8,8));
+                dc.DrawEllipse(Brushes.White,outline,point,2.5,2.5); bounds.Union(new Rect(point.X-4,point.Y-4,8,8));
                 var label=new Point(labelAnchor.X+64,labelAnchor.Y-100+labelIndex*13);
                 dc.DrawLine(new Pen(brush,.5),point,new(label.X-2,label.Y+4));
                 Text(dc,marker.Kind,label,brush,7); labelIndex++;
@@ -93,7 +94,7 @@ internal sealed class IsoEditorOverlay
         var center=Project(i,j,0,camera);
         var geometry=new StreamGeometry(); using (var context=geometry.Open())
         { context.BeginFigure(new(center.X,center.Y-16),true,true); context.LineTo(new(center.X+32,center.Y),true,false); context.LineTo(new(center.X,center.Y+16),true,false); context.LineTo(new(center.X-32,center.Y),true,false); }
-        geometry.Freeze(); dc.DrawGeometry(fill,outline,geometry); Bounds.Union(new Rect(center.X-33,center.Y-17,66,34));
+        geometry.Freeze(); dc.DrawGeometry(fill,outline,geometry); bounds.Union(new Rect(center.X-33,center.Y-17,66,34));
     }
     private static void Hatch(DrawingContext dc,double i,double j,IsoPixel camera,Pen outline)
     {
@@ -106,7 +107,7 @@ internal sealed class IsoEditorOverlay
         var b=Project(wall.Edge.I+(wall.Face=="right" ? 1 : 0),wall.Edge.J+(wall.Face=="left" ? 1 : 0),0,camera);
         dc.DrawLine(pen,a,b); dc.DrawLine(pen,new(a.X,a.Y-48),new(b.X,b.Y-48));
         dc.DrawLine(pen,a,new(a.X,a.Y-48)); dc.DrawLine(pen,b,new(b.X,b.Y-48));
-        Bounds.Union(new Rect(Math.Min(a.X,b.X)-2,Math.Min(a.Y,b.Y)-50,Math.Abs(a.X-b.X)+4,Math.Abs(a.Y-b.Y)+52));
+        bounds.Union(new Rect(Math.Min(a.X,b.X)-2,Math.Min(a.Y,b.Y)-50,Math.Abs(a.X-b.X)+4,Math.Abs(a.Y-b.Y)+52));
     }
     private void Furniture(DrawingContext dc,IsoEditorSession session,IIsoSheetSource sheets,IsoPlacement f,IsoPixel camera,double opacity,IsoLayout candidate)
     {
@@ -140,13 +141,13 @@ internal sealed class IsoEditorOverlay
         var anchor=part.Anchor ?? clip.Anchor ?? clip.EdgeAnchor ?? edgeAnchor ?? pack.Sheet(part.SheetId).Anchor;
         var point=Project(i,j,0,camera);
         var rect=new Rect(point.X-anchor.X+(clip.FootOffset?.X ?? 0),point.Y-anchor.Y+(clip.FootOffset?.Y ?? 0),cell.Width,cell.Height);
-        dc.PushOpacity(part.Opacity); dc.DrawImage(cell.Image,rect); dc.Pop(); Bounds.Union(rect);
+        dc.PushOpacity(part.Opacity); dc.DrawImage(cell.Image,rect); dc.Pop(); bounds.Union(rect);
     }
     private void Text(DrawingContext dc,string value,Point origin,Brush brush,double size)
     {
         var text=new FormattedText(value,CultureInfo.InvariantCulture,FlowDirection.LeftToRight,new Typeface(SystemFonts.MessageFontFamily,FontStyles.Normal,FontWeights.Normal,FontStretches.Normal),size,brush,1) {MaxTextWidth=220};
         var rect=new Rect(origin.X-3,origin.Y-2,text.Width+6,text.Height+4);
-        dc.DrawRectangle(Brushes.White,null,rect); dc.DrawText(text,origin); Bounds.Union(rect);
+        dc.DrawRectangle(Brushes.White,null,rect); dc.DrawText(text,origin); bounds.Union(rect);
     }
     internal static Point Project(double i,double j,double elevation,IsoPixel camera)
     { var p=IsoGeometry.Project(i,j,elevation); return new(p.X+camera.X,p.Y+camera.Y); }
