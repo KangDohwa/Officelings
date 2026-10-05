@@ -1,5 +1,7 @@
 # Iso 편집기 실제 서비스 통합 QA
 
+2026-10-05 edfix 후속 검증: merged-pack command/preview p95 **6.6827/10.0868 ms**, idle **0 B**, import **1400.2006 ms**이며 U008 Skip을 제거했다. 회귀 검사 19개와 전체 장면 1,920개 비교를 통과했다. 아래는 edwire 당시 기록이며 후속 수정·검사·미검증 항목은 [독립 검토 수정 보고](iso-editor-review.md)에 있다. 전체 xUnit/Python suite의 통과를 뜻하지 않는다.
+
 기준 커밋은 `9cec3a9`, 브랜치는 `lane/edwire`다. 중간 저장 커밋 `f4f30f5`에 승인된 계약 1.1과 실제 서비스 연결이 들어 있다. 기능 검증과 렌더 QA를 수행했지만 전체 xUnit suite와 U008 지연 기준은 아직 수락하지 못했다. 과거 723 .NET / 88 Python baseline을 이번 실행 결과로 계산하지 않는다.
 
 ## 계약과 구성

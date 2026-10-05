@@ -54,7 +54,7 @@
 
 ## 같은 검증기로 확인하기
 
-저장소 루트에서 .NET CLI를 실행하세요. 아래 경로는 합성 예제용이며 개인 프로필을 읽지 않습니다.
+Windows에서 저장소 루트의 .NET CLI를 실행하세요. 다른 플랫폼에서는 파일 접근 전에 종료 코드 2와 Windows 전용 메시지를 반환합니다. 아래 경로는 합성 예제용이며 개인 프로필을 읽지 않습니다.
 
 ```powershell
 dotnet run --project tools/IsoCustomObject -- validate tests/fixtures/iso-editor/objects/valid/test-crate/test-crate.iso.json
@@ -77,3 +77,15 @@ dotnet run --project tools/IsoCustomObject -- catalog artifacts/custom-object-ex
 편집기는 §7.5의 `ValidatePreview(path, CancellationToken)`으로 한 번 캡처한 검증본을 표시하고 `PrepareImport`에 그대로 전달합니다. 이름·variant 수·썸네일·해시는 같은 bytes에서 나옵니다. 원본 파일이 나중에 달라져도 검증본을 가져오며 대화상자는 원본을 다시 읽지 않습니다.
 
 `PrepareImport/PrepareRemove`는 디스크를 쓰지 않습니다. 구성점이 editor/history와 runtime의 live/pending 상태, sheet decoding을 사전 검증한 뒤 `Commit`으로 카탈로그를 게시합니다. 사전 검증 실패와 commit 전 취소는 기존 상태를 유지하고 같은 해시 재가져오기는 소비자 revision도 바꾸지 않습니다. Import/Remove는 CLI 호환용 wrapper입니다. 카탈로그가 커밋된 뒤에는 완료로 처리합니다.
+
+## 플랫폼 확인
+
+비 Windows 환경의 재현 확인은 아래와 같습니다. 존재하지 않는 경로를 전달해도 usage/path 검증보다 플랫폼 검사가 먼저 실행됩니다. 이 Windows lane에서는 비 Windows runtime 실행을 검증하지 못했습니다.
+
+```sh
+dotnet tools/IsoCustomObject/bin/Debug/net10.0/IsoCustomObject.dll validate /missing/synthetic.iso.json
+# stderr: IsoCustomObject is supported only on Windows; local file-boundary protection requires Windows handles.
+# exit status: 2; catalog/files are not accessed
+```
+
+비 Windows의 ancestor no-follow 보호는 구현하지 않았습니다. Windows CLI와 앱은 기존 FileBoundary 검사를 그대로 사용합니다. 장면 raster budget은 한 축 8192px, 합계 16,777,216px이며 극단 anchor는 O007으로 거부합니다. 개별 anchor가 예산 안이어도 여러 가구를 합친 장면이 예산을 넘으면 placement가 L019로 거부됩니다.
