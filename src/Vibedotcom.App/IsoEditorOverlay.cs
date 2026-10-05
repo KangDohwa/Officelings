@@ -58,7 +58,7 @@ internal sealed class IsoEditorOverlay
         // Draw authored clips from the exact candidate, including its assembly children.
         foreach (var f in candidate.Furniture.Where(f=>!session.LastValidLayout.Furniture.Contains(f) || preview!=null &&
             (!session.Editor.State.Layout.Furniture.Contains(f) || f.Id==session.Selection || f.DeskId==session.Selection)))
-            Furniture(dc,session,sheets,f,camera,.5);
+            Furniture(dc,session,sheets,f,camera,.5,candidate);
         foreach (var w in (candidate.WallSegments ?? []).Where(w=>w.HostId!=null && !(session.Editor.State.Layout.WallSegments ?? []).Contains(w)))
             WallArt(dc,session.Pack,sheets,w,camera,outline);
         if (preview!=null)
@@ -108,14 +108,22 @@ internal sealed class IsoEditorOverlay
         dc.DrawLine(pen,a,new(a.X,a.Y-48)); dc.DrawLine(pen,b,new(b.X,b.Y-48));
         Bounds.Union(new Rect(Math.Min(a.X,b.X)-2,Math.Min(a.Y,b.Y)-50,Math.Abs(a.X-b.X)+4,Math.Abs(a.Y-b.Y)+52));
     }
-    private void Furniture(DrawingContext dc,IsoEditorSession session,IIsoSheetSource sheets,IsoPlacement f,IsoPixel camera,double opacity)
+    private void Furniture(DrawingContext dc,IsoEditorSession session,IIsoSheetSource sheets,IsoPlacement f,IsoPixel camera,double opacity,IsoLayout candidate)
     {
         var pack=session.Pack;
         var v=session.Editor.Palette.FirstOrDefault(a=>a.AssetId==f.AssetId)?.Variants.FirstOrDefault(v=>v.Rotation==f.Rotation && v.State==f.State);
         if (v==null) return; // An unknown authored variant has diagnostics but no substituted art.
         dc.PushOpacity(opacity);
         if (v.Shadow!=null) Part(dc,pack,sheets,v.Shadow,f.X,f.Y,camera);
-        foreach (var p in v.Parts.Concat(v.Screen==null ? [] : new[] {v.Screen}).Concat(v.Glow==null ? [] : new[] {v.Glow})) Part(dc,pack,sheets,p,f.X,f.Y,camera);
+        var suppressed=Array.Empty<string>();
+        string Identity(IsoPart p) => p.PartId ?? pack.Clip(p.SheetId,p.Animation ?? p.Clip!,p.Direction).PartId ?? "";
+        if (f.AssetId=="iso/desk" && candidate.Furniture.FirstOrDefault(c=>c.AssetId=="iso/computer" && c.DeskId==f.Id) is {} mounted)
+        {
+            var computer=pack.Variant(mounted.AssetId,mounted.Rotation,mounted.State);
+            suppressed=computer.Parts.Concat(new[] {computer.Screen,computer.Glow}.OfType<IsoPart>()).Select(Identity).ToArray();
+        }
+        foreach (var p in v.Parts.Concat(v.Screen==null ? [] : new[] {v.Screen}).Concat(v.Glow==null ? [] : new[] {v.Glow}))
+            if (!suppressed.Contains(Identity(p),StringComparer.Ordinal)) Part(dc,pack,sheets,p,f.X,f.Y,camera);
         dc.Pop();
     }
     private void WallArt(DrawingContext dc,IsoPack pack,IIsoSheetSource sheets,IsoWallSegment wall,IsoPixel camera,Pen outline)

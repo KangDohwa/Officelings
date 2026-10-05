@@ -65,8 +65,19 @@ public sealed record IsoDuplicateWallCommand(string InstanceId, string HostWallI
 /// <summary>In-place runtime bridge; spec §3.3. Does not restart actors, tracking or random streams.</summary>
 public interface IIsoEditorRuntime
 {
+    /// <summary>Spec §3.3: last fully applied editor revision; independent of layout object identity.</summary>
+    long AppliedEditorRevision { get; }
+    /// <summary>Spec §§3.3, 7.4: pure live/pending layout and actor asset preflight.</summary>
+    ImmutableArray<IsoValidationIssue> PreviewEditorPack(IsoPack pack);
+    /// <summary>Spec §§3.3, 8: transient reservation state containing no agent names or identifiers.</summary>
+    ImmutableArray<IsoEditorSeatStatus> GetEditorSeatStatus();
     /// <summary>Spec §§3.3, 7.4: swaps a complete pack without recreating actors; failures retain old caches.</summary>
     ImmutableArray<IsoValidationIssue> UpdateEditorPack(IsoPack pack);
     /// <summary>Spec §3.3: invalid drafts retain the last valid scene; valid states migrate reservations by ID.</summary>
     ImmutableArray<IsoValidationIssue> ApplyEditorState(IsoEditorState state);
 }
+
+/// <summary>Spec §§3.3, 8: privacy-safe transient work-position status.</summary>
+public enum IsoEditorSeatOccupancy { Free, Assigned, Away }
+/// <summary>Spec §§3.3, 8: seat ID only; never persisted in a document or history.</summary>
+public sealed record IsoEditorSeatStatus(string SeatId, IsoEditorSeatOccupancy Status);

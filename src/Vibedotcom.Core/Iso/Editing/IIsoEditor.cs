@@ -2,7 +2,7 @@ using System.Collections.Immutable;
 
 namespace Vibedotcom.Core.Iso.Editing;
 
-/// <summary>UI dependency boundary; spec §§4, 8. UI fakes can render while the concrete facade is a stub.</summary>
+/// <summary>UI dependency boundary; spec §§4, 8.</summary>
 public interface IIsoEditor
 {
     /// <summary>Spec §4.2: owned immutable current snapshot.</summary>
@@ -15,6 +15,10 @@ public interface IIsoEditor
     ImmutableArray<string> ReferencedAssetIds { get; }
     /// <summary>Spec §7.4: transactionally replace the active pack.</summary>
     IsoEditResult UpdatePack(IsoPack pack);
+    /// <summary>Spec §7.4: pure preflight of the draft, saved baseline, defaults and all history.</summary>
+    ImmutableArray<IsoValidationIssue> PreviewPack(IsoPack pack);
+    /// <summary>Spec §6: authoritative current draft queue and masks, independent of live publication.</summary>
+    IsoScene GetPickingScene(IsoPixel camera);
     /// <summary>Spec §4.1 Place.</summary>
     IsoEditResult Place(string assetId, Tile origin, int rotation = 0, string state = "default", string? hostDeskId = null);
     /// <summary>Spec §4.1 Move.</summary>

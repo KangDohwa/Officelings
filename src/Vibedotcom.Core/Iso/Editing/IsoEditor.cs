@@ -16,6 +16,9 @@ public sealed class IsoEditor : IIsoEditor
     private ImmutableArray<IsoEditableAsset> palette;
     private ImmutableArray<IsoWallDecorDefinition> walls;
     private readonly Dictionary<string, ImmutableArray<IsoValidationIssue>> validations = new(StringComparer.Ordinal);
+    private IsoScene? pickingScene;
+    private long pickingRevision = -1;
+    private IsoPixel pickingCamera;
     /// <summary>Spec §§2, 4.2: copies all input collections and materializes legacy seats in memory.</summary>
     public IsoEditor(IsoPack pack, IsoLayout layout)
     {
@@ -32,14 +35,30 @@ public sealed class IsoEditor : IIsoEditor
     public IsoEditResult UpdatePack(IsoPack pack)
     {
         if (ReferenceEquals(pack, this.pack)) return Result(true, false, Validate());
+        var problems = PreviewPack(pack);
+        if (problems.Any(i => i.Severity == IsoIssueSeverity.Error)) return Result(false, false, problems);
+        this.pack = pack; BuildPalette(); revision++; validation = default; validations.Clear(); return Result(true, false, Validate());
+    }
+    /// <summary>Spec §7.4: validates all documents without replacing pack, palette or revision.</summary>
+    public ImmutableArray<IsoValidationIssue> PreviewPack(IsoPack pack)
+    {
         var limits = IsoEditorValidation.PackLimits(pack);
-        if (!limits.IsEmpty) return Result(false, false, limits);
+        if (!limits.IsEmpty) return limits;
         var problems = new List<IsoValidationIssue>();
         foreach (var document in undo.Concat(redo).Append(layout).Append(saved).Append(defaults))
             problems.AddRange(IsoEditorValidation.Validate(document, pack).Where(IsoEditorValidation.Structural));
-        if (problems.Count > 0) return Result(false, false, IsoEditorValidation.Sort(problems.Append(
-            IsoEditorValidation.Issue("C006", "The edit would replace an occupied slot or lose an asset reference."))));
-        this.pack = pack; BuildPalette(); revision++; validation = default; validations.Clear(); return Result(true, false, Validate());
+        if (problems.Count > 0) problems.Add(IsoEditorValidation.Issue("C006", "The edit would replace an occupied slot or lose an asset reference."));
+        return IsoEditorValidation.Sort(problems);
+    }
+    /// <summary>Spec §6: cached draft scene uses the live camera but never live furniture or masks.</summary>
+    public IsoScene GetPickingScene(IsoPixel camera)
+    {
+        if (pickingScene != null && pickingRevision == revision && pickingCamera == camera) return pickingScene;
+        var builder = new IsoSceneBuilder(pack, layout, false);
+        var scene = builder.Build([]);
+        var dx = camera.X - builder.Camera.X; var dy = camera.Y - builder.Camera.Y;
+        pickingScene = scene with { Items = scene.Items.Select(i => i with { X = i.X + dx, Y = i.Y + dy }).ToImmutableArray() };
+        pickingRevision = revision; pickingCamera = camera; return pickingScene;
     }
     /// <summary>Spec §4.1 Place: creates one instance; a desk is undesignated until SetSeat links a chair.</summary>
     public IsoEditResult Place(string assetId, Tile origin, int rotation = 0, string state = "default",

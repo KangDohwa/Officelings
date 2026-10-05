@@ -72,7 +72,7 @@ internal sealed partial class IsoWindow
         var target=view.ScreenPoint(native);
         view.PanBy(new Vector(view.ActualWidth/2-target.X,view.ActualHeight/2-target.Y)); view.Focus();
     }
-    private void EditorPackChanged(IsoPack pack) { sheets=new PackIsoSheetSource(pack); view.ReplaceEditorSheets(sheets); }
+    private void EditorPackChanged(IsoPack pack) { sheets=editorSession!.CommittedSheets ?? new PackIsoSheetSource(pack); view.ReplaceEditorSheets(sheets); }
     private void ShowImport() => new IsoEditorImportDialog(editorSession!) { Owner=this }.ShowDialog();
     private void ShowManage() => new IsoEditorManageDialog(editorSession!) { Owner=this }.ShowDialog();
 }

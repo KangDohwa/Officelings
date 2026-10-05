@@ -8,6 +8,10 @@ public sealed partial class IsoOffice
     private IsoLayout? pendingLayout;
     private IsoNavigation? pendingNavigation;
     private long editorSceneOffset;
+    private long pendingEditorRevision;
+    private ImmutableArray<IsoEditorSeatStatus> editorSeatStatus = [];
+    /// <summary>Spec §3.3: last completely applied revision, independent of layout reference identity.</summary>
+    public long AppliedEditorRevision { get; private set; } = -1;
     private readonly Dictionary<Actor, Tile> editorRetreats = [];
     private readonly Dictionary<Pet, Tile> editorPetRetreats = [];
 
@@ -22,7 +26,8 @@ public sealed partial class IsoOffice
         var issues = IsoEditorValidation.Validate(owned, pack);
         if (issues.Any(i => i.Severity == IsoIssueSeverity.Error))
         { CancelEditorSwap(); return issues; }
-        if (IsoEditorDocument.Equal(owned, Layout)) { CancelEditorSwap(); return issues; }
+        if (IsoEditorDocument.Equal(owned, Layout)) { CancelEditorSwap(); AppliedEditorRevision = state.Revision; return issues; }
+        pendingEditorRevision = state.Revision;
         pendingLayout = owned; pendingNavigation = IsoLayoutLoader.Navigation(owned, pack);
         editorRetreats.Clear(); editorPetRetreats.Clear();
         if (!PrepareEditorRetreats())
@@ -38,6 +43,15 @@ public sealed partial class IsoOffice
     public ImmutableArray<IsoValidationIssue> UpdateEditorPack(IsoPack replacement)
     {
         if (ReferenceEquals(pack, replacement)) return [];
+        var problems = PreviewEditorPack(replacement);
+        if (problems.Any(i => i.Severity == IsoIssueSeverity.Error)) return problems;
+        pack = replacement; editorSceneOffset = scene.Revision; builder = new(pack, Layout); nextDue = time; NextChangeSeconds = 0;
+        return problems;
+    }
+
+    /// <summary>Spec §7.4: pure live/pending layout and actor asset preflight.</summary>
+    public ImmutableArray<IsoValidationIssue> PreviewEditorPack(IsoPack replacement)
+    {
         var limits = IsoEditorValidation.PackLimits(replacement);
         if (!limits.IsEmpty) return limits;
         var problems = IsoEditorValidation.Validate(Layout, replacement).ToList();
@@ -45,9 +59,26 @@ public sealed partial class IsoOffice
         if (ordered.Any(a => !replacement.Characters.Any(d => d.Id == a.Design.Id)) ||
             pets.Any(p => replacement.Manifest.Pets?.Any(a => a.Id == p.AssetId) != true))
             problems.Add(IsoEditorValidation.Issue("C006", "The edit would replace an occupied slot or lose an asset reference."));
-        if (problems.Any(i => i.Severity == IsoIssueSeverity.Error)) return IsoEditorValidation.Sort(problems);
-        pack = replacement; editorSceneOffset = scene.Revision; builder = new(pack, Layout); nextDue = time; NextChangeSeconds = 0;
+
         return IsoEditorValidation.Sort(problems);
+    }
+
+    /// <summary>Spec §§3.3, 8: seat ID and transient status only; never agent names or identity.</summary>
+    public ImmutableArray<IsoEditorSeatStatus> GetEditorSeatStatus()
+    {
+        IsoEditorSeatOccupancy Status(string id)
+        {
+            foreach (var owner in ordered) if (owner.DeskId == id)
+                return owner.Gone ? IsoEditorSeatOccupancy.Away : IsoEditorSeatOccupancy.Assigned;
+            return IsoEditorSeatOccupancy.Free;
+        }
+        var same = editorSeatStatus.Length == seatOrder.Count;
+        for (var k = 0; same && k < seatOrder.Count; k++)
+            same = editorSeatStatus[k].SeatId == seatOrder[k] && editorSeatStatus[k].Status == Status(seatOrder[k]);
+        if (same) return editorSeatStatus;
+        var result = ImmutableArray.CreateBuilder<IsoEditorSeatStatus>(seatOrder.Count);
+        foreach (var id in seatOrder) result.Add(new(id, Status(id)));
+        return editorSeatStatus = result.MoveToImmutable();
     }
 
     private void CancelEditorSwap()
@@ -162,7 +193,7 @@ public sealed partial class IsoOffice
     {
         if (pendingLayout == null || editorRetreats.Any(p => p.Key.Phase is Phase.Lower or Phase.Raise || p.Key.Position != new Position(p.Value.X, p.Value.Y)) ||
             editorPetRetreats.Any(p => p.Key.Position != new Position(p.Value.X, p.Value.Y))) return;
-        Layout = pendingLayout; nav = pendingNavigation!; editorSceneOffset = scene.Revision; builder = new(pack, Layout);
+        Layout = pendingLayout; AppliedEditorRevision = pendingEditorRevision; nav = pendingNavigation!; editorSceneOffset = scene.Revision; builder = new(pack, Layout);
         seats.Clear(); seatOrder.Clear();
         foreach (var f in ResolveEditorDesks(Layout)) { seats.Add(f.Id, IsoContacts.Desk(f.X, f.Y, f.Rotation)); seatOrder.Add(f.Id); }
         var reserved = seats.Values.Select(s => s.Approach).ToHashSet();

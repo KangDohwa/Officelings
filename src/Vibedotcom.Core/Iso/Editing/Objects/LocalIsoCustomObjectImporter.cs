@@ -14,38 +14,93 @@ public sealed class LocalIsoCustomObjectImporter : IsoCustomObjectImporter
     {
         var issues = new ObjectIssues(); ObjectSource.Read(manifestPath, issues, cancellation: cancellation); return issues.All;
     }
-    /// <summary>Spec §7.3: content-addressed atomic install after complete pack preflight.</summary>
-    public IsoCustomObjectResult Import(IsoCustomImportRequest request)
+    /// <summary>Spec §7.2: metadata, identity and thumbnail all come from one validated capture.</summary>
+    public IsoCustomValidationPreview ValidatePreview(string manifestPath, CancellationToken cancellationToken)
+    {
+        using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellation, cancellationToken);
+        var issues = new ObjectIssues(); var source = ObjectSource.Read(manifestPath, issues, cancellation: linked.Token);
+        return new(source, issues.All);
+    }
+    /// <summary>Spec §7.3: capture and merge without publishing files or catalog.</summary>
+    public IsoCustomObjectPlan PrepareImport(IsoCustomImportRequest request, CancellationToken cancellationToken)
+    {
+        using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellation, cancellationToken);
+        var issues = new ObjectIssues();
+        var preview = request.VerifiedPreview ?? ValidatePreview(request.ManifestPath, linked.Token);
+        issues.AddRange(preview.Issues); var source = preview.Source;
+        if (linked.IsCancellationRequested) issues.Add("O009", error: new OperationCanceledException());
+        if (source == null || issues.HasErrors) return new(null, request.Catalog, issues.All, request.Catalog);
+        try { ObjectFiles.Output(ObjectCatalog.Root(request.Paths)); }
+        catch (Exception e) when (ObjectSource.Expected(e)) { issues.Add("O003"); }
+        var existing = request.Catalog.Objects.IsDefault ? null : request.Catalog.Objects.FirstOrDefault(o => o.AssetId == source.Manifest.Id);
+        if (existing != null && existing.ContentHash != source.Hash) issues.Add("O002", source.Manifest.Id);
+        if (request.BuiltInPack.Manifest.Furniture?.Any(f => f.Id.StartsWith("user/", StringComparison.Ordinal)) == true) issues.Add("O010");
+        var sources = Capture(request.Paths, request.Catalog, issues);
+        if (existing == null) sources.Add(source);
+        var merged = Preflight(request.BuiltInPack, sources, issues);
+        var catalog = issues.HasErrors || existing != null ? request.Catalog :
+            new IsoCustomObjectCatalog(request.Catalog.Objects.Add(ObjectCatalog.Entry(request.Paths, source)));
+        return new(merged, catalog, issues.All, request.Catalog, import: request, source: source);
+    }
+    /// <summary>Spec §7.4: reference guard and complete replacement-pack preflight without mutation.</summary>
+    public IsoCustomObjectPlan PrepareRemove(IsoCustomRemoveRequest request)
+    {
+        var issues = new ObjectIssues();
+        if (request.Catalog.Version != 1 || request.Catalog.Objects.IsDefault || request.Catalog.Objects.Length > 64) issues.Add("O010");
+        if (request.ReferencedAssetIds.IsDefault || request.ReferencedAssetIds.Contains(request.AssetId, StringComparer.Ordinal) ||
+            !request.AssetId.StartsWith("user/", StringComparison.Ordinal)) issues.Add("O011", request.AssetId);
+        var entry = request.Catalog.Objects.IsDefault ? null : request.Catalog.Objects.FirstOrDefault(o => o.AssetId == request.AssetId);
+        if (entry == null) issues.Add("O002", request.AssetId);
+        if (issues.HasErrors) return new(null, request.Catalog, issues.All, request.Catalog);
+        try
+        {
+            if (!ObjectFiles.CleanupSafe(ObjectCatalog.DirectoryFor(request.Paths, entry!.ContentHash))) issues.Add("O011", request.AssetId);
+        }
+        catch (Exception e) when (ObjectSource.Expected(e)) { issues.Add("O011", request.AssetId); }
+        var catalog = new IsoCustomObjectCatalog(request.Catalog.Objects.Remove(entry!));
+        var pack = request.BuiltInPack == null ? null : Preflight(request.BuiltInPack, Capture(request.Paths, catalog, issues), issues);
+        return new(pack, catalog, issues.All, request.Catalog, remove: request);
+    }
+    /// <summary>Spec §§7.3–7.4: catalog publication after the caller's synchronous consumer preflight.</summary>
+    public IsoCustomObjectResult Commit(IsoCustomObjectPlan plan, CancellationToken cancellationToken = default)
     {
         lock (transactions)
         {
-            var issues = new ObjectIssues(); var source = ObjectSource.Read(request.ManifestPath, issues, cancellation: cancellation);
-            if (source == null || issues.HasErrors) return new(false, request.Catalog, issues.All);
-            if (request.Catalog.Version != 1 || request.Catalog.Objects.IsDefault || request.Catalog.Objects.Length > 64)
-            { issues.Add("O010"); return new(false, request.Catalog, issues.All); }
-            try { ObjectFiles.Output(ObjectCatalog.Root(request.Paths)); }
-            catch (Exception e) when (ObjectSource.Expected(e)) { issues.Add("O003"); return new(false, request.Catalog, issues.All); }
-            var existing = request.Catalog.Objects.FirstOrDefault(o => o.AssetId == source.Manifest.Id);
-            if (existing != null && existing.ContentHash != source.Hash) issues.Add("O002", source.Manifest.Id);
-            if (request.BuiltInPack.Manifest.Furniture?.Any(f => f.Id.StartsWith("user/", StringComparison.Ordinal)) == true) issues.Add("O010");
-            var sources = Capture(request.Paths, request.Catalog, issues);
-            if (existing == null) sources.Add(source);
-            var merged = Preflight(request.BuiltInPack, sources, issues);
-            if (issues.HasErrors || merged == null) return new(false, request.Catalog, issues.All);
-            if (existing != null) return new(true, request.Catalog, issues.All, existing);
+            var issues = new ObjectIssues(); issues.AddRange(plan.Issues);
+            using var linked = CancellationTokenSource.CreateLinkedTokenSource(cancellation, cancellationToken);
+            if (linked.IsCancellationRequested) issues.Add("O009", error: new OperationCanceledException());
+            if (issues.HasErrors) return new(false, plan.Original, issues.All);
             try
             {
-                cancellation.ThrowIfCancellationRequested();
-                var root = ObjectFiles.Output(ObjectCatalog.Root(request.Paths));
+                var paths = plan.Import?.Paths ?? plan.Remove?.Paths ?? throw new InvalidDataException();
+                var root = ObjectFiles.Output(ObjectCatalog.Root(paths));
                 FileBoundary.CreateDirectory(root);
                 using var boundary = FileBoundary.LockWriteParent(Path.Combine(root, ".transaction.lock"));
                 using var writer = ObjectFiles.LockWriter(root);
-                return ObjectPublisher.Install(request, source, issues, cancellation);
+                ObjectCatalog.VerifyCurrent(paths, plan.Original);
+                linked.Token.ThrowIfCancellationRequested();
+                if (plan.Import is {} import && plan.Source is {} source)
+                {
+                    var existing = plan.Original.Objects.FirstOrDefault(o => o.AssetId == source.Manifest.Id);
+                    if (existing != null) return new(true, plan.Original, issues.All, existing);
+                    return ObjectPublisher.Install(import, source, issues, linked.Token);
+                }
+                var remove = plan.Remove!;
+                var entry = plan.Original.Objects.Single(o => o.AssetId == remove.AssetId);
+                var directory = ObjectCatalog.DirectoryFor(paths, entry.ContentHash);
+                if (!ObjectFiles.CleanupSafe(directory)) { issues.Add("O011", remove.AssetId); return new(false, plan.Original, issues.All); }
+                linked.Token.ThrowIfCancellationRequested();
+                ObjectCatalog.Publish(paths, plan.Catalog);
+                try { if (FileBoundary.Exists(directory, directory: true)) ObjectFiles.DeleteDirectory(directory); }
+                catch (Exception e) when (ObjectSource.Expected(e)) { issues.Add("O009", severity: IsoIssueSeverity.Warning, error: e); }
+                return new(true, plan.Catalog, issues.All);
             }
             catch (Exception e) when (ObjectSource.Expected(e) || e is OperationCanceledException) { issues.Add("O009", error: e); }
-            return new(false, request.Catalog, issues.All);
+            return new(false, plan.Original, issues.All);
         }
     }
+    /// <summary>Spec §7.3: content-addressed atomic install after complete pack preflight.</summary>
+    public IsoCustomObjectResult Import(IsoCustomImportRequest request) => Commit(PrepareImport(request, cancellation), cancellation);
     /// <summary>Spec §7.4: startup is read-only and excludes each complete invalid entry.</summary>
     public IsoCustomObjectResult LoadCatalog(IsoEditorPaths paths)
     {
@@ -53,37 +108,7 @@ public sealed class LocalIsoCustomObjectImporter : IsoCustomObjectImporter
         return new(!issues.HasErrors, catalog, issues.All);
     }
     /// <summary>Spec §7.4: drop an unreferenced catalog entry before safe flat-directory cleanup.</summary>
-    public IsoCustomObjectResult Remove(IsoCustomRemoveRequest request)
-    {
-        lock (transactions)
-        {
-            var issues = new ObjectIssues();
-            if (request.ReferencedAssetIds.IsDefault || request.ReferencedAssetIds.Contains(request.AssetId, StringComparer.Ordinal) ||
-                !request.AssetId.StartsWith("user/", StringComparison.Ordinal)) issues.Add("O011", request.AssetId);
-            var entry = request.Catalog.Objects.IsDefault ? null : request.Catalog.Objects.FirstOrDefault(o => o.AssetId == request.AssetId);
-            if (entry == null) issues.Add("O002", request.AssetId);
-            if (issues.HasErrors) return new(false, request.Catalog, issues.All);
-            var catalog = new IsoCustomObjectCatalog(request.Catalog.Objects.Remove(entry!));
-            try
-            {
-                var root = ObjectFiles.Output(ObjectCatalog.Root(request.Paths));
-                using var boundary = FileBoundary.LockWriteParent(Path.Combine(root, ".transaction.lock"));
-                using var writer = ObjectFiles.LockWriter(root);
-                var directory = ObjectCatalog.DirectoryFor(request.Paths, entry!.ContentHash);
-                try
-                {
-                    if (!ObjectFiles.CleanupSafe(directory)) { issues.Add("O011", request.AssetId); return new(false, request.Catalog, issues.All); }
-                }
-                catch (Exception e) when (ObjectSource.Expected(e)) { issues.Add("O011", request.AssetId); return new(false, request.Catalog, issues.All); }
-                ObjectCatalog.VerifyCurrent(request.Paths, request.Catalog);
-                ObjectCatalog.Publish(request.Paths, catalog);
-                try { if (FileBoundary.Exists(directory, directory: true)) ObjectFiles.DeleteDirectory(directory); }
-                catch (Exception e) when (ObjectSource.Expected(e)) { issues.Add("O009", severity: IsoIssueSeverity.Warning, error: e); }
-                return new(true, catalog, issues.All);
-            }
-            catch (Exception e) when (ObjectSource.Expected(e)) { issues.Add("O009", error: e); return new(false, request.Catalog, issues.All); }
-        }
-    }
+    public IsoCustomObjectResult Remove(IsoCustomRemoveRequest request) => Commit(PrepareRemove(request), cancellation);
     /// <summary>Spec §§3.1, 7.4: clone resolved built-in data and add the virtual computer and complete validated objects.</summary>
     public IsoPackMergeResult Merge(IsoPack builtInPack, IsoCustomObjectCatalog catalog)
     {

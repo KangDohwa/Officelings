@@ -11,6 +11,7 @@ namespace Vibedotcom.App;
 // Explicit UI doubles. They script responses, not acceptance evidence for Core/objects behavior.
 internal sealed class IsoEditorUiFake : IIsoEditor
 {
+    private readonly IsoPack pack;
     public IsoEditorState State { get; private set; }
     public ImmutableArray<IsoEditableAsset> Palette { get; }
     public ImmutableArray<IsoWallDecorDefinition> WallPalette { get; }
@@ -26,6 +27,7 @@ internal sealed class IsoEditorUiFake : IIsoEditor
     internal int PackCalls { get; private set; }
     internal IsoEditorUiFake(IsoPack pack,IsoLayout? layout=null)
     {
+        this.pack=pack;
         State=new(layout ?? pack.Layout,0,false,false,false);
         var floorPalette=(pack.Manifest.Furniture ?? []).Select(a=>
         {
@@ -69,10 +71,16 @@ internal sealed class IsoEditorUiFake : IIsoEditor
     public ImmutableArray<IsoValidationIssue> Validate() => Validation;
     public IsoEditPreview Preview(IsoEditorCommand command) { PreviewCalls++; return NextPreview; }
     public IsoEditResult UpdatePack(IsoPack pack) { PackCalls++; return new(true,false,State,Validation); }
+    public ImmutableArray<IsoValidationIssue> PreviewPack(IsoPack pack) => [];
+    public IsoScene GetPickingScene(IsoPixel camera) => new IsoSceneBuilder(pack,State.Layout).Build([]);
 }
 
 internal sealed class IsoEditorUiImporterFake(IsoPack pack) : IsoCustomObjectImporter
 {
+    public IsoCustomValidationPreview ValidatePreview(string path,System.Threading.CancellationToken cancellation) => new LocalIsoCustomObjectImporter().ValidatePreview(path,cancellation);
+    public IsoCustomObjectPlan PrepareImport(IsoCustomImportRequest request,System.Threading.CancellationToken cancellation) => throw new InvalidOperationException("UI-only double does not publish objects.");
+    public IsoCustomObjectPlan PrepareRemove(IsoCustomRemoveRequest request) => throw new InvalidOperationException("UI-only double does not publish objects.");
+    public IsoCustomObjectResult Commit(IsoCustomObjectPlan plan,System.Threading.CancellationToken cancellation=default) => throw new InvalidOperationException("UI-only double does not publish objects.");
     internal ImmutableArray<IsoValidationIssue> Validation { get; set; } = [];
     internal IsoCustomObjectCatalog Catalog { get; set; } = new([]);
     internal int Imports { get; private set; }
@@ -94,6 +102,9 @@ internal sealed class IsoEditorUiImporterFake(IsoPack pack) : IsoCustomObjectImp
 
 internal sealed class IsoEditorUiRuntimeFake : IIsoEditorRuntime
 {
+    public long AppliedEditorRevision => Applied.LastOrDefault()?.Revision ?? -1;
+    public ImmutableArray<IsoValidationIssue> PreviewEditorPack(IsoPack pack) => [];
+    public ImmutableArray<IsoEditorSeatStatus> GetEditorSeatStatus() => [];
     internal List<IsoEditorState> Applied { get; } = [];
     public ImmutableArray<IsoValidationIssue> ApplyEditorState(IsoEditorState state) { Applied.Add(state); return []; }
     public ImmutableArray<IsoValidationIssue> UpdateEditorPack(IsoPack pack) => [];

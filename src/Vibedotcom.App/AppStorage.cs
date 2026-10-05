@@ -13,10 +13,10 @@ internal sealed class AppStorage : IDisposable
     internal string IsoLayoutPath => Path.Combine(Home, "iso-layout.json");
     private readonly string personalHome;
 
-    internal AppStorage(bool isolated, string? personalHome = null)
+    internal AppStorage(bool isolated, string? personalHome = null, string? isolatedHome = null)
     {
         Isolated = isolated; this.personalHome = Path.GetFullPath(personalHome ?? TrackerOptions.OutputDirectory);
-        Home = isolated ? Path.Combine(Path.GetTempPath(), "vibedotcom-demo-" + Guid.NewGuid().ToString("N")) : this.personalHome;
+        Home = isolated ? Path.GetFullPath(isolatedHome ?? Path.Combine(Path.GetTempPath(), "vibedotcom-demo-" + Guid.NewGuid().ToString("N"))) : this.personalHome;
     }
     internal void CheckInput(string? path)
     {

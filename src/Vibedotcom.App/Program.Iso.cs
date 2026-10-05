@@ -21,6 +21,8 @@ internal sealed partial class OfficeWindow
 
 internal sealed partial class IsoWindow
 {
+    internal static IsoOffice PrivacyOffice(IsoPack pack,IsoOffice current,IsoEditorSession? session) =>
+        new(pack,42,session?.LastValidLayout ?? current.Layout);
     internal void SwitchFlat()
     {
         if (editorSession?.Editing==true) { DetachEditorPanel(); settings=editorSession.Leave(settings); }
@@ -44,7 +46,7 @@ internal sealed partial class IsoWindow
             // Replace the scene and text caches together so old details never
             // remain visible during an exit animation after privacy changes.
             var pack=sheets is PackIsoSheetSource source ? source.RuntimePack : null;
-            var nextOffice=pack!=null && office is IsoOffice current ? new IsoOffice(pack,42,editorSession?.LastValidLayout ?? current.Layout) : office;
+            var nextOffice=pack!=null && office is IsoOffice current ? PrivacyOffice(pack,current,editorSession) : office;
             DetachEditorPanel();
             ownsTracker=false;
             var replacement=new IsoWindow(nextOffice,sheets,settings,demo,qa,0,storage,trackerHome,false,agents,epoch,editorSession,tracker);

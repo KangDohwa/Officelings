@@ -22,8 +22,15 @@ internal static class IsoApplication
         {
             if (demo)
             {
-                IsoEditorSmoke.Render(Path.Combine(StateJson.OutputPath(smoke,storage.Home),"editor-ui-fakes"),runtime.Session?.Pack ??
-                    (runtime.Sheets as PackIsoSheetSource)?.RuntimePack ?? throw new InvalidOperationException("Editor smoke requires a runtime pack."));
+                if (Environment.GetEnvironmentVariable("VIBEDOTCOM_ISO_EDITOR_MEASURE")=="1")
+                {
+                    var output=StateJson.OutputPath(smoke,storage.Home); Directory.CreateDirectory(output);
+                    var result=IsoEditorMeasurements.Run(runtime.Session!.BuiltInPack,Path.Combine(output,"synthetic-root"),IsoEditorSmoke.Fixture("objects/valid/test-crate/test-crate.iso.json"));
+                    File.WriteAllText(Path.Combine(output,"measurements.json"),System.Text.Json.JsonSerializer.Serialize(result,StateJson.Options));
+                    IsoEditorAcceptance.Require(result.CommandP95Ms<=100 && result.PreviewP95Ms<=16,"Editor latency budget exceeded."); return 0;
+                }
+                IsoEditorSmoke.Render(Path.Combine(StateJson.OutputPath(smoke,storage.Home),"editor-real"),runtime.Session ??
+                    throw new InvalidOperationException("Editor smoke requires real services."));
                 if (Environment.GetEnvironmentVariable("VIBEDOTCOM_ISO_EDITOR_SMOKE")=="1") return 0;
             }
             return IsoSmoke.Run(smoke,runtime.Sheets,runtime.Create,settings,storage,demo,smokeTags,home,state);

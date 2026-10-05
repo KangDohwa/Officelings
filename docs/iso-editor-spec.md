@@ -1,6 +1,6 @@
 # Isometric office editor contract
 
-Status: implementation handoff, editor contract 1, base `aac0f05`. The API is a compiling stub; skipped tests describe acceptance, not implemented behavior. Section numbers and rule IDs are stable. [Lane ownership](iso-editor-lanes.md) is part of this contract.
+Status: integration contract 1.1, merged implementation base `9cec3a9`. Section numbers and rule IDs are stable. Supervisor-approved additive APIs are listed in §7.5. [Lane ownership](iso-editor-lanes.md) is part of this contract. Skipped tests remain unverified acceptance criteria.
 
 ## 1. Scope and terminology
 
@@ -83,7 +83,7 @@ For an edited occupied desk, finish its authored raise sequence against the curr
 
 ### 4.1 Command semantics
 
-Expected user errors return IsoEditResult/Issue; no expected command error escapes as an exception. The only deliberate exceptions in this lane are `NotImplementedException` from stubs. Result State is always the owned current snapshot. Succeeded means the command was accepted; Changed means document content changed. PrimaryTargetId selects the new/existing root or decor assembly. An accepted navigation-invalid draft has Succeeded=true and Error issues; callers must inspect issues before runtime reload or Save.
+Expected user errors return IsoEditResult/Issue; no expected command error escapes as an exception. Result State is always the owned current snapshot. Succeeded means the command was accepted; Changed means document content changed. PrimaryTargetId selects the new/existing root or decor assembly, including a newly mounted computer's desk root. An accepted navigation-invalid draft has Succeeded=true and Error issues; runtime receives it to cancel pending publication, and Save rejects it.
 
 Every mutation builds one candidate, aggregates §5, rejects structural errors L001–L011, L015–L017, L019 and all C preconditions without altering snapshot/history, and permits only navigation errors **L012–L014, L018** in a draft. Invalid candidate preview is still returned for a red ghost. Validate/Save/runtime reject every Error. Dependent checks on an unknown variant/ID are suppressed rather than throwing; unrelated checks continue. Constructor retains a deep-copied invalid draft for Validate; editing a legacy wrong-size document reports L002.
 
@@ -206,6 +206,18 @@ The objects implementation uses only its public contracts plus existing pack typ
 
 UI combines `ReferencedAssetIds` from editor history/draft with last-valid runtime, saved layout and backup references; inability to read a persisted reference file blocks removal conservatively. Remove atomically drops an unused catalog entry, then cleans only its unreferenced hash directory after handle/readers permit it. Cleanup failure reports an O009 Warning and leaves inert files; never follows a link or deletes source artist files. Built-ins cannot be removed. Undo layout operations do not undo file installation/removal. Import is available while editor is open; serialized importer transactions prevent concurrent writers.
 
+### 7.5 Approved integration additions
+
+`ValidatePreview(path, CancellationToken)` returns immutable `IsoCustomValidationPreview`: validated display name, authored variant count, thumbnail PNG bytes, source identity hash and issues. Its opaque capture retains the exact validated manifest/PNG bytes. The trailing optional `IsoCustomImportRequest.VerifiedPreview` imports those bytes even if the source later changes; the dialog never rereads source art or metadata.
+
+`PrepareImport(request, CancellationToken)` and `PrepareRemove(request)` return opaque `IsoCustomObjectPlan` with proposed catalog, complete pack and issues, without disk writes. Removal's trailing optional `BuiltInPack` is required by integrated callers; legacy Remove wrappers may omit it. `Commit(plan, CancellationToken=default)` verifies the original catalog under the writer lock and publishes only after consumer preflight. Existing Import/Remove remain thin wrappers for local CLI/backwards compatibility. UI always uses the staged transaction.
+
+`IIsoEditor.PreviewPack(pack)` checks current, saved, default and Undo/Redo documents without mutation. `IIsoEditorRuntime.PreviewEditorPack(pack)` checks live/pending layouts and actor/pet assets. The composition point synchronously preflights both consumers and prepares sheet decoding before catalog publication, then adopts the same pack on the owning UI thread. No consumer revision may change between preflight and adoption. Failure or cancellation before publication retains catalog, editor, runtime, palette and selection. Same-hash re-import preserves files and consumer revisions.
+
+`IIsoEditor.GetPickingScene(camera)` supplies the cached authoritative current draft queue/masks, including navigation-invalid or runtime-pending drafts, in the live scene camera coordinates. HitTest never pairs a current draft with the previous published furniture queue. Preview candidates remain separate ghosts until committed.
+
+`IIsoEditorRuntime.GetEditorSeatStatus()` returns only immutable seat ID and `IsoEditorSeatOccupancy` (`Free`, `Assigned`, `Away`); no names or agent IDs. Status is transient and excluded from saved layout/history. `AppliedEditorRevision` acknowledges the last fully applied valid editor revision. UI clears Applying when this acknowledgement reaches its requested revision, independently of layout reference identity. Invalid drafts cancel pending swaps, never publish invalid geometry, leave the live valid layout running and immediately clear Applying.
+
 ## 8. WPF behavior and accessibility
 
 Add **Edit office** and **Done editing** to iso context/tray menus. Enter saves configured mode/click-through/border state, temporarily uses normal clickable mode, and attaches panel/overlay to the same office. Preserve selected name-tag and privacy modes, suppress detail tooltips, keep agents animating through §3.3. A required native window replacement carries office/editor history/decoded sheets into the new window. Exit detaches handlers, releases capture/ghost/selection, restores configured modes and disposes editor-only resources. Privacy-triggered cache replacement keeps the safe document/history but never stale agent text. No edit command changes settings except the existing explicit settings actions.
@@ -214,7 +226,7 @@ Panel order: tool row (Select/move, Place, Work position, Wall decor), search, o
 
 Selected floor assembly shows its diamond footprint, center drag handle and R action; wall shows host outline and edge count. Handle drag commits once on release, Esc cancels with no history; a rejected command leaves selection/document unchanged and lists issues. A linked-part hit selects root. Keyboard canvas cursor uses four grid directions; Enter selects/places, arrows move selected root one cell per keypress (one step), Tab traverses focus, Escape cancels tool/drag. Wall cursor advances host edges; Enter commits MoveWall/PlaceWall. R/Delete/Ctrl+D/Ctrl+Z/Ctrl+Y/Ctrl+S follow flat conventions; Ctrl+D on decor previews the next same-face host run, asks for a target by host cursor if blocked, then calls DuplicateWall. Shortcuts never intercept editable text or open-dialog typing. Expose buttons for every shortcut and editable coordinates for pointer-free placement.
 
-Import dialog selects a local `.iso.json`, previews display name/PNG/variant count, lists all errors/warnings with rule IDs, and enables Import only after successful pure validation. Actual Import validates the captured bytes again. No network picker, code execution or automatic download. Show successful thumbnail in palette; errors keep current catalog/pack/palette/selection. Manage lists user objects and “In use” reasons; removal calls the guarded contract.
+Import dialog selects a local `.iso.json`, previews verified display name/PNG/variant count/hash, lists all errors/warnings with rule IDs, and enables Import only after successful pure validation. PrepareImport consumes the opaque validated capture; staged installed bytes are verified again before publication. No network picker, code execution or automatic download. Show successful thumbnail in palette; errors keep current catalog/pack/palette/selection. Manage lists user objects and “In use” reasons; removal calls the guarded contract.
 
 Status lists all independent issues, navigable to an involved object/host; Save remains disabled for Errors but Validate is always available. Show last-valid versus draft state plainly. Both success and errors have text/icons; normal text contrast ≥4.5:1, control/selection outlines ≥3:1; visible focus outline. Use WPF AutomationProperties.Name/HelpText, accessible list counts and validation announcements. UI text follows system font/text scaling; panel scrolls at 200% text without hiding Save/Done. Art stays native pixels.
 

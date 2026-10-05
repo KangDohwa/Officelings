@@ -511,6 +511,10 @@ internal static class IsoEditorCoreFixture
     }
     internal sealed class Importer : IsoCustomObjectImporter
     {
+        public IsoCustomValidationPreview ValidatePreview(string path,CancellationToken cancellation) => throw new InvalidOperationException("Not used by storage tests.");
+        public IsoCustomObjectPlan PrepareImport(IsoCustomImportRequest request,CancellationToken cancellation) => throw new InvalidOperationException("Not used by storage tests.");
+        public IsoCustomObjectPlan PrepareRemove(IsoCustomRemoveRequest request) => throw new InvalidOperationException("Not used by storage tests.");
+        public IsoCustomObjectResult Commit(IsoCustomObjectPlan plan,CancellationToken cancellation=default) => throw new InvalidOperationException("Not used by storage tests.");
         public ImmutableArray<IsoValidationIssue> Validate(string path) => [];
         public IsoCustomObjectResult LoadCatalog(IsoEditorPaths paths) => new(true, new([]), []);
         public IsoPackMergeResult Merge(IsoPack pack, IsoCustomObjectCatalog catalog) => new(true, pack, []);

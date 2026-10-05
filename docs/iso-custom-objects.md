@@ -74,4 +74,6 @@ dotnet run --project tools/IsoCustomObject -- catalog artifacts/custom-object-ex
 
 §3.1의 `iso/computer`는 원본 desk variant의 모니터 housing과 상태 파트(`monitor-*`, `rear-15`, `rear-16`), screen/glow descriptor를 그대로 참조합니다. PartId를 새로 만들지 않습니다. 원본 screen descriptor에 PartId가 없으면 참조 clip의 PartId를 사용하세요. `Screen`/`Glow` 필드도 함께 처리해야 합니다. keyboard/mouse가 있는 `rear-14`는 desk에 남습니다. 실제 mounted suppression과 화면 동작은 core/UI 레인 통합 검증 대상입니다.
 
-취소가 필요한 호출자는 `LocalIsoCustomObjectImporter`를 작업별 CancellationToken으로 생성하고 UI 스레드 밖에서 호출하세요. 동결된 importer 인터페이스는 유지하며, 취소 전에 게시한 미참조 디렉터리는 안전한 범위에서 정리합니다. 카탈로그가 커밋된 뒤에는 완료로 처리합니다.
+편집기는 §7.5의 `ValidatePreview(path, CancellationToken)`으로 한 번 캡처한 검증본을 표시하고 `PrepareImport`에 그대로 전달합니다. 이름·variant 수·썸네일·해시는 같은 bytes에서 나옵니다. 원본 파일이 나중에 달라져도 검증본을 가져오며 대화상자는 원본을 다시 읽지 않습니다.
+
+`PrepareImport/PrepareRemove`는 디스크를 쓰지 않습니다. 구성점이 editor/history와 runtime의 live/pending 상태, sheet decoding을 사전 검증한 뒤 `Commit`으로 카탈로그를 게시합니다. 사전 검증 실패와 commit 전 취소는 기존 상태를 유지하고 같은 해시 재가져오기는 소비자 revision도 바꾸지 않습니다. Import/Remove는 CLI 호환용 wrapper입니다. 카탈로그가 커밋된 뒤에는 완료로 처리합니다.

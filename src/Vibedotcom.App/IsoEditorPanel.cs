@@ -74,9 +74,9 @@ internal sealed class IsoEditorPanel : ScrollViewer, IDisposable
         SetAutomation(status,"Validation status"); AutomationProperties.SetLiveSetting(status,AutomationLiveSetting.Polite);
         body.Children.Add(issueList); SetAutomation(issueList,"Validation issues");
         body.Children.Add(Button("Done editing",()=>Done?.Invoke()));
-        session.Changed+=Refresh; session.PackChanged+=SetPack; RefreshPalette(); Refresh();
+        session.Changed+=Refresh; session.PackChanged+=SetPack; session.SeatStatusChanged+=RefreshSeats; RefreshPalette(); Refresh();
     }
-    private void SetPack(IsoPack pack) { sheets=new PackIsoSheetSource(pack); thumbnails=new(pack,sheets); RefreshPalette(); }
+    private void SetPack(IsoPack pack) { sheets=session.CommittedSheets ?? new PackIsoSheetSource(pack); thumbnails=new(pack,sheets); RefreshPalette(); }
     private void Command(Func<string,IsoEditorCommand> command) { if (session.Selection!=null) session.Execute(command(session.Selection)); }
     private void PreviewSeat() => session.SetSeatFields(desk.Text,chair.Text,computer.Text);
     private void PreviewCoordinates()
@@ -161,7 +161,7 @@ internal sealed class IsoEditorPanel : ScrollViewer, IDisposable
                 session.Pending is IsoRotateCommand rotate && rotate.InstanceId==f.Id ? rotate.Rotation ?? f.Rotation : f.Rotation);
         refreshing=true; hosts.ItemsSource=(snapshot.Layout.WallSegments ?? []).Where(w=>w.HostId==null).ToArray();
         hosts.SelectedItem=(snapshot.Layout.WallSegments ?? []).FirstOrDefault(w=>w.Id==session.HostId); refreshing=false;
-        seats.Text=$"Enabled work positions: {snapshot.Layout.WorkSeats?.Count ?? 0}/12";
+        session.RefreshSeatStatus(); RefreshSeats();
         var visibleIssues=session.DisplayIssues; var errors=visibleIssues.Any(i=>i.Severity==IsoIssueSeverity.Error);
         status.Text=(errors ? "✕ " : "✓ ")+session.Status; status.Foreground=errors ? Brushes.Firebrick : new SolidColorBrush(Ink);
         save.IsEnabled=session.CanSave; undo.IsEnabled=snapshot.CanUndo; redo.IsEnabled=snapshot.CanRedo;
@@ -198,5 +198,7 @@ internal sealed class IsoEditorPanel : ScrollViewer, IDisposable
         for (var i=0;i<VisualTreeHelper.GetChildrenCount(target);i++)
         { var child=VisualTreeHelper.GetChild(target,i); yield return child; foreach (var nested in Descendants(child)) yield return nested; }
     }
-    public void Dispose() { session.Changed-=Refresh; session.PackChanged-=SetPack; }
+    private void RefreshSeats() => seats.Text=$"Enabled work positions: {session.Editor.State.Layout.WorkSeats?.Count ?? 0}/12\n"+
+        string.Join(" · ",session.SeatStatus.Select(s=>$"{s.SeatId}: {s.Status.ToString().ToLowerInvariant()}"));
+    public void Dispose() { session.Changed-=Refresh; session.PackChanged-=SetPack; session.SeatStatusChanged-=RefreshSeats; }
 }
