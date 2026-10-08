@@ -1,8 +1,8 @@
 // Standalone actual renderer; no DLL injection, HWNDs, personal data or internal CPU observer.
-#define VIBEDOTCOM_TEST
+#define OFFICELINGS_TEST
 #include <iostream>
 #ifndef PERF_MOD_SOURCE
-#define PERF_MOD_SOURCE "../../windhawk/vibedotcom.wh.cpp"
+#define PERF_MOD_SOURCE "../../windhawk/officelings.wh.cpp"
 #endif
 #include PERF_MOD_SOURCE
 using namespace vdc;

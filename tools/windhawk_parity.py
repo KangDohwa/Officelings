@@ -14,7 +14,7 @@ Their PDBs matched Program.cs, OfficeView.cs and OfficeEditorPanel.cs on
 RenderTargetBitmap; SimulateHover draws inline and never opens the Popup.
 For another build, review its smoke path first and supply --wpf-dir instead.
 --run-native invokes only an already-built renderer_tests.exe with argv[4]
---render-only, whose VIBEDOTCOM_TEST build excludes the entire HWND host.
+--render-only, whose OFFICELINGS_TEST build excludes the entire HWND host.
 It refuses older harnesses instead of repeating the broad regression suite.
 It never runs compile.ps1.
 """
@@ -231,7 +231,7 @@ def run_hidden(command, log):
 def run_wpf(app, output, log, tag_mode="hover", reviewed_app=None, reviewed_core=None, reviewed_launcher=None):
     app = safe_path(app)
     dll = app.with_suffix(".dll") if app.suffix.lower() == ".exe" else app
-    app_hash, core_hash = sha256(dll), sha256(dll.parent / "Vibedotcom.Core.dll")
+    app_hash, core_hash = sha256(dll), sha256(dll.parent / "Officelings.Core.dll")
     reviewed = reviewed_app == app_hash and reviewed_core == core_hash
     if AUDITED_BUILDS.get(app_hash) != core_hash and not reviewed:
         raise ValueError("Unreviewed WPF build: use existing --wpf-dir after auditing its smoke path")
@@ -316,7 +316,7 @@ def main():
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     parser.add_argument("--wpf-dir", type=Path, help="Existing --demo --smoke-test output; defaults to OUT/wpf")
     parser.add_argument("--native-dir", type=Path, help="Per-scenario native outputs; defaults to OUT/native")
-    parser.add_argument("--app", type=Path, default=ROOT / "src/Vibedotcom.App/bin/Release/net10.0-windows/Vibedotcom.App.exe")
+    parser.add_argument("--app", type=Path, default=ROOT / "src/Officelings.App/bin/Release/net10.0-windows/Officelings.App.exe")
     parser.add_argument("--renderer", type=Path, default=ROOT / "windhawk/artifacts/renderer_tests.exe")
     parser.add_argument("--tag-mode", choices=("hover", "icon", "always"), default="hover",
                         help="Renderer setting for both consumers; never added to state.json")

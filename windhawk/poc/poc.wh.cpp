@@ -1,9 +1,9 @@
 // ==WindhawkMod==
-// @id              vibedotcom-desktop-poc
-// @name            Vibedotcom desktop square PoC
+// @id              officelings-desktop-poc
+// @name            Officelings desktop square PoC
 // @description     Animated GDI+ square between wallpaper and desktop icons
 // @version         0.1.0
-// @author          Vibedotcom contributors
+// @author          Officelings contributors
 // @include         explorer.exe
 // @architecture    amd64
 // @compilerOptions -lgdiplus -lgdi32 -luser32
@@ -33,7 +33,7 @@ See docs/windhawk-notes.md for compilation, testing and unverified limitations.
 #include <gdiplus.h>
 
 namespace {
-constexpr wchar_t kClass[] = L"Vibedotcom.Windhawk.DesktopPoc";
+constexpr wchar_t kClass[] = L"Officelings.Windhawk.DesktopPoc";
 constexpr int kWidth = 320, kHeight = 160;
 HANDLE g_stop = nullptr;
 HANDLE g_thread = nullptr;
@@ -187,7 +187,7 @@ DWORD WINAPI UiThread(void*) {
                 MapWindowPoints(nullptr, host.parent, &position, 1);
                 window = CreateWindowExW(WS_EX_LAYERED | WS_EX_TRANSPARENT |
                                              WS_EX_NOACTIVATE | WS_EX_NOPARENTNOTIFY,
-                                         kClass, L"Vibedotcom desktop PoC", WS_CHILD,
+                                         kClass, L"Officelings desktop PoC", WS_CHILD,
                                          position.x, position.y, kWidth, kHeight,
                                          host.parent, nullptr, g_module, &window);
                 SetThreadDpiAwarenessContext(previous);

@@ -9,9 +9,9 @@ using System.Text.Json;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Threading;
-using Vibedotcom.App;
-using Vibedotcom.Core;
-using Vibedotcom.Core.Iso;
+using Officelings.App;
+using Officelings.Core;
+using Officelings.Core.Iso;
 
 // Same finite markers and external collector as AppHarness; product DLLs are
 // supplied explicitly so a baseline run cannot accidentally rebuild the app.

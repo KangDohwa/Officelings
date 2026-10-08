@@ -1,7 +1,7 @@
 // This executable has no Windhawk linkage and excludes the entire HWND host.
-#define VIBEDOTCOM_TEST
+#define OFFICELINGS_TEST
 #define GdipAlloc VdcTestGdiAlloc
-#include "vibedotcom.wh.cpp"
+#include "officelings.wh.cpp"
 #undef GdipAlloc
 #include <iostream>
 #include <functional>

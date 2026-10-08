@@ -1,10 +1,10 @@
 System.IO.InvalidDataException: Layout navigation exceeded its work/time budget.
-   at Vibedotcom.Core.LayoutLoader.Reachable(OfficeLayout layout, Tile door, HashSet`1 blocked) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Vibedotcom.Core\LayoutLoader.cs:line 156
-   at Vibedotcom.Core.LayoutLoader.Validate(OfficeLayout l, AssetPack assets) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Vibedotcom.Core\LayoutLoader.cs:line 83
-   at Vibedotcom.Core.LayoutLoader.Prepare(OfficeLayout layout, AssetPack assets, Boolean validate) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Vibedotcom.Core\LayoutLoader.cs:line 35
-   at Vibedotcom.Core.OfficeAnimator..ctor(Nullable`1 seed, AssetPack assets, OfficeLayout layout) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Vibedotcom.Core\Office.cs:line 56
-   at Vibedotcom.App.OfficeView..ctor(AssetPack assets, String brandDirectory) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Vibedotcom.App\OfficeView.cs:line 19
-   at Vibedotcom.App.OfficeWindow..ctor(Boolean demo, Settings initial, Double quitAfter, AssetPack assets, OfficeLayout layout, Boolean qa, OfficeAnimator liveOffice, IReadOnlyList`1 liveAgents, Nullable`1 demoEpoch) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Vibedotcom.App\Program.cs:line 302
-   at Perf.Entry.Soak(Application app, String output, Int32 count, String mode, Double seconds) in C:\Codex-Workspace\Vibedotcom\tools\perf\AppHarness.cs:line 134
-   at Perf.Entry.Main(String[] args) in C:\Codex-Workspace\Vibedotcom\tools\perf\AppHarness.cs:line 45
+   at Officelings.Core.LayoutLoader.Reachable(OfficeLayout layout, Tile door, HashSet`1 blocked) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Officelings.Core\LayoutLoader.cs:line 156
+   at Officelings.Core.LayoutLoader.Validate(OfficeLayout l, AssetPack assets) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Officelings.Core\LayoutLoader.cs:line 83
+   at Officelings.Core.LayoutLoader.Prepare(OfficeLayout layout, AssetPack assets, Boolean validate) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Officelings.Core\LayoutLoader.cs:line 35
+   at Officelings.Core.OfficeAnimator..ctor(Nullable`1 seed, AssetPack assets, OfficeLayout layout) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Officelings.Core\Office.cs:line 56
+   at Officelings.App.OfficeView..ctor(AssetPack assets, String brandDirectory) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Officelings.App\OfficeView.cs:line 19
+   at Officelings.App.OfficeWindow..ctor(Boolean demo, Settings initial, Double quitAfter, AssetPack assets, OfficeLayout layout, Boolean qa, OfficeAnimator liveOffice, IReadOnlyList`1 liveAgents, Nullable`1 demoEpoch) in C:\Users\myori\AppData\Local\Temp\vd-perf\src\Officelings.App\Program.cs:line 302
+   at Perf.Entry.Soak(Application app, String output, Int32 count, String mode, Double seconds) in C:\Codex-Workspace\Officelings\tools\perf\AppHarness.cs:line 134
+   at Perf.Entry.Main(String[] args) in C:\Codex-Workspace\Officelings\tools\perf\AppHarness.cs:line 45
 

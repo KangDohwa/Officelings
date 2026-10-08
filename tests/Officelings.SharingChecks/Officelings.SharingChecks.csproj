@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF></PropertyGroup>
+  <ItemGroup><ProjectReference Include="../../src/Officelings.Core/Officelings.Core.csproj" /><ProjectReference Include="../../src/Officelings.App/Officelings.App.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../../src/Officelings.Tracker/Officelings.Tracker.csproj" /></ItemGroup>
+</Project>

@@ -64,7 +64,7 @@ def download(url: str, originals: Path, expected_sha256: str | None = None) -> P
     path = safe_path(originals / Path(parts.path).name)
     deadline = time.monotonic() + 20
     request = Request(url, headers={
-        "User-Agent": "Mozilla/5.0 (compatible; Vibedotcom-local-brand-fetch/1.0)",
+        "User-Agent": "Mozilla/5.0 (compatible; Officelings-local-brand-fetch/1.0)",
     })
     with urlopen(request, timeout=5) as response:
         if response.geturl() != url:
@@ -187,7 +187,7 @@ def argument_parser() -> argparse.ArgumentParser:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT,
                         metavar="DIR", help="PNG overlay (default: assets/brand-overlay)")
     parser.add_argument("--install", action="store_true",
-                        help="also copy the nine PNGs to %%LOCALAPPDATA%%/Vibedotcom/brand")
+                        help="also copy the nine PNGs to %%LOCALAPPDATA%%/Officelings/brand")
     colors = parser.add_mutually_exclusive_group()
     colors.add_argument("--no-recolor", dest="recolor", action="store_false",
                         help="keep original colors (default); still clean alpha and round Claude corners")
@@ -201,7 +201,7 @@ def install_icons(files: list[Path]) -> Path:
     local_app_data = os.environ.get("LOCALAPPDATA")
     if not local_app_data:
         raise ValueError("--install needs LOCALAPPDATA on Windows; otherwise use --output DIR")
-    directory = safe_path(Path(local_app_data) / "Vibedotcom/brand")
+    directory = safe_path(Path(local_app_data) / "Officelings/brand")
     make_directory(directory)
     for path in files:
         target = directory / path.name

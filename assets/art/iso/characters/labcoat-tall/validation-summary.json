@@ -8,8 +8,8 @@
   "checkerCommand": [
     "C:\\Users\\myori\\.agents\\skills\\sprite-gen\\.venv\\Scripts\\python.exe",
     "-B",
-    "C:\\Codex-Workspace\\Vibedotcom\\tools\\iso_check.py",
-    "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\characters\\labcoat-tall\\labcoat-tall.iso.json",
+    "C:\\Codex-Workspace\\Officelings\\tools\\iso_check.py",
+    "C:\\Codex-Workspace\\Officelings\\assets\\art\\iso\\characters\\labcoat-tall\\labcoat-tall.iso.json",
     "--stage",
     "final",
     "--tolerance",
@@ -235,5 +235,5 @@
   "finishedUTC": "2026-10-04T07:40:53.905444+00:00",
   "laneSeconds": 1832.905444,
   "laneHours": 0.5091404011111111,
-  "outputOnly": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\characters\\labcoat-tall"
+  "outputOnly": "C:\\Codex-Workspace\\Officelings\\assets\\art\\iso\\characters\\labcoat-tall"
 }

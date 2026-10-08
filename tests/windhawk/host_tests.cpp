@@ -1,10 +1,10 @@
 // Standalone host tests operate only on this executable's hidden HWNDs.
-#define VIBEDOTCOM_TEST
-#define VIBEDOTCOM_HOST_TEST
+#define OFFICELINGS_TEST
+#define OFFICELINGS_HOST_TEST
 #include <windows.h>
 BOOL WINAPI VdcHostTestCancelSynchronousIo(HANDLE thread);
 #define CancelSynchronousIo VdcHostTestCancelSynchronousIo
-#include "../../windhawk/vibedotcom.wh.cpp"
+#include "../../windhawk/officelings.wh.cpp"
 #undef CancelSynchronousIo
 #include <iostream>
 
@@ -28,7 +28,7 @@ BOOL WINAPI VdcHostTestCancelSynchronousIo(HANDLE thread){
 }
 namespace {
 int hostChecks=0,cancelModes=0;
-constexpr wchar_t kTestHiddenClass[]=L"Vibedotcom.HostTest.Hidden";
+constexpr wchar_t kTestHiddenClass[]=L"Officelings.HostTest.Hidden";
 void HostCheck(bool condition,const char* message){++hostChecks;Require(condition,message);}
 void Phase(const char* name){std::cout<<"HOST PHASE: "<<name<<std::endl;}
 
@@ -237,7 +237,7 @@ struct PipeRaceThreads {
 };
 void SynchronousCancellationRaceTests(TestEnvironment& environment){
     environment.reset();
-    auto name=L"\\\\.\\pipe\\Vibedotcom.HostTest."+std::to_wstring(GetCurrentProcessId())+L"."+std::to_wstring(GetTickCount64());
+    auto name=L"\\\\.\\pipe\\Officelings.HostTest."+std::to_wstring(GetCurrentProcessId())+L"."+std::to_wstring(GetTickCount64());
     FileHandle pipe(CreateNamedPipeW(name.c_str(),PIPE_ACCESS_INBOUND|FILE_FLAG_FIRST_PIPE_INSTANCE,
         PIPE_TYPE_BYTE|PIPE_READMODE_BYTE|PIPE_WAIT|PIPE_REJECT_REMOTE_CLIENTS,1,64,64,0,nullptr));Require(pipe.h!=INVALID_HANDLE_VALUE,"Create owned local test pipe");
     FileHandle writer(CreateFileW(name.c_str(),GENERIC_WRITE,0,nullptr,OPEN_EXISTING,0,nullptr));Require(writer.h!=INVALID_HANDLE_VALUE,"Open owned pipe writer");

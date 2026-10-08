@@ -6,11 +6,11 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
     <EnableDefaultItems>false</EnableDefaultItems>
-    <AssemblyName>Vibedotcom.Tests</AssemblyName>
+    <AssemblyName>Officelings.Tests</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="IsoHarness.cs" />
-    <Reference Include="Vibedotcom.App"><HintPath>$(AppBin)/Vibedotcom.App.dll</HintPath></Reference>
-    <Reference Include="Vibedotcom.Core"><HintPath>$(AppBin)/Vibedotcom.Core.dll</HintPath></Reference>
+    <Reference Include="Officelings.App"><HintPath>$(AppBin)/Officelings.App.dll</HintPath></Reference>
+    <Reference Include="Officelings.Core"><HintPath>$(AppBin)/Officelings.Core.dll</HintPath></Reference>
   </ItemGroup>
 </Project>

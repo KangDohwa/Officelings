@@ -68,7 +68,7 @@ def row(results, scope, check, status, detail):
 
 def tracker_args(worktree, home, output, spec, speed, once=False, direct=False, tracker_binary=None):
     leave_minutes = str(spec.get("gone_seconds", 160) / speed / 60)
-    args = ["dotnet", "run", "--disable-build-servers", "--project", str(worktree / "src/Vibedotcom.Tracker"),
+    args = ["dotnet", "run", "--disable-build-servers", "--project", str(worktree / "src/Officelings.Tracker"),
             "--no-build", "--no-restore", "--", "--home", str(home), "--output", str(output),
             "--asset-dir", str(worktree / "assets/pack"),
             "--layout", str(output / "layout.json"),
@@ -77,7 +77,7 @@ def tracker_args(worktree, home, output, spec, speed, once=False, direct=False, 
             "--leave-after-waiting-minutes", leave_minutes,
             "--scan-seconds", "0.25", "--interval-seconds", "0.2"]
     if direct or tracker_binary:
-        args = [str(tracker_binary or worktree / "src/Vibedotcom.Tracker/bin/Debug/net10.0/Vibedotcom.Tracker.exe")] + args[args.index("--") + 1:]
+        args = [str(tracker_binary or worktree / "src/Officelings.Tracker/bin/Debug/net10.0/Officelings.Tracker.exe")] + args[args.index("--") + 1:]
     return args + (["--once"] if once else [])
 
 
@@ -149,7 +149,7 @@ def quiet_tail(args, worktree, folder, spec, env, version, results):
             if process.poll() is not None or time.monotonic() >= ready_until:
                 raise RuntimeError("Quiet tail did not publish an initial state within 60 seconds")
             time.sleep(.05)
-        pid = next(p for p, exe in children(process.pid) if exe.lower() == "vibedotcom.tracker.exe")
+        pid = next(p for p, exe in children(process.pid) if exe.lower() == "officelings.tracker.exe")
         begin, previous_sequence, steady_begin = time.monotonic(), None, None
         ticks = list(range(0, args.quiet_steady_seconds, 5)) + [args.quiet_steady_seconds]
         for tick in ticks:
@@ -160,7 +160,7 @@ def quiet_tail(args, worktree, folder, spec, env, version, results):
             if process.poll() is not None:
                 raise RuntimeError("Quiet tail tracker exited before measurement completed")
             elapsed = time.monotonic() - begin
-            measurement = sample(pid, home / ".vibedotcom-synthetic-home")
+            measurement = sample(pid, home / ".officelings-synthetic-home")
             if elapsed >= 20 and steady_begin is None:
                 steady_begin = begin + elapsed
             snapshot = read_json(output / "state.json")
@@ -241,7 +241,7 @@ def run_scenario(value, args, worktree, run_root, env, renderer, version, result
                 if process.poll() is not None or time.monotonic() >= ready_until:
                     raise RuntimeError("Tracker startup failed; see " + str(log))
                 time.sleep(.05)
-            apphost = next(p for p, exe in children(process.pid) if exe.lower() == "vibedotcom.tracker.exe")
+            apphost = next(p for p, exe in children(process.pid) if exe.lower() == "officelings.tracker.exe")
             return process, apphost
         except Exception:
             stop(process)
@@ -293,7 +293,7 @@ def run_scenario(value, args, worktree, run_root, env, renderer, version, result
                         metrics_error = "Could not identify tracker apphost PID"
                     elif metrics_error is None:
                         try:
-                            measurement = sample(pid, home / ".vibedotcom-synthetic-home")
+                            measurement = sample(pid, home / ".officelings-synthetic-home")
                             samples.append(dict(elapsed=now - started, snapshot_pause_seconds=pause_seconds, **measurement))
                         except (OSError, StopIteration) as error:
                             metrics_error = str(error)
@@ -401,7 +401,7 @@ def main():
         parser.error("Quiet steady seconds must be 0 or 60..600")
     for value in args.scenario:
         load_scenario(value)
-    temp = safe_temp_path(Path(tempfile.gettempdir()) / "vibedotcom-e2e")
+    temp = safe_temp_path(Path(tempfile.gettempdir()) / "officelings-e2e")
     temp.mkdir(exist_ok=True)
     run_root = Path(tempfile.mkdtemp(prefix=dt.datetime.now().strftime("%Y%m%d-%H%M%S-"), dir=temp))
     worktree = args.workspace.resolve(strict=True) if args.workspace else run_root / "head"
@@ -428,23 +428,23 @@ def main():
         if args.workspace:
             build_flags += ["-c", "Release", "--artifacts-path", str(run_root / "build"), "-p:RestoreSources=",
                             "-p:RestorePackagesPath=" + str(run_root / "packages")]
-            args.tracker_binary = run_root / "build/bin/Vibedotcom.Tracker/release/Vibedotcom.Tracker.exe"
-        command(["dotnet", "build", worktree / "src/Vibedotcom.Tracker", *build_flags], worktree, env,
+            args.tracker_binary = run_root / "build/bin/Officelings.Tracker/release/Officelings.Tracker.exe"
+        command(["dotnet", "build", worktree / "src/Officelings.Tracker", *build_flags], worktree, env,
                 run_root / "build-tracker.log", 180)
         row(results, "workspace" if args.workspace else "HEAD", "tracker build", "PASS",
             revision + ("; current sources; TEMP artifacts" if args.workspace else "; build once in TEMP worktree"))
         if args.direct_tracker:
             row(results, "HEAD", "tracker launch", "SKIP", "SDK run launcher bypassed; using the same newly built apphost directly")
         version = documented_version(worktree / "docs/state-schema.md")
-        program = (worktree / "src/Vibedotcom.App/Program.cs").read_text(encoding="utf-8-sig")
+        program = (worktree / "src/Officelings.App/Program.cs").read_text(encoding="utf-8-sig")
         smoke_possible = all(flag in program for flag in ('case "--home"', 'case "--output"', "--smoke-test"))
         if not smoke_possible:
             row(results, "WPF", "fake-home smoke", "SKIP", "Selected source lacks --home/--output snapshot smoke CLI")
         else:
-            command(["dotnet", "build", worktree / "src/Vibedotcom.App", *build_flags], worktree, env,
+            command(["dotnet", "build", worktree / "src/Officelings.App", *build_flags], worktree, env,
                     run_root / "build-app.log", 180)
-            app_binary = (run_root / "build/bin/Vibedotcom.App/release/Vibedotcom.App.exe" if args.workspace else
-                          worktree / "src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe")
+            app_binary = (run_root / "build/bin/Officelings.App/release/Officelings.App.exe" if args.workspace else
+                          worktree / "src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe")
         try:
             if args.renderer_tests:
                 renderer = Path(args.renderer_tests).resolve(strict=True)

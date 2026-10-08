@@ -2,14 +2,14 @@
   "kind": "sprite-gen-image-report",
   "provider": "codex",
   "prompt": "Create ONE new full-body identity reference for an original cozy office-worker game sprite, 2D chunky PIXEL CHIBI, facing DOWN toward viewer in top-down 3/4 orthographic view. Pure solid #FF00FF background. No text, floor, shadow, props, guide lines or antialiasing. Crisp uniform square pixel blocks, selective near-black warm outline, 3-4 flat tones per material. Enlarged logical pixel art, designed to remain excellent at 26 pixels wide by 46 pixels tall in a 32x64 game cell. No fine details that disappear when downsampled.\n\nPerson with BIG rounded scalloped ORANGE AFRO, DARK ROUND GLASSES, forest GREEN SWEATER VEST over ivory collared rolled-sleeve shirt, short dark copper trousers and dark brown loafers. Warm medium-brown skin with peach-gold light planes, visibly different from hair. Large friendly head occupies half the full-body height; broad readable face occupies the LOWER HALF of that head, NOT a tiny face beneath a gigantic hair mountain. Short compact body and legs. Afro remains wider than shoulders and distinctive, but its lowest FRONT edge is a clear clean slightly arched hairline ABOVE the eyebrows, with a continuous visible bare FOREHEAD STRIP two logical pixels tall. No curl or bangs on forehead or between eyes. Afro dark burnt-orange/russet shadows and copper middle tone with restrained bright-orange highlights, dark brown underside and outline. Skin lighter and much less red/orange than the hair.\n\nHIGHEST PRIORITY: readable large expressive eyes with WHITE SCLERA and BRIGHT WHITE square sparkle highlights inside large deep-brown irises, behind TWO clearly outlined ROUND near-black glasses rims connected by dark bridge. Each visible front lens about 6 logical pixels wide by 6 high, rim one logical pixel thick; clean empty skin gap between hairline, brows, and glasses. Glasses are not eyebrows; show both separately. Front face about 18 logical pixels wide and 12 tall. Cheerful small curved mouth. Match the attached dev-hoodie reference's clear highlighted eyes, hair/skin contrast, chunky pixel density and quality, but the afro, glasses, green vest, cream collar and loafers must be unmistakably this DIFFERENT person. Stout cozy silhouette and readable collar triangles. Hands relaxed at sides, both shoes visible. Generous magenta margins around the single connected character.",
-  "out": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\roster\\afro-sweater\\redo\\base.png",
-  "raw": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\roster\\afro-sweater\\redo\\base.png.raw.png",
+  "out": "C:\\Codex-Workspace\\Officelings\\assets\\art\\roster\\afro-sweater\\redo\\base.png",
+  "raw": "C:\\Codex-Workspace\\Officelings\\assets\\art\\roster\\afro-sweater\\redo\\base.png.raw.png",
   "raw_bytes": 1138872,
   "elapsed_seconds": 72.547,
   "model": null,
   "session_id": "01a1029a-f4f7-7c80-9ba2-5dcd87033028",
   "refs": [
-    "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\roster\\dev-hoodie\\base.png"
+    "C:\\Codex-Workspace\\Officelings\\assets\\art\\roster\\dev-hoodie\\base.png"
   ],
   "transparent": false,
   "alpha": null,

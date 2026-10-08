@@ -14,7 +14,7 @@ import time
 import uuid
 
 PROVIDERS = ("codex", "claude", "antigravity")
-MARKER = ".vibedotcom-synthetic-home"
+MARKER = ".officelings-synthetic-home"
 SCENARIOS = Path(__file__).with_name("scenarios")
 # Table/column layout inspected through read-only immutable SQLite on 2026-10-04.
 # Opaque protobuf fields are deliberately NULL, never borrowed from real sessions.
@@ -67,7 +67,7 @@ def safe_temp_path(path):
             raise ValueError("Output must not traverse a symlink or Windows reparse point.")
     real = Path.home().resolve()
     protected = [real / name for name in (".codex", ".claude", ".gemini")]
-    protected.append(Path(os.environ.get("LOCALAPPDATA", real / "AppData/Local")) / "Vibedotcom")
+    protected.append(Path(os.environ.get("LOCALAPPDATA", real / "AppData/Local")) / "Officelings")
     for root in protected:
         root = root.resolve()
         if resolved == root or resolved.is_relative_to(root) or root.is_relative_to(resolved):
@@ -456,7 +456,7 @@ def run(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--scenario", default="quiet", help="Scenario name or JSON file")
-    parser.add_argument("--home", default=str(Path(tempfile.gettempdir()) / "vibedotcom-sim-home"))
+    parser.add_argument("--home", default=str(Path(tempfile.gettempdir()) / "officelings-sim-home"))
     parser.add_argument("--speed", type=float, default=1)
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--reset", action="store_true", help="Replace only an owned synthetic home")

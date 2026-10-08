@@ -31,7 +31,7 @@ def rgba_pixels(image):
 
 class BrandFetchTests(unittest.TestCase):
     def setUp(self):
-        temporary = tempfile.TemporaryDirectory(prefix="vibedotcom-brand-")
+        temporary = tempfile.TemporaryDirectory(prefix="officelings-brand-")
         self.addCleanup(temporary.cleanup)
         self.root = Path(temporary.name)
         self.originals = self.root / "brand originals"
@@ -207,7 +207,7 @@ class BrandFetchTests(unittest.TestCase):
 
     def test_cli_install_copies_only_outputs_to_local_app_data(self):
         local_app_data = self.root / "local app data"
-        installed = local_app_data / "Vibedotcom/brand"
+        installed = local_app_data / "Officelings/brand"
         installed.mkdir(parents=True)
         marker = installed / "unrelated.txt"
         marker.write_text("keep", encoding="utf-8")

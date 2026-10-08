@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using Vibedotcom.Core;
+using Officelings.Core;
 
 // Synthetic performance test only. No application, renderer, real home or state output.
 internal static class Program
@@ -30,7 +30,7 @@ internal static class Program
         try
         {
             if (!OperatingSystem.IsWindows()) throw new PlatformNotSupportedException("Windows process I/O counters required.");
-            results = ChildOf(args[2], "C:/Codex-Workspace/Vibedotcom/tools/perf/tracker");
+            results = ChildOf(args[2], "C:/Codex-Workspace/Officelings/tools/perf/tracker");
             data = ChildOf(args[4], Path.GetTempPath());
             if (Directory.Exists(results) || File.Exists(results) || Directory.Exists(data) || File.Exists(data))
                 throw new IOException("Results and data directories must both be new; refusing overwrite.");

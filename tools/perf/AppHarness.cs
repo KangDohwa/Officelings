@@ -13,9 +13,9 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
-using Vibedotcom.App;
-using Vibedotcom.Core;
-using AppProgram = Vibedotcom.App.Program;
+using Officelings.App;
+using Officelings.Core;
+using AppProgram = Officelings.App.Program;
 
 namespace Perf;
 internal static class Entry
@@ -599,7 +599,7 @@ internal static class Entry
         var office = new OfficeAnimator(42, assets, layout); var now = DateTimeOffset.UtcNow; var agents = Agents(12, now, AgentState.Working);
         var poses = office.Update(agents, now, 0); view.Update(office.Layout, poses, now, office.FurnitureSprites); view.SetZoom(1);
         long frameStart = Stopwatch.GetTimestamp(); _ = AppProgram.RenderBitmap(view, 720, 480);
-        Write(Path.Combine(output, $"pack-{Environment.ProcessId}.json"), new { loadMs, decodeMs, firstFrameMs = Stopwatch.GetElapsedTime(frameStart).TotalMilliseconds, inProcessFirstFrameMs = watch.Elapsed.TotalMilliseconds, renderTier = RenderCapability.Tier >> 16, embeddedResources = typeof(AssetPack).Assembly.GetManifestResourceNames().Count(n => n.StartsWith("Vibedotcom.Core.Pack.") && n.EndsWith(".png")), decodedSheets = sheets.Count, compressedBytes = assets.Images.Sum(k => (long)k.Value.Length), decodedPixelBytes = pixels, before, loaded, decoded, afterFrame = Memory(), warnings = assets.Warnings });
+        Write(Path.Combine(output, $"pack-{Environment.ProcessId}.json"), new { loadMs, decodeMs, firstFrameMs = Stopwatch.GetElapsedTime(frameStart).TotalMilliseconds, inProcessFirstFrameMs = watch.Elapsed.TotalMilliseconds, renderTier = RenderCapability.Tier >> 16, embeddedResources = typeof(AssetPack).Assembly.GetManifestResourceNames().Count(n => n.StartsWith("Officelings.Core.Pack.") && n.EndsWith(".png")), decodedSheets = sheets.Count, compressedBytes = assets.Images.Sum(k => (long)k.Value.Length), decodedPixelBytes = pixels, before, loaded, decoded, afterFrame = Memory(), warnings = assets.Warnings });
         Console.WriteLine("Pack/first-frame timing captured."); return 0;
     }
     static int Reuse(string output)

@@ -1,7 +1,7 @@
 """Geometry and compiled partition regression; emits all available designs.
 
 python -B tools/test_iso_seated_geometry.py
-dotnet run --project tests/Vibedotcom.IsoChecks -- --seated-pack artifacts/seatfix/all-designs
+dotnet run --project tests/Officelings.IsoChecks -- --seated-pack artifacts/seatfix/all-designs
 """
 import base64
 from io import BytesIO

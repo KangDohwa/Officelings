@@ -18,7 +18,7 @@ import build_pack
 
 class BuildPackTests(unittest.TestCase):
     def setUp(self):
-        self.temporary = tempfile.TemporaryDirectory(prefix="vibedotcom-pack-")
+        self.temporary = tempfile.TemporaryDirectory(prefix="officelings-pack-")
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
         home = self.root / "home"

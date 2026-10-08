@@ -1,4 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup><OutputType>Exe</OutputType></PropertyGroup>
-  <ItemGroup><ProjectReference Include="../../src/Vibedotcom.Core/Vibedotcom.Core.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../../src/Officelings.Core/Officelings.Core.csproj" /></ItemGroup>
 </Project>

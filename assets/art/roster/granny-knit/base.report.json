@@ -2,14 +2,14 @@
   "kind": "sprite-gen-image-report",
   "provider": "codex",
   "prompt": "Generate exactly ONE full-body idle identity reference, facing DOWN toward viewer, top of head slightly visible, feet planted, arms relaxed.\nKind elderly woman with a gently plump pear-shaped body and a large round head. Silver-gray hair swept back with a scalloped side fringe and ONE prominent round bun high at the back, ONE golden-yellow pencil diagonally through the bun; the bun remains visible above/behind the head in every view. Large warm brown expressive eyes, each at least 3x4 logical pixels with an ivory square catchlight, visible THROUGH thin dark-brown ROUND glasses. Two small gold chain strands hang from the glasses to collar level. Warm peach skin, rosy cheeks, a tiny gentle smile and subtle crow-foot pixels. Dusty LILAC knitted triangular shawl, broad over both shoulders with two short pointed front ends, over a cream ankle-length floral dress with sparse terracotta flowers and muted blue-green leaves. Short comfortable brown rounded shoes. Rounded broad shawl and flared skirt form a strong triangular silhouette; no trousers, no blazer, no beanie, no apron. Keep the same gray bun/pencil, round glasses/chain, lilac shawl, cream floral dress and brown shoes in EVERY state and direction. Back views show the bun and full triangular shawl; no face.\nSTRICT 2D PIXEL CHIBI, cozy office game top-down three-quarter orthographic view. Big head 38-42 percent of body height, minimum one third. Highlighted expressive eyes, NEVER plain dots. Dark warm plum-brown selective one-pixel outline; warm readable limited palette, 3-4 hard-edged tones per material. Deliberate chunky square pixel clusters at a logical 32x64 design scale; no vector curves, gradients, antialiasing or dithering. Target full-body silhouette about 26x46 logical pixels including bun/pencil, preserve eye highlights at final resolution. Uniform pure MAGENTA #FF00FF background, no magenta in subject. Lilac is muted and grayish, never saturated purple/magenta. No scenery, floor shadow, furniture, grid, text or detached marks. \nDraw at clean low resolution then enlarge by integer nearest-neighbor. Generous magenta padding. Attached pixel-agents sheet sets the minimum chunky pixel readability and taste only. Create this ORIGINAL granny, not a reference character. No labels, no other poses. Head about 19 logical pixels tall, body about 27 logical pixels tall. Make glasses fine enough that the expressive eyes and ivory catchlights remain unmistakably visible.",
-  "out": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\roster\\granny-knit\\base.png",
-  "raw": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\roster\\granny-knit\\base.png.raw.png",
+  "out": "C:\\Codex-Workspace\\Officelings\\assets\\art\\roster\\granny-knit\\base.png",
+  "raw": "C:\\Codex-Workspace\\Officelings\\assets\\art\\roster\\granny-knit\\base.png.raw.png",
   "raw_bytes": 1202034,
   "elapsed_seconds": 42.188,
   "model": null,
   "session_id": "01a102e0-e3bd-7a30-b6e3-ba0e2da0c65f",
   "refs": [
-    "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\roster\\granny-knit\\references\\pixel-agents-characters.png"
+    "C:\\Codex-Workspace\\Officelings\\assets\\art\\roster\\granny-knit\\references\\pixel-agents-characters.png"
   ],
   "transparent": false,
   "alpha": null,

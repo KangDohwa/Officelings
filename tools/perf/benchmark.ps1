@@ -37,7 +37,7 @@ if ($Mode -ne 'Run') {
             "-p:AppBin=$snapshot" "-p:BaseIntermediateOutputPath=$build/obj/" "-p:MSBuildProjectExtensionsPath=$build/obj/" `
             "-p:OutputPath=$build/bin/" "-p:RestorePackagesPath=$build/packages/" '-p:AppendTargetFrameworkToOutputPath=false'
         if ($LASTEXITCODE -ne 0) { throw "Harness build failed: $LASTEXITCODE" }
-        foreach ($name in @('Vibedotcom.App.dll','Vibedotcom.Core.dll')) {
+        foreach ($name in @('Officelings.App.dll','Officelings.Core.dll')) {
             $expected = (Get-FileHash -LiteralPath (Join-Path $snapshot $name) -Algorithm SHA256).Hash
             $actual = (Get-FileHash -LiteralPath (Join-Path "$build/bin" $name) -Algorithm SHA256).Hash
             if ($expected -ne $actual) { throw "Harness selected a different assembly: $name" }
@@ -45,13 +45,13 @@ if ($Mode -ne 'Run') {
     } finally {
         foreach ($key in $savedEnvironment.Keys) { [Environment]::SetEnvironmentVariable($key,$savedEnvironment[$key],'Process') }
     }
-    $Harness = Join-Path $build 'bin/Vibedotcom.Tests.exe'
+    $Harness = Join-Path $build 'bin/Officelings.Tests.exe'
     [pscustomobject]@{ capturedUtc=[DateTimeOffset]::UtcNow.ToString('o'); appBin=$AppBin; files=@(
         Get-ChildItem -LiteralPath $snapshot -File | ForEach-Object { [pscustomobject]@{name=$_.Name;sha256=(Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash} }
     ) } | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $Output 'assemblies.json') -Encoding UTF8
     if ($Mode -eq 'Build') { Write-Output "Ready for coordinated Run: $Harness"; return }
 }
-if (!$Harness) { $Harness = Join-Path $Output 'harness/bin/Vibedotcom.Tests.exe' }
+if (!$Harness) { $Harness = Join-Path $Output 'harness/bin/Officelings.Tests.exe' }
 $Harness = (Resolve-Path -LiteralPath $Harness).Path
 New-Item -ItemType Directory -Path $Output -Force | Out-Null
 if ((Test-Path -LiteralPath (Join-Path $Output 'run.json')) -and !$Resume) { throw 'Run already exists; use a new output directory or -Resume.' }

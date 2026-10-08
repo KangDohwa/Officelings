@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
-    <Reference Include="Vibedotcom.Core"><HintPath>$(CoreDll)</HintPath><Private>true</Private></Reference>
+    <Reference Include="Officelings.Core"><HintPath>$(CoreDll)</HintPath><Private>true</Private></Reference>
   </ItemGroup>
   <Target Name="RequireCoreAssembly" BeforeTargets="ResolveReferences">
     <Error Condition="'$(CoreDll)' == '' Or !Exists('$(CoreDll)')" Text="Supply CoreDll with an already built Release assembly." />

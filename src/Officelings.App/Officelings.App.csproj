@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <EmbedBrandOverlay Condition="'$(EmbedBrandOverlay)' == ''">false</EmbedBrandOverlay>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../Officelings.Core/Officelings.Core.csproj" /></ItemGroup>
+  <ItemGroup><InternalsVisibleTo Include="Officelings.Tests" /></ItemGroup>
+  <ItemGroup Condition="'$(EmbedBrandOverlay)' == 'true' And Exists('../../assets/brand-overlay')">
+    <EmbeddedResource Include="../../assets/brand-overlay/*.png" LogicalName="Officelings.App.Brand.%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

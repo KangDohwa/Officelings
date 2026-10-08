@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup><InternalsVisibleTo Include="Officelings.Tests" /></ItemGroup>
+  <ItemGroup><EmbeddedResource Include="Data/*.json" /></ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../assets/pack/assets.json" LogicalName="Officelings.Core.Pack.assets.json" />
+    <EmbeddedResource Include="../../assets/pack/sheets/*.png" LogicalName="Officelings.Core.Pack.%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../assets/art/iso/pack/assets.json" LogicalName="Officelings.Core.IsoPack.assets.json" />
+    <EmbeddedResource Include="../../assets/art/iso/pack/layout.json" LogicalName="Officelings.Core.IsoPack.layout.json" />
+    <EmbeddedResource Include="../../assets/art/iso/pack/sheets/*.png" LogicalName="Officelings.Core.IsoPack.%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

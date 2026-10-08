@@ -18,7 +18,7 @@ from check_snapshot import check_expectation, hold_reader, read_json
 
 class SimulatorTests(unittest.TestCase):
     def setUp(self):
-        self.temp = tempfile.TemporaryDirectory(prefix="vibedotcom-sim-test-")
+        self.temp = tempfile.TemporaryDirectory(prefix="officelings-sim-test-")
         self.home = prepare_home(Path(self.temp.name) / "home")
         self.spec, _ = load_scenario("quiet")
 

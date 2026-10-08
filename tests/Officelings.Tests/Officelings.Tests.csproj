@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><IsTestProject>true</IsTestProject><IsPackable>false</IsPackable><TargetFramework>net10.0-windows</TargetFramework><UseWPF>true</UseWPF></PropertyGroup>
+  <ItemGroup>
+    <Using Include="System.IO" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5" PrivateAssets="all" />
+    <ProjectReference Include="../../src/Officelings.Core/Officelings.Core.csproj" />
+    <ProjectReference Include="../../src/Officelings.App/Officelings.App.csproj" />
+    <ProjectReference Include="../../src/Officelings.Tracker/Officelings.Tracker.csproj" ReferenceOutputAssembly="false" />
+    <None Update="Fixtures/*.jsonl" CopyToOutputDirectory="PreserveNewest" />
+    <Compile Include="../Officelings.DepthChecks/DepthOracle.cs" Link="DepthOracle.cs" />
+  </ItemGroup>
+</Project>

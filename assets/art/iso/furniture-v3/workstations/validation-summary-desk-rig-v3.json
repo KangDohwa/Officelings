@@ -7,8 +7,8 @@
     "command": [
       "C:\\Users\\myori\\.codex\\skills\\sprite-gen\\.venv\\Scripts\\python.exe",
       "-B",
-      "C:\\Codex-Workspace\\Vibedotcom\\tools\\iso_check.py",
-      "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\furniture-v3\\workstations",
+      "C:\\Codex-Workspace\\Officelings\\tools\\iso_check.py",
+      "C:\\Codex-Workspace\\Officelings\\assets\\art\\iso\\furniture-v3\\workstations",
       "--tolerance",
       "0"
     ]
@@ -33,7 +33,7 @@
     "desk-shadow.png": "4903f3f747ccb7c393cc4d9afc29e53e9db582dbb4b6470c87a96fa4a1f5d733",
     "desk.iso.json": "2cd01e5588449c6b0b3278c29bbf8dcc4266908251a742b1e7e851406d14b4aa"
   },
-  "scopeOutputOnly": "C:\\Codex-Workspace\\Vibedotcom\\assets\\art\\iso\\furniture-v3\\workstations",
+  "scopeOutputOnly": "C:\\Codex-Workspace\\Officelings\\assets\\art\\iso\\furniture-v3\\workstations",
   "s0ReadOnlySHA256": "788e77321f1a5edec5fe9903d21cab0223eb8457bf786fe4a98779e74874fa7c",
   "masterGenerations": 1,
   "visualImagesViewed": 9,

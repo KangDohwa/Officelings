@@ -2,7 +2,7 @@ param([switch]$Tests)
 $ErrorActionPreference = 'Stop'
 $windhawkOut = Join-Path $PSScriptRoot 'artifacts'
 $windhawkOptions = @('-fms-extensions', '-lbcrypt', '-lole32', '-ldwmapi', '-ldwrite')
-& "$PSScriptRoot\poc\compile.ps1" -Source "$PSScriptRoot\vibedotcom.wh.cpp" -OutputDirectory $windhawkOut -OutputName 'vibedotcom' -ModId 'vibedotcom' -AdditionalOptions $windhawkOptions
+& "$PSScriptRoot\poc\compile.ps1" -Source "$PSScriptRoot\officelings.wh.cpp" -OutputDirectory $windhawkOut -OutputName 'officelings' -ModId 'officelings' -AdditionalOptions $windhawkOptions
 if ($Tests) {
     & "$PSScriptRoot\poc\compile.ps1" -Source "$PSScriptRoot\renderer_tests.cpp" -OutputDirectory $windhawkOut -OutputName 'renderer_tests' -Executable -AdditionalOptions ($windhawkOptions + @('-municode'))
     # The installed compiler has no resource compiler. Write the standard .res

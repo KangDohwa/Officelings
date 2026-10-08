@@ -8,7 +8,7 @@ $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'package-guard.ps1')
 $repo = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
 $releaseRoot = Join-Path $repo 'artifacts/release'
-$scratch = Join-Path $env:TEMP ('Vibedotcom-release-' + [Guid]::NewGuid().ToString('N'))
+$scratch = Join-Path $env:TEMP ('Officelings-release-' + [Guid]::NewGuid().ToString('N'))
 $source = Join-Path $scratch 'source'
 $worktreeAdded = $false
 $oldEncoding = [Console]::OutputEncoding
@@ -115,7 +115,7 @@ try {
         $package = Join-Path $out $variant
         foreach ($project in @('App', 'Tracker')) {
             $destination = Join-Path $package $project.ToLowerInvariant()
-            $projectFile = Join-Path $source "src/Vibedotcom.$project/Vibedotcom.$project.csproj"
+            $projectFile = Join-Path $source "src/Officelings.$project/Officelings.$project.csproj"
             # Native WPF/runtime libraries extract only when executed. No trimming:
             # both executables must retain their embedded resource assemblies.
             & dotnet publish $projectFile -c $Configuration -r win-x64 --self-contained $selfContained.ToString().ToLowerInvariant() `
@@ -124,7 +124,7 @@ try {
                 Tee-Object -FilePath (Join-Path $out "publish-$variant-$project.log") | Out-Host
             if ($LASTEXITCODE -ne 0) { throw "dotnet publish failed: $variant $project" }
             $files = @(Get-ChildItem -LiteralPath $destination -File)
-            if ($files.Count -ne 1 -or $files[0].Name -ne "Vibedotcom.$project.exe") { throw "Expected one executable in $destination; found: $($files.Name -join ', ')" }
+            if ($files.Count -ne 1 -or $files[0].Name -ne "Officelings.$project.exe") { throw "Expected one executable in $destination; found: $($files.Name -join ', ')" }
             $run = Join-Path $scratch "$variant-$project"
             New-Item -ItemType Directory -Path $run | Out-Null
             $exe = Join-Path $run $files[0].Name
@@ -164,7 +164,7 @@ try {
             } else { Write-Warning "Missing $document in HEAD; skipped." }
         }
         Assert-ReleasePackage -PackagePath $package -BrandRoots @($repo, $source) -AllowBrandOverlay:$AllowBrandOverlay
-        $zip = Join-Path $out "Vibedotcom-$Version-win-x64$suffix.zip"
+        $zip = Join-Path $out "Officelings-$Version-win-x64$suffix.zip"
         Add-Type -AssemblyName System.IO.Compression.FileSystem
         [IO.Compression.ZipFile]::CreateFromDirectory($package, $zip, [IO.Compression.CompressionLevel]::Optimal, $false)
         $archives += $zip
@@ -190,7 +190,7 @@ try {
         if (-not $groups.Contains($group)) { $groups[$group] = @() }
         $groups[$group] += $subject
     }
-    $notes = @("# Vibedotcom $Version", '', "Source commit: $head", '', $(if ($previous) { "Changes since $previous." } else { 'No previous tag found; includes history through this commit.' }), '')
+    $notes = @("# Officelings $Version", '', "Source commit: $head", '', $(if ($previous) { "Changes since $previous." } else { 'No previous tag found; includes history through this commit.' }), '')
     foreach ($group in $groups.Keys) { $notes += "## $group", ''; $notes += @($groups[$group] | ForEach-Object { "- $_" }); $notes += '' }
     $notes += @('## Unsigned binaries', '',
         'These binaries are unsigned. Windows may show a warning when you run them. Read [the Windows security notice](docs/windows-security-notice.md) when available and verify the downloaded ZIP against SHA256SUMS.txt before extracting it. Hashes verify integrity; obtain the checksum file from the same trusted release source.', '',

@@ -4,7 +4,7 @@
     "sourceCommit":  "280e7a61b0d3c049de75967892debac15627fbcc",
     "sourceReferences":  [
                              {
-                                 "path":  "src/Vibedotcom.Core/JsonlTail.cs",
+                                 "path":  "src/Officelings.Core/JsonlTail.cs",
                                  "lines":  [
                                                29,
                                                53,
@@ -18,7 +18,7 @@
                                  "evidence":  "Bounded identity/content checks; Probe allocates then slices/copies arrays; per-byte pending.WriteByte and per-call 16KiB read buffer."
                              },
                              {
-                                 "path":  "src/Vibedotcom.Core/AgentTracker.cs",
+                                 "path":  "src/Officelings.Core/AgentTracker.cs",
                                  "lines":  [
                                                53,
                                                58,
@@ -30,7 +30,7 @@
                                  "evidence":  "Enumerates archive at discovery; known sources become scan candidates; each scan reopens and probes tracked files; snapshots allocated each Poll."
                              },
                              {
-                                 "path":  "src/Vibedotcom.Core/Models.cs",
+                                 "path":  "src/Officelings.Core/Models.cs",
                                  "lines":  [
                                                9,
                                                11,
@@ -40,7 +40,7 @@
                                  "evidence":  "Home defaults to UserProfile but harness explicitly sets TEMP fake Home; ScanInterval defaults to 3s; OutputDirectory static member not used by harness."
                              },
                              {
-                                 "path":  "src/Vibedotcom.Core/Providers/AntigravityProvider.cs",
+                                 "path":  "src/Officelings.Core/Providers/AntigravityProvider.cs",
                                  "lines":  [
                                                24,
                                                27,
@@ -54,7 +54,7 @@
                                "foregroundWindow":  "GetForegroundWindow returned 0; tracker harness never calls foreground/input APIs.",
                                "specialFolders":  "Environment.GetFolderPath returned empty in reported sandbox checks; implicit profile/local-app-data paths cannot be assumed representative.",
                                "cim":  "Get-CimInstance was denied; tracker harness does not query CIM or system-wide process metrics.",
-                               "homeIsolation":  "Each AgentTracker receives a nonempty Home validated as a child of the new TEMP synthetic-data directory. No real LOCALAPPDATA/Vibedotcom state output.",
+                               "homeIsolation":  "Each AgentTracker receives a nonempty Home validated as a child of the new TEMP synthetic-data directory. No real LOCALAPPDATA/Officelings state output.",
                                "metricScope":  "Process-specific Windows CPU, WorkingSet/private memory and I/O counters only. An unavailable required metric raises an error; no fabricated zero or substituted host-wide measurement."
                            },
     "measurementLimitations":  [
@@ -67,7 +67,7 @@
                                    "Provided DLL hash matches build copy; Core was not independently rebuilt or source-to-binary verified.",
                                    "No measurements or synthetic data generation authorized yet; bounded run requires explicit RUN."
                                ],
-    "measurementResultDirectory":  "C:\\Codex-Workspace\\Vibedotcom\\tools\\perf\\tracker\\results\\20261003T180544090Z-dc833495",
+    "measurementResultDirectory":  "C:\\Codex-Workspace\\Officelings\\tools\\perf\\tracker\\results\\20261003T180544090Z-dc833495",
     "measuredLimitations":  [
                                 "60 growing-file ticks took 70.9162339s, exceeding the intended 60s cadence; no claim of exact 1Hz appends or host-normal latency.",
                                 "Growing Poll wall p95=787.4652ms and max=1916.0623ms; cause is not isolated. Measured sandbox workload only.",

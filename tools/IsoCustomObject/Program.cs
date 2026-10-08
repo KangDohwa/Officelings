@@ -1,6 +1,6 @@
 using System.Collections.Immutable;
-using Vibedotcom.Core.Iso;
-using Vibedotcom.Core.Iso.Editing;
+using Officelings.Core.Iso;
+using Officelings.Core.Iso.Editing;
 
 if (!OperatingSystem.IsWindows())
 {

@@ -2,15 +2,15 @@
 param(
     [Parameter(Mandatory = $true)][string]$TrackerExe,
     [string]$AssetDirectory = (Join-Path $PSScriptRoot '..\assets\pack'),
-    [string]$LayoutFile = (Join-Path $PSScriptRoot '..\src\Vibedotcom.Core\Data\layout.json'),
-    [string]$OutputDirectory = (Join-Path $env:LOCALAPPDATA 'Vibedotcom'),
-    [string]$TaskName = 'Vibedotcom.Tracker',
+    [string]$LayoutFile = (Join-Path $PSScriptRoot '..\src\Officelings.Core\Data\layout.json'),
+    [string]$OutputDirectory = (Join-Path $env:LOCALAPPDATA 'Officelings'),
+    [string]$TaskName = 'Officelings.Tracker',
     [switch]$Replace
 )
 $ErrorActionPreference = 'Stop'
 # Registration only. Never start a task, build, copy assets or modify Windhawk.
 $trackerResolved = (Resolve-Path -LiteralPath $TrackerExe).ProviderPath
-if ([IO.Path]::GetExtension($trackerResolved) -ne '.exe') { throw 'TrackerExe must be the published Vibedotcom.Tracker.exe.' }
+if ([IO.Path]::GetExtension($trackerResolved) -ne '.exe') { throw 'TrackerExe must be the published Officelings.Tracker.exe.' }
 $assetResolved = (Resolve-Path -LiteralPath $AssetDirectory).ProviderPath
 $layoutResolved = (Resolve-Path -LiteralPath $LayoutFile).ProviderPath
 $runnerResolved = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot 'windhawk_run_tracker.ps1')).ProviderPath
@@ -29,6 +29,6 @@ $trackerTrigger = New-ScheduledTaskTrigger -AtLogOn -User $trackerSid
 $trackerPrincipal = New-ScheduledTaskPrincipal -UserId $trackerSid -LogonType Interactive -RunLevel Limited
 $trackerSettings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable -ExecutionTimeLimit ([TimeSpan]::Zero) -MultipleInstances IgnoreNew -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1)
 if ($PSCmdlet.ShouldProcess("$TaskName ($($trackerIdentity.Name))", 'Register per-user logon tracker task')) {
-    Register-ScheduledTask -TaskName $TaskName -Action $trackerAction -Trigger $trackerTrigger -Principal $trackerPrincipal -Settings $trackerSettings -Description 'Read-only Vibedotcom tracker; hidden process, standard user, no Explorer injection.' -Force:$Replace | Select-Object TaskName, State
+    Register-ScheduledTask -TaskName $TaskName -Action $trackerAction -Trigger $trackerTrigger -Principal $trackerPrincipal -Settings $trackerSettings -Description 'Read-only Officelings tracker; hidden process, standard user, no Explorer injection.' -Force:$Replace | Select-Object TaskName, State
     Write-Output 'Registered only; runs at next logon. Keep the tracker, pack, layout and runner paths in place.'
 }

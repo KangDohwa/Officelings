@@ -20,7 +20,7 @@ import seated
 
 class ReviewPublicationTests(unittest.TestCase):
     def setUp(self):
-        self.temporary = tempfile.TemporaryDirectory(prefix="vibedotcom-review-publish-")
+        self.temporary = tempfile.TemporaryDirectory(prefix="officelings-review-publish-")
         self.addCleanup(self.temporary.cleanup)
         self.root = Path(self.temporary.name)
 

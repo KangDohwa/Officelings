@@ -69,7 +69,7 @@ try {
         $run.LastCpu = $p.TotalProcessorTime.TotalSeconds
         $run.LastTime = 0.0
     }
-    $instances = (New-Object Diagnostics.PerformanceCounterCategory('Process')).GetInstanceNames() | Where-Object { $_ -like 'Vibedotcom.Tests*' }
+    $instances = (New-Object Diagnostics.PerformanceCounterCategory('Process')).GetInstanceNames() | Where-Object { $_ -like 'Officelings.Tests*' }
     $query = [PerfNative]::Open()
     $bindings = @()
     foreach ($instance in $instances) {

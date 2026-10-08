@@ -1,5 +1,5 @@
 param(
-    [string]$AppDll = (Join-Path $PSScriptRoot '..\src\Vibedotcom.App\bin\Release\net10.0-windows\Vibedotcom.App.dll'),
+    [string]$AppDll = (Join-Path $PSScriptRoot '..\src\Officelings.App\bin\Release\net10.0-windows\Officelings.App.dll'),
     [switch]$Profile,
     [switch]$SkipCompile,
     [switch]$SkipWpf,

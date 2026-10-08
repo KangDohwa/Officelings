@@ -9,6 +9,6 @@
     "warnings":  0,
     "errors":  0,
     "measurementStatus":  "WAITING_FOR_RUN",
-    "command":  "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:/Codex-Workspace/Vibedotcom/tools/perf/tracker/tracker.ps1 -Mode Build",
+    "command":  "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File C:/Codex-Workspace/Officelings/tools/perf/tracker/tracker.ps1 -Mode Build",
     "firstSdkInitializationOutput":  "Reported HTTPS development certificate installation before subsequent-script environment mitigation; certificate store not changed or cleaned by harness code."
 }

@@ -309,7 +309,7 @@ def scene():
 
 def manifest():
     character = read(ART / "sheets/worker.manifest.json")
-    lines = ["# Vibedotcom generated office art", "", "Load PNGs under `sheets/` with their sibling `.manifest.json`. All runtime files are RGBA with straight alpha; use nearest-neighbor sampling. Coordinates and row numbers are zero-based. Empty trailing cells stay transparent. `manifest.frame_layout.rows[state][frame]` is authoritative; do not infer cells from alpha.", "",
+    lines = ["# Officelings generated office art", "", "Load PNGs under `sheets/` with their sibling `.manifest.json`. All runtime files are RGBA with straight alpha; use nearest-neighbor sampling. Coordinates and row numbers are zero-based. Empty trailing cells stay transparent. `manifest.frame_layout.rows[state][frame]` is authoritative; do not infer cells from alpha.", "",
              "This is a separate art bundle, not the existing `atlas.version == 1` contract in `docs/state-schema.md`. That contract uses 16×24 cells and a different row/column order. No renderer or state-schema code was changed. A developer must map action/facing to the rows below and scale world geometry to 32 px tiles.", "",
              "## Runtime sheet inventory", "", "| Sheet | Cell | Grid / pixels | Meaning |", "|---|---|---|---|"]
     for png in sorted((ART / "sheets").glob("*.png")):
@@ -352,7 +352,7 @@ def manifest():
             continue
         cell = meta["cell"]
         lines.append(f"| `{png.relative_to(ART).as_posix()}` | {cell['width']}×{cell['height']} | `{sibling.relative_to(ART).as_posix()}` |")
-    lines += ["", "## Generation and licensing", "", "Generated for Vibedotcom with GPT image_gen / provider `codex`, using sprite-gen **2.20.0**, **component-row still-image pipeline**. No video pipeline or third-party sprite pack was used. Initial generation prompts are in `runs/*/prompts/`; request JSON files record actions, frame counts, fit and style. Targeted native-tool correction prompts and reasons are in `qa/generation-notes.md`. sprite-gen itself is **Apache-2.0**; that software license does not assign a separate license to generated images. Generated-image usage remains governed by the provider's applicable terms. No claim of exclusive copyright or third-party clearance is made.", ""]
+    lines += ["", "## Generation and licensing", "", "Generated for Officelings with GPT image_gen / provider `codex`, using sprite-gen **2.20.0**, **component-row still-image pipeline**. No video pipeline or third-party sprite pack was used. Initial generation prompts are in `runs/*/prompts/`; request JSON files record actions, frame counts, fit and style. Targeted native-tool correction prompts and reasons are in `qa/generation-notes.md`. sprite-gen itself is **Apache-2.0**; that software license does not assign a separate license to generated images. Generated-image usage remains governed by the provider's applicable terms. No claim of exclusive copyright or third-party clearance is made.", ""]
     (ART / "MANIFEST.md").write_text("\n".join(lines), encoding="utf-8")
 
 

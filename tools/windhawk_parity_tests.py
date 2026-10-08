@@ -91,10 +91,10 @@ class ParityTests(unittest.TestCase):
         self.assertEqual(parity.compare("size", reference, candidate, self.root, False)["status"], "dimension-mismatch")
 
     def test_reviewed_hash_pair_and_tag_mode(self):
-        app = self.root / "Vibedotcom.App.exe"
+        app = self.root / "Officelings.App.exe"
         app.write_bytes(b"synthetic-launcher")
         app.with_suffix(".dll").write_bytes(b"synthetic-app")
-        (self.root / "Vibedotcom.Core.dll").write_bytes(b"synthetic-core")
+        (self.root / "Officelings.Core.dll").write_bytes(b"synthetic-core")
         app_hash = hashlib.sha256(b"synthetic-app").hexdigest()
         core_hash = hashlib.sha256(b"synthetic-core").hexdigest()
         launcher_hash = hashlib.sha256(b"synthetic-launcher").hexdigest()
