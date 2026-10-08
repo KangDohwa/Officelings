@@ -59,7 +59,7 @@ C:\ProgramData\Windhawk\Engine\Mods\64\
 
 `@include explorer.exe`만 사용한다. 별도 folder Explorer 프로세스에도 주입될 수 있으므로 `GetShellWindow()` 또는 Progman의 PID가 현재 프로세스와 같은지 확인하고 shell Explorer에서만 창을 만든다. shell이 아직 없으면 UI 스레드가 중단 가능한 대기로 재탐색한다. Explorer와 시스템 전체의 함수 hook은 사용하지 않는다.
 
-agent 로그 파싱은 SPEC의 별도 tracker에 남긴다. mod는 `%LOCALAPPDATA%\Vibedotcom\state.json`과 `atlas.png`만 읽는 consumer다. 실제 스키마는 tracker 구현과 맞춰야 한다. JSON/이미지는 크기와 좌표를 제한하고, 읽기 공유에는 `FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE`를 사용해 atomic rename을 방해하지 않는다. 실패 시 마지막 정상 snapshot을 유지하되 stale/missing 상태를 표시한다. atlas decode 결과는 캐시하고 version/mtime가 바뀔 때만 다시 읽는다. 매 프레임 agent 원본 로그나 PNG를 재파싱하지 않는다.
+agent 로그 파싱은 SPEC의 별도 tracker에 남긴다. mod는 `%LOCALAPPDATA%\Officelings\state.json`과 `atlas.png`만 읽는 consumer다. 실제 스키마는 tracker 구현과 맞춰야 한다. JSON/이미지는 크기와 좌표를 제한하고, 읽기 공유에는 `FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE`를 사용해 atomic rename을 방해하지 않는다. 실패 시 마지막 정상 snapshot을 유지하되 stale/missing 상태를 표시한다. atlas decode 결과는 캐시하고 version/mtime가 바뀔 때만 다시 읽는다. 매 프레임 agent 원본 로그나 PNG를 재파싱하지 않는다.
 
 하나의 전용 UI 스레드가 HWND, message pump, timer, tooltip, GDI+와 render cache를 소유한다. 초기 버전은 작은 snapshot만 낮은 빈도로 읽되 네트워크 경로는 받지 않는다. IO가 UI를 막는 것이 확인되면 중단 가능한 reader 스레드 하나를 추가하고 불변 snapshot을 전달한다. thread에서 C++ 예외가 escape하지 않도록 실제 JSON/이미지 reader의 실패 경계를 둔다. PoC에는 IO/JSON reader가 없다.
 
@@ -144,7 +144,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\windhawk\poc\compile.p
 `ExecutionPolicy Bypass`는 이 자식 PowerShell process에만 적용한다. 시스템 policy 설정은 변경하지 않았다. script가 실행하는 clang command는 다음과 같다.
 
 ```powershell
-& 'C:\Program Files\Windhawk\Compiler\bin\clang++.exe' '@C:\Codex-Workspace\Vibedotcom\windhawk\poc\compile.rsp'
+& 'C:\Program Files\Windhawk\Compiler\bin\clang++.exe' '@C:\Codex-Workspace\Officelings\windhawk\poc\compile.rsp'
 ```
 
 성공 시 response file 전체 내용(UTF-8 BOM 없음):
@@ -162,7 +162,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\windhawk\poc\compile.p
 -DNTDDI_VERSION=0x0A000008
 -D__USE_MINGW_ANSI_STDIO=0
 -DWH_MOD
--DWH_MOD_ID=L\"vibedotcom-desktop-poc\"
+-DWH_MOD_ID=L\"officelings-desktop-poc\"
 -DWH_MOD_VERSION=L\"0.1.0\"
 -include windhawk_api.h
 -Wl,--export-all-symbols
@@ -173,8 +173,8 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\windhawk\poc\compile.p
 -luser32
 -I"C:/Program Files/Windhawk/Compiler/include"
 "C:/Program Files/Windhawk/Engine/1.7.3/64/windhawk.lib"
-"C:/Codex-Workspace/Vibedotcom/windhawk/poc/poc.wh.cpp"
--o "C:/Codex-Workspace/Vibedotcom/windhawk/poc/poc.dll"
+"C:/Codex-Workspace/Officelings/windhawk/poc/poc.wh.cpp"
+-o "C:/Codex-Workspace/Officelings/windhawk/poc/poc.dll"
 ```
 
 response file은 Windows PowerShell 5.1에서 `L"..."` quotes를 정확히 전달하기 위해 사용했다. response의 path는 forward slash를 사용한다. 처음 backslash path 버전은 clang response parser가 backslash를 escape로 해석해 실패했고, 이 형식으로 수정해 성공했다.
@@ -269,7 +269,7 @@ Desktop child와 transparent frameless 창은 premultiplied BGRA + UpdateLayered
 
 타일을 16px intermediate room으로 축소하던 문제를 제거해 authored detail을 최종 scale에서 보존했다. DirectWrite ideal advance로 tag 폭/collision을 맞추고 GDI+의 조기 이름 생략을 제거했다. 남은 차이는 주로 WPF/GDI+ glyph와 얇은 선 rasterization이며 pixel identity를 주장하지 않는다. 이번 수정 과정에서 comparison image를 **총 6개** 확인했다.
 
-결과: [parity report](../windhawk/artifacts/parity/report.json), [최종 기본 비교](../windhawk/artifacts/parity/office-2x-comparison.png), [최종 overflow 비교](../windhawk/artifacts/parity/overflow-comparison.png), [renderer log](../windhawk/artifacts/tests.log), [host log](../windhawk/artifacts/host-tests.log). artifacts는 git에 포함되지 않는다.
+결과: parity report (`../windhawk/artifacts/parity/report.json`, local artifact not distributed), 최종 기본 비교 (`../windhawk/artifacts/parity/office-2x-comparison.png`, local artifact not distributed), 최종 overflow 비교 (`../windhawk/artifacts/parity/overflow-comparison.png`, local artifact not distributed), renderer log (`../windhawk/artifacts/tests.log`, local artifact not distributed), host log (`../windhawk/artifacts/host-tests.log`, local artifact not distributed). artifacts는 git에 포함되지 않는다.
 
 남은 실기 검증은 Explorer parenting/WorkerW loss/reload, 실제 modal 중 unload, Win+D 및 virtual desktop 전환, mixed-DPI/monitor removal, visible embedded alpha, CPU/GDI/memory soak다. offscreen/hidden 검사로 이를 대신하지 않는다. native driver/library 내부의 부분 완료나 heap corruption 등 모든 Explorer crash를 절대적으로 차단한다는 보장은 할 수 없다.
 
@@ -313,7 +313,7 @@ WPF와 실제 C++ renderer에 같은 v5 state/asset bytes를 전달했다. 기�
 
 앱 smoke의 합성 `leave-walk.json`은 5분 경계 전후에 같은 break 위치를 유지하고 이후 문으로 걸어가 fade/hide 후 재진입하는 trace를 만들었다. `logBytesRead`는 그 테스트가 만든 가짜 로그의 byte 수다. native 검사는 Gone의 supplied walk/fade와 invisible 이후 hit/plate 제거를 확인했다. 실제 provider의 30분 대기와 종료 신호, 활성 부모 유지까지 통합 실행한 것은 아니다.
 
-결과 파일: [Hover report](../windhawk/artifacts/parity/report.json), [Icon report](../windhawk/artifacts/parity/icon/report.json), [Always report](../windhawk/artifacts/parity/always/report.json), [renderer log](../windhawk/artifacts/tests.log), [host log](../windhawk/artifacts/host-tests.log). 생성한 바이너리, PNG, trace와 로그는 ignored artifacts에만 두며 커밋하지 않는다.
+결과 파일: Hover report (`../windhawk/artifacts/parity/report.json`, local artifact not distributed), Icon report (`../windhawk/artifacts/parity/icon/report.json`, local artifact not distributed), Always report (`../windhawk/artifacts/parity/always/report.json`, local artifact not distributed), renderer log (`../windhawk/artifacts/tests.log`, local artifact not distributed), host log (`../windhawk/artifacts/host-tests.log`, local artifact not distributed). 생성한 바이너리, PNG, trace와 로그는 ignored artifacts에만 두며 커밋하지 않는다.
 
 ### 남은 실기 확인
 

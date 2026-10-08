@@ -1,8 +1,10 @@
 [English](README.md) | [한국어](README.ko.md)
 
-# Vibedotcom
+# Officelings
 
-Vibedotcom은 Windows에서 최근 Codex, Claude Code, Antigravity 세션을 작은 픽셀 사무실로 보여준다. 캐릭터는 일하고, 기다리고, 보고서를 전달하거나 쉰다. 마우스를 올리면 세션 정보가 보이고, 평면 화면은 확인된 부모 세션을 선으로 연결한다. 세션을 관찰할 뿐 작업을 배정하거나 에이전트를 조작하지 않는다. 각 도구 소유자와 제휴하거나 승인을 받은 프로젝트는 아니다.
+기존 설치에서 업데이트한다면 [로컬 데이터와 식별자 이전 안내](docs/rename-migration.md)를 확인하세요.
+
+Officelings은 Windows에서 최근 Codex, Claude Code, Antigravity 세션을 작은 픽셀 사무실로 보여준다. 캐릭터는 일하고, 기다리고, 보고서를 전달하거나 쉰다. 마우스를 올리면 세션 정보가 보이고, 평면 화면은 확인된 부모 세션을 선으로 연결한다. 세션을 관찰할 뿐 작업을 배정하거나 에이전트를 조작하지 않는다. 각 도구 소유자와 제휴하거나 승인을 받은 프로젝트는 아니다.
 
 ## 기능과 현재 상태
 
@@ -38,17 +40,17 @@ Vibedotcom은 Windows에서 최근 Codex, Claude Code, Antigravity 세션을 작
 Windows 11과 **.NET 10 SDK**를 사용한다. 저장소 루트에서 실행한다.
 
 ```powershell
-dotnet build Vibedotcom.sln
-dotnet test Vibedotcom.sln --no-build
+dotnet build Officelings.sln
+dotnet test Officelings.sln --no-build
 # 가상 세션 미리보기. 실제 도구 로그를 읽지 않는다.
-dotnet run --project src/Vibedotcom.App --no-build -- --demo
-dotnet run --project src/Vibedotcom.App --no-build -- --view iso --demo
+dotnet run --project src/Officelings.App --no-build -- --demo
+dotnet run --project src/Officelings.App --no-build -- --view iso --demo
 # 실제 로컬 세션 관찰. full은 이름·모델·프로젝트를 숨긴다.
-dotnet run --project src/Vibedotcom.App --no-build -- --privacy full
+dotnet run --project src/Officelings.App --no-build -- --privacy full
 # Windhawk용 평면 상태 작성기. Ctrl+C로 종료한다.
-dotnet run --project src/Vibedotcom.Tracker --no-build -- --privacy full
+dotnet run --project src/Officelings.Tracker --no-build -- --privacy full
 # 별도 공유 검사. 가상 데이터와 가짜 HTTP를 쓴다.
-dotnet run --project tests/Vibedotcom.SharingChecks
+dotnet run --project tests/Officelings.SharingChecks
 ```
 
 단독 앱이 세션 자료를 직접 읽으므로 Windhawk나 헤드리스 트래커가 필요 없다. Windhawk는 트래커가 내보낸 PNG와 `state.json`을 사용한다. [설치 안내](windhawk/README.md)를 따른다. 평면 화면에서 오른쪽 클릭 후 **Edit office**로 가구를 편집한다. [편집기 안내](docs/editor.md)를 참고한다.
@@ -61,7 +63,7 @@ WPF와 Windhawk는 Windows 전용이다. Core·Tracker는 .NET 10 대상이지�
 - 사무실·트레이 오른쪽 클릭으로 화면 종류, 창 모드, 클릭 통과, 테두리·배경·불투명도, 이름표, 개인정보와 반려동물을 바꾼다. flat에는 **Sharing**과 **Edit office**도 있다.
 - 트레이를 두 번 클릭하거나 **Show normal, clickable office**로 클릭 가능한 일반 창으로 돌아온다. 앱을 닫으면 종료되고 트레이 아이콘도 사라진다.
 
-기본 설정 경로는 `%LOCALAPPDATA%\Vibedotcom\settings.json`이다. 데모·QA는 임시 저장소를 쓰고 공유를 끈다. 일반 실행은 개인 프롬프트와 경로를 읽을 수 있으므로 화면 공유 전에 개인정보 모드를 선택한다. 활동 공유는 기본적으로 꺼져 있으며 실행할 때마다 다시 동의해야 한다. Windhawk는 별도 설정을 쓰고 트레이가 없다. 바탕화면 삽입은 비공개 셸 동작을 사용하며 실패하면 맨 아래 창으로 표시한다. 두 뷰어 모두 보안 잠금 화면에는 나타나지 않는다.
+기본 설정 경로는 `%LOCALAPPDATA%\Officelings\settings.json`이다. 데모·QA는 임시 저장소를 쓰고 공유를 끈다. 일반 실행은 개인 프롬프트와 경로를 읽을 수 있으므로 화면 공유 전에 개인정보 모드를 선택한다. 활동 공유는 기본적으로 꺼져 있으며 실행할 때마다 다시 동의해야 한다. Windhawk는 별도 설정을 쓰고 트레이가 없다. 바탕화면 삽입은 비공개 셸 동작을 사용하며 실패하면 맨 아래 창으로 표시한다. 두 뷰어 모두 보안 잠금 화면에는 나타나지 않는다.
 
 CLI 전체 옵션, 설정 키, 추론 방식과 개인정보 범위는 [앱 사용법](docs/app-usage.md), [트래커](docs/tracker.md), [정보 출처](docs/sources-and-inference.md), [개인정보](docs/privacy.md)에 있다.
 

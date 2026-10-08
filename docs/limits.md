@@ -1,6 +1,6 @@
 # Limits and verification
 
-Vibedotcom observes source activity, not the tools' computation or approval UI. [Sources and inference](sources-and-inference.md) covers provider paths, bounded history and fallback rules. [Privacy](privacy.md) covers the local data shown or exported.
+Officelings observes source activity, not the tools' computation or approval UI. [Sources and inference](sources-and-inference.md) covers provider paths, bounded history and fallback rules. [Privacy](privacy.md) covers the local data shown or exported.
 
 ## Tracking and rendering
 
@@ -25,21 +25,21 @@ Neither variant displays on the secure lock screen. A normal user application re
 After a build, parser/simulation tests run with:
 
 ```powershell
-dotnet test Vibedotcom.sln --no-build
+dotnet test Officelings.sln --no-build
 ```
 
 The WPF smoke check renders without opening a window or saving settings. For a fabricated run after publishing, or after a Debug build:
 
 ```powershell
-Start-Process artifacts/publish/app/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--demo --smoke-test artifacts/app-smoke' -Wait
-Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--demo --smoke-test artifacts/engine-qa' -Wait
+Start-Process artifacts/publish/app/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--demo --smoke-test artifacts/app-smoke' -Wait
+Start-Process src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--demo --smoke-test artifacts/engine-qa' -Wait
 ```
 
 Earlier README commands without `--demo` are still available for private real-source diagnostics:
 
 ```powershell
-Start-Process artifacts/publish/app/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--smoke-test artifacts/app-smoke' -Wait
-Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--smoke-test artifacts/app-smoke' -Wait
+Start-Process artifacts/publish/app/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--smoke-test artifacts/app-smoke' -Wait
+Start-Process src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--smoke-test artifacts/app-smoke' -Wait
 ```
 
 Without `--demo`, these read recent logs. Do not use their output in public screenshots. Demo smoke writes phase captures, `office-1x.png`, `office-2x.png`, `office-3x.png`, a cropped viewport, `tooltip.png`, `transparent.png`, `smoke.txt` and interchange files. Hover uses a programmatic hit-test hook, without real cursor movement or keystrokes. It checks offscreen layout/rendering, not native z-order or tray interaction.
@@ -48,11 +48,11 @@ Other bounded checks:
 
 ```powershell
 # 20-second CPU sample after >=5 seconds warmup, fabricated activity agents and an empty tracker home:
-Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--profile-idle artifacts/idle-profile' -Wait
+Start-Process src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--profile-idle artifacts/idle-profile' -Wait
 # Own-window lifecycle check, offscreen and nonactivating:
-Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--demo --qa --quit-after 5' -Wait
+Start-Process src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--demo --qa --quit-after 5' -Wait
 # Owned-window opacity check:
-Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--verify-opacity artifacts/opacity-qa' -Wait
+Start-Process src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--verify-opacity artifacts/opacity-qa' -Wait
 ```
 
 QA forces normal z-order, suppresses cursor polling and writes neither tray state nor personal settings. Fake HWND topologies check desktop/topmost/click-through policy and classic/Windows 11 host selection without altering the shell. These checks use no global input, Show Desktop, foreground activation or termination of unrelated processes. The [app review](review-app.md) found an earlier editor Save isolation failure. Current code uses a disposable Save directory for demo/QA; its recent changes need release verification. Use disposable layout inputs for that check.

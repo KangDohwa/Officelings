@@ -1,8 +1,10 @@
 [English](README.md) | [한국어](README.ko.md)
 
-# Vibedotcom
+# Officelings
 
-Vibedotcom shows recent local Codex, Claude Code and Antigravity sessions as a small pixel office on Windows. Characters work, wait, deliver reports and take breaks. Hover for session details; flat view draws lines to known parent sessions. It observes sessions and does not assign work or control agents. This is an independent project, with no affiliation or endorsement from the tool owners.
+Upgrading an existing installation? See the [local data and identifier migration](docs/rename-migration.md).
+
+Officelings shows recent local Codex, Claude Code and Antigravity sessions as a small pixel office on Windows. Characters work, wait, deliver reports and take breaks. Hover for session details; flat view draws lines to known parent sessions. It observes sessions and does not assign work or control agents. This is an independent project, with no affiliation or endorsement from the tool owners.
 
 ## Features and current state
 
@@ -38,17 +40,17 @@ Current offscreen smoke renders use only invented `--demo` sessions and bundled 
 Use Windows 11 and the **.NET 10 SDK**. Run from the repository root:
 
 ```powershell
-dotnet build Vibedotcom.sln
-dotnet test Vibedotcom.sln --no-build
+dotnet build Officelings.sln
+dotnet test Officelings.sln --no-build
 # Invented sessions; neither command reads your provider logs:
-dotnet run --project src/Vibedotcom.App --no-build -- --demo
-dotnet run --project src/Vibedotcom.App --no-build -- --view iso --demo
+dotnet run --project src/Officelings.App --no-build -- --demo
+dotnet run --project src/Officelings.App --no-build -- --view iso --demo
 # Observe your local sessions; privacy full hides names/models/projects:
-dotnet run --project src/Vibedotcom.App --no-build -- --privacy full
+dotnet run --project src/Officelings.App --no-build -- --privacy full
 # Separate flat state writer for Windhawk; Ctrl+C stops it:
-dotnet run --project src/Vibedotcom.Tracker --no-build -- --privacy full
+dotnet run --project src/Officelings.Tracker --no-build -- --privacy full
 # Separate sharing checks: synthetic data and fake HTTP:
-dotnet run --project tests/Vibedotcom.SharingChecks
+dotnet run --project tests/Officelings.SharingChecks
 ```
 
 The standalone app reads session sources itself and needs neither Windhawk nor the headless Tracker. Windhawk needs the Tracker's exported PNGs and `state.json`; follow its [setup guide](windhawk/README.md). In flat view, right-click **Edit office** to change furniture; see the [editor](docs/editor.md).
@@ -61,7 +63,7 @@ WPF and Windhawk are Windows-only. Core/Tracker target .NET 10, but provider dis
 - Right-click office or tray: choose view, window mode, click-through, border, background, opacity, name tags, privacy and pets. Flat also has **Sharing** and **Edit office**.
 - Double-click the tray icon, or choose **Show normal, clickable office**, to recover. Closing exits and removes the icon.
 
-Settings normally live in `%LOCALAPPDATA%\Vibedotcom\settings.json`. Demo/QA use disposable storage and disable sharing. Normal observation can read private prompt text and paths; choose privacy before screen sharing. Sharing starts off and requires fresh consent each run. Windhawk has separate settings and no tray. Desktop embedding uses undocumented shell behavior with a bottom-window fallback; neither viewer appears on the secure lock screen.
+Settings normally live in `%LOCALAPPDATA%\Officelings\settings.json`. Demo/QA use disposable storage and disable sharing. Normal observation can read private prompt text and paths; choose privacy before screen sharing. Sharing starts off and requires fresh consent each run. Windhawk has separate settings and no tray. Desktop embedding uses undocumented shell behavior with a bottom-window fallback; neither viewer appears on the secure lock screen.
 
 All CLI flags, setting keys, source inference and privacy boundaries are in [app usage](docs/app-usage.md), [Tracker](docs/tracker.md), [sources](docs/sources-and-inference.md) and [privacy](docs/privacy.md).
 

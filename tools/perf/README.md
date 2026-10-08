@@ -1,9 +1,9 @@
 # Reproducible offscreen measurements
 
-Build the product in Release before measuring, then stop other builds/tests/performance processes. The harness references copied, unchanged App/Core assemblies through the existing `Vibedotcom.Tests` friend assembly. It does not build product sources. Each output directory must be new; existing results are retained.
+Build the product in Release before measuring, then stop other builds/tests/performance processes. The harness references copied, unchanged App/Core assemblies through the existing `Officelings.Tests` friend assembly. It does not build product sources. Each output directory must be new; existing results are retained.
 
 ```powershell
-$perfAppBin = "$PWD/src/Vibedotcom.App/bin/Release/net10.0-windows"
+$perfAppBin = "$PWD/src/Officelings.App/bin/Release/net10.0-windows"
 $perfBefore = "$PWD/tools/perf/results/my-before"
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/perf/benchmark.ps1 -Mode All -AppBin $perfAppBin -Output $perfBefore
 # Build and Run can be coordinated separately:
@@ -14,7 +14,7 @@ $py = (Get-Command python -ErrorAction Stop).Source
 & $py -B tools/perf/summarize.py tools/perf/results/my-after --output tools/perf/results/my-after/summary.json --baseline "$perfBefore/summary.json"
 & $py -B tools/perf/compare-pixels.py "$perfBefore/pixels" tools/perf/results/my-after/pixels --output tools/perf/results/my-after/pixel-comparison.json
 # Detailed diagnostics from actual decoded PNGs, including changed-pixel count/bounds/channel delta:
-& tools/perf/results/my-after/harness/bin/Vibedotcom.Tests.exe pixel-diff tools/perf/results/my-after/pixel-diff "$perfBefore/pixels" tools/perf/results/my-after/pixels
+& tools/perf/results/my-after/harness/bin/Officelings.Tests.exe pixel-diff tools/perf/results/my-after/pixel-diff "$perfBefore/pixels" tools/perf/results/my-after/pixels
 ```
 
 The default settled workload is 0 agents and 12 working agents, normal/topmost/transparent, in three fresh sequential processes per condition. Working agents settle for 120 logical seconds before live warmup. Live windows are 720x480 at (-30000,-30000), 1x, nonactivating, absent from the taskbar; QA suppresses save/tray/hover and uses an explicitly isolated tracker home. Polling is disabled so it cannot replace fixed agents. No foreground/input/minimization/desktop-hosting operation is performed. Native topmost, transparency and no-activate style checks are recorded. The empty live office includes the built-in three-frame 3 FPS TV; it is not a static-empty deadline test.

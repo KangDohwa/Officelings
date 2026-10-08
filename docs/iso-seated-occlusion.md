@@ -76,17 +76,17 @@ live 세션, 다른 DPI, packv5 병합 후 전체 장면, 원본에 없는 하�
 
 | 공유 파일 | 변경 위치 |
 | --- | --- |
-| `src/Vibedotcom.Core/Iso/IsoAssets.cs` | L10, IsoChairFrame 선택적 desk 필드 |
-| `src/Vibedotcom.Core/Iso/IsoSeatChairs.cs` | L5~8 캐시 형식, L37~65 desk 캐시, L71~77 선택 |
-| `src/Vibedotcom.Core/Iso/IsoFurnitureOrder.cs` | L89~92 generated attached seat 판정 |
+| `src/Officelings.Core/Iso/IsoAssets.cs` | L10, IsoChairFrame 선택적 desk 필드 |
+| `src/Officelings.Core/Iso/IsoSeatChairs.cs` | L5~8 캐시 형식, L37~65 desk 캐시, L71~77 선택 |
+| `src/Officelings.Core/Iso/IsoFurnitureOrder.cs` | L89~92 generated attached seat 판정 |
 | `tools/build_iso_pack.py` | L678 refresh_seated_pack의 generated sheet 제거만 |
 | `tools/iso_seated_geometry.py` | L28/35 방석, L115 베이스, L146/207 actor/head/palm, L235 oracle, L258 bits, L291 bake |
 | `tools/check_iso_chair_fit.py` | L23 fixture, L49 압축 마스크, L56 desk 가시성, L170 report의 4px 기준 |
 | `tools/iso_check.py` | L399 seated_assemblies의 desk 합집합·참조 검증 |
 | `tools/review_iso_seated_renders.py` | L25 착석 소유 픽셀에 actor/body·desk-front 포함 |
 | `tools/test_iso_seated_geometry.py` | L25 여섯 pilot fixture, L118 square/corner, L130 desk union, L155 NE/NW head ROI |
-| `tests/Vibedotcom.Tests/IsoSeatAssemblyChecks.cs` | L13~40 압축 마스크·desk 픽셀 검사, AllPoseFrames 호출 |
-| `tests/Vibedotcom.Tests/IsoSeatedOcclusionChecks.cs` | L144 주석, L147 빈 의자 RGBA 해시 4개 |
+| `tests/Officelings.Tests/IsoSeatAssemblyChecks.cs` | L13~40 압축 마스크·desk 픽셀 검사, AllPoseFrames 호출 |
+| `tests/Officelings.Tests/IsoSeatedOcclusionChecks.cs` | L144 주석, L147 빈 의자 RGBA 해시 4개 |
 | `docs/art-pipeline.md` | L13/15 현행 chair, L19 seated-only, L31 크기 단락 |
 | `docs/iso-integration-contract.md` | L16 Chairfix2 seated desk partition 절 추가 |
 | `docs/iso-seated-occlusion.md` | L3 chairfix2 기록 추가; 이전 기록 보존 |
@@ -203,8 +203,8 @@ python -B tools/iso_seated_geometry.py
 python -B tools/build_iso_pack.py --seated-only
 python -B tools/test_iso_seated_geometry.py
 python -B -m unittest discover -s tools -p test_build_iso_pack.py
-dotnet run --project tests/Vibedotcom.IsoChecks -- --seated-pack artifacts/seatfix/five-pilots
-dotnet run --project tests/Vibedotcom.IsoChecks -- --render-seated assets/art/iso/pack artifacts/seatfix/review-after
+dotnet run --project tests/Officelings.IsoChecks -- --seated-pack artifacts/seatfix/five-pilots
+dotnet run --project tests/Officelings.IsoChecks -- --render-seated assets/art/iso/pack artifacts/seatfix/review-after
 python -B tools/review_iso_seated_renders.py artifacts/seatfix/review-after assets/art/iso/pack
 ```
 

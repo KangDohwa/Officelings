@@ -4,7 +4,7 @@
 
 ## 항목별 수정과 회귀 검사
 
-`IsoEditorReviewCases`의 동일한 assertion body를 xUnit Theory와 NuGet 없이 실행하는 `Vibedotcom.EditorChecks`가 호출한다. 아래 이름은 runner 인수이기도 하다.
+`IsoEditorReviewCases`의 동일한 assertion body를 xUnit Theory와 NuGet 없이 실행하는 `Officelings.EditorChecks`가 호출한다. 아래 이름은 runner 인수이기도 하다.
 
 | 항목 | 수정 | 검사 |
 | --- | --- | --- |
@@ -58,26 +58,26 @@ Import의 별도 stopwatch 분해는 prepare 131.16 ms, consumer preflight 338.1
 - IsoChecks: **13 통과, 0 실패**. 10,000회 idle 0 B; mixed occupied layout 48개와 기존 seated 픽셀 임계값 유지.
 - DepthChecks: **8,804 checks, 0 실패**; 기본 351/source-default 49 overlap pair의 violation 0, random legal layout 100, idle 0 B.
 - SharingChecks: **77 통과, 1 실패**. 실패는 합성 DPAPI roundtrip: sandbox CurrentUser DPAPI unavailable, Win32 2. 실제 사용자 profile을 로드하지 않았다.
-- 전체 `dotnet build Vibedotcom.sln`: **경고 0, 오류 1**, NU1301 (`api.nuget.org:443` 소켓 접근 거부).
-- 전체 `dotnet test Vibedotcom.sln --no-restore`: 같은 NU1301, **xUnit 실행 완료 0개**. 새 xUnit wrapper의 발견/컴파일/전체 결과는 미확인이다.
+- 전체 `dotnet build Officelings.sln`: **경고 0, 오류 1**, NU1301 (`api.nuget.org:443` 소켓 접근 거부).
+- 전체 `dotnet test Officelings.sln --no-restore`: 같은 NU1301, **xUnit 실행 완료 0개**. 새 xUnit wrapper의 발견/컴파일/전체 결과는 미확인이다.
 - Python `-I -B -m unittest discover -s tools -p 'test_*.py'`: **3 통과, 8 module import 오류**(11개 발견). numpy/Pillow가 없으며 worktree venv 설치도 `pypi.org:443`, socket 10013으로 차단됐다. 기존 91개 suite 통과를 이번 결과로 주장하지 않는다.
 - Windows CLI: 유효 fixture exit 0, frame -1 합성 fixture O007/exit 1, **2개 확인 통과**. 비 Windows runtime, native DPI/window/tray/minimized QA는 미실행이다.
 
-재현 시 TEMP/TMP를 `artifacts/edfix/tmp`, DOTNET_CLI_HOME을 `artifacts/edfix/dotnet`으로 지정한다. `dotnet run --project tests/Vibedotcom.EditorChecks -- P0`는 실제 merged-pack 측정만 실행하며 인수를 생략하면 모든 19개 회귀 검사를 실행한다. 같은 case body가 xUnit `IsoEditorReviewTests`에도 연결돼 있다. Runner는 solution에 추가하지 않았다.
+재현 시 TEMP/TMP를 `artifacts/edfix/tmp`, DOTNET_CLI_HOME을 `artifacts/edfix/dotnet`으로 지정한다. `dotnet run --project tests/Officelings.EditorChecks -- P0`는 실제 merged-pack 측정만 실행하며 인수를 생략하면 모든 19개 회귀 검사를 실행한다. 같은 case body가 xUnit `IsoEditorReviewTests`에도 연결돼 있다. Runner는 solution에 추가하지 않았다.
 
 ## 공유 파일과 병합
 
 | 공유 파일 | 수정 member/행 |
 | --- | --- |
-| `src/Vibedotcom.Core/Iso/IsoOffice.cs` | 125: Update의 hidden-pet pending retreat deadline 한 줄 |
-| `src/Vibedotcom.Core/Iso/IsoPack.cs` | 16: opaque bitset cache. 322: OpaqueBounds, 338: AlphaOverlaps, 364: NextFrameChange lock, 395: HeadTop cache |
-| `src/Vibedotcom.Core/Iso/IsoPack.Custom.cs` | 17: WithCustomObjects의 파생 cache 복사와 displayName; EditorTitle 추가 |
-| `src/Vibedotcom.Core/Iso/IsoSceneBuilder.cs` | 32: constructor의 seat 집합/checked bounds, 125: AddFurniturePart, 139: AddStatic, 149: BuildWithPets의 authored animation, 203: AddDynamic checked 좌표 |
-| `src/Vibedotcom.Core/Iso/IsoSceneBuilder.Editor.cs` | 7: EditorEntries snapshot hook, 9: enabled-seat cache, 10: EnabledSeat |
-| `src/Vibedotcom.Core/Iso/IsoSeatChairs.cs` | 11: CacheSeatChairs, 24: lazy CacheSeatChair, 84: SortEntries |
-| `src/Vibedotcom.Core/Iso/IsoFurnitureOrder.cs` | 49: constructor scratch comparer, 66: Sort의 broad phase/local chain/stable topology/metadata·mask cache |
-| `src/Vibedotcom.App/IsoView.cs` | 174: BuildStatic의 bitmap budget guard, System.IO using |
-| `src/Vibedotcom.App/IsoView.Editor.cs` | 25: revision field, 36: AttachEditor, 54: RefreshEditor, 104: PickHost |
+| `src/Officelings.Core/Iso/IsoOffice.cs` | 125: Update의 hidden-pet pending retreat deadline 한 줄 |
+| `src/Officelings.Core/Iso/IsoPack.cs` | 16: opaque bitset cache. 322: OpaqueBounds, 338: AlphaOverlaps, 364: NextFrameChange lock, 395: HeadTop cache |
+| `src/Officelings.Core/Iso/IsoPack.Custom.cs` | 17: WithCustomObjects의 파생 cache 복사와 displayName; EditorTitle 추가 |
+| `src/Officelings.Core/Iso/IsoSceneBuilder.cs` | 32: constructor의 seat 집합/checked bounds, 125: AddFurniturePart, 139: AddStatic, 149: BuildWithPets의 authored animation, 203: AddDynamic checked 좌표 |
+| `src/Officelings.Core/Iso/IsoSceneBuilder.Editor.cs` | 7: EditorEntries snapshot hook, 9: enabled-seat cache, 10: EnabledSeat |
+| `src/Officelings.Core/Iso/IsoSeatChairs.cs` | 11: CacheSeatChairs, 24: lazy CacheSeatChair, 84: SortEntries |
+| `src/Officelings.Core/Iso/IsoFurnitureOrder.cs` | 49: constructor scratch comparer, 66: Sort의 broad phase/local chain/stable topology/metadata·mask cache |
+| `src/Officelings.App/IsoView.cs` | 174: BuildStatic의 bitmap budget guard, System.IO using |
+| `src/Officelings.App/IsoView.Editor.cs` | 25: revision field, 36: AttachEditor, 54: RefreshEditor, 104: PickHost |
 
 Editing의 validator/command/object geometry/issues/palette와 App overlay, 새 scene-validation/render-budget helper, tests/CLI도 같이 합쳐야 한다. 성능 helper와 scene builder 내부 hook을 따로 cherry-pick하면 컴파일/동작 불일치가 생긴다. 공개 API 변경은 없다.
 

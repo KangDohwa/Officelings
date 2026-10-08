@@ -1,4 +1,4 @@
-# Vibedotcom — spec (MVP)
+# Officelings — spec (MVP)
 
 A passive "idle-game" desktop viewer: pixel-art office where every running AI coding agent
 (Codex, Claude Code, Antigravity) is a little character. Observation only — no task assignment.
@@ -32,13 +32,13 @@ A passive "idle-game" desktop viewer: pixel-art office where every running AI co
 Stack: **.NET 10** (installed: dotnet 10.0.400, Windows 11, no Node needed). Keep it small, few files.
 
 ```
-src/Vibedotcom.Core/        tracker library: providers (Codex/Claude/Antigravity), AgentState model, incremental tailing,
+src/Officelings.Core/        tracker library: providers (Codex/Claude/Antigravity), AgentState model, incremental tailing,
                             state snapshot JSON writer; sprite/office rendering model shared if sensible
-src/Vibedotcom.App/         Variant A — STANDALONE WPF app (no Windhawk). Pixel renderer, tooltip, zoom/resize,
-                            on-top / desktop-level / click-through, tray icon, settings persisted in %LOCALAPPDATA%\Vibedotcom
-src/Vibedotcom.Tracker/     headless console: runs Core tracker, writes %LOCALAPPDATA%\Vibedotcom\state.json (atomic) and
+src/Officelings.App/         Variant A — STANDALONE WPF app (no Windhawk). Pixel renderer, tooltip, zoom/resize,
+                            on-top / desktop-level / click-through, tray icon, settings persisted in %LOCALAPPDATA%\Officelings
+src/Officelings.Tracker/     headless console: runs Core tracker, writes %LOCALAPPDATA%\Officelings\state.json (atomic) and
                             atlas.png (sprite sheet) for Variant B
-windhawk/vibedotcom.wh.cpp  Variant B — Windhawk mod (C++). Creates the layered/embedded window (WorkerW/desktop level or topmost),
+windhawk/officelings.wh.cpp  Variant B — Windhawk mod (C++). Creates the layered/embedded window (WorkerW/desktop level or topmost),
                             reads state.json + atlas.png, renders with GDI/GDI+, same animations, tooltip on hover, zoom/resize.
                             Must follow Windhawk mod format (// ==WindhawkMod== header, settings in ==WindhawkModSettings== YAML).
 tests/                      minimal: parser tests against small fixture jsonl snippets (sanitized), no frameworks beyond xunit if needed

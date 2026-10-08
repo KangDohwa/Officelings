@@ -1,6 +1,6 @@
 # Privacy
 
-Vibedotcom displays local session information. Its source files are read-only, but the information it extracts can still be private. Turn on privacy before streaming or sharing your screen. Use `--demo` for documentation and bug-report images.
+Officelings displays local session information. Its source files are read-only, but the information it extracts can still be private. Turn on privacy before streaming or sharing your screen. Use `--demo` for documentation and bug-report images.
 
 ## What is read
 
@@ -10,7 +10,7 @@ The current Antigravity implementation also reads `%APPDATA%\Antigravity\logs\la
 
 ## What is written
 
-Normal app/tracker files live under `%LOCALAPPDATA%\Vibedotcom\` by default. Explicit output, layout and art paths can point elsewhere.
+Normal app/tracker files live under `%LOCALAPPDATA%\Officelings\` by default. Explicit output, layout and art paths can point elsewhere.
 
 | File or folder | Contents and writer |
 | --- | --- |
@@ -23,9 +23,9 @@ Normal app/tracker files live under `%LOCALAPPDATA%\Vibedotcom\` by default. Exp
 
 The standalone viewer keeps session data in memory and does not continuously publish `state.json`. Flat smoke exports snapshots; iso smoke writes scene summaries and PNGs, not a v6 interchange. Current smoke uses an isolated empty home unless an explicit `--home` or `--state`/`--output` is supplied. Such explicit inputs may contain private data even when `--demo` is present.
 
-With privacy off, Antigravity DB queries make disposable copies in `%TEMP%\Vibedotcom-sqlite-*`, including available WAL, SHM and journal files. They can contain more than the short text shown in the office. Cleanup is attempted when the query finishes; a crash or cleanup failure may leave a copy. With `tasks` or `full`, DB and committed WAL pages are read into memory instead; queries create no raw DB copies or provider sidecars. Unstable databases, active rollback journals, files above 256 MiB or an unavailable SQLite memory API use cached state and transcript/local API fallbacks, with a generic warning.
+With privacy off, Antigravity DB queries make disposable copies in `%TEMP%\Officelings-sqlite-*`, including available WAL, SHM and journal files. They can contain more than the short text shown in the office. Cleanup is attempted when the query finishes; a crash or cleanup failure may leave a copy. With `tasks` or `full`, DB and committed WAL pages are read into memory instead; queries create no raw DB copies or provider sidecars. Unstable databases, active rollback journals, files above 256 MiB or an unavailable SQLite memory API use cached state and transcript/local API fallbacks, with a generic warning.
 
-Demo does not poll real providers. Current demo/QA code uses `%TEMP%\vibedotcom-demo-*` for local settings/layout paths, including editor Save, and attempts cleanup on exit. See [app usage](app-usage.md) for the earlier review finding and the current input restrictions.
+Demo does not poll real providers. Current demo/QA code uses `%TEMP%\officelings-demo-*` for local settings/layout paths, including editor Save, and attempts cleanup on exit. See [app usage](app-usage.md) for the earlier review finding and the current input restrictions.
 
 Use only invented demo sessions or synthetic homes/snapshots in documentation and bug reports.
 
@@ -51,7 +51,7 @@ The upload is built with an explicit field allowlist: `v`, `officeId`, `agents[p
 
 Aliases are user-entered. NFC normalization, a 24-scalar limit and character sanitization remove markup and formatting controls, but do not identify private information. Alias slots can change as agents join or leave. Sharing reads the current `privacyMode` before sending: `off` and `tasks` use chosen aliases; `full` uses generic provider/slot labels such as `Codex`, `Codex #2`, `Claude` and `Antigravity`, while retaining platform. The consent preview uses the same labels, and any level change stops sharing and invalidates the preview and consent, including `off` ↔ `tasks`. Review and confirm again to resume without restarting. Task-derived fields are excluded at every level. Missing or malformed saved levels use generic labels. The legacy settings key `privacy` is accepted; if both keys exist, the stricter value wins, and the app writes only `privacyMode` on its next save.
 
-The bearer token travels only in the `Authorization` header. HTTPS is required outside loopback; the production client disables proxies, cookies and redirects. Token storage uses Windows DPAPI **CurrentUser** in `%LOCALAPPDATA%\Vibedotcom.Credentials\presence.dpapi`, outside the normal app/export folder, bound to one server origin and office UUID. The token is absent from settings, layouts, state, previews, URLs, logs and surfaced exceptions. `.cooldown` files in this folder contain only timing data and are named by a token hash so App/Tracker/restarts respect the same request limit. Choosing not to store a supplied token keeps it in memory for that run.
+The bearer token travels only in the `Authorization` header. HTTPS is required outside loopback; the production client disables proxies, cookies and redirects. Token storage uses Windows DPAPI **CurrentUser** in `%LOCALAPPDATA%\Officelings.Credentials\presence.dpapi`, outside the normal app/export folder, bound to one server origin and office UUID. The token is absent from settings, layouts, state, previews, URLs, logs and surfaced exceptions. `.cooldown` files in this folder contain only timing data and are named by a token hash so App/Tracker/restarts respect the same request limit. Choosing not to store a supplied token keeps it in memory for that run.
 
 Enabling transmission does not make an office public. Public visitors can see aliases, platforms, states, hierarchy and approximate activity times. Anyone who knows a public office URL can save or redistribute that data. **Stop sharing** cancels outgoing requests; an already transmitted request cannot be recalled. The intended server contract expires presence within 90 seconds and clears it on revocation/unpublishing; hosted behavior was not verified in this checkout. Previously downloaded data cannot be recalled. **Also delete the stored token** removes the local DPAPI file; it does not revoke the server token.
 
@@ -59,18 +59,18 @@ Enabling transmission does not make an office public. Public visitors can see al
 
 Default files inherit the Windows user-profile directory's ACL. State, settings, layouts and exported art are not encrypted and have no private custom ACL. The sharing credential is the DPAPI exception described above; other processes running as the same Windows user can also use CurrentUser DPAPI. Custom or shared output directories use their own permissions.
 
-Close the app, stop the tracker, and disable the Windhawk mod before deleting `%LOCALAPPDATA%\Vibedotcom\`. Deleting that folder removes its state, settings, layouts, exported art and local overrides; a tracker published inside it is removed too. It does not delete provider logs, explicit output folders or repository-local brand downloads.
+Close the app, stop the tracker, and disable the Windhawk mod before deleting `%LOCALAPPDATA%\Officelings\`. Deleting that folder removes its state, settings, layouts, exported art and local overrides; a tracker published inside it is removed too. It does not delete provider logs, explicit output folders or repository-local brand downloads.
 
-Stop sharing and select token deletion, or separately remove `%LOCALAPPDATA%\Vibedotcom.Credentials\` after all senders have stopped, to remove the encrypted credential and timing files. Deleting the normal app folder does not remove this sibling folder or revoke the server token.
+Stop sharing and select token deletion, or separately remove `%LOCALAPPDATA%\Officelings.Credentials\` after all senders have stopped, to remove the encrypted credential and timing files. Deleting the normal app folder does not remove this sibling folder or revoke the server token.
 
 If you registered the optional task under its default name, remove it first:
 
 ```powershell
-Stop-ScheduledTask -TaskName 'Vibedotcom.Tracker'
-Unregister-ScheduledTask -TaskName 'Vibedotcom.Tracker' -Confirm
+Stop-ScheduledTask -TaskName 'Officelings.Tracker'
+Unregister-ScheduledTask -TaskName 'Officelings.Tracker' -Confirm
 ```
 
-Use your chosen name if you supplied `-TaskName`. Confirm the tracker child has stopped; task-stop behavior remains a manual check in the [Windhawk guide](../windhawk/README.md). Remove leftover `Vibedotcom-sqlite-*` copies and `vibedotcom-demo-*` directories from your temp folder after all readers have stopped. Also clean any custom output folders you created.
+Use your chosen name if you supplied `-TaskName`. Confirm the tracker child has stopped; task-stop behavior remains a manual check in the [Windhawk guide](../windhawk/README.md). Remove leftover `Officelings-sqlite-*` copies and `officelings-demo-*` directories from your temp folder after all readers have stopped. Also clean any custom output folders you created.
 
 ## Privacy levels
 
@@ -85,12 +85,12 @@ Right-click the office or tray, open **Privacy**, and choose **Off**, **Hide tas
 You can also set the level before startup:
 
 ```powershell
-dotnet run --project src/Vibedotcom.App --no-build -- --privacy full
-dotnet run --project src/Vibedotcom.Tracker --no-build -- --privacy tasks
-$env:VIBEDOTCOM_PRIVACY = 'full'
+dotnet run --project src/Officelings.App --no-build -- --privacy full
+dotnet run --project src/Officelings.Tracker --no-build -- --privacy tasks
+$env:OFFICELINGS_PRIVACY = 'full'
 ```
 
-Or add `"privacyMode": "full"` to `settings.json`. The app uses its normal settings file; the tracker uses the file in its `--output` directory. Startup precedence is `--privacy`, then the saved level (including legacy-key migration), then `VIBEDOTCOM_PRIVACY`, then `off` when no settings file exists. An existing settings object with a missing or invalid level resolves to `full`. An app startup override is saved on close; menu choices save immediately. A tracker without `--privacy` follows settings changes on its next update. A tracker started with the flag keeps that explicit local level until restarted; sharing uses the stricter of that level and the saved level. If the app and tracker use different output/settings directories, set each separately.
+Or add `"privacyMode": "full"` to `settings.json`. The app uses its normal settings file; the tracker uses the file in its `--output` directory. Startup precedence is `--privacy`, then the saved level (including legacy-key migration), then `OFFICELINGS_PRIVACY`, then `off` when no settings file exists. An existing settings object with a missing or invalid level resolves to `full`. An app startup override is saved on close; menu choices save immediately. A tracker without `--privacy` follows settings changes on its next update. A tracker started with the flag keeps that explicit local level until restarted; sharing uses the stricter of that level and the saved level. If the app and tracker use different output/settings directories, set each separately.
 
 ## Guarantees and limits
 

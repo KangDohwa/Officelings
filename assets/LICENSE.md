@@ -6,7 +6,7 @@ Project art and assets are offered under Creative Commons Attribution 4.0 Intern
 
 Use this attribution:
 
-Vibedotcom art by KangDohwa (https://github.com/KangDohwa/Vibedotcom)
+Officelings art by KangDohwa (https://github.com/KangDohwa/Officelings)
 
 This is a short human summary. The [full legal code](https://creativecommons.org/licenses/by/4.0/legalcode) sets the terms. The license covers rights the contributor can grant; it is not a warranty of copyright protection or clearance of other rights.
 

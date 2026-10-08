@@ -1,6 +1,6 @@
 # Third-party notices
 
-Vibedotcom code is [MIT](LICENSE), copyright (c) 2026 KangDohwa. Project art/assets are [CC BY 4.0](assets/LICENSE.md), with attribution “Vibedotcom art by KangDohwa (https://github.com/KangDohwa/Vibedotcom)”. The art was generated with an AI image model. Third-party logos and brand icons are excluded; see [TRADEMARKS.md](TRADEMARKS.md).
+Officelings code is [MIT](LICENSE), copyright (c) 2026 KangDohwa. Project art/assets are [CC BY 4.0](assets/LICENSE.md), with attribution “Officelings art by KangDohwa (https://github.com/KangDohwa/Officelings)”. The art was generated with an AI image model. Third-party logos and brand icons are excluded; see [TRADEMARKS.md](TRADEMARKS.md).
 
 This inventory was checked on 2026-10-04 against `src/*/*.csproj`, the test project, its resolved NuGet metadata, and `tools/*.py` imports, including imports inside functions. Links point to upstream licenses rather than copied or invented license text. Distribution-specific notices still need review for the exact release contents.
 
@@ -29,7 +29,7 @@ The app, Core and tracker have no third-party NuGet runtime PackageReference. Th
 | xunit.abstractions 2.0.3 | [Apache-2.0](https://github.com/xunit/abstractions.xunit/blob/main/license.txt) | Test runner abstractions, resolved transitively. |
 | xunit.analyzers 1.18.0 | [Apache-2.0](https://github.com/xunit/xunit.analyzers/blob/main/LICENSE) | Build-time test analysis, resolved transitively. |
 
-The Antigravity DB reader calls the Windows-provided `winsqlite3.dll`; no SQLite NuGet package or DLL is bundled by this project. SQLite's upstream code is [public domain](https://sqlite.org/copyright.html). That does not relicense the Windows system component or grant a right to redistribute Windows files. The Windhawk build uses its installed compiler, API headers and runtime libraries, which are not covered by Vibedotcom's MIT grant.
+The Antigravity DB reader calls the Windows-provided `winsqlite3.dll`; no SQLite NuGet package or DLL is bundled by this project. SQLite's upstream code is [public domain](https://sqlite.org/copyright.html). That does not relicense the Windows system component or grant a right to redistribute Windows files. The Windhawk build uses its installed compiler, API headers and runtime libraries, which are not covered by Officelings's MIT grant.
 
 ## Python tools
 

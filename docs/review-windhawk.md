@@ -1,6 +1,6 @@
 # Windhawk 독립 검토
 
-검토일: 2026-10-04. 대상은 `windhawk/vibedotcom.wh.cpp`, `windhawk/README.md`, `windhawk/compile.ps1`, `tests/windhawk/renderer_tests.cpp`, `tools/windhawk_*.ps1`, `docs/windhawk-notes.md`, `docs/state-schema.md`의 현재 작업 트리다. 실제 빌드 경로를 확인하기 위해 `windhawk/poc/compile.ps1`과 설치된 GDI+ 헤더도 읽었다.
+검토일: 2026-10-04. 대상은 `windhawk/officelings.wh.cpp`, `windhawk/README.md`, `windhawk/compile.ps1`, `tests/windhawk/renderer_tests.cpp`, `tools/windhawk_*.ps1`, `docs/windhawk-notes.md`, `docs/state-schema.md`의 현재 작업 트리다. 실제 빌드 경로를 확인하기 위해 `windhawk/poc/compile.ps1`과 설치된 GDI+ 헤더도 읽었다.
 
 **Explorer 배포 전 우선 해결할 문제는 타임아웃 메시지의 포인터 수명과 GDI+ 할당 실패다.** 두 문제는 Explorer 프로세스의 메모리 안전성에 영향을 준다. 데스크톱 자식 창의 입력 큐 결합과 중단 불가능한 작업도 종료 안정성의 중요한 위험이다. 일반 입력 검증은 상당 부분 구현되어 있지만, 캐시가 있는 경우의 잘못된 PNG 메타데이터와 v4 repaint 누락은 별도로 재현됐다.
 
@@ -24,14 +24,14 @@
 | `sequence=9223372036854775808` | `Integer bounds` |
 | 65,537 byte 문자열 | `String too large` |
 
-- 실제 mod를 `VIBEDOTCOM_TEST`로 include한 별도 임시 실행 파일로 F2, F5, F6을 검증했다. F2에서는 임시 실행 파일 안에서만 `GdipAlloc` 실패를 주입했다. 오류 대화상자를 억제한 이 프로세스가 `0xC0000005`로 종료됐으며 Explorer는 관련되지 않았다.
+- 실제 mod를 `OFFICELINGS_TEST`로 include한 별도 임시 실행 파일로 F2, F5, F6을 검증했다. F2에서는 임시 실행 파일 안에서만 `GdipAlloc` 실패를 주입했다. 오류 대화상자를 억제한 이 프로세스가 `0xC0000005`로 종료됐으며 Explorer는 관련되지 않았다.
 - PowerShell 파일 5개(wrapper, 하위 compiler, verify, runner, installer)의 구문 오류는 0개였다. `windhawk_verify.ps1` 전체, tracker runner와 installer는 실행하지 않았다.
 
 검증 자료 위치:
 
 ```text
-%TEMP%\vibedotcom-windhawk-review-d0f45a615b254ac7b58e0f985a7205c7\
-  build.ps1, vibedotcom.log, renderer_tests.log
+%TEMP%\officelings-windhawk-review-d0f45a615b254ac7b58e0f985a7205c7\
+  build.ps1, officelings.log, renderer_tests.log
   inputs\*.json, baseline\, baseline-v4\, 한글 사용자\
   probe.cpp, probe.ps1, probe.exe
   alloc_probe.cpp, alloc_probe.ps1, alloc_probe.exe
@@ -43,7 +43,7 @@
 
 ### F1 — High / P1 위험: 타임아웃 뒤에도 사용될 수 있는 스택 포인터
 
-**위치:** `windhawk/vibedotcom.wh.cpp:771-772` (`Hover`, `LVHITTESTINFO hit`).
+**위치:** `windhawk/officelings.wh.cpp:771-772` (`Hover`, `LVHITTESTINFO hit`).
 
 **실패 시나리오:** wallpaper host와 icon host의 입력 큐가 분리된 topology 또는 shell/control 재구성 경합에서, 데스크톱 툴팁이 다른 스레드의 list-view에 `&hit`를 보내며 40ms 뒤 반환할 수 있다. 수신 WndProc가 메시지를 이미 받았지만 셸 부하나 다른 mod의 subclass 처리 때문에 늦게 완료되면, 송신 함수가 반환한 뒤에도 수신 측이 `hit.flags` 등에 쓸 수 있다. `LVM_HITTEST`는 `WM_USER` 이상의 control 메시지이고 자동 마샬링으로 보호되는 스택 복사본이 없다. 이는 Explorer 안에서 스택 수명 종료 후 쓰기를 만들 수 있다. [Microsoft의 타임아웃 후 메시지 수명 설명](https://devblogs.microsoft.com/oldnewthing/20110915-00/?p=9643), [hit-test 입력·출력 포인터 계약](https://learn.microsoft.com/en-us/windows/win32/api/commctrl/nf-commctrl-listview_hittest).
 
@@ -53,7 +53,7 @@
 
 ### F2 — High / P1: GDI+ 객체 할당 실패가 Explorer 접근 위반으로 이어짐
 
-**위치:** `windhawk/vibedotcom.wh.cpp:452`, `:488`, `:566`; 관련 오류 처리 `:753`, `:814`, `:832`.
+**위치:** `windhawk/officelings.wh.cpp:452`, `:488`, `:566`; 관련 오류 처리 `:753`, `:814`, `:832`.
 
 **실패 시나리오:** `std::make_unique<Bitmap>` / `Font`가 일반 C++의 throwing allocation이라고 가정하고 곧바로 객체를 사용한다. 설치된 Windhawk 헤더의 `GdiplusBase::operator new`는 `GdipAlloc` 결과를 그대로 반환한다. 이 결과가 null이면 현재 `-O2` 빌드에서는 객체 생성 중 접근 위반이 발생할 수 있으며 `catch(std::exception)`나 바깥 `catch(...)`가 복구하지 못한다. 메모리 압박이나 큰 pack 교체 때 사용자에게 Explorer crash로 나타날 수 있다. [GDI+ 객체의 별도 할당 연산자](https://learn.microsoft.com/en-us/windows/win32/api/gdiplusbase/nf-gdiplusbase-gdiplusbase-operatornew).
 
@@ -63,7 +63,7 @@
 
 ### F3 — High / P1 위험: desktop parenting이 셸 입력 큐와 느린 UI 작업을 결합함
 
-**위치:** `windhawk/vibedotcom.wh.cpp:713-714`, `:727`, `:772`, `:798-802`, `:836`; IO `:242-257`.
+**위치:** `windhawk/officelings.wh.cpp:713-714`, `:727`, `:772`, `:798-802`, `:836`; IO `:242-257`.
 
 **실패 시나리오:** Explorer의 Progman/WorkerW와 다른 스레드에서 child를 만든다. parent/child 관계는 입력 큐를 자동 결합하므로, 이 스레드는 더 이상 셸과 완전히 독립된 UI 실행기가 아니다. 그런데 같은 스레드가 동기 파일 읽기, JSON 파싱, PNG decode/hash, 전체 렌더를 수행한다. 허용된 removable drive가 멈추거나 큰 새 pack 처리에 시간이 걸리고 셸이 공유 큐의 동기 작업을 기다리면 데스크톱 입력이 같이 정체될 수 있다. 이후의 shell 메시지는 같은 큐 조건에서 40/250ms timeout이 보장되지 않을 수 있다. disable/reload는 `WaitForSingleObject(INFINITE)`에서 이 작업을 끝없이 기다린다. [자동 입력 큐 결합 설명](https://devblogs.microsoft.com/oldnewthing/20130607-00/?p=4143), [같은 큐에서는 timeout을 무시하는 계약](https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-sendmessagetimeoutw).
 
@@ -73,7 +73,7 @@
 
 ### F4 — Medium / P2: native move/size·menu modal loop가 stop event를 보지 않음
 
-**위치:** `windhawk/vibedotcom.wh.cpp:688`, `:795`, `:811-812`, `:836`.
+**위치:** `windhawk/officelings.wh.cpp:688`, `:795`, `:811-812`, `:836`.
 
 **실패 시나리오:** normal/topmost 창의 이동·크기 변경 또는 시스템 메뉴가 `DefWindowProc`의 내부 modal loop를 돌고 있을 때 settings reload/disable이 들어온다. `g_stop`을 읽는 외부 loop로 아직 돌아오지 않았으므로 event만 signal해도 UI thread가 종료되지 않는다. unload가 사용자의 modal 동작 종료에 종속되고, native loop가 계속 남으면 reload도 완료되지 않는다. [move/size loop는 DefWindowProc 반환까지 지속됨](https://learn.microsoft.com/en-us/windows/win32/winmsg/wm-entersizemove).
 
@@ -83,7 +83,7 @@
 
 ### F5 — Medium / P2: warm image cache가 잘못된 sheet 치수를 승인함
 
-**위치:** `windhawk/vibedotcom.wh.cpp:554`, `:746`, `:802`, `:814`; 정상 cold 검증 `:415`.
+**위치:** `windhawk/officelings.wh.cpp:554`, `:746`, `:802`, `:814`; 정상 cold 검증 `:415`.
 
 **실패 시나리오:** 정상 pack을 읽은 뒤 새 JSON이 같은 sheet ID/path/SHA를 유지하면서 `width`를 두 배로 늘리고 sprite.x를 실제 PNG 바깥으로 지정한다. parser는 새 manifest 치수에 맞는 frame이라 승인한다. `Renderer::Load`는 ID/path/SHA만 비교하므로 기존 decoded bitmap의 실제 치수를 재검증하지 않는다. snapshot이 먼저 commit된 다음 `Crop failed`가 render에서 발생하고 전체 UI thread가 종료된다. 이후 정상 JSON이 돌아와도 읽는 스레드가 없으므로 settings reload 전에는 회복하지 않는다. 이는 malformed candidate에서 마지막 정상 scene을 보존한다는 `windhawk/README.md:81-85`, `docs/state-schema.md:18`의 기대를 깨뜨린다.
 
@@ -98,7 +98,7 @@ cold-sheet: rejected=1 reason=PNG metadata mismatch
 
 ### F6 — Medium / P2: v4 semantic state가 repaint key에서 빠짐
 
-**위치:** `windhawk/vibedotcom.wh.cpp:574`, `:591`, `:617`, `:801-802`.
+**위치:** `windhawk/officelings.wh.cpp:574`, `:591`, `:617`, `:801-802`.
 
 **실패 시나리오:** `agent.state`만 working/reporting에서 idle 등으로 바뀌고 pose·sprite는 같은 순간에 v4의 관계선 또는 desk nameplate 표시 조건이 달라진다. 하지만 `VisualKey`는 `a.state`를 넣지 않는다. 새 snapshot과 tooltip은 갱신돼도 repaint를 생략하므로 화면에는 이전 관계선/이름표가 남는다. 추가적인 pose 변화가 없는 동안 계속 유지된다.
 
@@ -108,7 +108,7 @@ cold-sheet: rejected=1 reason=PNG metadata mismatch
 
 ### F7 — Medium / P2: WorkerW 생성 실패·소실 후 같은 Progman에서는 복구 요청이 없음
 
-**위치:** `windhawk/vibedotcom.wh.cpp:651`, `:712-715`, `:717-738`; 방송 처리 `:693`.
+**위치:** `windhawk/officelings.wh.cpp:651`, `:712-715`, `:717-738`; 방송 처리 `:693`.
 
 **실패 시나리오:** 첫 `0x052C` 요청이 timeout/failure로 끝나도 `requestedProgman`을 성공한 것처럼 기록한다. 또는 wallpaper/display 재구성으로 WorkerW만 소실되고 Progman HWND는 유지된다. helper는 probe를 앞당기지만 다음 probe도 같은 Progman이라는 이유로 layer 생성 요청을 하지 않는다. shell이 WorkerW를 스스로 복원하지 않는 경우 viewer는 계속 bottom-level fallback에 남는다. fallback은 desktop child와 Win+D/아이콘 동작이 같다고 보장할 수 없다.
 
@@ -118,7 +118,7 @@ cold-sheet: rejected=1 reason=PNG metadata mismatch
 
 ### F8 — Medium / P2: cloaked office의 hover가 다른 가상 데스크톱에 나타날 수 있음
 
-**위치:** `windhawk/vibedotcom.wh.cpp:757`, `:765-767`, `:778-783`, `:799`.
+**위치:** `windhawk/officelings.wh.cpp:757`, `:765-767`, `:778-783`, `:799`.
 
 **실패 시나리오:** top-level click-through/fallback office가 다른 virtual desktop이나 shell suppression 때문에 DWM-cloaked 상태가 된다. `IsWindowVisible`은 true일 수 있다. code는 cloak/current-desktop 상태를 확인하지 않고 전역 z-order에서 office를 찾으면 `visible=true`로 승인한다. desktop-level 경로도 Progman/icon-host root라는 이유로 허용한다. 따라서 보이지 않는 office 위치에서 새 topmost tooltip이 생성될 수 있다. 같은 조건에서는 보이지 않는 scene의 렌더도 계속될 수 있다. [WS_VISIBLE 상태와 실제 shell cloaking의 차이](https://devblogs.microsoft.com/oldnewthing/20200302-00/?p=103507).
 
@@ -128,7 +128,7 @@ cold-sheet: rejected=1 reason=PNG metadata mismatch
 
 ### F9 — Medium / P2: display 변경 시 geometry 복구가 없고 viewport clamp가 실제 HWND 크기와 갈라짐
 
-**위치:** `windhawk/vibedotcom.wh.cpp:673`, `:675-678`, `:693`, `:725-738`, `:759`.
+**위치:** `windhawk/officelings.wh.cpp:673`, `:675-678`, `:693`, `:725-738`, `:759`.
 
 **실패 시나리오:** office가 있는 보조 모니터를 제거하거나 virtual-screen 원점을 변경해도 probe는 host HWND와 sibling order만 비교한다. 설정 좌표를 유효한 monitor 영역으로 보정하지 않으며 같은 parent의 child 좌표를 다시 screen→parent로 변환하지도 않는다. 해당 shell이 window 위치를 대신 보정하지 않는 경우 office가 화면 밖에 남는다. 별도로 maximize 또는 DPI 권장 rect가 실제 client를 4096×2048보다 크게 만들면 `WM_SIZE`는 실제 HWND를 줄이지 않고 `ui.width/height`만 clamp한다. 예를 들어 client 높이 2100이면 아래 52px는 buffer 영역 밖이 되고 magenta color key로 비거나 hover 대상에서 빠진다. `ptMaxTrackSize`만 설정한 것은 모든 programmatic/maximize 크기의 제한이 아니다.
 
@@ -138,7 +138,7 @@ cold-sheet: rejected=1 reason=PNG metadata mismatch
 
 ### F10 — Medium / P2 위험: parent와 다른 DPI context에서 hover 좌표를 계산하고 tooltip은 고정 DPI
 
-**위치:** `windhawk/vibedotcom.wh.cpp:719-728`, `:758-772`, `:781-783`, `:794`; `TipProc` `:697-703`.
+**위치:** `windhawk/officelings.wh.cpp:719-728`, `:758-772`, `:781-783`, `:794`; `TipProc` `:697-703`.
 
 **실패 시나리오:** embedded office는 parent context로 생성하지만 UI thread를 곧 PMv2로 복원한다. 반면 `WM_SIZE`/paint callback은 생성 당시 context에서 실행되며 hover는 PMv2 outer loop에서 cursor·client·list-view 좌표를 계산한다. parent가 system/unaware context인 mixed-DPI 환경에서는 서로 다른 좌표 공간을 암묵적으로 같다고 가정하므로 sprite hover와 icon hit-test가 틀어질 위험이 있다. tooltip 자체도 -13px font, 폭 364px, 높이 상한 440px를 전 생애에 고정하고 `WM_DPICHANGED`를 처리하지 않아 100→200% 이동에서 글자/레이아웃이 DPI에 맞게 갱신되지 않는다. [HWND callback context의 자동 전환과 API 가상화](https://learn.microsoft.com/en-us/windows/win32/hidpi/high-dpi-improvements-for-desktop-applications), [DPI별 값의 재계산 요구](https://learn.microsoft.com/en-us/windows/win32/hidpi/high-dpi-desktop-application-development-on-windows).
 
@@ -148,9 +148,9 @@ cold-sheet: rejected=1 reason=PNG metadata mismatch
 
 ### F11 — Low / P3: relative path 검증이 존재하지 않을 수 있는 C: 드라이브에 의존함
 
-**위치:** `windhawk/vibedotcom.wh.cpp:321`; `LocalPath` `:224-225`.
+**위치:** `windhawk/officelings.wh.cpp:321`; `LocalPath` `:224-225`.
 
-**실패 시나리오:** 실제 state/pack이 유효한 D: 등의 local drive에 있어도 C:가 없는 환경에서는 모든 sheet가 `SheetPath(L"C:\\Vibedotcom", ...)`에서 실패한다. 이 검사는 relative 문자열 문법 확인용인데 `GetDriveTypeW(C:)`까지 실행한다. 결과적으로 viewer가 영구 offline으로 남는다. 비ASCII username 문제와는 별개이며 한글 경로는 실제 검사에서 통과했다.
+**실패 시나리오:** 실제 state/pack이 유효한 D: 등의 local drive에 있어도 C:가 없는 환경에서는 모든 sheet가 `SheetPath(L"C:\\Officelings", ...)`에서 실패한다. 이 검사는 relative 문자열 문법 확인용인데 `GetDriveTypeW(C:)`까지 실행한다. 결과적으로 viewer가 영구 offline으로 남는다. 비ASCII username 문제와는 별개이며 한글 경로는 실제 검사에서 통과했다.
 
 **근거:** 정적 코드 근거. 이 머신의 C: 드라이브를 변경하거나 해당 환경을 재현하지 않았다.
 
@@ -178,7 +178,7 @@ cold-sheet: rejected=1 reason=PNG metadata mismatch
 
 ### 기존 검증 수치의 해석
 
-`tests/windhawk/renderer_tests.cpp:1-3`과 `windhawk/vibedotcom.wh.cpp:624`에서 HWND host를 통째로 제외한다. 따라서 tests 통과는 F1/F3/F4/F7/F8/F9/F10의 반증이 아니다. `Profile`은 `next=idle`로 고정한 합성 scene의 key를 검사한다(`renderer_tests.cpp:23-35`). 이 측정을 실제 tracker→host→paint의 상태 변화나 shell lifetime 검증으로 확대하면 **Tautology / verifier=designer**에 해당한다. 독립 확인은 실제 export의 semantic state 변화, Win32 host 수명 및 Explorer CPU/GDI 관찰이 필요하다.
+`tests/windhawk/renderer_tests.cpp:1-3`과 `windhawk/officelings.wh.cpp:624`에서 HWND host를 통째로 제외한다. 따라서 tests 통과는 F1/F3/F4/F7/F8/F9/F10의 반증이 아니다. `Profile`은 `next=idle`로 고정한 합성 scene의 key를 검사한다(`renderer_tests.cpp:23-35`). 이 측정을 실제 tracker→host→paint의 상태 변화나 shell lifetime 검증으로 확대하면 **Tautology / verifier=designer**에 해당한다. 독립 확인은 실제 export의 semantic state 변화, Win32 host 수명 및 Explorer CPU/GDI 관찰이 필요하다.
 
 README는 CPU와 WPF 비교가 offscreen/synthetic이며 실제 Explorer 수치가 아니라고 명시한다(`windhawk/README.md:116-120`). 그 제한은 타당하다. 이번 검토는 0.19%/1.89%와 99.71% pixel match를 재측정하지 않았고, 임의 pack/agent 수나 Explorer에서의 목표 CPU를 달성했다고 인정하지 않는다. 이번 F6의 key-vs-실제-pixel 비교는 key 자체를 정답으로 사용하지 않아 기존 repaint 검사와 다른 결함을 드러냈다.
 

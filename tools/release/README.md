@@ -11,10 +11,10 @@ The build always uses a fresh detached worktree of HEAD in `%TEMP%`. Commit the 
 
 For a release candidate, use `-Version 1.2.3` (and optionally `-Configuration Release`, the default). If you omit the version, the script reads `Version` or `VersionPrefix` from the committed `Directory.Build.props`, then falls back to `git describe --tags --always`. The version labels the package; it does not change source files or assembly versions. Review the ZIPs, `SHA256SUMS.txt`, `release-notes.md`, and `smoke-results.json` before separately tagging or uploading anything. This script only creates local artifacts.
 
-Each ZIP contains `app/Vibedotcom.App.exe`, `tracker/Vibedotcom.Tracker.exe`, and the requested license/readme/security files that exist in HEAD, with their relative paths preserved. Missing documents produce warnings. Add any missing license or security notice in a separate approved change before publishing; a dry run can still inspect packaging without them. The notes group commit subjects since the previous reachable tag by Conventional Commit type and preserve the original Korean text. With no previous tag, they include all history through HEAD.
+Each ZIP contains `app/Officelings.App.exe`, `tracker/Officelings.Tracker.exe`, and the requested license/readme/security files that exist in HEAD, with their relative paths preserved. Missing documents produce warnings. Add any missing license or security notice in a separate approved change before publishing; a dry run can still inspect packaging without them. The notes group commit subjects since the previous reachable tag by Conventional Commit type and preserve the original Korean text. With no previous tag, they include all history through HEAD.
 
-- `Vibedotcom-<version>-win-x64.zip` needs the .NET 10 Windows Desktop Runtime for x64.
-- `Vibedotcom-<version>-win-x64-selfcontained.zip` includes the runtime and is larger.
+- `Officelings-<version>-win-x64.zip` needs the .NET 10 Windows Desktop Runtime for x64.
+- `Officelings-<version>-win-x64-selfcontained.zip` includes the runtime and is larger.
 
 Single-file publishing keeps each program and its embedded art together, so there are fewer files to lose when moving the folder. Native libraries extract at runtime. We enable `IncludeNativeLibrariesForSelfExtract` and leave trimming off; see [Microsoft's single-file documentation](https://learn.microsoft.com/en-us/dotnet/core/deploying/single-file/overview). The build copies each executable alone into TEMP and runs it hidden. WPF uses `--demo --smoke-test`; the tracker uses `--once --home` with an empty home because it has no demo switch. Both use an isolated LocalAppData directory, read no real provider logs, and must export the expected embedded sheets with matching SHA256 hashes and no warnings. The WPF check renders offscreen; it does not verify desktop hosting or foreground behavior. Sizes and results are printed; summaries and process logs remain beside the ZIPs.
 
@@ -39,9 +39,9 @@ After choosing and approving a certificate, sign the finished EXEs BEFORE making
 the ZIPs, then rerun the smoke checks and regenerate ZIPs and SHA256SUMS.txt.
 Replace the thumbprint and timestamp URL with your approved values:
 
-signtool sign /sha1 <approved-certificate-thumbprint> /fd SHA256 /tr <approved-timestamp-url> /td SHA256 path\Vibedotcom.App.exe
-signtool verify /pa /v path\Vibedotcom.App.exe
+signtool sign /sha1 <approved-certificate-thumbprint> /fd SHA256 /tr <approved-timestamp-url> /td SHA256 path\Officelings.App.exe
+signtool verify /pa /v path\Officelings.App.exe
 
-Repeat for Vibedotcom.Tracker.exe in both variants. Do not enable this section
+Repeat for Officelings.Tracker.exe in both variants. Do not enable this section
 until the certificate and release signing process have been explicitly approved.
 -->

@@ -11,7 +11,7 @@
 
 검토일: 2026-10-04. 소스 기준은 **`280e7a61b0d3c049de75967892debac15627fbcc`**, 그 커밋의 조상은 154개다. 요청한 `git worktree add --detach %TEMP%\vd-sec HEAD`로 분리한 뒤 이 worktree의 소스만 분석했다. 이후 다른 작업자가 만든 커밋과 작업 트리 변경은 제품 취약점 판단에 섞지 않았다.
 
-범위: `src/Vibedotcom.Core`, `src/Vibedotcom.App`, `src/Vibedotcom.Tracker`, `windhawk/vibedotcom.wh.cpp`, `tools/*.ps1`, `tools/*.py`, `tools/release/*`, `.gitignore`, 에셋 매니페스트. `docs`, fixtures, 아트 QA 기록과 Git 이력은 공개 시 민감정보·브랜드·바이너리 점검 목적으로 추가 확인했다.
+범위: `src/Officelings.Core`, `src/Officelings.App`, `src/Officelings.Tracker`, `windhawk/officelings.wh.cpp`, `tools/*.ps1`, `tools/*.py`, `tools/release/*`, `.gitignore`, 에셋 매니페스트. `docs`, fixtures, 아트 QA 기록과 Git 이력은 공개 시 민감정보·브랜드·바이너리 점검 목적으로 추가 확인했다.
 
 | Critical | High | Medium | Low | Info | 합계 |
 |---:|---:|---:|---:|---:|---:|
@@ -35,7 +35,7 @@
 
 ### S02 — High, 조건부: Explorer의 로컬 파일 제한을 reparse point로 우회할 수 있다
 
-**위치:** `windhawk/vibedotcom.wh.cpp:229`, `:254`, `:257`, `:260`, `:263`, `:1121`, `:1126`.
+**위치:** `windhawk/officelings.wh.cpp:229`, `:254`, `:257`, `:260`, `:263`, `:1121`, `:1126`.
 
 **공격:** 로컬처럼 보이는 `statePath` 또는 pack root의 ancestor가 원격 공유로 향하는 링크다. `GetDriveTypeW`는 표시 경로의 드라이브만 검사한다. `CreateFileW`는 링크를 따라가며, state 읽기는 최종 경로를 확인하지 않는다. pack root 전체가 같은 원격 트리로 해석되면 root와 sheet의 최종 경로 prefix 비교도 통과할 수 있다. 하위 sheet만 원격으로 향해 나중에 거부되어도 원격 open은 이미 시도된다.
 
@@ -45,7 +45,7 @@
 
 ### S03 — Medium: 관리 코드의 팩·브랜드 경로 검사는 링크 탈출을 막지 못한다
 
-**위치:** `src/Vibedotcom.Core/Assets.cs:39`, `:71`, `:104`; `src/Vibedotcom.App/BrandIcons.cs:31`; `src/Vibedotcom.Core/LayoutLoader.cs:9`.
+**위치:** `src/Officelings.Core/Assets.cs:39`, `:71`, `:104`; `src/Officelings.App/BrandIcons.cs:31`; `src/Officelings.Core/LayoutLoader.cs:9`.
 
 **공격:** 팩의 `linked/sheet.png`가 팩 외부의 PNG를 가리키는 junction 아래에 있다. `Path.GetFullPath`와 prefix 검사는 통과하고 실제 파일 읽기는 외부로 나간다. 팩 root 자체와 `assets.json`, `manifest.json`, 브랜드의 고정 파일명에도 최종 대상 검사가 없다. 읽은 이미지는 tracker export로 복제될 수 있다. 팩만으로 임의 텍스트를 state에 공개하는 공격은 입증하지 않았다; sheet는 PNG 검사를 받아야 한다.
 
@@ -55,7 +55,7 @@
 
 ### S04 — Medium: `--output`의 보호 디렉터리 차단을 junction으로 우회한다
 
-**위치:** `src/Vibedotcom.Core/Models.cs:93`, `:100`, `:114`; `src/Vibedotcom.Core/Assets.cs:262`; `src/Vibedotcom.Tracker/Program.cs:37`, `:42`, `:67`; `src/Vibedotcom.Core/OfficeEditor.cs:421`.
+**위치:** `src/Officelings.Core/Models.cs:93`, `:100`, `:114`; `src/Officelings.Core/Assets.cs:262`; `src/Officelings.Tracker/Program.cs:37`, `:42`, `:67`; `src/Officelings.Core/OfficeEditor.cs:421`.
 
 **공격:** `--output`이 정상 폴더 이름이지만 실제 대상은 보호하려는 provider 디렉터리다. root 또는 `sheets` 같은 하위 디렉터리를 공격자가 교체할 수도 있다. 경로 문자열만 검사하므로 atlas/state/manifest 등의 생성·교체가 의도하지 않은 대상에서 이루어진다. 이 문제는 모든 임의 파일 이름을 쓰는 원격 primitive가 아니라 프로그램이 게시하는 고정/해시 파일과 편집기 저장 경로에 적용된다.
 
@@ -65,7 +65,7 @@
 
 ### S05 — Medium: 팩 전체의 메모리·디코딩 작업량 상한이 없다
 
-**위치:** `src/Vibedotcom.Core/Assets.cs:62`, `:71`, `:76`, `:118`, `:144`; `src/Vibedotcom.App/OfficeView.cs:63`.
+**위치:** `src/Officelings.Core/Assets.cs:62`, `:71`, `:76`, `:118`, `:144`; `src/Officelings.App/OfficeView.cs:63`.
 
 **공격:** sheet당 제한 안에 있는 PNG 128개를 넣는다. 파일당 32 MiB, 이미지당 16,777,216 pixels는 있지만 모든 compressed bytes와 decoded pixels의 합계는 제한하지 않는다. 수 GiB의 보관/디코딩과 장시간 해시·압축 해제 작업을 유발할 수 있다. WPF는 보관한 이미지 각각을 디코딩한다.
 
@@ -75,7 +75,7 @@
 
 ### S06 — Medium: 제한된 JSONL 한 파일로 에이전트 수를 무제한 늘릴 수 있다
 
-**위치:** `src/Vibedotcom.Core/AgentTracker.cs:161`, `:177`, `:180`, `:185`; `src/Vibedotcom.Core/LogParser.cs:33`; `src/Vibedotcom.Tracker/Program.cs:59`, `:67`.
+**위치:** `src/Officelings.Core/AgentTracker.cs:161`, `:177`, `:180`, `:185`; `src/Officelings.Core/LogParser.cs:33`; `src/Officelings.Tracker/Program.cs:59`, `:67`.
 
 **공격:** 최근 시각의 Codex `session_meta`를 서로 다른 ID로 반복한다. 각 행은 작은 정상 JSON이지만 `agents`와 `source.Cached`에 새 항목이 계속 추가된다. 단일 파일의 읽기 byte 상한과 행 상한은 총 에이전트 수·메타데이터 문자열·파일 수의 상한이 아니다. UI 계산과 state 직렬화도 커지고 Explorer의 2,048-agent/4 MiB 계약과 불일치한다.
 
@@ -85,7 +85,7 @@
 
 ### S07 — Medium: SQLite 복사와 조회는 hostile DB의 증폭을 제한하지 않는다
 
-**위치:** `src/Vibedotcom.Core/Providers/SqliteSnapshot.cs:29`, `:34`, `:47`, `:48`, `:59`, `:62`, `:65`; `src/Vibedotcom.Core/Providers/AntigravityProvider.cs:158`, `:183`.
+**위치:** `src/Officelings.Core/Providers/SqliteSnapshot.cs:29`, `:34`, `:47`, `:48`, `:59`, `:62`, `:65`; `src/Officelings.Core/Providers/AntigravityProvider.cs:158`, `:183`.
 
 **공격:** DB/WAL/SHM/journal을 매우 크게 만들거나, `conversation_summaries`를 연산이 많은 VIEW로 만든다. `SQLITE_OPEN_READONLY`, 안정성 stamp, `PRAGMA quick_check`, `user_version` 검사도 VIEW의 연산량·반환 크기·복사량을 제한하지 않는다. 요약 SELECT는 row 제한이 없으며 column text 전체를 관리 문자열로 복사한다. step 쿼리의 최종 `LIMIT 24`도 앞선 scan/sort/VIEW 비용을 제한하지 않는다.
 
@@ -95,7 +95,7 @@
 
 ### S08 — Medium, 조건부: Antigravity loopback 응답을 과도하게 신뢰한다
 
-**위치:** `src/Vibedotcom.Core/Providers/AntigravityRuntime.cs:27`, `:38`, `:42`, `:52`, `:54`, `:70`; `src/Vibedotcom.Core/Providers/AntigravityProvider.cs:55`, `:57`, `:61`.
+**위치:** `src/Officelings.Core/Providers/AntigravityRuntime.cs:27`, `:38`, `:42`, `:52`, `:54`, `:70`; `src/Officelings.Core/Providers/AntigravityProvider.cs:55`, `:57`, `:61`.
 
 **공격:** 종료된 서버의 재사용된 포트에 다른 로컬 사용자가 서버를 띄우거나, 언어 서버/발견 로그가 변조된다. 프로세스 이름의 존재와 응답의 `productName`은 endpoint 소유자 검증이 아니다. 본문을 문자열로 전부 읽고 map 전체를 clone한다. 응답 key를 검증 없이 DB/brain 경로에 결합하므로 rooted path 또는 `..`로 provider 폴더 밖의 DB·전사 파일 조회까지 유도할 수 있다.
 
@@ -105,7 +105,7 @@
 
 ### S09 — Medium: Explorer 이름 줄임 처리가 이차 작업을 유발한다
 
-**위치:** `windhawk/vibedotcom.wh.cpp:405`, `:568`, `:579`, `:600`, `:695`, `:697`.
+**위치:** `windhawk/officelings.wh.cpp:405`, `:568`, `:579`, `:600`, `:695`, `:697`.
 
 **공격:** 보이는 agent의 `name`에 최대 허용 길이인 ASCII 65,536자를 넣고 `displayName`을 생략한다. 파서는 `displayName`을 name으로 채우므로, 빈 displayName에만 적용되는 16자 제한을 건너뛴다. `Text`는 한 글자씩 제거하면서 전체 문자열을 복사하고 DirectWrite layout을 반복한다.
 
@@ -115,7 +115,7 @@
 
 ### S10 — Medium: 큰 sprite crop을 교대하면 캐시 제한이 작업량 증폭을 막지 못한다
 
-**위치:** `windhawk/vibedotcom.wh.cpp:326`, `:327`, `:518`, `:612`, `:613`, `:746`.
+**위치:** `windhawk/officelings.wh.cpp:326`, `:327`, `:518`, `:612`, `:613`, `:746`.
 
 **공격:** 허용된 `8192×2048` PNG에서 `8191×2048` crop 두 개를 x=0과 x=1로 교대한다. `ParseFrame`은 sprite를 cell 크기 대신 sheet 전체까지 허용한다. crop 하나는 67,100,672 bytes로 개별 캐시에 들어가지만 두 개는 64 MiB를 넘는다. 다음 crop에서 cache 전체를 비우고 다시 복사한다.
 
@@ -167,7 +167,7 @@ CairoSVG **<2.9.0**의 recursive `<use>` DoS는 [CVE-2026-31899 / GHSA-f38f-5xpm
 
 ### S15 — Low, 조건부: case-sensitive 폴더에서 네이티브 root prefix 비교가 틀린다
 
-**위치:** `windhawk/vibedotcom.wh.cpp:243`, `:263`.
+**위치:** `windhawk/officelings.wh.cpp:243`, `:263`.
 
 **공격/근거:** NTFS case sensitivity가 켜진 부모 안에 서로 다른 `pack`과 `PACK`이 있고, 내부 링크가 이웃 폴더를 가리킨다. 최종 handle 경로가 서로 달라도 `_wcsnicmp`가 같은 prefix로 취급한다. 일반 NTFS default에서 별도 폴더 두 개를 만들 수 있는 경우로 확대하지 않았다. [Windows의 디렉터리별 case sensitivity](https://learn.microsoft.com/en-us/windows/wsl/case-sensitivity)는 실제 지원되는 조건이다. 입증되는 영향은 팩 밖 PNG 읽기이며 hash 일치도 공격자가 고른 이미지의 출처 경계를 보장하지 않는다.
 
@@ -195,7 +195,7 @@ CairoSVG **<2.9.0**의 recursive `<use>` DoS는 [CVE-2026-31899 / GHSA-f38f-5xpm
 
 ### S18 — Info: state의 프롬프트·경로는 평문이며 출력 ACL은 상속에 의존한다
 
-**위치:** `src/Vibedotcom.Core/Models.cs:17`, `:27`, `:59`, `:116`; `src/Vibedotcom.Core/LogParser.cs:24`, `:130`, `:160`; `src/Vibedotcom.Tracker/Program.cs:67`.
+**위치:** `src/Officelings.Core/Models.cs:17`, `:27`, `:59`, `:116`; `src/Officelings.Core/LogParser.cs:24`, `:130`, `:160`; `src/Officelings.Tracker/Program.cs:67`.
 
 **상황:** `Task`는 공백 정리 후 최대 240 UTF-16 code units인 실제 사용자 프롬프트다. cwd, model, ID, 이름/제목도 state에 포함된다. 로컬에만 생성되더라도 공유 output, 동기화 폴더, 백업·지원 첨부에서 노출될 수 있다. `Directory.CreateDirectory`/파일 생성에 사용자 전용 DACL을 명시하지 않는다.
 
@@ -205,7 +205,7 @@ CairoSVG **<2.9.0**의 recursive `<use>` DoS는 [CVE-2026-31899 / GHSA-f38f-5xpm
 
 ### S19 — Info: 의존성·실행 경로의 공급망 재현성이 부족하다
 
-**위치:** `Directory.Build.props:3`, `:7`; `tests/Vibedotcom.Tests/Vibedotcom.Tests.csproj:6`; `tools/fetch_brand_icons.ps1:2`, `:26`; `tools/fetch_brand_icons.py:15`, `:61`; `tools/windhawk_install_tracker.ps1:12`, `:27`; `tools/release/build-release.ps1:121`.
+**위치:** `Directory.Build.props:3`, `:7`; `tests/Officelings.Tests/Officelings.Tests.csproj:6`; `tools/fetch_brand_icons.ps1:2`, `:26`; `tools/fetch_brand_icons.py:15`, `:61`; `tools/windhawk_install_tracker.ps1:12`, `:27`; `tools/release/build-release.ps1:121`.
 
 **상황/근거:** production Core/App/Tracker에는 직접 NuGet PackageReference가 없다. 테스트 직접 버전은 Microsoft.NET.Test.Sdk **17.14.1**, xunit **2.9.3**, runner **3.1.5**로 지정되어 있지만 transitive lock/locked restore, SDK `global.json`, Python 버전·hash lock은 없다. Python 도구는 설치된 Pillow/numpy와 optional CairoSVG를 사용한다. 검증 환경의 Pillow **12.3.0**, numpy **2.5.3**는 프로젝트의 배포 버전 보증이 아니다. 관련 코드에 자동 `pip install`, 원격 스크립트 실행 또는 build-time 브랜드 다운로드는 찾지 못했다. 알려진 조건부 CairoSVG CVE는 S14에만 집계했다. NuGet 전수 advisory audit을 했다는 주장은 하지 않는다.
 
@@ -247,7 +247,7 @@ HEAD 조상의 생성 바이너리에는 `tools/__pycache__/facelock.cpython-312
 추가로 확인한 보호 장치와 범위별 판단:
 
 - **Core JSON/PNG:** 외부 layout/asset JSON에 4 MiB 사전 길이 검사, collection/geometry 상한이 있다. System.Text.Json의 기본 최대 깊이는 64이며 [공식 문서](https://learn.microsoft.com/en-us/dotnet/api/system.text.json.jsonserializeroptions.maxdepth) 및 재현과 일치한다. PNG는 8-bit/non-interlaced 형식, 8,192 치수/16M pixels, chunk length, scanline filter와 예상 압축 해제 길이를 검사한다. 정상적인 giant-dimension/decompression overflow를 그대로 통과시키는 문제는 확인하지 못했다. 길이 검사는 path stat 이후 사용하므로 공유 writer가 파일을 바꾸거나 키우는 TOCTOU는 남는다; 열린 handle과 bounded read에 제한을 다시 적용해야 한다.
-- **WPF와 settings:** 앱 manifest는 `asInvoker`, `uiAccess=false`다. settings JSON의 깊이와 수치 clamp는 있지만 `ReadSettings()` (`src/Vibedotcom.App/Program.cs:369`)에는 파일 byte 상한이 없다. private settings를 수정할 권한이 있다는 전제가 필요한 작은 hardening gap으로, 악성 pack만으로 settings를 바꿀 수 있다고 주장하지 않는다. 크기 제한을 추가할 때 외부 JSON 정책을 재사용하면 된다.
+- **WPF와 settings:** 앱 manifest는 `asInvoker`, `uiAccess=false`다. settings JSON의 깊이와 수치 clamp는 있지만 `ReadSettings()` (`src/Officelings.App/Program.cs:369`)에는 파일 byte 상한이 없다. private settings를 수정할 권한이 있다는 전제가 필요한 작은 hardening gap으로, 악성 pack만으로 settings를 바꿀 수 있다고 주장하지 않는다. 크기 제한을 추가할 때 외부 JSON 정책을 재사용하면 된다.
 - **Windhawk:** JSON 4 MiB/depth 64/node 250,000/string 65,536 bytes/agent 2,048개, PNG 파일당 32 MiB와 pack 전체 32M pixels 제한이 있다. duplicate key·잘못된 UTF-8/surrogate·비유한 숫자·상대 sheet의 절대 경로/ADS/`..`를 거부한다. final handle root 포함 검사와 SHA-256, metadata/decoded dimension 검사가 있으며 새 pack은 전체 로드 성공 후 교체한다. 일반적인 하위 junction 이탈은 막지만 S02/S15 예외가 있다. 128 MiB sheet pixel budget은 Explorer 총 메모리·CPU의 상한이 아니다.
 - **네이티브 정확성:** 정적 검토에서 입력으로 도달하는 buffer overrun, integer overflow, format-string 입력 사용, dangling pointer, 잘못된 wide/narrow lifetime을 발견하지 못했다. 취소 I/O 완료까지 `OVERLAPPED`와 버퍼를 유지하고 UI/worker 전달 객체는 공유 소유권을 쓴다. native PNG decoder의 내부 취약점이나 실제 Explorer에서의 안정성을 fuzz/통합 검증한 것은 아니다.
 - **명령·인자:** installer/runner의 quote/newline 거부, runner의 trailing backslash 거부, argument array/subprocess list 사용을 확인했다. 검토한 `&`, `;`, `$()`가 들어간 경로에서 새 shell 명령을 구성하는 경로를 찾지 못했다. release의 Version/Configuration은 검증되며 dotnet/Git 인자는 분리해 전달된다. response file의 일반 경로와 MSBuild 호출에서 실제 사용자 pack 문자열이 평가되는 주입 primitive를 발견하지 못했다. 사용자가 명시적으로 선택하는 compiler options와 Python/EXE 실행 경로는 실행 코드의 신뢰 입력이다.
@@ -341,7 +341,7 @@ Use your own disposable files, temporary profiles and isolated test
 processes. Do not access another person's prompts or credentials,
 damage user data, test denial of service in their Explorer session,
 or send traffic to third-party systems without authorisation.
-Vibedotcom's local state can contain prompt text and project paths;
+Officelings's local state can contain prompt text and project paths;
 never attach an unredacted real state.json to a report.
 ```
 

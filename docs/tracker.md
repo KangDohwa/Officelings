@@ -4,15 +4,15 @@ The tracker reads local session sources and writes an office snapshot for [Windh
 
 ## Run
 
-From the repository root, after `dotnet build Vibedotcom.sln`:
+From the repository root, after `dotnet build Officelings.sln`:
 
 ```powershell
-dotnet run --project src/Vibedotcom.Tracker --no-build
+dotnet run --project src/Officelings.Tracker --no-build
 # A short run against your real sources, with output in this checkout:
-dotnet run --project src/Vibedotcom.Tracker --no-build -- --seconds 15 --output artifacts/live
+dotnet run --project src/Officelings.Tracker --no-build -- --seconds 15 --output artifacts/live
 # One snapshot:
-dotnet run --project src/Vibedotcom.Tracker --no-build -- --once --output artifacts/once
-dotnet run --project src/Vibedotcom.Tracker --no-build -- --working-seconds 120 --leave-after-idle-minutes 5 --leave-after-waiting-minutes 30
+dotnet run --project src/Officelings.Tracker --no-build -- --once --output artifacts/once
+dotnet run --project src/Officelings.Tracker --no-build -- --working-seconds 120 --leave-after-idle-minutes 5 --leave-after-waiting-minutes 30
 ```
 
 `Ctrl+C` stops a continuous run. Console output reports provider counts, snapshot count and bytes read. Warnings go to stderr. `--help` lists the options. The tracker has no `--demo` or `--view` switch; use an empty or invented `--home` for checks that must not read personal data. It exports flat v5 state regardless of the app's saved `view`; iso v6 interchange remains planned.
@@ -25,11 +25,11 @@ For a screen share, start with `--privacy full` or `--privacy tasks`. The tracke
 | --- | --- |
 | `--once` | Write one snapshot and exit. |
 | `--seconds N` | Stop after N seconds; otherwise run until interrupted. Use either this or `--once`. |
-| `--output DIR` | `%LOCALAPPDATA%\Vibedotcom`. |
-| `--privacy off\|tasks\|full` | Explicit level for the whole run. Otherwise use a valid `privacyMode` in the output directory's `settings.json`, then `VIBEDOTCOM_PRIVACY`, then `off`. |
+| `--output DIR` | `%LOCALAPPDATA%\Officelings`. |
+| `--privacy off\|tasks\|full` | Explicit level for the whole run. Otherwise use a valid `privacyMode` in the output directory's `settings.json`, then `OFFICELINGS_PRIVACY`, then `off`. |
 | `--home DIR` | Current user profile. An alternate home selects synthetic or relocated provider sources, skips implicit personal art/layout loading and disables the real-profile Antigravity API probe. |
 | `--asset-dir DIR` | Explicit runtime art pack. Otherwise try the per-user pack, bundled pack, then procedural fallback. |
-| `--layout FILE` | Explicit editable layout. Otherwise try `%LOCALAPPDATA%\Vibedotcom\layout.json` (or the alternate home's `layout.json`), then the bundled layout. Changing `--output` alone does not change this input path. |
+| `--layout FILE` | Explicit editable layout. Otherwise try `%LOCALAPPDATA%\Officelings\layout.json` (or the alternate home's `layout.json`), then the bundled layout. Changing `--output` alone does not change this input path. |
 | `--working-seconds N` | 120. Quiet Working/Thinking agents become Idle. |
 | `--leave-after-idle-minutes N` | 5. Inactive/finished agents leave after this much time since real activity. |
 | `--leave-after-waiting-minutes N` | 30. Explicit input/approval waits stay longer. |
@@ -68,8 +68,8 @@ The current writer emits [state schema v5](state-schema.md), asset/layout format
 Core selects the exact flat frame, foot anchor, seat position and furniture layers; Windhawk consumes those choices. The iso app builds a separate in-process scene and does not consume flat poses as iso coordinates. See the [state contract](state-schema.md) for atomic JSON delivery and render equations, and [asset format](asset-format.md) for source manifests and layouts.
 
 ```powershell
-dotnet run --project src/Vibedotcom.Tracker --no-build -- --asset-dir C:/MyOfficeArt --layout C:/MyOffice/layout.json
-dotnet publish src/Vibedotcom.Tracker -c Release -o artifacts/publish/tracker
+dotnet run --project src/Officelings.Tracker --no-build -- --asset-dir C:/MyOfficeArt --layout C:/MyOffice/layout.json
+dotnet publish src/Officelings.Tracker -c Release -o artifacts/publish/tracker
 ```
 
 A framework-dependent publish needs the .NET 10 runtime on its destination. It installs no service or startup entry. Optional logon-task registration, recovery and removal are described in the [Windhawk guide](../windhawk/README.md).

@@ -1,4 +1,4 @@
-# Vibedotcom generated office art
+# Officelings generated office art
 
 Load PNGs under `sheets/` with their sibling `.manifest.json`. All runtime files are RGBA with straight alpha; use nearest-neighbor sampling. Coordinates and row numbers are zero-based. Empty trailing cells stay transparent. `manifest.frame_layout.rows[state][frame]` is authoritative; do not infer cells from alpha.
 
@@ -181,4 +181,4 @@ These are provenance/intermediate composed sheets; load `sheets/` for the final 
 
 ## Generation and licensing
 
-Generated for Vibedotcom with GPT image_gen / provider `codex`, using sprite-gen **2.20.0**, **component-row still-image pipeline**. No video pipeline or third-party sprite pack was used. Initial generation prompts are in `runs/*/prompts/`; request JSON files record actions, frame counts, fit and style. Targeted native-tool correction prompts and reasons are in `qa/generation-notes.md`. sprite-gen itself is **Apache-2.0**; that software license does not assign a separate license to generated images. Generated-image usage remains governed by the provider's applicable terms. No claim of exclusive copyright or third-party clearance is made.
+Generated for Officelings with GPT image_gen / provider `codex`, using sprite-gen **2.20.0**, **component-row still-image pipeline**. No video pipeline or third-party sprite pack was used. Initial generation prompts are in `runs/*/prompts/`; request JSON files record actions, frame counts, fit and style. Targeted native-tool correction prompts and reasons are in `qa/generation-notes.md`. sprite-gen itself is **Apache-2.0**; that software license does not assign a separate license to generated images. Generated-image usage remains governed by the provider's applicable terms. No claim of exclusive copyright or third-party clearance is made.

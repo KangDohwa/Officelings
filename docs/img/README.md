@@ -12,8 +12,8 @@ Captured on 2026-10-04 from the documentation lane's base checkout. Only fabrica
 From the repository root on Windows, build and render into ignored scratch folders:
 
 ```powershell
-dotnet build Vibedotcom.sln
-$appExe = Join-Path $PWD 'src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe'
+dotnet build Officelings.sln
+$appExe = Join-Path $PWD 'src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe'
 foreach ($capture in @(
     '--view flat --demo --smoke-test artifacts/docs-refresh/flat',
     '--view iso --demo --smoke-test artifacts/docs-refresh/iso',

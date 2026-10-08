@@ -10,19 +10,19 @@ P1: 로그/개체 식별이 지속적으로 잘못될 수 있어 우선 수정. 
 
 | ID | 심각도 | 위치 | 문제 |
 |---|---|---|---|
-| R1 | P1 | `src/Vibedotcom.Core/JsonlTail.cs:22`, `src/Vibedotcom.Core/AgentTracker.cs:75` | 같은 크기 재작성, 축소 후 재성장, metadata를 보존한 교체를 놓침 |
-| R2 | P2 | `src/Vibedotcom.Core/JsonlTail.cs:37` | bootstrap suffix가 행 경계에서 시작해도 첫 완성 행을 버림 |
-| R3 | P2 | `src/Vibedotcom.Core/AgentTracker.cs:86`, `src/Vibedotcom.Core/LogParser.cs:133` | 한 Claude 파일의 부모·자식 레코드를 하나의 개체로 합침 |
-| R4 | P2 | `src/Vibedotcom.Core/AgentTracker.cs:40`, `src/Vibedotcom.Core/AgentTracker.cs:87` | 개체 prune 후 source offset이 남으면 재개한 worker의 관계/metadata가 사라짐 |
-| R5 | P2 | `src/Vibedotcom.Core/LogParser.cs:77` | 문자열형 Codex subagent source를 supervisor로 분류 |
-| R6 | P2 | `src/Vibedotcom.Core/LogParser.cs:90`, `src/Vibedotcom.Core/LogParser.cs:120` | 오래된 이벤트가 상태는 못 바꿔도 task/metadata를 되감음 |
-| R7 | P2 | `src/Vibedotcom.Core/LogParser.cs:59` | 5분 이내 미래 timestamp가 이후 정상 이벤트를 막음 |
-| R8 | P2 | `src/Vibedotcom.Core/LogParser.cs:158` | 여러 Claude tool_use 중 마지막 도구만 보면 사용자 질문을 놓침 |
-| R9 | P2 | `src/Vibedotcom.Core/AgentTracker.cs:76`, `src/Vibedotcom.Core/AgentTracker.cs:93` | 읽기 공유를 거부하는 live writer 때문에 최근 쓰인 기존 agent도 gone이 됨 |
-| R10 | P2 | `src/Vibedotcom.Core/AgentTracker.cs:118`, `src/Vibedotcom.Core/Models.cs:46` | Antigravity 유지 관리 mtime이 종료 상태를 덮고 working↔idle 및 elapsed 오류를 만듦 |
-| R11 | P2 | `src/Vibedotcom.Core/JsonlTail.cs:61` | 완료된 큰 행의 2MiB 버퍼가 source마다 장시간 남음 |
-| R12 | P2 | `src/Vibedotcom.Core/AgentTracker.cs:53`, `src/Vibedotcom.Core/AgentTracker.cs:61` | 오래된 세션까지 기본 3초마다 전체 metadata 열거·배열 할당 |
-| R13 | P2 | `src/Vibedotcom.Tracker/Program.cs:33` | 출력 경로 끝의 구분자 때문에 동일 디렉터리에 두 writer를 허용 |
+| R1 | P1 | `src/Officelings.Core/JsonlTail.cs:22`, `src/Officelings.Core/AgentTracker.cs:75` | 같은 크기 재작성, 축소 후 재성장, metadata를 보존한 교체를 놓침 |
+| R2 | P2 | `src/Officelings.Core/JsonlTail.cs:37` | bootstrap suffix가 행 경계에서 시작해도 첫 완성 행을 버림 |
+| R3 | P2 | `src/Officelings.Core/AgentTracker.cs:86`, `src/Officelings.Core/LogParser.cs:133` | 한 Claude 파일의 부모·자식 레코드를 하나의 개체로 합침 |
+| R4 | P2 | `src/Officelings.Core/AgentTracker.cs:40`, `src/Officelings.Core/AgentTracker.cs:87` | 개체 prune 후 source offset이 남으면 재개한 worker의 관계/metadata가 사라짐 |
+| R5 | P2 | `src/Officelings.Core/LogParser.cs:77` | 문자열형 Codex subagent source를 supervisor로 분류 |
+| R6 | P2 | `src/Officelings.Core/LogParser.cs:90`, `src/Officelings.Core/LogParser.cs:120` | 오래된 이벤트가 상태는 못 바꿔도 task/metadata를 되감음 |
+| R7 | P2 | `src/Officelings.Core/LogParser.cs:59` | 5분 이내 미래 timestamp가 이후 정상 이벤트를 막음 |
+| R8 | P2 | `src/Officelings.Core/LogParser.cs:158` | 여러 Claude tool_use 중 마지막 도구만 보면 사용자 질문을 놓침 |
+| R9 | P2 | `src/Officelings.Core/AgentTracker.cs:76`, `src/Officelings.Core/AgentTracker.cs:93` | 읽기 공유를 거부하는 live writer 때문에 최근 쓰인 기존 agent도 gone이 됨 |
+| R10 | P2 | `src/Officelings.Core/AgentTracker.cs:118`, `src/Officelings.Core/Models.cs:46` | Antigravity 유지 관리 mtime이 종료 상태를 덮고 working↔idle 및 elapsed 오류를 만듦 |
+| R11 | P2 | `src/Officelings.Core/JsonlTail.cs:61` | 완료된 큰 행의 2MiB 버퍼가 source마다 장시간 남음 |
+| R12 | P2 | `src/Officelings.Core/AgentTracker.cs:53`, `src/Officelings.Core/AgentTracker.cs:61` | 오래된 세션까지 기본 3초마다 전체 metadata 열거·배열 할당 |
+| R13 | P2 | `src/Officelings.Tracker/Program.cs:33` | 출력 경로 끝의 구분자 때문에 동일 디렉터리에 두 writer를 허용 |
 
 ### R1 — 교체/재작성 감지와 offset 리셋이 불충분
 
@@ -237,7 +237,7 @@ newline/reset/oversize 폐기 경로에 적용하면 된다. 큰 partial 자체�
 
 ### R13 — 출력 경로 구분자가 단일 writer 잠금을 우회함
 
-**심각도:** P2. **위치:** `src/Vibedotcom.Tracker/Program.cs:33–36`.
+**심각도:** P2. **위치:** `src/Officelings.Tracker/Program.cs:33–36`.
 
 **실패 시나리오 / 재현:** 동일한 temp 디렉터리 `output`과 `output\`은 `StateJson.OutputPath` 이후에도 서로 다른 문자열이다. Program의 그대로인 hash 식으로 계산하면 두 mutex 이름이 달라지고, 둘 다 `new Mutex(true, name, out created)`에서 created=true였다. 따라서 두 Tracker가 같은 atlas/state 목적지에 쓸 수 있다. 파일별 atomic move가 있어도 두 프로세스의 sequence/poses를 번갈아 읽는 문제는 막지 못한다. 두 Tracker 프로세스를 동시에 실행한 실험은 아니며, 같은 잠금 생성 코드의 두 mutex로 재현했다.
 
@@ -299,7 +299,7 @@ Antigravity active push 주기, working/thinking/waiting/reporting 및 자식 �
 임시 루트:
 
 ```text
-%TEMP%\Vibedotcom-core-review-c9874a1fa5094a26b542e1a565871ca6
+%TEMP%\Officelings-core-review-c9874a1fa5094a26b542e1a565871ca6
 ```
 
 - `Repro.cs` / `Review.csproj`: 실제 Core 소스 복사본을 직접 compile하여 UTF-8, bootstrap, overwrite, Claude 혼합/병렬 도구, clock, prune/reopen, mtime, 버퍼, 10k archive, 공유 모드를 검사했다.
@@ -311,7 +311,7 @@ Antigravity active push 주기, working/thinking/waiting/reporting 및 자식 �
 재실행은 아래를 **순서대로** 한다(임시 프로젝트들이 같은 bin/obj를 사용한다). 스크립트의 데이터 디렉터리는 새 GUID를 사용한다.
 
 ```powershell
-$reviewRoot = Join-Path $env:TEMP 'Vibedotcom-core-review-c9874a1fa5094a26b542e1a565871ca6'
+$reviewRoot = Join-Path $env:TEMP 'Officelings-core-review-c9874a1fa5094a26b542e1a565871ca6'
 dotnet run --project (Join-Path $reviewRoot 'Review.csproj') --verbosity quiet
 dotnet run --project (Join-Path $reviewRoot 'ExtraReview.csproj') --verbosity quiet
 dotnet run --project (Join-Path $reviewRoot 'SqliteReview.csproj') --verbosity quiet

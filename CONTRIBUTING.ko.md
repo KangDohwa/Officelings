@@ -6,7 +6,7 @@
 
 ## 버그 제보
 
-[이슈](https://github.com/KangDohwa/Vibedotcom/issues)에 Windows 버전과 OS 빌드(`winver`), 관련 도구 버전(Codex, Claude Code, Antigravity, Windhawk), .NET SDK·런타임 버전, 사용한 커밋이나 릴리스를 적는다. 재현 순서, 예상 동작, 실제 동작을 설명한다. 화면 종류(`view`: flat/iso), 창 모드, 클릭 통과, 확대 비율, 별도 팩·배치를 썼다면 함께 적는다.
+[이슈](https://github.com/KangDohwa/Officelings/issues)에 Windows 버전과 OS 빌드(`winver`), 관련 도구 버전(Codex, Claude Code, Antigravity, Windhawk), .NET SDK·런타임 버전, 사용한 커밋이나 릴리스를 적는다. 재현 순서, 예상 동작, 실제 동작을 설명한다. 화면 종류(`view`: flat/iso), 창 모드, 클릭 통과, 확대 비율, 별도 팩·배치를 썼다면 함께 적는다.
 
 진단 자료는 민감한 내용을 지운 뒤 첨부한다. 실제 프롬프트와 개인 경로, 원본 세션 로그, 인증 정보, 실제 `state.json`은 올리지 않는다. 재현 예시와 fixture에는 만들어 낸 문구만 쓴다. 스크린샷은 `--demo`로 만들고 툴팁도 확인한다. [개인정보 안내](docs/privacy.md)를 참고한다. 보안 제보 경로가 마련돼 있다면 그 경로를 사용하고, 개인 데이터가 포함된 공격 재현 자료를 공개 이슈에 올리지 않는다.
 
@@ -15,12 +15,12 @@
 Windows 11과 .NET 10 SDK를 사용한다. 저장소 루트에서 실행한다.
 
 ```powershell
-dotnet build Vibedotcom.sln
-dotnet test Vibedotcom.sln --no-build
-dotnet run --project src/Vibedotcom.App --no-build -- --demo
-dotnet run --project src/Vibedotcom.App --no-build -- --view iso --demo
+dotnet build Officelings.sln
+dotnet test Officelings.sln --no-build
+dotnet run --project src/Officelings.App --no-build -- --demo
+dotnet run --project src/Officelings.App --no-build -- --view iso --demo
 # 솔루션 테스트 수와 별도로 집계하는 가상 공유 검사
-dotnet run --project tests/Vibedotcom.SharingChecks
+dotnet run --project tests/Officelings.SharingChecks
 ```
 
 Python 아트 도구는 Pillow와 NumPy가 있는 기존 환경에서 실행한다. 변경과 관련된 검사를 고른다.

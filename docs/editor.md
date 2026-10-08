@@ -28,7 +28,7 @@ Furniture variants can name `chairBackId` and `chairFrontId` assets. The editor 
 
 Placement, movement, rotation and duplication reject blocking furniture overlaps and out-of-bounds footprints or interaction points before changing a snapshot. Nonblocking authored layers, such as rugs and foreground chairs, may overlap another footprint. Painting and markings can temporarily produce an invalid draft. **Validate** lists all independent errors, including missing/duplicate required zones (`workspace`, `pantry`, `lounge`, `door`), invalid IDs/tiles/variants, blocked entrance, shared seats, missing linked furniture and unreachable activity or work/overflow seats. Each seat/activity point must be walkable and reachable from the entrance using the Core A* pathfinder. Live preview permits temporary blocked or unreachable points and gives agents reachable substitute destinations; structurally invalid drafts keep the animator's previous layout while the editor displays the draft for correction.
 
-**Save office** writes `%LOCALAPPDATA%\Vibedotcom\layout.json`. Validation finishes before creating a directory, temporary file or backup. All validation errors appear in the failure message. Runtime furniture `agentId` assignments are cleared in the saved JSON while the editor snapshot remains intact. A successful first save creates the file. Later saves flush a unique sibling temporary file, then call `File.Replace(temporary, destination, destination + ".bak")` to atomically replace the layout and keep its immediately previous contents as `layout.json.bak`. Temporary files are cleaned up on failure; save does not add an undo entry. I/O or access errors are reported without claiming success. Provider source directories are rejected by the shared output-path guard.
+**Save office** writes `%LOCALAPPDATA%\Officelings\layout.json`. Validation finishes before creating a directory, temporary file or backup. All validation errors appear in the failure message. Runtime furniture `agentId` assignments are cleared in the saved JSON while the editor snapshot remains intact. A successful first save creates the file. Later saves flush a unique sibling temporary file, then call `File.Replace(temporary, destination, destination + ".bak")` to atomically replace the layout and keep its immediately previous contents as `layout.json.bak`. Temporary files are cleaned up on failure; save does not add an undo entry. I/O or access errors are reported without claiming success. Provider source directories are rejected by the shared output-path guard.
 
 The headless tracker uses the same layout source format and reads it at startup. Restart the tracker after saving an editor layout to load the changes there; the app's live reload hook does not reload a separate tracker process.
 
@@ -36,7 +36,7 @@ Successfully previewed edits remain in the current app session; saving is needed
 
 ## Model API
 
-`Vibedotcom.Core.OfficeEditor` has no WPF dependency. Coordinates supplied to commands are absolute office tiles; `Furniture.Seat` is stored as a local `InteractionPoint`. `OverflowSeat.X/Y` are absolute, with an optional `FurnitureId` link. Linked overflow seats move, rotate and duplicate with their furniture and are removed when the prop is deleted. Native window replacement retains the live animator and editor history.
+`Officelings.Core.OfficeEditor` has no WPF dependency. Coordinates supplied to commands are absolute office tiles; `Furniture.Seat` is stored as a local `InteractionPoint`. `OverflowSeat.X/Y` are absolute, with an optional `FurnitureId` link. Linked overflow seats move, rotate and duplicate with their furniture and are removed when the prop is deleted. Native window replacement retains the live animator and editor history.
 
 ```csharp
 public OfficeEditor(AssetPack assets, OfficeLayout layout);
@@ -63,15 +63,15 @@ public void ResetDefault();
 
 `SetOverflowSeat` is idempotent; the UI toggles by passing `!present` as `enabled`. Fill uses only `from`; `to` is ignored. Invalid command arguments throw `ArgumentException`/`ArgumentOutOfRangeException`; rejected moves/rotations/resize throw `InvalidOperationException`. Invalid save throws `InvalidDataException` with the complete error list. No failed command adds history. The constructor uses Core layout preparation for valid legacy layouts and preserves invalid input drafts for `Validate()` to inspect. The UI calls its reload hook after successful mutations and undo/redo and shows reload/validation failures to let the user correct the draft.
 
-The targeted tests are in `tests/Vibedotcom.Tests/OfficeEditorTests.cs`. They cover active-pack palette coverage, authored collision/rotation geometry, custom seat rotation, A* passage changes, both chair layers, laptop overflow grouping, input ownership and serialized undo history, flood fill, atomic backup/loader roundtrip with cleared agent IDs, invalid-save no-write behavior and explicit resize bounds. `OfficeAssignmentTests.cs` checks the fixed twelve-desk geometry, facing pod, reachable destinations and overflow allocation after `SeatPhase` reaches `seated`; brief turn/lower/raise phases are allowed during arrival.
+The targeted tests are in `tests/Officelings.Tests/OfficeEditorTests.cs`. They cover active-pack palette coverage, authored collision/rotation geometry, custom seat rotation, A* passage changes, both chair layers, laptop overflow grouping, input ownership and serialized undo history, flood fill, atomic backup/loader roundtrip with cleared agent IDs, invalid-save no-write behavior and explicit resize bounds. `OfficeAssignmentTests.cs` checks the fixed twelve-desk geometry, facing pod, reachable destinations and overflow allocation after `SeatPhase` reaches `seated`; brief turn/lower/raise phases are allowed during arrival.
 
 ## Windows QA
 
 From the repository root, run the built app executable after the coordinated build. These paths use the default Debug output; use the matching output directory for another configuration. Launch the `.exe` so its Windows compatibility manifest applies.
 
 ```powershell
-& ".\src\Vibedotcom.App\bin\Debug\net10.0-windows\Vibedotcom.App.exe" --demo --tags always --smoke-test "$env:TEMP/vibedotcom-feedback/final"
-& ".\src\Vibedotcom.App\bin\Debug\net10.0-windows\Vibedotcom.App.exe" --verify-opacity "$env:TEMP/vibedotcom-feedback/opacity"
+& ".\src\Officelings.App\bin\Debug\net10.0-windows\Officelings.App.exe" --demo --tags always --smoke-test "$env:TEMP/officelings-feedback/final"
+& ".\src\Officelings.App\bin\Debug\net10.0-windows\Officelings.App.exe" --verify-opacity "$env:TEMP/officelings-feedback/opacity"
 ```
 
 The render smoke test writes `normal.png`, `reserved-tags.png`, `overflow.png`, `editor-ui.png` and `auto-fit-small.png` under the supplied `final` directory. The command above selects `always` so reserved-seat labels are visible without hover. Inspect them for normal rendering, reserved-seat labels, overflow agents, editor controls/grid markings and the small-window automatic fit.

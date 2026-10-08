@@ -13,11 +13,11 @@
 모든 명령은 이 worktree에서 실행한다. 기본 팩, 고정 시드 74129, 합성 캐릭터만 사용한다.
 
 ```powershell
-dotnet run --project tests/Vibedotcom.DepthChecks -- artifacts/depthsort-after --compare-audit artifacts/depthsort-before/audit.json
-dotnet run --project tests/Vibedotcom.IsoChecks
-dotnet test tests/Vibedotcom.Tests/Vibedotcom.Tests.csproj --filter "FullyQualifiedName~Iso"
+dotnet run --project tests/Officelings.DepthChecks -- artifacts/depthsort-after --compare-audit artifacts/depthsort-before/audit.json
+dotnet run --project tests/Officelings.IsoChecks
+dotnet test tests/Officelings.Tests/Officelings.Tests.csproj --filter "FullyQualifiedName~Iso"
 python -B tools/test_iso_depth_metadata.py
-dotnet src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.dll --view iso --demo --smoke-test artifacts/depthsort-smoke-after --home artifacts/depthsort-synthetic-home
+dotnet src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.dll --view iso --demo --smoke-test artifacts/depthsort-smoke-after --home artifacts/depthsort-synthetic-home
 ```
 
 독립 오라클은 엔진의 정렬 함수나 숫자 Depth를 기대값에 사용하지 않는다. 실제 알파 겹침을 전수 조사하고 tile-center footprint와 S0 z 범위의 분리 평면을 비교한다. `audit.json`에 ID, 위치/회전, footprint, 키, 기대/실제 최상단과 크롭 범위를 기록한다. 각 위반은 3배 PNG로 저장한다. 이전 보고서를 지정하면 같은 영역의 수정 후 크롭도 저장한다. `--pack DIR --legacy-order`는 지정 팩에 대해 기존 단일 키 순서를 재현한다.

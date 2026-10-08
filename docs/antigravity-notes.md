@@ -112,7 +112,7 @@ unary 조회는 `POST`, `Content-Type: application/json`, `Connect-Protocol-Vers
 ```json
 {
   "conversationId": "11111111-1111-4111-8111-111111111111",
-  "subscriberId": "vibedotcom-<unique instance>",
+  "subscriberId": "officelings-<unique instance>",
   "initialStepsPageBounds": { "startIndex": 22, "endIndexExclusive": 24 },
   "initialGeneratorMetadatasPageBounds": { "startIndex": 11, "endIndexExclusive": 12 },
   "initialExecutorMetadatasPageBounds": { "startIndex": 4, "endIndexExclusive": 5 },

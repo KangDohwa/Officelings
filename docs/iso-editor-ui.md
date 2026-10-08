@@ -39,9 +39,9 @@ $env:TMP=$env:TEMP
 $env:DOTNET_CLI_HOME=Join-Path $PWD 'artifacts/dotnet-home'
 $env:DOTNET_GENERATE_ASPNET_CERTIFICATE='false'
 $env:DOTNET_CLI_TELEMETRY_OPTOUT='1'
-dotnet build src/Vibedotcom.App/Vibedotcom.App.csproj --no-restore -p:UseSharedCompilation=false
-$env:VIBEDOTCOM_ISO_EDITOR_SMOKE='1'
-dotnet src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.dll --demo --view iso --smoke-test (Join-Path $PWD 'artifacts/editor-smoke-acceptance') --home (Join-Path $PWD 'artifacts/synthetic-tracker')
+dotnet build src/Officelings.App/Officelings.App.csproj --no-restore -p:UseSharedCompilation=false
+$env:OFFICELINGS_ISO_EDITOR_SMOKE='1'
+dotnet src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.dll --demo --view iso --smoke-test (Join-Path $PWD 'artifacts/editor-smoke-acceptance') --home (Join-Path $PWD 'artifacts/synthetic-tracker')
 ```
 
 ## 계약 변경 요청과 통합 제한

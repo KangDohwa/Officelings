@@ -1,8 +1,8 @@
 # Art pipeline
 
-Project runtime pixel art was generated for Vibedotcom in a 2D chibi style, then processed locally. [sprite-gen](https://github.com/aldegad/sprite-gen) (Apache-2.0) was the generation tool. [pixel-agents](https://github.com/pixel-agents-hq/pixel-agents) (MIT) was studied as a design reference; no code or runtime art was copied. See the [design notes](pixel-agents-notes.md) and [third-party notices](../THIRD_PARTY_NOTICES.md).
+Project runtime pixel art was generated for Officelings in a 2D chibi style, then processed locally. [sprite-gen](https://github.com/aldegad/sprite-gen) (Apache-2.0) was the generation tool. [pixel-agents](https://github.com/pixel-agents-hq/pixel-agents) (MIT) was studied as a design reference; no code or runtime art was copied. See the [design notes](pixel-agents-notes.md) and [third-party notices](../THIRD_PARTY_NOTICES.md).
 
-The art was generated with an AI image model. Project art/assets are [CC BY 4.0](../assets/LICENSE.md). Attribution: Vibedotcom art by KangDohwa (https://github.com/KangDohwa/Vibedotcom). Review the applicable model terms before redistribution. Official logos and brand icons are excluded and have a separate [local overlay guide](../assets/brand/README.md).
+The art was generated with an AI image model. Project art/assets are [CC BY 4.0](../assets/LICENSE.md). Attribution: Officelings art by KangDohwa (https://github.com/KangDohwa/Officelings). Review the applicable model terms before redistribution. Official logos and brand icons are excluded and have a separate [local overlay guide](../assets/brand/README.md).
 
 ## Flat and iso packs
 
@@ -26,10 +26,10 @@ python -B tools/build_iso_pack.py --seated-only
 python -B tools/check_iso_chair_fit.py assets/art/iso/pack artifacts/iso-pack-v5/fit --enforce
 python -B tools/iso_check.py assets/art/iso/pack/assets.json --tolerance 0
 python -B -m unittest discover -s tools -p 'test_*.py'
-dotnet build Vibedotcom.sln
-dotnet test Vibedotcom.sln
-Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--view iso --demo --tags always --smoke-tags --smoke-test artifacts/iso-pack-v5/smoke' -Wait
-dotnet run --project tests/Vibedotcom.IsoChecks -- --render-seated assets/art/iso/pack artifacts/iso-pack-v5/seated
+dotnet build Officelings.sln
+dotnet test Officelings.sln
+Start-Process src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--view iso --demo --tags always --smoke-tags --smoke-test artifacts/iso-pack-v5/smoke' -Wait
+dotnet run --project tests/Officelings.IsoChecks -- --render-seated assets/art/iso/pack artifacts/iso-pack-v5/seated
 python -B tools/review_iso_seated_renders.py artifacts/iso-pack-v5/seated assets/art/iso/pack
 python -B tools/check_iso_actor_visibility.py artifacts/iso-pack-v5/seated assets/art/iso/pack
 ```
@@ -62,7 +62,7 @@ python tools/facelock_qa.py --all --self-check
 python -B tools/seated.py
 python -B tools/anim_normalize.py
 python tools/build_pack.py
-dotnet build Vibedotcom.sln
+dotnet build Officelings.sln
 ```
 
 This order follows source dependencies. Coordinate writes with anyone producing the same characters or pack. Face lock/seated skip incomplete or stale inputs. Their current publisher stages immutable `.generations/<hash>/` files and commits one root manifest under a writer lock. Read the file paths in that manifest rather than assuming a root PNG is current. Old generations remain for readers holding an old manifest. The pack builder now stages output and locks its manifest replacement too. The [app review](review-app.md) records the earlier publication and concurrent-builder defects; these recent changes still need release verification. A completed command is not proof that every input was accepted.
@@ -76,8 +76,8 @@ Characters use 32x64 source cells and tiles use 32x32. Retain straight/binary al
 ```powershell
 python -B -m unittest discover -s tools -p test_build_pack.py
 python -B tools/test_anim_normalize.py
-dotnet test Vibedotcom.sln --no-build
-Start-Process src/Vibedotcom.App/bin/Debug/net10.0-windows/Vibedotcom.App.exe -WindowStyle Hidden -ArgumentList '--demo --smoke-test artifacts/engine-qa' -Wait
+dotnet test Officelings.sln --no-build
+Start-Process src/Officelings.App/bin/Debug/net10.0-windows/Officelings.App.exe -WindowStyle Hidden -ArgumentList '--demo --smoke-test artifacts/engine-qa' -Wait
 ```
 
 Choose checks for the changed step. Pixel-preservation scores check equality, not anatomy, gait, hand contact or loop quality. Inspect contact sheets and playback too; retain honest limitations in the character notes. Use only demo data for screenshots.

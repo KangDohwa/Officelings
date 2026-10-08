@@ -135,13 +135,13 @@ Ctrl/Cmd+wheel은 zoom, 일반 wheel/trackpad와 middle drag는 pan이다. pan�
 
 ### 현재 계약을 출발점으로 삼기
 
-조사 시점의 우리 `src/Vibedotcom.Core/Models.cs`는 `StateSnapshot(schemaVersion,generatedAt,sequence,atlas,office,agents,warnings)`, `schemaVersion=2`다. `Pose`는 연속 **타일 좌표**, `spriteRow/spriteColumn`, action/facing/visible 및 opacity·report/chat 관련 필드를 제공한다. `src/Vibedotcom.Core/SpriteAtlas.cs`의 atlas v2는 **16×24 cell, 45열×49행, 720×1176px, 8 variants**이며 v1의 row 0..6/column 0..12 의미를 유지한다. Tracker는 atlas를 먼저 쓰고 `state.json`을 atomic replace한다.
+조사 시점의 우리 `src/Officelings.Core/Models.cs`는 `StateSnapshot(schemaVersion,generatedAt,sequence,atlas,office,agents,warnings)`, `schemaVersion=2`다. `Pose`는 연속 **타일 좌표**, `spriteRow/spriteColumn`, action/facing/visible 및 opacity·report/chat 관련 필드를 제공한다. `src/Officelings.Core/SpriteAtlas.cs`의 atlas v2는 **16×24 cell, 45열×49행, 720×1176px, 8 variants**이며 v1의 row 0..6/column 0..12 의미를 유지한다. Tracker는 atlas를 먼저 쓰고 `state.json`을 atomic replace한다.
 
 `docs/state-schema.md`도 최종 확인 시 v2를 설명한다. v1 reader가 그대로 호환된다는 뜻은 아니며 atlas 크기와 action/facing 범위는 공급 metadata로 읽어야 한다. 후속 구현은 **동시에 확정한 C#·C++ 계약**을 기준으로 버전을 올린다. 원작의 16×32 인간 셀을 우리 16×24 셀에 조용히 대입해서도 안 된다.
 
 ### A. `office-layout.json` — 편집 원본과 runtime의 같은 지도
 
-`version:1`의 평평한 JSON을 정의하고 root의 현재 `widthTiles,heightTiles,tileSize,door,furniture` 이름을 유지한다. 동일 구조를 `state.json.office`에 실어 C++도 standalone 파일과 같은 map을 읽게 한다. 파일들은 모두 runtime 데이터 디렉터리 `%LOCALAPPDATA%\Vibedotcom`에 두는 안이며, 여기서 생성하거나 구현하지 않았다.
+`version:1`의 평평한 JSON을 정의하고 root의 현재 `widthTiles,heightTiles,tileSize,door,furniture` 이름을 유지한다. 동일 구조를 `state.json.office`에 실어 C++도 standalone 파일과 같은 map을 읽게 한다. 파일들은 모두 runtime 데이터 디렉터리 `%LOCALAPPDATA%\Officelings`에 두는 안이며, 여기서 생성하거나 구현하지 않았다.
 
 | 필드 | 권장 계약 |
 | --- | --- |

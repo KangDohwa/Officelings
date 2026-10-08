@@ -59,13 +59,13 @@ PNG와 JSON은 ignored artifacts이며 커밋하지 않는다. 검토 범위는 
 
 측정은 34-object/12-seat fixture에서 command+Validate 100회와 서로 다른 Move preview 100회다. 마스크/기본 검증을 warmup하고 p95를 계산한다. Idle은 같은 scene Present open/closed 각 1,000회와 같은 preview 1,000회의 thread managed allocation이다. 기존 임계값을 높이거나 검증하는 캐릭터·phase·frame 범위를 줄이지 않았다. 지연의 주요 비용은 장면 순서 검증이며 효과 없는 최적화 실험은 최종 코드에서 제거했다.
 
-재현은 worktree의 TEMP/TMP를 `artifacts/tmp`로 지정하고 `VIBEDOTCOM_ISO_EDITOR_SMOKE=1`로 설정한 뒤 App에 `--demo --view iso --home <synthetic-home> --smoke-test <synthetic-output>`을 전달한다. Seed/epoch/hash와 각 PNG 경로는 결과 JSON에 기록된다. Tracker watcher는 기존 비활성 옵션을 사용했다. Editor 코드에 새 timer/watcher는 없으며 editor open idle에서 overlay rebuild와 animation timer 추가가 없음을 검사했다. OS watcher 수나 minimized 상태의 idle을 계측한 결과는 아니다.
+재현은 worktree의 TEMP/TMP를 `artifacts/tmp`로 지정하고 `OFFICELINGS_ISO_EDITOR_SMOKE=1`로 설정한 뒤 App에 `--demo --view iso --home <synthetic-home> --smoke-test <synthetic-output>`을 전달한다. Seed/epoch/hash와 각 PNG 경로는 결과 JSON에 기록된다. Tracker watcher는 기존 비활성 옵션을 사용했다. Editor 코드에 새 timer/watcher는 없으며 editor open idle에서 overlay rebuild와 animation timer 추가가 없음을 검사했다. OS watcher 수나 minimized 상태의 idle을 계측한 결과는 아니다.
 
 ## 빌드·suite와 미검증 항목
 
 - Core/App `dotnet build --no-restore -p:UseSharedCompilation=false`: 경고 0, 오류 0.
-- 전체 `dotnet build Vibedotcom.sln`: NU1301, `api.nuget.org:443` 소켓 접근 거부, 경고 0·오류 1. 복원 차단을 우회하지 않았다.
-- 전체 `dotnet test Vibedotcom.sln --no-restore`: NU1301, 실행 완료 0개. 기존 .NET regression과 추가 xUnit test의 통과 수는 미확인이다.
+- 전체 `dotnet build Officelings.sln`: NU1301, `api.nuget.org:443` 소켓 접근 거부, 경고 0·오류 1. 복원 차단을 우회하지 않았다.
+- 전체 `dotnet test Officelings.sln --no-restore`: NU1301, 실행 완료 0개. 기존 .NET regression과 추가 xUnit test의 통과 수는 미확인이다.
 - Python tools suite: `-I -B -m unittest discover -s tools -p 'test_*.py'`, 91개 / 269.404초 / OK. PATH의 python은 없었지만 공용 설치 venv를 사용했다. Synthetic TEMP/TMP로 실행했으며 사용자 profile/catalog/layout이나 `.codex/.claude/.gemini`를 입력으로 사용하지 않았다.
 - Native tray/desktop/topmost/click-through 복원, 실제 100/125/150/200% DPI, OS 200% text setting, keyboard-only 전체 흐름, minimized/hidden idle, privacy 교체의 actor clock/RNG 연속성은 미검증이다.
 
@@ -73,15 +73,15 @@ PNG와 JSON은 ignored artifacts이며 커밋하지 않는다. 검토 범위는 
 
 | 파일 | 9cec3a9 대비 변경 member |
 | --- | --- |
-| `src/Vibedotcom.App/AppStorage.cs` | 16: constructor의 trailing isolatedHome과 Home 결정식 |
-| `src/Vibedotcom.App/IsoApplication.cs` | 24: Run의 real editor smoke 및 measurement 경로. 42: Prepare의 기존 resolver는 실제 Composition을 사용한다. |
-| `src/Vibedotcom.App/IsoView.cs` | 125: Present의 editor-only revision ack/status 갱신 한 hunk |
-| `src/Vibedotcom.App/Program.Iso.cs` | 24: IsoWindow.PrivacyOffice helper; 49: SetPrivacy의 해당 호출 |
-| `src/Vibedotcom.App/IsoView.Editor.cs` | 25: EditorRenderBounds를 internal로 열어 QA도 실제 marker 범위 사용; 64/133: EditorHit/Enter의 authoritative draft scene 호출 |
-| `src/Vibedotcom.App/IsoWindow.Editor.cs` | 75: PackChanged에서 사전 decode한 CommittedSheets 사용 |
-| `src/Vibedotcom.Core/Iso/IsoOffice.Editor.cs` | 23/192: ApplyEditorState/CompleteEditorSwap revision ack; 46/53: UpdateEditorPack/PreviewEditorPack; 67: GetEditorSeatStatus |
-| `src/Vibedotcom.Core/Iso/Editing/IIsoEditor.cs` | 19/21: PreviewPack/GetPickingScene 추가 |
-| `src/Vibedotcom.Core/Iso/Editing/IsoEditorContracts.cs` | 69–73: runtime revision/preflight/status; 이름 없는 seat status record/enum 추가 |
-| `src/Vibedotcom.Core/Iso/Editing/IsoCustomObjectContracts.cs` | 44–50: verified preview/prepare/commit; request trailing 선택 인수 추가 |
+| `src/Officelings.App/AppStorage.cs` | 16: constructor의 trailing isolatedHome과 Home 결정식 |
+| `src/Officelings.App/IsoApplication.cs` | 24: Run의 real editor smoke 및 measurement 경로. 42: Prepare의 기존 resolver는 실제 Composition을 사용한다. |
+| `src/Officelings.App/IsoView.cs` | 125: Present의 editor-only revision ack/status 갱신 한 hunk |
+| `src/Officelings.App/Program.Iso.cs` | 24: IsoWindow.PrivacyOffice helper; 49: SetPrivacy의 해당 호출 |
+| `src/Officelings.App/IsoView.Editor.cs` | 25: EditorRenderBounds를 internal로 열어 QA도 실제 marker 범위 사용; 64/133: EditorHit/Enter의 authoritative draft scene 호출 |
+| `src/Officelings.App/IsoWindow.Editor.cs` | 75: PackChanged에서 사전 decode한 CommittedSheets 사용 |
+| `src/Officelings.Core/Iso/IsoOffice.Editor.cs` | 23/192: ApplyEditorState/CompleteEditorSwap revision ack; 46/53: UpdateEditorPack/PreviewEditorPack; 67: GetEditorSeatStatus |
+| `src/Officelings.Core/Iso/Editing/IIsoEditor.cs` | 19/21: PreviewPack/GetPickingScene 추가 |
+| `src/Officelings.Core/Iso/Editing/IsoEditorContracts.cs` | 69–73: runtime revision/preflight/status; 이름 없는 seat status record/enum 추가 |
+| `src/Officelings.Core/Iso/Editing/IsoCustomObjectContracts.cs` | 44–50: verified preview/prepare/commit; request trailing 선택 인수 추가 |
 
 Core Editing API·implementation, IsoEditor App 파일, spec/lanes/objects 문서와 editor tests도 함께 합친다. IsoWindow.cs, Models/Office/OfficeView/Settings/Tracker/Program.cs와 shipped art/pack에는 변경이 없다. Interface 추가와 test-only fake 이동을 분리해 합치면 구현체 컴파일 오류가 날 수 있다. 전체 suite 차단과 U008 지연 실패를 해결하기 전 전체 수락이나 출시 가능 상태로 표시하면 안 된다. 긴 synthetic 출력 경로의 초기 smoke는 unused import에서 실패했으며 원인은 확정하지 못했다; 짧은 root의 성공만 증거로 사용했다.

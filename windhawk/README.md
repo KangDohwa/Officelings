@@ -1,8 +1,8 @@
-# Vibedotcom — Windhawk Variant B
+# Officelings — Windhawk Variant B
 
-> **Status: frozen and experimental (decided 2026-10-04).** This mod renders the flat scene only; the isometric mode and later app changes are not mirrored here, and it has been verified offscreen only, never in a real Explorer session. It is kept as-is, without further synchronization, and is planned to move to an archive branch before the repository becomes public. The standalone app is the supported way to run Vibedotcom.
+> **Status: frozen and experimental (decided 2026-10-04).** This mod renders the flat scene only; the isometric mode and later app changes are not mirrored here, and it has been verified offscreen only, never in a real Explorer session. It is kept as-is, without further synchronization, and is planned to move to an archive branch before the repository becomes public. The standalone app is the supported way to run Officelings.
 
-`vibedotcom.wh.cpp` hosts a passive pixel office in the **shell instance of explorer.exe**. It consumes the [v5 state contract](../docs/state-schema.md), PNG [asset contract](../docs/asset-format.md), and the resolved fixed office. Core supplies seats, stable desk IDs, overflow/queue destinations, monitor frames, animation and collision geometry. The renderer never creates desks or grows the office as membership changes.
+`officelings.wh.cpp` hosts a passive pixel office in the **shell instance of explorer.exe**. It consumes the [v5 state contract](../docs/state-schema.md), PNG [asset contract](../docs/asset-format.md), and the resolved fixed office. Core supplies seats, stable desk IDs, overflow/queue destinations, monitor frames, animation and collision geometry. The renderer never creates desks or grows the office as membership changes.
 
 Versions **3, 4 and 5** are readable. Unknown fields within those versions are ignored; unknown versions, invalid required types, asset/layout formats other than 1 and fallback atlas formats other than 2 are rejected while the last valid scene remains available. Supplied frames, authored rotation/state variants, anchors and offsets remain authoritative. V5 seat phases use the published contact and linked chair depth, clip below the seat, and do not apply alignment twice.
 
@@ -23,38 +23,38 @@ The mod has no presence sender, consent dialog or web viewer. Optional hosted sh
 Run these commands yourself from the repository root. Use a stable local installation directory; the task stores absolute paths. A framework-dependent publish requires the .NET 10 runtime.
 
 ```powershell
-dotnet publish src/Vibedotcom.Tracker -c Release -o "$env:LOCALAPPDATA\Vibedotcom\tracker"
+dotnet publish src/Officelings.Tracker -c Release -o "$env:LOCALAPPDATA\Officelings\tracker"
 
 # Foreground diagnostic run; Ctrl+C stops it.
-& "$env:LOCALAPPDATA\Vibedotcom\tracker\Vibedotcom.Tracker.exe" `
+& "$env:LOCALAPPDATA\Officelings\tracker\Officelings.Tracker.exe" `
     --asset-dir "$PWD\assets\pack" `
-    --layout "$PWD\src\Vibedotcom.Core\Data\layout.json"
+    --layout "$PWD\src\Officelings.Core\Data\layout.json"
 ```
 
-The tracker exports `state.json`, `manifest.json`, `atlas.png`, immutable `sheets/<sha256>.png`, and the resolved runtime layout to `%LOCALAPPDATA%\Vibedotcom`. It observes provider sources read-only. An already-running tracker owns a single-writer mutex; stop the diagnostic instance before starting a background instance.
+The tracker exports `state.json`, `manifest.json`, `atlas.png`, immutable `sheets/<sha256>.png`, and the resolved runtime layout to `%LOCALAPPDATA%\Officelings`. It observes provider sources read-only. An already-running tracker owns a single-writer mutex; stop the diagnostic instance before starting a background instance.
 
 For a hidden background process started at **your logon**, use the supplied installer:
 
 ```powershell
 .\tools\windhawk_install_tracker.ps1 `
-    -TrackerExe "$env:LOCALAPPDATA\Vibedotcom\tracker\Vibedotcom.Tracker.exe" `
+    -TrackerExe "$env:LOCALAPPDATA\Officelings\tracker\Officelings.Tracker.exe" `
     -WhatIf
 
 # Remove -WhatIf when you want to register it.
 .\tools\windhawk_install_tracker.ps1 `
-    -TrackerExe "$env:LOCALAPPDATA\Vibedotcom\tracker\Vibedotcom.Tracker.exe"
+    -TrackerExe "$env:LOCALAPPDATA\Officelings\tracker\Officelings.Tracker.exe"
 
 # Optional: explicitly start the registered task now.
-Start-ScheduledTask -TaskName 'Vibedotcom.Tracker'
+Start-ScheduledTask -TaskName 'Officelings.Tracker'
 ```
 
-The installer registers only; it does not run the tracker, copy/publish files, install a mod or request elevation. The principal is the current user's SID, interactive logon, limited privileges. The action runs `tools/windhawk_run_tracker.ps1` through hidden Windows PowerShell and starts the tracker with `Start-Process -WindowStyle Hidden`. It waits for the child so Task Scheduler can report its exit code, ignore duplicate starts and restart failures. Existing tasks require explicit `-Replace`. `-AssetDirectory`, `-LayoutFile`, `-OutputDirectory`, and `-TaskName` can be overridden. Keep the repository/runner, published executable and configured source files at these paths.
+The installer does not start the tracker, copy/publish files, install a mod or request elevation. It registers the replacement task and, when an owned legacy task exists, stops/unregisters that entry only after registration succeeds; see [rename migration](../docs/rename-migration.md). The principal is the current user's SID, interactive logon, limited privileges. The action runs `tools/windhawk_run_tracker.ps1` through hidden Windows PowerShell and starts the tracker with `Start-Process -WindowStyle Hidden`. It waits for the child so Task Scheduler can report its exit code, ignore duplicate starts and restart failures. Existing replacement tasks require explicit `-Replace`. `-AssetDirectory`, `-LayoutFile`, `-OutputDirectory`, and `-TaskName` can be overridden. Keep the repository/runner, published executable and configured source files at these paths.
 
 To remove the task yourself:
 
 ```powershell
-Stop-ScheduledTask -TaskName 'Vibedotcom.Tracker'
-Unregister-ScheduledTask -TaskName 'Vibedotcom.Tracker' -Confirm
+Stop-ScheduledTask -TaskName 'Officelings.Tracker'
+Unregister-ScheduledTask -TaskName 'Officelings.Tracker' -Confirm
 ```
 
 Task registration, logon, task restart and task-stop behavior have **not** been executed during this implementation. Confirm that stopping the task also stops its tracker child in your manual test.
@@ -62,7 +62,7 @@ Task registration, logon, task restart and task-stop behavior have **not** been 
 ## Add the mod in Windhawk
 
 1. Open Windhawk, choose **Create a new mod**, and open its source editor.
-2. Replace the example source with the complete contents of [vibedotcom.wh.cpp](vibedotcom.wh.cpp). It is one self-contained file; there are no downloaded headers or adjacent source dependencies.
+2. Replace the example source with the complete contents of [officelings.wh.cpp](officelings.wh.cpp). It is one self-contained file; there are no downloaded headers or adjacent source dependencies.
 3. Save and compile in the editor. Use **Compile Mod** / enable only when ready to perform the manual Explorer tests below. These operations load code into your Explorer session.
 4. Start with `normal`, click-through off, automatic zoom, and the default state path. Start the tracker separately and check the office.
 5. Change settings in Windhawk. Changes request a controlled unload/reload. Windhawk retains the settings.
@@ -78,7 +78,7 @@ The mod has no function hooks. A folder-only Explorer process is rejected. If th
 | Zoom | `0` auto-fit, or integer `1`–`6`; nearest-neighbor. Mouse wheel and `+`/`-` work when the window receives input. |
 | Opacity | 10–100 percent for the whole office. |
 | X/Y, width/height | Screen pixels, including negative monitor coordinates. Normal/topmost windows have a native movable, resizable frame. Desktop mode uses the configured dimensions. |
-| State path | Local path, environment variables accepted. Default `%LOCALAPPDATA%\Vibedotcom\state.json`. |
+| State path | Local path, environment variables accepted. Default `%LOCALAPPDATA%\Officelings\state.json`. |
 | Pack path | **Exported PNG root**, blank = state directory. The embedded manifest remains authoritative. This is normally blank: source `assets/pack/` belongs to the tracker's `--asset-dir`, because exported sheet filenames differ. |
 | FPS cap | 1–60, default 30. It is a maximum, not a constant paint timer. Live frames are sampled from the tracker's nominal 200ms snapshots. |
 | Name tags (`tagMode`) | `hover` (default), `icon`, `always`; unknown values use `hover`. This is a renderer setting, outside `state.json`. |
@@ -123,7 +123,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File windhawk/compile.ps1 -Tests
 
 `windhawk/compile.ps1` reuses `poc/compile.ps1`, its **installed Windhawk clang**, C++23, `-O2`, `x86_64-w64-mingw32`, Windows macros, forced `windhawk_api.h`, the 1.7.3 x64 import library and exported callbacks. Added libraries are bcrypt, ole32, dwmapi and dwrite; `-fms-extensions` enables the local SEH envelopes. Output stays in ignored `windhawk/artifacts/`. Running the PoC compiler without arguments retains its original build target.
 
-The standalone harness [renderer_tests.cpp](renderer_tests.cpp) **includes the actual mod source** and retains the original regression checks. `VIBEDOTCOM_TEST` excludes all Windhawk callbacks, settings and HWND hosting; there is no DLL loading or UI. Delimited JSON/contract/geometry and GDI+ renderer sections are shared verbatim. V5 checks cover cold/warm parsing, unsupported versions, seat phases, name modes/fades/Unicode, optional ambient/pets, break props, Gone visibility and transparent tiles.
+The standalone harness [renderer_tests.cpp](renderer_tests.cpp) **includes the actual mod source** and retains the original regression checks. `OFFICELINGS_TEST` excludes all Windhawk callbacks, settings and HWND hosting; there is no DLL loading or UI. Delimited JSON/contract/geometry and GDI+ renderer sections are shared verbatim. V5 checks cover cold/warm parsing, unsupported versions, seat phases, name modes/fades/Unicode, optional ambient/pets, break props, Gone visibility and transparent tiles.
 
 [host_tests.cpp](host_tests.cpp) runs the original `tests/windhawk/host_tests.cpp` checks under a separate test define and adds shared plate/desk metadata checks. It creates only its own hidden windows, with an embedded test-only Windows 8+ compatibility manifest. It exercises cached worker packets, modal-stop notifications, client bounds, tooltip font scaling, list-view suppression, layered-child API admission, and the shutdown cancellation race using an owned local pipe. It does not load the mod DLL or interact with Explorer or existing application windows. Hidden-child API success does not verify visible DWM composition in Explorer. Files under `tests/` are unchanged.
 
@@ -138,7 +138,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/windhawk_verify.ps1 -A
 
 Artifacts:
 
-- `artifacts/vibedotcom.dll`, `vibedotcom.log`, `renderer_tests.exe`, `tests.log`, `host_tests.exe`, `host-tests.log`.
+- `artifacts/officelings.dll`, `officelings.log`, `renderer_tests.exe`, `tests.log`, `host_tests.exe`, `host-tests.log`.
 - `artifacts/demo/state.json`, matching hashed PNGs, and WPF `office-2x.png`, `office.png`, `transparent.png`.
 - `artifacts/render/windhawk-2x.png`, `windhawk-auto.png`, `windhawk-transparent.png`, `windhawk-offline.png`.
 - `artifacts/ambient/*-state.json` and day/night/rain/snow PNGs when `-Ambient` is selected.

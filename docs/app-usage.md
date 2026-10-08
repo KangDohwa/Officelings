@@ -34,14 +34,14 @@ Desktop mode tries WorkerW or the Windows 11 24H2 Progman layout beneath the ico
 
 ## Settings
 
-Normal app runs atomically write `%LOCALAPPDATA%\Vibedotcom\settings.json`. Close the app before manual edits. Files over 64 KiB, unreadable files and invalid JSON fall back to normalized defaults.
+Normal app runs atomically write `%LOCALAPPDATA%\Officelings\settings.json`. Close the app before manual edits. Files over 64 KiB, unreadable files and invalid JSON fall back to normalized defaults.
 
 | Key | Default and accepted values |
 | --- | --- |
 | `view` | `flat`; also `iso`. Unknown values normalize to flat. |
 | `mode` | `normal`; also `topmost`, `desktop`. |
 | `tagMode` | `hover`; also `icon`, `always`. Null/unknown values use hover. Not stored in Tracker state. |
-| `privacyMode` | `off` with no settings file; also `tasks`, `full`. CLI override → saved level → `VIBEDOTCOM_PRIVACY` → off. Missing/invalid saved level uses `full`; legacy `privacy` migrates without lowering the saved level. |
+| `privacyMode` | `off` with no settings file; also `tasks`, `full`. CLI override → saved level → `OFFICELINGS_PRIVACY` → off. Missing/invalid saved level uses `full`; legacy `privacy` migrates without lowering the saved level. |
 | `ambient` | Object with `weather`; missing/null uses `{"weather":"off"}`. Flat only. |
 | `ambient.weather` | `off`; also `rain`, `snow`, `auto`. Auto selects snow in December, clear otherwise. No weather service. |
 | `seasonDecor` | `off`; `auto` adds December window decoration. Flat only. |
@@ -80,7 +80,7 @@ Body fields are `v`, `officeId`, `agents` and `ts`; each agent has `platform`, `
 
 Successful heartbeats use random 10–30 second intervals. Attempts consume at least 10 seconds; 429 respects Retry-After and temporary failures back off. App/Tracker share a timing gate. HTTPS is required outside loopback; redirects, proxies and cookies are disabled. Server rejection stops transmission. The **Sharing** line reports off/sending/live/retry/stopped status.
 
-By default, Windows DPAPI **CurrentUser** stores the token in `%LOCALAPPDATA%\Vibedotcom.Credentials\presence.dpapi`, bound to server and office. Uncheck storage to keep the supplied token in memory for this run. The token does not enter settings, layouts, state, URLs or diagnostics. Hash-named `.cooldown` files hold timing data only. Other processes running as the same user can use CurrentUser DPAPI.
+By default, Windows DPAPI **CurrentUser** stores the token in `%LOCALAPPDATA%\Officelings.Credentials\presence.dpapi`, bound to server and office. Uncheck storage to keep the supplied token in memory for this run. The token does not enter settings, layouts, state, URLs or diagnostics. Hash-named `.cooldown` files hold timing data only. Other processes running as the same user can use CurrentUser DPAPI.
 
 Use **Stop sharing** to cancel the sender. **Also delete the stored token** removes the DPAPI file. Neither action revokes the server token nor unpublishes an office. The intended server contract expires presence within 90 seconds and clears it on revocation/unpublish; that behavior was not verified against the hosted service. Downloaded public data cannot be recalled.
 
@@ -98,7 +98,7 @@ Flat windows use local time: day 07:00–17:00, sunset 17:00–19:00, night othe
 
 Flat resting agents can use coffee, water, TV, phone, napping, chatting, darts, ping-pong, arcade, reading, beanbag, aquarium, vending, fridge and window activities. Interaction points are reserved individually. Ping-pong starts after both arrive and stops when either returns to work or leaves. Pets do not become tracked agents or reserve desks.
 
-To tune breaks, place `activities.json` next to app settings or in the Tracker output folder, then restart. Unlisted IDs keep [bundled defaults](../src/Vibedotcom.Core/Data/activities.json); zero weight disables an activity and duration begins on arrival.
+To tune breaks, place `activities.json` next to app settings or in the Tracker output folder, then restart. Unlisted IDs keep [bundled defaults](../src/Officelings.Core/Data/activities.json); zero weight disables an activity and duration begins on arrival.
 
 ```json
 {
@@ -113,8 +113,8 @@ To tune breaks, place `activities.json` next to app settings or in the Tracker o
 Flat startup tries the per-user assets folder and `layout.json`, then bundled `assets/pack/`, then procedural fallback. Invalid custom files can fall back with warnings. Iso loads its own embedded pack; `--asset-dir` must point at iso input there. Restart to reload files. Flat editor instructions and file limits are in [editor](editor.md), [asset format](asset-format.md) and [art pipeline](art-pipeline.md).
 
 ```powershell
-dotnet run --project src/Vibedotcom.App --no-build -- --demo --asset-dir ./assets/pack --layout ./src/Vibedotcom.Core/Data/layout.json
-dotnet run --project src/Vibedotcom.App --no-build -- --view iso --demo --asset-dir ./assets/art/iso/pack
+dotnet run --project src/Officelings.App --no-build -- --demo --asset-dir ./assets/pack --layout ./src/Officelings.Core/Data/layout.json
+dotnet run --project src/Officelings.App --no-build -- --view iso --demo --asset-dir ./assets/art/iso/pack
 ```
 
 Isolated modes skip implicit personal art/layout/brand inputs and reject explicit input inside the normal app-data folder. Editor Save uses a disposable demo folder; cleanup is attempted on exit. Use only synthetic inputs in verification. Not every reader uses the same hardened boundary: stock flat input/publication routes have link/size checks, while iso external pack/layout and explicit smoke snapshot routes have different checks. Do not describe the whole application as safe for arbitrary untrusted inputs.
@@ -163,8 +163,8 @@ The README uses current flat office, iso twelve-seat, flat night and provider-ta
 ## Publish
 
 ```powershell
-dotnet publish src/Vibedotcom.App -c Release -o artifacts/publish/app
-dotnet publish src/Vibedotcom.Tracker -c Release -o artifacts/publish/tracker
+dotnet publish src/Officelings.App -c Release -o artifacts/publish/app
+dotnet publish src/Officelings.Tracker -c Release -o artifacts/publish/tracker
 ```
 
 Framework-dependent folders need the runtime described in the [README](../README.md#quick-start). These commands install no service or startup entry. [Release packaging](../tools/release/README.md) creates runtime-dependent and self-contained Windows x64 ZIPs from committed HEAD; uncommitted work is excluded. Review the [release checklist](release-checklist.md) and [unsigned-binary notice](windows-security-notice.md) before distribution.

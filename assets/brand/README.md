@@ -46,14 +46,14 @@ Override the directories when needed:
 python -B tools/fetch_brand_icons.py --originals 'C:\local\brand originals' --output 'C:\local\brand overlay' --no-recolor
 ./tools/fetch_brand_icons.ps1 -Originals 'C:\local\brand originals' -Output 'C:\local\brand overlay' -NoRecolor
 # Optional existing per-user overlay location:
-python -B tools/fetch_brand_icons.py --output "$env:LOCALAPPDATA\Vibedotcom\brand"
+python -B tools/fetch_brand_icons.py --output "$env:LOCALAPPDATA\Officelings\brand"
 ```
 
 The default directories are resolved relative to the repository, independent of your working directory. Relative overrides are resolved from your working directory. Only the named downloads and nine PNGs are written; unrelated files are left in place. Override directories are not automatically git-ignored, so keep any official originals and outputs out of commits and shared builds.
 
 ## Using the overlay in the app
 
-The runtime does not scan the repository's `assets/brand-overlay/` directory. Its precedence is valid per-provider icons in `%LOCALAPPDATA%\Vibedotcom\brand\`, then optional embedded icons, then the generic pack. It uses the nearest valid density when a density is missing or corrupt.
+The runtime does not scan the repository's `assets/brand-overlay/` directory. Its precedence is valid per-provider icons in `%LOCALAPPDATA%\Officelings\brand\`, then optional embedded icons, then the generic pack. It uses the nearest valid density when a density is missing or corrupt.
 
 To copy the nine generated PNGs into the per-user runtime folder, explicitly use `--install`. This replaces those nine filenames there, preserves unrelated files and does not copy the originals:
 
@@ -63,7 +63,7 @@ python -B tools/fetch_brand_icons.py --recolor --install
 # The wrapper also accepts --install as an alias for -Install.
 ```
 
-Alternatively, manually copy the PNGs there or use `--output "$env:LOCALAPPDATA\Vibedotcom\brand"`. Existing icons in that folder take precedence over embedded icons. Embedding the repository overlay requires an explicit local App build with `-p:EmbedBrandOverlay=true`; the fetch tool leaves the default `EmbedBrandOverlay=false` unchanged. Do not share builds containing official icons without reviewing the owners' requirements and obtaining any needed permission.
+Alternatively, manually copy the PNGs there or use `--output "$env:LOCALAPPDATA\Officelings\brand"`. Existing icons in that folder take precedence over embedded icons. Embedding the repository overlay requires an explicit local App build with `-p:EmbedBrandOverlay=true`; the fetch tool leaves the default `EmbedBrandOverlay=false` unchanged. Do not share builds containing official icons without reviewing the owners' requirements and obtaining any needed permission.
 
 Run the isolated tests (all downloads are mocked):
 

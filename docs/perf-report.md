@@ -6,7 +6,7 @@ Measured on 2026-10-04 KST with Release assemblies built in the detached `%TEMP%
 
 The rendering, pack and tracker measurements completed. **The requested twelve-condition, ten-minute idle soak did not complete within the approximately forty-minute work budget. There is no ten-minute leak verdict.** Failed startup attempts and short samples are retained, rather than presented as successful soaks. Native desktop hosting was not attempted: committed `WindowModes.EmbedDesktop` sends Explorer's private wallpaper messages, contrary to the requirement not to disturb the shell.
 
-No input, cursor movement, minimization or foreground-changing API was used. Every measurement window was owned, offscreen and nonactivating. `GetForegroundWindow` returned zero in the sandbox, so equality of those readings does not independently prove the foreground was unchanged. Product sources were not modified; personal settings and the real `%LOCALAPPDATA%/Vibedotcom` were not read or written. Assets came from committed embedded resources; tracker homes and brand paths were explicitly temporary/empty. Merely setting environment variables is not asserted to redirect Windows known folders.
+No input, cursor movement, minimization or foreground-changing API was used. Every measurement window was owned, offscreen and nonactivating. `GetForegroundWindow` returned zero in the sandbox, so equality of those readings does not independently prove the foreground was unchanged. Product sources were not modified; personal settings and the real `%LOCALAPPDATA%/Officelings` were not read or written. Assets came from committed embedded resources; tracker homes and brand paths were explicitly temporary/empty. Merely setting environment variables is not asserted to redirect Windows known folders.
 
 **Idle and soak coverage**
 
@@ -59,7 +59,7 @@ The high tails, frequent Gen2 collections and non-monotonic 3x/6x results preclu
 
 **Pack load and first frame**
 
-Three fresh harness processes loaded the embedded pack, constructed an `OfficeView` and rendered a 720×480 first frame using the same committed smoke-render function. Windows/font/file caches were not flushed. This is in-process time to an offscreen first frame; it excludes CLR/process launch. The complete stock `--smoke-test` command was not timed: its default `BrandIcons` path can read the personal Vibedotcom directory even with `--demo`, whereas this harness supplies an empty brand directory. A full smoke command also renders many review scenes and exports files, so its exit time would not be first-frame latency.
+Three fresh harness processes loaded the embedded pack, constructed an `OfficeView` and rendered a 720×480 first frame using the same committed smoke-render function. Windows/font/file caches were not flushed. This is in-process time to an offscreen first frame; it excludes CLR/process launch. The complete stock `--smoke-test` command was not timed: its default `BrandIcons` path can read the personal Officelings directory even with `--demo`, whereas this harness supplies an empty brand directory. A full smoke command also renders many review scenes and exports files, so its exit time would not be first-frame latency.
 
 | Stage, three runs | Median | Range |
 |---|---:|---:|
@@ -108,19 +108,19 @@ Gains below are estimates or avoided-work counts, not measured improvements. No 
 
 **Reproduction**
 
-Run from the repository root. These commands measure committed HEAD, leave product sources untouched, and keep build/synthetic files temporary. Each result directory must be new. Do not replace the isolated harness with a bare normal CLI launch: the committed CLI does not isolate brand lookup. The harness assembly name uses the app's existing `InternalsVisibleTo("Vibedotcom.Tests")`, not source copying.
+Run from the repository root. These commands measure committed HEAD, leave product sources untouched, and keep build/synthetic files temporary. Each result directory must be new. Do not replace the isolated harness with a bare normal CLI launch: the committed CLI does not isolate brand lookup. The harness assembly name uses the app's existing `InternalsVisibleTo("Officelings.Tests")`, not source copying.
 
 ```powershell
 $perfWorktree = Join-Path $env:TEMP 'vd-perf'
 $perfBuild = Join-Path $env:TEMP ('vd-perf-harness-' + [guid]::NewGuid().ToString('N'))
 git worktree add --detach $perfWorktree HEAD
 try {
-    dotnet build "$perfWorktree/src/Vibedotcom.App/Vibedotcom.App.csproj" -c Release --nologo
-    $perfAppBin = "$perfWorktree/src/Vibedotcom.App/bin/Release/net10.0-windows"
+    dotnet build "$perfWorktree/src/Officelings.App/Officelings.App.csproj" -c Release --nologo
+    $perfAppBin = "$perfWorktree/src/Officelings.App/bin/Release/net10.0-windows"
     dotnet build tools/perf/AppHarness.csproj -c Release --nologo `
         "-p:AppBin=$perfAppBin" "-p:BaseIntermediateOutputPath=$perfBuild/obj/" `
         "-p:OutputPath=$perfBuild/bin/"
-    $perfHarness = "$perfBuild/bin/Vibedotcom.Tests.exe"
+    $perfHarness = "$perfBuild/bin/Officelings.Tests.exe"
     & $perfHarness render tools/perf/results/render
     1..3 | ForEach-Object { & $perfHarness pack tools/perf/results/pack }
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/perf/soak.ps1 `
@@ -129,7 +129,7 @@ try {
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/perf/analyze.ps1
     $perfTrackerBuild = Join-Path $env:TEMP ('vd-tracker-build-' + [guid]::NewGuid().ToString('N'))
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/perf/tracker/tracker.ps1 `
-        -Mode Build -BuildRoot $perfTrackerBuild -CoreDll "$perfAppBin/Vibedotcom.Core.dll"
+        -Mode Build -BuildRoot $perfTrackerBuild -CoreDll "$perfAppBin/Officelings.Core.dll"
     powershell.exe -NoProfile -ExecutionPolicy Bypass -File tools/perf/tracker/tracker.ps1 `
         -Mode Run -BuildRoot $perfTrackerBuild
 } finally {
@@ -239,7 +239,7 @@ Three demo times (0, 12, 36 s), each at 1x/2x/3x, match the original decoded Pbg
 
 Regression tests enforce zero animation ticks for static empty scenes, zero static Core allocations, bounded settled Core allocations, unchanged room/damage counters, small bounds for one moving body, lazy/frozen/shared images, and heartbeat/locked-publisher freshness/sequence behavior. A retained-source empty-room test preserves changing TV frames and caps Core+View+dispatcher thread allocations at 100 KiB/s over 300 frames / 100 logical seconds, after 30 warmup frames; no wall-clock speed gate or per-frame bitmap capture is involved. Background-thread allocations are covered by the separate whole-process live collector. The count harness performs 240 fixed updates after 40 warmup updates and compares allocations, draw counts and logical area without timing gates. [Benchmark instructions](../tools/perf/README.md) describe fresh assembly snapshots, warmup, sequential repeats, pixel comparison and count-based regression gates.
 
-Final wrap-up Release `dotnet build Vibedotcom.sln -c Release`: **0 warnings, 0 errors**. Full `dotnet test ... --no-build`: **241 passed, 0 skipped**, approximately 40 s, including all nine baseline pixel comparisons and the changing-TV allocation gate. Python tool unit tests: **28 passed** (65.2 s); animation-normalization checks: **PASS**; quiet-tail QA unit checks: **4 passed**. All five simulator scenarios completed isolated generation/checkpoints at 1000× as functional checks; no tracker CPU campaign or live E2E measurement was added during wrap-up. The earlier E2E unit result remains **10 tests OK, including one existing expected failure**; it was not rerun as that same suite during wrap-up. Final logs, TRX, scenario logs and slowest-test JSON are under `tools/perf/results/wrap-up/`. Pixel tests still check all pixels; slow loops were reduced by copying tile buffers once, comparing spans, and formatting assertions only on failure. The archive discovery fixture still contains 1,000 files, with redundant directory/UTF-8 work removed. The publisher-lock test holds the lock across the three-second heartbeat; its further proposed shortening was not applied after the stop instruction.
+Final wrap-up Release `dotnet build Officelings.sln -c Release`: **0 warnings, 0 errors**. Full `dotnet test ... --no-build`: **241 passed, 0 skipped**, approximately 40 s, including all nine baseline pixel comparisons and the changing-TV allocation gate. Python tool unit tests: **28 passed** (65.2 s); animation-normalization checks: **PASS**; quiet-tail QA unit checks: **4 passed**. All five simulator scenarios completed isolated generation/checkpoints at 1000× as functional checks; no tracker CPU campaign or live E2E measurement was added during wrap-up. The earlier E2E unit result remains **10 tests OK, including one existing expected failure**; it was not rerun as that same suite during wrap-up. Final logs, TRX, scenario logs and slowest-test JSON are under `tools/perf/results/wrap-up/`. Pixel tests still check all pixels; slow loops were reduced by copying tile buffers once, comparing spans, and formatting assertions only on failure. The archive discovery fixture still contains 1,000 files, with redundant directory/UTF-8 work removed. The publisher-lock test holds the lock across the three-second heartbeat; its further proposed shortening was not applied after the stop instruction.
 
 The slowest five tests in the final complete run (busy-machine elapsed durations, not standalone benchmarks):
 
@@ -258,7 +258,7 @@ The slowest five tests in the final complete run (busy-machine elapsed durations
 [The benchmark script](../tools/perf/benchmark.ps1) and [its methodology](../tools/perf/README.md) build a fresh frozen assembly snapshot, discard warmup, run sequential three-repeat suites, retain native aggregates, and compare independently captured pixels. Example after an already completed Release build:
 
 ```powershell
-.\tools\perf\benchmark.ps1 -Mode All -AppBin src/Vibedotcom.App/bin/Release/net10.0-windows -Output tools/perf/results/NEW_RUN
+.\tools\perf\benchmark.ps1 -Mode All -AppBin src/Officelings.App/bin/Release/net10.0-windows -Output tools/perf/results/NEW_RUN
 # Tracker/E2E source-tree run; existing Windhawk renderer is used read-only:
 .\tools\qa\e2e.ps1 -Workspace -DirectTracker -Scenario quiet,long-soak -Speed 20 -QuietSteadySeconds 60
 ```
@@ -335,16 +335,16 @@ Release build는 오류 0개, 기존 iso xUnit 분석기 경고 17개다. deadli
 
 | 공유 파일 | 위치 / 변경 |
 |---|---|
-| `src/Vibedotcom.App/OfficeView.cs` | Update 196–244: overflow host 갱신, agent 변경 분리, ambient 전용 경로 선택. FurnitureDepth 564–591: cold cache 메서드와 indexed occupancy 조회. |
-| `src/Vibedotcom.App/Program.cs` | ScheduleAnimation 757–763: Office와 Pet의 다음 갱신 시각 중 빠른 값 선택. |
-| `src/Vibedotcom.Core/Office.cs` | RefreshCadence 706: 정지 clip의 authored FPS 유지. |
-| `src/Vibedotcom.Tracker/Program.cs` | ReadPrivacy 44–56, main loop 87–104: settings 읽기·입력 분류 주기 분리. 148: 미래 deadline 대기의 밀리초 올림. |
+| `src/Officelings.App/OfficeView.cs` | Update 196–244: overflow host 갱신, agent 변경 분리, ambient 전용 경로 선택. FurnitureDepth 564–591: cold cache 메서드와 indexed occupancy 조회. |
+| `src/Officelings.App/Program.cs` | ScheduleAnimation 757–763: Office와 Pet의 다음 갱신 시각 중 빠른 값 선택. |
+| `src/Officelings.Core/Office.cs` | RefreshCadence 706: 정지 clip의 authored FPS 유지. |
+| `src/Officelings.Tracker/Program.cs` | ReadPrivacy 44–56, main loop 87–104: settings 읽기·입력 분류 주기 분리. 148: 미래 deadline 대기의 밀리초 올림. |
 
 합칠 때 `OfficeView.Perf.cs`의 새 partial과 Ambient의 `NextUpdateAt`, `TrackerCadence.cs`도 함께 반영해야 한다. authored 낮은 FPS의 표시 간격과 tracker 입력 분류의 최대 0.5–1초 지연은 의도한 변화다. Windhawk에는 viewport 한 장, JsonlTail에는 source별 읽기 버퍼가 추가된다. 실제 화면·Explorer 주입·OS wakeup, 10분 이상의 메모리 안정성은 이번 offscreen CPU/픽셀 검사로 확인하지 않았다. native/managed 함수별 전체 CPU stack도 확보하지 못했다.
 
 `dotnet-counters`는 워크트리 안의 tool/cache와 공개 NuGet source만 지정해 설치를 한 번 시도했지만 `https://api.nuget.org/v3/index.json` 서비스 인덱스 로드에 실패했다. 설치를 다시 시도하거나 권한·네트워크 설정을 바꾸지 않았다. 별도의 tracker 복사본 진단은 stopwatch/current-thread allocation/Windows thread CPU/GC counts를 사용하며 최종 CPU 표와 분리한다.
 
-커밋은 승인된 lane branch에서 시도했지만 공유 Git 메타데이터 `C:/Codex-Workspace/Vibedotcom/.git/worktrees/perf/index.lock` 생성이 **Permission denied**로 실패했다. 차단 시 중단하라는 lane 규칙에 따라 staging/commit을 다시 시도하거나 다른 방식으로 우회하지 않았다. 변경은 이 워크트리에 unstaged 상태로 남아 있다.
+커밋은 승인된 lane branch에서 시도했지만 공유 Git 메타데이터 `C:/Codex-Workspace/Officelings/.git/worktrees/perf/index.lock` 생성이 **Permission denied**로 실패했다. 차단 시 중단하라는 lane 규칙에 따라 staging/commit을 다시 시도하거나 다른 방식으로 우회하지 않았다. 변경은 이 워크트리에 unstaged 상태로 남아 있다.
 
 ## ISO CPU — main 210c9fd, lane/polish
 

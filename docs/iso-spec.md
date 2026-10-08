@@ -336,7 +336,7 @@ The slice uses this fixed cutaway. For later interior walls, `cutaway:auto` fade
 
 ### Core
 
-The relevant existing paths are `Models.cs`, `Assets.cs`, `LayoutLoader.cs`, `Office.cs` and `OfficeEditor.cs` under `src/Vibedotcom.Core/`. Implement the following as bounded changes, keeping flat branches and their formulas:
+The relevant existing paths are `Models.cs`, `Assets.cs`, `LayoutLoader.cs`, `Office.cs` and `OfficeEditor.cs` under `src/Officelings.Core/`. Implement the following as bounded changes, keeping flat branches and their formulas:
 
 1. Add an explicit projection/view record and shared pure grid↔projected-ground functions, snapping and projected bounds. Remove hardcoded `×16` calculations only from iso paths. Simulation coordinates stay grid coordinates.
 2. Load/validate projection-specific manifests, directions, tile art, object parts, contact profiles and walls. Resolve one complete pack per view. Preserve existing roster hash, assignment, work-seat IDs, monitor state and asset publication limits.
@@ -408,7 +408,7 @@ Only WPF and the tracker export test consume v6 in the slice. Unsupported capabi
 
 ### Next phase: Windhawk C++ renderer (outside slice acceptance)
 
-After H1 freezes v6 fixtures, W2 passes and Q1 approves pack/goldens, start N1/N2. Dependencies are stable renderItems, split-part/alpha masks, immutable sheet publication and approved WPF rasters. In `windhawk/vibedotcom.wh.cpp`, update Snapshot/Frame/Variant parsing, supported schema/capability validation, projected bounds, integer zoom, and image/scene cache keys. Render the v6 queue, including split chair/desk/sofa parts, cutaway walls, exact blink frames and contact shadows. Use supplied destinations and order instead of duplicating A*, assignment, contact solving or `i+j` sorting rules. Keep the flat renderer for older snapshots.
+After H1 freezes v6 fixtures, W2 passes and Q1 approves pack/goldens, start N1/N2. Dependencies are stable renderItems, split-part/alpha masks, immutable sheet publication and approved WPF rasters. In `windhawk/officelings.wh.cpp`, update Snapshot/Frame/Variant parsing, supported schema/capability validation, projected bounds, integer zoom, and image/scene cache keys. Render the v6 queue, including split chair/desk/sofa parts, cutaway walls, exact blink frames and contact shadows. Use supplied destinations and order instead of duplicating A*, assignment, contact solving or `i+j` sorting rules. Keep the flat renderer for older snapshots.
 
 Replace rectangular-only actor hits with alpha-mask hits in reverse draw order and the same effective-alpha threshold; combine them with current plate/tooltip targets. Cache source alpha before opacity is applied. Preserve nearest-neighbor GDI+ behavior, layered-window alpha, read-sharing flags, last-good-snapshot recovery and native window lifecycle. Compare the native scene with WPF before calling desktop iso supported. No desktop-hook or host-window rewrite is part of this conversion.
 

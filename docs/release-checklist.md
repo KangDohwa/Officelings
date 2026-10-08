@@ -7,7 +7,7 @@ Code is MIT and project art/assets are CC BY 4.0, as decided by the owner. This 
 - [x] Choose licenses and add [LICENSE](../LICENSE) and [assets/LICENSE.md](../assets/LICENSE.md). Copyright holder: KangDohwa, year 2026.
 - [ ] Review [third-party notices](../THIRD_PARTY_NOTICES.md) against the exact packages and runtimes being distributed. Keep upstream notices required by those distributions.
 - [ ] Review the AI image model's terms for the generated art, including redistribution. Keep the art attribution with releases.
-- [ ] Search for collisions with the name “Vibedotcom”, including repositories, packages, products and trademarks. No clearance search is recorded here.
+- [ ] Search for collisions with the name “Officelings”, including repositories, packages, products and trademarks. No clearance search is recorded here.
 - [ ] Re-check the owner-guideline summaries in [TRADEMARKS.md](../TRADEMARKS.md). OpenAI's page blocked an earlier scripted fetch. A later readable extract does not replace a review of the full page and intended use.
 - [ ] Consider asking OpenAI, Anthropic and Google for written permission for any public official-logo use. A local download does not grant permission.
 - [ ] Keep `EmbedBrandOverlay=false` for shared builds. Inspect the packaged sheets and screenshots as well as obvious logo filenames.

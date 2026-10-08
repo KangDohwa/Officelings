@@ -44,7 +44,7 @@ WPF offscreen exports may include `ambient:{windowView,weather,stringLightsOn,wi
 
 The current Windhawk v5 renderer accepts these optional fields/actions, uses supplied ambient or local time/weather, renders clock hands/lights/December decoration, supplied pet frames, dart/ping-pong overlays, bean-bag poses, dispensing flaps and reading props. It also uses the original 10/12px provider and crown/badge clips. Ordinary Tracker output still omits ambient/pets; native pets are supplied frames, not a second simulation. These are renderer implementations and offscreen test paths, not verification of Explorer injection.
 
-Default output: `%LOCALAPPDATA%\Vibedotcom`. Editable source is `layout.json`; installed art is `assets/assets.json` or `assets/manifest.json`. Without an installed pack, both executables use the art embedded from `assets/pack/`. See [asset-format.md](asset-format.md) for asset loading/authoring. The v4 fixed-capacity rules below supersede that document's historical automatic expansion description.
+Default output: `%LOCALAPPDATA%\Officelings`. Editable source is `layout.json`; installed art is `assets/assets.json` or `assets/manifest.json`. Without an installed pack, both executables use the art embedded from `assets/pack/`. See [asset-format.md](asset-format.md) for asset loading/authoring. The v4 fixed-capacity rules below supersede that document's historical automatic expansion description.
 
 | File | Contract |
 | --- | --- |
@@ -141,7 +141,7 @@ Flat WPF uses retained scene layers, shared/lazy decoded sheets, cached room/cro
 
 # Historical version 2 contract
 
-The tracker writes sibling `state.json` and `atlas.png` (default `%LOCALAPPDATA%\Vibedotcom`) for the separately developed Windhawk consumer.
+The tracker writes sibling `state.json` and `atlas.png` (default `%LOCALAPPDATA%\Officelings`) for the separately developed Windhawk consumer.
 
 Version 2 preserves version 1's JSON field names/types, 16×24 cell size, first six character rows, tool-bubble row 6, and animation columns 0–12. It appends identity variants, directional frames and optional pose fields. **Atlas dimensions and facing/action values changed.** Strict version 1 readers must be updated to accept version 2 and use supplied dimensions/indexes. This preserves the old contract's structure/index meanings, rather than guaranteeing that an unchanged version 1 binary renders version 2.
 

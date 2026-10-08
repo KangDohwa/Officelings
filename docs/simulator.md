@@ -8,10 +8,10 @@ Run these commands from the repository root. This Python environment is already 
 $py = 'C:\Users\<user>\.codex\skills\sprite-gen\.venv\Scripts\python.exe'
 & $py tools/simulate/simulate.py --scenario quiet --seed 1
 # In another terminal:
-dotnet run --project src/Vibedotcom.Tracker -- --home "$env:TEMP\vibedotcom-sim-home" --output "$env:TEMP\vibedotcom-sim-output"
+dotnet run --project src/Officelings.Tracker -- --home "$env:TEMP\officelings-sim-home" --output "$env:TEMP\officelings-sim-output"
 ```
 
-The default fake home is `%TEMP%\vibedotcom-sim-home`. Use `--home` for a separate directory below TEMP. A nonempty directory is refused. `--reset` replaces only a home carrying the simulator's ownership marker; it cannot clear an unrelated folder.
+The default fake home is `%TEMP%\officelings-sim-home`. Use `--home` for a separate directory below TEMP. A nonempty directory is refused. `--reset` replaces only a home carrying the simulator's ownership marker; it cannot clear an unrelated folder.
 
 ## Scenarios
 
@@ -67,11 +67,11 @@ The first scenario also tests an ordinary live reader opened with the documented
 
 WPF smoke requires the selected source to implement `--home DIR` and `--output DIR-or-state.json` (`--state` is an alias). `--home` selects an explicit tracker home and is allowed in QA/smoke. `--output` selects an already published state snapshot and is allowed only with `--smoke-test OUTPUT_DIR`; it does not select the capture destination. QA passes the scenario's fake home, peak-live `render-state.json`, and tracker output as `--asset-dir`, then requests offscreen 1/2/3x captures. It verifies the source sequence, agent count, zero log-read declaration and PNG dimensions. Snapshot poses are rendered without advancing animation. When the source CLI is unavailable, QA records a **SKIP**. Isolation comes from explicit home/storage paths, not an assumption that environment variables redirect Windows known folders.
 
-The default tracker launch uses `dotnet run` with build servers disabled. `-DirectTracker` is an explicit fallback for a stalled SDK launcher: it runs `Vibedotcom.Tracker.exe` from the freshly built TEMP worktree with the same arguments. The table and `run.json` record the bypass. This still tests the tracker but does not verify the SDK launcher itself.
+The default tracker launch uses `dotnet run` with build servers disabled. `-DirectTracker` is an explicit fallback for a stalled SDK launcher: it runs `Officelings.Tracker.exe` from the freshly built TEMP worktree with the same arguments. The table and `run.json` record the bypass. This still tests the tracker but does not verify the SDK launcher itself.
 
 During the soak QA samples the actual tracker apphost every five seconds, rather than the `dotnet run` launcher. CPU average after a 20-second warmup must be at most 3% of **one logical core**; the calculation is CPU seconds divided by active wall seconds (excluding checkpoint suspension), without dividing by the machine's core count. RSS must never exceed 200 MiB in the samples. A read-only Windows system-handle query identifies File objects using a temporary anchor handle: the last three steady samples' median must not exceed the first three. Transient peaks are reported separately, not mistaken for growth. Total process handles are also recorded. An unavailable metric is a failure. This can reveal sustained leaks, but five-second sampling cannot catch every brief peak. The accelerated scan interval and churn are part of the measured workload.
 
-Results live in `%TEMP%\vibedotcom-e2e\<timestamp>-<random>\`. `results.json` and `failures.json` accompany the printed table. Each scenario keeps its JSON, event journal, simulator/tracker logs, checkpoint intent and actual snapshots, observations, renderer PNGs and `samples.csv`. A failed check exits nonzero while other scenarios continue. Build/environment failures are distinguished by their log and check name. These tools do not fix product source or commit anything.
+Results live in `%TEMP%\officelings-e2e\<timestamp>-<random>\`. `results.json` and `failures.json` accompany the printed table. Each scenario keeps its JSON, event journal, simulator/tracker logs, checkpoint intent and actual snapshots, observations, renderer PNGs and `samples.csv`. A failed check exits nonzero while other scenarios continue. Build/environment failures are distinguished by their log and check name. These tools do not fix product source or commit anything.
 
 ## Add a scenario
 
@@ -129,4 +129,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools/qa/e2e.ps1 -Scenario q
 
 Validation on 2026-10-04 used split reruns after correcting simulator/control timing. Quiet and burst-spawn passed on HEAD `1b9531c`; busy-12 and flaky-writer then passed all checkpoints and renderer checks on the same HEAD. The soak on `4293d5c` collected 62 five-second samples, ending at 340.55 real seconds including startup; every soak lifecycle/schema checkpoint passed, with CPU alone above the requested resource limit. The small suite reported nine passes and one explicit expected Windows replacement failure. WPF fake-home smoke was skipped because `--home` is absent.
 
-The retained logs are under `%TEMP%\vibedotcom-e2e\20261004-032540-29ck4iwm` (quiet/burst), `20261004-033302-u7e1mg3o` (final busy/flaky), and `20261004-031355-2m8yz6ql` (soak CSV and `resource-recheck.json`). Older failures in these folders are preserved rather than rewritten as passes. Every run's temporary HEAD worktree was removed; unrelated worktrees were left alone.
+The retained logs are under `%TEMP%\officelings-e2e\20261004-032540-29ck4iwm` (quiet/burst), `20261004-033302-u7e1mg3o` (final busy/flaky), and `20261004-031355-2m8yz6ql` (soak CSV and `resource-recheck.json`). Older failures in these folders are preserved rather than rewritten as passes. Every run's temporary HEAD worktree was removed; unrelated worktrees were left alone.

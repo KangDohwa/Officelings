@@ -6,7 +6,7 @@ Contributions are welcome, including bug reports, documentation fixes, code and 
 
 ## Bug reports
 
-Use the repository's [issues](https://github.com/KangDohwa/Vibedotcom/issues). Include the Windows version and OS build (`winver`), relevant tool versions (Codex, Claude Code, Antigravity or Windhawk), the .NET SDK/runtime version, and the commit or release you used. Describe how to reproduce the problem, what you expected and what happened. Mention `view` (flat/iso), window mode, click-through, zoom and any custom pack/layout if relevant.
+Use the repository's [issues](https://github.com/KangDohwa/Officelings/issues). Include the Windows version and OS build (`winver`), relevant tool versions (Codex, Claude Code, Antigravity or Windhawk), the .NET SDK/runtime version, and the commit or release you used. Describe how to reproduce the problem, what you expected and what happened. Mention `view` (flat/iso), window mode, click-through, zoom and any custom pack/layout if relevant.
 
 Attach sanitized diagnostics only. Never paste real prompts or personal paths, raw session logs, credentials or your real `state.json`. Use invented text in reproductions and fixtures. For screenshots, use `--demo` and check tooltips as well as the room. See [privacy](docs/privacy.md). Use a private security-reporting route when one is configured; do not post an exploit with personal data in a public issue.
 
@@ -15,12 +15,12 @@ Attach sanitized diagnostics only. Never paste real prompts or personal paths, r
 Use Windows 11 with the .NET 10 SDK. Run these from the repository root:
 
 ```powershell
-dotnet build Vibedotcom.sln
-dotnet test Vibedotcom.sln --no-build
-dotnet run --project src/Vibedotcom.App --no-build -- --demo
-dotnet run --project src/Vibedotcom.App --no-build -- --view iso --demo
+dotnet build Officelings.sln
+dotnet test Officelings.sln --no-build
+dotnet run --project src/Officelings.App --no-build -- --demo
+dotnet run --project src/Officelings.App --no-build -- --view iso --demo
 # Separate synthetic sharing checks, not part of the solution test count:
-dotnet run --project tests/Vibedotcom.SharingChecks
+dotnet run --project tests/Officelings.SharingChecks
 ```
 
 For Python art tools, use an existing environment with Pillow and NumPy. Run the checks affected by your change:
