@@ -50,7 +50,7 @@ internal sealed partial record Settings
         return (this with { View = View == "iso" ? "iso" : "flat", Mode = Mode is "normal" or "topmost" or "desktop" ? Mode : "normal",
             TagMode = NameTagHover.Normalize(TagMode),
             PrivacyMode = PrivacyMode == null
-                ? PrivacyModes.Value(PrivacyModes.Resolve(null, null, Environment.GetEnvironmentVariable("OFFICELINGS_PRIVACY")))
+                ? PrivacyModes.Value(PrivacyModes.Resolve(null, null, PrivacyModes.EnvironmentValue))
                 : PrivacyModes.SharingValue(PrivacyMode),
             Ambient = (Ambient ?? new()).Normalize(), SeasonDecor = SeasonDecor == "auto" ? "auto" : "off",
             Pets = Pets == "off" ? "off" : "on",
@@ -128,7 +128,7 @@ internal static partial class Program
             using var storage = new AppStorage(demo || qa || profile != null || smoke != null || verifyOpacity != null);
             if (initial != null || privacyOption != null)
                 initial = (initial ?? Settings.Read(storage.SettingsPath)) with { PrivacyMode = PrivacyModes.Value(PrivacyModes.Resolve(privacyOption,
-                    PrivacyModes.ReadSetting(storage.SettingsPath), Environment.GetEnvironmentVariable("OFFICELINGS_PRIVACY"))) };
+                    PrivacyModes.ReadSetting(storage.SettingsPath), PrivacyModes.EnvironmentValue)) };
             if (home != null && !qa && smoke == null) throw new ArgumentException("--home requires --qa or --smoke-test.");
             if (stateSource != null && smoke == null) throw new ArgumentException("--output/--state requires --smoke-test; pass a tracker output directory or state.json.");
             if (stateSource != null && Directory.Exists(stateSource)) stateSource = Path.Combine(stateSource,"state.json");
@@ -160,7 +160,7 @@ internal static partial class Program
                     var loaded = await LoadOfficeAsync(assetDirectory, layoutFile, storage);
                     new OfficeWindow(demo,initial,quitAfter,loaded.Assets,loaded.Layout,qa,liveOffice: loaded.Office,storage: storage,decodedSheets: loaded.Sheets,trackerHome: home).Show();
                 }
-                catch (Exception e) { Console.Error.WriteLine(PrivacyModes.Diagnostic(e, PrivacyModes.Resolve(privacyOption, initial?.PrivacyMode ?? PrivacyModes.ReadSetting(storage.SettingsPath), Environment.GetEnvironmentVariable("OFFICELINGS_PRIVACY")))); app.Shutdown(1); }
+                catch (Exception e) { Console.Error.WriteLine(PrivacyModes.Diagnostic(e, PrivacyModes.Resolve(privacyOption, initial?.PrivacyMode ?? PrivacyModes.ReadSetting(storage.SettingsPath), PrivacyModes.EnvironmentValue))); app.Shutdown(1); }
             };
             return app.Run();
         }

@@ -41,16 +41,18 @@ try
                         default: throw new ArgumentException("Unknown tracker option. Use --help.");
         }
     }
+    if (Path.GetFullPath(output).Equals(TrackerOptions.OutputDirectory, StringComparison.OrdinalIgnoreCase))
+        LocalDataMigration.Initialize();
     string? privacySetting = null;
     var nextPrivacyRead = DateTimeOffset.MinValue;
     PrivacyMode ReadPrivacy()
     {
         var now = DateTimeOffset.UtcNow;
-        if (now < nextPrivacyRead) return PrivacyModes.Resolve(privacyOption,privacySetting,Environment.GetEnvironmentVariable("OFFICELINGS_PRIVACY"));
+        if (now < nextPrivacyRead) return PrivacyModes.Resolve(privacyOption,privacySetting,PrivacyModes.EnvironmentValue);
         nextPrivacyRead = now.AddSeconds(1);
         var value=PrivacyModes.ReadSetting(Path.Combine(output,"settings.json"));
         if (value is "off" or "tasks" or "full") privacySetting=value;
-        return PrivacyModes.Resolve(privacyOption,privacySetting,Environment.GetEnvironmentVariable("OFFICELINGS_PRIVACY"));
+        return PrivacyModes.Resolve(privacyOption,privacySetting,PrivacyModes.EnvironmentValue);
     }
     activePrivacy = ReadPrivacy(); options=options with { PrivacyMode=activePrivacy };
     options.Validate();

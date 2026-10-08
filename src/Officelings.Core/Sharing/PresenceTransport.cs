@@ -21,6 +21,7 @@ public sealed class PresenceTransport(HttpClient client) : IPresenceTransport
         {
             WindowsSharingTokenStore.ValidateToken(token);
             using var request = new HttpRequestMessage(HttpMethod.Post, endpoint.Ingest);
+            // Wire identifier kept for server compatibility.
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             request.Content = new ByteArrayContent(payload.CopyBytes());
             request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

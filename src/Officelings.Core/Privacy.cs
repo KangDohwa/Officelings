@@ -8,6 +8,8 @@ public enum PrivacyMode { Off, Tasks, Full }
 
 public static class PrivacyModes
 {
+    public static string? EnvironmentValue => LocalDataMigration.EnvironmentValue("PRIVACY");
+
     public static string Value(PrivacyMode mode) => mode.ToString().ToLowerInvariant();
     public static PrivacyMode Parse(string value) => value switch
     {

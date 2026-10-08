@@ -8,6 +8,7 @@ namespace Officelings.Tests;
 
 public sealed class PrivacyCliTests : IDisposable
 {
+    private const string LegacyPrivacyVariable = "VIBEDOTCOM_PRIVACY";
     private const string Secret="SECRET-PROMPT-123";
     private const string PrivatePath=@"C:\Users\private\proj";
     private readonly string root=Path.Combine(Path.GetTempPath(),"officelings-privacy-cli-"+Guid.NewGuid().ToString("N"));
@@ -27,7 +28,7 @@ public sealed class PrivacyCliTests : IDisposable
             Line("response_item",new { type="function_call",name=Secret }));
     }
     public void Dispose() => Directory.Delete(root,true);
-    private Process Start(string output,string? option,string? environment,bool once)
+    private Process Start(string output,string? option,string? environment,bool once,string? legacyEnvironment=null)
     {
         Directory.CreateDirectory(output);
         var start=new ProcessStartInfo("dotnet") { UseShellExecute=false,CreateNoWindow=true,RedirectStandardOutput=true,RedirectStandardError=true };
@@ -38,6 +39,7 @@ public sealed class PrivacyCliTests : IDisposable
         if(once) start.ArgumentList.Add("--once");
         if(option!=null) { start.ArgumentList.Add("--privacy"); start.ArgumentList.Add(option); }
         if(environment==null) start.Environment.Remove("OFFICELINGS_PRIVACY"); else start.Environment["OFFICELINGS_PRIVACY"]=environment;
+        if(legacyEnvironment==null) start.Environment.Remove(LegacyPrivacyVariable); else start.Environment[LegacyPrivacyVariable]=legacyEnvironment;
         return Process.Start(start)!;
     }
     private static string Read(string path)
@@ -75,6 +77,19 @@ public sealed class PrivacyCliTests : IDisposable
     }
     private static async Task WaitFor(string output,Process process,PrivacyMode mode)
     { using var state=await WaitForState(output,process,state=>state.GetProperty("privacy").GetString()==PrivacyModes.Value(mode)); }
+
+    [Theory]
+    [InlineData(null,"tasks","tasks")]
+    [InlineData("full","tasks","full")]
+    public async Task LegacyPrivacyEnvironmentIsAFallbackToTheNewName(string? environment,string legacy,string expected)
+    {
+        var output=Path.Combine(root,"legacy-environment");
+        using var process=Start(output,null,environment,true,legacy);
+        var stdout=process.StandardOutput.ReadToEndAsync(); var stderr=process.StandardError.ReadToEndAsync();
+        Assert.True(process.WaitForExit(30000)); Assert.Equal(0,process.ExitCode); await stdout; await stderr;
+        using var state=JsonDocument.Parse(Read(Path.Combine(output,"state.json")));
+        Assert.Equal(expected,state.RootElement.GetProperty("privacy").GetString());
+    }
 
     [Theory]
     [InlineData("off")]
@@ -115,6 +130,7 @@ public sealed class PrivacyCliTests : IDisposable
         var start=new ProcessStartInfo("dotnet") { UseShellExecute=false,CreateNoWindow=true,RedirectStandardOutput=true,RedirectStandardError=true };
         foreach(var argument in new[] { Binary("Officelings.App","net10.0-windows"),"--qa","--home",Path.Combine(root,"home"),"--privacy",mode,"--quit-after","1" }) start.ArgumentList.Add(argument);
         start.Environment.Remove("OFFICELINGS_PRIVACY");
+        start.Environment.Remove(LegacyPrivacyVariable);
         using var process=Process.Start(start)!;
         var stdout=process.StandardOutput.ReadToEndAsync(); var stderr=process.StandardError.ReadToEndAsync();
         try { Assert.True(process.WaitForExit(30000)); Assert.Equal(0,process.ExitCode); Assert.Empty(await stderr); await stdout; }

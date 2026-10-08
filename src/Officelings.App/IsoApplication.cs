@@ -22,7 +22,7 @@ internal static class IsoApplication
         {
             if (demo)
             {
-                if (Environment.GetEnvironmentVariable("OFFICELINGS_ISO_EDITOR_MEASURE")=="1")
+                if (LocalDataMigration.EnvironmentValue("ISO_EDITOR_MEASURE")=="1")
                 {
                     var output=StateJson.OutputPath(smoke,storage.Home); Directory.CreateDirectory(output);
                     var result=IsoEditorMeasurements.Run(runtime.Session!.BuiltInPack,Path.Combine(output,"synthetic-root"),IsoEditorSmoke.Fixture("objects/valid/test-crate/test-crate.iso.json"));
@@ -31,7 +31,7 @@ internal static class IsoApplication
                 }
                 IsoEditorSmoke.Render(Path.Combine(StateJson.OutputPath(smoke,storage.Home),"editor-real"),runtime.Session ??
                     throw new InvalidOperationException("Editor smoke requires real services."));
-                if (Environment.GetEnvironmentVariable("OFFICELINGS_ISO_EDITOR_SMOKE")=="1") return 0;
+                if (LocalDataMigration.EnvironmentValue("ISO_EDITOR_SMOKE")=="1") return 0;
             }
             return IsoSmoke.Run(smoke,runtime.Sheets,runtime.Create,settings,storage,demo,smokeTags,home,state);
         }

@@ -15,7 +15,8 @@ internal sealed class AppStorage : IDisposable
 
     internal AppStorage(bool isolated, string? personalHome = null, string? isolatedHome = null)
     {
-        Isolated = isolated; this.personalHome = Path.GetFullPath(personalHome ?? TrackerOptions.OutputDirectory);
+        Isolated = isolated; this.personalHome = Path.GetFullPath(personalHome ??
+            (isolated ? TrackerOptions.OutputDirectory : LocalDataMigration.Initialize()));
         Home = isolated ? Path.GetFullPath(isolatedHome ?? Path.Combine(Path.GetTempPath(), "officelings-demo-" + Guid.NewGuid().ToString("N"))) : this.personalHome;
     }
     internal void CheckInput(string? path)

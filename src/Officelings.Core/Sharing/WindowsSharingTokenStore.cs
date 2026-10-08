@@ -20,7 +20,7 @@ public sealed class SharingCredentialException : Exception
 public sealed class WindowsSharingTokenStore(string directory) : ISharingTokenStore
 {
     // A sibling credential directory is intentionally outside the app/tracker export directory.
-    public static string DefaultDirectory => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Officelings.Credentials");
+    public static string DefaultDirectory => LocalDataMigration.CredentialsDirectory();
     private string FilePath => Path.Combine(directory, "presence.dpapi");
     private sealed record Credential(string Origin, string OfficeId, string Token);
 

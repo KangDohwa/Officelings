@@ -26,6 +26,7 @@ public sealed class PresencePayload
         var buffer = new ArrayBufferWriter<byte>();
         using (var json = new Utf8JsonWriter(buffer, new() { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping }))
         {
+            // Wire identifier kept for server compatibility.
             json.WriteStartObject();
             json.WriteNumber("v", 1);
             json.WriteString("officeId", office.ToString("D"));

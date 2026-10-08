@@ -22,7 +22,7 @@ internal static partial class Program
         if (index >= 0 && option is not ("off" or "tasks" or "full")) return PrivacyMode.Full;
         var isolated = args.Any(a => a is "--demo" or "--qa" or "--smoke-test" or "--profile-idle" or "--verify-opacity");
         return PrivacyModes.Resolve(option, isolated ? null : PrivacyModes.ReadSetting(Path.Combine(TrackerOptions.OutputDirectory,"settings.json")),
-            Environment.GetEnvironmentVariable("OFFICELINGS_PRIVACY"));
+            PrivacyModes.EnvironmentValue);
     }
 
     internal static StateSnapshot PrivateSnapshot(StateSnapshot snapshot, PrivacyMode requested)

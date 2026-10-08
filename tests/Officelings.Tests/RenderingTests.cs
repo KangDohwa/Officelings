@@ -161,7 +161,7 @@ public sealed class RenderingTests
     public void DefaultBuildIsGenericAndExplicitOverlayBuildContainsOnlyNamedPngs()
     {
         Assert.DoesNotContain(typeof(OfficeView).Assembly.GetManifestResourceNames(), n => n.Contains(".Brand."));
-        var file = Environment.GetEnvironmentVariable("OFFICELINGS_EMBEDDED_QA");
+        var file = LocalDataMigration.EnvironmentValue("EMBEDDED_QA");
         if (file == null) return;
         var context = new AssemblyLoadContext("brand-overlay-verification", isCollectible: true);
         try
@@ -184,7 +184,7 @@ public sealed class RenderingTests
     public void OfficialLocalOverlayCanBeRenderedWithoutChangingPack()
     {
         // Optional QA only: ordinary test runs require no network or logos.
-        var directory = Environment.GetEnvironmentVariable("OFFICELINGS_BRAND_QA");
+        var directory = LocalDataMigration.EnvironmentValue("BRAND_QA");
         if (directory == null) return;
         Sta(() =>
         {

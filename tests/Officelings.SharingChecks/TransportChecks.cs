@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
+using Officelings.Core;
 using Officelings.Core.Sharing;
 
 namespace Officelings.SharingChecks;
@@ -195,6 +196,26 @@ internal static partial class Program
                 store.Delete(); Require(store.Read(endpoint, Office) == null);
             }
             finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+        });
+        Check("copied legacy DPAPI credentials remain readable and bound to their original endpoint", () =>
+        {
+            DpapiTestContext.RequireCurrentUser();
+            var root = Path.Combine(Path.GetTempPath(), "officelings-credential-migration-" + Guid.NewGuid().ToString("N"));
+            try
+            {
+                var legacy = Path.Combine(root, "Vibedotcom.Credentials");
+                var endpoint = SharingEndpoint.Parse("https://presence.example");
+                new WindowsSharingTokenStore(legacy).Save(endpoint, Office, Secret);
+                LocalDataMigration.Initialize(root);
+                var migrated = new WindowsSharingTokenStore(LocalDataMigration.CredentialsDirectory(root));
+                Require(migrated.Read(endpoint, Office) == Secret);
+                Require(new WindowsSharingTokenStore(legacy).Read(endpoint, Office) == Secret);
+                try { migrated.Read(SharingEndpoint.Parse("https://different.example"), Office); throw new InvalidOperationException(); }
+                catch (SharingCredentialException) { }
+                migrated.Delete(); LocalDataMigration.Initialize(root);
+                Require(migrated.Read(endpoint, Office) == null);
+            }
+            finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
         });
         Check("persistent gate preserves Retry-After across sender instances", () =>
         {

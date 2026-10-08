@@ -29,6 +29,7 @@ public sealed class SharingEndpoint
 {
     public Uri Origin { get; }
     public Uri Ingest { get; }
+    // Wire identifier kept for server compatibility.
     private SharingEndpoint(Uri origin) { Origin = origin; Ingest = new(origin, "/api/v1/presence"); }
     public static SharingEndpoint Parse(string value)
     {
